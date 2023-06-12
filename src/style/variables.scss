@@ -1,0 +1,19 @@
+@import "./fonts.scss";
+
+//BG Colors
+$bg-node-nav-container: rgb(255, 255, 255);
+$bg-node-nav-btn : rgb(236, 236, 236);
+
+//Colors
+$color-node-nav-container-header: rgb(114, 114, 114);
+$color-node-nav-btn: rgb(31, 31, 31);
+$color-node-nav-icon: rgb(35, 124, 175);
+
+//Shadows
+$shadow-node-nav-container: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+;
+$shadow-node-nav-btn: none;
+
+//Fonts
+$font-node-nav-list: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+$font-node-nav-header: 'BlockMenuHeader';

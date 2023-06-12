@@ -1,0 +1,9 @@
+@import "../../../style/mixins.scss";
+
+.section_container {
+    @include section_container;
+}
+
+.section_header {
+    @include section_header;
+}
