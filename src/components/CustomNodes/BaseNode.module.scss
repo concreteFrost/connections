@@ -1,0 +1,58 @@
+// SCSS style
+
+@import "../../style/mixins.scss";
+@import "../../style/variables.scss";
+
+.node_body {
+    width: 150px;
+    min-height: 50px;
+    border-radius: 5px;
+    line-break: auto;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    font-family: $font-node-nav-header;
+    font-weight: bolder;
+    font-size: 1.1rem;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1000;
+        opacity: 0.25;
+        background-image: radial-gradient(circle, #ffffff, #000000);
+        border-radius: 5px;
+    }
+
+    &.dark-text {
+        color: white;
+        transition: color 1s ease;
+      
+    }
+
+    &.light-text{
+        color: black;
+        transition: color 1s ease;
+    }
+}
+
+.node_icon_container {
+    position: relative;
+    padding-bottom: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.node_icon {
+    position: absolute;
+    left: 7px;
+    top: 4px;
+    font-size: 0.7rem;
+    color: $color-node-nav-icon;
+}
+
+.node_title {
+    padding: 5px 10px;
+}

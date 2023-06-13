@@ -1,0 +1,20 @@
+@import "../../style/variables.scss";
+
+.wrapper {
+    position: fixed;
+    top: 41px;
+    right: 0;
+    z-index: 1000;
+
+    @media print{
+        display: none;
+    }
+}
+
+.right_panel_container {
+    position: relative;
+    width: 360px;
+    height: 100vh;
+    background-color: $bg-node-nav-container;
+    box-shadow: $shadow-node-nav-container;
+}
