@@ -1,12 +1,14 @@
 @import "../../style/variables.scss";
 
-
-
 .wrapper {
     position: fixed;
     top: 41px;
     left: 0;
     z-index: 1000;
+
+    @media print {
+        display: none;
+    }
 }
 
 .add_node_container {
@@ -31,38 +33,10 @@
         color: $color-node-nav-container-header;
         text-align: left;
         padding-left: 20px;
-        font-family: $font-node-nav-list
-    }
-
-    ul {
-        padding: 0;
-    }
-
-    li {
-        list-style: none;
-        position: relative;
-    }
-
-    button {
         font-family: $font-node-nav-list;
-        width: 100%;
-        height: 40px;
-        border: 0;
-        background-color: $bg-node-nav-btn;
-        color: $color-node-nav-btn;
-        font-weight: bold;
-        border-bottom: 1px solid rgb(219, 219, 219);
-        text-align: left;
-        padding-left: 45px;
     }
+}
 
-    .node_icon {
-        margin-right: 10px;
-        color: $color-node-nav-icon;
-        font-size: large;
-        position: absolute;
-        left: 20px;
-
-
-    }
+.node_list_disabled {
+    height: 20px;
 }

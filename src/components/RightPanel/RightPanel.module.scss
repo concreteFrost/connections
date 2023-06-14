@@ -5,6 +5,10 @@
     top: 41px;
     right: 0;
     z-index: 1000;
+
+    @media print {
+        display: none;
+    }
 }
 
 .right_panel_container {

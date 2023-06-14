@@ -2,12 +2,6 @@
 import ReactFlow, { Background } from 'react-flow-renderer';
 import { shallow } from 'zustand/shallow';
 import useStore from '../store/store';
-import ColorChooserNode from "./CustomNodes/testNodes/ColorChooserNode";
-import ColorReceiverNode from './CustomNodes/testNodes/ColorReceiverNode';
-import ToUpperCaseNode from './CustomNodes/testNodes/ToUpperCaseNode';
-import TextOutputNode from './CustomNodes/testNodes/TextOutputNode';
-import MathOperationNode from './CustomNodes/testNodes/MathOperationNode';
-import NumberSetterNode from './CustomNodes/testNodes/NumberSetterNode';
 import PointerNode from './CustomNodes/PointerNode';
 
 const selector = (state: any) => ({
@@ -19,12 +13,6 @@ const selector = (state: any) => ({
 });
 
 const nodeTypes = {
-  colorSetter: ColorChooserNode,
-  colorGetter: ColorReceiverNode,
-  textSetter: ToUpperCaseNode,
-  textGetter: TextOutputNode,
-  mathOperation: MathOperationNode,
-  numberSetter: NumberSetterNode,
   pointer: PointerNode,
 };
 
@@ -32,7 +20,8 @@ function Flow() {
   const { nodes, edges, onNodesChange, onEdgesChange, onConnect } = useStore(selector, shallow);
 
   return (
-    <div style={{ height: 1320 }}>
+
+    <div style={{ height: 1320 }} >
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -41,7 +30,8 @@ function Flow() {
         onConnect={onConnect}
         nodeTypes={nodeTypes}
         fitView
-      ><Background></Background></ReactFlow>
+      ><Background ></Background></ReactFlow>
+
     </div>
   );
 }

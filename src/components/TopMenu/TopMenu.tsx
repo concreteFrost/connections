@@ -1,7 +1,12 @@
 import s from "./TopMenu.module.scss"
 import { FaStop, FaPlay, FaPause } from "react-icons/fa";
 
+
 function TopMenu() {
+
+    function PrintFlow() {
+        window.print();
+    }
     return (
         <div className={s.container}>
             <div className={s.wrapper}>
@@ -11,7 +16,7 @@ function TopMenu() {
                         <li>Open</li>
                         <li>Save</li>
                         <li>Export Flow</li>
-                        <li>Print</li>
+                        <li><button onClick={PrintFlow}>Print</button> </li>
                     </ul>
                 </div>
                 <div className={s.operations_btn_list}>

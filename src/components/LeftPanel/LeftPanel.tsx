@@ -1,66 +1,75 @@
-import s from "./LeftPanel.module.scss"
+import s from "./LeftPanel.module.scss";
 import useStore from "../../store/store";
-import { nodeType } from "../../store/nodeTypes"
-import { FaMousePointer } from 'react-icons/fa';
-import { RiMailSendFill } from 'react-icons/ri'
-import { BsFillDatabaseFill, BsFiletypeSql, BsArchiveFill } from 'react-icons/bs'
+import { nodeType } from "../../store/nodeTypes";
+import { NodeType } from "../../store/nodeTypes";
+import { useRef, useState } from "react";
+import Section from "./Section/Section";
+import { connectionsIcons } from "../../icons/icons";
+import { nodeGroup } from "../../store/nodeTypes";
 
 function LeftPanel() {
+  const leftPanelRef = useRef<HTMLDivElement>(null);
+  const addNode = useStore((state) => state.addNode);
 
-    const addNode = useStore(state => state.addNode);
+  const onDragStart = (event: any) => {
+    event.dataTransfer.setData("application/reactflow", event.target);
+    event.dataTransfer.effectAllowed = "move";
+  };
 
-    return (<div className={s.wrapper}>
-        <div className={s.add_node_container}>
-            <div className={s.header}>CREATE BLOCKS</div>
-            <div className={s.node_list}>
+  const onDragEnd = (event: any, nodeType: NodeType) => {
+    const { clientX, clientY } = event;
+    const leftPanelRect = leftPanelRef.current?.getBoundingClientRect();
+    if (
+      leftPanelRect &&
+      isPositionInsideRect(clientX, clientY, leftPanelRect)
+    ) {
+      return;
+    }
+    addNode(nodeType, clientX, clientY);
+  };
 
-                {/* <h3>COLOR</h3>
-                    <ul>
-                        <li><button onClick={() => { addNode(nodeType.colorSetter) }}>COLOR INPUT</button></li>
-                        <li><button onClick={() => { addNode(nodeType.colorGetter) }}>COLOR OUTPUT</button></li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>TEXT</h3>
-                    <ul>
-                        <li><button onClick={() => { addNode(nodeType.textSetterUC) }}>TEXT INPUT (UC)</button></li>
-                        <li><button onClick={() => { addNode(nodeType.textSetterLC) }}>TEXT INPUT (LC)</button></li>
-                        <li><button onClick={() => { addNode(nodeType.textGetter) }}>TEXT OUTPUT </button></li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>OPERATIONS</h3>
-                    <ul>
-                        <li><button onClick={() => { addNode(nodeType.numberSetter) }}>NUMBER INPUT</button></li>
-                        <li><button onClick={() => { addNode(nodeType.mathOperation) }}>MATH OPERATION</button></li>
-                    </ul> */}
-                <section>
-                    <h5>DATA STORE</h5>
-                    <ul>
-                        <li className={s.list_item} ><button onClick={() => { addNode(nodeType.pointer) }} ><span className={s.node_icon}><FaMousePointer></FaMousePointer></span>Pointer</button></li>
-                        <li className={s.list_item} ><button ><span className={s.node_icon}><RiMailSendFill></RiMailSendFill></span>Send</button></li>
-                    </ul>
-                </section>
-                <section>
-                    <h5>EXTERNAL</h5>
-                    <ul>
-                        <li className={s.list_item} ><button ><span className={s.node_icon}><FaMousePointer></FaMousePointer></span>Pointer</button></li>
-                        <li className={s.list_item} ><button ><span className={s.node_icon}><BsFillDatabaseFill></BsFillDatabaseFill></span>DB2</button></li>
-                        <li className={s.list_item} ><button ><span className={s.node_icon}><BsFiletypeSql></BsFiletypeSql></span>SQL</button></li>
-                    </ul>
-                </section>
-                <section>
-                    <h5>FUNCTION</h5>
-                    <ul>
-                        <li className={s.list_item} ><button ><span className={s.node_icon}><FaMousePointer></FaMousePointer></span>Pointer</button></li>
-                        <li><button><span className={s.node_icon}><BsArchiveFill></BsArchiveFill></span> Archive</button></li>
-                    </ul>
-                </section>
-            </div>
+  const isPositionInsideRect = (x: number, y: number, rect: DOMRect) => {
+    return (
+      x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom
+    );
+  };
 
+  return (
+    <div className={s.wrapper} ref={leftPanelRef}>
+      <div className={s.add_node_container}>
+        <div className={s.header}>CREATE BLOCKS</div>
+        <div className={s.node_list}>
+
+          <Section
+            title="DATA STORE"
+            onDragStart={onDragStart}
+            onDragEnd={onDragEnd}
+            nodeType={nodeType}
+            nodeGroup={nodeGroup.dataGroup}
+          />
         </div>
+      </div>
+    </div>
+  );
+}
 
-    </div >)
+{
+  /* <div>
+<h5>DATA STORE</h5>
+<Section children={<NodeListItem title="Pointer" onDragStart={onDragStart} onDragEnd={onDragEnd}nodeType={nodeType.pointer} icon={connectionsIcons.pointer}></NodeListItem>}/>
+<Section children={<NodeListItem title="Send" onDragStart={onDragStart} onDragEnd={onDragEnd}nodeType={nodeType.pointer} icon={connectionsIcons.mailbox}></NodeListItem>}/>
+</div>
+<div>
+<h5>EXTERNAL</h5>
+<Section children={<NodeListItem title="Pointer" onDragStart={onDragStart} onDragEnd={onDragEnd}nodeType={nodeType.pointer} icon={connectionsIcons.pointer}></NodeListItem>}/>
+<Section children={<NodeListItem title="DB2" onDragStart={onDragStart} onDragEnd={onDragEnd}nodeType={nodeType.pointer} icon={connectionsIcons.database}></NodeListItem>}/>
+<Section children={<NodeListItem title="SQL" onDragStart={onDragStart} onDragEnd={onDragEnd}nodeType={nodeType.pointer} icon={connectionsIcons.sql}></NodeListItem>}/>
+</div>
+<div>
+<h5>FUNCTION</h5>
+<Section children={<NodeListItem title="Pointer" onDragStart={onDragStart} onDragEnd={onDragEnd}nodeType={nodeType.pointer} icon={connectionsIcons.pointer}></NodeListItem>}/>
+<Section children={<NodeListItem title="Archive" onDragStart={onDragStart} onDragEnd={onDragEnd}nodeType={nodeType.pointer} icon={connectionsIcons.archive}></NodeListItem>}/>
+</div> */
 }
 
 export default LeftPanel;

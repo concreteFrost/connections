@@ -1,7 +1,5 @@
 @import "../../style/variables.scss";
 
-
-
 .wrapper {
     background-color: rgb(255, 255, 255);
     z-index: 1000;
@@ -19,6 +17,10 @@
 
     li {
         list-style: none;
+    }
+
+    @media print {
+        display: none;
     }
 
 }
