@@ -31,11 +31,12 @@ export default function BaseNode(props: any) {
     };
 
     const nodeBodyClasses = `${s.node_body} ${isDarkBackground(props.data.color) ? s['dark-text'] : s['light-text']}`;
+    const iconBodyClasses = `${s.node_icon} ${isDarkBackground(props.data.color) ? s['dark-text'] : s['light-text']}`
 
     return (
         <div onClick={_setSelectedNodeID} className={nodeBodyClasses} style={{ backgroundColor: props.data.color }}>
             <div className={s.node_icon_container}>
-                <div className={s.node_icon}>{props.icon}</div>
+                <div className={iconBodyClasses}>{props.icon}</div>
             </div>
             <div className={s.node_title}>{props.data.title}</div>
             {props.children}

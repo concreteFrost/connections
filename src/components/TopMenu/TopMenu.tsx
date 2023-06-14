@@ -4,9 +4,6 @@ import { FaStop, FaPlay, FaPause } from "react-icons/fa";
 
 function TopMenu() {
 
-    function PrintFlow() {
-        window.print();
-    }
     return (
         <div className={s.container}>
             <div className={s.wrapper}>
@@ -16,14 +13,14 @@ function TopMenu() {
                         <li>Open</li>
                         <li>Save</li>
                         <li>Export Flow</li>
-                        <li><button onClick={PrintFlow}>Print</button> </li>
+                        <li>Print</li>
                     </ul>
                 </div>
                 <div className={s.operations_btn_list}>
-                    <ul>
-                        <li><button><FaPlay color="green"></FaPlay></button></li>
-                        <li><button><FaStop color="red"></FaStop></button></li>
-                        <li><button><FaPause color="black"></FaPause></button></li>
+                    <ul className={s.top_btn_list}>
+                        <li className={s.top_list_item}><FaPlay color="white"></FaPlay></li>
+                        <li className={s.top_list_item}><FaStop color="white"></FaStop></li>
+                        <li className={s.top_list_item}><FaPause color="white"></FaPause></li>
                     </ul>
                 </div>
             </div>
