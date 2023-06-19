@@ -1,15 +1,20 @@
 import {
-    BsFillDatabaseFill,
-    BsCursorFill,
-    BsEnvelopeFill,
-    BsFiletypeSql,
-    BsArchiveFill,
-  } from "react-icons/bs";
+  BsFillDatabaseFill,
+  BsCursorFill,
+  BsEnvelopeFill,
+  BsFiletypeSql,
+  BsArchiveFill,
+  BsCaretLeft,
+  BsCaretRight,
 
-  export const connectionsIcons = {
-    pointer : <BsCursorFill></BsCursorFill>,
-    database : <BsFillDatabaseFill></BsFillDatabaseFill>,
-    mailbox : <BsEnvelopeFill></BsEnvelopeFill>,
-    sql : <BsFiletypeSql></BsFiletypeSql>,
-    archive : <BsArchiveFill></BsArchiveFill>
-  }
+} from "react-icons/bs";
+
+export const connectionsIcons = {
+  pointer: <BsCursorFill></BsCursorFill>,
+  database: <BsFillDatabaseFill></BsFillDatabaseFill>,
+  mailbox: <BsEnvelopeFill></BsEnvelopeFill>,
+  sql: <BsFiletypeSql></BsFiletypeSql>,
+  archive: <BsArchiveFill></BsArchiveFill>,
+  leftArrow: <BsCaretLeft></BsCaretLeft>,
+  rightArrow: <BsCaretRight></BsCaretRight>
+}

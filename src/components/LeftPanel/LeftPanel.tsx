@@ -4,12 +4,13 @@ import { nodeType } from "../../store/nodeTypes";
 import { NodeType } from "../../store/nodeTypes";
 import { useRef, useState } from "react";
 import Section from "./Section/Section";
-import { connectionsIcons } from "../../icons/icons";
 import { nodeGroup } from "../../store/nodeTypes";
+import { connectionsIcons } from "../../icons/icons";
 
 function LeftPanel() {
   const leftPanelRef = useRef<HTMLDivElement>(null);
   const addNode = useStore((state) => state.addNode);
+  const [isPanelActive, setIsPanelActive] = useState(true);
 
   const onDragStart = (event: any) => {
     event.dataTransfer.setData("application/reactflow", event.target);
@@ -34,12 +35,18 @@ function LeftPanel() {
     );
   };
 
+  function togglePanel() {
+    setIsPanelActive(!isPanelActive);
+  }
+
+  const nodeContainerClasses = `${s.add_node_container} ${isPanelActive ? s['opened'] : s['closed']}`;
+
   return (
     <div className={s.wrapper} ref={leftPanelRef}>
-      <div className={s.add_node_container}>
+      <div className={s.toggle_btn}><button onClick={togglePanel}>{isPanelActive ? connectionsIcons.rightArrow : connectionsIcons.leftArrow}</button></div>
+      <div className={nodeContainerClasses}>
         <div className={s.header}>CREATE BLOCKS</div>
         <div className={s.node_list}>
-
           <Section
             title="DATA STORE"
             onDragStart={onDragStart}

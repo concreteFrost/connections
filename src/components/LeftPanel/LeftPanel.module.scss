@@ -6,17 +6,30 @@
     left: 0;
     z-index: 1000;
 
-    @media print {
-        display: none;
-    }
 }
 
 .add_node_container {
     position: relative;
-    width: 280px;
+
     height: 100vh;
     background-color: $bg-node-nav-container;
     box-shadow: $shadow-node-nav-container;
+
+    &.opened {
+        width: 280px;
+    }
+
+    &.closed {
+        width: 0px;
+
+        .header,
+        .node_list {
+            display: none;
+        }
+
+    }
+
+    transition: width 0.3s ease-out;
 }
 
 .header {
@@ -39,4 +52,25 @@
 
 .node_list_disabled {
     height: 20px;
+}
+
+.toggle_btn {
+    position: absolute;
+    top: 0px;
+    right: -30px;
+    z-index: 1000;
+
+    button {
+        height: 57px;
+        border: 0;
+        width: 30px;
+        background-color: $bg-node-nav-container;
+        border-right: 1px solid rgb(207, 207, 207);
+        border-bottom: 1px solid rgb(207, 207, 207);
+        border-bottom-right-radius: 5px;
+        font-size: 1.3rem;
+        color: $color-node-nav-icon;
+        cursor: pointer;
+    }
+
 }
