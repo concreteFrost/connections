@@ -27,7 +27,7 @@ function Section(props: SectionProps) {
       <h5>{props.title}</h5>
       <ul className={s.node_list_container}>
         {filteredData.map((x:any)=>
-          <li className={s.node_list_item}>
+          <li className={s.node_list_item} key={filteredData.indexOf(x)}>
             <NodeListItem
             onDragStart={props.onDragStart}
             onDragEnd={props.onDragEnd}

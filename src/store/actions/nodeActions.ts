@@ -11,8 +11,6 @@ export const addNode=(get:any,set:any)=>(type:NodeType, posX : number, posY : nu
     position: { x: posX, y: posY },
   }
 
-  console.log(posX,posY)
-
   set((state : any) => ({
         nodes: [...state.nodes, newNode]
       }));
@@ -27,6 +25,7 @@ export const onNodesChange=(get:any ,set:any)=>(changes: NodeChange[]) => {
     nodes: applyNodeChanges(changes, get().nodes),
   });
 }
+
 
 
 

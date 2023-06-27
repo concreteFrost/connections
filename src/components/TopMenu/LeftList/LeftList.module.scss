@@ -1,0 +1,26 @@
+@import "../../../style/variables.scss";
+
+.nav_list {
+
+    ul {
+        display: flex;
+        padding-left: 20px;
+        margin: 0;
+    }
+
+    li {
+
+        list-style: none;
+        margin-right: 30px;
+        font-family: $font-node-nav-header;
+        font-weight: bold;
+        padding: 0;
+        cursor: pointer;
+    }
+}
+
+
+
+.view_section_hidden{
+    display: none;
+}

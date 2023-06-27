@@ -43,7 +43,7 @@ function LeftPanel() {
 
   return (
     <div className={s.wrapper} ref={leftPanelRef}>
-      <div className={s.toggle_btn}><button onClick={togglePanel}>{isPanelActive ? connectionsIcons.rightArrow : connectionsIcons.leftArrow}</button></div>
+      <div className={s.toggle_btn}><button onClick={togglePanel}>{isPanelActive ? connectionsIcons.leftArrow : connectionsIcons.rightArrow}</button></div>
       <div className={nodeContainerClasses}>
         <div className={s.header}>CREATE BLOCKS</div>
         <div className={s.node_list}>

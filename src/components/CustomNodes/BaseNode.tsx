@@ -2,15 +2,23 @@
 
 import s from "./BaseNode.module.scss";
 import useStore from '../../store/store';
+import {useEffect, useState} from "react";
 
 export default function BaseNode(props: any) {
-    const selectedNodeId = useStore(state => state.setSelectedNodeID);
+    const setSelectedNodeId = useStore(state => state.setSelectedNodeID);
     const getNodeData = useStore(state => state.getNodeBase);
+    const selectedNodeId = useStore(state=>state.selectedNode);
+    const [isOutlined,setIsOutlined] = useState(false)
 
     function _setSelectedNodeID() {
-        selectedNodeId(props.id);
+        setSelectedNodeId(props.id);
         getNodeData(props.data);
+        
     }
+
+    useEffect(()=>{
+        selectedNodeId === props.id ?  setIsOutlined(true) : setIsOutlined(false)
+    },[selectedNodeId])
 
     function hexToRgb(hex: any) {
         var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -31,15 +39,18 @@ export default function BaseNode(props: any) {
     };
 
     const nodeBodyClasses = `${s.node_body} ${isDarkBackground(props.data.color) ? s['dark-text'] : s['light-text']}`;
-    const iconBodyClasses = `${s.node_icon} ${isDarkBackground(props.data.color) ? s['dark-text'] : s['light-text']}`
+    const iconBodyClasses = `${s.node_icon} ${isDarkBackground(props.data.color) ? s['dark-text'] : s['light-text']}`;
+    const wrapperClasses = `${s.node_wrapper} ${isOutlined ? s['outlined'] : s['standart']}`
 
     return (
+        <div className={wrapperClasses}>
         <div onClick={_setSelectedNodeID} className={nodeBodyClasses} style={{ backgroundColor: props.data.color }}>
             <div className={s.node_icon_container}>
                 <div className={iconBodyClasses}>{props.icon}</div>
             </div>
             <div className={s.node_title}>{props.data.title}</div>
             {props.children}
+        </div>
         </div>
     );
 }

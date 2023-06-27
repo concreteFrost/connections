@@ -6,6 +6,9 @@ import {
   BsArchiveFill,
   BsCaretLeft,
   BsCaretRight,
+  BsThreeDots,
+  BsList,
+  BsSliders
 
 } from "react-icons/bs";
 
@@ -16,5 +19,8 @@ export const connectionsIcons = {
   sql: <BsFiletypeSql></BsFiletypeSql>,
   archive: <BsArchiveFill></BsArchiveFill>,
   leftArrow: <BsCaretLeft></BsCaretLeft>,
-  rightArrow: <BsCaretRight></BsCaretRight>
+  rightArrow: <BsCaretRight></BsCaretRight>,
+  dotsView:<BsThreeDots></BsThreeDots>,
+  lineView:<BsList></BsList>,
+  settings:<BsSliders></BsSliders>
 }

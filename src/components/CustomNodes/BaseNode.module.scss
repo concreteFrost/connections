@@ -1,6 +1,16 @@
 @import "../../style/mixins.scss";
 @import "../../style/variables.scss";
 
+.node_wrapper{
+    &.outlined{
+        border-radius: 5px;
+        padding:2.3px;
+        
+        background-color: rgb(47, 158, 202);
+        transition: padding 0.1s ease-in-out;
+    }
+}
+
 .node_body {
     width: 150px;
     min-height: 50px;

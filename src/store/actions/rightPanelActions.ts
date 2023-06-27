@@ -43,7 +43,6 @@ export const setNodeDescription=(set:any,get:any)=>(description:string)=>{
 }
 
 export const setNodeColor = (set:any,get:any)=>(color:string)=>{
-  
         const nodeData = get().nodes.find((node: Node) => node.id === get().selectedNode)
         if (nodeData) {
           nodeData.data = { ...nodeData.data, color: color };
@@ -53,8 +52,8 @@ export const setNodeColor = (set:any,get:any)=>(color:string)=>{
             ...state.rightPanel, base: { ...state.rightPanel.base, blockColor: color }
           },
           nodes: get().nodes.map((x: Node) => x)
-        }))
-     
+        }))  
 }
+
 
 
