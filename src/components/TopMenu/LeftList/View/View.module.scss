@@ -3,12 +3,16 @@
 
 .wrapper{
     @include dropdown_menu;
+    width: 100px;
 
+    li{
+        padding-left: 10px;
+    }
     .settings_icon{
         @include dropdown_menu_icon;
     }
 
-    .settings_dropdown{
+    .settings_title{
         @include dropdown_menu_section_title;
     }
 }

@@ -1,5 +1,27 @@
 @import "./variables.scss";
 
+//Left Panel
+@mixin left_panel_btn($bg) {
+  font-family: $font-node-nav-header;
+  width: 100%;
+  height: 40px;
+  border: 0;
+  background-color: $bg;
+  color: $color-node-nav-btn;
+  font-weight: bolder;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgb(219, 219, 219);
+  text-align: left;
+  padding-left: 45px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken($color: $bg, $amount: 10%);
+  }
+
+  
+  transition: background-color 0.3s ease;
+}
 //Right Panel
 @mixin section_header {
   padding-top: 15px;
@@ -103,19 +125,30 @@
   top: 35px;
   background-color: rgb(255, 255, 255);
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-  padding: 5px;
+  padding: auto;
   border-radius: 3px;
+  font-family: $font-node-nav-header;
+
   ul {
-    display: flex;
-    flex-direction: column;
-    padding-left: 10px;
-    text-align: left;
+    padding: 0;
   }
 
   li {
     display: grid;
     grid-template-columns: 6fr 6fr;
-    width: 100%;
+    padding: 10px;
+
+    text-align: left;
+    color: black;
+    font-size: 0.9rem;
+
+    font-weight: bold;
+
+    &:hover {
+      background-color: lighten($color-node-nav-icon, 55%);
+    }
+
+    transition: background-color 0.3s ease;
   }
 }
 
@@ -126,7 +159,10 @@
 }
 
 @mixin dropdown_menu_section_title {
-  text-align: left;
-  margin-bottom: 5px;
+  text-align: center;
+  font-weight: bold;
+
+  padding: 5px;
   border-bottom: 1px solid rgb(230, 230, 230);
+  background-color: rgb(245, 245, 245);
 }

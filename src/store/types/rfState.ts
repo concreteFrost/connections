@@ -25,7 +25,12 @@ export type RFState = {
     dropdowns: 
       {
         view: {id:string, isVisible : boolean},
-        exportFlow:{id:string, isVisible : boolean}
+        exportFlow:{id:string, isVisible : boolean},
+        settings:{id:string,isVisible:boolean}
+      },
+      settings:{
+        snapToGrid:boolean,
+        snapStep: number[]
       }
   
   };
@@ -42,4 +47,7 @@ export type RFState = {
   setBgView: (view: BackgroundVariant) => void;
   hideAllTopMenus: () => void;
   toggleDropdown:(activeDropdownId:string)=>void;
+  setSnapToGrid:()=>void;
+  setSnapStep:(step:number[])=>void;
+  addNodeGroup:()=>void;
 };

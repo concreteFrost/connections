@@ -33,6 +33,32 @@ export const toggleDropdown = (get: any, set: any) => (activeDropdownId: string)
     }
   }));
 
-  console.log(get().topPanel);
+  
 };
+
+export const setSnapToGrid = (get:any,set: any) => () => {
+  set((state: any) => ({
+    topPanel: {
+      ...state.topPanel,
+      settings: {
+        ...state.topPanel.settings,
+        snapToGrid: !state.topPanel.settings.snapToGrid,
+      },
+    },
+  }));
+
+};
+
+export const setSnapStep=(get:any,set:any)=>(step:number[])=>{
+  set((state: any) => ({
+    topPanel: {
+      ...state.topPanel,
+      settings: {
+        ...state.topPanel.settings,
+        snapStep: step,
+      },
+    },
+  }));
+}
+
 

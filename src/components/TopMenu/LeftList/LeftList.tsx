@@ -1,45 +1,26 @@
-import useStore from "../../../store/store";
 import View from "./View/View";
-import { useEffect, useRef } from "react";
 import s from "./LeftList.module.scss";
 
-function LeftList() {
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const dropdowns = useStore((state) => state.topPanel.dropdowns);
-  const toggleDropdown = useStore((state) => state.toggleDropdown);
-  const hideAllTopDropdowns = useStore((state) => state.hideAllTopMenus);
-
-  useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        hideAllTopDropdowns();
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
+function LeftList(props: any) {
   return (
-    <div className={s.nav_list}>
-      <ul>
-        <li>New</li>
-        <li>Open</li>
-        <li>Save</li>
-        <li onClick={() => toggleDropdown("exportFlow")}>Export Flow</li>
-        <li>
-          <div onClick={() => toggleDropdown("view")} ref={dropdownRef}>
-            View
-            <div className={dropdowns.view.isVisible ? null: s.view_section_hidden}>       
-              <View /> 
-            </div>
+    
+      <ul className={s.nav_list}>
+        <li className={s.nav_list_item}>New</li>
+        <li className={s.nav_list_item}>Open</li>
+        <li className={s.nav_list_item}>Save</li>
+        <li className={s.nav_list_item} onClick={() => props.toggleDropdown("exportFlow")}>Export Flow</li>
+        <li className={s.nav_list_item}>
+          <div onClick={() => props.toggleDropdown("view")}>View</div>
+          <div
+            className={
+              props.dropdowns.view.isVisible ? null : s.view_section_hidden
+            }
+          >
+            <View />
           </div>
         </li>
-        <li>Print</li>
+        <li className={s.nav_list_item}>Print</li>
       </ul>
-    </div>
   );
 }
 

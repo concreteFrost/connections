@@ -11,6 +11,7 @@ function LeftPanel() {
   const leftPanelRef = useRef<HTMLDivElement>(null);
   const addNode = useStore((state) => state.addNode);
   const [isPanelActive, setIsPanelActive] = useState(true);
+  const addNodeGroup = useStore((state)=>state.addNodeGroup);
 
   const onDragStart = (event: any) => {
     event.dataTransfer.setData("application/reactflow", event.target);
@@ -55,6 +56,7 @@ function LeftPanel() {
             nodeGroup={nodeGroup.dataGroup}
           />
         </div>
+        <div className={s.create_group}><button className={s.create_group_btn} onClick={()=>{addNodeGroup()}}>CREATE GROUP</button></div>
       </div>
     </div>
   );

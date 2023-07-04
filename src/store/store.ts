@@ -5,8 +5,6 @@ import initialNodes from "./nodes"
 import initialEdges from "./edges";
 import { RFState } from "./types/rfState";
 import { BackgroundVariant } from "react-flow-renderer";
-import { hideAllTopMenus } from "./actions/topViewActions";
-
 
 const useStore = create<RFState>((set, get) => ({
 nodes: initialNodes,
@@ -23,11 +21,15 @@ nodes: initialNodes,
   topPanel:{
     dropdowns:{
       view:{id:'view', isVisible: false},
-      exportFlow:{id:'exportFlow', isVisible : false}
+      exportFlow:{id:'exportFlow', isVisible : false},
+      settings:{id:'settings',isVisible:false}
+    },
+    settings:{
+      snapToGrid:false,
+      snapStep: [1,1]
     }
   },
 
-  
 
   //Right Panel Actions
   getNodeBase: rightPanelActions.getNodeBase(set, get),
@@ -39,6 +41,7 @@ nodes: initialNodes,
   addNode: nodeActions.addNode(get, set),
   setSelectedNodeID: nodeActions.setSelectedNodeID(set),
   onNodesChange: nodeActions.onNodesChange(get, set),
+  addNodeGroup:nodeActions.addNodeGroup(get,set),
 
   //Edge Actions
   onEdgesChange: edgeActions.onEdgesChange(get, set),
@@ -47,8 +50,9 @@ nodes: initialNodes,
   //Top Menu Actions 
   setBgView : topMenuActions.setBgView(set),
   hideAllTopMenus: topMenuActions.hideAllTopMenus(get,set),
-  toggleDropdown: topMenuActions.toggleDropdown(get,set)
-
+  toggleDropdown: topMenuActions.toggleDropdown(get,set),
+  setSnapToGrid:topMenuActions.setSnapToGrid(get,set),
+  setSnapStep: topMenuActions.setSnapStep(get,set)
 }))
 
 export default useStore;

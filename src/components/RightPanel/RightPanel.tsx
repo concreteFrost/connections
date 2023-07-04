@@ -13,9 +13,7 @@ function RightPanel() {
         setIsPanelActive(!isPanelActive);
     }
 
-
     const panelClasses = `${s.right_panel_container} ${isPanelActive ? s['opened'] : s['closed']}`;
-
 
     return (<div className={s.wrapper}>
         <div className={s.toggle_btn}><button onClick={togglePanel}>{isPanelActive ? connectionsIcons.rightArrow : connectionsIcons.leftArrow}</button></div>
