@@ -8,7 +8,10 @@ import {
   BsCaretRight,
   BsThreeDots,
   BsList,
-  BsSliders
+  BsSliders,
+  BsPaletteFill,
+  BsFileFontFill,
+  BsXCircleFill
 
 } from "react-icons/bs";
 
@@ -20,7 +23,10 @@ export const connectionsIcons = {
   archive: <BsArchiveFill></BsArchiveFill>,
   leftArrow: <BsCaretLeft></BsCaretLeft>,
   rightArrow: <BsCaretRight></BsCaretRight>,
-  dotsView:<BsThreeDots></BsThreeDots>,
-  lineView:<BsList></BsList>,
-  settings:<BsSliders></BsSliders>
+  dotsView: <BsThreeDots></BsThreeDots>,
+  lineView: <BsList></BsList>,
+  settings: <BsSliders></BsSliders>,
+  pallete: <BsPaletteFill></BsPaletteFill>,
+  text: <BsFileFontFill></BsFileFontFill>,
+  delete: <BsXCircleFill></BsXCircleFill>
 }

@@ -1,16 +1,29 @@
 import LeftPanel from "./components/LeftPanel/LeftPanel";
 import RightPanel from "./components/RightPanel/RightPanel";
-import Flow from "../src/components/Flow.tsx";
+import Flow from "./components/Flow";
 import "./App.css";
 import TopMenu from "./components/TopMenu/TopMenu";
 import { useEffect } from "react";
 import getToken from "./api/token/getToken";
+import { getBlocks } from "./api/data";
+import useStore from "./store/store";
 
 function App() {
 
+  const baseUrl = useStore((store) => store.baseUrl)
+  const getNodesList = useStore((store) => store.getNodesList);
   useEffect(() => {
-    getToken()
-  }, [])
+    const fetchData = async () => {
+      try {
+        await getToken(baseUrl);
+        await getBlocks(baseUrl).then((data: any) => getNodesList(data));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className="App">

@@ -2,6 +2,7 @@
 
 .wrapper {
     position: relative;
+
 }
 
 .title {
@@ -12,4 +13,30 @@
     font-family: $font-node-nav-header;
     font-size: 1.2rem;
 
+}
+
+.icon_set {
+    position: absolute;
+    top: -43px;
+    right: 0;
+
+    ul {
+        display: flex;
+        list-style: none;
+
+        li {
+            margin-left: 5px;
+            font-size: 1rem;
+            color: $color-node-nav-icon;
+            z-index: 99999;
+            cursor: pointer;
+
+        }
+    }
+
+    .icon_delete {
+        color: rgb(240, 78, 78);
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+    }
 }

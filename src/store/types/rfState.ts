@@ -7,10 +7,12 @@ import {
   BackgroundVariant,
 } from "react-flow-renderer";
 
-import { NodeType } from "../nodeTypes";
+import { NodeType } from "./nodeTypes";
 
 export type RFState = {
+  baseUrl: string,
   nodes: Node[];
+  nodeList: NodeType[],
   edges: Edge[];
   view: BackgroundVariant;
   selectedNode: string | null;
@@ -22,17 +24,17 @@ export type RFState = {
     };
   };
   topPanel: {
-    dropdowns: 
-      {
-        view: {id:string, isVisible : boolean},
-        exportFlow:{id:string, isVisible : boolean},
-        settings:{id:string,isVisible:boolean}
-      },
-      settings:{
-        snapToGrid:boolean,
-        snapStep: number[]
-      }
-  
+    dropdowns:
+    {
+      view: { id: string, isVisible: boolean },
+      exportFlow: { id: string, isVisible: boolean },
+      settings: { id: string, isVisible: boolean }
+    },
+    settings: {
+      snapToGrid: boolean,
+      snapStep: number[]
+    }
+
   };
 
   setSelectedNodeID: (nodeId: string) => void;
@@ -46,8 +48,9 @@ export type RFState = {
   setNodeDescription: (description: string) => void;
   setBgView: (view: BackgroundVariant) => void;
   hideAllTopMenus: () => void;
-  toggleDropdown:(activeDropdownId:string)=>void;
-  setSnapToGrid:()=>void;
-  setSnapStep:(step:number[])=>void;
-  addNodeGroup:()=>void;
+  toggleDropdown: (activeDropdownId: string) => void;
+  setSnapToGrid: () => void;
+  setSnapStep: (step: number[]) => void;
+  addNodeGroup: () => void;
+  getNodesList: (data: any) => void;
 };

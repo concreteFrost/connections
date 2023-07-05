@@ -1,18 +1,18 @@
 import s from "./LeftPanel.module.scss";
 import useStore from "../../store/store";
-import { nodeType } from "../../store/nodeTypes";
-import { NodeType } from "../../store/nodeTypes";
+import { nodeType } from "../../store/types/nodeTypes";
+import { NodeType } from "../../store/types/nodeTypes";
 import { useRef, useState } from "react";
 import Section from "./Section/Section";
-import { nodeGroup } from "../../store/nodeTypes";
+import { nodeGroup } from "../../store/types/nodeTypes";
 import { connectionsIcons } from "../../icons/icons";
 
 function LeftPanel() {
   const leftPanelRef = useRef<HTMLDivElement>(null);
   const addNode = useStore((state) => state.addNode);
   const [isPanelActive, setIsPanelActive] = useState(true);
-  const addNodeGroup = useStore((state)=>state.addNodeGroup);
-
+  const addNodeGroup = useStore((state) => state.addNodeGroup);
+  const nodeList = useStore((state) => state.nodeList);
   const onDragStart = (event: any) => {
     event.dataTransfer.setData("application/reactflow", event.target);
     event.dataTransfer.effectAllowed = "move";
@@ -47,16 +47,46 @@ function LeftPanel() {
       <div className={s.toggle_btn}><button onClick={togglePanel}>{isPanelActive ? connectionsIcons.leftArrow : connectionsIcons.rightArrow}</button></div>
       <div className={nodeContainerClasses}>
         <div className={s.header}>CREATE BLOCKS</div>
-        <div className={s.node_list}>
+        <div className={s.node_list_wrapper}>    <div className={s.node_list}>
           <Section
             title="DATA STORE"
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
-            nodeType={nodeType}
+            nodeType={nodeList}
             nodeGroup={nodeGroup.dataGroup}
           />
-        </div>
-        <div className={s.create_group}><button className={s.create_group_btn} onClick={()=>{addNodeGroup()}}>CREATE GROUP</button></div>
+          <Section
+            title="EXTERNAL"
+            onDragStart={onDragStart}
+            onDragEnd={onDragEnd}
+            nodeType={nodeList}
+            nodeGroup={nodeGroup.externalGroup}
+          />
+          <Section
+            title="FUNCTION"
+            onDragStart={onDragStart}
+            onDragEnd={onDragEnd}
+            nodeType={nodeList}
+            nodeGroup={nodeGroup.functionGroup}
+          />
+          <Section
+            title="INPUT"
+            onDragStart={onDragStart}
+            onDragEnd={onDragEnd}
+            nodeType={nodeList}
+            nodeGroup={nodeGroup.inputGroup}
+          />
+          <Section
+            title="OUTPUT"
+            onDragStart={onDragStart}
+            onDragEnd={onDragEnd}
+            nodeType={nodeList}
+            nodeGroup={nodeGroup.outputGroup}
+          />
+
+        </div></div>
+
+        <div className={s.create_group}><button className={s.create_group_btn} onClick={() => { addNodeGroup() }}>CREATE GROUP</button></div>
       </div>
     </div>
   );

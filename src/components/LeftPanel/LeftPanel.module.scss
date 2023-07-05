@@ -6,6 +6,7 @@
   top: 41px;
   left: 0;
   z-index: 100;
+
 }
 
 .add_node_container {
@@ -33,20 +34,28 @@
 
 .header {
   padding-top: 15px;
+  margin-bottom: 4px;
   font-weight: bold;
   font-family: $font-node-nav-header;
   color: $color-node-nav-container-header;
   font-size: 1.8rem;
 }
 
-.node_list {
-  h5 {
-    color: $color-node-nav-container-header;
-    text-align: left;
-    padding-left: 20px;
-    font-family: $font-node-nav-list;
+.node_list_wrapper {
+  overflow-y: auto;
+  max-height: 85vh;
+
+  .node_list {
+    h5 {
+      color: $color-node-nav-container-header;
+      text-align: left;
+      padding-left: 20px;
+      font-family: $font-node-nav-list;
+    }
   }
 }
+
+
 
 .node_list_disabled {
   height: 20px;
@@ -75,7 +84,7 @@
 .create_group {
   position: absolute;
   bottom: 45px;
-  
+
   left: 0;
   right: 0;
 
