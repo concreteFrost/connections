@@ -22,15 +22,23 @@ export const nodeGroup = {
 export const nodeType = {
   pointer: {
     type: "pointer",
-    data: { title: "Pointer", color: "#FFFFFF", description: " desc...", group: nodeGroup.dataGroup, icon: connectionsIcons.pointer }
+    data: { title: "Pointer", color: "#FFFFFF", description: " desc...", group: nodeGroup.dataGroup, icon: connectionsIcons.pointer },
+    zIndex: 999
   } as NodeType,
   sql: {
     type: "pointer",
-    data: { title: "SQL", color: "#FFFFFF", description: " desc...", group: nodeGroup.dataGroup, icon: connectionsIcons.sql }
+    data: { title: "SQL", color: "#FFFFFF", description: " desc...", group: nodeGroup.dataGroup, icon: connectionsIcons.sql },
+    zIndex: 999
   } as NodeType,
   db2: {
     type: "pointer",
-    data: { title: "DB2", color: "#FFFFFF", description: " desc...", group: nodeGroup.dataGroup, icon: connectionsIcons.database }
-  } as NodeType
+    data: { title: "DB2", color: "#FFFFFF", description: " desc...", group: nodeGroup.dataGroup, icon: connectionsIcons.database },
+    zIndex: 999
+  } as NodeType,
+  group: {
+    type: "group",
+    data: { title: "New Group", color: "#FFFFFF", description: " desc..." },
+    zIndex: 0
+  }
 }
 

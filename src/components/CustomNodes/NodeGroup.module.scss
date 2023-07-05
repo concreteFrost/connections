@@ -1,0 +1,15 @@
+@import "../../style/variables.scss";
+
+.wrapper {
+    position: relative;
+}
+
+.title {
+    position: absolute;
+    top: -60px;
+    left: 0;
+    right: 0;
+    font-family: $font-node-nav-header;
+    font-size: 1.2rem;
+
+}

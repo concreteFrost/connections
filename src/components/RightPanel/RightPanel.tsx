@@ -7,7 +7,7 @@ import { connectionsIcons } from "../../icons/icons";
 
 function RightPanel() {
 
-    const [isPanelActive, setIsPanelActive] = useState(true);
+    const [isPanelActive, setIsPanelActive] = useState(false);
 
     function togglePanel() {
         setIsPanelActive(!isPanelActive);

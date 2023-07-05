@@ -2,6 +2,7 @@ import ReactFlow, { Background, BackgroundVariant } from "react-flow-renderer";
 import { shallow } from "zustand/shallow";
 import useStore from "../store/store";
 import PointerNode from "./CustomNodes/PointerNode";
+import NodeGroup from "./CustomNodes/NodeGroup";
 
 const selector = (state: any) => ({
   nodes: state.nodes,
@@ -13,6 +14,7 @@ const selector = (state: any) => ({
 
 const nodeTypes = {
   pointer: PointerNode,
+  group: NodeGroup
 };
 
 function Flow() {
@@ -22,10 +24,10 @@ function Flow() {
   );
   const setSelectedNode = useStore((state) => state.setSelectedNodeID);
   const bgView = useStore((state) => state.view);
-  const snapToGrid = useStore((state)=> state.topPanel.settings.snapToGrid)
-  const snapStep = useStore((state)=> state.topPanel.settings.snapStep)
+  const snapToGrid = useStore((state) => state.topPanel.settings.snapToGrid)
+  const snapStep = useStore((state) => state.topPanel.settings.snapStep)
   const hideAllTopDropdowns = useStore((state) => state.hideAllTopMenus);
-  
+
   const resetSelectedNode = (event: any) => {
     const isContainer = event.target.classList.contains(
       "react-flow__container"
@@ -48,8 +50,8 @@ function Flow() {
         nodeTypes={nodeTypes}
         onClick={resetSelectedNode}
         snapToGrid={snapToGrid}
-        snapGrid={[snapStep[0],snapStep[1]]}
-        fitView
+        snapGrid={[snapStep[0], snapStep[1]]}
+
       >
         <Background color={`rgb(74, 148, 190,${bgView === BackgroundVariant.Dots ? 1 : 0.5})`} variant={bgView}></Background>
       </ReactFlow>
