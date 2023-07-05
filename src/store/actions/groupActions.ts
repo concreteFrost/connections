@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export const getAllSelectedNodes = (nodes: any) => {
     let nodeCount = 0;
     for (var node of nodes) {
@@ -44,7 +46,7 @@ export const addGroup = (get: any, set: any) => () => {
         const boundY = maxY - minY + 100;
 
         const newGroupNode = {
-            id: get().nodes.length.toString(),
+            id: uuidv4().toString(),
             type: 'group',
             data: { label: "New Group" },
             position: { x: minX - 20, y: minY - 20 },
