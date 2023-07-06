@@ -8,6 +8,7 @@ import { addNode, setSelectedNodeID, onNodesChange, getNodesList } from "./nodeA
 import { handleConnect, onEdgesChange, onEdgesConnect } from "./edgesActions";
 import { hideAllTopMenus, setBgView, toggleDropdown, setSnapToGrid, setSnapStep } from "./topViewActions";
 import { addGroup } from "./groupActions";
+import { setTooltipText } from "./tooltipActions";
 
 export const nodeActions = {
   getNodesList: getNodesList,
@@ -40,3 +41,7 @@ export const topMenuActions = {
   setSnapToGrid: setSnapToGrid,
   setSnapStep: setSnapStep
 };
+
+export const tooltipActions = {
+  setTooltipText: setTooltipText
+}

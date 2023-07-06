@@ -5,7 +5,7 @@ export interface NodeType {
   type: string,
   data: {
     //Api parameters
-    name: string;
+    title: string;
     category: string;
     description: string;
     libraryType: string;

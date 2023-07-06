@@ -16,6 +16,9 @@ export type RFState = {
   edges: Edge[];
   view: BackgroundVariant;
   selectedNode: string | null;
+  tooltip: {
+    text: string
+  }
   rightPanel: {
     base: {
       blockName: string;
@@ -38,6 +41,7 @@ export type RFState = {
   };
 
   setSelectedNodeID: (nodeId: string) => void;
+  setTooltipText: (text: string) => void;
   onNodesChange: OnNodesChange;
   onConnect: OnConnect;
   onEdgesChange: OnEdgesChange;

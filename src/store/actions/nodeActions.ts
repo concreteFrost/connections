@@ -7,12 +7,25 @@ import { v4 as uuidv4 } from 'uuid';
 
 export const getNodesList = (get: any, set: any) => (data: any) => {
 
-  const updatedNodes = []
+  const updatedNodesList = []
   for (let d of data) {
-    updatedNodes.push({ ...d, type: 'pointer', data: { color: 'white', icon: null, description: d.description, title: d.name } })
+    updatedNodesList.push({
+      type: 'pointer', data: {
+        color: 'white',
+        icon: d.name.toLowerCase().split(' ').join('_'),
+        description: d.description,
+        title: d.name,
+        category: d.category,
+        libraryType: d.libraryType
+      }
+    })
   }
-  set({ nodeList: updatedNodes })
-  console.log(get().nodeList)
+  set({ nodeList: updatedNodesList })
+
+  for (let i of updatedNodesList) {
+    console.log(i.data.icon)
+  }
+
 }
 
 export const addNode =

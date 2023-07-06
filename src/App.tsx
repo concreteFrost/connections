@@ -7,11 +7,13 @@ import { useEffect } from "react";
 import getToken from "./api/token/getToken";
 import { getBlocks } from "./api/data";
 import useStore from "./store/store";
+import { Tooltip } from "react-tooltip";
 
 function App() {
 
   const baseUrl = useStore((store) => store.baseUrl)
   const getNodesList = useStore((store) => store.getNodesList);
+  const tooltipText = useStore((store) => store.tooltip.text);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -31,6 +33,9 @@ function App() {
       <LeftPanel></LeftPanel>
       <RightPanel></RightPanel>
       <Flow></Flow>
+      <Tooltip anchorSelect=".nodelist-body-elemet" place="right" style={{ zIndex: 1000 }}  >
+        {tooltipText}
+      </Tooltip>
     </div>
   );
 }

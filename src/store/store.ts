@@ -1,10 +1,11 @@
 import { create } from "zustand";
 
-import { nodeActions, edgeActions, rightPanelActions, topMenuActions, groupActions } from "./actions/combinedActions";
+import { nodeActions, edgeActions, rightPanelActions, topMenuActions, groupActions, tooltipActions } from "./actions/combinedActions";
 import initialNodes from "./nodes"
 import initialEdges from "./edges";
 import { RFState } from "./types/rfState";
 import { BackgroundVariant } from "react-flow-renderer";
+import { setTooltipText } from "./actions/tooltipActions";
 
 const useStore = create<RFState>((set, get) => ({
   baseUrl: 'https://iconn.cocoon.technology:9143/iconn',
@@ -13,6 +14,9 @@ const useStore = create<RFState>((set, get) => ({
   edges: initialEdges,
   view: BackgroundVariant.Dots,
   selectedNode: null,
+  tooltip: {
+    text: ''
+  },
   rightPanel: {
     base: {
       blockName: "",
@@ -58,7 +62,10 @@ const useStore = create<RFState>((set, get) => ({
   hideAllTopMenus: topMenuActions.hideAllTopMenus(get, set),
   toggleDropdown: topMenuActions.toggleDropdown(get, set),
   setSnapToGrid: topMenuActions.setSnapToGrid(get, set),
-  setSnapStep: topMenuActions.setSnapStep(get, set)
+  setSnapStep: topMenuActions.setSnapStep(get, set),
+
+  //Tooltip
+  setTooltipText: tooltipActions.setTooltipText(get, set)
 }))
 
 export default useStore;

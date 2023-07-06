@@ -1,11 +1,11 @@
 @import "../../style/mixins.scss";
 @import "../../style/variables.scss";
 
-.node_wrapper{
-    &.outlined{
+.node_wrapper {
+    &.outlined {
         border-radius: 5px;
-        padding:2.3px;
-        
+        padding: 2.3px;
+
         background-color: rgb(47, 158, 202);
         transition: padding 0.1s ease-in-out;
     }
@@ -73,4 +73,30 @@
 
 .node_title {
     padding: 5px 10px;
+}
+
+.handle {
+    border: 0;
+    border-radius: 0;
+
+    background-color: $color-node-nav-icon;
+
+    width: 12px;
+    height: 45px;
+    z-index: 9999;
+    opacity: 0.5;
+
+    &.right {
+        right: -12px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    &.left {
+        left: -12px;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+
+
 }

@@ -1,4 +1,4 @@
-import ReactFlow, { Background, BackgroundVariant } from "react-flow-renderer";
+import ReactFlow, { Background, BackgroundVariant, ConnectionMode } from "react-flow-renderer";
 import { shallow } from "zustand/shallow";
 import useStore from "../store/store";
 import PointerNode from "./CustomNodes/PointerNode";
