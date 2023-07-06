@@ -5,7 +5,8 @@ import initialNodes from "./nodes"
 import initialEdges from "./edges";
 import { RFState } from "./types/rfState";
 import { BackgroundVariant } from "react-flow-renderer";
-import { setTooltipText } from "./actions/tooltipActions";
+import { onNodesChange } from "./actions/nodeActions";
+
 
 const useStore = create<RFState>((set, get) => ({
   baseUrl: 'https://iconn.cocoon.technology:9143/iconn',
@@ -51,7 +52,6 @@ const useStore = create<RFState>((set, get) => ({
   addNode: nodeActions.addNode(get, set),
   setSelectedNodeID: nodeActions.setSelectedNodeID(set),
   onNodesChange: nodeActions.onNodesChange(get, set),
-
 
   //Edge Actions
   onEdgesChange: edgeActions.onEdgesChange(get, set),

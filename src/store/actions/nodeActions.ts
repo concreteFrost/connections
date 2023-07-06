@@ -4,6 +4,7 @@ import {
   applyNodeChanges,
 } from "react-flow-renderer";
 import { v4 as uuidv4 } from 'uuid';
+import { groupActions } from "./combinedActions";
 
 export const getNodesList = (get: any, set: any) => (data: any) => {
 
@@ -22,9 +23,6 @@ export const getNodesList = (get: any, set: any) => (data: any) => {
   }
   set({ nodeList: updatedNodesList })
 
-  for (let i of updatedNodesList) {
-    console.log(i.data.icon)
-  }
 
 }
 
@@ -49,6 +47,12 @@ export const setSelectedNodeID = (set: any) => (nodeId: string) => {
 
 export const onNodesChange =
   (get: any, set: any) => (changes: NodeChange[]) => {
+
+    changes.forEach((change: NodeChange) => {
+      if (change.type === 'remove') {
+        groupActions.deleteGroup(get().nodes, change)
+      }
+    })
     set({
       nodes: applyNodeChanges(changes, get().nodes),
     });

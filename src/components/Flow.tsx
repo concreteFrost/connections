@@ -3,11 +3,13 @@ import { shallow } from "zustand/shallow";
 import useStore from "../store/store";
 import PointerNode from "./CustomNodes/PointerNode";
 import NodeGroup from "./CustomNodes/NodeGroup";
+import { deleteGroup } from "../store/actions/groupActions";
 
 const selector = (state: any) => ({
   nodes: state.nodes,
   edges: state.edges,
   onNodesChange: state.onNodesChange,
+  onGroupDelete: state.deleteGroup,
   onEdgesChange: state.onEdgesChange,
   onConnect: state.onConnect,
 });
@@ -22,6 +24,7 @@ function Flow() {
     selector,
     shallow
   );
+
   const setSelectedNode = useStore((state) => state.setSelectedNodeID);
   const bgView = useStore((state) => state.view);
   const snapToGrid = useStore((state) => state.topPanel.settings.snapToGrid)

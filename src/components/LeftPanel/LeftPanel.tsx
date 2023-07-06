@@ -18,7 +18,7 @@ function LeftPanel() {
     event.dataTransfer.setData("application/reactflow", event.target);
     event.dataTransfer.effectAllowed = "move";
   };
-  console.log(nodeType)
+
   const onDragEnd = (event: any, nodeType: NodeType) => {
     const { clientX, clientY } = event;
     const leftPanelRect = leftPanelRef.current?.getBoundingClientRect();

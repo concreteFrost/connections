@@ -5,7 +5,7 @@ import { connectionsIcons } from '../../icons/icons';
 export default function NodeGroup({ id, data }: NodeProps) {
 
     return (
-        <div className={s.wrapper}>
+        <div className={s.wrapper} onClick={() => console.log('data is', data)}>
             <div className={s.title}><h3>{data.label}</h3></div>
             <div className={s.icon_set}>
                 <ul>

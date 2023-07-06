@@ -5,6 +5,7 @@ import {
   OnEdgesChange,
   OnConnect,
   BackgroundVariant,
+  NodeChange,
 } from "react-flow-renderer";
 
 import { NodeType } from "./nodeTypes";
@@ -55,6 +56,10 @@ export type RFState = {
   toggleDropdown: (activeDropdownId: string) => void;
   setSnapToGrid: () => void;
   setSnapStep: (step: number[]) => void;
+  //Group Actions
   addNodeGroup: () => void;
+
   getNodesList: (data: any) => void;
+
+
 };
