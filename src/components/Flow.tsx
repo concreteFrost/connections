@@ -3,7 +3,6 @@ import { shallow } from "zustand/shallow";
 import useStore from "../store/store";
 import PointerNode from "./CustomNodes/PointerNode";
 import NodeGroup from "./CustomNodes/NodeGroup";
-import { deleteGroup } from "../store/actions/groupActions";
 
 const selector = (state: any) => ({
   nodes: state.nodes,
@@ -19,28 +18,17 @@ const nodeTypes = {
   group: NodeGroup
 };
 
-function Flow() {
+function Flow(props: any) {
   const { nodes, edges, onNodesChange, onEdgesChange, onConnect } = useStore(
     selector,
     shallow
   );
 
-  const setSelectedNode = useStore((state) => state.setSelectedNodeID);
+
   const bgView = useStore((state) => state.view);
   const snapToGrid = useStore((state) => state.topPanel.settings.snapToGrid)
   const snapStep = useStore((state) => state.topPanel.settings.snapStep)
-  const hideAllTopDropdowns = useStore((state) => state.hideAllTopMenus);
 
-  const resetSelectedNode = (event: any) => {
-    const isContainer = event.target.classList.contains(
-      "react-flow__container"
-    );
-
-    if (isContainer) {
-      setSelectedNode("-1");
-    }
-    hideAllTopDropdowns();
-  };
 
   return (
     <div style={{ height: 1320 }}>
@@ -51,7 +39,7 @@ function Flow() {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         nodeTypes={nodeTypes}
-        onClick={resetSelectedNode}
+        onClick={props.resetSelectedNode}
         snapToGrid={snapToGrid}
         snapGrid={[snapStep[0], snapStep[1]]}
 

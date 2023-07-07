@@ -27,12 +27,29 @@ function App() {
     fetchData();
   }, []);
 
+  const hideAllTopDropdowns = useStore((state) => state.hideAllTopMenus);
+  const hideAllGroupModals = useStore((state) => state.hideAllGroupModals);
+
+  const setSelectedNode = useStore((state) => state.setSelectedNodeID);
+
+  const resetSelectedNode = (event: any) => {
+    const isContainer = event.target.classList.contains(
+      "react-flow__container"
+    );
+
+    if (isContainer) {
+      setSelectedNode("-1");
+      hideAllGroupModals();
+    }
+    hideAllTopDropdowns();
+
+  };
   return (
     <div className="App">
       <TopMenu></TopMenu>
       <LeftPanel></LeftPanel>
       <RightPanel></RightPanel>
-      <Flow></Flow>
+      <Flow resetSelectedNode={resetSelectedNode}></Flow>
       <Tooltip anchorSelect=".nodelist-body-elemet" place="right" style={{ zIndex: 1000 }}  >
         {tooltipText}
       </Tooltip>

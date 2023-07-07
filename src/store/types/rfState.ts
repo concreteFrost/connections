@@ -5,7 +5,6 @@ import {
   OnEdgesChange,
   OnConnect,
   BackgroundVariant,
-  NodeChange,
 } from "react-flow-renderer";
 
 import { NodeType } from "./nodeTypes";
@@ -58,8 +57,12 @@ export type RFState = {
   setSnapStep: (step: number[]) => void;
   //Group Actions
   addNodeGroup: () => void;
-
+  showGroupModal: (nodeId: string, modalToShow: string) => void;
   getNodesList: (data: any) => void;
+  setGroupLabel: (nodeId: string, input: string) => void,
+  setGroupColor: (nodeId: string, input: string) => void,
+  hideAllGroupModals: () => void;
+  deleteGroupOnButtonClick: (groupToDelete: any) => void;
 
 
 };

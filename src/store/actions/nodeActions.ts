@@ -12,7 +12,7 @@ export const getNodesList = (get: any, set: any) => (data: any) => {
   for (let d of data) {
     updatedNodesList.push({
       type: 'pointer', data: {
-        color: 'white',
+        color: '#FFFFFF',
         icon: d.name.toLowerCase().split(' ').join('_'),
         description: d.description,
         title: d.name,

@@ -7,7 +7,7 @@ import {
 import { addNode, setSelectedNodeID, onNodesChange, getNodesList } from "./nodeActions";
 import { handleConnect, onEdgesChange, onEdgesConnect } from "./edgesActions";
 import { hideAllTopMenus, setBgView, toggleDropdown, setSnapToGrid, setSnapStep } from "./topViewActions";
-import { addGroup, deleteGroup } from "./groupActions";
+import { addGroup, changeGroupColor, changeGroupLabel, deleteGroup, deleteGroupOnButtonClick, hideAllGroupModals, showGroupModal } from "./groupActions";
 import { setTooltipText } from "./tooltipActions";
 
 export const nodeActions = {
@@ -19,7 +19,12 @@ export const nodeActions = {
 
 export const groupActions = {
   addGroup: addGroup,
-  deleteGroup: deleteGroup
+  deleteGroup: deleteGroup,
+  deleteGroupOnButtonClick: deleteGroupOnButtonClick,
+  showGroupModal: showGroupModal,
+  setGroupLabel: changeGroupLabel,
+  setGroupColor: changeGroupColor,
+  hideAllGroupModals: hideAllGroupModals
 }
 
 export const rightPanelActions = {

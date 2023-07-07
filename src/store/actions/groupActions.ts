@@ -1,47 +1,23 @@
-import { NodeRemoveChange, NodeProps } from 'react-flow-renderer';
 import { v4 as uuidv4 } from 'uuid';
+import { NodeProps, NodeRemoveChange } from 'react-flow-renderer';
 
-export const getAllSelectedNodes = (nodes: any) => {
-    let nodeCount = 0;
-    for (var node of nodes) {
-        if (node.hasOwnProperty("selected")) {
-            if (node.selected === true)
-                nodeCount++;
-
-        }
-    }
-
-    if (nodeCount > 1) {
-        return true;
-    }
-
-    return false;
+export const getAllSelectedNodes = (nodes: NodeProps[]) => {
+    return nodes.filter(node => node.selected === true).length > 1;
 };
 
 export const addGroup = (get: any, set: any) => () => {
-    console.log(get().nodes)
-    if (getAllSelectedNodes(get().nodes)) {
+    const selectedNodes = get().nodes.filter((node: NodeProps) => node.selected);
+    if (selectedNodes.length > 1) {
         let maxX = -Infinity;
         let minX = Infinity;
         let maxY = -Infinity;
         let minY = Infinity;
-        for (var node of get().nodes) {
-            if (node.selected) {
-                if (maxX < node.position.x) {
-                    maxX = node.position.x
-                }
-                if (minX > node.position.x) {
-                    minX = node.position.x
-                }
-                if (maxY < node.position.y) {
-                    maxY = node.position.y
-                }
-                if (minY > node.position.y) {
-                    minY = node.position.y
-                }
-
-            }
-        }
+        selectedNodes.forEach((node: any) => {
+            maxX = Math.max(maxX, node.position.x);
+            minX = Math.min(minX, node.position.x);
+            maxY = Math.max(maxY, node.position.y);
+            minY = Math.min(minY, node.position.y);
+        });
 
         const boundX = maxX - minX + 200;
         const boundY = maxY - minY + 100;
@@ -49,43 +25,119 @@ export const addGroup = (get: any, set: any) => () => {
         const newGroupNode = {
             id: uuidv4().toString(),
             type: 'group',
-            data: { label: "New Group", children: [] },
+            data: {
+                label: "New Group",
+                color: "#4a94be2a",
+                children: [],
+                isTextModalVisible: false,
+                isColorModalVisible: false
+            },
             position: { x: minX - 20, y: minY - 20 },
-            style: { backgroundColor: "rgb(74, 148, 190,0.1)", width: boundX, height: boundY, zIndex: 0 },
-        }
-        assignParent(get().nodes, newGroupNode)
+            style: { width: boundX, height: boundY, backgroundColor: "#4a94be2a", zIndex: 0 },
+        };
+
+        assignParent(get().nodes, newGroupNode);
         set((state: any) => ({
             nodes: [...state.nodes, newGroupNode]
         }));
     }
 };
 
-const assignParent = (nodes: Node[], nodeGroup: any) => {
-    const selectedNodes = nodes.filter((n: any) => n.selected === true);
+const assignParent = (nodes: any, nodeGroup: any) => {
+    const selectedNodes = nodes.filter((node: any) => node.selected === true);
+    selectedNodes.forEach((node: any) => {
+        node.parentNode = nodeGroup.id;
+        nodeGroup.data.children.push(node.id);
+        node.position.x -= nodeGroup.position.x;
+        node.position.y -= nodeGroup.position.y;
+    });
+};
 
-    selectedNodes.forEach((n: any) => {
-        n.parentNode = nodeGroup.id;
-        nodeGroup.data.children.push(n.id)
-        // n.extent = 'parent'
-        n.position.x -= nodeGroup.position.x;
-        n.position.y -= nodeGroup.position.y;
+const removeParent = (nodes: any, groupToRemove: any) => {
+    nodes.forEach((node: any) => {
+        if (node.parentNode == groupToRemove.id) {
+            node.position.x += groupToRemove.position.x;
+            node.position.y += groupToRemove.position.y;
+            node.parentNode = null;
+        }
     });
 };
 
 export const deleteGroup = (nodes: any, change: NodeRemoveChange) => {
+    const groupToRemove = nodes.find((node: NodeProps) => node.id === change.id);
+    removeParent(nodes, groupToRemove);
+};
 
-    const groupToRemove = nodes.find((n: NodeProps) => n.id === change.id)!;
-    nodes.forEach((n: any) => {
-        if (n.parentNode == groupToRemove.id) {
-            n.position.x += groupToRemove.position.x;
-            n.position.y += groupToRemove.position.y;
-            n.parentNode = null
+export const deleteGroupOnButtonClick = (get: any, set: any) => (groupToDelete: string) => {
+    const matchNode = get().nodes.find((node: NodeProps) => node.id === groupToDelete);
+    removeParent(get().nodes, matchNode);
+    set((state: any) => ({
+        nodes: state.nodes.filter((node: NodeProps) => node.id !== groupToDelete)
+    }));
+};
 
-        }
-    }
-    )
+const updateNode = (set: any) => (groupId: string, updateFn: any) => {
+    set((state: any) => ({
+        nodes: state.nodes.map((node: any) => {
+            if (node.id === groupId) {
+                return {
+                    ...node,
+                    data: updateFn(node.data)
+                };
+            }
+            return node;
+        })
+    }));
+};
 
+export const showGroupModal = (set: any) => (groupId: string, modalToShow: string) => {
+    const updateFn = (data: any) => ({
+        ...data,
+        isTextModalVisible: modalToShow === "textModal",
+        isColorModalVisible: modalToShow === "colorModal"
+    });
 
+    updateNode(set)(groupId, updateFn);
+};
 
-}
+export const changeGroupLabel = (set: any) => (groupId: string, input: string) => {
+    const updateFn = (data: any) => ({
+        ...data,
+        label: input
+    });
 
+    updateNode(set)(groupId, updateFn);
+};
+
+export const changeGroupColor = (set: any) => (groupId: string, input: string) => {
+    set((state: any) => ({
+        nodes: state.nodes.map((node: any) => {
+            if (node.id === groupId) {
+                return {
+                    ...node,
+                    style: { ...node.style, backgroundColor: input + '2a' },
+                    data: { ...node.data, color: input + '2a' }
+                };
+            }
+            return node;
+        })
+    }));
+};
+
+export const hideAllGroupModals = (set: any) => () => {
+    set((state: any) => ({
+        nodes: state.nodes.map((node: NodeProps) => {
+            if (node.data.hasOwnProperty('isTextModalVisible')) {
+                return {
+                    ...node,
+                    data: {
+                        ...node.data,
+                        isTextModalVisible: false,
+                        isColorModalVisible: false
+                    }
+                };
+            }
+            return node;
+        })
+    }));
+};

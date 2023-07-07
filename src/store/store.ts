@@ -1,11 +1,10 @@
 import { create } from "zustand";
-
 import { nodeActions, edgeActions, rightPanelActions, topMenuActions, groupActions, tooltipActions } from "./actions/combinedActions";
 import initialNodes from "./nodes"
 import initialEdges from "./edges";
 import { RFState } from "./types/rfState";
 import { BackgroundVariant } from "react-flow-renderer";
-import { onNodesChange } from "./actions/nodeActions";
+
 
 
 const useStore = create<RFState>((set, get) => ({
@@ -21,7 +20,7 @@ const useStore = create<RFState>((set, get) => ({
   rightPanel: {
     base: {
       blockName: "",
-      blockColor: "",
+      blockColor: "#FFFFFF",
       blockDescription: ""
     }
   },
@@ -46,6 +45,11 @@ const useStore = create<RFState>((set, get) => ({
 
   //Group Actions
   addNodeGroup: groupActions.addGroup(get, set),
+  showGroupModal: groupActions.showGroupModal(set),
+  setGroupColor: groupActions.setGroupColor(set),
+  setGroupLabel: groupActions.setGroupLabel(set),
+  hideAllGroupModals: groupActions.hideAllGroupModals(set),
+  deleteGroupOnButtonClick: groupActions.deleteGroupOnButtonClick(get, set),
 
   //Node Actions
   getNodesList: nodeActions.getNodesList(get, set),

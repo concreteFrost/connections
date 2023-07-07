@@ -1,8 +1,8 @@
 @import "../../style/variables.scss";
+@import "../../style/mixins.scss";
 
 .wrapper {
     position: relative;
-
 }
 
 .title {
@@ -39,4 +39,51 @@
         font-size: 1.2rem;
         margin-bottom: 20px;
     }
+}
+
+.text_input_wrapper {
+    position: absolute;
+    background-image: radial-gradient(circle, #f7f7f7, #ebe8e8);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    padding: 15px;
+    top: -150px;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+
+    font-family: $font-node-nav-header;
+
+    label {
+        font-size: 1.5rem;
+        font-weight: bold;
+
+    }
+
+    input[type="text"] {
+        height: 20px;
+        border: 1px solid $color-node-nav-icon;
+        outline: none;
+    }
+
+    input[type="color"] {
+        width: 100%;
+        border: 0;
+    }
+
+    button {
+        @include left_panel_btn($color-node-nav-icon);
+        height: 25px;
+        text-align: center;
+        padding: 0;
+        color: white;
+
+    }
+
 }
