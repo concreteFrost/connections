@@ -1,17 +1,18 @@
 import { BackgroundVariant } from "react-flow-renderer";
+import { RFState } from "../types/rfState";
 
 export const setBgView = (set: any) => (view: BackgroundVariant) => {
   set({ view: view });
 };
 
-export const hideAllTopMenus = (get:any,set: any) => () => {
+export const hideAllTopMenus = (get: any, set: any) => () => {
   const { dropdowns } = get().topPanel;
-  
+
   for (const key in dropdowns) {
     dropdowns[key].isVisible = false;
   }
 
-  set((state: any) => ({
+  set((state: RFState) => ({
     topPanel: {
       ...state.topPanel,
       dropdowns: { ...dropdowns }
@@ -21,23 +22,23 @@ export const hideAllTopMenus = (get:any,set: any) => () => {
 
 export const toggleDropdown = (get: any, set: any) => (activeDropdownId: string) => {
   const { dropdowns } = get().topPanel;
-  
+
   for (const key in dropdowns) {
     dropdowns[key].isVisible = key === activeDropdownId ? !dropdowns[key].isVisible : false;
   }
 
-  set((state: any) => ({
+  set((state: RFState) => ({
     topPanel: {
       ...state.topPanel,
       dropdowns: { ...dropdowns }
     }
   }));
 
-  
+
 };
 
-export const setSnapToGrid = (get:any,set: any) => () => {
-  set((state: any) => ({
+export const setSnapToGrid = (get: any, set: any) => () => {
+  set((state: RFState) => ({
     topPanel: {
       ...state.topPanel,
       settings: {
@@ -49,8 +50,8 @@ export const setSnapToGrid = (get:any,set: any) => () => {
 
 };
 
-export const setSnapStep=(get:any,set:any)=>(step:number[])=>{
-  set((state: any) => ({
+export const setSnapStep = (get: any, set: any) => (step: number[]) => {
+  set((state: RFState) => ({
     topPanel: {
       ...state.topPanel,
       settings: {
@@ -59,6 +60,18 @@ export const setSnapStep=(get:any,set:any)=>(step:number[])=>{
       },
     },
   }));
+}
+
+export const toggleMiniMap = (get: any, set: any) => () => {
+  set((state: RFState) => ({
+    topPanel: {
+      ...state.topPanel,
+      settings: {
+        ...state.topPanel.settings,
+        showMiniMap: !state.topPanel.settings.showMiniMap
+      }
+    }
+  }))
 }
 
 

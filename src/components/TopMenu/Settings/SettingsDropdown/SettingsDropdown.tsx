@@ -4,10 +4,11 @@ import { useState } from "react";
 
 function SettingsDropdown() {
   const isSnapped = useStore((store) => store.topPanel.settings.snapToGrid);
-  const toggleCheck = useStore((store) => store.setSnapToGrid);
-  const sliderVal = useStore((store)=>store.topPanel.settings.snapStep);
-  const setSliderVal = useStore((store)=>store.setSnapStep);
-  
+  const toggleGrid = useStore((store) => store.setSnapToGrid);
+  const toggleMinimap = useStore((store) => store.showMiniMap);
+  const sliderVal = useStore((store) => store.topPanel.settings.snapStep);
+  const setSliderVal = useStore((store) => store.setSnapStep);
+  const showMiniMap = useStore((store) => store.topPanel.settings.showMiniMap)
 
   return (
     <div className={s.wrapper}>
@@ -21,7 +22,7 @@ function SettingsDropdown() {
               name="checkSnap"
               id="checkSnap"
               checked={isSnapped}
-              onChange={toggleCheck}
+              onChange={toggleGrid}
             />
           </div>
         </li>
@@ -33,13 +34,23 @@ function SettingsDropdown() {
               type="range"
               value={sliderVal[0]}
               onChange={(e: any) => {
-                setSliderVal([e.target.value,e.target.value])
+                setSliderVal([e.target.value, e.target.value])
               }}
               min="5"
               max="100"
               step="5"
             />
           </div>
+        </li>
+      </ul>
+      <div className={s.settings_title}>Minimap</div>
+      <ul>
+        <li className={s.settings_list_item}>
+          <div>Show Minimap</div>
+          <div className={s.check_input}>
+            <input type="checkbox" checked={showMiniMap} onChange={toggleMinimap} />
+          </div>
+
         </li>
       </ul>
     </div>

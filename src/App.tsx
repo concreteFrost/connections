@@ -14,6 +14,7 @@ function App() {
   const baseUrl = useStore((store) => store.baseUrl)
   const getNodesList = useStore((store) => store.getNodesList);
   const tooltipText = useStore((store) => store.tooltip.text);
+
   useEffect(() => {
     const fetchData = async () => {
       try {

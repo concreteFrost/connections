@@ -36,6 +36,7 @@ export type RFState = {
     settings: {
       snapToGrid: boolean,
       snapStep: number[]
+      showMiniMap: boolean
     }
 
   };
@@ -53,8 +54,10 @@ export type RFState = {
   setBgView: (view: BackgroundVariant) => void;
   hideAllTopMenus: () => void;
   toggleDropdown: (activeDropdownId: string) => void;
+  //Settings
   setSnapToGrid: () => void;
   setSnapStep: (step: number[]) => void;
+  showMiniMap: () => void;
   //Group Actions
   addNodeGroup: () => void;
   showGroupModal: (nodeId: string, modalToShow: string) => void;
@@ -63,6 +66,7 @@ export type RFState = {
   setGroupColor: (nodeId: string, input: string) => void,
   hideAllGroupModals: () => void;
   deleteGroupOnButtonClick: (groupToDelete: any) => void;
+
 
 
 };

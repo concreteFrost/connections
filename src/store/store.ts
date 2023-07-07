@@ -32,7 +32,8 @@ const useStore = create<RFState>((set, get) => ({
     },
     settings: {
       snapToGrid: false,
-      snapStep: [1, 1]
+      snapStep: [1, 1],
+      showMiniMap: true
     }
   },
 
@@ -67,9 +68,11 @@ const useStore = create<RFState>((set, get) => ({
   toggleDropdown: topMenuActions.toggleDropdown(get, set),
   setSnapToGrid: topMenuActions.setSnapToGrid(get, set),
   setSnapStep: topMenuActions.setSnapStep(get, set),
+  showMiniMap: topMenuActions.showMiniMap(get, set),
 
   //Tooltip
   setTooltipText: tooltipActions.setTooltipText(get, set)
+
 }))
 
 export default useStore;

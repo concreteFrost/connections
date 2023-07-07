@@ -6,7 +6,7 @@ import {
 } from "./rightPanelActions";
 import { addNode, setSelectedNodeID, onNodesChange, getNodesList } from "./nodeActions";
 import { handleConnect, onEdgesChange, onEdgesConnect } from "./edgesActions";
-import { hideAllTopMenus, setBgView, toggleDropdown, setSnapToGrid, setSnapStep } from "./topViewActions";
+import { hideAllTopMenus, setBgView, toggleDropdown, setSnapToGrid, setSnapStep, toggleMiniMap } from "./topViewActions";
 import { addGroup, changeGroupColor, changeGroupLabel, deleteGroup, deleteGroupOnButtonClick, hideAllGroupModals, showGroupModal } from "./groupActions";
 import { setTooltipText } from "./tooltipActions";
 
@@ -45,7 +45,8 @@ export const topMenuActions = {
   hideAllTopMenus: hideAllTopMenus,
   toggleDropdown: toggleDropdown,
   setSnapToGrid: setSnapToGrid,
-  setSnapStep: setSnapStep
+  setSnapStep: setSnapStep,
+  showMiniMap: toggleMiniMap
 };
 
 export const tooltipActions = {
