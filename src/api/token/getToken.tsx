@@ -3,11 +3,13 @@ import { setAccessToken, getAccessToken } from '../../store/actions/storageActio
 
 
 function getToken(baseUrl: string) {
+    const tokenInfo = getAccessToken();
+
 
 
     return new Promise((resolve, reject) => {
-        const tokenInfo = getAccessToken();
-        if (!tokenInfo.token || (tokenInfo.token && (!tokenInfo.expires_in || new Date() > new Date(tokenInfo.expires_in)))) {
+
+        if (!tokenInfo.token || (tokenInfo.token && (!tokenInfo.expires || new Date() > new Date(tokenInfo.expires)))) {
             const headers = {
                 'Content-Type': 'application/x-www-form-urlencoded',
             };
