@@ -1,61 +1,45 @@
-import LeftPanel from "./components/LeftPanel/LeftPanel";
-import RightPanel from "./components/RightPanel/RightPanel";
-import Flow from "./components/Flow";
+
 import "./App.css";
-import TopMenu from "./components/TopMenu/TopMenu";
-import { useEffect } from "react";
-import getToken from "./api/token/getToken";
-import { getBlocks } from "./api/data";
-import useStore from "./store/store";
-import { Tooltip } from "react-tooltip";
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import Login from "./components/Login/Login";
+import AppContent from "./components/AppContent";
+import { getAccessToken, clearUserData } from "./store/actions/storageActions";
+import { useState, useEffect } from "react";
+import NotFound from "./components/NotFound/NotFound";
+
 
 function App() {
 
-  const baseUrl = useStore((store) => store.baseUrl)
-  const getNodesList = useStore((store) => store.getNodesList);
-  const tooltipText = useStore((store) => store.tooltip.text);
+  const [isLoggedIn, setIsLoggedIn] = useState(getAccessToken().is_logged_in);
+
+
+  function verifyUser() {
+    const user = getAccessToken();
+    if (!user.token || user.token && (!user.expires || new Date() > new Date(user.expires))) {
+      clearUserData()
+      setIsLoggedIn(false.toString())
+    }
+  }
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await getToken(baseUrl);
-        await getBlocks(baseUrl).then((data: any) => getNodesList(data));
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    verifyUser()
+  }, [])
 
-    fetchData();
-  }, []);
+  function _setIsLoggedIn(_isLoggedIn: boolean) {
+    setIsLoggedIn(_isLoggedIn.toString())
 
-  const hideAllTopDropdowns = useStore((state) => state.hideAllTopMenus);
-  const hideAllGroupModals = useStore((state) => state.hideAllGroupModals);
+  }
 
-  const setSelectedNode = useStore((state) => state.setSelectedNodeID);
-
-  const resetSelectedNode = (event: any) => {
-    const isContainer = event.target.classList.contains(
-      "react-flow__container"
-    );
-
-    if (isContainer) {
-      setSelectedNode("-1");
-      hideAllGroupModals();
-    }
-    hideAllTopDropdowns();
-
-  };
   return (
-    <div className="App">
-      <TopMenu></TopMenu>
-      <LeftPanel></LeftPanel>
-      <RightPanel></RightPanel>
-      <Flow resetSelectedNode={resetSelectedNode}></Flow>
-      <Tooltip anchorSelect=".nodelist-body-elemet" place="right" style={{ zIndex: 1000 }}  >
-        {tooltipText}
-      </Tooltip>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login setIsLoggedIn={_setIsLoggedIn} />}></Route>
+        <Route path="/dashboard" element={isLoggedIn === true.toString() ? <AppContent /> : <Login setIsLoggedIn={_setIsLoggedIn} />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
+

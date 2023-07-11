@@ -1,6 +1,7 @@
 import s from "./SettingsDropdown.module.scss";
 import useStore from "../../../../store/store";
-import { useState } from "react";
+import { clearUserData } from "../../../../store/actions/storageActions";
+import { useNavigate } from "react-router-dom"
 
 function SettingsDropdown() {
   const isSnapped = useStore((store) => store.topPanel.settings.snapToGrid);
@@ -9,6 +10,13 @@ function SettingsDropdown() {
   const sliderVal = useStore((store) => store.topPanel.settings.snapStep);
   const setSliderVal = useStore((store) => store.setSnapStep);
   const showMiniMap = useStore((store) => store.topPanel.settings.showMiniMap)
+  const navigate = useNavigate();
+
+  function logout() {
+    clearUserData();
+    navigate('/login')
+  }
+
 
   return (
     <div className={s.wrapper}>
@@ -50,9 +58,12 @@ function SettingsDropdown() {
           <div className={s.check_input}>
             <input type="checkbox" checked={showMiniMap} onChange={toggleMinimap} />
           </div>
-
         </li>
       </ul>
+      <div className={s.logout_container}>
+        <button onClick={logout}>Logout</button>
+      </div>
+
     </div>
   );
 }
