@@ -10,7 +10,7 @@ export function handleConnect(connection: Connection, state: any): Edge[] {
   //     return state.edges;
   //   }
   // }
-  // console.log(state.edges)
+  console.log("Edges:", state.edges)
   const newConnection = {
     ...connection,
     type: 'step'

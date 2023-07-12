@@ -34,6 +34,8 @@
 }
 
 @mixin section_container {
+
+
   h5 {
     color: $color-node-nav-container-header;
     text-align: left;
@@ -85,6 +87,11 @@
     margin-left: 10px;
 
     &[type="text"] {
+      border: 0;
+      width: 100%;
+    }
+
+    &[type="number"] {
       border: 0;
       width: 100%;
     }

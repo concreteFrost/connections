@@ -11,7 +11,8 @@ export interface NodeType {
     libraryType: string;
     //Custom parameters
     color: string;
-    icon: any
+    icon: any;
+    parameters: []
   };
 }
 

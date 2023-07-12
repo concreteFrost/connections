@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { connectionsIcons } from "../../icons/icons";
 import { Position, Handle } from "react-flow-renderer";
 
+
 function hexToRgb(hex: any) {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? {
@@ -28,13 +29,15 @@ const isDarkBackground = (color: string) => {
 export default function BaseNode(props: any) {
     const setSelectedNodeId = useStore(state => state.setSelectedNodeID);
     const getNodeData = useStore(state => state.getNodeBase);
+    const getNodeBase = useStore((state) => state.getBlockData)
     const selectedNodeId = useStore(state => state.selectedNode);
     const [isOutlined, setIsOutlined] = useState(false);
 
 
     function _setSelectedNodeID() {
         setSelectedNodeId(props.id);
-        getNodeData(props.data);
+        getNodeData();
+        getNodeBase();
     }
 
     useEffect(() => {

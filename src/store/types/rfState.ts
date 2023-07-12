@@ -24,7 +24,8 @@ export type RFState = {
       blockName: string;
       blockColor: string;
       blockDescription: string;
-    };
+    }
+    parameters: []
   };
   topPanel: {
     dropdowns:
@@ -47,10 +48,15 @@ export type RFState = {
   onConnect: OnConnect;
   onEdgesChange: OnEdgesChange;
   addNode: (type: NodeType, posX: number, posY: number) => void;
-  getNodeBase: (nodeBase: object) => void;
+  //Right Panel Actions
+  getNodeBase: () => void;
+  getBlockData: () => void;
   setNodeName: (text: string) => void;
   setNodeColor: (color: string) => void;
   setNodeDescription: (description: string) => void;
+  setBlockProperty: (name: any, value: any) => void;
+
+  //Top Menu 
   setBgView: (view: BackgroundVariant) => void;
   hideAllTopMenus: () => void;
   toggleDropdown: (activeDropdownId: string) => void;

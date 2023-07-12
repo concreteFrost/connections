@@ -1,18 +1,20 @@
 import {
+  getBlockData,
   getNodeBase,
+  setBlockProperty,
   setNodeColor,
   setNodeDescription,
   setNodeName,
 } from "./rightPanelActions";
-import { addNode, setSelectedNodeID, onNodesChange, getNodesList } from "./nodeActions";
+import { setSelectedNodeID, onNodesChange } from "./nodeActions";
 import { handleConnect, onEdgesChange, onEdgesConnect } from "./edgesActions";
 import { hideAllTopMenus, setBgView, toggleDropdown, setSnapToGrid, setSnapStep, toggleMiniMap } from "./topViewActions";
 import { addGroup, changeGroupColor, changeGroupLabel, deleteGroup, deleteGroupOnButtonClick, hideAllGroupModals, showGroupModal } from "./groupActions";
 import { setTooltipText } from "./tooltipActions";
+import { getNodesList, addNode } from "./leftPanelActions";
 
 export const nodeActions = {
-  getNodesList: getNodesList,
-  addNode: addNode,
+
   setSelectedNodeID: setSelectedNodeID,
   onNodesChange: onNodesChange,
 };
@@ -27,11 +29,19 @@ export const groupActions = {
   hideAllGroupModals: hideAllGroupModals
 }
 
+export const leftPanelActions = {
+  addNode: addNode,
+  getNodesList: getNodesList
+}
+
 export const rightPanelActions = {
   getNodeBase: getNodeBase,
+  getBlockData: getBlockData,
+  setBlockPropeerty: setBlockProperty,
   setNodeColor: setNodeColor,
   setNodeDescription: setNodeDescription,
   setNodeName: setNodeName,
+
 };
 
 export const edgeActions = {

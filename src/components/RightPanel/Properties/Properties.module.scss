@@ -3,14 +3,26 @@
 .section_container {
     @include section_container;
 
-    input[type="color"]{
+    input[type="color"] {
         background-color: white;
         border: 0;
         border-radius: 50%;
-        
+
     }
 }
 
 .section_header {
     @include section_header;
+}
+
+.block_section {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    li {
+        display: grid;
+        grid-template-columns: 6fr 6fr;
+    }
+
 }
