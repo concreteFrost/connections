@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { NodeType } from "../types/nodeTypes";
 import blockType from '../types/blockTypes';
+import { array } from 'yargs';
 
 function setDefaultValueAndFormat(dataType: number) {
 
@@ -17,6 +18,12 @@ function setDefaultValueAndFormat(dataType: number) {
             return blockType.boolean
         case 5:
             return blockType.booleanYN
+        case 6:
+            return blockType.execution
+        case 7:
+            return blockType.bigInt
+        case 8:
+            return blockType.blockRef
         default:
             return blockType.default
 
@@ -27,25 +34,34 @@ function setDefaultValueAndFormat(dataType: number) {
 export const getNodesList = (set: any) => (data: any) => {
 
     const updatedNodesList = []
+
     for (let d of data) {
+ 
         updatedNodesList.push({
             type: 'pointer', data: {
+                name: d.name,
+                blockVersion:"4.1.8",
+                blockLabel: d.name,
+                blockType:"",
+                description: d.description,
+                typeName: d.libraryType,
+                baseTypeName: d.category,
                 color: '#FFFFFF',
                 icon: d.name.toLowerCase().split(' ').join('_'),
-                description: d.description,
-                title: d.name,
-                category: d.category,
-                libraryType: d.libraryType,
-                parameters: d.parameters.map((parameter: any) => ({
-                    name: parameter.name,
+                parameters: d.parameters.map((parameter: any) => {
+                    return{
+                    name: parameter.name,         
                     value: setDefaultValueAndFormat(parameter.dataType)?.value,
                     required: parameter.constraints > 0 ? true : false,
                     format: setDefaultValueAndFormat(parameter.dataType)?.format,
+                    placeholder : setDefaultValueAndFormat(parameter.dataType)?.placeholder,
                     inputType: setDefaultValueAndFormat(parameter.dataType).inputType
-                }))
+                    }
+                })
             }
         })
     }
+    
     set({ nodeList: updatedNodesList })
 
 }

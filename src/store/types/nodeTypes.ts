@@ -1,14 +1,16 @@
-import { connectionsIcons } from "../../icons/icons";
-
 
 export interface NodeType {
   type: string,
   data: {
     //Api parameters
-    title: string;
-    category: string;
+    name: string;
+    blockVersion: string;
+    blockLabel: string;
+    blockType: string;
     description: string;
-    libraryType: string;
+    typeName:string;
+    baseTypeName:string;
+    category: string;
     //Custom parameters
     color: string;
     icon: any;

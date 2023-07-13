@@ -1,13 +1,13 @@
 import { Node, NodeProps } from "react-flow-renderer";
 
 export const getNodeBase = (set: any, get: any) => () => {
-  const nodeData = get().nodes.find((node: Node) => node.id === get().selectedNode)!;
+  const nodeData = get().nodes.find((node: NodeProps) => node.id === get().selectedNode)!;
 
   set((state: any) => ({
     rightPanel: {
       ...state.rightPanel,
       base: {
-        blockName: nodeData.data.title,
+        blockName: nodeData.data.name,
         blockColor: nodeData.data.color,
         blockDescription: nodeData.data.description,
       },
@@ -18,7 +18,7 @@ export const getNodeBase = (set: any, get: any) => () => {
 export const setNodeName = (set: any, get: any) => (text: string) => {
   const nodeData = get().nodes.find((node: Node) => node.id === get().selectedNode)
   if (nodeData) {
-    nodeData.data = { ...nodeData.data, title: text };
+    nodeData.data = { ...nodeData.data, name: text };
   }
   set((state: any) => ({
     rightPanel: {
@@ -57,45 +57,17 @@ export const setNodeColor = (set: any, get: any) => (color: string) => {
 }
 
 export const getBlockData = (get: any, set: any) => () => {
-  const nodeData = get().nodes.find((node: NodeProps) => node.id === get().selectedNode) as NodeProps
+  const nodeData = get().nodes.find((node: NodeProps) => node.id === get().selectedNode) 
 
+  if(nodeData)
   set((state: any) => ({
     rightPanel: {
-      ...state.rightPanel, parameters: nodeData.data.parameters
+      ...state.rightPanel, parameters: nodeData.data.parameters 
     },
     nodes: get().nodes.map((x: Node) => x)
   }))
-  console.log(get().rightPanel)
+  
 }
-
-export const setBlockProperty = (set: any, get: any) => (name: string, value: any) => {
-  const nodeData = get().nodes.find((node: Node) => node.id === get().selectedNode);
-
-  if (nodeData) {
-
-    const parameter = nodeData.data.parameters.find((param: any) => param.name === name);
-
-    if (parameter) {
-      if (parameter.format === "BooleanYN") {
-        parameter.value === "Y" ? parameter.value = "N" : parameter.value = "Y";
-      }
-      else {
-        parameter.value = value;
-      }
-
-    }
-
-    set((state: any) => ({
-      rightPanel: {
-        ...state.rightPanel,
-        parameters: [...nodeData.data.parameters]
-      },
-      nodes: get().nodes.map((x: NodeProps) => x)
-    }));
-  }
-
-
-};
 
 
 

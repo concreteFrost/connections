@@ -10,6 +10,7 @@ import { groupActions } from "./combinedActions";
 
 export const setSelectedNodeID = (get: any, set: any) => (nodeId: string) => {
   set({ selectedNode: nodeId });
+  console.log(get().nodes.find((x:any)=>x.id === nodeId))
 
 };
 

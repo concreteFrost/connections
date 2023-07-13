@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { nodeActions, edgeActions, rightPanelActions, topMenuActions, groupActions, tooltipActions, leftPanelActions } from "./actions/combinedActions";
+import { nodeActions, edgeActions, rightPanelActions, topMenuActions, groupActions, tooltipActions, leftPanelActions, blockActions } from "./actions/combinedActions";
 import initialNodes from "./nodes"
 import initialEdges from "./edges";
 import { RFState } from "./types/rfState";
@@ -45,7 +45,16 @@ const useStore = create<RFState>((set, get) => ({
   setNodeName: rightPanelActions.setNodeName(set, get),
   setNodeDescription: rightPanelActions.setNodeDescription(set, get),
   setNodeColor: rightPanelActions.setNodeColor(set, get),
-  setBlockProperty: rightPanelActions.setBlockPropeerty(set, get),
+
+  //Block Actions
+  setStringParameter: blockActions.setStringParameter(get,set),
+  setIntegerParameter: blockActions.setIntegerParameter(get,set),
+  setFloatParameter:blockActions.setFloatParameter(get,set),
+  setBooleanParameter: blockActions.setBooleanParameter(get,set),
+  setBooleanYNParameter: blockActions.setBooleanYNParameter(get,set),
+  setDateTimeParameter: blockActions.setDateTimeParameter(get,set),
+  setExecutionParameter:blockActions.setExecutionParameter(get,set),
+  setBigIntParameter: blockActions.setBigIntParameter(get,set),
   //Group Actions
   addNodeGroup: groupActions.addGroup(get, set),
   showGroupModal: groupActions.showGroupModal(set),

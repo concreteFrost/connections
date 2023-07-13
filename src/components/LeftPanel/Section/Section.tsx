@@ -18,7 +18,7 @@ interface SectionProps {
 
 function Section(props: SectionProps) {
   const filteredData = Object.entries(props.nodeType)
-    .filter(([key, val]: Array<any>) => val.data.category === props.nodeGroup)
+    .filter(([key, val]: Array<any>) => val.data.baseTypeName === props.nodeGroup)
     .map(([key, val]: Array<any>) => {
       return val;
     });

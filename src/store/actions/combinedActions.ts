@@ -1,11 +1,11 @@
 import {
   getBlockData,
   getNodeBase,
-  setBlockProperty,
   setNodeColor,
   setNodeDescription,
   setNodeName,
 } from "./rightPanelActions";
+import { setBigIntParameter, setBooleanParameter, setBooleanYNParameter, setDateTimeParameter, setExecutionParameter, setFloatParameter, setIntegerParameter, setStringParameter } from "./blockActions";
 import { setSelectedNodeID, onNodesChange } from "./nodeActions";
 import { handleConnect, onEdgesChange, onEdgesConnect } from "./edgesActions";
 import { hideAllTopMenus, setBgView, toggleDropdown, setSnapToGrid, setSnapStep, toggleMiniMap } from "./topViewActions";
@@ -37,12 +37,22 @@ export const leftPanelActions = {
 export const rightPanelActions = {
   getNodeBase: getNodeBase,
   getBlockData: getBlockData,
-  setBlockPropeerty: setBlockProperty,
   setNodeColor: setNodeColor,
   setNodeDescription: setNodeDescription,
   setNodeName: setNodeName,
 
 };
+
+export const blockActions={
+  setStringParameter: setStringParameter,
+  setIntegerParameter:setIntegerParameter,
+  setFloatParameter: setFloatParameter,
+  setBooleanParameter: setBooleanParameter,
+  setBooleanYNParameter: setBooleanYNParameter,
+  setDateTimeParameter: setDateTimeParameter,
+  setExecutionParameter: setExecutionParameter,
+  setBigIntParameter: setBigIntParameter,
+}
 
 export const edgeActions = {
   handleConnect: handleConnect,

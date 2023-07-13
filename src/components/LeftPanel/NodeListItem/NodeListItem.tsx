@@ -33,7 +33,7 @@ function NodeListItem(props: NodeProps) {
         <span className={s.node_list_icon}>
           {matchedIcon}
         </span>
-        {props.nodeType.data.title}
+        {props.nodeType.data.name}
       </button>
 
 

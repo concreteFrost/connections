@@ -54,7 +54,16 @@ export type RFState = {
   setNodeName: (text: string) => void;
   setNodeColor: (color: string) => void;
   setNodeDescription: (description: string) => void;
-  setBlockProperty: (name: any, value: any) => void;
+
+  //Block Actions
+  setStringParameter:(parameterName:string,value:string)=>void;
+  setIntegerParameter:(parameterName:string,value:number)=>void;
+  setFloatParameter:(parameterName:string,value:number)=>void;
+  setBooleanParameter:(parameterName:string,value:boolean)=>void;
+  setBooleanYNParameter:(parameterName:string,value:string)=>void;
+  setDateTimeParameter:(parameterName:string,value:Date)=>void;
+  setExecutionParameter:(parameterName:string,value:string)=>void;
+  setBigIntParameter:(parameterName:string,value:BigInt)=>void;
 
   //Top Menu 
   setBgView: (view: BackgroundVariant) => void;

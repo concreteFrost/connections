@@ -32,7 +32,7 @@ export default function BaseNode(props: any) {
     const getNodeBase = useStore((state) => state.getBlockData)
     const selectedNodeId = useStore(state => state.selectedNode);
     const [isOutlined, setIsOutlined] = useState(false);
-
+    console.log(props)
 
     function _setSelectedNodeID() {
         setSelectedNodeId(props.id);
@@ -59,7 +59,7 @@ export default function BaseNode(props: any) {
                 <div className={s.node_icon_container}>
                     <div className={iconBodyClasses}>{matchedIcon}</div>
                 </div>
-                <div className={s.node_title}>{props.data.title}</div>
+                <div className={s.node_title}>{props.data.name}</div>
                 <Handle type="source" position={Position.Right} className={`${s.handle} ${s.right}`} />
                 <Handle type="target" position={Position.Left} className={`${s.handle} ${s.left}`} />
                 {props.children}
