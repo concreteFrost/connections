@@ -72,7 +72,17 @@
 }
 
 .node_title {
-    padding: 5px 10px;
+    position: absolute;
+    top:5px;
+    right: 10px;
+    font-style: italic;
+    
+  font-size: 0.7rem;
+}
+
+.node_label {
+    font-size: 0.9rem;
+    padding: 10px 20px;
 }
 
 .handle {

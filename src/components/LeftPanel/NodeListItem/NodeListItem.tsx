@@ -10,16 +10,16 @@ type onDragEnd = (e: any, nodeType: NodeType) => void;
 interface NodeProps {
   onDragStart: onDragStart,
   onDragEnd: onDragEnd,
-  nodeType: NodeType,
+  nodeType: any,
 }
 
 function NodeListItem(props: NodeProps) {
 
   const setTooltipText = useStore((state) => state.setTooltipText);
   const matchedIcon = Object.entries(connectionsIcons.nodeIcons).find(
-    ([key]) => key === props.nodeType.data.icon.toLowerCase()
+    ([key]) => key === props.nodeType.visualData.icon.toLowerCase()
   )?.[1];
-
+  
   return (
     <div className='nodelist-body-elemet' data-tooltip-delay-show={1000} onMouseEnter={() => setTooltipText(props.nodeType.data.description)}>
 

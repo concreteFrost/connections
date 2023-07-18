@@ -1,63 +1,91 @@
-import { NodeProps } from "react-flow-renderer";
+export const getBlockData = (get: any, set: any) => () => {
+  const nodeData = get().flow.blockData.block.find(
+    (node: any) => node.blockIdentifier === get().selectedNode
+  );
 
-export const setParameter = (get: any, set: any) => (propertyName: string, value: any) => {
-  const nodeData = get().nodes.find((node: NodeProps) => node.id === get().selectedNode);
-  if (nodeData) {
-    const parameter = nodeData.data.parameters.find((param: any) => param.name === propertyName);
-    parameter.value = value;
-
+  if (nodeData)
     set((state: any) => ({
       rightPanel: {
         ...state.rightPanel,
-        parameters: [...nodeData.data.parameters],
+        parameters: nodeData.parameters,
       },
-      nodes: get().nodes.map((x: NodeProps) => x),
     }));
-  }
-  console.log(nodeData)
 };
+export const setParameter =
+  (get: any, set: any) => (propertyName: string, value: any) => {
+    const nodeData = get().flow.blockData.block.find(
+      (node: any) => node.blockIdentifier === get().selectedNode
+    );
 
-export const setStringParameter = (get: any, set: any) => (propertyName: string, value: string) => {
-  setParameter(get, set)(propertyName, value);
-};
+    if (nodeData) {
+      const parameter = nodeData.parameters.map((param: any) => {
+        if (param.name === propertyName) {
+          return {
+            ...param,
+            value: value,
+          };
+        }
+        return param;
+      });
+      nodeData.parameters = parameter;
 
-export const setIntegerParameter = (get: any, set: any) => (propertyName: string, value: number) => {
-  setParameter(get, set)(propertyName, value);
-};
+      set((state: any) => ({
+        rightPanel: {
+          ...state.rightPanel,
+          parameters: parameter,
+        },
+      }));
+    }
+    console.log(get().flow);
+  };
 
-export const setFloatParameter = (get: any, set: any) => (propertyName: string, value: number) => {
+export const setStringParameter =
+  (get: any, set: any) => (propertyName: string, value: string) => {
     setParameter(get, set)(propertyName, value);
   };
 
-export const setBooleanParameter = (get: any, set: any) => (propertyName: string, value: boolean) => {
-
-  setParameter(get, set)(propertyName, value);
-};
-
-export const setBooleanYNParameter = (get: any, set: any) => (propertyName: string, value: string) => {
-
-  setParameter(get, set)(propertyName, value === "Y" ? "N" : "Y") ;
-};
-
-export const setDateTimeParameter = (get: any, set: any) => (propertyName: string, value: Date) => {
-  setParameter(get, set)(propertyName, value);
-};
-
-export const setBigIntParameter = (get: any, set: any) => (propertyName: string, value: BigInt) => {
-  setParameter(get, set)(propertyName, value);
-};
-
-export const setExecutionParameter = (get: any, set: any) => (propertyName: string, value: string) => {
-  
-  let lastInputChar : string;
-
-  value.length > 0 ? lastInputChar = value[value.length-1] : lastInputChar=value;
- 
-  const allowedValues =["I","N","T"]
-
-  if (allowedValues.find((x:string)=> x === lastInputChar.toUpperCase())) {
-    value = lastInputChar.toUpperCase()
+export const setIntegerParameter =
+  (get: any, set: any) => (propertyName: string, value: number) => {
     setParameter(get, set)(propertyName, value);
-    
-  }
-};
+  };
+
+export const setFloatParameter =
+  (get: any, set: any) => (propertyName: string, value: number) => {
+    setParameter(get, set)(propertyName, value);
+  };
+
+export const setBooleanParameter =
+  (get: any, set: any) => (propertyName: string, value: boolean) => {
+    setParameter(get, set)(propertyName, value);
+  };
+
+export const setBooleanYNParameter =
+  (get: any, set: any) => (propertyName: string, value: string) => {
+    setParameter(get, set)(propertyName, value === "Y" ? "N" : "Y");
+  };
+
+export const setDateTimeParameter =
+  (get: any, set: any) => (propertyName: string, value: Date) => {
+    setParameter(get, set)(propertyName, value);
+  };
+
+export const setBigIntParameter =
+  (get: any, set: any) => (propertyName: string, value: BigInt) => {
+    setParameter(get, set)(propertyName, value);
+  };
+
+export const setExecutionParameter =
+  (get: any, set: any) => (propertyName: string, value: string) => {
+    let lastInputChar: string;
+
+    value.length > 0
+      ? (lastInputChar = value[value.length - 1])
+      : (lastInputChar = value);
+
+    const allowedValues = ["I", "N", "T"];
+
+    if (allowedValues.find((x: string) => x === lastInputChar.toUpperCase())) {
+      value = lastInputChar.toUpperCase();
+      setParameter(get, set)(propertyName, value);
+    }
+  };

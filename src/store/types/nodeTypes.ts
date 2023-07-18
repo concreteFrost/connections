@@ -1,6 +1,10 @@
 
 export interface NodeType {
   type: string,
+  visualData:{
+    color:string,
+    icon:string
+  }
   data: {
     //Api parameters
     name: string;
@@ -11,10 +15,11 @@ export interface NodeType {
     typeName:string;
     baseTypeName:string;
     category: string;
+    parameters: [];
     //Custom parameters
     color: string;
     icon: any;
-    parameters: []
+   
   };
 }
 

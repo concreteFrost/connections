@@ -11,9 +11,27 @@ import { NodeType } from "./nodeTypes";
 
 export type RFState = {
   baseUrl: string,
-  nodes: Node[];
+  flow:{
+    blockData:{
+      block:[],
+    }
+    created: Date,
+    createdBy : string,
+    flowIdentifier: string,
+    flowName: string,
+    isEnabled: boolean,
+    lastAmended: Date,
+    lastAmendedBy: string,
+    startBlock: string,
+    substitutions:{
+      substitution:[]
+    },
+    visual:{
+      blocks:Node<any>[],
+      edges:Edge<any>[],
+    }
+  }
   nodeList: NodeType[],
-  edges: Edge[];
   view: BackgroundVariant;
   selectedNode: string | null;
   tooltip: {
@@ -69,6 +87,8 @@ export type RFState = {
   setBgView: (view: BackgroundVariant) => void;
   hideAllTopMenus: () => void;
   toggleDropdown: (activeDropdownId: string) => void;
+  saveFlow:()=>void;
+  loadFlow:()=>void;
   //Settings
   setSnapToGrid: () => void;
   setSnapStep: (step: number[]) => void;

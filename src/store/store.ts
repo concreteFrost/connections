@@ -4,14 +4,34 @@ import initialNodes from "./nodes"
 import initialEdges from "./edges";
 import { RFState } from "./types/rfState";
 import { BackgroundVariant } from "react-flow-renderer";
-
+import { v4 as uuidv4 } from 'uuid';
 
 
 const useStore = create<RFState>((set, get) => ({
   baseUrl: 'https://iconn.cocoon.technology:9143/iconn',
+  flow:{
+    blockData:{
+      block:[],
+    },
+    created: new Date(),
+    createdBy : "iliaM",
+    flowIdentifier: uuidv4(),
+    flowName: "New Flow",
+    isEnabled: true,
+    lastAmended: new Date(),
+    lastAmendedBy: "iliaM",
+    startBlock: "",
+    substitutions:{
+      substitution:[]
+    },
+    visual:{
+      blocks:initialNodes,
+      edges:initialEdges,
+    }
+  },
   nodes: initialNodes,
-  nodeList: [],
   edges: initialEdges,
+  nodeList: [],
   view: BackgroundVariant.Dots,
   selectedNode: null,
   tooltip: {
@@ -41,12 +61,13 @@ const useStore = create<RFState>((set, get) => ({
 
   //Right Panel Actions
   getNodeBase: rightPanelActions.getNodeBase(set, get),
-  getBlockData: rightPanelActions.getBlockData(get, set),
+ 
   setNodeName: rightPanelActions.setNodeName(set, get),
   setNodeDescription: rightPanelActions.setNodeDescription(set, get),
   setNodeColor: rightPanelActions.setNodeColor(set, get),
 
   //Block Actions
+  getBlockData: blockActions.getBlockData(get, set),
   setStringParameter: blockActions.setStringParameter(get,set),
   setIntegerParameter: blockActions.setIntegerParameter(get,set),
   setFloatParameter:blockActions.setFloatParameter(get,set),
@@ -80,9 +101,12 @@ const useStore = create<RFState>((set, get) => ({
   setSnapToGrid: topMenuActions.setSnapToGrid(get, set),
   setSnapStep: topMenuActions.setSnapStep(get, set),
   showMiniMap: topMenuActions.showMiniMap(get, set),
+  saveFlow: topMenuActions.saveFlow(get,set),
+  loadFlow: topMenuActions.loadFlow(get,set),
 
   //Tooltip
   setTooltipText: tooltipActions.setTooltipText(get, set)
+
 
 }))
 

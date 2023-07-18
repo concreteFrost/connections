@@ -1,6 +1,5 @@
 import s from "./LeftPanel.module.scss";
 import useStore from "../../store/store";
-import { nodeType } from "../../store/types/nodeTypes";
 import { NodeType } from "../../store/types/nodeTypes";
 import { useRef, useState } from "react";
 import Section from "./Section/Section";
@@ -19,7 +18,7 @@ function LeftPanel() {
     event.dataTransfer.effectAllowed = "move";
   };
 
-  const onDragEnd = (event: any, nodeType: NodeType) => {
+  const onDragEnd = (event: any, newNode: NodeType) => {
     const { clientX, clientY } = event;
     const leftPanelRect = leftPanelRef.current?.getBoundingClientRect();
     if (
@@ -28,7 +27,7 @@ function LeftPanel() {
     ) {
       return;
     }
-    addNode(nodeType, clientX, clientY);
+    addNode(newNode, clientX, clientY);
   };
 
   const isPositionInsideRect = (x: number, y: number, rect: DOMRect) => {

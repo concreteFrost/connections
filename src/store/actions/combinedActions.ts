@@ -1,14 +1,14 @@
 import {
-  getBlockData,
+
   getNodeBase,
   setNodeColor,
   setNodeDescription,
   setNodeName,
 } from "./rightPanelActions";
-import { setBigIntParameter, setBooleanParameter, setBooleanYNParameter, setDateTimeParameter, setExecutionParameter, setFloatParameter, setIntegerParameter, setStringParameter } from "./blockActions";
+import { getBlockData, setBigIntParameter, setBooleanParameter, setBooleanYNParameter, setDateTimeParameter, setExecutionParameter, setFloatParameter, setIntegerParameter, setStringParameter } from "./blockActions";
 import { setSelectedNodeID, onNodesChange } from "./nodeActions";
 import { handleConnect, onEdgesChange, onEdgesConnect } from "./edgesActions";
-import { hideAllTopMenus, setBgView, toggleDropdown, setSnapToGrid, setSnapStep, toggleMiniMap } from "./topViewActions";
+import { hideAllTopMenus, setBgView, toggleDropdown, setSnapToGrid, setSnapStep, toggleMiniMap, saveFlow, loadFlow } from "./topViewActions";
 import { addGroup, changeGroupColor, changeGroupLabel, deleteGroup, deleteGroupOnButtonClick, hideAllGroupModals, showGroupModal } from "./groupActions";
 import { setTooltipText } from "./tooltipActions";
 import { getNodesList, addNode } from "./leftPanelActions";
@@ -36,7 +36,6 @@ export const leftPanelActions = {
 
 export const rightPanelActions = {
   getNodeBase: getNodeBase,
-  getBlockData: getBlockData,
   setNodeColor: setNodeColor,
   setNodeDescription: setNodeDescription,
   setNodeName: setNodeName,
@@ -44,6 +43,7 @@ export const rightPanelActions = {
 };
 
 export const blockActions={
+  getBlockData: getBlockData,
   setStringParameter: setStringParameter,
   setIntegerParameter:setIntegerParameter,
   setFloatParameter: setFloatParameter,
@@ -64,9 +64,11 @@ export const topMenuActions = {
   setBgView: setBgView,
   hideAllTopMenus: hideAllTopMenus,
   toggleDropdown: toggleDropdown,
-  setSnapToGrid: setSnapToGrid,
+setSnapToGrid: setSnapToGrid,
   setSnapStep: setSnapStep,
-  showMiniMap: toggleMiniMap
+  showMiniMap: toggleMiniMap,
+  saveFlow: saveFlow,
+  loadFlow: loadFlow
 };
 
 export const tooltipActions = {

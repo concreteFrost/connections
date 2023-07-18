@@ -1,4 +1,4 @@
-export interface BlockProps {
+export interface BlockParametersType {
   value: any;
   format: string;
   inputType: string;
@@ -7,7 +7,7 @@ export interface BlockProps {
   constraints: number
 }
 
-const blockType: { [key: string]: BlockProps } = {
+const blockParametersType: { [key: string]: BlockParametersType } = {
   string: {  name:"", value: "", format: "0", constraints:0, inputType: "text", placeholder:"string" },
   integer: { name:"", value: 0, format: "1", constraints:0, inputType: "number" },
   float: { name:"", value: 0, format: "2", constraints:0, inputType: "number" },
@@ -31,4 +31,4 @@ const blockType: { [key: string]: BlockProps } = {
 //     default: { value: 'default', format: "String", inputType: 'text' },
 // };
 
-export default blockType;
+export default blockParametersType;

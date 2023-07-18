@@ -1,7 +1,7 @@
 import useStore from "../../../../store/store";
-import { BlockProps } from "../../../../store/types/blockTypes";
+import { BlockParametersType } from "../../../../store/types/blockParametersTypes";
 
-function PropertiesInput(props:{blockData: BlockProps, classData : string}) {
+function PropertiesInput(props:{blockData: BlockParametersType, classData : string}) {
   const setStringParameter = useStore((state) => state.setStringParameter);
   const setIntegerParameter = useStore((state) => state.setIntegerParameter);
   const setFloatParameter = useStore((state) => state.setFloatParameter);

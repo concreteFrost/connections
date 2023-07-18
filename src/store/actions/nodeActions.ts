@@ -1,7 +1,6 @@
 
 import {
   NodeChange,
-  NodeProps,
   applyNodeChanges,
 } from "react-flow-renderer";
 
@@ -10,8 +9,6 @@ import { groupActions } from "./combinedActions";
 
 export const setSelectedNodeID = (get: any, set: any) => (nodeId: string) => {
   set({ selectedNode: nodeId });
-  console.log(get().nodes.find((x:any)=>x.id === nodeId))
-
 };
 
 export const onNodesChange =
@@ -19,11 +16,20 @@ export const onNodesChange =
 
     changes.forEach((change: NodeChange) => {
       if (change.type === 'remove') {
-        groupActions.deleteGroup(get().nodes, change)
+        groupActions.deleteGroup(get().flow.visual.blocks, change)
       }
     })
-    set({
-      nodes: applyNodeChanges(changes, get().nodes),
-    });
+
+    set((state: any) => ({
+      flow: {
+        ...state.flow,
+        visual: {
+          ...state.flow.visual,
+          blocks: applyNodeChanges(changes, get().flow.visual.blocks)
+        },
+      },
+    }));
+
+   
   };
 

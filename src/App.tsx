@@ -6,12 +6,13 @@ import AppContent from "./components/AppContent";
 import { getAccessToken, clearUserData } from "./store/actions/storageActions";
 import { useState, useEffect } from "react";
 import NotFound from "./components/NotFound/NotFound";
+import useStore from "./store/store";
 
 
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(getAccessToken().is_logged_in);
-
+  const loadFlow = useStore((state)=> state.loadFlow);
 
   function verifyUser() {
     const user = getAccessToken();
@@ -23,6 +24,7 @@ function App() {
 
   useEffect(() => {
     verifyUser()
+    loadFlow()
   }, [])
 
   function _setIsLoggedIn(_isLoggedIn: boolean) {

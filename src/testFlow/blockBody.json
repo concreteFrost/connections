@@ -1,0 +1,97 @@
+{
+    "id": "48545690-66ea-4548-bc7a-a29b84a7118e",
+    "type": "pointer",
+    "data": {
+        "name": "FileService",
+        "blockVersion": "4.1.8",
+        "blockLabel": "FileService",
+        "blockType": "",
+        "description": "Loads a remote file from a URI",
+        "typeName": "CN.Connections.ProcessBlocks.OfTypeExternal.ExternalDataHandlerFileService",
+        "baseTypeName": "External",
+        "color": "#FFFFFF",
+        "icon": "fileservice",
+        "parameters": [
+            {
+                "name": "FILE_URI",
+                "value": "",
+                "required": true,
+                "format": "0",
+                "placeholder": "string",
+                "inputType": "text"
+            },
+            {
+                "name": "FILE_LOGIN",
+                "value": "",
+                "required": true,
+                "format": "0",
+                "placeholder": "string",
+                "inputType": "text"
+            },
+            {
+                "name": "FILE_PASSWORD",
+                "value": "",
+                "required": true,
+                "format": "0",
+                "placeholder": "string",
+                "inputType": "text"
+            },
+            {
+                "name": "ENABLED",
+                "value": "N",
+                "required": true,
+                "format": "5",
+                "inputType": "checkbox"
+            },
+            {
+                "name": "EXECUTION_INSTRUCTIONS",
+                "value": "I",
+                "required": true,
+                "format": "6",
+                "inputType": "text"
+            },
+            {
+                "name": "TRACKING_ENABLED",
+                "value": "N",
+                "required": false,
+                "format": "5",
+                "inputType": "checkbox"
+            },
+            {
+                "name": "TRACK_ID",
+                "value": 0,
+                "required": false,
+                "format": "7",
+                "inputType": "number"
+            },
+            {
+                "name": "TRACKING_DATA",
+                "value": "",
+                "required": false,
+                "format": "0",
+                "placeholder": "string",
+                "inputType": "text"
+            },
+            {
+                "name": "XML_BASE",
+                "value": "",
+                "required": false,
+                "format": "0",
+                "placeholder": "string",
+                "inputType": "text"
+            }
+        ]
+    },
+    "position": {
+        "x": 471.91848703911523,
+        "y": 597.0490139030173
+    },
+    "width": 155,
+    "height": 55,
+    "selected": true,
+    "positionAbsolute": {
+        "x": 471.91848703911523,
+        "y": 597.0490139030173
+    },
+    "dragging": false
+}
