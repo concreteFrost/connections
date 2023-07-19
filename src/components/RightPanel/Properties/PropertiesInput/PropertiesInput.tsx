@@ -1,7 +1,7 @@
 import useStore from "../../../../store/store";
 import { BlockParametersType } from "../../../../store/types/blockParametersTypes";
 
-function PropertiesInput(props:{blockData: BlockParametersType, classData : string}) {
+function PropertiesInput(props: { blockData: BlockParametersType, classData: string }) {
   const setStringParameter = useStore((state) => state.setStringParameter);
   const setIntegerParameter = useStore((state) => state.setIntegerParameter);
   const setFloatParameter = useStore((state) => state.setFloatParameter);
@@ -31,15 +31,38 @@ function PropertiesInput(props:{blockData: BlockParametersType, classData : stri
         return setBigIntParameter(parameterName, value);
     }
   }
+
+  function defineInputType() {
+    switch (props.blockData.format) {
+      case "0":
+        return 'text'
+      case "1":
+        return 'number'
+      case "2":
+        return 'number'
+      case "3":
+        return 'date'
+      case "4":
+        return 'checkbox'
+      case "5":
+        return 'checkbox'
+      case "6":
+        return 'text'
+      case "7":
+        return 'number'
+      default:
+        return 'text'
+    }
+  }
   return (
     <>
       <label className={props.classData}>{props.blockData.name}</label>
       <input
-        type={props.blockData.inputType}
+        type={defineInputType()}
         required={props.blockData.constraints > 0 ? true : false}
         value={props.blockData.value}
         checked={props.blockData.value === "Y" ? true : false}
-        placeholder={props.blockData.placeholder ?? props.blockData.placeholder}
+        placeholder={'string'}
         onChange={(e: any) =>
           setCurrentParameter(props.blockData.name, e.target.value)
         }

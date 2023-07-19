@@ -13,7 +13,7 @@ export function getBlocks(baseUrl: string): Promise<any> {
     return new Promise<any>((resolve, reject) => {
         axios.get(baseUrl + '/data/blocklist', { headers })
             .then((res: AxiosResponse<any>) => {
-                console.log(res.data)
+
                 resolve(res.data)
             })
             .catch(e => {

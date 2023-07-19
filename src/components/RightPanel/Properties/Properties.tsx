@@ -48,8 +48,8 @@ function Properties() {
             </ul>
             <h5>BLOCK</h5>
             <ul className={s.block_section}>
-                {parameters.length > 0 ? Object.entries(parameters).map(([key, val]: Array<any>) => <li key={key}><PropertiesInput  blockData={val} classData={s.input_label}></PropertiesInput></li>
-                    ) : null}
+                {parameters.length > 0 ? Object.entries(parameters).map(([key, val]: Array<any>) => <li key={key}><PropertiesInput blockData={val} classData={s.input_label}></PropertiesInput></li>
+                ) : null}
             </ul>
         </div>
     </section>)

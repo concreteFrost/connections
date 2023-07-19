@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { nodeActions, edgeActions, rightPanelActions, topMenuActions, groupActions, tooltipActions, leftPanelActions, blockActions } from "./actions/combinedActions";
+import { nodeActions, edgeActions, rightPanelActions, topMenuActions, groupActions, tooltipActions, leftPanelActions, blockActions, flowActions } from "./actions/combinedActions";
 import initialNodes from "./nodes"
 import initialEdges from "./edges";
 import { RFState } from "./types/rfState";
@@ -9,28 +9,28 @@ import { v4 as uuidv4 } from 'uuid';
 
 const useStore = create<RFState>((set, get) => ({
   baseUrl: 'https://iconn.cocoon.technology:9143/iconn',
-  flow:{
-    blockData:{
-      block:[],
+  flow: {
+    blockData: {
+      block: [],
     },
     created: new Date(),
-    createdBy : "iliaM",
+    createdBy: "iliaM",
     flowIdentifier: uuidv4(),
     flowName: "New Flow",
     isEnabled: true,
     lastAmended: new Date(),
     lastAmendedBy: "iliaM",
     startBlock: "",
-    substitutions:{
-      substitution:[]
+    substitutions: {
+      substitution: []
     },
-    visual:{
-      blocks:initialNodes,
-      edges:initialEdges,
+    visual: {
+      blocks: initialNodes,
+      edges: initialEdges,
     }
   },
-  nodes: initialNodes,
-  edges: initialEdges,
+  // nodes: initialNodes,
+  // edges: initialEdges,
   nodeList: [],
   view: BackgroundVariant.Dots,
   selectedNode: null,
@@ -61,21 +61,21 @@ const useStore = create<RFState>((set, get) => ({
 
   //Right Panel Actions
   getNodeBase: rightPanelActions.getNodeBase(set, get),
- 
+
   setNodeName: rightPanelActions.setNodeName(set, get),
   setNodeDescription: rightPanelActions.setNodeDescription(set, get),
   setNodeColor: rightPanelActions.setNodeColor(set, get),
 
   //Block Actions
   getBlockData: blockActions.getBlockData(get, set),
-  setStringParameter: blockActions.setStringParameter(get,set),
-  setIntegerParameter: blockActions.setIntegerParameter(get,set),
-  setFloatParameter:blockActions.setFloatParameter(get,set),
-  setBooleanParameter: blockActions.setBooleanParameter(get,set),
-  setBooleanYNParameter: blockActions.setBooleanYNParameter(get,set),
-  setDateTimeParameter: blockActions.setDateTimeParameter(get,set),
-  setExecutionParameter:blockActions.setExecutionParameter(get,set),
-  setBigIntParameter: blockActions.setBigIntParameter(get,set),
+  setStringParameter: blockActions.setStringParameter(get, set),
+  setIntegerParameter: blockActions.setIntegerParameter(get, set),
+  setFloatParameter: blockActions.setFloatParameter(get, set),
+  setBooleanParameter: blockActions.setBooleanParameter(get, set),
+  setBooleanYNParameter: blockActions.setBooleanYNParameter(get, set),
+  setDateTimeParameter: blockActions.setDateTimeParameter(get, set),
+  setExecutionParameter: blockActions.setExecutionParameter(get, set),
+  setBigIntParameter: blockActions.setBigIntParameter(get, set),
   //Group Actions
   addNodeGroup: groupActions.addGroup(get, set),
   showGroupModal: groupActions.showGroupModal(set),
@@ -101,8 +101,8 @@ const useStore = create<RFState>((set, get) => ({
   setSnapToGrid: topMenuActions.setSnapToGrid(get, set),
   setSnapStep: topMenuActions.setSnapStep(get, set),
   showMiniMap: topMenuActions.showMiniMap(get, set),
-  saveFlow: topMenuActions.saveFlow(get,set),
-  loadFlow: topMenuActions.loadFlow(get,set),
+  saveFlow: flowActions.saveFlow(get, set),
+  loadFlow: flowActions.loadFlow(get, set),
 
   //Tooltip
   setTooltipText: tooltipActions.setTooltipText(get, set)

@@ -11,24 +11,24 @@ import { NodeType } from "./nodeTypes";
 
 export type RFState = {
   baseUrl: string,
-  flow:{
-    blockData:{
-      block:[],
+  flow: {
+    blockData: {
+      block: [],
     }
     created: Date,
-    createdBy : string,
+    createdBy: string,
     flowIdentifier: string,
     flowName: string,
     isEnabled: boolean,
     lastAmended: Date,
     lastAmendedBy: string,
     startBlock: string,
-    substitutions:{
-      substitution:[]
+    substitutions: {
+      substitution: []
     },
-    visual:{
-      blocks:Node<any>[],
-      edges:Edge<any>[],
+    visual: {
+      blocks: Node<any>[],
+      edges: Edge<any>[],
     }
   }
   nodeList: NodeType[],
@@ -74,21 +74,21 @@ export type RFState = {
   setNodeDescription: (description: string) => void;
 
   //Block Actions
-  setStringParameter:(parameterName:string,value:string)=>void;
-  setIntegerParameter:(parameterName:string,value:number)=>void;
-  setFloatParameter:(parameterName:string,value:number)=>void;
-  setBooleanParameter:(parameterName:string,value:boolean)=>void;
-  setBooleanYNParameter:(parameterName:string,value:string)=>void;
-  setDateTimeParameter:(parameterName:string,value:Date)=>void;
-  setExecutionParameter:(parameterName:string,value:string)=>void;
-  setBigIntParameter:(parameterName:string,value:BigInt)=>void;
+  setStringParameter: (parameterName: string, value: string) => void;
+  setIntegerParameter: (parameterName: string, value: number) => void;
+  setFloatParameter: (parameterName: string, value: number) => void;
+  setBooleanParameter: (parameterName: string, value: boolean) => void;
+  setBooleanYNParameter: (parameterName: string, value: string) => void;
+  setDateTimeParameter: (parameterName: string, value: Date) => void;
+  setExecutionParameter: (parameterName: string, value: string) => void;
+  setBigIntParameter: (parameterName: string, value: BigInt) => void;
 
   //Top Menu 
   setBgView: (view: BackgroundVariant) => void;
   hideAllTopMenus: () => void;
   toggleDropdown: (activeDropdownId: string) => void;
-  saveFlow:()=>void;
-  loadFlow:()=>void;
+  saveFlow: () => void;
+  loadFlow: () => void;
   //Settings
   setSnapToGrid: () => void;
   setSnapStep: (step: number[]) => void;

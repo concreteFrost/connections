@@ -8,10 +8,11 @@ import {
 import { getBlockData, setBigIntParameter, setBooleanParameter, setBooleanYNParameter, setDateTimeParameter, setExecutionParameter, setFloatParameter, setIntegerParameter, setStringParameter } from "./blockActions";
 import { setSelectedNodeID, onNodesChange } from "./nodeActions";
 import { handleConnect, onEdgesChange, onEdgesConnect } from "./edgesActions";
-import { hideAllTopMenus, setBgView, toggleDropdown, setSnapToGrid, setSnapStep, toggleMiniMap, saveFlow, loadFlow } from "./topViewActions";
+import { hideAllTopMenus, setBgView, toggleDropdown, setSnapToGrid, setSnapStep, toggleMiniMap } from "./topViewActions";
 import { addGroup, changeGroupColor, changeGroupLabel, deleteGroup, deleteGroupOnButtonClick, hideAllGroupModals, showGroupModal } from "./groupActions";
 import { setTooltipText } from "./tooltipActions";
 import { getNodesList, addNode } from "./leftPanelActions";
+import { loadFlow, saveFlow } from "./flowActions";
 
 export const nodeActions = {
 
@@ -42,10 +43,10 @@ export const rightPanelActions = {
 
 };
 
-export const blockActions={
+export const blockActions = {
   getBlockData: getBlockData,
   setStringParameter: setStringParameter,
-  setIntegerParameter:setIntegerParameter,
+  setIntegerParameter: setIntegerParameter,
   setFloatParameter: setFloatParameter,
   setBooleanParameter: setBooleanParameter,
   setBooleanYNParameter: setBooleanYNParameter,
@@ -64,12 +65,15 @@ export const topMenuActions = {
   setBgView: setBgView,
   hideAllTopMenus: hideAllTopMenus,
   toggleDropdown: toggleDropdown,
-setSnapToGrid: setSnapToGrid,
+  setSnapToGrid: setSnapToGrid,
   setSnapStep: setSnapStep,
   showMiniMap: toggleMiniMap,
-  saveFlow: saveFlow,
-  loadFlow: loadFlow
 };
+
+export const flowActions = {
+  loadFlow: loadFlow,
+  saveFlow: saveFlow
+}
 
 export const tooltipActions = {
   setTooltipText: setTooltipText

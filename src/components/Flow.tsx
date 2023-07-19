@@ -24,8 +24,8 @@ function Flow(props: any) {
     selector,
     shallow
   );
-  const nodes = useStore((state)=>state.flow.visual.blocks)
-  const edges = useStore((state)=>state.flow.visual.edges)
+  const nodes = useStore((state) => state.flow.visual.blocks)
+  const edges = useStore((state) => state.flow.visual.edges)
   const bgView = useStore((state) => state.view);
   const snapToGrid = useStore((state) => state.topPanel.settings.snapToGrid)
   const snapStep = useStore((state) => state.topPanel.settings.snapStep)

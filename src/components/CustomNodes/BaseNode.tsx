@@ -7,18 +7,18 @@ import { connectionsIcons } from "../../icons/icons";
 import { Position, Handle } from "react-flow-renderer";
 
 interface Block {
-    blockLabel: string;
-    name:string
-  }
+  blockLabel: string;
+  name: string
+}
 
 function hexToRgb(hex: any) {
   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
     ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      }
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16),
+    }
     : null;
 }
 
@@ -37,10 +37,10 @@ export default function BaseNode(props: any) {
   const getNodeBase = useStore((state) => state.getBlockData);
   const selectedNodeId = useStore((state) => state.selectedNode);
   const [isOutlined, setIsOutlined] = useState(false);
-  
+
   const blockData: Block[] = useStore((state) => state.flow.blockData.block);
-  const blockName = blockData.find((b: any ) => b.blockIdentifier === props.id)?.name;
-  const blockLabel= blockData.find((b: any ) => b.blockIdentifier === props.id)?.blockLabel;
+  const blockName = blockData.find((b: any) => b.blockIdentifier === props.id)?.name;
+  const blockLabel = blockData.find((b: any) => b.blockIdentifier === props.id)?.blockLabel;
 
   function _setSelectedNodeID() {
     setSelectedNodeId(props.id);
@@ -52,15 +52,12 @@ export default function BaseNode(props: any) {
     selectedNodeId === props.id ? setIsOutlined(true) : setIsOutlined(false);
   }, [selectedNodeId]);
 
-  const nodeBodyClasses = `${s.node_body} ${
-    isDarkBackground(props.data.color) ? s["dark-text"] : s["light-text"]
-  }`;
-  const iconBodyClasses = `${s.node_icon} ${
-    isDarkBackground(props.data.color) ? s["dark-text"] : s["light-text"]
-  }`;
-  const wrapperClasses = `${s.node_wrapper} ${
-    isOutlined ? s["outlined"] : s["standart"]
-  }`;
+  const nodeBodyClasses = `${s.node_body} ${isDarkBackground(props.data.color) ? s["dark-text"] : s["light-text"]
+    }`;
+  const iconBodyClasses = `${s.node_icon} ${isDarkBackground(props.data.color) ? s["dark-text"] : s["light-text"]
+    }`;
+  const wrapperClasses = `${s.node_wrapper} ${isOutlined ? s["outlined"] : s["standart"]
+    }`;
 
   const matchedIcon = Object.entries(connectionsIcons.nodeIcons).find(
     ([key]) => key === props.icon.toLowerCase()

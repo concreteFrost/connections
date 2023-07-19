@@ -40,7 +40,7 @@ export const getNodesList = (set: any) => (data: any) => {
       data: {
         name: d.name,
         blockVersion: "4.1.8",
-        blockIdentifier : null,
+        blockIdentifier: null,
         blockLabel: d.name,
         blockType: d.name,
         description: d.description,
@@ -51,10 +51,7 @@ export const getNodesList = (set: any) => (data: any) => {
             name: parameter.name,
             value: setDefaultValueAndFormat(parameter.dataType)?.value,
             required: parameter.constraints > 0 ? true : false,
-            format: setDefaultValueAndFormat(parameter.dataType)?.format,
-            placeholder: setDefaultValueAndFormat(parameter.dataType)
-              ?.placeholder,
-            inputType: setDefaultValueAndFormat(parameter.dataType).inputType,
+            format: setDefaultValueAndFormat(parameter.dataType)?.format
           };
         }),
       },
@@ -68,8 +65,8 @@ export const addNode =
   (get: any, set: any) => (type: any, posX: number, posY: number) => {
     const id = uuidv4()
     const newNode = {
-      data: {...type.data, blockIdentifier: id},
-      type:type.type,
+      data: { ...type.data, blockIdentifier: id },
+      type: type.type,
       visualData: type.visualData,
       position: { x: posX, y: posY },
     };
