@@ -10,9 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 const useStore = create<RFState>((set, get) => ({
   baseUrl: 'https://iconn.cocoon.technology:9143/iconn',
   flow: {
-    blockData: {
-      block: [],
-    },
+    blockData: [],
     created: new Date(),
     createdBy: "iliaM",
     flowIdentifier: uuidv4(),

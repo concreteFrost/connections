@@ -36,7 +36,9 @@ import { FaGlobe, FaFileExport, FaCodeBranch, FaChevronDown, FaChevronUp } from 
 
 export const connectionsIcons = {
   nodeIcons: {
+    //data store
     send: <BsMailbox />,
+    //external
     db2: <BsHddFill></BsHddFill>,
     fileservice: <BsFileBinary></BsFileBinary>,
     file_system: <BsFiles></BsFiles>,
@@ -46,6 +48,7 @@ export const connectionsIcons = {
     sql: <BsFiletypeSql />,
     ssc_webservice: <BsGlobe></BsGlobe>,
     webservice: <FaGlobe></FaGlobe>,
+    //function
     archive: <BsArchive></BsArchive>,
     delay: <BsClock></BsClock>,
     file_operation: <BsFileCode></BsFileCode>,
@@ -59,10 +62,12 @@ export const connectionsIcons = {
     xmlsplitter: <BsFiletypeXml></BsFiletypeXml>,
     transformer: <BsBoxes></BsBoxes>,
     validator: <BsListCheck></BsListCheck>,
+    //input
     input_csv: <BsFiletypeCsv></BsFiletypeCsv>,
     empty: <BsApp></BsApp>,
     input_flatfile: <BsFilePlus>,</BsFilePlus>,
     input_xml: <BsFiletypeXml></BsFiletypeXml>,
+    //output
     email: <BsEnvelopeAt></BsEnvelopeAt>,
     output_flatfile: <FaFileExport></FaFileExport>,
     output_xml: <BsFiletypeXml></BsFiletypeXml>

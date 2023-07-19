@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { NodeType } from "../types/nodeTypes";
+import INodeType from "../interfaces/INodeType";
 import blockParametersType from "../types/blockParametersTypes";
 
 function setDefaultValueAndFormat(dataType: number) {
@@ -74,10 +74,7 @@ export const addNode =
     set((state: any) => ({
       flow: {
         ...state.flow,
-        blockData: {
-          ...state.flow.blockData,
-          block: [...state.flow.blockData.block, newNode.data],
-        },
+        blockData: [...state.flow.blockData, newNode.data],
         visual: {
           ...state.flow.visual,
           blocks: [

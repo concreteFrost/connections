@@ -29,6 +29,8 @@ function PropertiesInput(props: { blockData: BlockParametersType, classData: str
         return setExecutionParameter(parameterName, value);
       case "7":
         return setBigIntParameter(parameterName, value);
+      default:
+        return setStringParameter(parameterName, value);
     }
   }
 
@@ -62,7 +64,7 @@ function PropertiesInput(props: { blockData: BlockParametersType, classData: str
         required={props.blockData.constraints > 0 ? true : false}
         value={props.blockData.value}
         checked={props.blockData.value === "Y" ? true : false}
-        placeholder={'string'}
+
         onChange={(e: any) =>
           setCurrentParameter(props.blockData.name, e.target.value)
         }

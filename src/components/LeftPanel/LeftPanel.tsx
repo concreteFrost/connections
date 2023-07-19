@@ -1,6 +1,6 @@
 import s from "./LeftPanel.module.scss";
 import useStore from "../../store/store";
-import { NodeType } from "../../store/types/nodeTypes";
+import INodeType from "../../store/interfaces/INodeType";
 import { useRef, useState } from "react";
 import Section from "./Section/Section";
 import { nodeGroup } from "../../store/types/nodeTypes";
@@ -18,7 +18,7 @@ function LeftPanel() {
     event.dataTransfer.effectAllowed = "move";
   };
 
-  const onDragEnd = (event: any, newNode: NodeType) => {
+  const onDragEnd = (event: any, newNode: INodeType) => {
     const { clientX, clientY } = event;
     const leftPanelRect = leftPanelRef.current?.getBoundingClientRect();
     if (

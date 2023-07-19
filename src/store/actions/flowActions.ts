@@ -1,12 +1,16 @@
-import { flow } from "../../testFlow/testFlow"
+import { flow } from "../../testFlow/testFlow2"
 import { RFState } from "../types/rfState";
+import IBlockParameters from "../interfaces/IblockParameter";
+import IBlockData from "../interfaces/IblockData";
+import IVisual from "../interfaces/Ivisual";
+
 export const createFlow = (get: any, set: any) => () => {
 
 }
 
 export const loadFlow = (get: any, set: any) => () => {
     const data = flow;
-    console.log(data)
+
     set((state: RFState) => ({
         flow: {
             ...state.flow,
@@ -19,30 +23,29 @@ export const loadFlow = (get: any, set: any) => () => {
             lastAmendedBy: data.ConnectionsFlow.LastAmendedBy,
             startBlock: data.ConnectionsFlow.StartBlock,
             substitutions: data.ConnectionsFlow.Substitutions,
-            blockData: {
-                ...state.flow.blockData, block: data.ConnectionsFlow.BlockData.Block.map((b) => {
-                    return {
-                        name: b.Name,
-                        blockIdentifier: b.BlockIdentifier,
-                        blockVersion: b.BlockVersion,
-                        blockLabel: b.BlockLabel,
-                        blockType: b.BlockType,
-                        description: b.Description,
-                        typeName: b.TypeName,
-                        baseTypeName: b.BaseTypeName,
-                        parameters: b.Parameters.map(p => {
-                            return {
-                                name: p.Name,
-                                value: p.Value,
-                                required: p.Required,
-                                format: p.Format
-                            }
-                        })
-                    }
-                })
-            },
+            blockData: data.ConnectionsFlow.BlockData.map((b: IBlockData) => {
+                return {
+                    name: b.Name,
+                    blockIdentifier: b.BlockIdentifier,
+                    blockVersion: b.BlockVersion,
+                    blockLabel: b.BlockLabel,
+                    blockType: b.BlockType,
+                    description: b.Description,
+                    typeName: b.TypeName,
+                    baseTypeName: b.BaseTypeName,
+                    parameters: b.Parameters.map((p: IBlockParameters) => {
+                        return {
+                            name: p.Name,
+                            value: p.Value,
+                            required: p.Required,
+                            format: p.Format
+                        }
+                    })
+                }
+            })
+            ,
             visual: {
-                ...state.flow.visual, blocks: data.ConnectionsFlow.Visual.Blocks.map((b: any) => {
+                ...state.flow.visual, blocks: data.ConnectionsFlow.Visual.Blocks.map((b: IVisual) => {
                     return {
                         id: b.id,
                         type: 'pointer',

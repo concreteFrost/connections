@@ -7,14 +7,12 @@ import {
   BackgroundVariant,
 } from "react-flow-renderer";
 
-import { NodeType } from "./nodeTypes";
+import INodeType from "../interfaces/INodeType";
 
 export type RFState = {
   baseUrl: string,
   flow: {
-    blockData: {
-      block: [],
-    }
+    blockData: [],
     created: Date,
     createdBy: string,
     flowIdentifier: string,
@@ -31,7 +29,7 @@ export type RFState = {
       edges: Edge<any>[],
     }
   }
-  nodeList: NodeType[],
+  nodeList: INodeType[],
   view: BackgroundVariant;
   selectedNode: string | null;
   tooltip: {
@@ -65,7 +63,7 @@ export type RFState = {
   onNodesChange: OnNodesChange;
   onConnect: OnConnect;
   onEdgesChange: OnEdgesChange;
-  addNode: (type: NodeType, posX: number, posY: number) => void;
+  addNode: (type: INodeType, posX: number, posY: number) => void;
   //Right Panel Actions
   getNodeBase: () => void;
   getBlockData: () => void;

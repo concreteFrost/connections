@@ -1,11 +1,11 @@
 
-import { NodeType } from "../../../store/types/nodeTypes";
+import INodeType from "../../../store/interfaces/INodeType";
 import s from "./NodeListItem.module.scss"
 import { connectionsIcons } from "../../../icons/icons";
 import useStore from "../../../store/store";
 
 type onDragStart = (e: any) => void;
-type onDragEnd = (e: any, nodeType: NodeType) => void;
+type onDragEnd = (e: any, nodeType: INodeType) => void;
 
 interface NodeProps {
   onDragStart: onDragStart,
@@ -19,7 +19,7 @@ function NodeListItem(props: NodeProps) {
   const matchedIcon = Object.entries(connectionsIcons.nodeIcons).find(
     ([key]) => key === props.nodeType.visualData.icon.toLowerCase()
   )?.[1];
-  
+
   return (
     <div className='nodelist-body-elemet' data-tooltip-delay-show={1000} onMouseEnter={() => setTooltipText(props.nodeType.data.description)}>
 

@@ -1,12 +1,12 @@
 import s from "./Section.module.scss";
 import NodeListItem from "../NodeListItem/NodeListItem";
-import { NodeType } from "../../../store/types/nodeTypes";
+import INodeType from "../../../store/interfaces/INodeType";
 import { connectionsIcons } from "../../../icons/icons";
 import { useState } from "react";
 
 
 type onDragStart = (e: any) => void;
-type onDragEnd = (e: any, nodeType: NodeType) => void;
+type onDragEnd = (e: any, nodeType: INodeType) => void;
 
 interface SectionProps {
   onDragStart: onDragStart;

@@ -5,7 +5,7 @@ const getVisualData = (get: any) => {
 };
 
 const getBlockData = (get: any) => {
-  return get().flow.blockData.block.find((block: any) => block.blockIdentifier === get().selectedNode)!;
+  return get().flow.blockData.find((block: any) => block.blockIdentifier === get().selectedNode)!;
 };
 
 export const getNodeBase = (set: any, get: any) => () => {
@@ -36,10 +36,7 @@ export const setNodeName = (set: any, get: any) => (text: string) => {
     },
     flow: {
       ...state.flow,
-      blockData: {
-        ...state.flow.blockData,
-        block: get().flow.blockData.block.map((x: Node) => x),
-      },
+      blockData: get().flow.blockData.map((x: Node) => x)
     },
   }));
 };
@@ -56,10 +53,7 @@ export const setNodeDescription = (set: any, get: any) => (description: string) 
     },
     flow: {
       ...state.flow,
-      blockData: {
-        ...state.flow.blockData,
-        block: get().flow.blockData.block.map((x: Node) => x),
-      },
+      blockData: get().flow.blockData.map((x: Node) => x)
     },
   }));
 };

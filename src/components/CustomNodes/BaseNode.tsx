@@ -38,7 +38,7 @@ export default function BaseNode(props: any) {
   const selectedNodeId = useStore((state) => state.selectedNode);
   const [isOutlined, setIsOutlined] = useState(false);
 
-  const blockData: Block[] = useStore((state) => state.flow.blockData.block);
+  const blockData: Block[] = useStore((state) => state.flow.blockData);
   const blockName = blockData.find((b: any) => b.blockIdentifier === props.id)?.name;
   const blockLabel = blockData.find((b: any) => b.blockIdentifier === props.id)?.blockLabel;
 

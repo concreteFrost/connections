@@ -1,5 +1,5 @@
 export const getBlockData = (get: any, set: any) => () => {
-  const nodeData = get().flow.blockData.block.find(
+  const nodeData = get().flow.blockData.find(
     (node: any) => node.blockIdentifier === get().selectedNode
   );
 
@@ -13,7 +13,7 @@ export const getBlockData = (get: any, set: any) => () => {
 };
 export const setParameter =
   (get: any, set: any) => (propertyName: string, value: any) => {
-    const nodeData = get().flow.blockData.block.find(
+    const nodeData = get().flow.blockData.find(
       (node: any) => node.blockIdentifier === get().selectedNode
     );
 
