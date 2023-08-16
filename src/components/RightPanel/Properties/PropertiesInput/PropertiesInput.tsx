@@ -1,5 +1,7 @@
+import { useState } from "react";
 import useStore from "../../../../store/store";
 import { BlockParametersType } from "../../../../store/types/blockParametersTypes";
+import s from "./PropertiesInput.module.scss"
 
 function PropertiesInput(props: { blockData: BlockParametersType, classData: string }) {
   const setStringParameter = useStore((state) => state.setStringParameter);
@@ -59,16 +61,18 @@ function PropertiesInput(props: { blockData: BlockParametersType, classData: str
   return (
     <>
       <label className={props.classData}>{props.blockData.name}</label>
+      <div className={s.input_container}>
       <input
         type={defineInputType()}
         required={props.blockData.constraints > 0 ? true : false}
         value={props.blockData.value}
         checked={props.blockData.value === "Y" ? true : false}
-
-        onChange={(e: any) =>
-          setCurrentParameter(props.blockData.name, e.target.value)
-        }
+        onChange={(e: any) => {
+          setCurrentParameter(props.blockData.name, e.target.value);
+        }}
       />
+      </div>
+    
     </>
   );
 }

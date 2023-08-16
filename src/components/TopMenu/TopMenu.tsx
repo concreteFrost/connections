@@ -15,6 +15,7 @@ function TopMenu() {
       <div className={s.wrapper}>
         <LeftList dropdowns={dropdowns} toggleDropdown={toggleDropdown}></LeftList>
         <MiddleButtons></MiddleButtons>
+      
         <Settings dropdowns={dropdowns} toggleDropdown={toggleDropdown}></Settings>
       </div>
     </div>

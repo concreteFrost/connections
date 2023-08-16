@@ -1,4 +1,27 @@
-input{
-    margin-left: 30px;
+@import "../../../../style/variables.scss";
 
- }
+.input_container {
+    display: grid;
+    grid-template-columns: 11fr 1fr;
+    align-content: center;
+
+
+    input {
+        display: flex;
+        justify-self: left;
+    }
+
+    button {
+        font-size: 0.7rem;
+        width: 30px;
+        background-color: $color-node-nav-icon;
+        color: white;
+        text-align: center;
+        padding: 5px;
+
+        &:hover {
+            background-color: red;
+        }
+
+    }
+}

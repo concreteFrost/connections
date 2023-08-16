@@ -6,6 +6,7 @@ import { Tooltip } from "react-tooltip";
 import useStore from "../store/store";
 import { useEffect } from "react";
 import { getBlocks } from "../api/data";
+import Substitutions from "./Substitutions/Substitutions";
 
 
 function AppContent() {
@@ -41,6 +42,7 @@ function AppContent() {
         <LeftPanel></LeftPanel>
         <RightPanel></RightPanel>
         <Flow resetSelectedNode={resetSelectedNode}></Flow>
+        <Substitutions></Substitutions>
         <Tooltip anchorSelect=".nodelist-body-elemet" place="right" style={{ zIndex: 1000 }}  >
             {tooltipText}
         </Tooltip>

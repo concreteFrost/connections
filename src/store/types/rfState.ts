@@ -17,13 +17,14 @@ export type RFState = {
     createdBy: string,
     flowIdentifier: string,
     flowName: string,
+    flowVersion:string,
+    flowConfig:string,
     isEnabled: boolean,
     lastAmended: Date,
     lastAmendedBy: string,
+    serverIdentifier: string,
     startBlock: string,
-    substitutions: {
-      substitution: []
-    },
+    substitutions: Array<Object>,
     visual: {
       blocks: Node<any>[],
       edges: Edge<any>[],
@@ -34,6 +35,9 @@ export type RFState = {
   selectedNode: string | null;
   tooltip: {
     text: string
+  },
+  substitutionsPanel:{
+    isCollapsed: boolean
   }
   rightPanel: {
     base: {
@@ -87,6 +91,15 @@ export type RFState = {
   toggleDropdown: (activeDropdownId: string) => void;
   saveFlow: () => void;
   loadFlow: () => void;
+
+  //Substitutions Panel 
+  toggleSubstitutionsPanel:()=>void;
+
+  //Substitutions
+  addSubstitutionKey:(key:string)=>void;
+  addConfig:(key:string,configName:string,configValue:string)=>void,
+  deleteSubstitution:(key:string)=>void,
+
   //Settings
   setSnapToGrid: () => void;
   setSnapStep: (step: number[]) => void;

@@ -13,6 +13,8 @@ import { addGroup, changeGroupColor, changeGroupLabel, deleteGroup, deleteGroupO
 import { setTooltipText } from "./tooltipActions";
 import { getNodesList, addNode } from "./leftPanelActions";
 import { loadFlow, saveFlow } from "./flowActions";
+import { toggleSubstitutionsPanel } from "./substitutionsPanelActions";
+import { addConfig, addSubstitutionKey, deleteSubstitution } from "./substitutionsActions";
 
 export const nodeActions = {
 
@@ -69,6 +71,16 @@ export const topMenuActions = {
   setSnapStep: setSnapStep,
   showMiniMap: toggleMiniMap,
 };
+
+export const substitutionsActions = {
+  addSubstitutionKey : addSubstitutionKey,
+  addConfig: addConfig,
+  deleteSubstitution: deleteSubstitution
+}
+
+export const substitutionsPanelActions={
+  toggleSubstitutionsPanel : toggleSubstitutionsPanel
+}
 
 export const flowActions = {
   loadFlow: loadFlow,

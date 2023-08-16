@@ -21,6 +21,7 @@ function getToken(baseUrl: string, name: string, pass: string) {
             })
             .catch(e => {
                 resolve(false);
+                console.log(e)
             });
 
     });

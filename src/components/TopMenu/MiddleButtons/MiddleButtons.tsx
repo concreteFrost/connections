@@ -15,6 +15,9 @@ function MiddleButtons() {
           <FaPause color="white"></FaPause>
         </li>
       </ul>
+      {/* <div className={s.mode_toggle}><select>
+          <option value="debug">DEBUG</option>
+          <option value="release">RELEASE</option>p</select></div> */}
     </div>
   );
 }

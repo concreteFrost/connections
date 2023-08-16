@@ -1,6 +1,3 @@
-
-
-
 export const nodeGroup = {
   dataGroup: "DataStore",
   externalGroup: "External",

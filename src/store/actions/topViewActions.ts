@@ -1,7 +1,6 @@
 import { BackgroundVariant } from "react-flow-renderer";
 import { RFState } from "../types/rfState";
-
-import { flow } from "../../testFlow/testFlow2"
+import {flow} from "../../testFlow/testFlow2"
 
 export const setBgView = (set: any) => (view: BackgroundVariant) => {
   set({ view: view });

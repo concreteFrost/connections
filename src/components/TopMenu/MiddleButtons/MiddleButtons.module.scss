@@ -3,6 +3,7 @@
 .operations_btn_list {
   display: flex;
   justify-content: center;
+  position: relative;
 
   ul {
     display: flex;
@@ -31,4 +32,11 @@
     background-color: $bg-top-menu-btn-active;
   }
   transition: background-color 0.2s ease;
+}
+
+.mode_toggle{
+  position: absolute;
+
+  right: 50px;
+  top: 25px;
 }

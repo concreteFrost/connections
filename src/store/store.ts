@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { nodeActions, edgeActions, rightPanelActions, topMenuActions, groupActions, tooltipActions, leftPanelActions, blockActions, flowActions } from "./actions/combinedActions";
+import { nodeActions, edgeActions, rightPanelActions, topMenuActions, groupActions, tooltipActions, leftPanelActions, blockActions, flowActions, substitutionsPanelActions, substitutionsActions } from "./actions/combinedActions";
 import initialNodes from "./nodes"
 import initialEdges from "./edges";
 import { RFState } from "./types/rfState";
@@ -15,25 +15,27 @@ const useStore = create<RFState>((set, get) => ({
     createdBy: "iliaM",
     flowIdentifier: uuidv4(),
     flowName: "New Flow",
+    flowConfig: "Debug",
+    flowVersion:'1.0.0.0',
     isEnabled: true,
     lastAmended: new Date(),
     lastAmendedBy: "iliaM",
     startBlock: "",
-    substitutions: {
-      substitution: []
-    },
+    serverIdentifier: uuidv4(),
+    substitutions: [],
     visual: {
       blocks: initialNodes,
       edges: initialEdges,
     }
   },
-  // nodes: initialNodes,
-  // edges: initialEdges,
   nodeList: [],
   view: BackgroundVariant.Dots,
   selectedNode: null,
   tooltip: {
     text: ''
+  },
+  substitutionsPanel:{
+    isCollapsed: false,
   },
   rightPanel: {
     base: {
@@ -92,6 +94,11 @@ const useStore = create<RFState>((set, get) => ({
   onEdgesChange: edgeActions.onEdgesChange(get, set),
   onConnect: edgeActions.onEdgesConnect(get, set),
 
+  //Substitutions Actions
+  addSubstitutionKey: substitutionsActions.addSubstitutionKey(get,set),
+  addConfig: substitutionsActions.addConfig(get,set),
+  deleteSubstitution: substitutionsActions.deleteSubstitution(get,set),
+
   //Top Menu Actions 
   setBgView: topMenuActions.setBgView(set),
   hideAllTopMenus: topMenuActions.hideAllTopMenus(get, set),
@@ -101,6 +108,9 @@ const useStore = create<RFState>((set, get) => ({
   showMiniMap: topMenuActions.showMiniMap(get, set),
   saveFlow: flowActions.saveFlow(get, set),
   loadFlow: flowActions.loadFlow(get, set),
+
+  //Substitutions Panel Actions
+  toggleSubstitutionsPanel: substitutionsPanelActions.toggleSubstitutionsPanel(get,set),
 
   //Tooltip
   setTooltipText: tooltipActions.setTooltipText(get, set)

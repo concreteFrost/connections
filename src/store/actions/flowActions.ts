@@ -1,4 +1,4 @@
-import { flow } from "../../testFlow/testFlow2"
+import {flow} from "../../testFlow/testFlow2"
 import { RFState } from "../types/rfState";
 import IBlockParameters from "../interfaces/IblockParameter";
 import IBlockData from "../interfaces/IblockData";
@@ -16,13 +16,16 @@ export const loadFlow = (get: any, set: any) => () => {
             ...state.flow,
             created: data.ConnectionsFlow.Created,
             createdBy: data.ConnectionsFlow.CreatedBy,
+            flowConfig: data.ConnectionsFlow.FlowConfig,
             flowIdentifier: data.ConnectionsFlow.FlowIdentifier,
+            flowVersion: data.ConnectionsFlow.FlowVersion,
             flowName: data.ConnectionsFlow.FlowName,
             isEnabled: data.ConnectionsFlow.IsEnabled,
             lastAmended: data.ConnectionsFlow.LastAmended,
             lastAmendedBy: data.ConnectionsFlow.LastAmendedBy,
             startBlock: data.ConnectionsFlow.StartBlock,
-            substitutions: data.ConnectionsFlow.Substitutions,
+            // substitutions: data.ConnectionsFlow.Substitutions,
+            serverIdentifier: data.ConnectionsFlow.ServerIdentifier,
             blockData: data.ConnectionsFlow.BlockData.map((b: IBlockData) => {
                 return {
                     name: b.Name,
@@ -61,12 +64,24 @@ export const loadFlow = (get: any, set: any) => () => {
                         type: "step"
                     }
                 }),
-            }
+            },
+            substitutions: data.ConnectionsFlow.Substitutions.map((sub : any)=>{
+                return{
+                    subKey: sub.SubKey,
+                    subConfigs:sub.SubConfigs.map((config : any)=>{
+                        return{
+                            configName : config.ConfigName,
+                            configValue: config.ConfigValue 
+                        }
+                    })
+                }
+            })  
+
 
         }
     }))
 
-
+    console.log(get().flow.substitutions)
 }
 
 export const saveFlow = (get: any, set: any) => () => {

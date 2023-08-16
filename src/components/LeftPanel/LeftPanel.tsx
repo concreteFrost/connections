@@ -17,6 +17,7 @@ function LeftPanel() {
     event.dataTransfer.setData("application/reactflow", event.target);
     event.dataTransfer.effectAllowed = "move";
   };
+  const substituonsPanel = useStore((state)=>state.substitutionsPanel);
 
   const onDragEnd = (event: any, newNode: INodeType) => {
     const { clientX, clientY } = event;
@@ -44,7 +45,7 @@ function LeftPanel() {
 
   return (
     <div className={s.wrapper} ref={leftPanelRef}>
-      <div className={s.toggle_btn}><button onClick={togglePanel}>{isPanelActive ? connectionsIcons.leftArrow : connectionsIcons.rightArrow}</button></div>
+      <div className={s.toggle_btn}><button onClick={togglePanel}>{isPanelActive ? connectionsIcons.leftCaret : connectionsIcons.rightCaret}</button></div>
       <div className={nodeContainerClasses}>
         <div className={s.header}>CREATE BLOCKS</div>
         <div className={s.node_list_wrapper}>    <div className={s.node_list}>
@@ -92,23 +93,5 @@ function LeftPanel() {
   );
 }
 
-{
-  /* <div>
-<h5>DATA STORE</h5>
-<Section children={<NodeListItem title="Pointer" onDragStart={onDragStart} onDragEnd={onDragEnd}nodeType={nodeType.pointer} icon={connectionsIcons.pointer}></NodeListItem>}/>
-<Section children={<NodeListItem title="Send" onDragStart={onDragStart} onDragEnd={onDragEnd}nodeType={nodeType.pointer} icon={connectionsIcons.mailbox}></NodeListItem>}/>
-</div>
-<div>
-<h5>EXTERNAL</h5>
-<Section children={<NodeListItem title="Pointer" onDragStart={onDragStart} onDragEnd={onDragEnd}nodeType={nodeType.pointer} icon={connectionsIcons.pointer}></NodeListItem>}/>
-<Section children={<NodeListItem title="DB2" onDragStart={onDragStart} onDragEnd={onDragEnd}nodeType={nodeType.pointer} icon={connectionsIcons.database}></NodeListItem>}/>
-<Section children={<NodeListItem title="SQL" onDragStart={onDragStart} onDragEnd={onDragEnd}nodeType={nodeType.pointer} icon={connectionsIcons.sql}></NodeListItem>}/>
-</div>
-<div>
-<h5>FUNCTION</h5>
-<Section children={<NodeListItem title="Pointer" onDragStart={onDragStart} onDragEnd={onDragEnd}nodeType={nodeType.pointer} icon={connectionsIcons.pointer}></NodeListItem>}/>
-<Section children={<NodeListItem title="Archive" onDragStart={onDragStart} onDragEnd={onDragEnd}nodeType={nodeType.pointer} icon={connectionsIcons.archive}></NodeListItem>}/>
-</div> */
-}
 
 export default LeftPanel;

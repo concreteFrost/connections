@@ -7,7 +7,6 @@
   left: 0;
   z-index: 100;
 
-
 }
 
 .add_node_container {
@@ -19,7 +18,7 @@
   box-shadow: $shadow-node-nav-container;
 
   &.opened {
-    width: 280px;
+    width: 20vw;
   }
 
   &.closed {
@@ -45,7 +44,7 @@
 
 .node_list_wrapper {
   overflow-y: auto;
-  max-height: 82vh;
+  max-height: 70vh;
 
   .node_list {
     h5 {
