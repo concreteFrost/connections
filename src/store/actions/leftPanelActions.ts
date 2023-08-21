@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from "uuid";
-import INodeType from "../interfaces/INodeType";
 import blockParametersType from "../types/blockParametersTypes";
 
 function setDefaultValueAndFormat(dataType: number) {
@@ -51,7 +50,8 @@ export const getNodesList = (set: any) => (data: any) => {
             name: parameter.name,
             value: setDefaultValueAndFormat(parameter.dataType)?.value,
             required: parameter.constraints > 0 ? true : false,
-            format: setDefaultValueAndFormat(parameter.dataType)?.format
+            format: setDefaultValueAndFormat(parameter.dataType)?.format,
+      
           };
         }),
       },

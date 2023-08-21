@@ -1,0 +1,22 @@
+.suggestion_list{
+    position: absolute;
+    top: 40px;
+    left: 181px;
+    z-index: 99999;
+ 
+   
+
+    ul {
+        min-width: 150px;
+        border: 1px solid black;
+    }
+    li{
+        background-color: white;
+        padding: 5px;
+        font-weight: bold;
+        height: 20px;
+        border: 0;
+        cursor: pointer;
+    }
+
+}

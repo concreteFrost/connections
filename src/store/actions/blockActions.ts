@@ -36,7 +36,7 @@ export const setParameter =
         },
       }));
     }
-    console.log(get().flow);
+    
   };
 
 export const setStringParameter =
