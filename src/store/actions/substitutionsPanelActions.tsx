@@ -1,12 +1,12 @@
 import { RFState } from "../types/rfState";
 
-export const toggleSubstitutionsPanel = (get: any,set:any) => () => {
-    console.log('done')
+export const toggleSubstitutionsPanel = (get: any, set: any) => () => {
+
     set((state: RFState) => ({
-        substitutionsPanel:{
+        substitutionsPanel: {
             ...state.substitutionsPanel,
             isCollapsed: !state.substitutionsPanel.isCollapsed
         }
     }));
     console.log(get())
-  };
+};

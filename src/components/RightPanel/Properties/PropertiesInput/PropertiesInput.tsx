@@ -1,6 +1,6 @@
 import useStore from "../../../../store/store";
 import { BlockParametersType } from "../../../../store/types/blockParametersTypes";
-import { useState} from "react";
+import { useState } from "react";
 import FilteredResults from "./FilteredResults/FilteredResults";
 import InputLabel from "./InputLabel/InputLabel";
 
@@ -89,7 +89,7 @@ function PropertiesInput(props: {
     setFilteredSubstitutions([]);
   }
 
-  function clearFilteredSubstitutions(){
+  function clearFilteredSubstitutions() {
     setFilteredSubstitutions([]);
   }
 
