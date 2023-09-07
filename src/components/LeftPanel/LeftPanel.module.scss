@@ -2,15 +2,13 @@
 @import "../../style/mixins.scss";
 
 .wrapper {
-  position: fixed;
-  top: 41px;
-  left: 0;
   z-index: 100;
-
+  position: relative;
+  display: flex;
+  justify-content: left;
 }
 
 .add_node_container {
-
   position: relative;
   overflow-x: auto;
   height: 100vh;
@@ -18,11 +16,13 @@
   box-shadow: $shadow-node-nav-container;
 
   &.opened {
-    width: 20vw;
+    width: 100%;
+    transition: width 0.3s ease-out;
   }
 
   &.closed {
     width: 0px;
+    transition: width 0.3s ease-out;
 
     .header,
     .node_list {
@@ -34,17 +34,12 @@
 }
 
 .header {
-  padding-top: 15px;
-  margin-bottom: 4px;
-  font-weight: bold;
-  font-family: $font-node-nav-header;
-  color: $color-node-nav-container-header;
-  font-size: 1.8rem;
+  @include section_header;
 }
 
 .node_list_wrapper {
   overflow-y: auto;
-  max-height: 70vh;
+  height: 75vh;
 
   .node_list {
     h5 {
@@ -56,19 +51,28 @@
   }
 }
 
-
-
 .node_list_disabled {
   height: 20px;
 }
 
 .toggle_btn {
+
   position: absolute;
   top: 0px;
-  right: -30px;
+ 
+  
   z-index: 1000;
 
+  &.opened {
+    right: -30px;
+  }
+
+  &.closed {
+    left: 0;
+  }
+
   button {
+    
     height: 57px;
     border: 0;
     width: 30px;
@@ -86,10 +90,10 @@
   position: absolute;
   bottom: 45px;
 
-  left: 0;
-  right: 0;
-
+  width: 100%;
   height: 50px;
+  display: flex;
+  justify-content: center;
 
   .create_group_btn {
     @include left_panel_btn($color-node-nav-icon);
@@ -98,12 +102,10 @@
     font-size: 1.2rem;
     font-weight: 600;
     padding-left: 0;
-    border-bottom: 0;
     width: 150px;
     border-radius: 5px;
     background-color: $color-node-nav-icon;
     color: rgb(253, 253, 253);
-
-
+   
   }
 }

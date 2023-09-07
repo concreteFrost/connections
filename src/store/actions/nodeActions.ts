@@ -5,6 +5,7 @@ import {
 } from "react-flow-renderer";
 
 import { groupActions } from "./combinedActions";
+import { RFState } from "../types/rfState";
 
 
 export const setSelectedNodeID = (get: any, set: any) => (nodeId: string) => {
@@ -20,7 +21,7 @@ export const onNodesChange =
       }
     })
 
-    set((state: any) => ({
+    set((state: RFState) => ({
       flow: {
         ...state.flow,
         visual: {

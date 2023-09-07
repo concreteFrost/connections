@@ -51,7 +51,7 @@ function SettingsDropdown() {
           </div>
         </li>
       </ul>
-      <div className={s.settings_title}>Minimap</div>
+      {/* <div className={s.settings_title}>Minimap</div>
       <ul>
         <li className={s.settings_list_item}>
           <div>Show Minimap</div>
@@ -59,7 +59,7 @@ function SettingsDropdown() {
             <input type="checkbox" checked={showMiniMap} onChange={toggleMinimap} />
           </div>
         </li>
-      </ul>
+      </ul> */}
       <div className={s.logout_container}>
         <button onClick={logout}>Logout</button>
       </div>

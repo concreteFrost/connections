@@ -12,7 +12,6 @@ function Settings(props: any) {
           strokeColor="rgb(74, 148, 190)"
           size={35}
           animation={settings}
-
         />
       </div>
       {props.dropdowns.settings.isVisible ? <SettingsDropdown /> : null}

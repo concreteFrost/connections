@@ -19,6 +19,7 @@ function AppContent() {
     const hideAllGroupModals = useStore((state) => state.hideAllGroupModals);
 
     const setSelectedNode = useStore((state) => state.setSelectedNodeID);
+    const clearRightPanel = useStore((state)=> state.clearRightPanel);
 
     useEffect(() => {
         getBlocks(baseUrl).then((res) => { getNodesList(res) })
@@ -32,6 +33,7 @@ function AppContent() {
 
         if (isContainer) {
             setSelectedNode("-1");
+            clearRightPanel();
             hideAllGroupModals();
         }
         hideAllTopDropdowns();
@@ -39,10 +41,13 @@ function AppContent() {
     };
     return (<div className="App">
         <TopMenu></TopMenu>
+        <div className="dynamic_menu">
         <LeftPanel></LeftPanel>
-        <RightPanel></RightPanel>
-        <Flow resetSelectedNode={resetSelectedNode}></Flow>
         <Substitutions></Substitutions>
+        <RightPanel></RightPanel>
+       
+        </div>
+        <Flow resetSelectedNode={resetSelectedNode}></Flow>
         <Tooltip anchorSelect=".nodelist-body-elemet" place="right" style={{ zIndex: 1000 }}  >
             {tooltipText}
         </Tooltip>

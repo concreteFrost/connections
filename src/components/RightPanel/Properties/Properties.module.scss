@@ -30,36 +30,3 @@
   @include section_header;
 }
 
-.block_section {
-  max-height: 400px;
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  li {
-
-    font-size: 0.75rem;
-    border-bottom: 1px solid rgb(238, 238, 238);
-    padding-left: 10px;
-    height: 40px;
-    display: grid;
-    grid-template-columns: 6fr 6fr;
-    justify-items: start;
-    position: relative;
-    
-  }
-
-}
-
-
-.input_label {
-  border-right: 1px solid rgb(230, 230, 230);
-  display: flex;
-  align-items: center;
-  width: 100%;
-  font-size: 0.7rem;
-  text-align: start;
-}
-
-.radio_label {
-  margin-left: 10px;
-}

@@ -1,8 +1,7 @@
 import {flow} from "../../testFlow/testFlow2"
 import { RFState } from "../types/rfState";
-import IBlockParameters from "../interfaces/IblockParameter";
-import IBlockData from "../interfaces/IblockData";
-import IVisual from "../interfaces/Ivisual";
+import { IBlockData,IBlockParameters } from "../interfaces/IBlock";
+import {IVisual} from "../interfaces/IVisual";
 
 export const createFlow = (get: any, set: any) => () => {
 
@@ -24,7 +23,6 @@ export const loadFlow = (get: any, set: any) => () => {
             lastAmended: data.ConnectionsFlow.LastAmended,
             lastAmendedBy: data.ConnectionsFlow.LastAmendedBy,
             startBlock: data.ConnectionsFlow.StartBlock,
-            // substitutions: data.ConnectionsFlow.Substitutions,
             serverIdentifier: data.ConnectionsFlow.ServerIdentifier,
             blockData: data.ConnectionsFlow.BlockData.map((b: IBlockData) => {
                 return {
@@ -81,9 +79,26 @@ export const loadFlow = (get: any, set: any) => () => {
         }
     }))
 
-    console.log(get().flow.substitutions)
 }
 
 export const saveFlow = (get: any, set: any) => () => {
 
+}
+
+export const setFlowName = (get:any, set:any)=>(name : string)=>{
+    set((state:RFState)=>({
+        flow:{
+            ...state.flow,
+            flowName: name
+        }
+    }))
+}
+
+export const setFlowVersion = (get:any, set:any)=>(version : string)=>{
+    set((state:RFState)=>({
+        flow:{
+            ...state.flow,
+            flowVersion: version
+        }
+    }))
 }

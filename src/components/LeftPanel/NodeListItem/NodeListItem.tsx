@@ -1,5 +1,5 @@
 
-import INodeType from "../../../store/interfaces/INodeType";
+import {INodeType} from "../../../store/interfaces/INode";
 import s from "./NodeListItem.module.scss"
 import { connectionsIcons } from "../../../icons/icons";
 import useStore from "../../../store/store";

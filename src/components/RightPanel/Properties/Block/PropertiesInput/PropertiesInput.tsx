@@ -1,11 +1,11 @@
-import useStore from "../../../../store/store";
-import { BlockParametersType } from "../../../../store/types/blockParametersTypes";
+import useStore from "../../../../../store/store";
+import { IBlockParametersType } from "../../../../../store/interfaces/IBlock";
 import { useState } from "react";
 import FilteredResults from "./FilteredResults/FilteredResults";
 import InputLabel from "./InputLabel/InputLabel";
 
 function PropertiesInput(props: {
-  blockData: BlockParametersType;
+  blockData: IBlockParametersType;
   classData: string;
 }) {
   const state = useStore((state) => state);

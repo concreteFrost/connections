@@ -1,4 +1,5 @@
 import { Node, NodeProps } from "react-flow-renderer";
+import { RFState } from "../types/rfState";
 
 const getVisualData = (get: any) => {
   return get().flow.visual.blocks.find((node: NodeProps) => node.id === get().selectedNode)!;
@@ -8,6 +9,21 @@ const getBlockData = (get: any) => {
   return get().flow.blockData.find((block: any) => block.blockIdentifier === get().selectedNode)!;
 };
 
+
+export const clearRightPanel = (get:any,set:any) =>() =>{
+  set((state: RFState) => ({
+    rightPanel: {
+      ...state.rightPanel,
+      base: {
+        blockName: '',
+        blockColor: "#FFFFFF",
+        blockDescription: '',
+      },
+      parameters:[]
+    },
+  }));
+}
+
 export const getNodeBase = (set: any, get: any) => () => {
   const nodeData = getVisualData(get);
   const nodeParams = getBlockData(get);
@@ -16,12 +32,13 @@ export const getNodeBase = (set: any, get: any) => () => {
     rightPanel: {
       ...state.rightPanel,
       base: {
-        blockName: nodeParams.blockLabel,
+        blockName: get().selectedNode !== "-1" ? nodeParams.blockLabel : '',
         blockColor: nodeData.data.color,
         blockDescription: nodeParams.description,
       },
     },
   }));
+
 };
 
 export const setNodeName = (set: any, get: any) => (text: string) => {

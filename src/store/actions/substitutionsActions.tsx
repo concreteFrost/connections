@@ -1,7 +1,8 @@
 import { RFState } from "../types/rfState";
+import { ISubstitutions } from "../interfaces/ISubstitutions";
 
 export const addSubstitutionKey = (get: any, set: any) => (key: string) => {
-  const match = get().flow.substitutions.find((s: any) => s.subKey === key);
+  const match = get().flow.substitutions.find((s: ISubstitutions) => s.subKey === key);
 
   if (!match && key.length > 0)
     set((state: RFState) => ({
@@ -19,8 +20,23 @@ export const addSubstitutionKey = (get: any, set: any) => (key: string) => {
         ],
       },
     }));
+  else{
+   setSubstitutionErrorMessage(set,'*substitution already exists')
+   setTimeout(()=>{
+    setSubstitutionErrorMessage(set,'')
+   },4000)
+  }
 
 };
+
+const setSubstitutionErrorMessage = (set:any, msg : string) =>{
+  set((state: RFState)=>({
+    errorMessages:{
+      ...state.errorMessages,
+      substitutionAddError : msg
+    }
+  }))
+}
 
 export const deleteSubstitution = (get: any, set: any) => (key: string) => {
 
@@ -28,10 +44,10 @@ export const deleteSubstitution = (get: any, set: any) => (key: string) => {
   const updatedBlocks = get().flow.blockData.map((block: any) => {
     return {
       ...block,
-      parameters: block.parameters.map((p: any) => {
+      parameters: block.parameters.map((parameter: any) => {
         return {
-          ...p,
-          value: p.value.includes(key) ? p.value.replace(`{${key}}`, '') : p.value
+          ...parameter,
+          value: parameter.value.includes(key) ? parameter.value.replace(`{${key}}`, '') : parameter.value
         }
       })
     }

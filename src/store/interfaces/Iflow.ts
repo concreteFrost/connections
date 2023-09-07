@@ -1,4 +1,6 @@
-export default interface FlowData {
+import { ISubstitutions } from "./ISubstitutions";
+
+export  interface IFlowData {
     created: string;
     createdBy: string;
     flowIdentifier: string;
@@ -7,7 +9,7 @@ export default interface FlowData {
     lastAmended: string;
     lastAmendedBy: string;
     startBlock: string;
-    substitutions: any[]; // Replace 'any' with the appropriate type
+    substitutions: Array<ISubstitutions>; // Replace 'any' with the appropriate type
     blockData: {
         block: any;
     };
@@ -16,3 +18,6 @@ export default interface FlowData {
         edges: any;
     };
 }
+
+
+

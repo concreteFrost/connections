@@ -1,5 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
 import { NodeProps, NodeRemoveChange } from "react-flow-renderer";
+import {IVisual} from "../interfaces/IVisual";
+import { RFState } from "../types/rfState";
+import { INodeGroup, INodeType } from "../interfaces/INode";
 
 export const getAllSelectedNodes = (nodes: NodeProps[]) => {
   return nodes.filter((node) => node.selected === true).length > 1;
@@ -14,7 +17,7 @@ export const addGroup = (get: any, set: any) => () => {
     let minX = Infinity;
     let maxY = -Infinity;
     let minY = Infinity;
-    selectedNodes.forEach((node: any) => {
+    selectedNodes.forEach((node: IVisual) => {
       maxX = Math.max(maxX, node.position.x);
       minX = Math.min(minX, node.position.x);
       maxY = Math.max(maxY, node.position.y);
@@ -44,7 +47,7 @@ export const addGroup = (get: any, set: any) => () => {
     };
 
     assignParent(get().flow.visual.blocks, newGroupNode);
-    set((state: any) => ({
+    set((state: RFState) => ({
       flow: {
         ...state.flow,
         visual: {
@@ -56,7 +59,7 @@ export const addGroup = (get: any, set: any) => () => {
   }
 };
 
-const assignParent = (nodes: any, nodeGroup: any) => {
+const assignParent = (nodes: Array<INodeGroup>, nodeGroup: any) => {
   const selectedNodes = nodes.filter((node: any) => node.selected === true);
   selectedNodes.forEach((node: any) => {
     node.parentNode = nodeGroup.id;

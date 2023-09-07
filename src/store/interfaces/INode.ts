@@ -1,4 +1,13 @@
-export default interface INodeType {
+
+export interface INodeGroup {
+    dataGroup: string;
+    externalGroup: string;
+    functionGroup: string;
+    inputGroup: string;
+    outputGroup: string;
+  }
+
+export  interface INodeType {
     type: string,
     visualData: {
         color: string,
@@ -18,6 +27,10 @@ export default interface INodeType {
         //Custom parameters
         color: string;
         icon: any;
+        children? : any;
 
     };
 }
+
+
+  

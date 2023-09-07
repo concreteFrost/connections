@@ -3,7 +3,6 @@ import { shallow } from "zustand/shallow";
 import useStore from "../store/store";
 import PointerNode from "./CustomNodes/PointerNode";
 import NodeGroup from "./CustomNodes/NodeGroup";
-import s from "./Flow.module.scss"
 
 const selector = (state: any) => ({
   nodes: state.nodes,
@@ -33,7 +32,7 @@ function Flow(props: any) {
 
 
   return (
-    <div style={{ height: 1320 }}>
+    <div style={{ height: 930 }}>
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -44,7 +43,7 @@ function Flow(props: any) {
         onClick={props.resetSelectedNode}
         snapToGrid={snapToGrid}
         snapGrid={[snapStep[0], snapStep[1]]}
-
+        
       >
         <Background color={`rgb(74, 148, 190,${bgView === BackgroundVariant.Dots ? 1 : 0.5})`} variant={bgView}></Background>
         {/* <MiniMap nodeStrokeColor={"black"} nodeStrokeWidth={10} className={s.minimap} nodeColor={'rgb(74, 120, 190)'} style={{ display: showMinimap ? "block" : "none" }} ></MiniMap> */}

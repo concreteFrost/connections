@@ -22,7 +22,7 @@
     font-weight: bolder;
     font-size: 1.1rem;
     letter-spacing: 1px;
-
+    text-align: center;
     &::after {
         content: "";
         position: absolute;
@@ -34,6 +34,7 @@
         opacity: 0.25;
         background-image: radial-gradient(circle, #ffffff, #7a7a7a);
         border-radius: 5px;
+     
     }
 
     &.dark-text {
@@ -60,7 +61,7 @@
     left: 7px;
     top: 4px;
     font-size: 0.9rem;
-
+  
 
     &.dark-text {
         color: rgb(255, 255, 255);

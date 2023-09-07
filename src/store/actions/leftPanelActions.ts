@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
-import blockParametersType from "../types/blockParametersTypes";
+import blockParametersType from "../constants/blockConst";
+import { RFState } from "../types/rfState";
 
 function setDefaultValueAndFormat(dataType: number) {
   switch (dataType) {
@@ -71,7 +72,7 @@ export const addNode =
       position: { x: posX, y: posY },
     };
 
-    set((state: any) => ({
+    set((state: RFState) => ({
       flow: {
         ...state.flow,
         blockData: [...state.flow.blockData, newNode.data],

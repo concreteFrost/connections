@@ -1,5 +1,6 @@
 import {
 
+  clearRightPanel,
   getNodeBase,
   setNodeColor,
   setNodeDescription,
@@ -12,7 +13,7 @@ import { hideAllTopMenus, setBgView, toggleDropdown, setSnapToGrid, setSnapStep,
 import { addGroup, changeGroupColor, changeGroupLabel, deleteGroup, deleteGroupOnButtonClick, hideAllGroupModals, showGroupModal } from "./groupActions";
 import { setTooltipText } from "./tooltipActions";
 import { getNodesList, addNode } from "./leftPanelActions";
-import { loadFlow, saveFlow } from "./flowActions";
+import { loadFlow, saveFlow, setFlowName, setFlowVersion } from "./flowActions";
 import { toggleSubstitutionsPanel } from "./substitutionsPanelActions";
 import { addConfig, addSubstitutionKey, deleteSubstitution } from "./substitutionsActions";
 
@@ -38,6 +39,7 @@ export const leftPanelActions = {
 }
 
 export const rightPanelActions = {
+  clearRightPanel : clearRightPanel,
   getNodeBase: getNodeBase,
   setNodeColor: setNodeColor,
   setNodeDescription: setNodeDescription,
@@ -84,7 +86,9 @@ export const substitutionsPanelActions={
 
 export const flowActions = {
   loadFlow: loadFlow,
-  saveFlow: saveFlow
+  saveFlow: saveFlow,
+  setFlowName : setFlowName,
+  setFlowVersion:setFlowVersion
 }
 
 export const tooltipActions = {

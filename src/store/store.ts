@@ -55,13 +55,17 @@ const useStore = create<RFState>((set, get) => ({
       snapToGrid: false,
       snapStep: [1, 1],
       showMiniMap: true
-    }
+    },
+    
+  },
+  errorMessages:{
+    substitutionAddError :''
   },
 
 
   //Right Panel Actions
+  clearRightPanel : rightPanelActions.clearRightPanel(get,set),
   getNodeBase: rightPanelActions.getNodeBase(set, get),
-
   setNodeName: rightPanelActions.setNodeName(set, get),
   setNodeDescription: rightPanelActions.setNodeDescription(set, get),
   setNodeColor: rightPanelActions.setNodeColor(set, get),
@@ -106,8 +110,12 @@ const useStore = create<RFState>((set, get) => ({
   setSnapToGrid: topMenuActions.setSnapToGrid(get, set),
   setSnapStep: topMenuActions.setSnapStep(get, set),
   showMiniMap: topMenuActions.showMiniMap(get, set),
+
+  //Flow Actions
   saveFlow: flowActions.saveFlow(get, set),
   loadFlow: flowActions.loadFlow(get, set),
+  setFlowName:flowActions.setFlowName(get,set),
+  setFlowVersion: flowActions.setFlowVersion(get,set),
 
   //Substitutions Panel Actions
   toggleSubstitutionsPanel: substitutionsPanelActions.toggleSubstitutionsPanel(get,set),

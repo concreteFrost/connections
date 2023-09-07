@@ -1,9 +1,9 @@
 
-import { BlockParametersType } from "../../../../../store/types/blockParametersTypes";
+import { IBlockParametersType } from "../../../../../../store/interfaces/IBlock";
 import s from "./InputLabel.module.scss";
 
 function InputLabel(props: {
-  blockData: BlockParametersType;
+  blockData: IBlockParametersType;
   classData: string;
   defineInputType: () => string;
   setCurrentParameter: (parameterName: string, value: any) => void;

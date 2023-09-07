@@ -1,14 +1,12 @@
 .suggestion_list{
     position: absolute;
-    top: 40px;
-    left: 181px;
+    top: 45px;
+    left: 155px;
     z-index: 99999;
- 
-   
 
     ul {
         min-width: 150px;
-        border: 1px solid black;
+        border: 1px solid rgb(168, 168, 168);
     }
     li{
         background-color: white;

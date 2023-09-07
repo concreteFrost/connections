@@ -1,6 +1,6 @@
 import s from "./Section.module.scss";
 import NodeListItem from "../NodeListItem/NodeListItem";
-import INodeType from "../../../store/interfaces/INodeType";
+import {INodeType} from "../../../store/interfaces/INode";
 import { connectionsIcons } from "../../../icons/icons";
 import { useState } from "react";
 

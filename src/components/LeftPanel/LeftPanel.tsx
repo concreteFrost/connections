@@ -1,9 +1,9 @@
 import s from "./LeftPanel.module.scss";
 import useStore from "../../store/store";
-import INodeType from "../../store/interfaces/INodeType";
+import {INodeType} from "../../store/interfaces/INode";
 import { useRef, useState } from "react";
 import Section from "./Section/Section";
-import { nodeGroup } from "../../store/types/nodeTypes";
+import { nodeGroup } from "../../store/constants/nodeConst";
 import { connectionsIcons } from "../../icons/icons";
 
 
@@ -17,7 +17,6 @@ function LeftPanel() {
     event.dataTransfer.setData("application/reactflow", event.target);
     event.dataTransfer.effectAllowed = "move";
   };
-  const substituonsPanel = useStore((state)=>state.substitutionsPanel);
 
   const onDragEnd = (event: any, newNode: INodeType) => {
     const { clientX, clientY } = event;
@@ -42,10 +41,11 @@ function LeftPanel() {
   }
 
   const nodeContainerClasses = `${s.add_node_container} ${isPanelActive ? s['opened'] : s['closed']}`;
+  const toggleBtnClasses = `${s.toggle_btn} ${isPanelActive ? s['opened'] : s['closed']}`;
 
   return (
     <div className={s.wrapper} ref={leftPanelRef}>
-      <div className={s.toggle_btn}><button onClick={togglePanel}>{isPanelActive ? connectionsIcons.leftCaret : connectionsIcons.rightCaret}</button></div>
+      <div className={toggleBtnClasses}><button onClick={togglePanel}>{isPanelActive ? connectionsIcons.leftCaret : connectionsIcons.rightCaret}</button></div>
       <div className={nodeContainerClasses}>
         <div className={s.header}>CREATE BLOCKS</div>
         <div className={s.node_list_wrapper}>    <div className={s.node_list}>

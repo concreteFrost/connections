@@ -1,5 +1,6 @@
 import {Connection, Edge, addEdge } from 'react-flow-renderer';
 import { EdgeChange, applyEdgeChanges } from 'react-flow-renderer';
+import { RFState } from '../types/rfState';
 
 export function handleConnect(connection: Connection, state: any): Edge[] {
 
@@ -12,7 +13,7 @@ export function handleConnect(connection: Connection, state: any): Edge[] {
 
 export const onEdgesChange = (get: any, set: any) => (changes: EdgeChange[]) => {
   
-  set((state : any)=>({
+  set((state : RFState)=>({
     flow:{
       ...state.flow,
       visual:{
@@ -26,7 +27,7 @@ export const onEdgesChange = (get: any, set: any) => (changes: EdgeChange[]) => 
 
 export const onEdgesConnect = (get: any, set: any) => (connection: Connection) => {
 
-  set((state : any)=>({
+  set((state : RFState)=>({
     flow:{
       ...state.flow,
       visual:{

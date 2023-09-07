@@ -9,6 +9,7 @@ function Substitutions() {
   const substitutionsPanel = useStore(state => state.substitutionsPanel);
   const addSubstitutionKey = useStore(state => state.addSubstitutionKey);
   const togglePanel = useStore(state => state.toggleSubstitutionsPanel);
+  const substitutionAddError = useStore(state=>state.errorMessages.substitutionAddError);
   const [substKey, setSubstKey] = useState('');
 
   function _togglePanel() {
@@ -20,26 +21,29 @@ function Substitutions() {
     addSubstitutionKey(e.target[0].value)
     setSubstKey('')
   }
-  function _setSubstKey(e: any) {
+  function _setSubstKey(e: string) {
     setSubstKey(e);
   }
 
   const expandableClasses = `${s.expandable_content} ${substitutionsPanel.isCollapsed ? s['collapsed'] : s['expanded']}`
+  const subHeaderClasses = `${s.sub_header} ${substitutionsPanel.isCollapsed ? s['collapsed'] : s['expanded']}`
   return (
     <div className={s.wrapper}>
       <div className={s.content}>
         <div className={s.icon} onClick={_togglePanel}>{substitutionsPanel.isCollapsed ? connectionsIcons.upCaret : connectionsIcons.downCaret}</div>
         <div className={s.header}>Substitutions</div>
         <div className={expandableClasses}>
-          <div className={s.sub_header}>
-            <ul>
-              <li>Pagination</li>
-              <li>Save</li>
-            </ul>
+          <div className={subHeaderClasses}>
+           
             <form onSubmit={(e: any) => _addSubstitution(e)}>
               <input type="text" value={substKey} onChange={(e: any) => _setSubstKey(e.target.value)} />
               <button>Add</button>
+              <span>{substitutionAddError}</span>
             </form>
+            
+            <ul>
+              <li>Save</li>
+            </ul>
           </div>
           <div className={s.body}>
             <SubstitutionsTable></SubstitutionsTable>

@@ -7,7 +7,8 @@ import {
   BackgroundVariant,
 } from "react-flow-renderer";
 
-import INodeType from "../interfaces/INodeType";
+import {INodeType} from "../interfaces/INode";
+import { ISubstitutions } from "../interfaces/ISubstitutions";
 
 export type RFState = {
   baseUrl: string,
@@ -24,7 +25,7 @@ export type RFState = {
     lastAmendedBy: string,
     serverIdentifier: string,
     startBlock: string,
-    substitutions: Array<Object>,
+    substitutions: Array<ISubstitutions>,
     visual: {
       blocks: Node<any>[],
       edges: Edge<any>[],
@@ -58,9 +59,11 @@ export type RFState = {
       snapToGrid: boolean,
       snapStep: number[]
       showMiniMap: boolean
-    }
-
+    },
   };
+  errorMessages:{
+    substitutionAddError : string
+  }
 
   setSelectedNodeID: (nodeId: string) => void;
   setTooltipText: (text: string) => void;
@@ -69,6 +72,7 @@ export type RFState = {
   onEdgesChange: OnEdgesChange;
   addNode: (type: INodeType, posX: number, posY: number) => void;
   //Right Panel Actions
+  clearRightPanel: ()=>void;
   getNodeBase: () => void;
   getBlockData: () => void;
   setNodeName: (text: string) => void;
@@ -89,8 +93,13 @@ export type RFState = {
   setBgView: (view: BackgroundVariant) => void;
   hideAllTopMenus: () => void;
   toggleDropdown: (activeDropdownId: string) => void;
+
+  //Flow
   saveFlow: () => void;
   loadFlow: () => void;
+  setFlowName:(name:string)=>void;
+  setFlowVersion:(version:string)=>void;
+  
 
   //Substitutions Panel 
   toggleSubstitutionsPanel:()=>void;
@@ -112,7 +121,4 @@ export type RFState = {
   setGroupColor: (nodeId: string, input: string) => void,
   hideAllGroupModals: () => void;
   deleteGroupOnButtonClick: (groupToDelete: any) => void;
-
-
-
 };
