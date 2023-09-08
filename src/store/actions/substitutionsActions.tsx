@@ -20,20 +20,21 @@ export const addSubstitutionKey = (get: any, set: any) => (key: string) => {
         ],
       },
     }));
-  else{
-   setSubstitutionErrorMessage(set,'*substitution already exists')
-   setTimeout(()=>{
-    setSubstitutionErrorMessage(set,'')
-   },4000)
+  else {
+    setSubstitutionErrorMessage(set, '*substitution already exists')
+    setTimeout(() => {
+      setSubstitutionErrorMessage(set, '')
+    }, 4000)
   }
 
 };
 
-const setSubstitutionErrorMessage = (set:any, msg : string) =>{
-  set((state: RFState)=>({
-    errorMessages:{
+//displays error message above the form
+const setSubstitutionErrorMessage = (set: any, msg: string) => {
+  set((state: RFState) => ({
+    errorMessages: {
       ...state.errorMessages,
-      substitutionAddError : msg
+      substitutionAddError: msg
     }
   }))
 }
