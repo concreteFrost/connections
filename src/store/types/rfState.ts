@@ -20,7 +20,7 @@ export type RFState = {
     flowName: string,
     flowVersion:string,
     flowConfig:string,
-    isEnabled: boolean,
+    isEnabled: string,
     lastAmended: Date,
     lastAmendedBy: string,
     serverIdentifier: string,
@@ -99,6 +99,7 @@ export type RFState = {
   loadFlow: () => void;
   setFlowName:(name:string)=>void;
   setFlowVersion:(version:string)=>void;
+  setFlowIsEnabled:()=>void;
   
 
   //Substitutions Panel 

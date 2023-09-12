@@ -96,3 +96,13 @@ export const addConfig =
       });
 
     };
+
+    export const toggleSubstitutionsPanel = (get: any, set: any) => () => {
+
+      set((state: RFState) => ({
+          substitutionsPanel: {
+              ...state.substitutionsPanel,
+              isCollapsed: !state.substitutionsPanel.isCollapsed
+          }
+      }));
+  }

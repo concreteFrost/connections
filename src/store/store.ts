@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { nodeActions, edgeActions, rightPanelActions, topMenuActions, groupActions, tooltipActions, leftPanelActions, blockActions, flowActions, substitutionsPanelActions, substitutionsActions } from "./actions/combinedActions";
+import  actions from "./actions/combinedActions";
 import initialNodes from "./nodes"
 import initialEdges from "./edges";
 import { RFState } from "./types/rfState";
@@ -17,7 +17,7 @@ const useStore = create<RFState>((set, get) => ({
     flowName: "New Flow",
     flowConfig: "Debug",
     flowVersion:'1.0.0.0',
-    isEnabled: true,
+    isEnabled: "true",
     lastAmended: new Date(),
     lastAmendedBy: "iliaM",
     startBlock: "",
@@ -64,64 +64,65 @@ const useStore = create<RFState>((set, get) => ({
 
 
   //Right Panel Actions
-  clearRightPanel : rightPanelActions.clearRightPanel(get,set),
-  getNodeBase: rightPanelActions.getNodeBase(set, get),
-  setNodeName: rightPanelActions.setNodeName(set, get),
-  setNodeDescription: rightPanelActions.setNodeDescription(set, get),
-  setNodeColor: rightPanelActions.setNodeColor(set, get),
+  clearRightPanel : actions.rightPanelActions.clearRightPanel(get,set),
+
+  //Base Actions
+  getNodeBase: actions.baseActtions.getNodeBase(set, get),
+  setNodeName: actions.baseActtions.setNodeName(set, get),
+  setNodeDescription: actions.baseActtions.setNodeDescription(set, get),
+  setNodeColor: actions.baseActtions.setNodeColor(set, get),
 
   //Block Actions
-  getBlockData: blockActions.getBlockData(get, set),
-  setStringParameter: blockActions.setStringParameter(get, set),
-  setIntegerParameter: blockActions.setIntegerParameter(get, set),
-  setFloatParameter: blockActions.setFloatParameter(get, set),
-  setBooleanParameter: blockActions.setBooleanParameter(get, set),
-  setBooleanYNParameter: blockActions.setBooleanYNParameter(get, set),
-  setDateTimeParameter: blockActions.setDateTimeParameter(get, set),
-  setExecutionParameter: blockActions.setExecutionParameter(get, set),
-  setBigIntParameter: blockActions.setBigIntParameter(get, set),
+  getBlockData: actions.blockActions.getBlockData(get, set),
+  setStringParameter: actions.blockActions.setStringParameter(get, set),
+  setIntegerParameter: actions.blockActions.setIntegerParameter(get, set),
+  setFloatParameter: actions.blockActions.setFloatParameter(get, set),
+  setBooleanParameter: actions.blockActions.setBooleanParameter(get, set),
+  setBooleanYNParameter: actions.blockActions.setBooleanYNParameter(get, set),
+  setDateTimeParameter: actions.blockActions.setDateTimeParameter(get, set),
+  setExecutionParameter: actions.blockActions.setExecutionParameter(get, set),
+  setBigIntParameter: actions.blockActions.setBigIntParameter(get, set),
   //Group Actions
-  addNodeGroup: groupActions.addGroup(get, set),
-  showGroupModal: groupActions.showGroupModal(set),
-  setGroupColor: groupActions.setGroupColor(set),
-  setGroupLabel: groupActions.setGroupLabel(set),
-  hideAllGroupModals: groupActions.hideAllGroupModals(set),
-  deleteGroupOnButtonClick: groupActions.deleteGroupOnButtonClick(get, set),
+  addNodeGroup: actions.groupActions.addGroup(get, set),
+  showGroupModal: actions.groupActions.showGroupModal(set),
+  setGroupColor: actions.groupActions.setGroupColor(set),
+  setGroupLabel: actions.groupActions.setGroupLabel(set),
+  hideAllGroupModals: actions.groupActions.hideAllGroupModals(set),
+  deleteGroupOnButtonClick: actions.groupActions.deleteGroupOnButtonClick(get, set),
 
   //Node Actions
-  getNodesList: leftPanelActions.getNodesList(set),
-  addNode: leftPanelActions.addNode(get, set),
-  setSelectedNodeID: nodeActions.setSelectedNodeID(get, set),
-  onNodesChange: nodeActions.onNodesChange(get, set),
+  getNodesList: actions.leftPanelActions.getNodesList(set),
+  addNode: actions.leftPanelActions.addNode(get, set),
+  setSelectedNodeID: actions.nodeActions.setSelectedNodeID(get, set),
+  onNodesChange: actions.nodeActions.onNodesChange(get, set),
 
   //Edge Actions
-  onEdgesChange: edgeActions.onEdgesChange(get, set),
-  onConnect: edgeActions.onEdgesConnect(get, set),
+  onEdgesChange: actions.edgeActions.onEdgesChange(get, set),
+  onConnect: actions.edgeActions.onEdgesConnect(get, set),
 
   //Substitutions Actions
-  addSubstitutionKey: substitutionsActions.addSubstitutionKey(get,set),
-  addConfig: substitutionsActions.addConfig(get,set),
-  deleteSubstitution: substitutionsActions.deleteSubstitution(get,set),
+  addSubstitutionKey: actions.substitutionsActions.addSubstitutionKey(get,set),
+  addConfig: actions.substitutionsActions.addConfig(get,set),
+  deleteSubstitution: actions.substitutionsActions.deleteSubstitution(get,set),
+  toggleSubstitutionsPanel: actions.substitutionsActions.toggleSubstitutionsPanel(get,set),
 
   //Top Menu Actions 
-  setBgView: topMenuActions.setBgView(set),
-  hideAllTopMenus: topMenuActions.hideAllTopMenus(get, set),
-  toggleDropdown: topMenuActions.toggleDropdown(get, set),
-  setSnapToGrid: topMenuActions.setSnapToGrid(get, set),
-  setSnapStep: topMenuActions.setSnapStep(get, set),
-  showMiniMap: topMenuActions.showMiniMap(get, set),
+  setBgView: actions.topMenuActions.setBgView(set),
+  hideAllTopMenus: actions.topMenuActions.hideAllTopMenus(get, set),
+  toggleDropdown: actions.topMenuActions.toggleDropdown(get, set),
+  setSnapToGrid: actions.topMenuActions.setSnapToGrid(get, set),
+  setSnapStep: actions.topMenuActions.setSnapStep(get, set),
+  showMiniMap: actions.topMenuActions.showMiniMap(get, set),
 
   //Flow Actions
-  saveFlow: flowActions.saveFlow(get, set),
-  loadFlow: flowActions.loadFlow(get, set),
-  setFlowName:flowActions.setFlowName(get,set),
-  setFlowVersion: flowActions.setFlowVersion(get,set),
-
-  //Substitutions Panel Actions
-  toggleSubstitutionsPanel: substitutionsPanelActions.toggleSubstitutionsPanel(get,set),
+  saveFlow: actions.flowActions.saveFlow(get, set),
+  loadFlow: actions.flowActions.loadFlow(get, set),
+  setFlowName:actions.flowActions.setFlowName(get,set),
+  setFlowVersion: actions.flowActions.setFlowVersion(get,set),
+  setFlowIsEnabled:actions.flowActions.setFlowIsEnabled(get,set),
 
   //Tooltip
-  setTooltipText: tooltipActions.setTooltipText(get, set)
+  setTooltipText: actions.tooltipActions.setTooltipText(get, set)
 
 
 }))
