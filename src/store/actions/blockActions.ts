@@ -1,24 +1,26 @@
+import { RFState } from "../types/rfState";
+
 export const getBlockData = (get: any, set: any) => () => {
-  const nodeData = get().flow.blockData.find(
-    (node: any) => node.blockIdentifier === get().selectedNode
+  const blockData = get().flow.blockData.find(
+    (block: any) => block.blockIdentifier === get().selectedNode
   );
 
-  if (nodeData)
-    set((state: any) => ({
+  if (blockData)
+    set((state: RFState) => ({
       rightPanel: {
         ...state.rightPanel,
-        parameters: nodeData.parameters,
+        parameters: blockData.parameters,
       },
     }));
 };
 export const setParameter =
   (get: any, set: any) => (propertyName: string, value: any) => {
-    const nodeData = get().flow.blockData.find(
-      (node: any) => node.blockIdentifier === get().selectedNode
+    const blockData = get().flow.blockData.find(
+      (block: any) => block.blockIdentifier === get().selectedNode
     );
 
-    if (nodeData) {
-      const parameter = nodeData.parameters.map((param: any) => {
+    if (blockData) {
+      const parameter = blockData.parameters.map((param: any) => {
         if (param.name === propertyName) {
           return {
             ...param,
@@ -27,7 +29,7 @@ export const setParameter =
         }
         return param;
       });
-      nodeData.parameters = parameter;
+      blockData.parameters = parameter;
 
       set((state: any) => ({
         rightPanel: {

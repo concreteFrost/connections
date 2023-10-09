@@ -52,7 +52,6 @@ export const getNodesList = (set: any) => (data: any) => {
             value: setDefaultValueAndFormat(parameter.dataType)?.value,
             required: parameter.constraints > 0 ? true : false,
             format: setDefaultValueAndFormat(parameter.dataType)?.format,
-      
           };
         }),
       },

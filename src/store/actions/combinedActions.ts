@@ -1,53 +1,82 @@
+import { clearRightPanel } from "./rightPanelActions";
 import {
-
-  clearRightPanel,
+  getBlockData,
+  setBigIntParameter,
+  setBooleanParameter,
+  setBooleanYNParameter,
+  setDateTimeParameter,
+  setExecutionParameter,
+  setFloatParameter,
+  setIntegerParameter,
+  setStringParameter,
+} from "./blockActions";
+import { setSelectedNodeID, onNodesChange } from "./nodeActions";
+import { handleConnect, onEdgesChange, onEdgesConnect } from "./edgesActions";
+import {
+  hideAllTopMenus,
+  setBgView,
+  toggleDropdown,
+  setSnapToGrid,
+  setSnapStep,
+  toggleMiniMap,
+} from "./topViewActions";
+import {
+  addGroup,
+  changeGroupColor,
+  changeGroupLabel,
+  deleteGroup,
+  deleteGroupOnButtonClick,
+  hideAllGroupModals,
+  showGroupModal,
+} from "./groupActions";
+import { setTooltipText } from "./tooltipActions";
+import { getNodesList, addNode } from "./leftPanelActions";
+import { loadFlow, saveFlow, setFlowIsEnabled, setFlowName, setFlowVersion } from "./flowActions";
+import {
+  addConfig,
+  addSubstitutionKey,
+  deleteSubstitution,
+  toggleSubstitutionsPanel,
+} from "./substitutionsActions";
+import {
   getNodeBase,
   setNodeColor,
   setNodeDescription,
   setNodeName,
-} from "./rightPanelActions";
-import { getBlockData, setBigIntParameter, setBooleanParameter, setBooleanYNParameter, setDateTimeParameter, setExecutionParameter, setFloatParameter, setIntegerParameter, setStringParameter } from "./blockActions";
-import { setSelectedNodeID, onNodesChange } from "./nodeActions";
-import { handleConnect, onEdgesChange, onEdgesConnect } from "./edgesActions";
-import { hideAllTopMenus, setBgView, toggleDropdown, setSnapToGrid, setSnapStep, toggleMiniMap } from "./topViewActions";
-import { addGroup, changeGroupColor, changeGroupLabel, deleteGroup, deleteGroupOnButtonClick, hideAllGroupModals, showGroupModal } from "./groupActions";
-import { setTooltipText } from "./tooltipActions";
-import { getNodesList, addNode } from "./leftPanelActions";
-import { loadFlow, saveFlow, setFlowName, setFlowVersion } from "./flowActions";
-import { toggleSubstitutionsPanel } from "./substitutionsPanelActions";
-import { addConfig, addSubstitutionKey, deleteSubstitution } from "./substitutionsActions";
+} from "./baseActions";
 
-export const nodeActions = {
-
+const nodeActions = {
   setSelectedNodeID: setSelectedNodeID,
   onNodesChange: onNodesChange,
 };
 
-export const groupActions = {
+const groupActions = {
   addGroup: addGroup,
   deleteGroup: deleteGroup,
   deleteGroupOnButtonClick: deleteGroupOnButtonClick,
   showGroupModal: showGroupModal,
   setGroupLabel: changeGroupLabel,
   setGroupColor: changeGroupColor,
-  hideAllGroupModals: hideAllGroupModals
-}
+  hideAllGroupModals: hideAllGroupModals,
+};
 
-export const leftPanelActions = {
+const leftPanelActions = {
   addNode: addNode,
-  getNodesList: getNodesList
-}
+  getNodesList: getNodesList,
+};
 
-export const rightPanelActions = {
-  clearRightPanel : clearRightPanel,
+const rightPanelActions = {
+  clearRightPanel: clearRightPanel,
+};
+
+const baseActtions = {
   getNodeBase: getNodeBase,
   setNodeColor: setNodeColor,
   setNodeDescription: setNodeDescription,
   setNodeName: setNodeName,
-
 };
 
-export const blockActions = {
+const blockActions = {
   getBlockData: getBlockData,
   setStringParameter: setStringParameter,
   setIntegerParameter: setIntegerParameter,
@@ -57,15 +86,15 @@ export const blockActions = {
   setDateTimeParameter: setDateTimeParameter,
   setExecutionParameter: setExecutionParameter,
   setBigIntParameter: setBigIntParameter,
-}
+};
 
-export const edgeActions = {
+const edgeActions = {
   handleConnect: handleConnect,
   onEdgesChange: onEdgesChange,
   onEdgesConnect: onEdgesConnect,
 };
 
-export const topMenuActions = {
+const topMenuActions = {
   setBgView: setBgView,
   hideAllTopMenus: hideAllTopMenus,
   toggleDropdown: toggleDropdown,
@@ -74,23 +103,37 @@ export const topMenuActions = {
   showMiniMap: toggleMiniMap,
 };
 
-export const substitutionsActions = {
-  addSubstitutionKey : addSubstitutionKey,
+const substitutionsActions = {
+  addSubstitutionKey: addSubstitutionKey,
   addConfig: addConfig,
-  deleteSubstitution: deleteSubstitution
-}
+  deleteSubstitution: deleteSubstitution,
+  toggleSubstitutionsPanel: toggleSubstitutionsPanel,
+};
 
-export const substitutionsPanelActions={
-  toggleSubstitutionsPanel : toggleSubstitutionsPanel
-}
-
-export const flowActions = {
+const flowActions = {
   loadFlow: loadFlow,
   saveFlow: saveFlow,
-  setFlowName : setFlowName,
-  setFlowVersion:setFlowVersion
-}
+  setFlowName: setFlowName,
+  setFlowVersion: setFlowVersion,
+  setFlowIsEnabled: setFlowIsEnabled
+};
 
-export const tooltipActions = {
-  setTooltipText: setTooltipText
-}
+const tooltipActions = {
+  setTooltipText: setTooltipText,
+};
+
+const actions = {
+  flowActions: flowActions,
+  nodeActions: nodeActions,
+  groupActions: groupActions,
+  leftPanelActions: leftPanelActions,
+  rightPanelActions: rightPanelActions,
+  substitutionsActions: substitutionsActions,
+  baseActtions: baseActtions,
+  blockActions: blockActions,
+  edgeActions: edgeActions,
+  topMenuActions: topMenuActions,
+  tooltipActions: tooltipActions,
+};
+
+export default actions

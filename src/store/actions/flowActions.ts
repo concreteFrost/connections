@@ -102,3 +102,15 @@ export const setFlowVersion = (get: any, set: any) => (version: string) => {
         }
     }))
 }
+
+export const setFlowIsEnabled = (get:any, set:any)=>()=>{
+    set((state:RFState)=>({
+        flow:{
+            ...state.flow,
+            isEnabled: state.flow.isEnabled === "true" ? "false" : "true"
+        }
+    }))
+
+    console.log(get().flow)
+
+}

@@ -1,6 +1,5 @@
 import { BackgroundVariant } from "react-flow-renderer";
 import { RFState } from "../types/rfState";
-import {flow} from "../../testFlow/testFlow2"
 
 export const setBgView = (set: any) => (view: BackgroundVariant) => {
   set({ view: view });
@@ -75,15 +74,5 @@ export const toggleMiniMap = (get: any, set: any) => () => {
   }))
 }
 
-export const saveFlow = (get: any, set: any) => () => {
-  console.log(get().flow.visual.blocks)
-  console.log(get().edges)
-}
-
-
-export const loadFlow = (get: any, set: any) => () => {
-  const d = flow;
-  console.log(d)
-}
 
 

@@ -4,7 +4,7 @@ import {
   applyNodeChanges,
 } from "react-flow-renderer";
 
-import { groupActions } from "./combinedActions";
+import actions from "./combinedActions";
 import { RFState } from "../types/rfState";
 
 
@@ -17,7 +17,7 @@ export const onNodesChange =
 
     changes.forEach((change: NodeChange) => {
       if (change.type === 'remove') {
-        groupActions.deleteGroup(get().flow.visual.blocks, change)
+        actions.groupActions.deleteGroup(get().flow.visual.blocks, change)
       }
     })
 
