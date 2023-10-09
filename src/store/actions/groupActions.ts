@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { NodeProps, NodeRemoveChange } from "react-flow-renderer";
-import {IVisual} from "../interfaces/IVisual";
+import { IVisual } from "../interfaces/Ivisual";
 import { RFState } from "../types/rfState";
 import { INodeGroup, INodeType } from "../interfaces/INode";
 
@@ -91,14 +91,14 @@ export const deleteGroupOnButtonClick =
     );
     removeParent(get().flow.visual.blocks, matchNode);
     set((state: any) => ({
-        flow:{
-            ...state.flow,
-            visual:{
-                ...state.flow.visual,
-                blocks: state.flow.visual.blocks.filter((node: NodeProps) => node.id !== groupToDelete),
-            }
+      flow: {
+        ...state.flow,
+        visual: {
+          ...state.flow.visual,
+          blocks: state.flow.visual.blocks.filter((node: NodeProps) => node.id !== groupToDelete),
         }
-    
+      }
+
     }));
   };
 

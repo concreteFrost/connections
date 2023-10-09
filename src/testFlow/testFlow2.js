@@ -1,388 +1,388 @@
-export const flow ={
-  "ConnectionsFlow": {
-    "ServerIdentifier": "8db12f39-fab9-4397-a90e-b6ca9e12010f",
-    "FlowName": "Test V5 Flow",
-    "FlowIdentifier": "8e45a245-5761-4d39-bab4-eb64b9e0d3ac",
-    "FlowVersion": "1.0.0.0",
-    "FlowConfig": "Debug",
-    "IsEnabled": "true",
-    "StartBlock": "\n  ",
-    "CreatedBy": "ianm",
-    "Created": "12/07/2023 10:23:27",
-    "LastAmendedBy": "admin",
-    "LastAmended": "09/08/2023 18:29:14",
-    "BlockData": [
+export const flow = {
+  "connectionsFlow": {
+    "serverIdentifier": "8db12f39-fab9-4397-a90e-b6ca9e12010f",
+    "flowName": "Test V5 Flow",
+    "flowIdentifier": "8e45a245-5761-4d39-bab4-eb64b9e0d3ac",
+    "flowVersion": "1.0.0.0",
+    "flowConfig": "Debug",
+    "isEnabled": "true",
+    "startBlock": "\n  ",
+    "createdBy": "ianm",
+    "created": "12/07/2023 10:23:27",
+    "lastAmendedBy": "admin",
+    "lastAmended": "09/08/2023 18:29:14",
+    "blockData": [
       {
-        "Name": "Input:TicketStart",
-        "BlockIdentifier": "df4b3f0a-e07c-4fc8-9d4b-c85082eb0c48",
-        "BlockVersion": "4.1.8",
-        "BlockLabel": "Input:TicketStart",
-        "BlockType": "Input XML",
-        "Description": "This block is used to import data from a properly formatted XML file.  A schema for which to validate against may also be specified.",
-        "TypeName": "CN.Connections.ProcessBlocks.OfTypeInput.XmlInputProvider",
-        "BaseTypeName": "Input",
-        "Parameters": [
+        "name": "Input:TicketStart",
+        "blockIdentifier": "df4b3f0a-e07c-4fc8-9d4b-c85082eb0c48",
+        "blockVersion": "4.1.8",
+        "blockLabel": "Input:TicketStart",
+        "blockType": "Input XML",
+        "description": "This block is used to import data from a properly formatted XML file.  A schema for which to validate against may also be specified.",
+        "typeName": "CN.Connections.ProcessBlocks.OfTypeInput.XmlInputProvider",
+        "baseTypeName": "Input",
+        "parameters": [
           {
-            "Name": "FILE_NAME",
-            "Value": "{ConfigDir}\\TicketStart.xml",
-            "Required": "true",
-            "Format": "0"
+            "name": "FILE_NAME",
+            "value": "{ConfigDir}\\TicketStart.xml",
+            "required": "true",
+            "format": "0"
           },
           {
-            "Name": "ENABLED",
-            "Value": "Y",
-            "Required": "true",
-            "Format": "5"
+            "name": "ENABLED",
+            "value": "Y",
+            "required": "true",
+            "format": "5"
           },
           {
-            "Name": "EXECUTION_INSTRUCTIONS",
-            "Value": "N",
-            "Required": "true",
-            "Format": "6"
+            "name": "EXECUTION_INSTRUCTIONS",
+            "value": "N",
+            "required": "true",
+            "format": "6"
           },
           {
-            "Name": "TRACKING_ENABLED",
-            "Value": "\n          ",
-            "Required": "false",
-            "Format": "5"
+            "name": "TRACKING_ENABLED",
+            "value": "\n          ",
+            "required": "false",
+            "format": "5"
           },
           {
-            "Name": "TRACK_ID",
-            "Value": "\n          ",
-            "Required": "false",
-            "Format": "7"
+            "name": "TRACK_ID",
+            "value": "\n          ",
+            "required": "false",
+            "format": "7"
           },
           {
-            "Name": "TRACKING_DATA",
-            "Value": "\n          ",
-            "Required": "false"
+            "name": "TRACKING_DATA",
+            "value": "\n          ",
+            "required": "false"
           },
           {
-            "Name": "SCHEMA",
-            "Value": "\n          ",
-            "Required": "false"
+            "name": "SCHEMA",
+            "value": "\n          ",
+            "required": "false"
           },
           {
-            "Name": "TRANSLATION",
-            "Value": "\n          ",
-            "Required": "false"
+            "name": "TRANSLATION",
+            "value": "\n          ",
+            "required": "false"
           }
         ],
-        "ExtendedParameters": [
+        "extendedParameters": [
         ]
       },
       {
-        "Name": "Schedule:DailySalesTotals",
-        "BlockIdentifier": "1b86f2d0-050a-4517-a956-80b41dedabd0",
-        "BlockVersion": "4.1.8",
-        "BlockLabel": "Schedule:DailySalesTotals",
-        "BlockType": "ScheduleTrigger",
-        "Description": "Triggers a nominated process flow block based upon scheduling criteria",
-        "TypeName": "CN.Connections.ProcessBlocks.OfTypeFunction.ScheduleTrigger",
-        "BaseTypeName": "Function",
-        "Parameters": [
+        "name": "Schedule:DailySalesTotals",
+        "blockIdentifier": "1b86f2d0-050a-4517-a956-80b41dedabd0",
+        "blockVersion": "4.1.8",
+        "blockLabel": "Schedule:DailySalesTotals",
+        "blockType": "ScheduleTrigger",
+        "description": "Triggers a nominated process flow block based upon scheduling criteria",
+        "typeName": "CN.Connections.ProcessBlocks.OfTypeFunction.ScheduleTrigger",
+        "baseTypeName": "Function",
+        "parameters": [
           {
-            "Name": "DELAY",
-            "Value": "100",
-            "Required": "true",
-            "Format": "1"
+            "name": "DELAY",
+            "value": "100",
+            "required": "true",
+            "format": "1"
           },
           {
-            "Name": "NEXT_BLOCK",
-            "Value": "df4b3f0a-e07c-4fc8-9d4b-c85082eb0c48",
-            "Required": "true",
-            "Format": "8"
+            "name": "NEXT_BLOCK",
+            "value": "df4b3f0a-e07c-4fc8-9d4b-c85082eb0c48",
+            "required": "true",
+            "format": "8"
           },
           {
-            "Name": "SCHEDULE_INFO",
-            "Value": "\n          ",
-            "Required": "false"
+            "name": "SCHEDULE_INFO",
+            "value": "\n          ",
+            "required": "false"
           },
           {
-            "Name": "ENABLED",
-            "Value": "Y",
-            "Required": "true",
-            "Format": "5"
+            "name": "ENABLED",
+            "value": "Y",
+            "required": "true",
+            "format": "5"
           },
           {
-            "Name": "EXECUTION_INSTRUCTIONS",
-            "Value": "T",
-            "Required": "true",
-            "Format": "6"
+            "name": "EXECUTION_INSTRUCTIONS",
+            "value": "T",
+            "required": "true",
+            "format": "6"
           },
           {
-            "Name": "TRACKING_ENABLED",
-            "Value": "\n          ",
-            "Required": "false",
-            "Format": "5"
+            "name": "TRACKING_ENABLED",
+            "value": "\n          ",
+            "required": "false",
+            "format": "5"
           },
           {
-            "Name": "TRACK_ID",
-            "Value": "\n          ",
-            "Required": "false",
-            "Format": "7"
+            "name": "TRACK_ID",
+            "value": "\n          ",
+            "required": "false",
+            "format": "7"
           },
           {
-            "Name": "TRACKING_DATA",
-            "Value": "\n          ",
-            "Required": "false"
+            "name": "TRACKING_DATA",
+            "value": "\n          ",
+            "required": "false"
           }
         ],
-        "ExtendedParameters": [
+        "extendedParameters": [
           {
-            "Name": "SCHEDULE_INFO:DAILY",
-            "Value": "D,18/02/2020,07:00"
-          }
-        ]
-      },
-      {
-        "Name": "Transformer:ToTotals",
-        "BlockIdentifier": "92b24b0a-94d6-4a96-bc1f-bf5969f0257e",
-        "BlockVersion": "4.1.8",
-        "BlockLabel": "Transformer:ToTotals",
-        "BlockType": "Transformer",
-        "Description": "Transforms the data based upon an XSLT",
-        "TypeName": "CN.Connections.ProcessBlocks.OfTypeFunction.Transformer",
-        "BaseTypeName": "Function",
-        "Parameters": [
-          {
-            "Name": "FILE_NAME",
-            "Value": "{ConfigDir}\\TicketTotalOut2.xslt",
-            "Required": "true",
-            "Format": "0"
-          },
-          {
-            "Name": "ENABLED",
-            "Value": "Y",
-            "Required": "true",
-            "Format": "5"
-          },
-          {
-            "Name": "EXECUTION_INSTRUCTIONS",
-            "Value": "N",
-            "Required": "true",
-            "Format": "6"
-          },
-          {
-            "Name": "TRACKING_ENABLED",
-            "Value": "\n          ",
-            "Required": "false",
-            "Format": "6"
-          },
-          {
-            "Name": "TRACK_ID",
-            "Value": "\n          ",
-            "Required": "false",
-            "Format": "7"
-          },
-          {
-            "Name": "TRACKING_DATA",
-            "Value": "\n          ",
-            "Required": "false"
-          }
-        ],
-        "ExtendedParameters": [
-        ]
-      },
-      {
-        "Name": "Transformer:ToSummaryFormat",
-        "BlockIdentifier": "28e8bb3b-66c9-482a-aac2-b5ccb7a348f0",
-        "BlockVersion": "4.1.8",
-        "BlockLabel": "Transformer:ToSummaryFormat",
-        "BlockType": "Transformer",
-        "Description": "Transforms the data based upon an XSLT",
-        "TypeName": "CN.Connections.ProcessBlocks.OfTypeFunction.Transformer",
-        "BaseTypeName": "Function",
-        "Parameters": [
-          {
-            "Name": "FILE_NAME",
-            "Value": "{ConfigDir}\\TicketFormatOut.xslt",
-            "Required": "true",
-            "Format": "0"
-          },
-          {
-            "Name": "ENABLED",
-            "Value": "Y",
-            "Required": "true",
-            "Format": "5"
-          },
-          {
-            "Name": "EXECUTION_INSTRUCTIONS",
-            "Value": "N",
-            "Required": "true",
-            "Format": "6"
-          },
-          {
-            "Name": "TRACKING_ENABLED",
-            "Value": "\n          ",
-            "Required": "false",
-            "Format": "5"
-          },
-          {
-            "Name": "TRACK_ID",
-            "Value": "\n          ",
-            "Required": "false",
-            "Format": "7"
-          },
-          {
-            "Name": "TRACKING_DATA",
-            "Value": "\n          ",
-            "Required": "false"
-          }
-        ],
-        "ExtendedParameters": [
-        ]
-      },
-      {
-        "Name": "SQL:GetDates",
-        "BlockIdentifier": "ed893a5e-dc39-41c8-b98b-96d1c3c31445",
-        "BlockVersion": "4.1.8",
-        "BlockLabel": "SQL:GetDates",
-        "BlockType": "SQL",
-        "Description": "Connects to an external SQL database and provides data integration and controlled queries",
-        "TypeName": "CN.Connections.ProcessBlocks.OfTypeExternal.ExternalDataHandlerSQL",
-        "BaseTypeName": "External",
-        "Parameters": [
-          {
-            "Name": "SQL_COMMAND",
-            "Value": "Execute CN_WV_GetDates",
-            "Required": "true"
-          },
-          {
-            "Name": "SQL_CONNECTION",
-            "Value": "{SQLConnect}",
-            "Required": "true"
-          },
-          {
-            "Name": "COMMAND_TIMEOUT",
-            "Value": "1000",
-            "Required": "true",
-            "Format": "1"
-          },
-          {
-            "Name": "ENABLED",
-            "Value": "Y",
-            "Required": "true",
-            "Format": "5"
-          },
-          {
-            "Name": "EXECUTION_INSTRUCTIONS",
-            "Value": "N",
-            "Required": "true",
-            "Format": "6"
-          },
-          {
-            "Name": "TRACKING_ENABLED",
-            "Value": "\n          ",
-            "Required": "false",
-            "Format": "5"
-          },
-          {
-            "Name": "TRACK_ID",
-            "Value": "\n          ",
-            "Required": "false",
-            "Format": "7"
-          },
-          {
-            "Name": "TRACKING_DATA",
-            "Value": "\n          ",
-            "Required": "false"
-          },
-          {
-            "Name": "XML_BASE",
-            "Value": "\n          ",
-            "Required": "false",
-            "Format": "XMLPath"
-          }
-        ],
-        "ExtendedParameters": [
-          {
-            "Name": "RESULT:OutputDate",
-            "Value": "//Tickets,A,OutputDate"
-          },
-          {
-            "Name": "RESULT:ReportDateFrom",
-            "Value": "//Tickets,A,ReportDateFrom"
-          },
-          {
-            "Name": "RESULT:ReportDateTo",
-            "Value": "//Tickets,A,ReportDateTo"
+            "name": "SCHEDULE_INFO:DAILY",
+            "value": "D,18/02/2020,07:00"
           }
         ]
       },
       {
-        "Name": "Output:DishSales",
-        "BlockIdentifier": "5b7a7256-3e9d-48fe-a06b-df1e43d861b0",
-        "BlockVersion": "4.1.8",
-        "BlockLabel": "Output:DishSales",
-        "BlockType": "Output FlatFile",
-        "Description": "This block is used to export data to a properly formatted FlatFile based upon date nodes representing output lines",
-        "TypeName": "CN.Connections.ProcessBlocks.OfTypeOutput.FlatfileOutputProvider",
-        "BaseTypeName": "Output",
-        "Parameters": [
+        "name": "Transformer:ToTotals",
+        "blockIdentifier": "92b24b0a-94d6-4a96-bc1f-bf5969f0257e",
+        "blockVersion": "4.1.8",
+        "blockLabel": "Transformer:ToTotals",
+        "blockType": "Transformer",
+        "description": "Transforms the data based upon an XSLT",
+        "typeName": "CN.Connections.ProcessBlocks.OfTypeFunction.Transformer",
+        "baseTypeName": "Function",
+        "parameters": [
           {
-            "Name": "FILE_NAME",
-            "Value": "{ArchiveDir}\\DishSalesOut_%::FileName::%.csv",
-            "Required": "true",
-            "Format": "0"
+            "name": "FILE_NAME",
+            "value": "{ConfigDir}\\TicketTotalOut2.xslt",
+            "required": "true",
+            "format": "0"
           },
           {
-            "Name": "ALLOW_OVERWRITE",
-            "Value": "Y",
-            "Required": "false",
-            "Format": "5"
+            "name": "ENABLED",
+            "value": "Y",
+            "required": "true",
+            "format": "5"
           },
           {
-            "Name": "DATA_NODE",
-            "Value": "//DishSales/Sale",
-            "Required": "true"
+            "name": "EXECUTION_INSTRUCTIONS",
+            "value": "N",
+            "required": "true",
+            "format": "6"
           },
           {
-            "Name": "APPEND",
-            "Value": "N",
-            "Required": "false",
-            "Format": "5"
+            "name": "TRACKING_ENABLED",
+            "value": "\n          ",
+            "required": "false",
+            "format": "6"
           },
           {
-            "Name": "ENABLED",
-            "Value": "Y",
-            "Required": "true",
-            "Format": "5"
+            "name": "TRACK_ID",
+            "value": "\n          ",
+            "required": "false",
+            "format": "7"
           },
           {
-            "Name": "EXECUTION_INSTRUCTIONS",
-            "Value": "N",
-            "Required": "true",
-            "Format": "6"
-          },
-          {
-            "Name": "TRACKING_ENABLED",
-            "Value": "\n          ",
-            "Required": "false",
-            "Format": "5"
-          },
-          {
-            "Name": "TRACK_ID",
-            "Value": "\n          ",
-            "Required": "false",
-            "Format": "7"
-          },
-          {
-            "Name": "TRACKING_DATA",
-            "Value": "\n          ",
-            "Required": "false"
+            "name": "TRACKING_DATA",
+            "value": "\n          ",
+            "required": "false"
           }
         ],
-        "ExtendedParameters": [
+        "extendedParameters": [
+        ]
+      },
+      {
+        "name": "Transformer:ToSummaryFormat",
+        "blockIdentifier": "28e8bb3b-66c9-482a-aac2-b5ccb7a348f0",
+        "blockVersion": "4.1.8",
+        "blockLabel": "Transformer:ToSummaryFormat",
+        "blockType": "Transformer",
+        "description": "Transforms the data based upon an XSLT",
+        "typeName": "CN.Connections.ProcessBlocks.OfTypeFunction.Transformer",
+        "baseTypeName": "Function",
+        "parameters": [
           {
-            "Name": "PARAM:FileName",
-            "Value": "$(PROCESSTIME)"
+            "name": "FILE_NAME",
+            "value": "{ConfigDir}\\TicketFormatOut.xslt",
+            "required": "true",
+            "format": "0"
+          },
+          {
+            "name": "ENABLED",
+            "value": "Y",
+            "required": "true",
+            "format": "5"
+          },
+          {
+            "name": "EXECUTION_INSTRUCTIONS",
+            "value": "N",
+            "required": "true",
+            "format": "6"
+          },
+          {
+            "name": "TRACKING_ENABLED",
+            "value": "\n          ",
+            "required": "false",
+            "format": "5"
+          },
+          {
+            "name": "TRACK_ID",
+            "value": "\n          ",
+            "required": "false",
+            "format": "7"
+          },
+          {
+            "name": "TRACKING_DATA",
+            "value": "\n          ",
+            "required": "false"
+          }
+        ],
+        "extendedParameters": [
+        ]
+      },
+      {
+        "name": "SQL:GetDates",
+        "blockIdentifier": "ed893a5e-dc39-41c8-b98b-96d1c3c31445",
+        "blockVersion": "4.1.8",
+        "blockLabel": "SQL:GetDates",
+        "blockType": "SQL",
+        "description": "Connects to an external SQL database and provides data integration and controlled queries",
+        "typeName": "CN.Connections.ProcessBlocks.OfTypeExternal.ExternalDataHandlerSQL",
+        "baseTypeName": "External",
+        "parameters": [
+          {
+            "name": "SQL_COMMAND",
+            "value": "Execute CN_WV_GetDates",
+            "required": "true"
+          },
+          {
+            "name": "SQL_CONNECTION",
+            "value": "{SQLConnect}",
+            "required": "true"
+          },
+          {
+            "name": "COMMAND_TIMEOUT",
+            "value": "1000",
+            "required": "true",
+            "format": "1"
+          },
+          {
+            "name": "ENABLED",
+            "value": "Y",
+            "required": "true",
+            "format": "5"
+          },
+          {
+            "name": "EXECUTION_INSTRUCTIONS",
+            "value": "N",
+            "required": "true",
+            "format": "6"
+          },
+          {
+            "name": "TRACKING_ENABLED",
+            "value": "\n          ",
+            "required": "false",
+            "format": "5"
+          },
+          {
+            "name": "TRACK_ID",
+            "value": "\n          ",
+            "required": "false",
+            "format": "7"
+          },
+          {
+            "name": "TRACKING_DATA",
+            "value": "\n          ",
+            "required": "false"
+          },
+          {
+            "name": "XML_BASE",
+            "value": "\n          ",
+            "required": "false",
+            "format": "XMLPath"
+          }
+        ],
+        "extendedParameters": [
+          {
+            "name": "RESULT:OutputDate",
+            "value": "//Tickets,A,OutputDate"
+          },
+          {
+            "name": "RESULT:ReportDateFrom",
+            "value": "//Tickets,A,ReportDateFrom"
+          },
+          {
+            "name": "RESULT:ReportDateTo",
+            "value": "//Tickets,A,ReportDateTo"
+          }
+        ]
+      },
+      {
+        "name": "Output:DishSales",
+        "blockIdentifier": "5b7a7256-3e9d-48fe-a06b-df1e43d861b0",
+        "blockVersion": "4.1.8",
+        "blockLabel": "Output:DishSales",
+        "blockType": "Output FlatFile",
+        "description": "This block is used to export data to a properly formatted FlatFile based upon date nodes representing output lines",
+        "typeName": "CN.Connections.ProcessBlocks.OfTypeOutput.FlatfileOutputProvider",
+        "baseTypeName": "Output",
+        "parameters": [
+          {
+            "name": "FILE_NAME",
+            "value": "{ArchiveDir}\\DishSalesOut_%::FileName::%.csv",
+            "required": "true",
+            "format": "0"
+          },
+          {
+            "name": "ALLOW_OVERWRITE",
+            "value": "Y",
+            "required": "false",
+            "format": "5"
+          },
+          {
+            "name": "DATA_NODE",
+            "value": "//DishSales/Sale",
+            "required": "true"
+          },
+          {
+            "name": "APPEND",
+            "value": "N",
+            "required": "false",
+            "format": "5"
+          },
+          {
+            "name": "ENABLED",
+            "value": "Y",
+            "required": "true",
+            "format": "5"
+          },
+          {
+            "name": "EXECUTION_INSTRUCTIONS",
+            "value": "N",
+            "required": "true",
+            "format": "6"
+          },
+          {
+            "name": "TRACKING_ENABLED",
+            "value": "\n          ",
+            "required": "false",
+            "format": "5"
+          },
+          {
+            "name": "TRACK_ID",
+            "value": "\n          ",
+            "required": "false",
+            "format": "7"
+          },
+          {
+            "name": "TRACKING_DATA",
+            "value": "\n          ",
+            "required": "false"
+          }
+        ],
+        "extendedParameters": [
+          {
+            "name": "PARAM:FileName",
+            "value": "$(PROCESSTIME)"
           }
         ]
       }
     ],
-    "Visual": {
-      "Blocks": [
+    "visual": {
+      "blocks": [
         {
           "id": "1b86f2d0-050a-4517-a956-80b41dedabd0",
           "data": {
@@ -455,7 +455,7 @@ export const flow ={
           }
         }
       ],
-      "Edges": [
+      "edges": [
         {
           "id": "reactflow__edge-df4b3f0a-e07c-4fc8-9d4b-c85082eb0c48-ed893a5e-dc39-41c8-b98b-96d1c3c31445",
           "source": "df4b3f0a-e07c-4fc8-9d4b-c85082eb0c48",
@@ -483,56 +483,56 @@ export const flow ={
         }
       ]
     },
-    "Substitutions": [
+    "substitutions": [
       {
-        "SubKey": "ConfigDir",
-        "SubConfigs": [
+        "subKey": "ConfigDir",
+        "subConfigs": [
           {
-            "ConfigName": "Debug",
-            "ConfigValue": "E:\\temp\\Wave\\Configuration"
+            "configName": "Debug",
+            "configValue": "E:\\temp\\Wave\\Configuration"
           },
           {
-            "ConfigName": "Release",
-            "ConfigValue": "F:\\Connections\\Configuration"
+            "configName": "Release",
+            "configValue": "F:\\Connections\\Configuration"
           }
         ]
       },
       {
-        "SubKey": "OutputDir",
-        "SubConfigs": [
+        "subKey": "OutputDir",
+        "subConfigs": [
           {
-            "ConfigName": "Debug",
-            "ConfigValue": "E:\\temp\\Wave\\DataExchange"
+            "configName": "Debug",
+            "configValue": "E:\\temp\\Wave\\DataExchange"
           },
           {
-            "ConfigName": "Release",
-            "ConfigValue": "F:\\DataExchange\\TicketTest\\FTPUP"
+            "configName": "Release",
+            "configValue": "F:\\DataExchange\\TicketTest\\FTPUP"
           }
         ]
       },
       {
-        "SubKey": "SQLConnect",
-        "SubConfigs": [
+        "subKey": "SQLConnect",
+        "subConfigs": [
           {
-            "ConfigName": "Debug",
-            "ConfigValue": "Server=MLSUPE7\\MLSUPE7;Database=ConnectionsWAVE;User=sa; password=testing;"
+            "configName": "Debug",
+            "configValue": "Server=MLSUPE7\\MLSUPE7;Database=ConnectionsWAVE;User=sa; password=testing;"
           },
           {
-            "ConfigName": "Release",
-            "ConfigValue": "Server=WAVCON01\\SQLEXPRESS;Database=ConnectionCTWAV;User=cnadmin; password=test!ing2H;"
+            "configName": "Release",
+            "configValue": "Server=WAVCON01\\SQLEXPRESS;Database=ConnectionCTWAV;User=cnadmin; password=test!ing2H;"
           }
         ]
       },
       {
-        "SubKey": "ArchiveDir",
-        "SubConfigs": [
+        "subKey": "ArchiveDir",
+        "subConfigs": [
           {
-            "ConfigName": "Debug",
-            "ConfigValue": "E:\\temp\\Wave\\DataExchange"
+            "configName": "Debug",
+            "configValue": "E:\\temp\\Wave\\DataExchange"
           },
           {
-            "ConfigName": "Release",
-            "ConfigValue": "F:\\DataExchange\\TicketTest\\Archive"
+            "configName": "Release",
+            "configValue": "F:\\DataExchange\\TicketTest\\Archive"
           }
         ]
       }

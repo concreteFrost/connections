@@ -1,7 +1,7 @@
-import {flow} from "../../testFlow/testFlow2"
+import { flow } from "../../testFlow/testFlow2"
 import { RFState } from "../types/rfState";
-import { IBlockData,IBlockParameters } from "../interfaces/IBlock";
-import {IVisual} from "../interfaces/IVisual";
+import { IBlockData, IBlockParameters } from "../interfaces/IBlock";
+import { IVisual } from "../interfaces/Ivisual";
 
 export const createFlow = (get: any, set: any) => () => {
 
@@ -13,40 +13,40 @@ export const loadFlow = (get: any, set: any) => () => {
     set((state: RFState) => ({
         flow: {
             ...state.flow,
-            created: data.ConnectionsFlow.Created,
-            createdBy: data.ConnectionsFlow.CreatedBy,
-            flowConfig: data.ConnectionsFlow.FlowConfig,
-            flowIdentifier: data.ConnectionsFlow.FlowIdentifier,
-            flowVersion: data.ConnectionsFlow.FlowVersion,
-            flowName: data.ConnectionsFlow.FlowName,
-            isEnabled: data.ConnectionsFlow.IsEnabled,
-            lastAmended: data.ConnectionsFlow.LastAmended,
-            lastAmendedBy: data.ConnectionsFlow.LastAmendedBy,
-            startBlock: data.ConnectionsFlow.StartBlock,
-            serverIdentifier: data.ConnectionsFlow.ServerIdentifier,
-            blockData: data.ConnectionsFlow.BlockData.map((b: IBlockData) => {
+            created: data.connectionsFlow.created,
+            createdBy: data.connectionsFlow.createdBy,
+            flowConfig: data.connectionsFlow.flowConfig,
+            flowIdentifier: data.connectionsFlow.flowIdentifier,
+            flowVersion: data.connectionsFlow.flowVersion,
+            flowName: data.connectionsFlow.flowName,
+            isEnabled: data.connectionsFlow.isEnabled,
+            lastAmended: data.connectionsFlow.lastAmended,
+            lastAmendedBy: data.connectionsFlow.lastAmendedBy,
+            startBlock: data.connectionsFlow.startBlock,
+            serverIdentifier: data.connectionsFlow.serverIdentifier,
+            blockData: data.connectionsFlow.blockData.map((b: IBlockData) => {
                 return {
-                    name: b.Name,
-                    blockIdentifier: b.BlockIdentifier,
-                    blockVersion: b.BlockVersion,
-                    blockLabel: b.BlockLabel,
-                    blockType: b.BlockType,
-                    description: b.Description,
-                    typeName: b.TypeName,
-                    baseTypeName: b.BaseTypeName,
-                    parameters: b.Parameters.map((p: IBlockParameters) => {
+                    name: b.name,
+                    blockIdentifier: b.blockIdentifier,
+                    blockVersion: b.blockVersion,
+                    blockLabel: b.blockLabel,
+                    blockType: b.blockType,
+                    description: b.description,
+                    typeName: b.typeName,
+                    baseTypeName: b.baseTypeName,
+                    parameters: b.parameters.map((p: IBlockParameters) => {
                         return {
-                            name: p.Name,
-                            value: p.Value,
-                            required: p.Required,
-                            format: p.Format
+                            name: p.name,
+                            value: p.value,
+                            required: p.required,
+                            format: p.format
                         }
                     })
                 }
             })
             ,
             visual: {
-                ...state.flow.visual, blocks: data.ConnectionsFlow.Visual.Blocks.map((b: IVisual) => {
+                ...state.flow.visual, blocks: data.connectionsFlow.visual.blocks.map((b: IVisual) => {
                     return {
                         id: b.id,
                         type: 'pointer',
@@ -54,7 +54,7 @@ export const loadFlow = (get: any, set: any) => () => {
                         position: b.position
                     }
                 }),
-                edges: data.ConnectionsFlow.Visual.Edges.map((e: any) => {
+                edges: data.connectionsFlow.visual.edges.map((e: any) => {
                     return {
                         id: e.id,
                         source: e.source,
@@ -63,17 +63,17 @@ export const loadFlow = (get: any, set: any) => () => {
                     }
                 }),
             },
-            substitutions: data.ConnectionsFlow.Substitutions.map((sub : any)=>{
-                return{
+            substitutions: data.connectionsFlow.substitutions.map((sub: any) => {
+                return {
                     subKey: sub.SubKey,
-                    subConfigs:sub.SubConfigs.map((config : any)=>{
-                        return{
-                            configName : config.ConfigName,
-                            configValue: config.ConfigValue 
+                    subConfigs: sub.SubConfigs.map((config: any) => {
+                        return {
+                            configName: config.configName,
+                            configValue: config.configValue
                         }
                     })
                 }
-            })  
+            })
 
 
         }
@@ -85,18 +85,18 @@ export const saveFlow = (get: any, set: any) => () => {
 
 }
 
-export const setFlowName = (get:any, set:any)=>(name : string)=>{
-    set((state:RFState)=>({
-        flow:{
+export const setFlowName = (get: any, set: any) => (name: string) => {
+    set((state: RFState) => ({
+        flow: {
             ...state.flow,
             flowName: name
         }
     }))
 }
 
-export const setFlowVersion = (get:any, set:any)=>(version : string)=>{
-    set((state:RFState)=>({
-        flow:{
+export const setFlowVersion = (get: any, set: any) => (version: string) => {
+    set((state: RFState) => ({
+        flow: {
             ...state.flow,
             flowVersion: version
         }

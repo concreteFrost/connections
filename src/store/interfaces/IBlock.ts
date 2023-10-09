@@ -1,20 +1,20 @@
 export interface IBlockData {
-  Name: any;
-  BlockIdentifier: string;
-  BlockVersion: string;
-  BlockLabel: string;
-  BlockType: string;
-  Description: string;
-  TypeName: string;
-  BaseTypeName: string;
-  Parameters: any[];
+  name: any;
+  blockIdentifier: string;
+  blockVersion: string;
+  blockLabel: string;
+  blockType: string;
+  description: string;
+  typeName: string;
+  baseTypeName: string;
+  parameters: any[];
 }
 
 export interface IBlockParameters {
-  Name: any;
-  Value: any;
-  Required: any;
-  Format: any;
+  name: any;
+  value: any;
+  required: any;
+  format: any;
 }
 
 export interface IBlockParametersType {
