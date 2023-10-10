@@ -1,11 +1,12 @@
 @import "../../../../../../style/variables.scss";
 
+
 .input_container {
     display: grid;
     grid-template-columns: 11fr 1fr;
     align-content: center;
 
-    
+   
 
     input {
         display: flex;
@@ -27,5 +28,8 @@
 
     }
 
+}
 
+.classData{
+    display: none !important;
 }

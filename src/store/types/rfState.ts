@@ -46,7 +46,11 @@ export type RFState = {
       blockColor: string;
       blockDescription: string;
     }
-    parameters: []
+    parameters: [],
+    valueEditor:{
+      inputValue: any,
+      parameterName : any
+    }
   };
   topPanel: {
     dropdowns:
@@ -88,6 +92,10 @@ export type RFState = {
   setDateTimeParameter: (parameterName: string, value: Date) => void;
   setExecutionParameter: (parameterName: string, value: string) => void;
   setBigIntParameter: (parameterName: string, value: BigInt) => void;
+
+  //Value Editor Actions
+  getParameterValue:(parameterName:string,value:string)=>void;
+  setParameterValue:(propertyName:string,value:string)=>void;
 
   //Top Menu 
   setBgView: (view: BackgroundVariant) => void;

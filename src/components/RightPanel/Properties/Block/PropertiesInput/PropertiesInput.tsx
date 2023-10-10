@@ -1,11 +1,10 @@
 import useStore from "../../../../../store/store";
-import { IBlockParametersType } from "../../../../../store/interfaces/IBlock";
-import { useState } from "react";
-import FilteredResults from "./FilteredResults/FilteredResults";
+import { IBlockParameters } from "../../../../../store/interfaces/IBlock";
+import FilteredResults from "../../../FilteredResults/FilteredResults";
 import InputLabel from "./InputLabel/InputLabel";
 
 function PropertiesInput(props: {
-  blockData: IBlockParametersType;
+  blockData: IBlockParameters;
   classData: string;
 }) {
   const state = useStore((state) => state);
@@ -57,40 +56,9 @@ function PropertiesInput(props: {
     }
   }
 
-  const [filteredSubstitutions, setFilteredSubstitutions] = useState(
-    Array<any>
-  );
-
-  function handleInput(e: any) {
-    const inputValue = e.target.value;
-
-    if (inputValue.length <= 1) {
-      clearFilteredSubstitutions()
-      return;
-    }
-
-    const searchTerm = inputValue.substring(1).toLowerCase();
-
-    const res = substitutions.filter((sub: any) => {
-      const substitution = sub.subKey.toLowerCase();
-
-      return substitution.startsWith(searchTerm);
-    });
-
-    if (inputValue.startsWith("{")) {
-      setFilteredSubstitutions(res); // Update the filtered results state
-    } else {
-      clearFilteredSubstitutions()
-    }
-  }
-
   function onSubstitutionSelect(e: any) {
     setCurrentParameter(props.blockData.name, `{${e}}`);
-    setFilteredSubstitutions([]);
-  }
-
-  function clearFilteredSubstitutions() {
-    setFilteredSubstitutions([]);
+   
   }
 
   return (
@@ -100,12 +68,12 @@ function PropertiesInput(props: {
         classData={props.classData}
         defineInputType={defineInputType}
         setCurrentParameter={setCurrentParameter}
-        handleInput={handleInput}
+
       />
       <FilteredResults
-        filteredSubstitutions={filteredSubstitutions}
+        inputValue={props.blockData.value}
         onSubstitutionSelect={onSubstitutionSelect}
-        clearFilteredSubstitutions={clearFilteredSubstitutions}
+      
       />
     </>
   );

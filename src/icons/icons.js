@@ -31,6 +31,8 @@ import {
   BsApp,
   BsFilePlus,
   BsEnvelopeAt,
+  BsArrowsAngleExpand,
+  BsArrowsCollapse
 } from "react-icons/bs";
 
 
@@ -50,6 +52,9 @@ export const connectionsIcons = {
     sql: <BsFiletypeSql />,
     ssc_webservice: <BsGlobe></BsGlobe>,
     webservice: <FaGlobe></FaGlobe>,
+    sap: "S",
+    uipath:"U",
+    azure_resources:"A",
     //function
     archive: <BsArchive></BsArchive>,
     delay: <BsClock></BsClock>,
@@ -86,6 +91,8 @@ export const connectionsIcons = {
   pallete: <BsPaletteFill></BsPaletteFill>,
   text: <BsFileFontFill></BsFileFontFill>,
   delete: <BsXCircleFill></BsXCircleFill>,
+  expand: <BsArrowsAngleExpand></BsArrowsAngleExpand>,
+  collapse: <BsArrowsCollapse></BsArrowsCollapse>
 
 
 }

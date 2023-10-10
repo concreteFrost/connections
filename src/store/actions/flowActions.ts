@@ -2,7 +2,9 @@ import { flow } from "../../testFlow/testFlow2"
 import { RFState } from "../types/rfState";
 import { IBlockData, IBlockParameters } from "../interfaces/IBlock";
 import { IVisual } from "../interfaces/IVisual";
-import { Edge } from "react-flow-renderer";
+import { Edge } from "react-flow-renderer"; 
+import { saveFlowApi } from "../../api/flow";
+
 
 export const createFlow = (get: any, set: any) => () => {
 
@@ -83,7 +85,24 @@ export const loadFlow = (get: any, set: any) => () => {
 }
 
 export const saveFlow = (get: any, set: any) => () => {
+    const flow =get().flow;
+    const convertedData={
+         flowName : flow.flowName,
+         flowIdentifier: flow.flowIdentifier,
+         flowVersion: flow.flowVersion,
+         startBlock: flow.blockData.length > 0 ? flow.blockData[0].blockIdentifier : 'null',
+         createdBy: flow.createdBy,
+         created: flow.created,
+         lastAmended: flow.lastAmended,
+         lastAmendedBy: flow.lastAmendedBy,
+         blockData: flow.blockData,
+         visual: flow.visual,
+         substitutions: flow.substitutions
+    }
 
+    saveFlowApi(convertedData).then((res)=>{
+        console.log(res)
+    }).catch((e)=>console.log(e))
 }
 
 export const setFlowName = (get: any, set: any) => (name: string) => {

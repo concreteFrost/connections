@@ -33,6 +33,7 @@ const isDarkBackground = (color: string) => {
 
 export default function BaseNode(props: any) {
   const setSelectedNodeId = useStore((state) => state.setSelectedNodeID);
+  const getParameterValue = useStore((state)=>state.getParameterValue);
   const getNodeData = useStore((state) => state.getNodeBase);
   const getNodeBase = useStore((state) => state.getBlockData);
   const selectedNodeId = useStore((state) => state.selectedNode);
@@ -46,6 +47,7 @@ export default function BaseNode(props: any) {
     setSelectedNodeId(props.id);
     getNodeData();
     getNodeBase();
+    getParameterValue('','');
   }
 
   useEffect(() => {

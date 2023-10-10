@@ -44,6 +44,7 @@ import {
   setNodeDescription,
   setNodeName,
 } from "./baseActions";
+import { getParameterValue, setParameterValue } from "./valueEditorActions";
 
 const nodeActions = {
   setSelectedNodeID: setSelectedNodeID,
@@ -87,6 +88,11 @@ const blockActions = {
   setExecutionParameter: setExecutionParameter,
   setBigIntParameter: setBigIntParameter,
 };
+
+const valueEditorActions={
+  getParameterValue: getParameterValue,
+  setParameterValue: setParameterValue
+}
 
 const edgeActions = {
   handleConnect: handleConnect,
@@ -134,6 +140,7 @@ const actions = {
   edgeActions: edgeActions,
   topMenuActions: topMenuActions,
   tooltipActions: tooltipActions,
+  valueEditorActions:valueEditorActions
 };
 
 export default actions

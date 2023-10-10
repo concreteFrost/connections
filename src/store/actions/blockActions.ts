@@ -35,10 +35,13 @@ export const setParameter =
         rightPanel: {
           ...state.rightPanel,
           parameters: parameter,
+          valueEditor: {
+            ...state.rightPanel.valueEditor,
+            inputValue: value
+          }
         },
       }));
     }
-    
   };
 
 export const setStringParameter =

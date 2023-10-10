@@ -13,15 +13,9 @@ export interface IBlockData {
 export interface IBlockParameters {
   name: any;
   value: any;
-  required: any;
-  format: any;
-}
-
-export interface IBlockParametersType {
-  name: string;
-  value: any;
-  format: string;
-  inputType: string;
+  required?: any;
+  format?: any;
   placeholder?: string | Date | number;
   constraints: number;
 }
+

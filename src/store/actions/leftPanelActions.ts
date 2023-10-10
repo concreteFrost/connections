@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import blockParametersType from "../constants/blockConst";
 import { RFState } from "../types/rfState";
 import { mockedBlocks } from "../../testFlow/mockedBlocks";
+import { IBlockParameters } from "../interfaces/IBlock";
 
 function setDefaultValueAndFormat(dataType: number) {
   switch (dataType) {
@@ -29,7 +30,6 @@ function setDefaultValueAndFormat(dataType: number) {
 }
 
 export const getNodesList = (set: any) => (data: any) => {
-  console.log(data)
   const updatedNodesList = [];
 
   for (let d of data) {
@@ -90,8 +90,6 @@ export const getNodesList = (set: any) => (data: any) => {
   }
 
   set({ nodeList: updatedNodesList });
-
-  console.log(updatedNodesList)
 };
 
 export const addNode =
@@ -122,5 +120,4 @@ export const addNode =
         },
       },
     }));
-    console.log(get().flow)
   };

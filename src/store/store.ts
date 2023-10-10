@@ -43,7 +43,11 @@ const useStore = create<RFState>((set, get) => ({
       blockColor: "#FFFFFF",
       blockDescription: ""
     },
-    parameters: []
+    parameters: [],
+    valueEditor:{
+      inputValue:'',
+      parameterName:''
+    }
   },
   topPanel: {
     dropdowns: {
@@ -82,6 +86,11 @@ const useStore = create<RFState>((set, get) => ({
   setDateTimeParameter: actions.blockActions.setDateTimeParameter(get, set),
   setExecutionParameter: actions.blockActions.setExecutionParameter(get, set),
   setBigIntParameter: actions.blockActions.setBigIntParameter(get, set),
+
+  //Value Editor Actions
+  getParameterValue: actions.valueEditorActions.getParameterValue(get,set),
+  setParameterValue:actions.valueEditorActions.setParameterValue(get,set),
+
   //Group Actions
   addNodeGroup: actions.groupActions.addGroup(get, set),
   showGroupModal: actions.groupActions.showGroupModal(set),

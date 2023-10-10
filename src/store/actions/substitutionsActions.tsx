@@ -1,5 +1,6 @@
 import { RFState } from "../types/rfState";
 import { ISubstitutions } from "../interfaces/ISubstitutions";
+import { IBlockData } from "../interfaces/IBlock";
 
 export const addSubstitutionKey = (get: any, set: any) => (key: string) => {
   const match = get().flow.substitutions.find((s: ISubstitutions) => s.subKey === key);
@@ -42,13 +43,13 @@ const setSubstitutionErrorMessage = (set: any, msg: string) => {
 export const deleteSubstitution = (get: any, set: any) => (key: string) => {
 
   //looking for match key to replace it in properties panel
-  const updatedBlocks = get().flow.blockData.map((block: any) => {
+  const updatedBlocks = get().flow.blockData.map((block: IBlockData) => {
     return {
       ...block,
       parameters: block.parameters.map((parameter: any) => {
         return {
           ...parameter,
-          value: parameter.value.includes(key) ? parameter.value.replace(`{${key}}`, '') : parameter.value
+          value: parameter.value.toString().includes(key) ? parameter.value.replace(`{${key}}`, '') : parameter.value
         }
       })
     }
@@ -57,7 +58,7 @@ export const deleteSubstitution = (get: any, set: any) => (key: string) => {
   set((state: RFState) => ({
     flow: {
       ...state.flow,
-      substitutions: state.flow.substitutions.filter((sub: any) => sub.subKey !== key),
+      substitutions: state.flow.substitutions.filter((sub: ISubstitutions) => sub.subKey !== key),
       blockData: updatedBlocks
     },
 

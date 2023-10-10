@@ -8,7 +8,7 @@
   
       font-size: 0.75rem;
       border-bottom: 1px solid rgb(238, 238, 238);
-      padding-left: 10px;
+     
       height: 40px;
       display: grid;
       grid-template-columns: 6fr 6fr;
@@ -21,9 +21,17 @@
         border-right: 1px solid rgb(230, 230, 230);
         display: flex;
         align-items: center;
-        width: 100%;
+        width: 140px;
         font-size: 0.7rem;
         text-align: start;
+        margin-left: 0;
+        padding-left: 10px;
+
+        &:hover{
+          background-color: rgb(230, 230, 230);
+        }
+
+        transition: background-color 0.3s ease-in-out;
       }
       
   
