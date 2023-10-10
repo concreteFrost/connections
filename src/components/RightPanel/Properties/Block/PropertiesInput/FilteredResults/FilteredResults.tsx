@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import s from "./FilteredResults.module.scss";
+import {v4 as uuidv4} from "uuid"
 
 function FilteredResults(props: {
   filteredSubstitutions: Array<any>;
@@ -19,6 +20,7 @@ function FilteredResults(props: {
       window.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
   return (
     
       <div className={s.suggestion_list}>
@@ -26,7 +28,7 @@ function FilteredResults(props: {
           <ul className="suggestion-list-wrapper">
             {props.filteredSubstitutions.map((sub: any) => (
               <li
-                key={sub.id}
+                key={props.filteredSubstitutions.indexOf(sub)}
                 onClick={() => props.onSubstitutionSelect(sub.subKey)}
               >
                 {sub.subKey}

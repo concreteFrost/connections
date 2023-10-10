@@ -31,7 +31,7 @@ function NodeListItem(props: NodeProps) {
         draggable
       >
         <span className={s.node_list_icon}>
-          {matchedIcon}
+          {matchedIcon ? matchedIcon : "*"} 
         </span>
         {props.nodeType.data.name}
       </button>

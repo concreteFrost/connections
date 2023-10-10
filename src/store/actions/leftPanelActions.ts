@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import blockParametersType from "../constants/blockConst";
 import { RFState } from "../types/rfState";
+import { mockedBlocks } from "../../testFlow/mockedBlocks";
 
 function setDefaultValueAndFormat(dataType: number) {
   switch (dataType) {
@@ -28,6 +29,7 @@ function setDefaultValueAndFormat(dataType: number) {
 }
 
 export const getNodesList = (set: any) => (data: any) => {
+  console.log(data)
   const updatedNodesList = [];
 
   for (let d of data) {
@@ -58,7 +60,38 @@ export const getNodesList = (set: any) => (data: any) => {
     });
   }
 
+  for(let block of mockedBlocks){
+   
+    updatedNodesList.push({type: "pointer",
+    visualData: {
+      color: "#FFFFFF",
+      icon: block.name.toLowerCase().split(" ").join("_"),
+    },
+    data: {
+      name: block.name,
+      blockVersion: "4.1.8",
+      blockIdentifier: null,
+      blockLabel: block.name,
+      blockType: block.name,
+      description: block.description,
+      typeName: block.libraryType,
+      baseTypeName: block.category,
+      parameters: block.parameters.map((parameter: any) => {
+        return {
+          name: parameter.name,
+          value: setDefaultValueAndFormat(parameter.dataType)?.value,
+          required: parameter.constraints > 0 ? true : false,
+          format: setDefaultValueAndFormat(parameter.dataType)?.format,
+        };
+      }),
+    },
+
+    })
+  }
+
   set({ nodeList: updatedNodesList });
+
+  console.log(updatedNodesList)
 };
 
 export const addNode =
@@ -89,5 +122,5 @@ export const addNode =
         },
       },
     }));
-
+    console.log(get().flow)
   };

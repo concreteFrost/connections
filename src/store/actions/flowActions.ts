@@ -1,7 +1,8 @@
 import { flow } from "../../testFlow/testFlow2"
 import { RFState } from "../types/rfState";
 import { IBlockData, IBlockParameters } from "../interfaces/IBlock";
-import { IVisual } from "../interfaces/Ivisual";
+import { IVisual } from "../interfaces/IVisual";
+import { Edge } from "react-flow-renderer";
 
 export const createFlow = (get: any, set: any) => () => {
 
@@ -54,7 +55,7 @@ export const loadFlow = (get: any, set: any) => () => {
                         position: b.position
                     }
                 }),
-                edges: data.connectionsFlow.visual.edges.map((e: any) => {
+                edges: data.connectionsFlow.visual.edges.map((e: Edge) => {
                     return {
                         id: e.id,
                         source: e.source,
@@ -65,8 +66,8 @@ export const loadFlow = (get: any, set: any) => () => {
             },
             substitutions: data.connectionsFlow.substitutions.map((sub: any) => {
                 return {
-                    subKey: sub.SubKey,
-                    subConfigs: sub.SubConfigs.map((config: any) => {
+                    subKey: sub.subKey,
+                    subConfigs: sub.subConfigs.map((config: any) => {
                         return {
                             configName: config.configName,
                             configValue: config.configValue
