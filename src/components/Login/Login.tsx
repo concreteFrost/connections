@@ -1,7 +1,7 @@
 import s from "./Login.module.scss"
 import getToken from "../../api/token/getToken";
 import useStore from "../../store/store";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 
 function Login(props: any) {

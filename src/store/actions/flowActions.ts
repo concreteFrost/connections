@@ -1,33 +1,26 @@
 import { flow } from "../../testFlow/testFlow2"
 import { RFState } from "../types/rfState";
 import { IBlockData, IBlockParameters } from "../interfaces/IBlock";
-import { IVisual } from "../interfaces/IVisual";
-import { Edge } from "react-flow-renderer"; 
-import { saveFlowApi } from "../../api/flow";
+import { IVisual } from "../interfaces/Ivisual";
+import { Edge } from "react-flow-renderer";
+import { saveFlowApi, getFlowListApi, getFlowApi } from "../../api/flow";
 
-
-export const createFlow = (get: any, set: any) => () => {
-
-}
-
-export const loadFlow = (get: any, set: any) => () => {
-    const data = flow;
-
+function setFlow(data: any, set: any) {
     set((state: RFState) => ({
         flow: {
             ...state.flow,
-            created: data.connectionsFlow.created,
-            createdBy: data.connectionsFlow.createdBy,
-            flowConfig: data.connectionsFlow.flowConfig,
-            flowIdentifier: data.connectionsFlow.flowIdentifier,
-            flowVersion: data.connectionsFlow.flowVersion,
-            flowName: data.connectionsFlow.flowName,
-            isEnabled: data.connectionsFlow.isEnabled,
-            lastAmended: data.connectionsFlow.lastAmended,
-            lastAmendedBy: data.connectionsFlow.lastAmendedBy,
-            startBlock: data.connectionsFlow.startBlock,
-            serverIdentifier: data.connectionsFlow.serverIdentifier,
-            blockData: data.connectionsFlow.blockData.map((b: IBlockData) => {
+            created: data.created,
+            createdBy: data.createdBy,
+            flowConfig: data.flowConfig,
+            flowIdentifier: data.flowIdentifier,
+            flowVersion: data.flowVersion,
+            flowName: data.flowName,
+            isEnabled: data.isEnabled,
+            lastAmended: data.lastAmended,
+            lastAmendedBy: data.lastAmendedBy,
+            startBlock: data.startBlock,
+            serverIdentifier: data.serverIdentifier,
+            blockData: data.blockData.map((b: IBlockData) => {
                 return {
                     name: b.name,
                     blockIdentifier: b.blockIdentifier,
@@ -49,7 +42,7 @@ export const loadFlow = (get: any, set: any) => () => {
             })
             ,
             visual: {
-                ...state.flow.visual, blocks: data.connectionsFlow.visual.blocks.map((b: IVisual) => {
+                ...state.flow.visual, blocks: data.visual.blocks.map((b: IVisual) => {
                     return {
                         id: b.id,
                         type: 'pointer',
@@ -57,7 +50,7 @@ export const loadFlow = (get: any, set: any) => () => {
                         position: b.position
                     }
                 }),
-                edges: data.connectionsFlow.visual.edges.map((e: Edge) => {
+                edges: data.visual.edges.map((e: Edge) => {
                     return {
                         id: e.id,
                         source: e.source,
@@ -66,7 +59,7 @@ export const loadFlow = (get: any, set: any) => () => {
                     }
                 }),
             },
-            substitutions: data.connectionsFlow.substitutions.map((sub: any) => {
+            substitutions: data.substitutions.map((sub: any) => {
                 return {
                     subKey: sub.subKey,
                     subConfigs: sub.subConfigs.map((config: any) => {
@@ -81,28 +74,46 @@ export const loadFlow = (get: any, set: any) => () => {
 
         }
     }))
+}
+
+
+export const createFlow = (get: any, set: any) => () => {
 
 }
 
+export const openTestFlow = (get: any, set: any) => () => {
+    setFlow(flow, set);
+};
+
+
+export const loadFlow = (get: any, set: any) => (id: string) => {
+
+    getFlowApi(id).then((res: any) => {
+        setFlow(res.data.flowData, set);
+    })
+
+};
+
+
 export const saveFlow = (get: any, set: any) => () => {
-    const flow =get().flow;
-    const convertedData={
-         flowName : flow.flowName,
-         flowIdentifier: flow.flowIdentifier,
-         flowVersion: flow.flowVersion,
-         startBlock: flow.blockData.length > 0 ? flow.blockData[0].blockIdentifier : 'null',
-         createdBy: flow.createdBy,
-         created: flow.created,
-         lastAmended: flow.lastAmended,
-         lastAmendedBy: flow.lastAmendedBy,
-         blockData: flow.blockData,
-         visual: flow.visual,
-         substitutions: flow.substitutions
+    const flow = get().flow;
+    const convertedData = {
+        flowName: flow.flowName,
+        flowIdentifier: flow.flowIdentifier,
+        flowVersion: flow.flowVersion,
+        startBlock: flow.blockData.length > 0 ? flow.blockData[0].blockIdentifier : 'null',
+        createdBy: flow.createdBy,
+        created: flow.created,
+        lastAmended: flow.lastAmended,
+        lastAmendedBy: flow.lastAmendedBy,
+        blockData: flow.blockData,
+        visual: flow.visual,
+        substitutions: flow.substitutions
     }
 
-    saveFlowApi(convertedData).then((res)=>{
+    saveFlowApi(convertedData).then((res) => {
         console.log(res)
-    }).catch((e)=>console.log(e))
+    }).catch((e) => console.log(e))
 }
 
 export const setFlowName = (get: any, set: any) => (name: string) => {
@@ -123,9 +134,9 @@ export const setFlowVersion = (get: any, set: any) => (version: string) => {
     }))
 }
 
-export const setFlowIsEnabled = (get:any, set:any)=>()=>{
-    set((state:RFState)=>({
-        flow:{
+export const setFlowIsEnabled = (get: any, set: any) => () => {
+    set((state: RFState) => ({
+        flow: {
             ...state.flow,
             isEnabled: state.flow.isEnabled === "true" ? "false" : "true"
         }

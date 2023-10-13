@@ -1,0 +1,45 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+;
+
+.operations_btn_list {
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  ul {
+    display: flex;
+  }
+
+  button {
+    border: 0;
+    margin-right: 10px;
+    padding: 10px;
+    background-color: white;
+    cursor: pointer;
+  }
+}
+
+.top_list_item {
+  box-shadow: $shadow-top-menu-btn;
+  background-color: $bg-top-menu-btn-default;
+  padding: 10px 15px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $bg-top-menu-btn-hover;
+  }
+
+  &:active {
+    background-color: $bg-top-menu-btn-active;
+  }
+
+  transition: background-color 0.2s ease;
+}
+
+.mode_toggle {
+  position: absolute;
+
+  right: 50px;
+  top: 25px;
+}

@@ -1,12 +1,13 @@
-import TopMenu from "./TopMenu/TopMenu";
-import LeftPanel from "./LeftPanel/LeftPanel";
-import RightPanel from "./RightPanel/RightPanel";
-import Flow from "./Flow";
+import TopMenu from "./Designer/TopMenu/TopMenu";
+import LeftPanel from "./Designer/LeftPanel/LeftPanel";
+import RightPanel from "./Designer/RightPanel/RightPanel";
+import Flow from "./Designer/Flow";
 import { Tooltip } from "react-tooltip";
 import useStore from "../store/store";
 import { useEffect } from "react";
 import { getBlocks } from "../api/data";
-import Substitutions from "./Substitutions/Substitutions";
+import Substitutions from "./Designer/Substitutions/Substitutions";
+import { getAccessToken } from "../store/actions/storageActions";
 
 
 function AppContent() {
@@ -19,11 +20,12 @@ function AppContent() {
     const hideAllGroupModals = useStore((state) => state.hideAllGroupModals);
 
     const setSelectedNode = useStore((state) => state.setSelectedNodeID);
-    const clearRightPanel = useStore((state)=> state.clearRightPanel);
+    const clearRightPanel = useStore((state) => state.clearRightPanel);
 
     useEffect(() => {
         getBlocks(baseUrl).then((res) => { getNodesList(res) })
     }, [])
+
 
 
     const resetSelectedNode = (event: any) => {
@@ -42,10 +44,10 @@ function AppContent() {
     return (<div className="App">
         <TopMenu></TopMenu>
         <div className="dynamic_menu">
-        <LeftPanel></LeftPanel>
-        <Substitutions></Substitutions>
-        <RightPanel></RightPanel>
-       
+            <LeftPanel></LeftPanel>
+            <Substitutions></Substitutions>
+            <RightPanel></RightPanel>
+
         </div>
         <Flow resetSelectedNode={resetSelectedNode}></Flow>
         <Tooltip anchorSelect=".nodelist-body-elemet" place="right" style={{ zIndex: 1000 }}  >

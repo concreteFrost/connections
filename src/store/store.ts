@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import  actions from "./actions/combinedActions";
+import actions from "./actions/combinedActions";
 import initialNodes from "./nodes"
 import initialEdges from "./edges";
 import { RFState } from "./types/rfState";
@@ -16,7 +16,7 @@ const useStore = create<RFState>((set, get) => ({
     flowIdentifier: uuidv4(),
     flowName: "New Flow",
     flowConfig: "Debug",
-    flowVersion:'1.0.0.0',
+    flowVersion: '1.0.0.0',
     isEnabled: "true",
     lastAmended: new Date(),
     lastAmendedBy: "iliaM",
@@ -34,7 +34,7 @@ const useStore = create<RFState>((set, get) => ({
   tooltip: {
     text: ''
   },
-  substitutionsPanel:{
+  substitutionsPanel: {
     isCollapsed: false,
   },
   rightPanel: {
@@ -44,9 +44,9 @@ const useStore = create<RFState>((set, get) => ({
       blockDescription: ""
     },
     parameters: [],
-    valueEditor:{
-      inputValue:'',
-      parameterName:''
+    valueEditor: {
+      inputValue: '',
+      parameterName: ''
     }
   },
   topPanel: {
@@ -60,15 +60,15 @@ const useStore = create<RFState>((set, get) => ({
       snapStep: [1, 1],
       showMiniMap: true
     },
-    
+
   },
-  errorMessages:{
-    substitutionAddError :''
+  errorMessages: {
+    substitutionAddError: ''
   },
 
 
   //Right Panel Actions
-  clearRightPanel : actions.rightPanelActions.clearRightPanel(get,set),
+  clearRightPanel: actions.rightPanelActions.clearRightPanel(get, set),
 
   //Base Actions
   getNodeBase: actions.baseActtions.getNodeBase(set, get),
@@ -88,8 +88,8 @@ const useStore = create<RFState>((set, get) => ({
   setBigIntParameter: actions.blockActions.setBigIntParameter(get, set),
 
   //Value Editor Actions
-  getParameterValue: actions.valueEditorActions.getParameterValue(get,set),
-  setParameterValue:actions.valueEditorActions.setParameterValue(get,set),
+  getParameterValue: actions.valueEditorActions.getParameterValue(get, set),
+  setParameterValue: actions.valueEditorActions.setParameterValue(get, set),
 
   //Group Actions
   addNodeGroup: actions.groupActions.addGroup(get, set),
@@ -110,10 +110,10 @@ const useStore = create<RFState>((set, get) => ({
   onConnect: actions.edgeActions.onEdgesConnect(get, set),
 
   //Substitutions Actions
-  addSubstitutionKey: actions.substitutionsActions.addSubstitutionKey(get,set),
-  addConfig: actions.substitutionsActions.addConfig(get,set),
-  deleteSubstitution: actions.substitutionsActions.deleteSubstitution(get,set),
-  toggleSubstitutionsPanel: actions.substitutionsActions.toggleSubstitutionsPanel(get,set),
+  addSubstitutionKey: actions.substitutionsActions.addSubstitutionKey(get, set),
+  addConfig: actions.substitutionsActions.addConfig(get, set),
+  deleteSubstitution: actions.substitutionsActions.deleteSubstitution(get, set),
+  toggleSubstitutionsPanel: actions.substitutionsActions.toggleSubstitutionsPanel(get, set),
 
   //Top Menu Actions 
   setBgView: actions.topMenuActions.setBgView(set),
@@ -124,11 +124,12 @@ const useStore = create<RFState>((set, get) => ({
   showMiniMap: actions.topMenuActions.showMiniMap(get, set),
 
   //Flow Actions
+  openFlow: actions.flowActions.openTestFlow(get, set),
   saveFlow: actions.flowActions.saveFlow(get, set),
   loadFlow: actions.flowActions.loadFlow(get, set),
-  setFlowName:actions.flowActions.setFlowName(get,set),
-  setFlowVersion: actions.flowActions.setFlowVersion(get,set),
-  setFlowIsEnabled:actions.flowActions.setFlowIsEnabled(get,set),
+  setFlowName: actions.flowActions.setFlowName(get, set),
+  setFlowVersion: actions.flowActions.setFlowVersion(get, set),
+  setFlowIsEnabled: actions.flowActions.setFlowIsEnabled(get, set),
 
   //Tooltip
   setTooltipText: actions.tooltipActions.setTooltipText(get, set)

@@ -1,0 +1,115 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+;
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+;
+
+.wrapper {
+  z-index: 100;
+  position: relative;
+  display: flex;
+  justify-content: left;
+}
+
+.add_node_container {
+  position: relative;
+  overflow-x: auto;
+  height: 100vh;
+  background-color: $bg-node-nav-container;
+  box-shadow: $shadow-node-nav-container;
+
+  &.opened {
+    width: 100%;
+    transition: width 0.3s ease-out;
+  }
+
+  &.closed {
+    width: 0px;
+    transition: width 0.3s ease-out;
+
+    .header,
+    .node_list {
+      display: none;
+    }
+  }
+
+  transition: width 0.3s ease-out;
+}
+
+.header {
+  @include section_header;
+}
+
+.node_list_wrapper {
+  overflow-y: auto;
+  height: 75vh;
+
+  .node_list {
+    h5 {
+      color: $color-node-nav-container-header;
+      text-align: left;
+      padding-left: 20px;
+      font-family: $font-node-nav-list;
+    }
+  }
+}
+
+.node_list_disabled {
+  height: 20px;
+}
+
+.toggle_btn {
+
+  position: absolute;
+  top: 0px;
+
+
+  z-index: 1000;
+
+  &.opened {
+    right: -30px;
+  }
+
+  &.closed {
+    left: 0;
+  }
+
+  button {
+
+    height: 57px;
+    border: 0;
+    width: 30px;
+    background-color: $bg-node-nav-container;
+    border-right: 1px solid rgb(207, 207, 207);
+    border-bottom: 1px solid rgb(207, 207, 207);
+    border-bottom-right-radius: 5px;
+    font-size: 1.3rem;
+    color: $color-node-nav-icon;
+    cursor: pointer;
+  }
+}
+
+.create_group {
+  position: absolute;
+  bottom: 45px;
+
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+
+  .create_group_btn {
+    @include left_panel_btn($color-node-nav-icon);
+    box-shadow: $shadow-node-nav-btn;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding-left: 0;
+    width: 150px;
+    border-radius: 5px;
+    background-color: $color-node-nav-icon;
+    color: rgb(253, 253, 253);
+
+  }
+}

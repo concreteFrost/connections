@@ -31,7 +31,7 @@ import {
 } from "./groupActions";
 import { setTooltipText } from "./tooltipActions";
 import { getNodesList, addNode } from "./leftPanelActions";
-import { loadFlow, saveFlow, setFlowIsEnabled, setFlowName, setFlowVersion } from "./flowActions";
+import { loadFlow, openTestFlow, saveFlow, setFlowIsEnabled, setFlowName, setFlowVersion } from "./flowActions";
 import {
   addConfig,
   addSubstitutionKey,
@@ -89,7 +89,7 @@ const blockActions = {
   setBigIntParameter: setBigIntParameter,
 };
 
-const valueEditorActions={
+const valueEditorActions = {
   getParameterValue: getParameterValue,
   setParameterValue: setParameterValue
 }
@@ -117,11 +117,13 @@ const substitutionsActions = {
 };
 
 const flowActions = {
+  openTestFlow: openTestFlow,
   loadFlow: loadFlow,
   saveFlow: saveFlow,
   setFlowName: setFlowName,
   setFlowVersion: setFlowVersion,
-  setFlowIsEnabled: setFlowIsEnabled
+  setFlowIsEnabled: setFlowIsEnabled,
+
 };
 
 const tooltipActions = {
@@ -140,7 +142,7 @@ const actions = {
   edgeActions: edgeActions,
   topMenuActions: topMenuActions,
   tooltipActions: tooltipActions,
-  valueEditorActions:valueEditorActions
+  valueEditorActions: valueEditorActions
 };
 
 export default actions

@@ -7,7 +7,7 @@ import {
   BackgroundVariant,
 } from "react-flow-renderer";
 
-import {INodeType} from "../interfaces/INode";
+import { INodeType } from "../interfaces/INode";
 import { ISubstitutions } from "../interfaces/ISubstitutions";
 
 export type RFState = {
@@ -18,8 +18,8 @@ export type RFState = {
     createdBy: string,
     flowIdentifier: string,
     flowName: string,
-    flowVersion:string,
-    flowConfig:string,
+    flowVersion: string,
+    flowConfig: string,
     isEnabled: string,
     lastAmended: Date,
     lastAmendedBy: string,
@@ -37,7 +37,7 @@ export type RFState = {
   tooltip: {
     text: string
   },
-  substitutionsPanel:{
+  substitutionsPanel: {
     isCollapsed: boolean
   }
   rightPanel: {
@@ -47,9 +47,9 @@ export type RFState = {
       blockDescription: string;
     }
     parameters: [],
-    valueEditor:{
+    valueEditor: {
       inputValue: any,
-      parameterName : any
+      parameterName: any
     }
   };
   topPanel: {
@@ -65,8 +65,8 @@ export type RFState = {
       showMiniMap: boolean
     },
   };
-  errorMessages:{
-    substitutionAddError : string
+  errorMessages: {
+    substitutionAddError: string
   }
 
   setSelectedNodeID: (nodeId: string) => void;
@@ -76,7 +76,7 @@ export type RFState = {
   onEdgesChange: OnEdgesChange;
   addNode: (type: INodeType, posX: number, posY: number) => void;
   //Right Panel Actions
-  clearRightPanel: ()=>void;
+  clearRightPanel: () => void;
   getNodeBase: () => void;
   getBlockData: () => void;
   setNodeName: (text: string) => void;
@@ -94,8 +94,8 @@ export type RFState = {
   setBigIntParameter: (parameterName: string, value: BigInt) => void;
 
   //Value Editor Actions
-  getParameterValue:(parameterName:string,value:string)=>void;
-  setParameterValue:(propertyName:string,value:string)=>void;
+  getParameterValue: (parameterName: string, value: string) => void;
+  setParameterValue: (propertyName: string, value: string) => void;
 
   //Top Menu 
   setBgView: (view: BackgroundVariant) => void;
@@ -103,20 +103,21 @@ export type RFState = {
   toggleDropdown: (activeDropdownId: string) => void;
 
   //Flow
+  openFlow: () => void;
   saveFlow: () => void;
-  loadFlow: () => void;
-  setFlowName:(name:string)=>void;
-  setFlowVersion:(version:string)=>void;
-  setFlowIsEnabled:()=>void;
-  
+  loadFlow: (id: string) => void;
+  setFlowName: (name: string) => void;
+  setFlowVersion: (version: string) => void;
+  setFlowIsEnabled: () => void;
+
 
   //Substitutions Panel 
-  toggleSubstitutionsPanel:()=>void;
+  toggleSubstitutionsPanel: () => void;
 
   //Substitutions
-  addSubstitutionKey:(key:string)=>void;
-  addConfig:(key:string,configName:string,configValue:string)=>void,
-  deleteSubstitution:(key:string)=>void,
+  addSubstitutionKey: (key: string) => void;
+  addConfig: (key: string, configName: string, configValue: string) => void,
+  deleteSubstitution: (key: string) => void,
 
   //Settings
   setSnapToGrid: () => void;
