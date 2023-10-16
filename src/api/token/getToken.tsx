@@ -1,11 +1,9 @@
 import axios from 'axios';
-import { setAccessToken } from '../../store/actions/storageActions';
 
 
 function getToken(baseUrl: string, name: string, pass: string) {
 
     return new Promise((resolve, reject) => {
-
         const headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
         };
@@ -16,12 +14,11 @@ function getToken(baseUrl: string, name: string, pass: string) {
                 password: pass,
             }, { headers })
             .then((res) => {
-                setAccessToken(res.data);
-                resolve(true);
+                // setAccessToken(res.data);
+                resolve(res);
             })
             .catch(e => {
-                resolve(false);
-                console.log(e)
+                reject(e);
             });
 
     });

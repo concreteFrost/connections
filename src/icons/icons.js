@@ -32,7 +32,14 @@ import {
   BsFilePlus,
   BsEnvelopeAt,
   BsArrowsAngleExpand,
-  BsArrowsCollapse
+  BsArrowsCollapse,
+  BsServer,
+  BsDiagram2Fill,
+  BsGear,
+  BsGraphDown,
+  BsPlayFill,
+  BsStopFill,
+  BsExclamationTriangleFill,
 } from "react-icons/bs";
 
 
@@ -53,8 +60,8 @@ export const connectionsIcons = {
     ssc_webservice: <BsGlobe></BsGlobe>,
     webservice: <FaGlobe></FaGlobe>,
     sap: "S",
-    uipath:"U",
-    azure_resources:"A",
+    uipath: "U",
+    azure_resources: "A",
     //function
     archive: <BsArchive></BsArchive>,
     delay: <BsClock></BsClock>,
@@ -79,10 +86,22 @@ export const connectionsIcons = {
     output_flatfile: <FaFileExport></FaFileExport>,
     output_xml: <BsFiletypeXml></BsFiletypeXml>
   },
+  serverMenuIcons: {
+    server: <BsServer></BsServer>,
+    flows: <BsDiagram2Fill></BsDiagram2Fill>,
+    stats: <BsGraphDown></BsGraphDown>,
+    settings: <BsGear></BsGear>
+  },
+  serverButtonsIcons: {
+    play: <BsPlayFill></BsPlayFill>,
+    stop: <BsStopFill></BsStopFill>,
+    kill: <BsExclamationTriangleFill></BsExclamationTriangleFill>
+  },
+
   leftCaret: <BsCaretLeft></BsCaretLeft>,
   rightCaret: <BsCaretRight></BsCaretRight>,
-  upCaret:<BsCaretUp></BsCaretUp>,
-  downCaret:<BsCaretDown></BsCaretDown>,
+  upCaret: <BsCaretUp></BsCaretUp>,
+  downCaret: <BsCaretDown></BsCaretDown>,
   arrowDown: <FaChevronDown></FaChevronDown>,
   arrowUp: <FaChevronUp></FaChevronUp>,
   dotsView: <BsThreeDots></BsThreeDots>,

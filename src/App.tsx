@@ -1,40 +1,21 @@
 
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from "./components/Login/Login";
-import AppContent from "./components/AppContent";
-import { getAccessToken, clearUserData } from "./store/actions/storageActions";
-import { useState, useEffect } from "react";
+import Designer from "./components/Designer/Designer";
 import NotFound from "./components/NotFound/NotFound";
-import useStore from "./store/store";
-
+import ProtectedRoute from "./utils/ProtectedRoute";
+import Server from "./components/Server/Server";
 
 function App() {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(getAccessToken().is_logged_in);
-
-  function verifyUser() {
-    const user = getAccessToken();
-    if (!user.token || user.token && (!user.expires || new Date() > new Date(user.expires))) {
-      clearUserData()
-      setIsLoggedIn(false.toString())
-    }
-  }
-
-  useEffect(() => {
-    verifyUser()
-  }, [])
-
-  function _setIsLoggedIn(_isLoggedIn: boolean) {
-    setIsLoggedIn(_isLoggedIn.toString())
-
-  }
 
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login setIsLoggedIn={_setIsLoggedIn} />}></Route>
-        <Route path="/dashboard" element={isLoggedIn === true.toString() ? <AppContent /> : <Login setIsLoggedIn={_setIsLoggedIn} />} />
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/dashboard/*" element={<ProtectedRoute><Server></Server></ProtectedRoute>} />
+        <Route path="/designer" element={<ProtectedRoute><Designer></Designer></ProtectedRoute>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

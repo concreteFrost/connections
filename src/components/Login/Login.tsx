@@ -3,8 +3,9 @@ import getToken from "../../api/token/getToken";
 import useStore from "../../store/store";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
+import { setAccessToken } from "../../store/actions/storageActions";
 
-function Login(props: any) {
+function Login() {
 
     const baseUrl = useStore((state) => state.baseUrl);
     const [defNameVal, setDefNameVal] = useState('iliaM')
@@ -14,19 +15,16 @@ function Login(props: any) {
 
     function submit(e: any) {
         e.preventDefault();
-
-        getToken(baseUrl, e.target[0].value, e.target[1].value).then((res) => {
-            props.setIsLoggedIn(res)
+        getToken(baseUrl, e.target[0].value, e.target[1].value).then((res: any) => {
+            setAccessToken(res.data)
             navigate('/dashboard')
-        })
-
+        }).catch(e => console.log(e))
     }
 
     return (<div className={s.wrapper}>
         <header><h1>CONNECTIONS</h1></header>
 
         <form onSubmit={submit}>
-
             <div>
                 <label htmlFor="">username</label>
                 <input type="text" value={defNameVal} onChange={(e: any) => setDefNameVal(e.target.value)} />

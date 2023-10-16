@@ -1,16 +1,14 @@
-import TopMenu from "./Designer/TopMenu/TopMenu";
-import LeftPanel from "./Designer/LeftPanel/LeftPanel";
-import RightPanel from "./Designer/RightPanel/RightPanel";
-import Flow from "./Designer/Flow";
+import TopMenu from "./TopMenu/TopMenu";
+import LeftPanel from "./LeftPanel/LeftPanel";
+import RightPanel from "./RightPanel/RightPanel";
+import Flow from "./Flow";
 import { Tooltip } from "react-tooltip";
-import useStore from "../store/store";
+import useStore from "../../store/store";
 import { useEffect } from "react";
-import { getBlocks } from "../api/data";
-import Substitutions from "./Designer/Substitutions/Substitutions";
-import { getAccessToken } from "../store/actions/storageActions";
+import { getBlocks } from "../../api/data";
+import Substitutions from "./Substitutions/Substitutions";
 
-
-function AppContent() {
+function Designer() {
 
     const baseUrl = useStore((store) => store.baseUrl)
     const getNodesList = useStore((store) => store.getNodesList);
@@ -56,4 +54,4 @@ function AppContent() {
     </div>)
 }
 
-export default AppContent;
+export default Designer;

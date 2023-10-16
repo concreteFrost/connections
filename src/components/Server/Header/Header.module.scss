@@ -1,0 +1,12 @@
+@import "/src/style/variables.scss";
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    background-color: $bg-top-menu-btn-default;
+    color: white;
+    font-family: $font-node-nav-header;
+    font-size: 2rem;
+}

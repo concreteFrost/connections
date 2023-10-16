@@ -48,7 +48,7 @@ function LeftPanel() {
       <div className={toggleBtnClasses}><button onClick={togglePanel}>{isPanelActive ? connectionsIcons.leftCaret : connectionsIcons.rightCaret}</button></div>
       <div className={nodeContainerClasses}>
         <div className={s.header}>CREATE BLOCKS</div>
-        <div className={s.node_list_wrapper}>    <div className={s.node_list}>
+        <div className={s.node_list_wrapper}><div className={s.node_list}>
           <Section
             title="DATA STORE"
             onDragStart={onDragStart}
