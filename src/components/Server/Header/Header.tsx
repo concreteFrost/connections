@@ -1,7 +1,18 @@
-import s from "./Header.module.scss"
+import s from "./Header.module.scss";
+import { useNavigate } from "react-router";
 
 function Header() {
-    return (<div className={s.wrapper}>CONNECTIONS SERVER DASHBOARD</div>)
+
+    const navigate=useNavigate();
+  return (
+    <div className={s.wrapper}>
+      <header>CONNECTIONS SERVER DASHBOARD</header>
+      <div className={s.designer_button}>
+      <button onClick={()=>navigate('/designer')}>DESIGNER</button>
+      </div>
+      
+    </div>
+  );
 }
 
 export default Header;

@@ -20,6 +20,24 @@ export function saveFlowApi(data: any) {
   });
 }
 
+export function updateFlowApi(data: any) {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: "post",
+      url: baseUrl + "/Flow/Reupload",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getAccessToken().token,
+      },
+      data: data,
+    })
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((e) => reject(e));
+  });
+}
+
 export function getFlowListApi() {
   return new Promise((resolve, reject) => {
     axios.get(baseUrl + "/Data/FlowList", {
@@ -38,6 +56,22 @@ export function getFlowApi(id: any) {
     axios.get(baseUrl + "/Flow/Get", {
       params: {
         flowReference: id // Correctly passing id as a query parameter
+      },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getAccessToken().token,
+      }
+    }).then((res) => { resolve(res) }).catch((e) => {
+      reject(e)
+    })
+  })
+}
+
+export function getBlockStatisticsAPI(id:string){
+  return new Promise((resolve, reject) => {
+    axios.get(baseUrl + "/Flow/BlockStatistics", {
+      params: {
+        flowIdentifier: id // Correctly passing id as a query parameter
       },
       headers: {
         "Content-Type": "application/json",

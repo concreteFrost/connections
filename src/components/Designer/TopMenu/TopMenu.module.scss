@@ -10,7 +10,7 @@
     border-bottom: 1px solid rgb(241, 241, 241);
     position: fixed;
     display: grid;
-    grid-template-columns: 6fr 6fr;
+    grid-template-columns: 4fr 4fr 4fr;
     align-items: center;
     align-content: center;
     top: 0;
@@ -23,6 +23,30 @@
 
     @media print {
         display: none;
+    }
+
+    .server_button{
+        display: flex;
+        justify-content: start;
+        align-items: center;
+
+        button{
+            margin-left: 20px;
+            background-color: $bg-top-menu-btn-default;
+            padding: 5px 10px;
+            border: 0;
+            border-radius: 5px;
+            color: white;
+            font-family: $font-node-nav-header;
+    
+            font-weight: bold;
+
+            &:hover{
+                background-color: $bg-top-menu-btn-hover;
+            }
+
+            transition: background-color 0.2s ease-in-out;
+        }
     }
 
 

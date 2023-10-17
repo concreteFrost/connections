@@ -19,7 +19,6 @@
     background-color: darken($color: $bg, $amount: 10%);
   }
 
-
   transition: background-color 0.3s ease;
 }
 
@@ -35,8 +34,6 @@
 }
 
 @mixin section_container {
-
-
   h5 {
     color: $color-node-nav-container-header;
     text-align: left;
@@ -53,12 +50,10 @@
     margin: 0;
   }
 
-
   label {
     font-family: $font-node-nav-list;
     color: $color-node-nav-container-header;
   }
-
 
   input {
     font-family: $font-node-nav-list;
@@ -105,6 +100,47 @@
     width: 100%;
     align-items: center;
   }
+}
+
+@mixin server_table{
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    
+    
+    tr {
+      text-align: center;
+      background-color: $bg-node-nav-btn;
+     
+      height: 40px;
+
+      th {
+       
+        font-style: italic;
+        
+      }
+    }
+  }
+
+  tbody {
+    td {
+      border: 1px solid rgb(235, 235, 235);
+      width: 50%;
+      padding: 10px;
+      background-color: rgb(255, 255, 255);
+      color: gray;
+
+    
+    }
+  }
+}
+
+@mixin disabled_input {
+  background-color: rgb(218, 218, 218);
+  padding-left: 5px;
+  font-style: italic;
+  color: gray;
 }
 
 @mixin dropdown_menu {

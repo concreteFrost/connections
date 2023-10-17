@@ -2,75 +2,64 @@
 @import "/src/style/variables.scss";
 
 .wrapper {
+  height: 100%;
+  border: 1px solid rgb(231, 231, 231);
 
-    height: 100%;
-    border: 1px solid rgb(231, 231, 231);
+  .sections_container {
+    .section {
+      position: relative;
+      overflow-x: auto;
 
-    .sections_container {
+      background-color: $bg-node-nav-container;
 
-        .section {
-            position: relative;
-            overflow-x: auto;
+      &.opened {
+        width: 100%;
+        transition: width 0.3s ease-out;
+      }
 
-            background-color: $bg-node-nav-container;
+      &.closed {
+        width: 0px;
+        transition: width 0.3s ease-out;
+      }
 
+      transition: width 0.3s ease-out;
 
-            &.opened {
-                width: 100%;
-                transition: width 0.3s ease-out;
-            }
+      ul {
+        margin: 0;
+        padding: 0;
+      }
 
-            &.closed {
-                width: 0px;
-                transition: width 0.3s ease-out;
-            }
+      li {
+        cursor: pointer;
+        list-style: none;
+        font-family: $font-node-nav-list;
+        background-color: $bg-node-nav-btn;
+        padding: 10px 0px 10px 20px;
+      }
 
-            transition: width 0.3s ease-out;
+      .section_header {
+        display: flex;
+        align-items: center;
 
-            ul {
-                margin: 0;
-                padding: 0;
-            }
-
-            li {
-                list-style: none;
-                font-family: $font-node-nav-list;
-                background-color: $bg-node-nav-btn;
-                padding: 10px 0px 10px 20px;
-
-            }
-
-            .section_header {
-                display: flex;
-                align-items: center;
-
-                .section_title {
-
-                    color: $color-node-nav-container-header;
-                    text-align: left;
-                    padding-left: 20px;
-                    font-family: $font-node-nav-list;
-
-
-                }
-
-                .header_icon {
-
-                    padding-left: 10px;
-
-                }
-
-                .arrow_icon {
-                    position: absolute;
-                    top: 20px;
-                    right: 10px;
-                    cursor: pointer;
-                    color: $color-node-nav-container-header ;
-                }
-            }
-
-
+        .section_title {
+          color: $color-node-nav-container-header;
+          text-align: left;
+          padding-left: 20px;
+          font-family: $font-node-nav-list;
         }
 
+        .header_icon {
+          padding-left: 10px;
+        }
+
+        .arrow_icon {
+          position: absolute;
+          top: 20px;
+          right: 10px;
+          cursor: pointer;
+          color: $color-node-nav-container-header;
+        }
+      }
     }
+  }
 }

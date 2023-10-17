@@ -11,63 +11,66 @@ import { INodeType } from "../interfaces/INode";
 import { ISubstitutions } from "../interfaces/ISubstitutions";
 
 export type RFState = {
-  baseUrl: string,
+  baseUrl: string;
   flow: {
-    blockData: [],
-    created: Date,
-    createdBy: string,
-    flowIdentifier: string,
-    flowName: string,
-    flowVersion: string,
-    flowConfig: string,
-    isEnabled: string,
-    lastAmended: Date,
-    lastAmendedBy: string,
-    serverIdentifier: string,
-    startBlock: string,
-    substitutions: Array<ISubstitutions>,
+    blockData: [];
+    created: Date;
+    createdBy: string;
+    flowIdentifier: string;
+    flowName: string;
+    flowVersion: string;
+    flowConfig: string;
+    isEnabled: string;
+    lastAmended: Date;
+    lastAmendedBy: string;
+    serverIdentifier: string;
+    startBlock: string;
+    substitutions: Array<ISubstitutions>;
     visual: {
-      blocks: Node<any>[],
-      edges: Edge<any>[],
-    }
-  }
-  nodeList: INodeType[],
+      blocks: Node<any>[];
+      edges: Edge<any>[];
+    };
+  };
+  nodeList: INodeType[];
   view: BackgroundVariant;
   selectedNode: string | null;
   tooltip: {
-    text: string
-  },
+    text: string;
+  };
   substitutionsPanel: {
-    isCollapsed: boolean
-  }
+    isCollapsed: boolean;
+  };
   rightPanel: {
     base: {
       blockName: string;
       blockColor: string;
       blockDescription: string;
-    }
-    parameters: [],
+    };
+    parameters: [];
     valueEditor: {
-      inputValue: any,
-      parameterName: any
-    }
+      inputValue: any;
+      parameterName: any;
+    };
+  };
+  server: {
+    currentFlow: object;
+    blockStatistics: object;
   };
   topPanel: {
-    dropdowns:
-    {
-      view: { id: string, isVisible: boolean },
-      exportFlow: { id: string, isVisible: boolean },
-      settings: { id: string, isVisible: boolean }
-    },
+    dropdowns: {
+      view: { id: string; isVisible: boolean };
+      exportFlow: { id: string; isVisible: boolean };
+      settings: { id: string; isVisible: boolean };
+    };
     settings: {
-      snapToGrid: boolean,
-      snapStep: number[]
-      showMiniMap: boolean
-    },
+      snapToGrid: boolean;
+      snapStep: number[];
+      showMiniMap: boolean;
+    };
   };
   errorMessages: {
-    substitutionAddError: string
-  }
+    substitutionAddError: string;
+  };
 
   setSelectedNodeID: (nodeId: string) => void;
   setTooltipText: (text: string) => void;
@@ -97,7 +100,7 @@ export type RFState = {
   getParameterValue: (parameterName: string, value: string) => void;
   setParameterValue: (propertyName: string, value: string) => void;
 
-  //Top Menu 
+  //Top Menu
   setBgView: (view: BackgroundVariant) => void;
   hideAllTopMenus: () => void;
   toggleDropdown: (activeDropdownId: string) => void;
@@ -110,14 +113,17 @@ export type RFState = {
   setFlowVersion: (version: string) => void;
   setFlowIsEnabled: () => void;
 
-
-  //Substitutions Panel 
+  //Substitutions Panel
   toggleSubstitutionsPanel: () => void;
 
   //Substitutions
   addSubstitutionKey: (key: string) => void;
-  addConfig: (key: string, configName: string, configValue: string) => void,
-  deleteSubstitution: (key: string) => void,
+  addConfig: (key: string, configName: string, configValue: string) => void;
+  deleteSubstitution: (key: string) => void;
+
+  //Server Actions
+  getCurrentFlow:(flowId:string)=>void;
+  getBlockStatistics:(flowId:string)=>void;
 
   //Settings
   setSnapToGrid: () => void;
@@ -127,8 +133,8 @@ export type RFState = {
   addNodeGroup: () => void;
   showGroupModal: (nodeId: string, modalToShow: string) => void;
   getNodesList: (data: any) => void;
-  setGroupLabel: (nodeId: string, input: string) => void,
-  setGroupColor: (nodeId: string, input: string) => void,
+  setGroupLabel: (nodeId: string, input: string) => void;
+  setGroupColor: (nodeId: string, input: string) => void;
   hideAllGroupModals: () => void;
   deleteGroupOnButtonClick: (groupToDelete: any) => void;
 };

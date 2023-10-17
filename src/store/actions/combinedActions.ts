@@ -45,6 +45,7 @@ import {
   setNodeName,
 } from "./baseActions";
 import { getParameterValue, setParameterValue } from "./valueEditorActions";
+import { getBlockStatistics, getCurrentFlow } from "./serverActions";
 
 const nodeActions = {
   setSelectedNodeID: setSelectedNodeID,
@@ -130,6 +131,11 @@ const tooltipActions = {
   setTooltipText: setTooltipText,
 };
 
+const serverActions={
+  getCurrentFlow: getCurrentFlow,
+  getBlockStatistics: getBlockStatistics
+}
+
 const actions = {
   flowActions: flowActions,
   nodeActions: nodeActions,
@@ -140,6 +146,7 @@ const actions = {
   baseActtions: baseActtions,
   blockActions: blockActions,
   edgeActions: edgeActions,
+  serverActions : serverActions,
   topMenuActions: topMenuActions,
   tooltipActions: tooltipActions,
   valueEditorActions: valueEditorActions

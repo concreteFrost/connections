@@ -1,12 +1,36 @@
 @import "/src/style/variables.scss";
 
 .wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50px;
-    background-color: $bg-top-menu-btn-default;
-    color: white;
-    font-family: $font-node-nav-header;
-    font-size: 2rem;
+  position: relative;
+  height: 50px;
+  background-color: $bg-top-menu-btn-default;
+  color: white;
+  font-family: $font-node-nav-header;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+  .designer_button {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    button {
+      margin-left: 20px;
+      background-color: white;
+      border: 0;
+      border-radius: 5px;
+      padding: 5px 10px;
+      font-family: $font-node-nav-header;
+      font-weight: bold;
+
+      &:hover {
+        background-color: rgb(148, 200, 230);
+      }
+
+      transition: background-color 0.2s ease-in-out;
+    }
+  }
 }

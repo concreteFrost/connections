@@ -12,7 +12,7 @@ const useStore = create<RFState>((set, get) => ({
   flow: {
     blockData: [],
     created: new Date(),
-    createdBy: "iliaM",
+    createdBy: 'iliaM',
     flowIdentifier: uuidv4(),
     flowName: "New Flow",
     flowConfig: "Debug",
@@ -27,6 +27,10 @@ const useStore = create<RFState>((set, get) => ({
       blocks: initialNodes,
       edges: initialEdges,
     }
+  },
+  server:{
+    currentFlow:{},
+    blockStatistics:{},
   },
   nodeList: [],
   view: BackgroundVariant.Dots,
@@ -49,6 +53,7 @@ const useStore = create<RFState>((set, get) => ({
       parameterName: ''
     }
   },
+  
   topPanel: {
     dropdowns: {
       view: { id: 'view', isVisible: false },
@@ -114,6 +119,10 @@ const useStore = create<RFState>((set, get) => ({
   addConfig: actions.substitutionsActions.addConfig(get, set),
   deleteSubstitution: actions.substitutionsActions.deleteSubstitution(get, set),
   toggleSubstitutionsPanel: actions.substitutionsActions.toggleSubstitutionsPanel(get, set),
+
+  //Server Actions
+  getCurrentFlow:actions.serverActions.getCurrentFlow(get,set),
+  getBlockStatistics:actions.serverActions.getBlockStatistics(get,set),
 
   //Top Menu Actions 
   setBgView: actions.topMenuActions.setBgView(set),

@@ -1,99 +1,54 @@
 @import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
 
 .wrapper {
-    background-color: white;
+  background-color: white;
 
-    font-family: $font-node-nav-header;
-    font-weight: bold;
+  font-family: $font-node-nav-header;
+  font-weight: bold;
 
+  .header_buttons {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-left: 10px;
 
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 50px;
+      width: 60px;
+      font-size: 1.8rem;
+      background-color: rgb(243, 243, 243);
+      border: 1px solid rgb(224, 224, 224);
+      border-radius: 5px;
+      margin-right: 10px;
 
-    .header_buttons {
-        height: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        padding-left: 10px;
+      &:hover {
+        background-color: rgb(70, 70, 70);
+      }
 
-        button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 50px;
-            width: 60px;
-            font-size: 1.8rem;
-            background-color: rgb(243, 243, 243);
-            border: 1px solid rgb(224, 224, 224);
-            border-radius: 5px;
-            margin-right: 10px;
+      &.play {
+        color: $bg-top-menu-btn-default;
+      }
 
-            &:hover {
-                background-color: rgb(70, 70, 70);
-            }
+      &.stop {
+        color: red;
+      }
 
-            &.play {
-                color: $bg-top-menu-btn-default;
-            }
+      &.kill {
+        color: orange;
+      }
 
-            &.stop {
-                color: red;
-            }
-
-            &.kill {
-                color: orange;
-            }
-
-            transition: background-color 0.3s ease-in-out;
-
-        }
+      transition: background-color 0.3s ease-in-out;
     }
+  }
 
-
-
-    .main_table {
-
-        width: 100%;
-        border-collapse: collapse;
-
-
-
-        thead {
-            tr {
-                text-align: center;
-                background-color: $bg-node-nav-btn;
-
-                height: 40px;
-
-                th {
-                    padding-left: 20px;
-                    font-style: italic;
-
-                }
-            }
-
-        }
-
-        tbody {
-
-
-            td {
-                border: 1px solid rgb(198, 228, 248);
-                width: 50%;
-                padding: 10px;
-                background-color: aliceblue;
-                color: gray;
-
-                &:first-child {
-                    background-color: rgb(222, 237, 255);
-                }
-
-
-
-            }
-
-        }
-
-    }
+  .main_table {
+    @include server_table;
+  }
 }

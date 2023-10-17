@@ -22,25 +22,31 @@ function FilteredResults(props: any) {
 
   useEffect(() => {
     const inputValue = props.inputValue;
-
+  
+    if (typeof inputValue !== 'string') {
+      clearFilteredSubstitutions();
+      return;
+    }
+  
     if (inputValue.length <= 1) {
       clearFilteredSubstitutions();
       return;
     }
-
+  
     const searchTerm = inputValue.substring(1).toLowerCase();
-
+  
     const res = substitutions.filter((sub) => {
       const substitution = sub.subKey.toLowerCase();
       return substitution.startsWith(searchTerm);
     });
-
+  
     if (inputValue.startsWith("{")) {
       setFilteredSubstitutions(res);
     } else {
       clearFilteredSubstitutions();
     }
   }, [props.inputValue]);
+  
 
   function clearFilteredSubstitutions() {
     setFilteredSubstitutions([]);
