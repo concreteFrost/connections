@@ -21,10 +21,8 @@ function Designer() {
     const clearRightPanel = useStore((state) => state.clearRightPanel);
 
     useEffect(() => {
-        getBlocks(baseUrl).then((res) => { getNodesList(res) })
+        getBlocks(baseUrl).then((res) => { getNodesList(res) }).catch((e) => console.log(e))
     }, [])
-
-
 
     const resetSelectedNode = (event: any) => {
         const isContainer = event.target.classList.contains(

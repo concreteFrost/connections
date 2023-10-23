@@ -1,0 +1,64 @@
+@import "/src/style/variables.scss";
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+}
+
+
+.modal_window {
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    color: rgb(0, 0, 0);
+    z-index: 9999;
+    border-radius: 16px;
+    box-shadow: $shadow-node-nav-container;
+    overflow: wrap;
+    min-width: 300px;
+    min-height: 100px;
+
+}
+
+
+.modal_header {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+
+.modal_body {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+
+    input[type="text"] {
+        margin-left: 0;
+        border: 1px solid rgb(160, 157, 157);
+        border-radius: 5px;
+        width: 120px;
+        text-align: center;
+    }
+}
+
+.modal_footer {
+
+    .buttons_wrapper {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+
+        button {
+            border-radius: 5px;
+        }
+    }
+}

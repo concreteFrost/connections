@@ -5,11 +5,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { setAccessToken } from "../../store/actions/storageActions";
 
+
 function Login() {
 
     const baseUrl = useStore((state) => state.baseUrl);
-    const [defNameVal, setDefNameVal] = useState('iliaM')
     const [defPassVal, setDefPassVal] = useState('cre4min9Tuff')
+    const userName = useStore((state) => state.flow.createdBy);
+    const setUserName = useStore((state) => state.setUserName);
 
     const navigate = useNavigate();
 
@@ -27,7 +29,7 @@ function Login() {
         <form onSubmit={submit}>
             <div>
                 <label htmlFor="">username</label>
-                <input type="text" value={defNameVal} onChange={(e: any) => setDefNameVal(e.target.value)} />
+                <input type="text" value={userName} onChange={(e: any) => setUserName(e.target.value)} />
             </div>
             <div>
                 <label htmlFor="">password</label>

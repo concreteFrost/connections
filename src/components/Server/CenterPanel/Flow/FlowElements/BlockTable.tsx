@@ -1,25 +1,25 @@
+import { useEffect } from "react"
+
 interface IBlockData {
   blockIdentifier: string;
   name: string;
   typeName: string;
   isEnabled: boolean;
-}
-
-interface IBlockStats {
-  blockId: string;
-  errors: number;
-  fatalErrors: number;
-  isEnabled: boolean;
-  warnings: number;
+  stats: {
+    errors: number;
+    fatalErrors: number;
+    isEnabled: boolean;
+    warnings: number;
+  }
 }
 
 interface BlockTableProps {
   className: any;
   blockData: Array<IBlockData>;
-  statistics: Array<IBlockStats> | null | undefined; // Allow for null or undefined
 }
 
 function BlockTable(props: BlockTableProps) {
+
   return (
     <div className={props.className.blocks_table}>
       <table>
@@ -34,36 +34,21 @@ function BlockTable(props: BlockTableProps) {
           </tr>
         </thead>
         <tbody>
-          {props.blockData && props.blockData.length > 0
-            ? props.blockData.map((block: IBlockData) => {
-                const stat = props.statistics?.find(
-                  (s: IBlockStats) => s.blockId === block.blockIdentifier
-                );
+          {props.blockData && props.blockData.length > 0 ? props.blockData.map((block: IBlockData) => {
+            return (<tr key={block.blockIdentifier}>
+              <td>{block.name}</td>
+              <td>{block.typeName}</td>
+              <td><input
+                type="checkbox"
+                checked={block.stats.isEnabled || false}
+                disabled
+              /></td>
+              <td>{block.stats.errors ?? 0}</td>
+              <td>{block.stats.fatalErrors ?? 0}</td>
+              <td>{block.stats.warnings ?? 0}</td>
+            </tr>)
 
-                return (
-                  <tr key={block.blockIdentifier}>
-                    <td>{block.name}</td>
-                    <td>{block.typeName}</td>
-                    <td className={props.className.centered_table_data}>
-                      <input
-                        type="checkbox"
-                        checked={stat?.isEnabled || false}
-                        disabled
-                      />
-                    </td>
-                    <td className={props.className.centered_table_data}>
-                      {stat?.errors || 0}
-                    </td>
-                    <td className={props.className.centered_table_data}>
-                      {stat?.fatalErrors || 0}
-                    </td>
-                    <td className={props.className.centered_table_data}>
-                      {stat?.warnings || 0}
-                    </td>
-                  </tr>
-                );
-              })
-            : null}
+          }) : <tr><td colSpan={6}>no blocks available to view</td></tr>}
         </tbody>
       </table>
     </div>

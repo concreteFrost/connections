@@ -12,14 +12,14 @@ const useStore = create<RFState>((set, get) => ({
   flow: {
     blockData: [],
     created: new Date(),
-    createdBy: 'iliaM',
+    createdBy: '',
     flowIdentifier: uuidv4(),
-    flowName: "New Flow",
+    flowName: "New Flow" + uuidv4().split('-')[0],
     flowConfig: "Debug",
     flowVersion: '1.0.0.0',
     isEnabled: "true",
     lastAmended: new Date(),
-    lastAmendedBy: "iliaM",
+    lastAmendedBy: "",
     startBlock: "",
     serverIdentifier: uuidv4(),
     substitutions: [],
@@ -28,9 +28,9 @@ const useStore = create<RFState>((set, get) => ({
       edges: initialEdges,
     }
   },
-  server:{
-    currentFlow:{},
-    blockStatistics:{},
+  server: {
+    currentFlow: {},
+
   },
   nodeList: [],
   view: BackgroundVariant.Dots,
@@ -53,7 +53,7 @@ const useStore = create<RFState>((set, get) => ({
       parameterName: ''
     }
   },
-  
+
   topPanel: {
     dropdowns: {
       view: { id: 'view', isVisible: false },
@@ -121,8 +121,7 @@ const useStore = create<RFState>((set, get) => ({
   toggleSubstitutionsPanel: actions.substitutionsActions.toggleSubstitutionsPanel(get, set),
 
   //Server Actions
-  getCurrentFlow:actions.serverActions.getCurrentFlow(get,set),
-  getBlockStatistics:actions.serverActions.getBlockStatistics(get,set),
+  getCurrentFlow: actions.serverActions.getCurrentFlow(get, set),
 
   //Top Menu Actions 
   setBgView: actions.topMenuActions.setBgView(set),
@@ -141,7 +140,10 @@ const useStore = create<RFState>((set, get) => ({
   setFlowIsEnabled: actions.flowActions.setFlowIsEnabled(get, set),
 
   //Tooltip
-  setTooltipText: actions.tooltipActions.setTooltipText(get, set)
+  setTooltipText: actions.tooltipActions.setTooltipText(get, set),
+
+  //User Actions
+  setUserName: actions.userActions.setUserName(get, set)
 
 
 }))

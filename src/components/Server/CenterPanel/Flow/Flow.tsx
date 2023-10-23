@@ -7,7 +7,7 @@ import StaticProperties from "./FlowElements/StaticProperties";
 
 function Flow() {
   const currentFlow = useStore((state: any) => state.server.currentFlow);
-  const blockStats = useStore((state:any)=> state.server.blockStatistics);
+  console.log(currentFlow, 'block data')
   return (
     <div className={s.wrapper}>
       <StaticProperties
@@ -25,7 +25,7 @@ function Flow() {
       ></StaticProperties>
       <ChangeLog className={s}></ChangeLog>
       <FlowControl className={s}></FlowControl>
-      <BlockTable className={s} blockData={currentFlow.blockData} statistics={blockStats ?? null}></BlockTable>
+      <BlockTable className={s} blockData={currentFlow.blockData}></BlockTable>
     </div>
   );
 }

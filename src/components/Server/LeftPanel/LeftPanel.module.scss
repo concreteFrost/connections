@@ -32,9 +32,32 @@
       li {
         cursor: pointer;
         list-style: none;
-        font-family: $font-node-nav-list;
+        font-weight: bold;
+        font-family: $font-node-nav-header;
         background-color: $bg-node-nav-btn;
         padding: 10px 0px 10px 20px;
+        border-bottom: 1px solid rgb(204, 204, 204);
+      }
+
+      .flow_list {
+        display: grid;
+        grid-template-columns: 6fr 6fr;
+        align-items: center;
+
+        .flow_list_btn_wrapper {
+          width: 100%;
+          display: flex;
+          justify-content: right;
+
+          button {
+            margin-right: 5px;
+            background-color: $bg-top-menu-btn-default;
+            color: white;
+            padding: 7px;
+            border: none;
+            z-index: 1000;
+          }
+        }
       }
 
       .section_header {

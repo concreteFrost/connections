@@ -54,7 +54,6 @@ export type RFState = {
   };
   server: {
     currentFlow: object;
-    blockStatistics: object;
   };
   topPanel: {
     dropdowns: {
@@ -122,8 +121,7 @@ export type RFState = {
   deleteSubstitution: (key: string) => void;
 
   //Server Actions
-  getCurrentFlow:(flowId:string)=>void;
-  getBlockStatistics:(flowId:string)=>void;
+  getCurrentFlow: (flowId: string) => void;
 
   //Settings
   setSnapToGrid: () => void;
@@ -137,4 +135,7 @@ export type RFState = {
   setGroupColor: (nodeId: string, input: string) => void;
   hideAllGroupModals: () => void;
   deleteGroupOnButtonClick: (groupToDelete: any) => void;
+
+  //User Actions
+  setUserName: (userName: string) => void;
 };
