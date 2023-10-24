@@ -28,7 +28,6 @@ export const getCurrentFlow = (get: any, set: any) => async (flowId: string) => 
                 stats: matchingStat ?? {}
               }
             })
-
           }
         }
       })

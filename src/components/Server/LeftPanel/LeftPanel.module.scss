@@ -44,6 +44,12 @@
         grid-template-columns: 6fr 6fr;
         align-items: center;
 
+        &.selected {
+          background-color: rgb(179, 179, 179);
+        }
+
+        transition: background-color 0.3s ease-in-out;
+
         .flow_list_btn_wrapper {
           width: 100%;
           display: flex;

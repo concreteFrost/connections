@@ -4,18 +4,36 @@ import useStore from "../../../../store/store";
 import FlowsList from "./FlowsList/FlowsList";
 import { getFlowListApi } from "../../../../api/flow";
 import { useState } from "react";
+import { checkExistingFlowInDataBase } from "../../../../store/actions/utils/flowUtils";
+import UpdateFlowModal from "../../../Modals/UpdateFlowModal";
+import MessageModal from "../../../Modals/MessageModal";
 
 function LeftList(props: any) {
-  const saveFlow = useStore((state) => state.saveFlow);
-
+  const saveFlow = useStore<any>((state) => state.saveFlow);
   const [loadedFlows, setLoadedFlows] = useState<Array<object>>([])
   const [isSelectFlowVisible, setIsSelectFlowVisible] = useState<boolean>(false);
+  const currentFlow = useStore((state) => state.flow.flowName);
+  const [matchFlow, setMatchFlow] = useState<object>();
+  const toggleUpdateFlowModal = useStore((state) => state.toggleUpdateFlowModal);
+
   function getFlowList() {
     setIsSelectFlowVisible(!isSelectFlowVisible);
     getFlowListApi().then((res: any) => {
       setLoadedFlows(res.data)
     }).catch((e) => {
       console.log(e)
+    })
+  }
+
+  function checkFlowVersion() {
+    checkExistingFlowInDataBase(currentFlow).then((match) => {
+      if (match) {
+        toggleUpdateFlowModal();
+        setMatchFlow(match);
+      }
+      else {
+        saveFlow();
+      }
     })
   }
 
@@ -29,7 +47,7 @@ function LeftList(props: any) {
         <li className={s.nav_list_item}>New</li>
         {/* <li className={s.nav_list_item} onClick={openTestFlow}>Open</li> */}
         <li className={s.nav_list_item} onClick={getFlowList}>Load</li>
-        <li className={s.nav_list_item} onClick={saveFlow}>Save</li>
+        <li className={s.nav_list_item} onClick={checkFlowVersion}>Save</li>
         <li className={s.nav_list_item} onClick={() => props.toggleDropdown("exportFlow")}>Export</li>
         <li className={s.nav_list_item}>
           <div onClick={() => props.toggleDropdown("view")}>View</div>
@@ -44,6 +62,8 @@ function LeftList(props: any) {
         <li className={s.nav_list_item}>Print</li>
       </ul>
       {isSelectFlowVisible ? <FlowsList loadedFlows={loadedFlows} closeSelecFlowModal={closeSelectFlowModal}></FlowsList> : null}
+      <UpdateFlowModal matchFlow={matchFlow}></UpdateFlowModal>
+      <MessageModal></MessageModal>
     </div>
   );
 }

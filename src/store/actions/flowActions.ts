@@ -1,6 +1,6 @@
 import { flow } from "../../testFlow/testFlow2";
 import { RFState } from "../types/rfState";
-import { setFlow, parseFloatVersion, checkExistingFlowInDataBase, flowVersionToInt } from "./utils/flowUtils";
+import { setFlow, parseFloatVersion, flowVersionToInt, updateFlowAfterSaving } from "./utils/flowUtils";
 import {
   saveFlowApi,
   getFlowApi,
@@ -21,40 +21,41 @@ export const loadFlow = (get: any, set: any) => (id: string) => {
 
 export const saveFlow = (get: any, set: any) => () => {
   const flow = get().flow;
-  const flowName = flow.flowName;
-
-  checkExistingFlowInDataBase(flowName).then((match: any) => {
-    if (match) {
-      if (flowVersionToInt(flow.flowVersion) <= flowVersionToInt(match.version)) {
-        const parsedPreviousVersion = flowVersionToInt(match.version) + 1;
-        const updatedPreviousVersion = parseFloatVersion(parsedPreviousVersion);
-        flow.flowVersion = updatedPreviousVersion;
-      }
-      return true;
-    }
-    return false;
-  }).then((needsOverride: boolean) => {
-    if (needsOverride) {
-      updateFlowApi(flow).then((res: any) => {
-        console.log('success', res.data)
-      }).catch(e => console.log(e))
+  saveFlowApi(flow).then((res: any) => {
+    if (res.data.success) {
+      updateFlowAfterSaving(set, flow, 'success!');
     }
     else {
-      saveFlowApi(flow).then((res: any) => {
-        console.log('new flow was saved', res)
-      }).catch((e) => {
-        console.log('error on saving new flow', e);
-      })
+      updateFlowAfterSaving(set, flow, res.data.message);
     }
-  }).finally(() => {
-    set((state: RFState) => ({
-      flow: {
-        ...state.flow,
-        flowVersion: flow.flowVersion
-      }
-    }))
+  }).catch((e) => {
+    updateFlowAfterSaving(set, flow, e);
   })
+
 };
+
+export const updateFlow = (get: any, set: any) => (match: any) => {
+  const flow = get().flow;
+
+  if (flowVersionToInt(flow.flowVersion) <= flowVersionToInt(match.version)) {
+    const parsedPreviousVersion = flowVersionToInt(match.version) + 1;
+    const updatedPreviousVersion = parseFloatVersion(parsedPreviousVersion);
+    flow.flowVersion = updatedPreviousVersion;
+  }
+
+  updateFlowApi(flow).then((res: any) => {
+    if (res.data.success) {
+      console.log('update flow success', res);
+      updateFlowAfterSaving(set, flow, 'success!')
+    }
+    else {
+      updateFlowAfterSaving(set, flow, res.data.message)
+    }
+  }).catch((e) => {
+    console.log('update flow error', e);
+    updateFlowAfterSaving(set, flow, e)
+  })
+}
 
 
 export const setFlowName = (get: any, set: any) => (name: string) => {

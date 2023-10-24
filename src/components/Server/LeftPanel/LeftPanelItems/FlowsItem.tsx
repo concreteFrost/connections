@@ -14,8 +14,9 @@ function FlowsItem(props: FlowsItemProps) {
 
     const [flowList, setFlowList] = useState([]);
     const getCurrentFlow = useStore((state) => state.getCurrentFlow);
+    const currentFlow = useStore<any>((state) => state.server.currentFlow);
     const loadFlow = useStore((state) => state.loadFlow);
-
+    console.log(currentFlow)
     useEffect(() => {
         getFlowListApi().then((res: any) => {
             setFlowList(res.data);
@@ -40,11 +41,10 @@ function FlowsItem(props: FlowsItemProps) {
             <ul>
                 {flowList.length > 0
                     ? flowList.map((flow: any) => (
-                        <li key={flow.flowId} className={props.className.flow_list}>
+                        <li key={flow.flowId} className={`${props.className.flow_list}  ${currentFlow.flowIdentifier === flow.flowId ? props.className['selected'] : null}`}>
                             <div
                                 onClick={async () => {
                                     await getCurrentFlow(flow.flowId)
-
                                     props.navigate("flows")
                                 }}>
                                 {flow.name}

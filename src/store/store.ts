@@ -53,6 +53,15 @@ const useStore = create<RFState>((set, get) => ({
       parameterName: ''
     }
   },
+  modalWindows: {
+    updateFlowModal: {
+      isVisible: false,
+    },
+    messageModal: {
+      isVisible: false,
+      message: '',
+    }
+  },
 
   topPanel: {
     dropdowns: {
@@ -134,6 +143,7 @@ const useStore = create<RFState>((set, get) => ({
   //Flow Actions
   openFlow: actions.flowActions.openTestFlow(get, set),
   saveFlow: actions.flowActions.saveFlow(get, set),
+  updateFlow: actions.flowActions.updateFlow(get, set),
   loadFlow: actions.flowActions.loadFlow(get, set),
   setFlowName: actions.flowActions.setFlowName(get, set),
   setFlowVersion: actions.flowActions.setFlowVersion(get, set),
@@ -143,8 +153,12 @@ const useStore = create<RFState>((set, get) => ({
   setTooltipText: actions.tooltipActions.setTooltipText(get, set),
 
   //User Actions
-  setUserName: actions.userActions.setUserName(get, set)
+  setUserName: actions.userActions.setUserName(get, set),
 
+  //Modal Actions
+  toggleMessageModal: actions.modalActions.toggleMessageModal(get, set),
+  setModalMessage: actions.modalActions.setModalMessage(get, set),
+  toggleUpdateFlowModal: actions.modalActions.toggleUpdateFlowModal(get, set)
 
 }))
 

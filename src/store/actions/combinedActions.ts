@@ -31,7 +31,7 @@ import {
 } from "./groupActions";
 import { setTooltipText } from "./tooltipActions";
 import { getNodesList, addNode } from "./leftPanelActions";
-import { loadFlow, openTestFlow, saveFlow, setFlowIsEnabled, setFlowName, setFlowVersion } from "./flowActions";
+import { loadFlow, openTestFlow, saveFlow, setFlowIsEnabled, setFlowName, setFlowVersion, updateFlow } from "./flowActions";
 import {
   addConfig,
   addSubstitutionKey,
@@ -47,6 +47,8 @@ import {
 import { getParameterValue, setParameterValue } from "./valueEditorActions";
 import { getCurrentFlow } from "./serverActions";
 import { setUserName } from "./userActions";
+import { toggleMessageModal, toggleUpdateFlowModal, setModalMessage } from "./modalActions";
+
 
 const nodeActions = {
   setSelectedNodeID: setSelectedNodeID,
@@ -122,6 +124,7 @@ const flowActions = {
   openTestFlow: openTestFlow,
   loadFlow: loadFlow,
   saveFlow: saveFlow,
+  updateFlow: updateFlow,
   setFlowName: setFlowName,
   setFlowVersion: setFlowVersion,
   setFlowIsEnabled: setFlowIsEnabled,
@@ -141,6 +144,12 @@ const userActions = {
   setUserName: setUserName
 }
 
+const modalActions = {
+  toggleMessageModal: toggleMessageModal,
+  setModalMessage: setModalMessage,
+  toggleUpdateFlowModal: toggleUpdateFlowModal
+}
+
 const actions = {
   flowActions: flowActions,
   nodeActions: nodeActions,
@@ -155,7 +164,8 @@ const actions = {
   topMenuActions: topMenuActions,
   tooltipActions: tooltipActions,
   valueEditorActions: valueEditorActions,
-  userActions: userActions
+  userActions: userActions,
+  modalActions: modalActions
 };
 
 export default actions

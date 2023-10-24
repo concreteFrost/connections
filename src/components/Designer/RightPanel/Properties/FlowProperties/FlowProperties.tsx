@@ -1,7 +1,5 @@
 import s from "./FlowProperties.module.scss";
 import useStore from "../../../../../store/store";
-import SetFlowVersionModal from "../../../../Modals/SetFlowVersionModal";
-import { checkExistingFlowInDataBase } from "../../../../../store/actions/utils/flowUtils";
 
 function FlowProperties() {
   const flow = useStore((state) => state.flow);
@@ -38,7 +36,7 @@ function FlowProperties() {
           />
         </li>
       </ul>
-      {/* <SetFlowVersionModal isModalVisible={true} flow={flow}></SetFlowVersionModal> */}
+
     </div>
   );
 }

@@ -54,7 +54,7 @@
 
     .buttons_wrapper {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         gap: 10px;
 
         button {

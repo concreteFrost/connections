@@ -67,6 +67,15 @@ export type RFState = {
       showMiniMap: boolean;
     };
   };
+  modalWindows: {
+    updateFlowModal: {
+      isVisible: boolean,
+    }
+    messageModal: {
+      isVisible: boolean,
+      message: string,
+    }
+  };
   errorMessages: {
     substitutionAddError: string;
   };
@@ -107,6 +116,7 @@ export type RFState = {
   //Flow
   openFlow: () => void;
   saveFlow: () => void;
+  updateFlow: (match: any) => void;
   loadFlow: (id: string) => void;
   setFlowName: (name: string) => void;
   setFlowVersion: (version: string) => void;
@@ -138,4 +148,9 @@ export type RFState = {
 
   //User Actions
   setUserName: (userName: string) => void;
+
+  //Modal Actions
+  toggleUpdateFlowModal: () => void;
+  toggleMessageModal: () => void;
+  setModalMessage: (message: string) => void;
 };

@@ -74,6 +74,23 @@ export function setFlow(data: any, set: any) {
     }));
 }
 
+export function updateFlowAfterSaving(set: any, flow: any, saveFlowMessage: string) {
+    set((state: RFState) => ({
+        flow: {
+            ...state.flow,
+            flowVersion: flow.flowVersion
+        },
+        modalWindows: {
+            ...state.modalWindows,
+            messageModal: {
+                ...state.modalWindows.messageModal,
+                isVisible: true,
+                message: saveFlowMessage
+            }
+        }
+    }))
+}
+
 export function parseFloatVersion(flowVersion: number) {
     let flowToInt = flowVersion.toString();
     let result = '';
@@ -91,9 +108,9 @@ export function checkExistingFlowInDataBase(flowName: string) {
     return new Promise((resolve, reject) => {
         getFlowListApi().then((res: any) => {
             const match = res.data.find((flow: any) => flow.name === flowName);
-            resolve(match); // Resolve the Promise with a boolean value
+            resolve(match);
         }).catch((error: any) => {
-            reject(error); // Reject the Promise in case of an error
+            reject(error);
         });
     });
 }
