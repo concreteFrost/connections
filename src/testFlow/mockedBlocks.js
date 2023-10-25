@@ -1,4 +1,4 @@
-export const mockedBlocks=[
+export const mockedBlocks = [
     {
         "name": "SAP",
         "blockVersion": "1.0.0",
@@ -8,8 +8,8 @@ export const mockedBlocks=[
         "description": "Configure integrations with SAP Cloud Integration for Data Services",
         "typeName": "CN.Connections.ProcessBlocks.OfTypeExternal.ExternalDataHandlerSAP",
         "baseTypeName": "External",
-        "category":"External",
-        "libraryType":"New Type",
+        "category": "External",
+        "libraryType": "New Type",
         "parameters": [
             {
                 "name": "SAP_URL",
@@ -77,8 +77,8 @@ export const mockedBlocks=[
         "description": "Connects to UiPath Automation Hub",
         "typeName": "CN.Connections.ProcessBlocks.OfTypeExternal.ExternalDataHandlerUiPath",
         "baseTypeName": "External",
-        "category":"External",
-        "libraryType":"New Type",
+        "category": "External",
+        "libraryType": "New Type",
         "parameters": [
             {
                 "name": "UIPATH_API_KEY",
@@ -116,8 +116,86 @@ export const mockedBlocks=[
         "description": "Connect to Azure Resources",
         "typeName": "CN.Connections.ProcessBlocks.OfTypeExternal.ExternalDataHandlerAzure",
         "baseTypeName": "External",
-        "category":"External",
-        "libraryType":"New Type",
+        "category": "External",
+        "libraryType": "New Type",
+        "parameters": [
+            {
+                "name": "AZURE_CONNECTION_STRING",
+                "value": "",
+                "required": true,
+                "format": "0"
+            },
+            {
+                "name": "AZURE_RESOURCE_NAME",
+                "value": "",
+                "required": true,
+                "format": "0"
+            },
+            {
+                "name": "AZURE_OPERATION",
+                "value": "",
+                "required": true,
+                "format": "0"
+            },
+            {
+                "name": "ENABLED",
+                "value": "N",
+                "required": true,
+                "format": "5"
+            }
+        ]
+    },
+
+    {
+        "name": "Access Procure Wizard",
+        "blockVersion": "1.0.0",
+        "blockIdentifier": null,
+        "blockLabel": "Access Procure Wizard",
+        "blockType": "Azure",
+        "description": "Integrations to and from ProcureWizard",
+        "typeName": "CN.Connections.ProcessBlocks.OfTypeExternal.ExternalDataHandlerAzure",
+        "baseTypeName": "External",
+        "category": "External",
+        "libraryType": "New Type",
+        "parameters": [
+            {
+                "name": "AZURE_CONNECTION_STRING",
+                "value": "",
+                "required": true,
+                "format": "0"
+            },
+            {
+                "name": "AZURE_RESOURCE_NAME",
+                "value": "",
+                "required": true,
+                "format": "0"
+            },
+            {
+                "name": "AZURE_OPERATION",
+                "value": "",
+                "required": true,
+                "format": "0"
+            },
+            {
+                "name": "ENABLED",
+                "value": "N",
+                "required": true,
+                "format": "5"
+            }
+        ]
+    },
+
+    {
+        "name": "Access EPOS",
+        "blockVersion": "1.0.0",
+        "blockIdentifier": null,
+        "blockLabel": "Access EPOS",
+        "blockType": "Azure",
+        "description": "Integrations to and from Access EPOS",
+        "typeName": "CN.Connections.ProcessBlocks.OfTypeExternal.ExternalDataHandlerAzure",
+        "baseTypeName": "External",
+        "category": "External",
+        "libraryType": "New Type",
         "parameters": [
             {
                 "name": "AZURE_CONNECTION_STRING",
@@ -145,7 +223,7 @@ export const mockedBlocks=[
             }
         ]
     }
-    
-    
-    
+
+
+
 ]

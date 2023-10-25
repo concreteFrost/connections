@@ -40,13 +40,13 @@ function LeftPanel() {
     setIsPanelActive(!isPanelActive);
   }
 
-  const nodeContainerClasses = `${s.add_node_container} ${isPanelActive ? s['opened'] : s['closed']}`;
+  const wrapperClasses = `${s.wrapper} ${isPanelActive ? s['opened'] : s['closed']}`;
   const toggleBtnClasses = `${s.toggle_btn} ${isPanelActive ? s['opened'] : s['closed']}`;
 
   return (
-    <div className={s.wrapper} ref={leftPanelRef}>
+    <div className={wrapperClasses} ref={leftPanelRef}>
       <div className={toggleBtnClasses}><button onClick={togglePanel}>{isPanelActive ? connectionsIcons.leftCaret : connectionsIcons.rightCaret}</button></div>
-      <div className={nodeContainerClasses}>
+      <div className={s.add_node_container}>
         <div className={s.header}>CREATE BLOCKS</div>
         <div className={s.node_list_wrapper}><div className={s.node_list}>
           <Section

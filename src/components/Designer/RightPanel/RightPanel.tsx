@@ -14,13 +14,14 @@ function RightPanel() {
   }
   const selectedNode = useStore((state) => state.selectedNode);
 
-  const panelClasses = `${s.right_panel_container} ${isPanelActive ? s["opened"] : s["closed"]
-    }`;
   const btnClasses = `${s.toggle_btn} ${isPanelActive ? s["opened"] : s["closed"]
     }`;
 
+  const wrapperClasses = `${s.wrapper} ${isPanelActive ? s["opened"] : s["closed"]
+    }`;
+
   return (
-    <div className={s.wrapper}>
+    <div className={wrapperClasses}>
       <div className={btnClasses}>
         <button onClick={togglePanel}>
           {isPanelActive
@@ -28,7 +29,7 @@ function RightPanel() {
             : connectionsIcons.leftCaret}
         </button>
       </div>
-      <div className={panelClasses}>
+      <div className={s.right_panel_container}>
         <Properties></Properties>
         {selectedNode !== "-1" ? <ValueEditor></ValueEditor> : null}
         <DebugConsole></DebugConsole>

@@ -8,6 +8,16 @@
     position: relative;
     display: flex;
     justify-content: right;
+
+    &.opened {
+        translate: (0px);
+    }
+
+    &.closed {
+        translate: (300px);
+    }
+
+    transition: translate 0.3s ease-out;
 }
 
 .right_panel_container {
@@ -16,18 +26,7 @@
     background-color: $bg-node-nav-container;
     box-shadow: $shadow-node-nav-container;
 
-    &.opened {
-        width: 100%;
-        background-color: $bg-node-nav-container;
-        transition: width 0.3s ease-out;
 
-    }
-
-    &.closed {
-        width: 0;
-        transition: width 0.3s ease-out;
-
-    }
 }
 
 .toggle_btn {
@@ -42,7 +41,7 @@
     }
 
     &.closed {
-        right: 0;
+        left: -60px;
     }
 
     button {

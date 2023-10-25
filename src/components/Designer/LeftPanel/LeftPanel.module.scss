@@ -10,29 +10,27 @@
   position: relative;
   display: flex;
   justify-content: left;
-}
-
-.add_node_container {
-  position: relative;
-  overflow-x: auto;
-  height: 100vh;
-  background-color: $bg-node-nav-container;
-  box-shadow: $shadow-node-nav-container;
 
   &.opened {
     width: 100%;
     transition: width 0.3s ease-out;
+
   }
 
   &.closed {
     width: 0px;
     transition: width 0.3s ease-out;
 
-    .header,
-    .node_list {
-      display: none;
-    }
   }
+}
+
+.add_node_container {
+  width: 100%;
+  position: relative;
+  overflow-x: auto;
+  height: 100vh;
+  background-color: $bg-node-nav-container;
+  box-shadow: $shadow-node-nav-container;
 
   transition: width 0.3s ease-out;
 }

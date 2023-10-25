@@ -62,6 +62,8 @@ export const connectionsIcons = {
     sap: "S",
     uipath: "U",
     azure_resources: "A",
+    access_procure_wizard: "AW",
+    access_epos: "AE",
     //function
     archive: <BsArchive></BsArchive>,
     delay: <BsClock></BsClock>,

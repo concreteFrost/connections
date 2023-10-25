@@ -32,7 +32,7 @@ function ValueEditor() {
     <section className={containerClasses}>
       <div
         className={s.section_header}
-        onClick={() => setIsExpanded(!isExpanded)}
+      // onClick={() => setIsExpanded(!isExpanded)}
       >
         <span>
           {isExpanded ? connectionsIcons.collapse : connectionsIcons.expand}
