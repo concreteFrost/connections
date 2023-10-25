@@ -1,45 +1,44 @@
 .block_section {
-    max-height: 400px;
-   
-    overflow-y: auto;
-    overflow-x: hidden;
-  
-    li {
-  
-      font-size: 0.75rem;
-      border-bottom: 1px solid rgb(238, 238, 238);
-     
-      height: 40px;
-      display: grid;
-      grid-template-columns: 6fr 6fr;
-      justify-items: start;
-      position: relative;
-      
+  max-height: 300px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  li {
+
+    font-size: 0.75rem;
+    border-bottom: 1px solid rgb(238, 238, 238);
+
+    height: 40px;
+    display: grid;
+    grid-template-columns: 6fr 6fr;
+    justify-items: start;
+    position: relative;
+
+  }
+
+  .input_label {
+    border-right: 1px solid rgb(230, 230, 230);
+    display: flex;
+    align-items: center;
+    width: 140px;
+    font-size: 0.7rem;
+    text-align: start;
+    margin-left: 0;
+    padding-left: 10px;
+
+    &:hover {
+      background-color: rgb(230, 230, 230);
     }
 
-    .input_label {
-        border-right: 1px solid rgb(230, 230, 230);
-        display: flex;
-        align-items: center;
-        width: 140px;
-        font-size: 0.7rem;
-        text-align: start;
-        margin-left: 0;
-        padding-left: 10px;
-
-        &:hover{
-          background-color: rgb(230, 230, 230);
-        }
-
-        transition: background-color 0.3s ease-in-out;
-      }
-      
-  
+    transition: background-color 0.3s ease-in-out;
   }
-  
 
-  
-  
-  .radio_label {
-    margin-left: 10px;
-  }
+}
+
+
+
+
+.radio_label {
+  margin-left: 10px;
+}

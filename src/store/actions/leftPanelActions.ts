@@ -56,35 +56,37 @@ export const getNodesList = (set: any) => (data: any) => {
             format: setDefaultValueAndFormat(parameter.dataType)?.format,
           };
         }),
+        extendedParameters: []
       },
     });
   }
 
-  for(let block of mockedBlocks){
-   
-    updatedNodesList.push({type: "pointer",
-    visualData: {
-      color: "#FFFFFF",
-      icon: block.name.toLowerCase().split(" ").join("_"),
-    },
-    data: {
-      name: block.name,
-      blockVersion: "4.1.8",
-      blockIdentifier: null,
-      blockLabel: block.name,
-      blockType: block.name,
-      description: block.description,
-      typeName: block.libraryType,
-      baseTypeName: block.category,
-      parameters: block.parameters.map((parameter: any) => {
-        return {
-          name: parameter.name,
-          value: setDefaultValueAndFormat(parameter.dataType)?.value,
-          required: parameter.constraints > 0 ? true : false,
-          format: setDefaultValueAndFormat(parameter.dataType)?.format,
-        };
-      }),
-    },
+  for (let block of mockedBlocks) {
+
+    updatedNodesList.push({
+      type: "pointer",
+      visualData: {
+        color: "#FFFFFF",
+        icon: block.name.toLowerCase().split(" ").join("_"),
+      },
+      data: {
+        name: block.name,
+        blockVersion: "4.1.8",
+        blockIdentifier: null,
+        blockLabel: block.name,
+        blockType: block.name,
+        description: block.description,
+        typeName: block.libraryType,
+        baseTypeName: block.category,
+        parameters: block.parameters.map((parameter: any) => {
+          return {
+            name: parameter.name,
+            value: setDefaultValueAndFormat(parameter.dataType)?.value,
+            required: parameter.constraints > 0 ? true : false,
+            format: setDefaultValueAndFormat(parameter.dataType)?.format,
+          };
+        }),
+      },
 
     })
   }

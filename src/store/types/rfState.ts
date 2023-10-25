@@ -47,6 +47,7 @@ export type RFState = {
       blockDescription: string;
     };
     parameters: [];
+    extendedParameters: [];
     valueEditor: {
       inputValue: any;
       parameterName: any;
@@ -103,6 +104,7 @@ export type RFState = {
   setDateTimeParameter: (parameterName: string, value: Date) => void;
   setExecutionParameter: (parameterName: string, value: string) => void;
   setBigIntParameter: (parameterName: string, value: BigInt) => void;
+  addCustomParameter: (name: string, value: string) => void;
 
   //Value Editor Actions
   getParameterValue: (parameterName: string, value: string) => void;

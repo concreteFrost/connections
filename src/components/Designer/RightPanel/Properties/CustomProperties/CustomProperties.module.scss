@@ -1,0 +1,91 @@
+@import "/src/style/variables.scss";
+
+.wrapper {
+    max-height: 300px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    li {
+
+        font-size: 0.75rem;
+        border-bottom: 1px solid rgb(238, 238, 238);
+
+        height: 40px;
+        display: grid;
+        grid-template-columns: 6fr 6fr;
+        justify-items: start;
+        position: relative;
+
+    }
+
+    .input_label {
+        border-right: 1px solid rgb(230, 230, 230);
+        display: flex;
+        align-items: center;
+        width: 140px;
+        font-size: 0.7rem;
+        text-align: start;
+        margin-left: 0;
+        padding-left: 10px;
+
+        &:hover {
+            background-color: rgb(230, 230, 230);
+        }
+
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .input_container {
+        display: grid;
+        grid-template-columns: 11fr 1fr;
+        align-content: center;
+
+        input {
+            display: flex;
+            justify-self: left;
+
+        }
+    }
+
+    .add_property_container {
+        display: flex;
+        justify-content: center;
+        background-color: red;
+
+
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+
+
+        .input_wrapper {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .btn_wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1px;
+
+
+        }
+
+
+    }
+
+    button {
+        font-size: 0.7rem;
+        text-align: center;
+        background-color: $color-node-nav-icon;
+        color: white;
+        padding: 5px;
+    }
+
+
+
+}

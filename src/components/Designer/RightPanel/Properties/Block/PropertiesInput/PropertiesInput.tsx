@@ -8,7 +8,6 @@ function PropertiesInput(props: {
   classData: string;
 }) {
   const state = useStore((state) => state);
-  const substitutions = useStore((state) => state.flow.substitutions);
 
   function setCurrentParameter(parameterName: string, value: any) {
     switch (props.blockData.format) {
@@ -68,12 +67,10 @@ function PropertiesInput(props: {
         classData={props.classData}
         defineInputType={defineInputType}
         setCurrentParameter={setCurrentParameter}
-
       />
       <FilteredResults
         inputValue={props.blockData.value}
         onSubstitutionSelect={onSubstitutionSelect}
-
       />
     </>
   );

@@ -1,5 +1,6 @@
 import { clearRightPanel } from "./rightPanelActions";
 import {
+  addCustomParameter,
   getBlockData,
   setBigIntParameter,
   setBooleanParameter,
@@ -91,6 +92,7 @@ const blockActions = {
   setDateTimeParameter: setDateTimeParameter,
   setExecutionParameter: setExecutionParameter,
   setBigIntParameter: setBigIntParameter,
+  addCustomParameter: addCustomParameter
 };
 
 const valueEditorActions = {

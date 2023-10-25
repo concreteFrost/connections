@@ -48,6 +48,7 @@ const useStore = create<RFState>((set, get) => ({
       blockDescription: ""
     },
     parameters: [],
+    extendedParameters: [],
     valueEditor: {
       inputValue: '',
       parameterName: ''
@@ -100,6 +101,7 @@ const useStore = create<RFState>((set, get) => ({
   setDateTimeParameter: actions.blockActions.setDateTimeParameter(get, set),
   setExecutionParameter: actions.blockActions.setExecutionParameter(get, set),
   setBigIntParameter: actions.blockActions.setBigIntParameter(get, set),
+  addCustomParameter: actions.blockActions.addCustomParameter(get, set),
 
   //Value Editor Actions
   getParameterValue: actions.valueEditorActions.getParameterValue(get, set),

@@ -10,6 +10,7 @@ export const getBlockData = (get: any, set: any) => () => {
       rightPanel: {
         ...state.rightPanel,
         parameters: blockData.parameters,
+        extendedParameters: blockData.extendedParameters
       },
     }));
 };
@@ -43,6 +44,22 @@ export const setParameter =
       }));
     }
   };
+
+export const addCustomParameter = (get: any, set: any) => (name: string, value: string) => {
+  const blockData = get().flow.blockData.find(
+    (block: any) => block.blockIdentifier === get().selectedNode
+  );
+
+  if (blockData) {
+    blockData.extendedParameters.push({ name: name, value: value });
+  }
+  set((state: RFState) => ({
+    rightPanel: {
+      ...state.rightPanel,
+      extendedParameters: blockData.extendedParameters
+    }
+  }))
+}
 
 export const setStringParameter =
   (get: any, set: any) => (propertyName: string, value: string) => {

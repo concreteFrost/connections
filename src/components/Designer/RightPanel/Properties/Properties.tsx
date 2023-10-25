@@ -3,6 +3,7 @@ import Base from "./Base/Base";
 import Block from "./Block/Block";
 import FlowProperties from "./FlowProperties/FlowProperties";
 import useStore from "../../../../store/store";
+import CustomProperties from "./CustomProperties/CustomProperties";
 
 function Properties() {
   const selectedNode = useStore((state) => state.selectedNode);
@@ -15,6 +16,7 @@ function Properties() {
         <div>
           <Base></Base>
           <Block></Block>
+          <CustomProperties></CustomProperties>
         </div>
       )}
     </section>
