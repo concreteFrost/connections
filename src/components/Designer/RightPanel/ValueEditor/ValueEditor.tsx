@@ -3,16 +3,17 @@ import useStore from "../../../../store/store";
 import s from "./ValueEditor.module.scss";
 import { connectionsIcons } from "../../../../icons/icons";
 import FilteredResults from "../FilteredResults/FilteredResults";
+import { IBlockData } from "../../../../store/interfaces/IBlock";
+import { getParameterValue } from "../../../../store/actions/valueEditorActions";
 
 function ValueEditor() {
   // State
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
-  const inputValue = useStore(
-    (state) => state.rightPanel.valueEditor.inputValue
-  );
+
   const setCurrentParameter = useStore((state) => state.setParameterValue);
+  const valueToEdit = useStore((state) => state.valueEditor.valueToEdit)
   const parameterToModify = useStore(
-    (state) => state.rightPanel.valueEditor.parameterName
+    (state) => state.valueEditor.parameterToModify
   );
 
   // Handlers
@@ -41,7 +42,7 @@ function ValueEditor() {
       </div>
       <div className={s.text_area_container}>
         <textarea
-          value={inputValue}
+          value={valueToEdit}
           onChange={(e) => {
             _setCurrentParameter(e);
           }}
@@ -49,7 +50,7 @@ function ValueEditor() {
       </div>
       <FilteredResults
         onSubstitutionSelect={onSubstitutionSelect}
-        inputValue={inputValue}
+        inputValue={'sss'}
       />
     </section>
   );

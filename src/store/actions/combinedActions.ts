@@ -1,8 +1,7 @@
-import { clearRightPanel } from "./rightPanelActions";
+
 import {
   addCustomParameter,
   deleteExtendedParameter,
-  getBlockData,
   setBigIntParameter,
   setBooleanParameter,
   setBooleanYNParameter,
@@ -13,7 +12,7 @@ import {
   setSelectedExtendedParameter,
   setStringParameter,
 } from "./blockActions";
-import { setSelectedNodeID, onNodesChange } from "./nodeActions";
+import { setselectedBlockID, onNodesChange } from "./nodeActions";
 import { handleConnect, onEdgesChange, onEdgesConnect } from "./edgesActions";
 import {
   hideAllTopMenus,
@@ -42,7 +41,7 @@ import {
   toggleSubstitutionsPanel,
 } from "./substitutionsActions";
 import {
-  getNodeBase,
+  getBlockProperties,
   setNodeColor,
   setNodeDescription,
   setNodeName,
@@ -54,7 +53,7 @@ import { toggleMessageModal, toggleUpdateFlowModal, setModalMessage } from "./mo
 
 
 const nodeActions = {
-  setSelectedNodeID: setSelectedNodeID,
+  setselectedBlockID: setselectedBlockID,
   onNodesChange: onNodesChange,
 };
 
@@ -73,19 +72,16 @@ const leftPanelActions = {
   getNodesList: getNodesList,
 };
 
-const rightPanelActions = {
-  clearRightPanel: clearRightPanel,
-};
-
 const baseActtions = {
-  getNodeBase: getNodeBase,
+
+  getBlockProperties: getBlockProperties,
   setNodeColor: setNodeColor,
   setNodeDescription: setNodeDescription,
   setNodeName: setNodeName,
 };
 
 const blockActions = {
-  getBlockData: getBlockData,
+  getBlockProperties: getBlockProperties,
   setStringParameter: setStringParameter,
   setIntegerParameter: setIntegerParameter,
   setFloatParameter: setFloatParameter,
@@ -162,7 +158,6 @@ const actions = {
   nodeActions: nodeActions,
   groupActions: groupActions,
   leftPanelActions: leftPanelActions,
-  rightPanelActions: rightPanelActions,
   substitutionsActions: substitutionsActions,
   baseActtions: baseActtions,
   blockActions: blockActions,

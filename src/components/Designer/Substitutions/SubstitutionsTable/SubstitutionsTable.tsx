@@ -7,11 +7,11 @@ function SubstitutionsTable() {
     const substitutions = useStore(state => state.flow.substitutions);
     const addConfig = useStore(state => state.addConfig);
     const deleteSubstitution = useStore(state => state.deleteSubstitution);
-    const getBlockData = useStore((state) => state.getBlockData);
+    const getBlockData = useStore((state) => state.getBlockProperties);
 
     function _deleteSubstitution(s: any) {
         deleteSubstitution(s);
-        getBlockData();
+        // getBlockData();
     }
     return (
         <div className={s.subs_table}>

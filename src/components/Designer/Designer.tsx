@@ -16,21 +16,20 @@ function Designer() {
     const hideAllTopDropdowns = useStore((state) => state.hideAllTopMenus);
     const hideAllGroupModals = useStore((state) => state.hideAllGroupModals);
 
-    const setSelectedNode = useStore((state) => state.setSelectedNodeID);
-    const clearRightPanel = useStore((state) => state.clearRightPanel);
+    const setselectedBlockID = useStore((state) => state.setselectedBlockID);
 
     useEffect(() => {
         getBlocks().then((res) => { getNodesList(res) }).catch((e) => console.log(e))
     }, [])
 
-    const resetSelectedNode = (event: any) => {
+    const resetselectedBlockID = (event: any) => {
         const isContainer = event.target.classList.contains(
             "react-flow__container"
         );
 
         if (isContainer) {
-            setSelectedNode("-1");
-            clearRightPanel();
+            setselectedBlockID("-1");
+            //deal with right panel clearance
             hideAllGroupModals();
         }
         hideAllTopDropdowns();
@@ -44,7 +43,7 @@ function Designer() {
             <RightPanel></RightPanel>
 
         </div>
-        <Flow resetSelectedNode={resetSelectedNode}></Flow>
+        <Flow resetselectedBlockID={resetselectedBlockID}></Flow>
         <Tooltip anchorSelect=".nodelist-body-elemet" place="right" style={{ zIndex: 1000 }}  >
             {tooltipText}
         </Tooltip>

@@ -9,6 +9,7 @@ import {
 
 import { INodeType } from "../interfaces/INode";
 import { ISubstitutions } from "../interfaces/ISubstitutions";
+import { IBlockData } from "../interfaces/IBlock";
 
 export type RFState = {
   flow: {
@@ -32,25 +33,17 @@ export type RFState = {
   };
   nodeList: INodeType[];
   view: BackgroundVariant;
-  selectedNode: string | null;
+  selectedBlock: object;
+  selectedBlockID: string | null;
   tooltip: {
     text: string;
   };
   substitutionsPanel: {
     isCollapsed: boolean;
   };
-  rightPanel: {
-    base: {
-      blockName: string;
-      blockColor: string;
-      blockDescription: string;
-    };
-    parameters: [];
-    extendedParameters: [];
-    valueEditor: {
-      inputValue: any;
-      parameterName: any;
-    };
+  valueEditor: {
+    valueToEdit: string;
+    parameterToModify: string;
   };
   server: {
     currentFlow: object;
@@ -80,21 +73,20 @@ export type RFState = {
     substitutionAddError: string;
   };
 
-  setSelectedNodeID: (nodeId: string) => void;
+  setselectedBlockID: (nodeId: string) => void;
   setTooltipText: (text: string) => void;
   onNodesChange: OnNodesChange;
   onConnect: OnConnect;
   onEdgesChange: OnEdgesChange;
   addNode: (type: INodeType, posX: number, posY: number) => void;
-  //Right Panel Actions
-  clearRightPanel: () => void;
-  getNodeBase: () => void;
-  getBlockData: () => void;
+
   setNodeName: (text: string) => void;
   setNodeColor: (color: string) => void;
   setNodeDescription: (description: string) => void;
 
   //Block Actions
+  getBlockProperties: () => void;
+
   setStringParameter: (parameterName: string, value: string) => void;
   setIntegerParameter: (parameterName: string, value: number) => void;
   setFloatParameter: (parameterName: string, value: number) => void;

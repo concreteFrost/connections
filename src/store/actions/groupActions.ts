@@ -4,20 +4,20 @@ import { IVisual } from "../interfaces/Ivisual";
 import { RFState } from "../types/rfState";
 import { INodeGroup, INodeType } from "../interfaces/INode";
 
-export const getAllSelectedNodes = (nodes: NodeProps[]) => {
+export const getAllselectedBlockIDs = (nodes: NodeProps[]) => {
   return nodes.filter((node) => node.selected === true).length > 1;
 };
 
 export const addGroup = (get: any, set: any) => () => {
-  const selectedNodes = get().flow.visual.blocks.filter(
+  const selectedBlockIDs = get().flow.visual.blocks.filter(
     (node: NodeProps) => node.selected
   );
-  if (selectedNodes.length > 1) {
+  if (selectedBlockIDs.length > 1) {
     let maxX = -Infinity;
     let minX = Infinity;
     let maxY = -Infinity;
     let minY = Infinity;
-    selectedNodes.forEach((node: IVisual) => {
+    selectedBlockIDs.forEach((node: IVisual) => {
       maxX = Math.max(maxX, node.position.x);
       minX = Math.min(minX, node.position.x);
       maxY = Math.max(maxY, node.position.y);
@@ -60,8 +60,8 @@ export const addGroup = (get: any, set: any) => () => {
 };
 
 const assignParent = (nodes: Array<INodeGroup>, nodeGroup: any) => {
-  const selectedNodes = nodes.filter((node: any) => node.selected === true);
-  selectedNodes.forEach((node: any) => {
+  const selectedBlockIDs = nodes.filter((node: any) => node.selected === true);
+  selectedBlockIDs.forEach((node: any) => {
     node.parentNode = nodeGroup.id;
     nodeGroup.data.children.push(node.id);
     node.position.x -= nodeGroup.position.x;

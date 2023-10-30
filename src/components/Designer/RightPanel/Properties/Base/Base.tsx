@@ -1,8 +1,13 @@
+import { useEffect, useState } from "react";
 import useStore from "../../../../../store/store";
 import s from "./Base.module.scss";
+import { IBlockData } from "../../../../../store/interfaces/IBlock";
+import { IVisual } from "../../../../../store/interfaces/Ivisual";
 
 function Base() {
-  const propertiesData = useStore((state) => state.rightPanel.base);
+  const selectedBlockID: any = useStore((state) => state.selectedBlockID);
+  const currentBlock = useStore<IBlockData | undefined>((store) => store.flow.blockData.find((x: IBlockData) => x.blockIdentifier === selectedBlockID));
+  const currentBlockVisual = useStore<IVisual | undefined>((store) => store.flow.visual.blocks.find((x: IVisual) => x.id === selectedBlockID));
   const setNodeName = useStore((state) => state.setNodeName);
   const setNodeColor = useStore((state) => state.setNodeColor);
   const setNodeDescription = useStore((state) => state.setNodeDescription);
@@ -27,7 +32,7 @@ function Base() {
           <input
             type="text"
             placeholder="Block Name"
-            value={propertiesData.blockName}
+            value={currentBlock?.blockLabel}
             onChange={(e: any) => _setNodeName(e)}
           />
         </li>
@@ -36,7 +41,7 @@ function Base() {
           <div className={s.color_input}>
             <input
               type="color"
-              value={propertiesData.blockColor}
+              value={currentBlockVisual?.data.color}
               onChange={(e: any) => _setNodeColor(e)}
             />
           </div>
@@ -46,7 +51,7 @@ function Base() {
           <input
             type="text"
             placeholder="Description"
-            value={propertiesData.blockDescription}
+            value={currentBlock?.description}
             onChange={(e: any) => _setNodeDescription(e)}
           />
         </li>

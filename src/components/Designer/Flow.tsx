@@ -29,11 +29,6 @@ function Flow(props: any) {
   const snapToGrid = useStore((state) => state.topPanel.settings.snapToGrid)
   const snapStep = useStore((state) => state.topPanel.settings.snapStep)
   const showMinimap = useStore((state) => state.topPanel.settings.showMiniMap)
-  // const flow = useStore((state) => state.flow);
-
-  // console.log(flow)
-
-
   return (
     <div style={{ height: 930 }}>
       <ReactFlow
@@ -43,7 +38,7 @@ function Flow(props: any) {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         nodeTypes={nodeTypes}
-        onClick={props.resetSelectedNode}
+        onClick={props.resetselectedBlockID}
         snapToGrid={snapToGrid}
         snapGrid={[snapStep[0], snapStep[1]]}
 

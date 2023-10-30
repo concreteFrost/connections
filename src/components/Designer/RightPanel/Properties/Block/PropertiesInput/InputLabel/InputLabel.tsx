@@ -7,7 +7,6 @@ function InputLabel(props: {
   classData: string;
   defineInputType: () => string;
   setCurrentParameter: (parameterName: string, value: any) => void;
-
 }) {
   const _getParameterValue = useStore((state) => state.getParameterValue);
   function getParameterValue(value: any) {
@@ -35,6 +34,7 @@ function InputLabel(props: {
           value={props.blockData.value}
           checked={props.blockData.value === "Y" ? true : false}
           onChange={(e: any) => {
+
             props.setCurrentParameter(props.blockData.name, e.target.value);
           }}
           onClick={() => {

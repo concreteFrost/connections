@@ -5,12 +5,14 @@ import FlowProperties from "./FlowProperties/FlowProperties";
 import useStore from "../../../../store/store";
 import CustomProperties from "./CustomProperties/CustomProperties";
 
+
 function Properties() {
-  const selectedNode = useStore((state) => state.selectedNode);
+  const selectedBlockID = useStore((state) => state.selectedBlockID);
+
   return (
     <section className={s.section_container}>
       <div className={s.section_header}>PROPERTIES</div>
-      {selectedNode === "-1" || !selectedNode ? (
+      {selectedBlockID === "-1" || !selectedBlockID ? (
         <FlowProperties></FlowProperties>
       ) : (
         <div>

@@ -8,8 +8,8 @@ import actions from "./combinedActions";
 import { RFState } from "../types/rfState";
 
 
-export const setSelectedNodeID = (get: any, set: any) => (nodeId: string) => {
-  set({ selectedNode: nodeId });
+export const setselectedBlockID = (get: any, set: any) => (nodeId: string) => {
+  set({ selectedBlockID: nodeId });
 };
 
 export const onNodesChange =
@@ -30,14 +30,6 @@ export const onNodesChange =
         },
       },
     }));
-
-    const blockData = get().flow.blockData.find(
-      (block: any) => block.blockIdentifier === get().selectedNode
-    );
-
-    if (blockData)
-      console.log(blockData.blockIdentifier);
-
 
   };
 

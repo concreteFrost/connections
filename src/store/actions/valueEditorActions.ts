@@ -1,57 +1,41 @@
-import { IBlockData } from "../interfaces/IBlock";
+import { IBlockData, IBlockParameters } from "../interfaces/IBlock";
 import { RFState } from "../types/rfState";
 
 export const getParameterValue =
-  (get: any, set: any) => (parameterName: any, value: string) => {
+  (set: any) => (parameter: string, value: string) => {
+
     set((state: RFState) => ({
-      rightPanel: {
-        ...state.rightPanel,
-        valueEditor: {
-          inputValue: value,
-          parameterName: parameterName
-        },
-      },
+      ...state, valueEditor: {
+        valueToEdit: value,
+        parameterToModify: parameter
+      }
     }));
   };
 
-export const setParameterValue =
-  (get: any, set: any) => (propertyName: string, value: any) => {
-    const blockData = get().flow.blockData.find((block: IBlockData) => block.blockIdentifier === get().selectedNode);
-    if (blockData) {
-      const parameter = blockData.parameters.map((param: any) => {
-        if (param.name === propertyName) {
-          return {
-            ...param,
-            value: value,
-          };
-        }
-        return param;
-      });
+export const setParameterValue = (get: any, set: any) => (propertyName: string, value: string) => {
+  const blockData = get().flow.blockData.find((block: IBlockData) => block.blockIdentifier === get().selectedBlockID);
 
-      const extendedParam = blockData.extendedParameters.map((param: any) => {
-        if (param.name === propertyName) {
-          return {
-            ...param,
-            value: value,
-          };
-        }
-        return param;
-      });
+  if (!blockData) return;
 
-      blockData.parameters = parameter;
-      blockData.extendedParameters = extendedParam;
+  const updateParameter = (params: any) => params.map((param: IBlockParameters) =>
+    param.name === propertyName ? { ...param, value } : param
+  );
 
-      set((state: any) => ({
-        rightPanel: {
-          ...state.rightPanel,
-          parameters: parameter,
-          extendedParameters: extendedParam,
-          valueEditor: {
-            ...state.rightPanel.valueEditor,
-            inputValue: value,
-          },
-        },
-      }));
-    }
-
+  const updatedBlockData = {
+    ...blockData,
+    parameters: updateParameter(blockData.parameters),
+    extendedParameters: updateParameter(blockData.extendedParameters),
   };
+
+  set((state: RFState) => ({
+    ...state,
+    valueEditor: { valueToEdit: value, parameterToModify: propertyName },
+    flow: {
+      ...state.flow,
+      blockData: state.flow.blockData.map((block: IBlockData) =>
+        block.blockIdentifier === get().selectedBlockID ? updatedBlockData : block
+      ),
+    },
+  }));
+};
+

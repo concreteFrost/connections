@@ -12,7 +12,7 @@ function RightPanel() {
   function togglePanel() {
     setIsPanelActive(!isPanelActive);
   }
-  const selectedNode = useStore((state) => state.selectedNode);
+  const selectedBlockID = useStore((state) => state.selectedBlockID);
 
   const btnClasses = `${s.toggle_btn} ${isPanelActive ? s["opened"] : s["closed"]
     }`;
@@ -31,7 +31,7 @@ function RightPanel() {
       </div>
       <div className={s.right_panel_container}>
         <Properties></Properties>
-        {selectedNode !== "-1" || selectedNode !== null ? <ValueEditor></ValueEditor> : null}
+        {selectedBlockID !== "-1" || selectedBlockID !== null ? <ValueEditor></ValueEditor> : null}
         <DebugConsole></DebugConsole>
       </div>
     </div>

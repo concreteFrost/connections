@@ -1,84 +1,74 @@
-import { NodeProps } from "react-flow-renderer";
+
+import { IBlockData } from "../interfaces/IBlock";
+import { IVisual } from "../interfaces/Ivisual";
 import { RFState } from "../types/rfState";
 
-const getVisualData = (get: any) => {
-  return get().flow.visual.blocks.find(
-    (node: NodeProps) => node.id === get().selectedNode
-  )!;
-};
-
-const getBlockData = (get: any) => {
-  return get().flow.blockData.find(
-    (block: any) => block.blockIdentifier === get().selectedNode
-  )!;
-};
-
-export const getNodeBase = (set: any, get: any) => () => {
-  const nodeData = getVisualData(get);
-  const nodeParams = getBlockData(get);
+export const getBlockProperties = (get: any, set: any) => () => {
+  const selectedBlockData = get()?.flow ? get().flow.blockData.find((block: IBlockData) => block.blockIdentifier === get().selectedBlockID) : {}
+  const selectedBlockVisuals = get()?.flow.visual ? get().flow.visual.blocks.find((blockVisual: IVisual) => blockVisual.id === get().selectedBlockID) : {};
 
   set((state: RFState) => ({
-    rightPanel: {
-      ...state.rightPanel,
-      base: {
-        blockName: get().selectedNode !== "-1" ? nodeParams.blockLabel : "",
-        blockColor: nodeData.data.color,
-        blockDescription: nodeParams.description,
-      },
-    },
-  }));
-};
+    ...state, selectedBlock: {
+      data: selectedBlockData,
+      visual: selectedBlockVisuals
+    }
+  }))
+}
 
 export const setNodeName = (set: any, get: any) => (text: string) => {
-  const nodeData = getBlockData(get);
-  if (nodeData) {
-    nodeData.blockLabel = text;
-  }
+  const nodeData: any = get().flow.blockData.map((x: any) => {
+    if (x.blockIdentifier === get().selectedBlockID) {
+      return {
+        ...x,
+        blockLabel: text
+      }
+    } return x
+  })
+
   set((state: RFState) => ({
-    rightPanel: {
-      ...state.rightPanel,
-      base: { ...state.rightPanel.base, blockName: text },
-    },
     flow: {
       ...state.flow,
-      blockData: get().flow.blockData.map((x: Node) => x),
+      blockData: nodeData
     },
   }));
 };
 
-export const setNodeDescription =
-  (set: any, get: any) => (description: string) => {
-    const nodeData = getBlockData(get);
-    if (nodeData) {
-      nodeData.description = description;
-    }
-    set((state: RFState) => ({
-      rightPanel: {
-        ...state.rightPanel,
-        base: { ...state.rightPanel.base, blockDescription: description },
-      },
-      flow: {
-        ...state.flow,
-        blockData: get().flow.blockData.map((x: Node) => x),
-      },
-    }));
-  };
+export const setNodeDescription = (set: any, get: any) => (description: string) => {
+  const nodeData: any = get().flow.blockData.map((x: any) => {
+    if (x.blockIdentifier === get().selectedBlockID) {
+      return {
+        ...x,
+        description: description
+      }
+    } return x
+  })
+  set((state: RFState) => ({
+
+    flow: {
+      ...state.flow,
+      blockData: nodeData
+    },
+  }));
+};
 
 export const setNodeColor = (set: any, get: any) => (color: string) => {
-  const nodeData = getVisualData(get);
-  if (nodeData) {
-    nodeData.data = { ...nodeData.data, color: color };
-  }
+
+  const nodeVisuals: any = get().flow.visual.blocks.map((x: IVisual) => {
+    if (x.id === get().selectedBlockID) {
+      return {
+        ...x,
+        data: {
+          ...x.data, color: color
+        }
+      }
+    } return x
+  })
   set((state: RFState) => ({
-    rightPanel: {
-      ...state.rightPanel,
-      base: { ...state.rightPanel.base, blockColor: color },
-    },
     flow: {
       ...state.flow,
       visual: {
         ...state.flow.visual,
-        blocks: get().flow.visual.blocks.map((x: Node) => x),
+        blocks: nodeVisuals
       },
     },
   }));

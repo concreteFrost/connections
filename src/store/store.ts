@@ -5,6 +5,7 @@ import initialEdges from "./edges";
 import { RFState } from "./types/rfState";
 import { BackgroundVariant } from "react-flow-renderer";
 import { initializeFlow } from "./actions/utils/flowUtils";
+import { IBlockData } from "./interfaces/IBlock";
 
 const useStore = create<RFState>((set, get) => ({
   flow: initializeFlow(initialNodes, initialEdges),
@@ -13,25 +14,17 @@ const useStore = create<RFState>((set, get) => ({
   },
   nodeList: [],
   view: BackgroundVariant.Dots,
-  selectedNode: null,
+  selectedBlock: {},
+  selectedBlockID: null,
   tooltip: {
     text: ''
   },
   substitutionsPanel: {
     isCollapsed: false,
   },
-  rightPanel: {
-    base: {
-      blockName: "",
-      blockColor: "#FFFFFF",
-      blockDescription: ""
-    },
-    parameters: [],
-    extendedParameters: [],
-    valueEditor: {
-      inputValue: '',
-      parameterName: ''
-    }
+  valueEditor: {
+    valueToEdit: '',
+    parameterToModify: ''
   },
   modalWindows: {
     updateFlowModal: {
@@ -61,17 +54,13 @@ const useStore = create<RFState>((set, get) => ({
   },
 
 
-  //Right Panel Actions
-  clearRightPanel: actions.rightPanelActions.clearRightPanel(get, set),
-
   //Base Actions
-  getNodeBase: actions.baseActtions.getNodeBase(set, get),
+  getBlockProperties: actions.baseActtions.getBlockProperties(get, set),
   setNodeName: actions.baseActtions.setNodeName(set, get),
   setNodeDescription: actions.baseActtions.setNodeDescription(set, get),
   setNodeColor: actions.baseActtions.setNodeColor(set, get),
 
   //Block Actions
-  getBlockData: actions.blockActions.getBlockData(get, set),
   setStringParameter: actions.blockActions.setStringParameter(get, set),
   setIntegerParameter: actions.blockActions.setIntegerParameter(get, set),
   setFloatParameter: actions.blockActions.setFloatParameter(get, set),
@@ -85,7 +74,7 @@ const useStore = create<RFState>((set, get) => ({
   deleteExtendedParameter: actions.blockActions.deleteExtendedParameter(get, set),
 
   //Value Editor Actions
-  getParameterValue: actions.valueEditorActions.getParameterValue(get, set),
+  getParameterValue: actions.valueEditorActions.getParameterValue(set),
   setParameterValue: actions.valueEditorActions.setParameterValue(get, set),
 
   //Group Actions
@@ -99,7 +88,7 @@ const useStore = create<RFState>((set, get) => ({
   //Node Actions
   getNodesList: actions.leftPanelActions.getNodesList(set),
   addNode: actions.leftPanelActions.addNode(get, set),
-  setSelectedNodeID: actions.nodeActions.setSelectedNodeID(get, set),
+  setselectedBlockID: actions.nodeActions.setselectedBlockID(get, set),
   onNodesChange: actions.nodeActions.onNodesChange(get, set),
 
   //Edge Actions

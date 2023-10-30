@@ -1,3 +1,4 @@
+import { IBlockData } from "../../../../../store/interfaces/IBlock";
 import useStore from "../../../../../store/store";
 import FilteredResults from "../../FilteredResults/FilteredResults";
 import s from "./CustomProperties.module.scss"
@@ -15,7 +16,8 @@ function CustomProperties() {
     const setParameter = useStore((state) => state.setSelectedExtendedParameter);
     const deleteExtendedParameter = useStore((state) => state.deleteExtendedParameter);
 
-    const extendedParameters = useStore((state) => state.rightPanel.extendedParameters);
+    const selectedBlockID = useStore((state) => state.selectedBlockID)
+    const blockData = useStore<IBlockData | undefined>((state) => state.flow.blockData.find((x: IBlockData) => x.blockIdentifier === selectedBlockID));
 
     function triggerSubstitutions(e: any) {
         if (e.key === "{") {
@@ -49,7 +51,7 @@ function CustomProperties() {
     return (<div className={s.wrapper}>
         <h5>Custom</h5>
         <ul>
-            {extendedParameters.length > 0 ? extendedParameters.map((params: any) => <li key={params.name}>
+            {blockData?.extendedParameters && blockData?.extendedParameters.length > 0 ? blockData.extendedParameters.map((params: any) => <li key={params.name}>
                 <input className={s.param_name} type="text" placeholder={params.name} onClick={() => {
                     getParameterValue(params.name, params.value)
                 }} readOnly />

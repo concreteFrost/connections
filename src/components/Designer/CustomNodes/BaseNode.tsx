@@ -1,5 +1,4 @@
 // BaseNode component
-
 import s from "./BaseNode.module.scss";
 import useStore from "../../../store/store";
 import { useEffect, useState } from "react";
@@ -32,27 +31,22 @@ const isDarkBackground = (color: string) => {
 };
 
 export default function BaseNode(props: any) {
-  const setSelectedNodeId = useStore((state) => state.setSelectedNodeID);
+  const setselectedBlockID = useStore((state) => state.setselectedBlockID);
   const getParameterValue = useStore((state) => state.getParameterValue);
-  const getNodeData = useStore((state) => state.getNodeBase);
-  const getNodeBase = useStore((state) => state.getBlockData);
-  const selectedNodeId = useStore((state) => state.selectedNode);
+  const selectedBlockId = useStore((state) => state.selectedBlockID);
   const [isOutlined, setIsOutlined] = useState(false);
-
   const blockData: Block[] = useStore((state) => state.flow.blockData);
   const blockName = blockData.find((b: any) => b.blockIdentifier === props.id)?.name;
   const blockLabel = blockData.find((b: any) => b.blockIdentifier === props.id)?.blockLabel;
 
-  function _setSelectedNodeID() {
-    setSelectedNodeId(props.id);
-    getNodeData();
-    getNodeBase();
+  function _setselectedBlockID() {
+    setselectedBlockID(props.id);
     getParameterValue('', '');
   }
 
   useEffect(() => {
-    selectedNodeId === props.id ? setIsOutlined(true) : setIsOutlined(false);
-  }, [selectedNodeId]);
+    selectedBlockId === props.id ? setIsOutlined(true) : setIsOutlined(false);
+  }, [selectedBlockId]);
 
   const nodeBodyClasses = `${s.node_body} ${isDarkBackground(props.data.color) ? s["dark-text"] : s["light-text"]
     }`;
@@ -68,7 +62,7 @@ export default function BaseNode(props: any) {
   return (
     <div className={wrapperClasses}>
       <div
-        onClick={_setSelectedNodeID}
+        onClick={_setselectedBlockID}
         className={nodeBodyClasses}
         style={{ backgroundColor: props.data.color, zIndex: 999999 }}
       >

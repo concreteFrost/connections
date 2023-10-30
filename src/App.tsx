@@ -7,8 +7,8 @@ import NotFound from "./components/NotFound/NotFound";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import Server from "./components/Server/Server";
 
-function App() {
 
+function App() {
 
   return (
     <Router>

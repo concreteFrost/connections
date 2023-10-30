@@ -1,53 +1,42 @@
+import { IBlockData } from "../interfaces/IBlock";
+import { IFlowData } from "../interfaces/Iflow";
 import { RFState } from "../types/rfState";
 
-export const getBlockData = (get: any, set: any) => () => {
+const setParameter = (get: any, set: any) => (propertyName: string, value: any) => {
   const blockData = get().flow.blockData.find(
-    (block: any) => block.blockIdentifier === get().selectedNode
+    (block: any) => block.blockIdentifier === get().selectedBlockID
   );
 
-  if (blockData)
-    set((state: RFState) => ({
-      rightPanel: {
-        ...state.rightPanel,
-        parameters: blockData.parameters,
-        extendedParameters: blockData.extendedParameters
-      },
-    }));
-};
-export const setParameter =
-  (get: any, set: any) => (propertyName: string, value: any) => {
-    const blockData = get().flow.blockData.find(
-      (block: any) => block.blockIdentifier === get().selectedNode
-    );
-
-    if (blockData) {
-      const parameter = blockData.parameters.map((param: any) => {
-        if (param.name === propertyName) {
-          return {
-            ...param,
-            value: value,
-          };
-        }
-        return param;
-      });
-      blockData.parameters = parameter;
-
-      set((state: any) => ({
-        rightPanel: {
-          ...state.rightPanel,
-          parameters: parameter,
-          valueEditor: {
-            ...state.rightPanel.valueEditor,
-            inputValue: value
-          }
-        },
-      }));
+  const parameter = blockData.parameters.map((param: any) => {
+    if (param.name === propertyName) {
+      return {
+        ...param,
+        value: value,
+      };
     }
-  };
+    return param;
+  });
+
+  set((state: any) => ({
+    ...state, flow: {
+      ...state.flow,
+      blockData: state.flow.blockData.map((x: any) => {
+        if (x.blockIdentifier === get().selectedBlockID) {
+          return {
+            ...x,
+            parameters: parameter
+          }
+        }
+        return x;
+      })
+    }
+  }));
+
+};
 
 export const setSelectedExtendedParameter = (get: any, set: any) => (propertyName: string, value: string) => {
   const blockData = get().flow.blockData.find(
-    (block: any) => block.blockIdentifier === get().selectedNode
+    (block: IBlockData) => block.blockIdentifier === get().selectedBlockID
   );
 
   if (blockData) {
@@ -60,45 +49,53 @@ export const setSelectedExtendedParameter = (get: any, set: any) => (propertyNam
       }
       return param;
     });
-    blockData.extendedParameters = parameter;
 
     set((state: any) => ({
-      rightPanel: {
-        ...state.rightPanel,
-        extendedParameters: parameter,
-        valueEditor: {
-          ...state.rightPanel.valueEditor,
-          inputValue: value
-        }
-      },
+      ...state, flow: {
+        ...state.flow,
+        blockData: state.flow.blockData.map((x: any) => {
+          if (x.blockIdentifier === get().selectedBlockID) {
+            return {
+              ...x,
+              extendedParameters: parameter
+            }
+          }
+          return x;
+        })
+      }
     }));
   }
 }
 
 export const deleteExtendedParameter = (get: any, set: any) => (propName: string) => {
   const blockData = get().flow.blockData.find(
-    (block: any) => block.blockIdentifier === get().selectedNode
+    (block: any) => block.blockIdentifier === get().selectedBlockID
   );
 
   if (blockData) {
     const filteredParameters = blockData.extendedParameters.filter((param: any) => param.name !== propName)
-    blockData.extendedParameters = filteredParameters;
 
     set((state: any) => ({
-      rightPanel: {
-        ...state.rightPanel,
-        extendedParameters: filteredParameters,
-      },
+      ...state, flow: {
+        ...state.flow,
+        blockData: state.flow.blockData.map((x: any) => {
+          if (x.blockIdentifier === get().selectedBlockID) {
+            return {
+              ...x,
+              extendedParameters: filteredParameters
+            }
+          }
+          return x;
+        })
+      }
     }));
-
-
   }
 
 }
 
 export const addCustomParameter = (get: any, set: any): ((name: string, value: string) => boolean | undefined) => (name, value) => {
   const blockData = get().flow.blockData.find(
-    (block: any) => block.blockIdentifier === get().selectedNode
+    (block: any) => block.blockIdentifier === get().selectedBlockID
   );
 
   if (blockData) {
@@ -106,15 +103,21 @@ export const addCustomParameter = (get: any, set: any): ((name: string, value: s
     const existingExtendedParam = blockData.extendedParameters.find((param: any) => param.name.toLowerCase() === name.toLowerCase());
 
     if (!existingParam && !existingExtendedParam) {
-      blockData.extendedParameters = [{ ...blockData.existingExtendedParameters, name: name, value: value }]
-      set((state: RFState) => ({
-        rightPanel: {
-          ...state.rightPanel,
-          extendedParameters: blockData.extendedParameters
+      const updatedExtendedParams = [...blockData.extendedParameters, { name: name, value: value }]
+      set((state: any) => ({
+        ...state, flow: {
+          ...state.flow,
+          blockData: state.flow.blockData.map((x: any) => {
+            if (x.blockIdentifier === get().selectedBlockID) {
+              return {
+                ...x,
+                extendedParameters: updatedExtendedParams
+              }
+            }
+            return x;
+          })
         }
-      }))
-      console.log(get().flow.blockData)
-
+      }));
       return true;
     }
     else {
@@ -124,7 +127,6 @@ export const addCustomParameter = (get: any, set: any): ((name: string, value: s
 
 
 }
-
 
 export const setStringParameter =
   (get: any, set: any) => (propertyName: string, value: string) => {
