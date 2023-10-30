@@ -8,7 +8,6 @@ import { setAccessToken } from "../../store/actions/storageActions";
 
 function Login() {
 
-    const baseUrl = useStore((state) => state.baseUrl);
     const [defPassVal, setDefPassVal] = useState('cre4min9Tuff')
     const userName = useStore((state) => state.flow.createdBy);
     const setUserName = useStore((state) => state.setUserName);
@@ -17,7 +16,7 @@ function Login() {
 
     function submit(e: any) {
         e.preventDefault();
-        getToken(baseUrl, e.target[0].value, e.target[1].value).then((res: any) => {
+        getToken(e.target[0].value, e.target[1].value).then((res: any) => {
             setAccessToken(res.data)
             navigate('/dashboard')
         }).catch(e => console.log(e))

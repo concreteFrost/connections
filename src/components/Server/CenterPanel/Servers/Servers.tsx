@@ -8,6 +8,7 @@ import BlocksTable from "./Tables/BlocksTable";
 import MonitorsTable from "./Tables/MonitorsTable";
 import SchedulesTable from "./Tables/ISchedulesTable";
 import MetricsTable from "./Tables/MetricsTable";
+import { killServerAPI, startServerAPI, stopServerAPI } from "../../../../api/server";
 
 interface ITableData {
     alertsRaised: number;
@@ -58,6 +59,31 @@ const data: ITableData = {
 function Servers() {
 
     const [tableData, setTableData] = useState<ITableData>(data)
+
+    function startServer() {
+        startServerAPI().then((res) => {
+            console.log("start server success", res)
+        }).catch((e) => {
+            console.log("start server error", e)
+        })
+    }
+
+    function stopServer() {
+        stopServerAPI().then((res) => {
+            console.log("stop server success", res)
+        }).catch((e) => {
+            console.log("stop server error", e)
+        })
+    }
+
+    function killServer() {
+        killServerAPI().then((res) => {
+            console.log("kill server success", res)
+        }).catch((e) => {
+            console.log("kill server error", e)
+        })
+    }
+
     useEffect(() => {
         getServerStatusAPI().then((res: any) => {
             setTableData(res)
@@ -68,9 +94,9 @@ function Servers() {
 
     return (<div className={s.wrapper}>
         <div className={s.header_buttons}>
-            <button className={s.play}>{connectionsIcons.serverButtonsIcons.play}</button>
-            <button className={s.stop}>{connectionsIcons.serverButtonsIcons.stop}</button>
-            <button className={s.kill}>{connectionsIcons.serverButtonsIcons.kill}</button>
+            <button className={s.play} onClick={startServer}>{connectionsIcons.serverButtonsIcons.play}</button>
+            <button className={s.stop} onClick={stopServer}>{connectionsIcons.serverButtonsIcons.stop}</button>
+            <button className={s.kill} onClick={killServer}>{connectionsIcons.serverButtonsIcons.kill}</button>
         </div>
         <div className={s.main_container}>
             <OperationTable tableData={{

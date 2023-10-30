@@ -1,15 +1,16 @@
-.suggestion_list{
+.suggestion_list {
     position: absolute;
-    top: 45px;
-    left: 155px;
-    z-index: 99999;
+    top: 40px;
+    right: 0;
+    z-index: 1000;
 
     ul {
         min-width: 150px;
         border: 1px solid rgb(168, 168, 168);
         list-style: none;
     }
-    li{
+
+    li {
         background-color: white;
         padding: 5px;
         font-weight: bold;

@@ -11,7 +11,6 @@ import { INodeType } from "../interfaces/INode";
 import { ISubstitutions } from "../interfaces/ISubstitutions";
 
 export type RFState = {
-  baseUrl: string;
   flow: {
     blockData: [];
     created: Date;
@@ -104,7 +103,9 @@ export type RFState = {
   setDateTimeParameter: (parameterName: string, value: Date) => void;
   setExecutionParameter: (parameterName: string, value: string) => void;
   setBigIntParameter: (parameterName: string, value: BigInt) => void;
-  addCustomParameter: (name: string, value: string) => void;
+  addCustomParameter: (name: string, value: string) => boolean | undefined;
+  setSelectedExtendedParameter: (parameterName: string, value: string) => void;
+  deleteExtendedParameter: (parameterName: string) => void;
 
   //Value Editor Actions
   getParameterValue: (parameterName: string, value: string) => void;
@@ -123,6 +124,7 @@ export type RFState = {
   setFlowName: (name: string) => void;
   setFlowVersion: (version: string) => void;
   setFlowIsEnabled: () => void;
+  createFlow: () => void;
 
   //Substitutions Panel
   toggleSubstitutionsPanel: () => void;

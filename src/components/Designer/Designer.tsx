@@ -10,7 +10,6 @@ import Substitutions from "./Substitutions/Substitutions";
 
 function Designer() {
 
-    const baseUrl = useStore((store) => store.baseUrl)
     const getNodesList = useStore((store) => store.getNodesList);
     const tooltipText = useStore((store) => store.tooltip.text);
 
@@ -21,7 +20,7 @@ function Designer() {
     const clearRightPanel = useStore((state) => state.clearRightPanel);
 
     useEffect(() => {
-        getBlocks(baseUrl).then((res) => { getNodesList(res) }).catch((e) => console.log(e))
+        getBlocks().then((res) => { getNodesList(res) }).catch((e) => console.log(e))
     }, [])
 
     const resetSelectedNode = (event: any) => {

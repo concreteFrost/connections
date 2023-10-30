@@ -1,6 +1,7 @@
 import { clearRightPanel } from "./rightPanelActions";
 import {
   addCustomParameter,
+  deleteExtendedParameter,
   getBlockData,
   setBigIntParameter,
   setBooleanParameter,
@@ -9,6 +10,7 @@ import {
   setExecutionParameter,
   setFloatParameter,
   setIntegerParameter,
+  setSelectedExtendedParameter,
   setStringParameter,
 } from "./blockActions";
 import { setSelectedNodeID, onNodesChange } from "./nodeActions";
@@ -32,7 +34,7 @@ import {
 } from "./groupActions";
 import { setTooltipText } from "./tooltipActions";
 import { getNodesList, addNode } from "./leftPanelActions";
-import { loadFlow, openTestFlow, saveFlow, setFlowIsEnabled, setFlowName, setFlowVersion, updateFlow } from "./flowActions";
+import { createFlow, loadFlow, openTestFlow, saveFlow, setFlowIsEnabled, setFlowName, setFlowVersion, updateFlow } from "./flowActions";
 import {
   addConfig,
   addSubstitutionKey,
@@ -92,7 +94,9 @@ const blockActions = {
   setDateTimeParameter: setDateTimeParameter,
   setExecutionParameter: setExecutionParameter,
   setBigIntParameter: setBigIntParameter,
-  addCustomParameter: addCustomParameter
+  addCustomParameter: addCustomParameter,
+  setSelectedExtendedParameter: setSelectedExtendedParameter,
+  deleteExtendedParameter: deleteExtendedParameter
 };
 
 const valueEditorActions = {
@@ -123,6 +127,7 @@ const substitutionsActions = {
 };
 
 const flowActions = {
+  createFlow: createFlow,
   openTestFlow: openTestFlow,
   loadFlow: loadFlow,
   saveFlow: saveFlow,

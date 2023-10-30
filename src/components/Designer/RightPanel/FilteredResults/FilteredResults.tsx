@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import s from "./FilteredResults.module.scss";
 import useStore from "../../../../store/store";
 
-function FilteredResults(props: any) {
+interface FilteredResultsProps {
+  inputValue: string;
+  onSubstitutionSelect: (value: string) => void;
+}
+
+function FilteredResults(props: FilteredResultsProps) {
   const [filteredSubstitutions, setFilteredSubstitutions] = useState<any[]>([]);
 
   const substitutions = useStore((state) => state.flow.substitutions);
@@ -22,31 +27,31 @@ function FilteredResults(props: any) {
 
   useEffect(() => {
     const inputValue = props.inputValue;
-  
+
     if (typeof inputValue !== 'string') {
       clearFilteredSubstitutions();
       return;
     }
-  
+
     if (inputValue.length <= 1) {
       clearFilteredSubstitutions();
       return;
     }
-  
+
     const searchTerm = inputValue.substring(1).toLowerCase();
-  
+
     const res = substitutions.filter((sub) => {
       const substitution = sub.subKey.toLowerCase();
       return substitution.startsWith(searchTerm);
     });
-  
+
     if (inputValue.startsWith("{")) {
       setFilteredSubstitutions(res);
     } else {
       clearFilteredSubstitutions();
     }
   }, [props.inputValue]);
-  
+
 
   function clearFilteredSubstitutions() {
     setFilteredSubstitutions([]);

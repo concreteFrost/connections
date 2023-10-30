@@ -1,30 +1,62 @@
 import useStore from "../../../../../store/store";
+import FilteredResults from "../../FilteredResults/FilteredResults";
 import s from "./CustomProperties.module.scss"
 import { useState } from "react"
-import { v4 as uuidv4 } from 'uuid';
 
 function CustomProperties() {
 
     const [isFormActive, setIsFormActive] = useState(false);
+    const [errorMessage, setErrorMMessage] = useState('');
+    const [propName, setPropName] = useState<string>('');
+    const [propValue, setPropValue] = useState<string>('');
+
     const addCustomParameter = useStore((state) => state.addCustomParameter);
+    const getParameterValue = useStore((state) => state.getParameterValue);
+    const setParameter = useStore((state) => state.setSelectedExtendedParameter);
+    const deleteExtendedParameter = useStore((state) => state.deleteExtendedParameter);
+
     const extendedParameters = useStore((state) => state.rightPanel.extendedParameters);
+
+    function triggerSubstitutions(e: any) {
+        if (e.key === "{") {
+
+        }
+    }
 
     function toggleForm() {
         setIsFormActive(!isFormActive);
+        setPropName('');
+        setPropValue('');
     }
 
     function submit(e: any) {
         e.preventDefault();
-        addCustomParameter(e.target[0].value, e.target[1].value);
-        toggleForm();
+        if (addCustomParameter(e.target[0].value, e.target[1].value)) {
+            toggleForm()
+        }
+        else {
+            setErrorMMessage('*parameter with that name already exists')
+            setTimeout(() => {
+                setErrorMMessage('')
+            }, 3000);
+        }
+    }
+
+    function onSubstitutionSelect(val: string) {
+        setPropValue(`{${val}}`);
     }
 
     return (<div className={s.wrapper}>
         <h5>Custom</h5>
         <ul>
-            {extendedParameters.length > 0 ? extendedParameters.map((params: any) => <li key={uuidv4()}>
-                <input type="text" placeholder={params.name} />
-                <input type="text" placeholder={params.value} />
+            {extendedParameters.length > 0 ? extendedParameters.map((params: any) => <li key={params.name}>
+                <input className={s.param_name} type="text" placeholder={params.name} onClick={() => {
+                    getParameterValue(params.name, params.value)
+                }} readOnly />
+                <input className={s.param_value} type="text" placeholder={params.value} value={params.value} onChange={(e: any) => {
+                    setParameter(params.name, e.target.value)
+                }} />
+                <button onClick={() => { deleteExtendedParameter(params.name) }}>x</button>
             </li>) : null}
 
         </ul>
@@ -32,22 +64,24 @@ function CustomProperties() {
             <form onSubmit={(e: any) => { submit(e) }}>
                 <div className={s.input_wrapper}>
                     <label >Name:</label>
-                    <input type="text" placeholder="name" required />
+                    <input type="text" placeholder="name" value={propName} onChange={(e: any) => setPropName(e.target.value)} required />
                 </div>
-                <div className={s.input_wrapper}>
+                <div className={s.value_wrapper}>
                     <label >Value:</label>
-                    <input type="text" placeholder="value" required />
+                    <input type="text" placeholder="value" onKeyDown={triggerSubstitutions} value={propValue} onChange={(e: any) => setPropValue(e.target.value)} required />
+
                 </div>
                 <div className={s.btn_wrapper}>
                     <button>Add</button>
                     <button onClick={toggleForm}>Close</button>
                 </div>
-
             </form>
+
         }
-
-
-
+        {errorMessage.length > 0 ? <div className={s.error_message}>{errorMessage}</div> : null}
+        <div className={s.filtered_results}>
+            <FilteredResults inputValue={propValue} onSubstitutionSelect={onSubstitutionSelect}></FilteredResults>
+        </div>
     </div>
     )
 }

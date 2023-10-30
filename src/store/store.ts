@@ -4,33 +4,12 @@ import initialNodes from "./nodes"
 import initialEdges from "./edges";
 import { RFState } from "./types/rfState";
 import { BackgroundVariant } from "react-flow-renderer";
-import { v4 as uuidv4 } from 'uuid';
-
+import { initializeFlow } from "./actions/utils/flowUtils";
 
 const useStore = create<RFState>((set, get) => ({
-  baseUrl: 'https://iconn.cocoon.technology:9143/iconn',
-  flow: {
-    blockData: [],
-    created: new Date(),
-    createdBy: '',
-    flowIdentifier: uuidv4(),
-    flowName: "New Flow" + uuidv4().split('-')[0],
-    flowConfig: "Debug",
-    flowVersion: '1.0.0.0',
-    isEnabled: "true",
-    lastAmended: new Date(),
-    lastAmendedBy: "",
-    startBlock: "",
-    serverIdentifier: uuidv4(),
-    substitutions: [],
-    visual: {
-      blocks: initialNodes,
-      edges: initialEdges,
-    }
-  },
+  flow: initializeFlow(initialNodes, initialEdges),
   server: {
     currentFlow: {},
-
   },
   nodeList: [],
   view: BackgroundVariant.Dots,
@@ -102,6 +81,8 @@ const useStore = create<RFState>((set, get) => ({
   setExecutionParameter: actions.blockActions.setExecutionParameter(get, set),
   setBigIntParameter: actions.blockActions.setBigIntParameter(get, set),
   addCustomParameter: actions.blockActions.addCustomParameter(get, set),
+  setSelectedExtendedParameter: actions.blockActions.setSelectedExtendedParameter(get, set),
+  deleteExtendedParameter: actions.blockActions.deleteExtendedParameter(get, set),
 
   //Value Editor Actions
   getParameterValue: actions.valueEditorActions.getParameterValue(get, set),
@@ -143,6 +124,7 @@ const useStore = create<RFState>((set, get) => ({
   showMiniMap: actions.topMenuActions.showMiniMap(get, set),
 
   //Flow Actions
+  createFlow: actions.flowActions.createFlow(get, set),
   openFlow: actions.flowActions.openTestFlow(get, set),
   saveFlow: actions.flowActions.saveFlow(get, set),
   updateFlow: actions.flowActions.updateFlow(get, set),

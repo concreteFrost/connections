@@ -15,6 +15,11 @@ function LeftList(props: any) {
   const currentFlow = useStore((state) => state.flow.flowName);
   const [matchFlow, setMatchFlow] = useState<object>();
   const toggleUpdateFlowModal = useStore((state) => state.toggleUpdateFlowModal);
+  const createFlow = useStore((state) => state.createFlow);
+
+  function createNewFlow() {
+    createFlow();
+  }
 
   function getFlowList() {
     setIsSelectFlowVisible(!isSelectFlowVisible);
@@ -44,7 +49,7 @@ function LeftList(props: any) {
   return (
     <div>
       <ul className={s.nav_list}>
-        <li className={s.nav_list_item}>New</li>
+        <li className={s.nav_list_item} onClick={createNewFlow}>New</li>
         {/* <li className={s.nav_list_item} onClick={openTestFlow}>Open</li> */}
         <li className={s.nav_list_item} onClick={getFlowList}>Load</li>
         <li className={s.nav_list_item} onClick={checkFlowVersion}>Save</li>

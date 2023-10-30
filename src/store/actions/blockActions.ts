@@ -45,21 +45,86 @@ export const setParameter =
     }
   };
 
-export const addCustomParameter = (get: any, set: any) => (name: string, value: string) => {
+export const setSelectedExtendedParameter = (get: any, set: any) => (propertyName: string, value: string) => {
   const blockData = get().flow.blockData.find(
     (block: any) => block.blockIdentifier === get().selectedNode
   );
 
   if (blockData) {
-    blockData.extendedParameters.push({ name: name, value: value });
+    const parameter = blockData.extendedParameters.map((param: any) => {
+      if (param.name === propertyName) {
+        return {
+          ...param,
+          value: value,
+        };
+      }
+      return param;
+    });
+    blockData.extendedParameters = parameter;
+
+    set((state: any) => ({
+      rightPanel: {
+        ...state.rightPanel,
+        extendedParameters: parameter,
+        valueEditor: {
+          ...state.rightPanel.valueEditor,
+          inputValue: value
+        }
+      },
+    }));
   }
-  set((state: RFState) => ({
-    rightPanel: {
-      ...state.rightPanel,
-      extendedParameters: blockData.extendedParameters
-    }
-  }))
 }
+
+export const deleteExtendedParameter = (get: any, set: any) => (propName: string) => {
+  const blockData = get().flow.blockData.find(
+    (block: any) => block.blockIdentifier === get().selectedNode
+  );
+
+  if (blockData) {
+    const filteredParameters = blockData.extendedParameters.filter((param: any) => param.name !== propName)
+    blockData.extendedParameters = filteredParameters;
+
+    set((state: any) => ({
+      rightPanel: {
+        ...state.rightPanel,
+        extendedParameters: filteredParameters,
+      },
+    }));
+
+
+  }
+
+}
+
+export const addCustomParameter = (get: any, set: any): ((name: string, value: string) => boolean | undefined) => (name, value) => {
+  const blockData = get().flow.blockData.find(
+    (block: any) => block.blockIdentifier === get().selectedNode
+  );
+
+  if (blockData) {
+    const existingParam = blockData.parameters.find((param: any) => param.name.toLowerCase() === name.toLowerCase());
+    const existingExtendedParam = blockData.extendedParameters.find((param: any) => param.name.toLowerCase() === name.toLowerCase());
+
+    if (!existingParam && !existingExtendedParam) {
+      blockData.extendedParameters = [{ ...blockData.existingExtendedParameters, name: name, value: value }]
+      set((state: RFState) => ({
+        rightPanel: {
+          ...state.rightPanel,
+          extendedParameters: blockData.extendedParameters
+        }
+      }))
+      console.log(get().flow.blockData)
+
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+
+}
+
 
 export const setStringParameter =
   (get: any, set: any) => (propertyName: string, value: string) => {

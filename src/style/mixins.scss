@@ -102,23 +102,23 @@
   }
 }
 
-@mixin server_table{
+@mixin server_table {
   width: 100%;
   border-collapse: collapse;
 
   thead {
-    
-    
+
+
     tr {
       text-align: center;
       background-color: $bg-node-nav-btn;
-     
+
       height: 40px;
 
       th {
-       
+
         font-style: italic;
-        
+
       }
     }
   }
@@ -131,7 +131,7 @@
       background-color: rgb(255, 255, 255);
       color: gray;
 
-    
+
     }
   }
 }
@@ -188,4 +188,10 @@
   padding: 5px;
   border-bottom: 1px solid rgb(230, 230, 230);
   background-color: rgb(245, 245, 245);
+}
+
+@mixin overflow_input ($width) {
+  text-overflow: ellipsis;
+  max-width: $width;
+  overflow: hidden;
 }

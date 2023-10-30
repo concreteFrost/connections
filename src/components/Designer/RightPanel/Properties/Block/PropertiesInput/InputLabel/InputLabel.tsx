@@ -10,7 +10,6 @@ function InputLabel(props: {
 
 }) {
   const _getParameterValue = useStore((state) => state.getParameterValue);
-  const blockToModify = useStore((state) => state.selectedNode);
   function getParameterValue(value: any) {
     if (props.defineInputType() === "text" && props.blockData.format !== "6") {
       _getParameterValue(props.blockData.name, value);

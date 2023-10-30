@@ -51,6 +51,12 @@ export const deleteSubstitution = (get: any, set: any) => (key: string) => {
           ...parameter,
           value: parameter.value.toString().includes(key) ? parameter.value.replace(`{${key}}`, '') : parameter.value
         }
+      }),
+      extendedParameters: block.extendedParameters.map((parameter: any) => {
+        return {
+          ...parameter,
+          value: parameter.value.toString().includes(key) ? parameter.value.replace(`{${key}}`, '') : parameter.value
+        }
       })
     }
   });
@@ -98,12 +104,12 @@ export const addConfig =
 
     };
 
-    export const toggleSubstitutionsPanel = (get: any, set: any) => () => {
+export const toggleSubstitutionsPanel = (get: any, set: any) => () => {
 
-      set((state: RFState) => ({
-          substitutionsPanel: {
-              ...state.substitutionsPanel,
-              isCollapsed: !state.substitutionsPanel.isCollapsed
-          }
-      }));
-  }
+  set((state: RFState) => ({
+    substitutionsPanel: {
+      ...state.substitutionsPanel,
+      isCollapsed: !state.substitutionsPanel.isCollapsed
+    }
+  }));
+}

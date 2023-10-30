@@ -8,6 +8,7 @@ export interface IBlockData {
   typeName: string;
   baseTypeName: string;
   parameters: any[];
+  extendedParameters: any[];
 }
 
 export interface IBlockParameters {

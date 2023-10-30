@@ -1,13 +1,19 @@
+@import '/src/style/mixins.scss';
+
 .block_section {
   max-height: 300px;
 
   overflow-y: auto;
   overflow-x: hidden;
 
+  input {
+    @include overflow_input(150px);
+  }
+
   li {
 
     font-size: 0.75rem;
-    border-bottom: 1px solid rgb(238, 238, 238);
+    border-bottom: 1px solid $color-list-border;
 
     height: 40px;
     display: grid;
@@ -18,7 +24,7 @@
   }
 
   .input_label {
-    border-right: 1px solid rgb(230, 230, 230);
+    border-right: 1px solid $color-list-border;
     display: flex;
     align-items: center;
     width: 140px;
@@ -28,7 +34,7 @@
     padding-left: 10px;
 
     &:hover {
-      background-color: rgb(230, 230, 230);
+      background-color: $color-list-border;
     }
 
     transition: background-color 0.3s ease-in-out;

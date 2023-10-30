@@ -57,7 +57,6 @@ function PropertiesInput(props: {
 
   function onSubstitutionSelect(e: any) {
     setCurrentParameter(props.blockData.name, `{${e}}`);
-
   }
 
   return (

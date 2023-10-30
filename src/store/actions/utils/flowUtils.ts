@@ -4,6 +4,29 @@ import { IBlockParameters } from "../../interfaces/IBlock";
 import { IVisual } from "../../interfaces/Ivisual";
 import { Edge } from "react-flow-renderer";
 import { getFlowListApi } from "../../../api/flow";
+import { v4 as uuidv4 } from 'uuid';
+
+export function initializeFlow<IFlowData>(initialNodes: object, initialEdges: object) {
+    return <IFlowData>{
+        blockData: [],
+        created: new Date(),
+        createdBy: '',
+        flowIdentifier: uuidv4(),
+        flowName: "New Flow" + uuidv4().split('-')[0],
+        flowConfig: "Debug",
+        flowVersion: '1.0.0.0',
+        isEnabled: "true",
+        lastAmended: new Date(),
+        lastAmendedBy: "",
+        startBlock: "",
+        serverIdentifier: uuidv4(),
+        substitutions: [],
+        visual: {
+            blocks: initialNodes,
+            edges: initialEdges,
+        }
+    }
+}
 
 export function setFlow(data: any, set: any) {
     set((state: RFState) => ({
@@ -38,6 +61,12 @@ export function setFlow(data: any, set: any) {
                             format: p.format,
                         };
                     }),
+                    extendedParameters: b.extendedParameters.map(((p: IBlockParameters) => {
+                        return {
+                            name: p.name,
+                            value: p.value,
+                        };
+                    })),
                 };
             }),
             visual: {
@@ -115,7 +144,4 @@ export function checkExistingFlowInDataBase(flowName: string) {
     });
 }
 
-export function compareFlowVersions(version: string) {
-
-}
 

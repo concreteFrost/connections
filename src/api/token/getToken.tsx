@@ -1,7 +1,7 @@
 import axios from 'axios';
+import { baseUrl } from '../../store/constants/baseUrl';
 
-
-function getToken(baseUrl: string, name: string, pass: string) {
+function getToken(name: string, pass: string) {
 
     return new Promise((resolve, reject) => {
         const headers = {

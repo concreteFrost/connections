@@ -31,7 +31,7 @@ function RightPanel() {
       </div>
       <div className={s.right_panel_container}>
         <Properties></Properties>
-        {selectedNode !== "-1" ? <ValueEditor></ValueEditor> : null}
+        {selectedNode !== "-1" || selectedNode !== null ? <ValueEditor></ValueEditor> : null}
         <DebugConsole></DebugConsole>
       </div>
     </div>

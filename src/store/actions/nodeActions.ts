@@ -31,6 +31,13 @@ export const onNodesChange =
       },
     }));
 
-   
+    const blockData = get().flow.blockData.find(
+      (block: any) => block.blockIdentifier === get().selectedNode
+    );
+
+    if (blockData)
+      console.log(blockData.blockIdentifier);
+
+
   };
 

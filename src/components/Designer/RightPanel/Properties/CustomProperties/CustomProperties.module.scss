@@ -1,52 +1,53 @@
 @import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
 
 .wrapper {
     max-height: 300px;
-
+    position: relative;
     overflow-y: auto;
     overflow-x: hidden;
+    z-index: 1000;
 
     li {
 
         font-size: 0.75rem;
-        border-bottom: 1px solid rgb(238, 238, 238);
+        border-bottom: 1px solid $color-list-border;
 
         height: 40px;
         display: grid;
-        grid-template-columns: 6fr 6fr;
+        grid-template-columns: 5fr 6fr 1fr;
         justify-items: start;
         position: relative;
 
-    }
-
-    .input_label {
-        border-right: 1px solid rgb(230, 230, 230);
-        display: flex;
-        align-items: center;
-        width: 140px;
-        font-size: 0.7rem;
-        text-align: start;
-        margin-left: 0;
-        padding-left: 10px;
-
-        &:hover {
-            background-color: rgb(230, 230, 230);
+        button {
+            background-color: rgb(241, 92, 92);
+            cursor: pointer;
         }
 
-        transition: background-color 0.3s ease-in-out;
-    }
+        .param_name {
+            border-right: 1px solid $color-list-border;
+            width: 130px;
+            padding-left: 10px;
+            margin-left: 0;
 
-    .input_container {
-        display: grid;
-        grid-template-columns: 11fr 1fr;
-        align-content: center;
+            &:hover {
+                background-color: $color-list-border;
+            }
+
+            transition: background-color 0.3s ease-in-out;
+
+        }
 
         input {
-            display: flex;
-            justify-self: left;
-
+            @include overflow_input(120px)
         }
+
+
     }
+
+
+
+
 
     .add_property_container {
         display: flex;
@@ -61,9 +62,16 @@
         flex-direction: column;
 
 
-        .input_wrapper {
+        .input_wrapper,
+        .value_wrapper {
+
             display: flex;
             margin-bottom: 10px;
+        }
+
+        .value_wrapper {
+            position: relative;
+
         }
 
         .btn_wrapper {
@@ -86,6 +94,9 @@
         padding: 5px;
     }
 
+    .error_message {
+        color: red;
+    }
 
 
 }

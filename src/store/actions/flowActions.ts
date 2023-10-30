@@ -1,13 +1,20 @@
 import { flow } from "../../testFlow/testFlow2";
 import { RFState } from "../types/rfState";
-import { setFlow, parseFloatVersion, flowVersionToInt, updateFlowAfterSaving } from "./utils/flowUtils";
+import initialNodes from "../nodes"
+import initialEdges from "../edges";
+import { setFlow, parseFloatVersion, flowVersionToInt, updateFlowAfterSaving, initializeFlow } from "./utils/flowUtils";
 import {
   saveFlowApi,
   getFlowApi,
   updateFlowApi,
 } from "../../api/flow";
 
-export const createFlow = (get: any, set: any) => () => { };
+export const createFlow = (get: any, set: any) => () => {
+  set((state: RFState) => ({
+    ...state,
+    flow: initializeFlow(initialNodes, initialEdges)
+  }))
+};
 
 export const openTestFlow = (get: any, set: any) => () => {
   setFlow(flow, set);
