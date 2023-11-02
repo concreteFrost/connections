@@ -9,7 +9,7 @@ import {
 
 import { INodeType } from "../interfaces/INode";
 import { ISubstitutions } from "../interfaces/ISubstitutions";
-import { IBlockData } from "../interfaces/IBlock";
+import { TopPanelSlice } from "../stores/topPanelSlice";
 
 export type RFState = {
   flow: {
@@ -47,18 +47,7 @@ export type RFState = {
   server: {
     currentFlow: object;
   };
-  topPanel: {
-    dropdowns: {
-      view: { id: string; isVisible: boolean };
-      exportFlow: { id: string; isVisible: boolean };
-      settings: { id: string; isVisible: boolean };
-    };
-    settings: {
-      snapToGrid: boolean;
-      snapStep: number[];
-      showMiniMap: boolean;
-    };
-  };
+
   modalWindows: {
     updateFlowModal: {
       isVisible: boolean,
@@ -71,6 +60,8 @@ export type RFState = {
   errorMessages: {
     substitutionAddError: string;
   };
+
+  topPanelSlice: TopPanelSlice,
 
   setselectedBlockID: (nodeId: string) => void;
   setTooltipText: (text: string) => void;
@@ -85,7 +76,6 @@ export type RFState = {
 
   //Block Actions
   getBlockProperties: () => void;
-
   setStringParameter: (parameterName: string, value: string) => void;
   setIntegerParameter: (parameterName: string, value: number) => void;
   setFloatParameter: (parameterName: string, value: number) => void;
@@ -101,11 +91,6 @@ export type RFState = {
   //Value Editor Actions
   getParameterValue: (parameterName: string, value: string) => void;
   setParameterValue: (propertyName: string, value: string) => void;
-
-  //Top Menu
-  setBgView: (view: BackgroundVariant) => void;
-  hideAllTopMenus: () => void;
-  toggleDropdown: (activeDropdownId: string) => void;
 
   //Flow
   openFlow: () => void;
@@ -128,10 +113,6 @@ export type RFState = {
   //Server Actions
   getCurrentFlow: (flowId: string) => void;
 
-  //Settings
-  setSnapToGrid: () => void;
-  setSnapStep: (step: number[]) => void;
-  showMiniMap: () => void;
   //Group Actions
   addNodeGroup: () => void;
   showGroupModal: (nodeId: string, modalToShow: string) => void;

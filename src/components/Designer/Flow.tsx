@@ -26,9 +26,9 @@ function Flow(props: any) {
   const nodes = useStore((state) => state.flow.visual.blocks)
   const edges = useStore((state) => state.flow.visual.edges)
   const bgView = useStore((state) => state.view);
-  const snapToGrid = useStore((state) => state.topPanel.settings.snapToGrid)
-  const snapStep = useStore((state) => state.topPanel.settings.snapStep)
-  const showMinimap = useStore((state) => state.topPanel.settings.showMiniMap)
+  const snapToGrid = useStore((state) => state.topPanelSlice.settings.snapToGrid)
+  const snapStep = useStore((state) => state.topPanelSlice.settings.snapStep)
+  const showMinimap = useStore((state) => state.topPanelSlice.settings.showMiniMap)
   return (
     <div style={{ height: 930 }}>
       <ReactFlow

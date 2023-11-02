@@ -4,12 +4,12 @@ import { clearUserData } from "../../../../../store/actions/storageActions";
 import { useNavigate } from "react-router-dom"
 
 function SettingsDropdown() {
-  const isSnapped = useStore((store) => store.topPanel.settings.snapToGrid);
-  const toggleGrid = useStore((store) => store.setSnapToGrid);
-  const toggleMinimap = useStore((store) => store.showMiniMap);
-  const sliderVal = useStore((store) => store.topPanel.settings.snapStep);
-  const setSliderVal = useStore((store) => store.setSnapStep);
-  const showMiniMap = useStore((store) => store.topPanel.settings.showMiniMap)
+  const isSnapped = useStore((store) => store.topPanelSlice.settings.snapToGrid);
+  const toggleGrid = useStore((store) => store.topPanelSlice.setSnapToGrid);
+  const toggleMinimap = useStore((store) => store.topPanelSlice.showMiniMap);
+  const sliderVal = useStore((store) => store.topPanelSlice.settings.snapStep);
+  const setSliderVal = useStore((store) => store.topPanelSlice.setSnapStep);
+  const showMiniMap = useStore((store) => store.topPanelSlice.settings.showMiniMap)
   const navigate = useNavigate();
 
   function logout() {

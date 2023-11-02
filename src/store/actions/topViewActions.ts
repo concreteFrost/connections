@@ -6,30 +6,30 @@ export const setBgView = (set: any) => (view: BackgroundVariant) => {
 };
 
 export const hideAllTopMenus = (get: any, set: any) => () => {
-  const { dropdowns } = get().topPanel;
+  const { dropdowns } = get().topPanelSlice;
 
   for (const key in dropdowns) {
     dropdowns[key].isVisible = false;
   }
 
   set((state: RFState) => ({
-    topPanel: {
-      ...state.topPanel,
+    topPanelSlice: {
+      ...state.topPanelSlice,
       dropdowns: { ...dropdowns }
     }
   }));
 };
 
 export const toggleDropdown = (get: any, set: any) => (activeDropdownId: string) => {
-  const { dropdowns } = get().topPanel;
+  const { dropdowns } = get().topPanelSlice;
 
   for (const key in dropdowns) {
     dropdowns[key].isVisible = key === activeDropdownId ? !dropdowns[key].isVisible : false;
   }
 
   set((state: RFState) => ({
-    topPanel: {
-      ...state.topPanel,
+    topPanelSlice: {
+      ...state.topPanelSlice,
       dropdowns: { ...dropdowns }
     }
   }));
@@ -39,11 +39,11 @@ export const toggleDropdown = (get: any, set: any) => (activeDropdownId: string)
 
 export const setSnapToGrid = (get: any, set: any) => () => {
   set((state: RFState) => ({
-    topPanel: {
-      ...state.topPanel,
+    topPanelSlice: {
+      ...state.topPanelSlice,
       settings: {
-        ...state.topPanel.settings,
-        snapToGrid: !state.topPanel.settings.snapToGrid,
+        ...state.topPanelSlice.settings,
+        snapToGrid: !state.topPanelSlice.settings.snapToGrid,
       },
     },
   }));
@@ -52,10 +52,10 @@ export const setSnapToGrid = (get: any, set: any) => () => {
 
 export const setSnapStep = (get: any, set: any) => (step: number[]) => {
   set((state: RFState) => ({
-    topPanel: {
-      ...state.topPanel,
+    topPanelSlice: {
+      ...state.topPanelSlice,
       settings: {
-        ...state.topPanel.settings,
+        ...state.topPanelSlice.settings,
         snapStep: step,
       },
     },
@@ -64,11 +64,11 @@ export const setSnapStep = (get: any, set: any) => (step: number[]) => {
 
 export const toggleMiniMap = (get: any, set: any) => () => {
   set((state: RFState) => ({
-    topPanel: {
-      ...state.topPanel,
+    topPanelSlice: {
+      ...state.topPanelSlice,
       settings: {
-        ...state.topPanel.settings,
-        showMiniMap: !state.topPanel.settings.showMiniMap
+        ...state.topPanelSlice.settings,
+        showMiniMap: !state.topPanelSlice.settings.showMiniMap
       }
     }
   }))

@@ -5,7 +5,7 @@ import initialEdges from "./edges";
 import { RFState } from "./types/rfState";
 import { BackgroundVariant } from "react-flow-renderer";
 import { initializeFlow } from "./actions/utils/flowUtils";
-import { IBlockData } from "./interfaces/IBlock";
+import topPanelSlice from "./stores/topPanelSlice";
 
 const useStore = create<RFState>((set, get) => ({
   flow: initializeFlow(initialNodes, initialEdges),
@@ -14,7 +14,6 @@ const useStore = create<RFState>((set, get) => ({
   },
   blockList: [],
   view: BackgroundVariant.Dots,
-  // selectedBlock: {},
   selectedBlockID: null,
   tooltip: {
     text: ''
@@ -36,23 +35,10 @@ const useStore = create<RFState>((set, get) => ({
     }
   },
 
-  topPanel: {
-    dropdowns: {
-      view: { id: 'view', isVisible: false },
-      exportFlow: { id: 'exportFlow', isVisible: false },
-      settings: { id: 'settings', isVisible: false }
-    },
-    settings: {
-      snapToGrid: false,
-      snapStep: [1, 1],
-      showMiniMap: true
-    },
-
-  },
   errorMessages: {
     substitutionAddError: ''
   },
-
+  topPanelSlice: topPanelSlice(get, set),
 
   //Base Actions
   getBlockProperties: actions.baseActtions.getBlockProperties(get, set),
@@ -105,12 +91,12 @@ const useStore = create<RFState>((set, get) => ({
   getCurrentFlow: actions.serverActions.getCurrentFlow(get, set),
 
   //Top Menu Actions 
-  setBgView: actions.topMenuActions.setBgView(set),
-  hideAllTopMenus: actions.topMenuActions.hideAllTopMenus(get, set),
-  toggleDropdown: actions.topMenuActions.toggleDropdown(get, set),
-  setSnapToGrid: actions.topMenuActions.setSnapToGrid(get, set),
-  setSnapStep: actions.topMenuActions.setSnapStep(get, set),
-  showMiniMap: actions.topMenuActions.showMiniMap(get, set),
+  // setBgView: actions.topMenuActions.setBgView(set),
+  // hideAllTopMenus: actions.topMenuActions.hideAllTopMenus(get, set),
+  // toggleDropdown: actions.topMenuActions.toggleDropdown(get, set),
+  // setSnapToGrid: actions.topMenuActions.setSnapToGrid(get, set),
+  // setSnapStep: actions.topMenuActions.setSnapStep(get, set),
+  // showMiniMap: actions.topMenuActions.showMiniMap(get, set),
 
   //Flow Actions
   createFlow: actions.flowActions.createFlow(get, set),

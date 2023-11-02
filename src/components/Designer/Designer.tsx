@@ -13,7 +13,7 @@ function Designer() {
     const getNodesList = useStore((store) => store.getNodesList);
     const tooltipText = useStore((store) => store.tooltip.text);
 
-    const hideAllTopDropdowns = useStore((state) => state.hideAllTopMenus);
+    const hideAllTopDropdowns = useStore((state) => state.topPanelSlice.hideAllTopMenus);
     const hideAllGroupModals = useStore((state) => state.hideAllGroupModals);
 
     const setselectedBlockID = useStore((state) => state.setselectedBlockID);

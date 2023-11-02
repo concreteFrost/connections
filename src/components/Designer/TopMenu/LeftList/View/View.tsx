@@ -4,7 +4,7 @@ import useStore from "../../../../../store/store";
 import { BackgroundVariant } from "react-flow-renderer";
 
 function View() {
-  const setBgView = useStore((store) => store.setBgView);
+  const setBgView = useStore((store) => store.topPanelSlice.setBgView);
 
   function _setBgView(view: BackgroundVariant) {
     setBgView(view);
