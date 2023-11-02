@@ -2,7 +2,7 @@ import { RFState } from "../types/rfState";
 import { ISubstitutions } from "../interfaces/ISubstitutions";
 import { IBlockData } from "../interfaces/IBlock";
 
-export const addSubstitutionKey = (get: any, set: any) => (key: string) => {
+export const addSubstitutionKey = (get: () => RFState, set: any) => (key: string) => {
   const match = get().flowSlice.flow.substitutions.find((s: ISubstitutions) => s.subKey === key);
 
   if (!match && key.length > 0)
@@ -37,14 +37,14 @@ export const addSubstitutionKey = (get: any, set: any) => (key: string) => {
 //displays error message above the form
 const setSubstitutionErrorMessage = (set: any, msg: string) => {
   set((state: RFState) => ({
-    errorMessages: {
-      ...state.errorMessages,
-      substitutionAddError: msg
-    }
+
+    ...state.designerVisualElementsSlice.errorMessages,
+    substitutionAddError: msg
+
   }))
 }
 
-export const deleteSubstitution = (get: any, set: any) => (key: string) => {
+export const deleteSubstitution = (get: () => RFState, set: any) => (key: string) => {
 
   //looking for match key to replace it in properties panel
   const updatedBlocks = get().flowSlice.flow.blockData.map((block: IBlockData) => {
@@ -83,7 +83,7 @@ export const deleteSubstitution = (get: any, set: any) => (key: string) => {
 }
 
 export const addConfig =
-  (get: any, set: any) =>
+  (get: () => RFState, set: any) =>
     (key: string, configName: string, configValue: string) => {
       set((state: RFState) => {
         const updatedSubstitutions = state.flowSlice.flow.substitutions.map((sub: any) => {
@@ -116,12 +116,11 @@ export const addConfig =
 
     };
 
-export const toggleSubstitutionsPanel = (get: any, set: any) => () => {
-
+export const toggleSubstitutionsPanel = (get: () => RFState, set: any) => () => {
   set((state: RFState) => ({
-    substitutionsPanel: {
-      ...state.substitutionsPanel,
-      isCollapsed: !state.substitutionsPanel.isCollapsed
-    }
+
+    ...state.designerVisualElementsSlice.substitutionsPanel,
+    isCollapsed: !state.designerVisualElementsSlice.substitutionsPanel.isCollapsed
+
   }));
 }

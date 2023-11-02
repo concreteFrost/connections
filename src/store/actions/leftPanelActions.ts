@@ -94,7 +94,7 @@ export const getBlocksList = (set: any) => (data: any) => {
 };
 
 export const addBlock =
-  (get: any, set: any) => (type: any, posX: number, posY: number) => {
+  (get: () => RFState, set: any) => (type: any, posX: number, posY: number) => {
     const id = uuidv4()
     const newNode = {
       data: { ...type.data, blockIdentifier: id },

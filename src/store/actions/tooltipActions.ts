@@ -1,10 +1,8 @@
 import { RFState } from "../types/rfState";
 
-export const setTooltipText = (get: any, set: any) => (text: string) => {
+export const setTooltipText = (get: () => RFState, set: any) => (text: string) => {
   set((state: RFState) => ({
-    tooltip: {
-      ...state.tooltip,
-      text: text,
-    },
+    ...state.designerVisualElementsSlice.tooltip,
+    text: text,
   }));
 };

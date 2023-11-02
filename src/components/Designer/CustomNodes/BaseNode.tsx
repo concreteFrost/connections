@@ -32,7 +32,7 @@ const isDarkBackground = (color: string) => {
 
 export default function BaseNode(props: any) {
   const setselectedBlockID = useStore((state) => state.setselectedBlockID);
-  const getParameterValue = useStore((state) => state.getParameterValue);
+  const getParameterValue = useStore((state) => state.designerVisualElementsSlice.getParameterValue);
   const selectedBlockId = useStore((state) => state.selectedBlockID);
   const [isOutlined, setIsOutlined] = useState(false);
   const blockData: Block[] = useStore((state) => state.flowSlice.flow.blockData);

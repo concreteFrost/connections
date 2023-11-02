@@ -48,6 +48,15 @@ export type FlowSlice = {
     setSelectedExtendedParameter: (parameterName: string, value: string) => void;
     deleteExtendedParameter: (parameterName: string) => void;
 
+    //Group Actions
+    addBlockGroup: () => void;
+    showGroupModal: (nodeId: string, modalToShow: string) => void;
+    setGroupLabel: (nodeId: string, input: string) => void;
+    setGroupColor: (nodeId: string, input: string) => void;
+    hideAllGroupModals: () => void;
+    deleteGroupOnButtonClick: (groupToDelete: any) => void;
+
+    //Flow Actions
     openFlow: () => void;
     saveFlow: () => void;
     updateFlow: (match: any) => void;
@@ -56,8 +65,15 @@ export type FlowSlice = {
     setFlowVersion: (version: string) => void;
     setFlowIsEnabled: () => void;
     createFlow: () => void;
+
+    //Substitutions Actions
+    addSubstitutionKey: (key: string) => void;
+    addConfig: (key: string, configName: string, configValue: string) => void;
+    deleteSubstitution: (key: string) => void;
 }
-const flowSlice = (get: any, set: any): FlowSlice => ({
+
+
+const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
     flow: initializeFlow(initialNodes, initialEdges),
 
     //Base Actions 
@@ -79,6 +95,14 @@ const flowSlice = (get: any, set: any): FlowSlice => ({
     setSelectedExtendedParameter: actions.blockActions.setSelectedExtendedParameter(get, set),
     deleteExtendedParameter: actions.blockActions.deleteExtendedParameter(get, set),
 
+    //Group Actions
+    addBlockGroup: actions.groupActions.addGroup(get, set),
+    showGroupModal: actions.groupActions.showGroupModal(set),
+    setGroupColor: actions.groupActions.setGroupColor(set),
+    setGroupLabel: actions.groupActions.setGroupLabel(set),
+    hideAllGroupModals: actions.groupActions.hideAllGroupModals(set),
+    deleteGroupOnButtonClick: actions.groupActions.deleteGroupOnButtonClick(get, set),
+
     //Flow Actions
     createFlow: actions.flowActions.createFlow(get, set),
     openFlow: actions.flowActions.openTestFlow(get, set),
@@ -88,6 +112,11 @@ const flowSlice = (get: any, set: any): FlowSlice => ({
     setFlowName: actions.flowActions.setFlowName(get, set),
     setFlowVersion: actions.flowActions.setFlowVersion(get, set),
     setFlowIsEnabled: actions.flowActions.setFlowIsEnabled(get, set),
+
+    //Substitution Actions
+    addSubstitutionKey: actions.substitutionsActions.addSubstitutionKey(get, set),
+    addConfig: actions.substitutionsActions.addConfig(get, set),
+    deleteSubstitution: actions.substitutionsActions.deleteSubstitution(get, set),
 })
 
 export default flowSlice;

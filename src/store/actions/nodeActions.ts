@@ -8,16 +8,16 @@ import actions from "./combinedActions";
 import { RFState } from "../types/rfState";
 
 
-export const setselectedBlockID = (get: any, set: any) => (nodeId: string) => {
+export const setselectedBlockID = (get: () => RFState, set: any) => (nodeId: string) => {
   set({ selectedBlockID: nodeId });
 };
 
 export const onBlocksChange =
-  (get: any, set: any) => (changes: NodeChange[]) => {
+  (get: () => RFState, set: any) => (changes: NodeChange[]) => {
 
     changes.forEach((change: NodeChange) => {
       if (change.type === 'remove') {
-        actions.groupActions.deleteGroup(get().flow.visual.blocks, change)
+        actions.groupActions.deleteGroup(get().flowSlice.flow.visual.blocks, change)
       }
     })
 

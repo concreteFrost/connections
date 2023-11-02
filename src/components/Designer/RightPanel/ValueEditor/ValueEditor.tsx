@@ -1,19 +1,18 @@
-import React, { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent } from "react";
 import useStore from "../../../../store/store";
 import s from "./ValueEditor.module.scss";
 import { connectionsIcons } from "../../../../icons/icons";
 import FilteredResults from "../FilteredResults/FilteredResults";
-import { IBlockData } from "../../../../store/interfaces/IBlock";
-import { getParameterValue } from "../../../../store/actions/valueEditorActions";
+
 
 function ValueEditor() {
   // State
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
-  const setCurrentParameter = useStore((state) => state.setParameterValue);
-  const valueToEdit = useStore((state) => state.valueEditor.valueToEdit)
+  const setCurrentParameter = useStore((state) => state.designerVisualElementsSlice.setParameterValue);
+  const valueToEdit = useStore((state) => state.designerVisualElementsSlice.valueEditor.valueToEdit)
   const parameterToModify = useStore(
-    (state) => state.valueEditor.parameterToModify
+    (state) => state.designerVisualElementsSlice.valueEditor.parameterToModify
   );
 
   // Handlers

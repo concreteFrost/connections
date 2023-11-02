@@ -6,7 +6,7 @@ import FlowControl from "./FlowElements/FlowControl";
 import StaticProperties from "./FlowElements/StaticProperties";
 
 function Flow() {
-  const currentFlow = useStore((state: any) => state.server.currentFlow);
+  const currentFlow = useStore((state) => state.serverSlice.currentFlow);
   return (
     <div className={s.wrapper}>
       <StaticProperties

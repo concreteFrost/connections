@@ -2,11 +2,16 @@ import { BackgroundVariant } from "react-flow-renderer";
 import { RFState } from "../types/rfState";
 
 export const setBgView = (set: any) => (view: BackgroundVariant) => {
-  set({ view: view });
+  set((state: RFState) => ({
+    designerVisualElementsSlice: {
+      ...state.designerVisualElementsSlice,
+      view: view
+    }
+  }))
 };
 
-export const hideAllTopMenus = (get: any, set: any) => () => {
-  const { dropdowns } = get().topPanelSlice;
+export const hideAllTopMenus = (get: () => RFState, set: any) => () => {
+  const { dropdowns }: any = get().topPanelSlice;
 
   for (const key in dropdowns) {
     dropdowns[key].isVisible = false;
@@ -20,8 +25,8 @@ export const hideAllTopMenus = (get: any, set: any) => () => {
   }));
 };
 
-export const toggleDropdown = (get: any, set: any) => (activeDropdownId: string) => {
-  const { dropdowns } = get().topPanelSlice;
+export const toggleDropdown = (get: () => RFState, set: any) => (activeDropdownId: string) => {
+  const { dropdowns }: any = get().topPanelSlice;
 
   for (const key in dropdowns) {
     dropdowns[key].isVisible = key === activeDropdownId ? !dropdowns[key].isVisible : false;
@@ -37,7 +42,7 @@ export const toggleDropdown = (get: any, set: any) => (activeDropdownId: string)
 
 };
 
-export const setSnapToGrid = (get: any, set: any) => () => {
+export const setSnapToGrid = (get: () => RFState, set: any) => () => {
   set((state: RFState) => ({
     topPanelSlice: {
       ...state.topPanelSlice,
@@ -50,7 +55,7 @@ export const setSnapToGrid = (get: any, set: any) => () => {
 
 };
 
-export const setSnapStep = (get: any, set: any) => (step: number[]) => {
+export const setSnapStep = (get: () => RFState, set: any) => (step: number[]) => {
   set((state: RFState) => ({
     topPanelSlice: {
       ...state.topPanelSlice,
@@ -62,7 +67,7 @@ export const setSnapStep = (get: any, set: any) => (step: number[]) => {
   }));
 }
 
-export const toggleMiniMap = (get: any, set: any) => () => {
+export const toggleMiniMap = (get: () => RFState, set: any) => () => {
   set((state: RFState) => ({
     topPanelSlice: {
       ...state.topPanelSlice,

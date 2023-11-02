@@ -1,6 +1,6 @@
 import { RFState } from "../types/rfState"
 
-export const setUserName = (get: any, set: any) => (userName: string) => {
+export const setUserName = (get: () => RFState, set: any) => (userName: string) => {
     set((state: RFState) => ({
         flow: {
             ...state.flowSlice,

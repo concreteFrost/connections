@@ -5,15 +5,18 @@ export const getParameterValue =
   (set: any) => (parameter: string, value: string) => {
 
     set((state: RFState) => ({
-      ...state, valueEditor: {
-        valueToEdit: value,
-        parameterToModify: parameter
+      designerVisualElementsSlice: {
+        ...state.designerVisualElementsSlice,
+        valueEditor: {
+          valueToEdit: value,
+          parameterToModify: parameter
+        }
       }
     }));
   };
 
-export const setParameterValue = (get: any, set: any) => (propertyName: string, value: string) => {
-  const blockData = get().flowSlice.flow.blockData.find((block: IBlockData) => block.blockIdentifier === get().selectedBlockID);
+export const setParameterValue = (get: () => RFState, set: any) => (propertyName: string, value: string) => {
+  const blockData = get().flowSlice.flow.blockData.find((block: IBlockData) => block.blockIdentifier === get().selectedBlockID) as IBlockData | undefined;
 
   if (!blockData) return;
 
@@ -28,9 +31,10 @@ export const setParameterValue = (get: any, set: any) => (propertyName: string, 
   };
 
   set((state: RFState) => ({
-    ...state,
-    valueEditor: { valueToEdit: value, parameterToModify: propertyName },
-
+    designerVisualElementsSlice: {
+      ...state.designerVisualElementsSlice,
+      valueEditor: { valueToEdit: value, parameterToModify: propertyName },
+    },
     flowSlice: {
       ...state.flowSlice,
       flow: {

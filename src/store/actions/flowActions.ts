@@ -9,7 +9,7 @@ import {
   updateFlowApi,
 } from "../../api/flow";
 
-export const createFlow = (get: any, set: any) => () => {
+export const createFlow = (get: () => RFState, set: any) => () => {
   set((state: RFState) => ({
     flowSlice: {
       ...state.flowSlice,
@@ -19,17 +19,19 @@ export const createFlow = (get: any, set: any) => () => {
   }))
 };
 
-export const openTestFlow = (get: any, set: any) => () => {
+export const openTestFlow = (get: () => RFState, set: any) => () => {
   setFlow(flow, set);
 };
 
-export const loadFlow = (get: any, set: any) => (id: string) => {
+export const loadFlow = (get: () => RFState, set: any) => (id: string) => {
   getFlowApi(id).then((res: any) => {
     setFlow(res.data.flowData, set);
+  }).catch((e) => {
+    console.log('error loading flow', e)
   });
 };
 
-export const saveFlow = (get: any, set: any) => () => {
+export const saveFlow = (get: () => RFState, set: any) => () => {
   const flow = get().flowSlice.flow;
   saveFlowApi(flow).then((res: any) => {
     if (res.data.success) {
@@ -44,7 +46,7 @@ export const saveFlow = (get: any, set: any) => () => {
 
 };
 
-export const updateFlow = (get: any, set: any) => (match: any) => {
+export const updateFlow = (get: () => RFState, set: any) => (match: any) => {
   const flow = get().flowSlice.flow;
 
   if (flowVersionToInt(flow.flowVersion) <= flowVersionToInt(match.version)) {
@@ -68,7 +70,7 @@ export const updateFlow = (get: any, set: any) => (match: any) => {
 }
 
 
-export const setFlowName = (get: any, set: any) => (name: string) => {
+export const setFlowName = (get: () => RFState, set: any) => (name: string) => {
   set((state: RFState) => ({
     flowSlice: {
       ...state.flowSlice,
@@ -81,7 +83,7 @@ export const setFlowName = (get: any, set: any) => (name: string) => {
   }));
 };
 
-export const setFlowVersion = (get: any, set: any) => (version: string) => {
+export const setFlowVersion = (get: () => RFState, set: any) => (version: string) => {
   const validFormat = /^\d*\.\d*\.\d*\.\d*$/;
 
   if (validFormat.test(version)) {
@@ -100,7 +102,7 @@ export const setFlowVersion = (get: any, set: any) => (version: string) => {
 };
 
 
-export const setFlowIsEnabled = (get: any, set: any) => () => {
+export const setFlowIsEnabled = (get: () => RFState, set: any) => () => {
   set((state: RFState) => ({
     flowSlice: {
       ...state.flowSlice,

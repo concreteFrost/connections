@@ -6,10 +6,10 @@ import { useState } from "react";
 
 function Substitutions() {
 
-  const substitutionsPanel = useStore(state => state.substitutionsPanel);
-  const addSubstitutionKey = useStore(state => state.addSubstitutionKey);
-  const togglePanel = useStore(state => state.toggleSubstitutionsPanel);
-  const substitutionAddError = useStore(state => state.errorMessages.substitutionAddError);
+  const substitutionsPanel = useStore(state => state.designerVisualElementsSlice.substitutionsPanel);
+  const addSubstitutionKey = useStore(state => state.flowSlice.addSubstitutionKey);
+  const togglePanel = useStore(state => state.designerVisualElementsSlice.toggleSubstitutionsPanel);
+  const substitutionAddError = useStore(state => state.designerVisualElementsSlice.errorMessages.substitutionAddError);
   const [substKey, setSubstKey] = useState('');
 
   function _togglePanel() {

@@ -15,7 +15,7 @@ interface NodeProps {
 
 function NodeListItem(props: NodeProps) {
 
-  const setTooltipText = useStore((state) => state.setTooltipText);
+  const setTooltipText = useStore((state) => state.designerVisualElementsSlice.setTooltipText);
   const matchedIcon = Object.entries(connectionsIcons.nodeIcons).find(
     ([key]) => key === props.nodeType.visualData.icon.toLowerCase()
   )?.[1];

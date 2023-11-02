@@ -25,7 +25,7 @@ function Flow(props: any) {
   );
   const nodes = useStore((state) => state.flowSlice.flow.visual.blocks)
   const edges = useStore((state) => state.flowSlice.flow.visual.edges)
-  const bgView = useStore((state) => state.view);
+  const bgView = useStore((state) => state.designerVisualElementsSlice.view);
   const snapToGrid = useStore((state) => state.topPanelSlice.settings.snapToGrid)
   const snapStep = useStore((state) => state.topPanelSlice.settings.snapStep)
   const showMinimap = useStore((state) => state.topPanelSlice.settings.showMiniMap)

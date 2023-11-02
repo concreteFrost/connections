@@ -1,6 +1,6 @@
 import { RFState } from "../types/rfState"
 
-export const toggleMessageModal = (get: any, set: any) => () => {
+export const toggleMessageModal = (get: () => RFState, set: any) => () => {
     set((state: RFState) => ({
         modalWindowsSlice: {
             ...state.modalWindowsSlice,
@@ -12,7 +12,7 @@ export const toggleMessageModal = (get: any, set: any) => () => {
     }))
 }
 
-export const setModalMessage = (get: any, set: any) => (message: string) => {
+export const setModalMessage = (get: () => RFState, set: any) => (message: string) => {
     set((state: RFState) => ({
         modalWindowsSlice: {
             ...state.modalWindowsSlice,
@@ -24,7 +24,7 @@ export const setModalMessage = (get: any, set: any) => (message: string) => {
     }))
 }
 
-export const toggleUpdateFlowModal = (get: any, set: any) => () => {
+export const toggleUpdateFlowModal = (get: () => RFState, set: any) => () => {
     set((state: RFState) => ({
         modalWindowsSlice: {
             ...state.modalWindowsSlice,

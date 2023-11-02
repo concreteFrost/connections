@@ -5,8 +5,8 @@ import s from "./SubstitutionsTable.module.scss"
 function SubstitutionsTable() {
 
     const substitutions = useStore(state => state.flowSlice.flow.substitutions);
-    const addConfig = useStore(state => state.addConfig);
-    const deleteSubstitution = useStore(state => state.deleteSubstitution);
+    const addConfig = useStore(state => state.flowSlice.addConfig);
+    const deleteSubstitution = useStore(state => state.flowSlice.deleteSubstitution);
     const getBlockData = useStore((state) => state.flowSlice.getBlockProperties);
 
     function _deleteSubstitution(s: any) {

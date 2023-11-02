@@ -8,7 +8,7 @@ function InputLabel(props: {
   defineInputType: () => string;
   setCurrentParameter: (parameterName: string, value: any) => void;
 }) {
-  const _getParameterValue = useStore((state) => state.getParameterValue);
+  const _getParameterValue = useStore((state) => state.designerVisualElementsSlice.getParameterValue);
   function getParameterValue(value: any) {
     if (props.defineInputType() === "text" && props.blockData.format !== "6") {
       _getParameterValue(props.blockData.name, value);

@@ -11,10 +11,10 @@ import Substitutions from "./Substitutions/Substitutions";
 function Designer() {
 
     const getBlocksList = useStore((store) => store.getBlocksList);
-    const tooltipText = useStore((store) => store.tooltip.text);
+    const tooltipText = useStore((store) => store.designerVisualElementsSlice.tooltip.text);
 
     const hideAllTopDropdowns = useStore((state) => state.topPanelSlice.hideAllTopMenus);
-    const hideAllGroupModals = useStore((state) => state.hideAllGroupModals);
+    const hideAllGroupModals = useStore((state) => state.flowSlice.hideAllGroupModals);
 
     const setselectedBlockID = useStore((state) => state.setselectedBlockID);
 

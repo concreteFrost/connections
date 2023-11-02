@@ -11,7 +11,7 @@ function LeftPanel() {
   const leftPanelRef = useRef<HTMLDivElement>(null);
   const addBlock = useStore((state) => state.addBlock);
   const [isPanelActive, setIsPanelActive] = useState(true);
-  const addBlockGroup = useStore((state) => state.addBlockGroup);
+  const addBlockGroup = useStore((state) => state.flowSlice.addBlockGroup);
   const blockList = useStore((state) => state.blockList);
   const onDragStart = (event: any) => {
     event.dataTransfer.setData("application/reactflow", event.target);

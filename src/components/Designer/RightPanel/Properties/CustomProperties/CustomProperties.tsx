@@ -12,7 +12,7 @@ function CustomProperties() {
     const [propValue, setPropValue] = useState<string>('');
 
     const addCustomParameter = useStore((state) => state.flowSlice.addCustomParameter);
-    const getParameterValue = useStore((state) => state.getParameterValue);
+    const getParameterValue = useStore((state) => state.designerVisualElementsSlice.getParameterValue);
     const setParameter = useStore((state) => state.flowSlice.setSelectedExtendedParameter);
     const deleteExtendedParameter = useStore((state) => state.flowSlice.deleteExtendedParameter);
 

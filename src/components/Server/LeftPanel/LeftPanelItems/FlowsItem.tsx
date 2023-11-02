@@ -13,8 +13,8 @@ interface FlowsItemProps {
 function FlowsItem(props: FlowsItemProps) {
 
     const [flowList, setFlowList] = useState([]);
-    const getCurrentFlow = useStore((state) => state.getCurrentFlow);
-    const currentFlow = useStore<any>((state) => state.server.currentFlow);
+    const getCurrentFlow = useStore((state) => state.serverSlice.getCurrentFlow);
+    const currentFlow = useStore<any>((state) => state.serverSlice.currentFlow);
     const loadFlow = useStore((state) => state.flowSlice.loadFlow);
 
     useEffect(() => {
@@ -43,6 +43,7 @@ function FlowsItem(props: FlowsItemProps) {
                     ? flowList.map((flow: any) => (
                         <li key={flow.flowId} className={`${props.className.flow_list}  ${currentFlow.flowIdentifier === flow.flowId ? props.className['selected'] : null}`}>
                             <div
+                                onFocus={() => { console.log(flow) }}
                                 onClick={async () => {
                                     await getCurrentFlow(flow.flowId)
                                     props.navigate("flows")

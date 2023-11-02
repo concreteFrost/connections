@@ -3,14 +3,16 @@ import { NodeProps, NodeRemoveChange } from "react-flow-renderer";
 import { IVisual } from "../interfaces/Ivisual";
 import { RFState } from "../types/rfState";
 import { INodeGroup, INodeType } from "../interfaces/INode";
+import { FlowSlice } from "../slices/flowSlice";
 
 export const getAllselectedBlockIDs = (nodes: NodeProps[]) => {
   return nodes.filter((node) => node.selected === true).length > 1;
 };
 
-export const addGroup = (get: any, set: any) => () => {
-  const selectedBlockIDs = get().flow.visual.blocks.filter(
-    (node: NodeProps) => node.selected
+
+export const addGroup = (get: () => RFState, set: any) => () => {
+  const selectedBlockIDs = get().flowSlice.flow.visual.blocks.filter(
+    (node: any) => node.selected
   );
   if (selectedBlockIDs.length > 1) {
     let maxX = -Infinity;
@@ -46,7 +48,7 @@ export const addGroup = (get: any, set: any) => () => {
       },
     };
 
-    assignParent(get().flow.visual.blocks, newGroupNode);
+    assignParent(get().flowSlice.flow.visual.blocks, newGroupNode);
     set((state: RFState) => ({
       flowSlice: {
         ...state.flowSlice,
@@ -63,7 +65,7 @@ export const addGroup = (get: any, set: any) => () => {
   }
 };
 
-const assignParent = (nodes: Array<INodeGroup>, nodeGroup: any) => {
+const assignParent = (nodes: Array<any>, nodeGroup: any) => {
   const selectedBlockIDs = nodes.filter((node: any) => node.selected === true);
   selectedBlockIDs.forEach((node: any) => {
     node.parentNode = nodeGroup.id;
@@ -89,11 +91,11 @@ export const deleteGroup = (nodes: any, change: NodeRemoveChange) => {
 };
 
 export const deleteGroupOnButtonClick =
-  (get: any, set: any) => (groupToDelete: string) => {
-    const matchNode = get().flow.visual.blocks.find(
-      (node: NodeProps) => node.id === groupToDelete
+  (get: () => RFState, set: any) => (groupToDelete: string) => {
+    const matchNode = get().flowSlice.flow.visual.blocks.find(
+      (node: any) => node.id === groupToDelete
     );
-    removeParent(get().flow.visual.blocks, matchNode);
+    removeParent(get().flowSlice.flow.visual.blocks, matchNode);
     set((state: RFState) => ({
       flowSlice: {
         ...state.flowSlice,
@@ -146,7 +148,7 @@ export const showGroupModal =
   };
 
 export const changeGroupLabel =
-  (set: any) => (groupId: string, input: string) => {
+  (set: RFState) => (groupId: string, input: string) => {
     const updateFn = (data: any) => ({
       ...data,
       label: input,

@@ -6,10 +6,10 @@ import useStore from '../../../store/store';
 
 export default function NodeGroup({ id, data }: NodeProps) {
 
-    const showGroupModal = useStore((state) => state.showGroupModal);
-    const setGroupColor = useStore((state) => state.setGroupColor);
-    const setGroupLabel = useStore((state) => state.setGroupLabel);
-    const deleteGroupOnButtonClick = useStore((state) => state.deleteGroupOnButtonClick);
+    const showGroupModal = useStore((state) => state.flowSlice.showGroupModal);
+    const setGroupColor = useStore((state) => state.flowSlice.setGroupColor);
+    const setGroupLabel = useStore((state) => state.flowSlice.setGroupLabel);
+    const deleteGroupOnButtonClick = useStore((state) => state.flowSlice.deleteGroupOnButtonClick);
 
 
     return (

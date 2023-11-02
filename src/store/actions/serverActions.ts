@@ -1,7 +1,7 @@
 import { getBlockStatisticsAPI, getFlowApi } from "../../api/flow";
 import { RFState } from "../types/rfState";
 
-export const getCurrentFlow = (get: any, set: any) => async (flowId: string) => {
+export const getCurrentFlow = (get: () => RFState, set: any) => async (flowId: string) => {
   let currentFlow = {
     blockData: []
   }
@@ -17,8 +17,8 @@ export const getCurrentFlow = (get: any, set: any) => async (flowId: string) => 
   }).catch(e => console.log(e))
     .finally(() => {
       set((state: RFState) => ({
-        server: {
-          ...state.server,
+        serverSlice: {
+          ...state.serverSlice,
           currentFlow: {
             ...currentFlow, blockData: currentFlow.blockData.map((block: any) => {
               const matchingStat = _stats.find((stat: any) => stat.blockId === block.blockIdentifier);
