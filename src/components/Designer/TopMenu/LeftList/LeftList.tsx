@@ -14,7 +14,7 @@ function LeftList(props: any) {
   const [isSelectFlowVisible, setIsSelectFlowVisible] = useState<boolean>(false);
   const currentFlow = useStore((state) => state.flow.flowName);
   const [matchFlow, setMatchFlow] = useState<object>();
-  const toggleUpdateFlowModal = useStore((state) => state.toggleUpdateFlowModal);
+  const toggleUpdateFlowModal = useStore((state) => state.modalWindowsSlice.toggleUpdateFlowModal);
   const createFlow = useStore((state) => state.createFlow);
 
   function createNewFlow() {

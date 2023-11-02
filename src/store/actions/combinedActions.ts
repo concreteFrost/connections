@@ -12,7 +12,7 @@ import {
   setSelectedExtendedParameter,
   setStringParameter,
 } from "./blockActions";
-import { setselectedBlockID, onNodesChange } from "./nodeActions";
+import { setselectedBlockID, onBlocksChange } from "./nodeActions";
 import { handleConnect, onEdgesChange, onEdgesConnect } from "./edgesActions";
 import {
   hideAllTopMenus,
@@ -32,7 +32,7 @@ import {
   showGroupModal,
 } from "./groupActions";
 import { setTooltipText } from "./tooltipActions";
-import { getNodesList, addNode } from "./leftPanelActions";
+import { getBlocksList, addBlock } from "./leftPanelActions";
 import { createFlow, loadFlow, openTestFlow, saveFlow, setFlowIsEnabled, setFlowName, setFlowVersion, updateFlow } from "./flowActions";
 import {
   addConfig,
@@ -42,9 +42,9 @@ import {
 } from "./substitutionsActions";
 import {
   getBlockProperties,
-  setNodeColor,
-  setNodeDescription,
-  setNodeName,
+  setBlockColor,
+  setBlockDescription,
+  setBlockName,
 } from "./baseActions";
 import { getParameterValue, setParameterValue } from "./valueEditorActions";
 import { getCurrentFlow } from "./serverActions";
@@ -54,7 +54,7 @@ import { toggleMessageModal, toggleUpdateFlowModal, setModalMessage } from "./mo
 
 const nodeActions = {
   setselectedBlockID: setselectedBlockID,
-  onNodesChange: onNodesChange,
+  onBlocksChange: onBlocksChange,
 };
 
 const groupActions = {
@@ -68,16 +68,16 @@ const groupActions = {
 };
 
 const leftPanelActions = {
-  addNode: addNode,
-  getNodesList: getNodesList,
+  addBlock: addBlock,
+  getBlocksList: getBlocksList,
 };
 
 const baseActtions = {
 
   getBlockProperties: getBlockProperties,
-  setNodeColor: setNodeColor,
-  setNodeDescription: setNodeDescription,
-  setNodeName: setNodeName,
+  setBlockColor: setBlockColor,
+  setBlockDescription: setBlockDescription,
+  setBlockName: setBlockName,
 };
 
 const blockActions = {

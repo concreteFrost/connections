@@ -109,10 +109,10 @@ export function updateFlowAfterSaving(set: any, flow: any, saveFlowMessage: stri
             ...state.flow,
             flowVersion: flow.flowVersion
         },
-        modalWindows: {
-            ...state.modalWindows,
+        modalWindowsSlice: {
+            ...state.modalWindowsSlice,
             messageModal: {
-                ...state.modalWindows.messageModal,
+                ...state.modalWindowsSlice.messageModal,
                 isVisible: true,
                 message: saveFlowMessage
             }

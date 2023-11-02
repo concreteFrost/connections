@@ -8,20 +8,20 @@ function Base() {
   const selectedBlockID: any = useStore((state) => state.selectedBlockID);
   const currentBlock = useStore<IBlockData | undefined>((store) => store.flow.blockData.find((x: IBlockData) => x.blockIdentifier === selectedBlockID));
   const currentBlockVisual = useStore<IVisual | undefined>((store) => store.flow.visual.blocks.find((x: IVisual) => x.id === selectedBlockID));
-  const setNodeName = useStore((state) => state.setNodeName);
-  const setNodeColor = useStore((state) => state.setNodeColor);
-  const setNodeDescription = useStore((state) => state.setNodeDescription);
+  const setBlockName = useStore((state) => state.setBlockName);
+  const setBlockColor = useStore((state) => state.setBlockColor);
+  const setBlockDescription = useStore((state) => state.setBlockDescription);
 
-  function _setNodeName(e: any) {
-    setNodeName(e.target.value);
+  function _setBlockName(e: any) {
+    setBlockName(e.target.value);
   }
 
-  function _setNodeColor(e: any) {
-    setNodeColor(e.target.value);
+  function _setBlockColor(e: any) {
+    setBlockColor(e.target.value);
   }
 
-  function _setNodeDescription(e: any) {
-    setNodeDescription(e.target.value);
+  function _setBlockDescription(e: any) {
+    setBlockDescription(e.target.value);
   }
   return (
     <div>
@@ -33,7 +33,7 @@ function Base() {
             type="text"
             placeholder="Block Name"
             value={currentBlock?.blockLabel}
-            onChange={(e: any) => _setNodeName(e)}
+            onChange={(e: any) => _setBlockName(e)}
           />
         </li>
         <li>
@@ -42,7 +42,7 @@ function Base() {
             <input
               type="color"
               value={currentBlockVisual?.data.color}
-              onChange={(e: any) => _setNodeColor(e)}
+              onChange={(e: any) => _setBlockColor(e)}
             />
           </div>
         </li>
@@ -52,7 +52,7 @@ function Base() {
             type="text"
             placeholder="Description"
             value={currentBlock?.description}
-            onChange={(e: any) => _setNodeDescription(e)}
+            onChange={(e: any) => _setBlockDescription(e)}
           />
         </li>
       </ul>

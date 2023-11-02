@@ -5,7 +5,8 @@ import initialEdges from "./edges";
 import { RFState } from "./types/rfState";
 import { BackgroundVariant } from "react-flow-renderer";
 import { initializeFlow } from "./actions/utils/flowUtils";
-import topPanelSlice from "./stores/topPanelSlice";
+import topPanelSlice from "./slices/topPanelSlice";
+import modalWindowsSlice from "./slices/modalWindowsSlice";
 
 const useStore = create<RFState>((set, get) => ({
   flow: initializeFlow(initialNodes, initialEdges),
@@ -25,26 +26,17 @@ const useStore = create<RFState>((set, get) => ({
     valueToEdit: '',
     parameterToModify: ''
   },
-  modalWindows: {
-    updateFlowModal: {
-      isVisible: false,
-    },
-    messageModal: {
-      isVisible: false,
-      message: '',
-    }
-  },
-
   errorMessages: {
     substitutionAddError: ''
   },
   topPanelSlice: topPanelSlice(get, set),
+  modalWindowsSlice: modalWindowsSlice(get, set),
 
   //Base Actions
   getBlockProperties: actions.baseActtions.getBlockProperties(get, set),
-  setNodeName: actions.baseActtions.setNodeName(set, get),
-  setNodeDescription: actions.baseActtions.setNodeDescription(set, get),
-  setNodeColor: actions.baseActtions.setNodeColor(set, get),
+  setBlockName: actions.baseActtions.setBlockName(set, get),
+  setBlockDescription: actions.baseActtions.setBlockDescription(set, get),
+  setBlockColor: actions.baseActtions.setBlockColor(set, get),
 
   //Block Actions
   setStringParameter: actions.blockActions.setStringParameter(get, set),
@@ -64,7 +56,7 @@ const useStore = create<RFState>((set, get) => ({
   setParameterValue: actions.valueEditorActions.setParameterValue(get, set),
 
   //Group Actions
-  addNodeGroup: actions.groupActions.addGroup(get, set),
+  addBlockGroup: actions.groupActions.addGroup(get, set),
   showGroupModal: actions.groupActions.showGroupModal(set),
   setGroupColor: actions.groupActions.setGroupColor(set),
   setGroupLabel: actions.groupActions.setGroupLabel(set),
@@ -72,10 +64,10 @@ const useStore = create<RFState>((set, get) => ({
   deleteGroupOnButtonClick: actions.groupActions.deleteGroupOnButtonClick(get, set),
 
   //Node Actions
-  getNodesList: actions.leftPanelActions.getNodesList(set),
-  addNode: actions.leftPanelActions.addNode(get, set),
+  getBlocksList: actions.leftPanelActions.getBlocksList(set),
+  addBlock: actions.leftPanelActions.addBlock(get, set),
   setselectedBlockID: actions.nodeActions.setselectedBlockID(get, set),
-  onNodesChange: actions.nodeActions.onNodesChange(get, set),
+  onBlocksChange: actions.nodeActions.onBlocksChange(get, set),
 
   //Edge Actions
   onEdgesChange: actions.edgeActions.onEdgesChange(get, set),
@@ -89,14 +81,6 @@ const useStore = create<RFState>((set, get) => ({
 
   //Server Actions
   getCurrentFlow: actions.serverActions.getCurrentFlow(get, set),
-
-  //Top Menu Actions 
-  // setBgView: actions.topMenuActions.setBgView(set),
-  // hideAllTopMenus: actions.topMenuActions.hideAllTopMenus(get, set),
-  // toggleDropdown: actions.topMenuActions.toggleDropdown(get, set),
-  // setSnapToGrid: actions.topMenuActions.setSnapToGrid(get, set),
-  // setSnapStep: actions.topMenuActions.setSnapStep(get, set),
-  // showMiniMap: actions.topMenuActions.showMiniMap(get, set),
 
   //Flow Actions
   createFlow: actions.flowActions.createFlow(get, set),

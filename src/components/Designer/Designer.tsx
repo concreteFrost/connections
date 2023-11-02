@@ -10,7 +10,7 @@ import Substitutions from "./Substitutions/Substitutions";
 
 function Designer() {
 
-    const getNodesList = useStore((store) => store.getNodesList);
+    const getBlocksList = useStore((store) => store.getBlocksList);
     const tooltipText = useStore((store) => store.tooltip.text);
 
     const hideAllTopDropdowns = useStore((state) => state.topPanelSlice.hideAllTopMenus);
@@ -19,7 +19,7 @@ function Designer() {
     const setselectedBlockID = useStore((state) => state.setselectedBlockID);
 
     useEffect(() => {
-        getBlocks().then((res) => { getNodesList(res) }).catch((e) => console.log(e))
+        getBlocks().then((res) => { getBlocksList(res) }).catch((e) => console.log(e))
     }, [])
 
     const resetselectedBlockID = (event: any) => {

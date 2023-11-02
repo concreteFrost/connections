@@ -4,8 +4,8 @@ import useStore from "../../store/store";
 
 function MessageModal() {
 
-    const messageModal = useStore((state) => state.modalWindows.messageModal);
-    const toggleMessageModal = useStore((state) => state.toggleMessageModal);
+    const messageModal = useStore((state) => state.modalWindowsSlice.messageModal);
+    const toggleMessageModal = useStore((state) => state.modalWindowsSlice.toggleMessageModal);
 
     return (<>
         {messageModal.isVisible ? <div className={s.container}>

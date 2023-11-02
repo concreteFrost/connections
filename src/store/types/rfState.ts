@@ -9,7 +9,8 @@ import {
 
 import { INodeType } from "../interfaces/INode";
 import { ISubstitutions } from "../interfaces/ISubstitutions";
-import { TopPanelSlice } from "../stores/topPanelSlice";
+import { TopPanelSlice } from "../slices/topPanelSlice";
+import { ModalWindows } from "../slices/modalWindowsSlice";
 
 export type RFState = {
   flow: {
@@ -48,31 +49,23 @@ export type RFState = {
     currentFlow: object;
   };
 
-  modalWindows: {
-    updateFlowModal: {
-      isVisible: boolean,
-    }
-    messageModal: {
-      isVisible: boolean,
-      message: string,
-    }
-  };
   errorMessages: {
     substitutionAddError: string;
   };
 
   topPanelSlice: TopPanelSlice,
+  modalWindowsSlice: ModalWindows,
 
   setselectedBlockID: (nodeId: string) => void;
   setTooltipText: (text: string) => void;
-  onNodesChange: OnNodesChange;
+  onBlocksChange: OnNodesChange;
   onConnect: OnConnect;
   onEdgesChange: OnEdgesChange;
-  addNode: (type: INodeType, posX: number, posY: number) => void;
+  addBlock: (type: INodeType, posX: number, posY: number) => void;
 
-  setNodeName: (text: string) => void;
-  setNodeColor: (color: string) => void;
-  setNodeDescription: (description: string) => void;
+  setBlockName: (text: string) => void;
+  setBlockColor: (color: string) => void;
+  setBlockDescription: (description: string) => void;
 
   //Block Actions
   getBlockProperties: () => void;
@@ -114,9 +107,9 @@ export type RFState = {
   getCurrentFlow: (flowId: string) => void;
 
   //Group Actions
-  addNodeGroup: () => void;
+  addBlockGroup: () => void;
   showGroupModal: (nodeId: string, modalToShow: string) => void;
-  getNodesList: (data: any) => void;
+  getBlocksList: (data: any) => void;
   setGroupLabel: (nodeId: string, input: string) => void;
   setGroupColor: (nodeId: string, input: string) => void;
   hideAllGroupModals: () => void;
@@ -125,8 +118,5 @@ export type RFState = {
   //User Actions
   setUserName: (userName: string) => void;
 
-  //Modal Actions
-  toggleUpdateFlowModal: () => void;
-  toggleMessageModal: () => void;
-  setModalMessage: (message: string) => void;
+
 };

@@ -9,9 +9,9 @@ import { connectionsIcons } from "../../../icons/icons";
 
 function LeftPanel() {
   const leftPanelRef = useRef<HTMLDivElement>(null);
-  const addNode = useStore((state) => state.addNode);
+  const addBlock = useStore((state) => state.addBlock);
   const [isPanelActive, setIsPanelActive] = useState(true);
-  const addNodeGroup = useStore((state) => state.addNodeGroup);
+  const addBlockGroup = useStore((state) => state.addBlockGroup);
   const blockList = useStore((state) => state.blockList);
   const onDragStart = (event: any) => {
     event.dataTransfer.setData("application/reactflow", event.target);
@@ -27,7 +27,7 @@ function LeftPanel() {
     ) {
       return;
     }
-    addNode(newNode, clientX, clientY);
+    addBlock(newNode, clientX, clientY);
   };
 
   const isPositionInsideRect = (x: number, y: number, rect: DOMRect) => {
@@ -87,7 +87,7 @@ function LeftPanel() {
 
         </div></div>
 
-        <div className={s.create_group}><button className={s.create_group_btn} onClick={() => { addNodeGroup() }}>CREATE GROUP</button></div>
+        <div className={s.create_group}><button className={s.create_group_btn} onClick={() => { addBlockGroup() }}>CREATE GROUP</button></div>
       </div>
     </div>
   );

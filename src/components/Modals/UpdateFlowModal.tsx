@@ -8,8 +8,8 @@ function UpdateFlowModal(props: ModalProps) {
 
     const flow = useStore((state) => state.flow.flowName)
     const updateFlow = useStore((state) => state.updateFlow);
-    const updateFlowModal = useStore((state) => state.modalWindows.updateFlowModal);
-    const toggleUpdateFlowModal = useStore((state) => state.toggleUpdateFlowModal);
+    const updateFlowModal = useStore((state) => state.modalWindowsSlice.updateFlowModal);
+    const toggleUpdateFlowModal = useStore((state) => state.modalWindowsSlice.toggleUpdateFlowModal);
     function updateAndSave() {
         updateFlow(props.matchFlow)
         toggleUpdateFlowModal();

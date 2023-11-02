@@ -15,7 +15,7 @@ export const getBlockProperties = (get: any, set: any) => () => {
   }))
 }
 
-export const setNodeName = (set: any, get: any) => (text: string) => {
+export const setBlockName = (set: any, get: any) => (text: string) => {
   const nodeData: any = get().flow.blockData.map((x: any) => {
     if (x.blockIdentifier === get().selectedBlockID) {
       return {
@@ -33,7 +33,7 @@ export const setNodeName = (set: any, get: any) => (text: string) => {
   }));
 };
 
-export const setNodeDescription = (set: any, get: any) => (description: string) => {
+export const setBlockDescription = (set: any, get: any) => (description: string) => {
   const nodeData: any = get().flow.blockData.map((x: any) => {
     if (x.blockIdentifier === get().selectedBlockID) {
       return {
@@ -51,7 +51,7 @@ export const setNodeDescription = (set: any, get: any) => (description: string) 
   }));
 };
 
-export const setNodeColor = (set: any, get: any) => (color: string) => {
+export const setBlockColor = (set: any, get: any) => (color: string) => {
 
   const nodeVisuals: any = get().flow.visual.blocks.map((x: IVisual) => {
     if (x.id === get().selectedBlockID) {

@@ -7,7 +7,7 @@ import NodeGroup from "./CustomNodes/NodeGroup";
 const selector = (state: any) => ({
   nodes: state.nodes,
   edges: state.edges,
-  onNodesChange: state.onNodesChange,
+  onBlocksChange: state.onBlocksChange,
   onGroupDelete: state.deleteGroup,
   onEdgesChange: state.onEdgesChange,
   onConnect: state.onConnect,
@@ -19,7 +19,7 @@ const nodeTypes = {
 };
 
 function Flow(props: any) {
-  const { onNodesChange, onEdgesChange, onConnect } = useStore(
+  const { onBlocksChange, onEdgesChange, onConnect } = useStore(
     selector,
     shallow
   );
@@ -34,7 +34,7 @@ function Flow(props: any) {
       <ReactFlow
         nodes={nodes}
         edges={edges}
-        onNodesChange={onNodesChange}
+        onNodesChange={onBlocksChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         nodeTypes={nodeTypes}

@@ -13,12 +13,12 @@ export type TopPanelSlice = {
         snapStep: [number, number];
         showMiniMap: boolean;
     };
-    setBgView: (value: any) => void; // The type of this function depends on actions.topMenuActions.setBgView
-    hideAllTopMenus: () => void; // The type of this function depends on actions.topMenuActions.hideAllTopMenus
-    toggleDropdown: (activeDropdown: string) => void; // The type of this function depends on actions.topMenuActions.toggleDropdown
-    setSnapToGrid: () => void; // The type of this function depends on actions.topMenuActions.setSnapToGrid
-    setSnapStep: (step: number[]) => void; // The type of this function depends on actions.topMenuActions.setSnapStep
-    showMiniMap: () => void; // The type of this function depends on actions.topMenuActions.showMiniMap
+    setBgView: (value: any) => void;
+    hideAllTopMenus: () => void;
+    toggleDropdown: (activeDropdown: string) => void;
+    setSnapToGrid: () => void;
+    setSnapStep: (step: number[]) => void;
+    showMiniMap: () => void;
 
 };
 

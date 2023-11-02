@@ -2,11 +2,11 @@ import { RFState } from "../types/rfState"
 
 export const toggleMessageModal = (get: any, set: any) => () => {
     set((state: RFState) => ({
-        modalWindows: {
-            ...state.modalWindows,
+        modalWindowsSlice: {
+            ...state.modalWindowsSlice,
             messageModal: {
-                ...state.modalWindows.messageModal,
-                isVisible: !state.modalWindows.messageModal.isVisible
+                ...state.modalWindowsSlice.messageModal,
+                isVisible: !state.modalWindowsSlice.messageModal.isVisible
             }
         }
     }))
@@ -14,10 +14,10 @@ export const toggleMessageModal = (get: any, set: any) => () => {
 
 export const setModalMessage = (get: any, set: any) => (message: string) => {
     set((state: RFState) => ({
-        modalWindows: {
-            ...state.modalWindows,
+        modalWindowsSlice: {
+            ...state.modalWindowsSlice,
             messageModal: {
-                ...state.modalWindows.messageModal,
+                ...state.modalWindowsSlice.messageModal,
                 message: message
             }
         }
@@ -26,11 +26,11 @@ export const setModalMessage = (get: any, set: any) => (message: string) => {
 
 export const toggleUpdateFlowModal = (get: any, set: any) => () => {
     set((state: RFState) => ({
-        modalWindows: {
-            ...state.modalWindows,
+        modalWindowsSlice: {
+            ...state.modalWindowsSlice,
             updateFlowModal: {
-                ...state.modalWindows.updateFlowModal,
-                isVisible: !state.modalWindows.updateFlowModal.isVisible
+                ...state.modalWindowsSlice.updateFlowModal,
+                isVisible: !state.modalWindowsSlice.updateFlowModal.isVisible
             }
         }
     }))

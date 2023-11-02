@@ -29,7 +29,7 @@ function setDefaultValueAndFormat(dataType: number) {
   }
 }
 
-export const getNodesList = (set: any) => (data: any) => {
+export const getBlocksList = (set: any) => (data: any) => {
   const updatedNodesList = [];
 
   for (let d of data) {
@@ -94,7 +94,7 @@ export const getNodesList = (set: any) => (data: any) => {
   set({ blockList: updatedNodesList });
 };
 
-export const addNode =
+export const addBlock =
   (get: any, set: any) => (type: any, posX: number, posY: number) => {
     const id = uuidv4()
     const newNode = {

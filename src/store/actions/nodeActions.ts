@@ -12,7 +12,7 @@ export const setselectedBlockID = (get: any, set: any) => (nodeId: string) => {
   set({ selectedBlockID: nodeId });
 };
 
-export const onNodesChange =
+export const onBlocksChange =
   (get: any, set: any) => (changes: NodeChange[]) => {
 
     changes.forEach((change: NodeChange) => {
