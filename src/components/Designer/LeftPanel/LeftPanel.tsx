@@ -12,7 +12,7 @@ function LeftPanel() {
   const addNode = useStore((state) => state.addNode);
   const [isPanelActive, setIsPanelActive] = useState(true);
   const addNodeGroup = useStore((state) => state.addNodeGroup);
-  const nodeList = useStore((state) => state.nodeList);
+  const blockList = useStore((state) => state.blockList);
   const onDragStart = (event: any) => {
     event.dataTransfer.setData("application/reactflow", event.target);
     event.dataTransfer.effectAllowed = "move";
@@ -53,35 +53,35 @@ function LeftPanel() {
             title="DATA STORE"
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
-            nodeType={nodeList}
+            nodeType={blockList}
             nodeGroup={nodeGroup.dataGroup}
           />
           <Section
             title="EXTERNAL"
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
-            nodeType={nodeList}
+            nodeType={blockList}
             nodeGroup={nodeGroup.externalGroup}
           />
           <Section
             title="FUNCTION"
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
-            nodeType={nodeList}
+            nodeType={blockList}
             nodeGroup={nodeGroup.functionGroup}
           />
           <Section
             title="INPUT"
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
-            nodeType={nodeList}
+            nodeType={blockList}
             nodeGroup={nodeGroup.inputGroup}
           />
           <Section
             title="OUTPUT"
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
-            nodeType={nodeList}
+            nodeType={blockList}
             nodeGroup={nodeGroup.outputGroup}
           />
 

@@ -31,9 +31,8 @@ export type RFState = {
       edges: Edge<any>[];
     };
   };
-  nodeList: INodeType[];
+  blockList: INodeType[];
   view: BackgroundVariant;
-  selectedBlock: object;
   selectedBlockID: string | null;
   tooltip: {
     text: string;

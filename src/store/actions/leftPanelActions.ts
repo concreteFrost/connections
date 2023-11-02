@@ -91,7 +91,7 @@ export const getNodesList = (set: any) => (data: any) => {
     })
   }
 
-  set({ nodeList: updatedNodesList });
+  set({ blockList: updatedNodesList });
 };
 
 export const addNode =

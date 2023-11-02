@@ -50,7 +50,7 @@ function ValueEditor() {
       </div>
       <FilteredResults
         onSubstitutionSelect={onSubstitutionSelect}
-        inputValue={'sss'}
+        inputValue={valueToEdit}
       />
     </section>
   );

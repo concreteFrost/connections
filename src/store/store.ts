@@ -12,9 +12,9 @@ const useStore = create<RFState>((set, get) => ({
   server: {
     currentFlow: {},
   },
-  nodeList: [],
+  blockList: [],
   view: BackgroundVariant.Dots,
-  selectedBlock: {},
+  // selectedBlock: {},
   selectedBlockID: null,
   tooltip: {
     text: ''

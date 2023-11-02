@@ -7,7 +7,6 @@ import StaticProperties from "./FlowElements/StaticProperties";
 
 function Flow() {
   const currentFlow = useStore((state: any) => state.server.currentFlow);
-  console.log(currentFlow, 'block data')
   return (
     <div className={s.wrapper}>
       <StaticProperties

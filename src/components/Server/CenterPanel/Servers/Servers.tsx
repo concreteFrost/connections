@@ -9,6 +9,8 @@ import MonitorsTable from "./Tables/MonitorsTable";
 import SchedulesTable from "./Tables/ISchedulesTable";
 import MetricsTable from "./Tables/MetricsTable";
 import { killServerAPI, startServerAPI, stopServerAPI } from "../../../../api/server";
+import { baseUrl } from "../../../../store/constants/baseUrl";
+import { io } from "socket.io-client";
 
 interface ITableData {
     alertsRaised: number;
@@ -59,6 +61,20 @@ const data: ITableData = {
 function Servers() {
 
     const [tableData, setTableData] = useState<ITableData>(data)
+    const [serverStatus, setServerStatus] = useState<string>('');
+    const [socket, setSocket] = useState<any>(null);
+
+    // useEffect(() => {
+    //     console.log('creating web socket')
+    //     const newSocket = io('https://iconn.cocoon.technology');
+    //     setSocket(newSocket);
+
+    //     newSocket.on('connect', () => {
+    //         console.log('connectet to server', newSocket.id)
+    //     })
+
+
+    // }, [])
 
     function startServer() {
         startServerAPI().then((res) => {
@@ -93,11 +109,15 @@ function Servers() {
     }, [])
 
     return (<div className={s.wrapper}>
-        <div className={s.header_buttons}>
-            <button className={s.play} onClick={startServer}>{connectionsIcons.serverButtonsIcons.play}</button>
-            <button className={s.stop} onClick={stopServer}>{connectionsIcons.serverButtonsIcons.stop}</button>
-            <button className={s.kill} onClick={killServer}>{connectionsIcons.serverButtonsIcons.kill}</button>
+        <div className={s.header}>
+            <div className={s.header_buttons}>
+                <button className={s.play} onClick={startServer}>{connectionsIcons.serverButtonsIcons.play}</button>
+                <button className={s.stop} onClick={stopServer}>{connectionsIcons.serverButtonsIcons.stop}</button>
+                <button className={s.kill} onClick={killServer}>{connectionsIcons.serverButtonsIcons.kill}</button>
+            </div>
+            <div className={s.server_status}>server status : {serverStatus}</div>
         </div>
+
         <div className={s.main_container}>
             <OperationTable tableData={{
                 lastShutdownTime: tableData.lastShutdownTime,
@@ -118,7 +138,6 @@ function Servers() {
                     enabledBlockCount: tableData.enabledBlockCount,
                     disabledBlockCount: tableData.disabledBlockCount
                 }
-
                 }
                 scssClass={s.main_table}
             ></BlocksTable>
