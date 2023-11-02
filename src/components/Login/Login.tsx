@@ -9,7 +9,7 @@ import { setAccessToken } from "../../store/actions/storageActions";
 function Login() {
 
     const [defPassVal, setDefPassVal] = useState('cre4min9Tuff')
-    const userName = useStore((state) => state.flow.createdBy);
+    const userName = useStore((state) => state.flowSlice.flow.createdBy);
     const setUserName = useStore((state) => state.setUserName);
 
     const navigate = useNavigate();

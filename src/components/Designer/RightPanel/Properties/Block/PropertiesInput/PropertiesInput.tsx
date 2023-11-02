@@ -12,23 +12,23 @@ function PropertiesInput(props: {
   function setCurrentParameter(parameterName: string, value: any) {
     switch (props.blockData.format) {
       case "0":
-        return state.setStringParameter(parameterName, value);
+        return state.flowSlice.setStringParameter(parameterName, value);
       case "1":
-        return state.setIntegerParameter(parameterName, value);
+        return state.flowSlice.setIntegerParameter(parameterName, value);
       case "2":
-        return state.setFloatParameter(parameterName, value);
+        return state.flowSlice.setFloatParameter(parameterName, value);
       case "3":
-        return state.setDateTimeParameter(parameterName, value);
+        return state.flowSlice.setDateTimeParameter(parameterName, value);
       case "4":
-        return state.setBooleanParameter(parameterName, value);
+        return state.flowSlice.setBooleanParameter(parameterName, value);
       case "5":
-        return state.setBooleanYNParameter(parameterName, value);
+        return state.flowSlice.setBooleanYNParameter(parameterName, value);
       case "6":
-        return state.setExecutionParameter(parameterName, value);
+        return state.flowSlice.setExecutionParameter(parameterName, value);
       case "7":
-        return state.setBigIntParameter(parameterName, value);
+        return state.flowSlice.setBigIntParameter(parameterName, value);
       default:
-        return state.setStringParameter(parameterName, value);
+        return state.flowSlice.setStringParameter(parameterName, value);
     }
   }
 

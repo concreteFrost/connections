@@ -11,8 +11,11 @@ import {
 
 export const createFlow = (get: any, set: any) => () => {
   set((state: RFState) => ({
-    ...state,
-    flow: initializeFlow(initialNodes, initialEdges)
+    flowSlice: {
+      ...state.flowSlice,
+      flow: initializeFlow(initialNodes, initialEdges)
+    }
+
   }))
 };
 
@@ -27,7 +30,7 @@ export const loadFlow = (get: any, set: any) => (id: string) => {
 };
 
 export const saveFlow = (get: any, set: any) => () => {
-  const flow = get().flow;
+  const flow = get().flowSlice.flow;
   saveFlowApi(flow).then((res: any) => {
     if (res.data.success) {
       updateFlowAfterSaving(set, flow, 'success!');
@@ -42,7 +45,7 @@ export const saveFlow = (get: any, set: any) => () => {
 };
 
 export const updateFlow = (get: any, set: any) => (match: any) => {
-  const flow = get().flow;
+  const flow = get().flowSlice.flow;
 
   if (flowVersionToInt(flow.flowVersion) <= flowVersionToInt(match.version)) {
     const parsedPreviousVersion = flowVersionToInt(match.version) + 1;
@@ -67,9 +70,13 @@ export const updateFlow = (get: any, set: any) => (match: any) => {
 
 export const setFlowName = (get: any, set: any) => (name: string) => {
   set((state: RFState) => ({
-    flow: {
-      ...state.flow,
-      flowName: name,
+    flowSlice: {
+      ...state.flowSlice,
+      flow: {
+        ...state.flowSlice.flow,
+        flowName: name,
+      }
+
     },
   }));
 };
@@ -79,9 +86,13 @@ export const setFlowVersion = (get: any, set: any) => (version: string) => {
 
   if (validFormat.test(version)) {
     set((state: RFState) => ({
-      flow: {
-        ...state.flow,
-        flowVersion: version,
+      flowSlice: {
+        ...state.flowSlice,
+        flow: {
+          ...state.flowSlice.flow,
+          flowVersion: version,
+        }
+
       },
     }));
   }
@@ -91,9 +102,12 @@ export const setFlowVersion = (get: any, set: any) => (version: string) => {
 
 export const setFlowIsEnabled = (get: any, set: any) => () => {
   set((state: RFState) => ({
-    flow: {
-      ...state.flow,
-      isEnabled: state.flow.isEnabled === "true" ? "false" : "true",
+    flowSlice: {
+      ...state.flowSlice,
+      flow: {
+        ...state.flowSlice.flow,
+        isEnabled: state.flowSlice.flow.isEnabled === "true" ? "false" : "true"
+      }
     },
   }));
 

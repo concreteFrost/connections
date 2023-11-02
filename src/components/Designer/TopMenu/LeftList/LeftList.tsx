@@ -9,13 +9,13 @@ import UpdateFlowModal from "../../../Modals/UpdateFlowModal";
 import MessageModal from "../../../Modals/MessageModal";
 
 function LeftList(props: any) {
-  const saveFlow = useStore<any>((state) => state.saveFlow);
+  const saveFlow = useStore<any>((state) => state.flowSlice.saveFlow);
   const [loadedFlows, setLoadedFlows] = useState<Array<object>>([])
   const [isSelectFlowVisible, setIsSelectFlowVisible] = useState<boolean>(false);
-  const currentFlow = useStore((state) => state.flow.flowName);
+  const currentFlow = useStore((state) => state.flowSlice.flow.flowName);
   const [matchFlow, setMatchFlow] = useState<object>();
   const toggleUpdateFlowModal = useStore((state) => state.modalWindowsSlice.toggleUpdateFlowModal);
-  const createFlow = useStore((state) => state.createFlow);
+  const createFlow = useStore((state) => state.flowSlice.createFlow);
 
   function createNewFlow() {
     createFlow();

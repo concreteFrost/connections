@@ -3,22 +3,26 @@ import { ISubstitutions } from "../interfaces/ISubstitutions";
 import { IBlockData } from "../interfaces/IBlock";
 
 export const addSubstitutionKey = (get: any, set: any) => (key: string) => {
-  const match = get().flow.substitutions.find((s: ISubstitutions) => s.subKey === key);
+  const match = get().flowSlice.flow.substitutions.find((s: ISubstitutions) => s.subKey === key);
 
   if (!match && key.length > 0)
     set((state: RFState) => ({
-      flow: {
-        ...state.flow,
-        substitutions: [
-          ...state.flow.substitutions,
-          {
-            subKey: key,
-            subConfigs: [
-              { configName: "Debug", configValue: "" },
-              { configName: "Release", configValue: "" },
-            ],
-          }, // might need to be an empty array
-        ],
+      flowSlice: {
+        ...state.flowSlice,
+        flow: {
+          ...state.flowSlice.flow,
+          substitutions: [
+            ...state.flowSlice.flow.substitutions,
+            {
+              subKey: key,
+              subConfigs: [
+                { configName: "Debug", configValue: "" },
+                { configName: "Release", configValue: "" },
+              ],
+            }, // might need to be an empty array
+          ],
+        }
+
       },
     }));
   else {
@@ -43,7 +47,7 @@ const setSubstitutionErrorMessage = (set: any, msg: string) => {
 export const deleteSubstitution = (get: any, set: any) => (key: string) => {
 
   //looking for match key to replace it in properties panel
-  const updatedBlocks = get().flow.blockData.map((block: IBlockData) => {
+  const updatedBlocks = get().flowSlice.flow.blockData.map((block: IBlockData) => {
     return {
       ...block,
       parameters: block.parameters.map((parameter: any) => {
@@ -62,10 +66,14 @@ export const deleteSubstitution = (get: any, set: any) => (key: string) => {
   });
 
   set((state: RFState) => ({
-    flow: {
-      ...state.flow,
-      substitutions: state.flow.substitutions.filter((sub: ISubstitutions) => sub.subKey !== key),
-      blockData: updatedBlocks
+    flowSlice: {
+      ...state.flowSlice,
+      flow: {
+        ...state.flowSlice.flow,
+        substitutions: state.flowSlice.flow.substitutions.filter((sub: ISubstitutions) => sub.subKey !== key),
+        blockData: updatedBlocks
+      }
+
     },
 
   }
@@ -78,7 +86,7 @@ export const addConfig =
   (get: any, set: any) =>
     (key: string, configName: string, configValue: string) => {
       set((state: RFState) => {
-        const updatedSubstitutions = state.flow.substitutions.map((sub: any) => {
+        const updatedSubstitutions = state.flowSlice.flow.substitutions.map((sub: any) => {
           if (sub.subKey === key) {
             return {
               ...sub,
@@ -95,9 +103,13 @@ export const addConfig =
         });
 
         return {
-          flow: {
-            ...state.flow,
-            substitutions: updatedSubstitutions,
+          flowSlice: {
+            ...state.flowSlice,
+            flow: {
+              ...state.flowSlice.flow,
+              substitutions: updatedSubstitutions,
+            }
+
           },
         };
       });

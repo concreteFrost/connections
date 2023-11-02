@@ -1,6 +1,4 @@
 import {
-  Edge,
-  Node,
   OnNodesChange,
   OnEdgesChange,
   OnConnect,
@@ -8,30 +6,12 @@ import {
 } from "react-flow-renderer";
 
 import { INodeType } from "../interfaces/INode";
-import { ISubstitutions } from "../interfaces/ISubstitutions";
+
 import { TopPanelSlice } from "../slices/topPanelSlice";
 import { ModalWindows } from "../slices/modalWindowsSlice";
+import { FlowSlice } from "../slices/flowSlice";
 
 export type RFState = {
-  flow: {
-    blockData: [];
-    created: Date;
-    createdBy: string;
-    flowIdentifier: string;
-    flowName: string;
-    flowVersion: string;
-    flowConfig: string;
-    isEnabled: string;
-    lastAmended: Date;
-    lastAmendedBy: string;
-    serverIdentifier: string;
-    startBlock: string;
-    substitutions: Array<ISubstitutions>;
-    visual: {
-      blocks: Node<any>[];
-      edges: Edge<any>[];
-    };
-  };
   blockList: INodeType[];
   view: BackgroundVariant;
   selectedBlockID: string | null;
@@ -53,6 +33,7 @@ export type RFState = {
     substitutionAddError: string;
   };
 
+  flowSlice: FlowSlice,
   topPanelSlice: TopPanelSlice,
   modalWindowsSlice: ModalWindows,
 
@@ -63,37 +44,9 @@ export type RFState = {
   onEdgesChange: OnEdgesChange;
   addBlock: (type: INodeType, posX: number, posY: number) => void;
 
-  setBlockName: (text: string) => void;
-  setBlockColor: (color: string) => void;
-  setBlockDescription: (description: string) => void;
-
-  //Block Actions
-  getBlockProperties: () => void;
-  setStringParameter: (parameterName: string, value: string) => void;
-  setIntegerParameter: (parameterName: string, value: number) => void;
-  setFloatParameter: (parameterName: string, value: number) => void;
-  setBooleanParameter: (parameterName: string, value: boolean) => void;
-  setBooleanYNParameter: (parameterName: string, value: string) => void;
-  setDateTimeParameter: (parameterName: string, value: Date) => void;
-  setExecutionParameter: (parameterName: string, value: string) => void;
-  setBigIntParameter: (parameterName: string, value: BigInt) => void;
-  addCustomParameter: (name: string, value: string) => boolean | undefined;
-  setSelectedExtendedParameter: (parameterName: string, value: string) => void;
-  deleteExtendedParameter: (parameterName: string) => void;
-
   //Value Editor Actions
   getParameterValue: (parameterName: string, value: string) => void;
   setParameterValue: (propertyName: string, value: string) => void;
-
-  //Flow
-  openFlow: () => void;
-  saveFlow: () => void;
-  updateFlow: (match: any) => void;
-  loadFlow: (id: string) => void;
-  setFlowName: (name: string) => void;
-  setFlowVersion: (version: string) => void;
-  setFlowIsEnabled: () => void;
-  createFlow: () => void;
 
   //Substitutions Panel
   toggleSubstitutionsPanel: () => void;

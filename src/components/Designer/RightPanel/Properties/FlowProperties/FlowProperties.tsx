@@ -2,10 +2,10 @@ import s from "./FlowProperties.module.scss";
 import useStore from "../../../../../store/store";
 
 function FlowProperties() {
-  const flow = useStore((state) => state.flow);
-  const setFlowName = useStore((state) => state.setFlowName);
-  const setFlowIsEnabled = useStore((state) => state.setFlowIsEnabled);
-  const setFlowVersion = useStore((state) => state.setFlowVersion);
+  const flow = useStore((state) => state.flowSlice.flow);
+  const setFlowName = useStore((state) => state.flowSlice.setFlowName);
+  const setFlowIsEnabled = useStore((state) => state.flowSlice.setFlowIsEnabled);
+  const setFlowVersion = useStore((state) => state.flowSlice.setFlowVersion);
   return (
     <div>
       <h5>FLOW</h5>

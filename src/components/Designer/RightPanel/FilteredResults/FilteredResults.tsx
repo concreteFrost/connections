@@ -10,7 +10,7 @@ interface FilteredResultsProps {
 function FilteredResults(props: FilteredResultsProps) {
   const [filteredSubstitutions, setFilteredSubstitutions] = useState<any[]>([]);
 
-  const substitutions = useStore((state) => state.flow.substitutions);
+  const substitutions = useStore((state) => state.flowSlice.flow.substitutions);
   useEffect(() => {
     function handleClickOutside(event: any) {
       const suggestionList = document.querySelector(".suggestion-list-wrapper");

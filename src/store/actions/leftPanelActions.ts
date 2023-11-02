@@ -2,7 +2,6 @@ import { v4 as uuidv4 } from "uuid";
 import blockParametersType from "../constants/blockConst";
 import { RFState } from "../types/rfState";
 import { mockedBlocks } from "../../testFlow/mockedBlocks";
-import { IBlockParameters } from "../interfaces/IBlock";
 
 function setDefaultValueAndFormat(dataType: number) {
   switch (dataType) {
@@ -105,21 +104,25 @@ export const addBlock =
     };
 
     set((state: RFState) => ({
-      flow: {
-        ...state.flow,
-        blockData: [...state.flow.blockData, newNode.data],
-        visual: {
-          ...state.flow.visual,
-          blocks: [
-            ...state.flow.visual.blocks,
-            {
-              id: id,
-              type: newNode.type,
-              data: newNode.visualData,
-              position: newNode.position,
-            },
-          ],
-        },
+      flowSlice: {
+        ...state.flowSlice,
+        flow: {
+          ...state.flowSlice.flow,
+          blockData: [...state.flowSlice.flow.blockData, newNode.data],
+          visual: {
+            ...state.flowSlice.flow.visual,
+            blocks: [
+              ...state.flowSlice.flow.visual.blocks,
+              {
+                id: id,
+                type: newNode.type,
+                data: newNode.visualData,
+                position: newNode.position,
+              },
+            ],
+          },
+        }
+
       },
     }));
   };

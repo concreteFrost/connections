@@ -1,11 +1,12 @@
 import { IBlockData } from "../interfaces/IBlock";
-import { IFlowData } from "../interfaces/Iflow";
 import { RFState } from "../types/rfState";
 
 const setParameter = (get: any, set: any) => (propertyName: string, value: any) => {
-  const blockData = get().flow.blockData.find(
-    (block: any) => block.blockIdentifier === get().selectedBlockID
+  const blockData = get().flowSlice.flow.blockData.find(
+    (block: IBlockData) => block.blockIdentifier === get().selectedBlockID
   );
+
+  console.log(blockData)
 
   const parameter = blockData.parameters.map((param: any) => {
     if (param.name === propertyName) {
@@ -17,25 +18,29 @@ const setParameter = (get: any, set: any) => (propertyName: string, value: any) 
     return param;
   });
 
-  set((state: any) => ({
-    ...state, flow: {
-      ...state.flow,
-      blockData: state.flow.blockData.map((x: any) => {
-        if (x.blockIdentifier === get().selectedBlockID) {
-          return {
-            ...x,
-            parameters: parameter
+  set((state: RFState) => ({
+    flowSlice: {
+      ...state.flowSlice,
+      flow: {
+        ...state.flowSlice.flow,
+        blockData: state.flowSlice.flow.blockData.map((x: any) => {
+          if (x.blockIdentifier === get().selectedBlockID) {
+            return {
+              ...x,
+              parameters: parameter
+            }
           }
-        }
-        return x;
-      })
+          return x;
+        })
+      }
+
     }
   }));
 
 };
 
 export const setSelectedExtendedParameter = (get: any, set: any) => (propertyName: string, value: string) => {
-  const blockData = get().flow.blockData.find(
+  const blockData = get().flowSlice.flow.blockData.find(
     (block: IBlockData) => block.blockIdentifier === get().selectedBlockID
   );
 
@@ -50,43 +55,51 @@ export const setSelectedExtendedParameter = (get: any, set: any) => (propertyNam
       return param;
     });
 
-    set((state: any) => ({
-      ...state, flow: {
-        ...state.flow,
-        blockData: state.flow.blockData.map((x: any) => {
-          if (x.blockIdentifier === get().selectedBlockID) {
-            return {
-              ...x,
-              extendedParameters: parameter
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        flow: {
+          ...state.flowSlice.flow,
+          blockData: state.flowSlice.flow.blockData.map((x: any) => {
+            if (x.blockIdentifier === get().selectedBlockID) {
+              return {
+                ...x,
+                extendedParameters: parameter
+              }
             }
-          }
-          return x;
-        })
+            return x;
+          })
+        }
+
       }
     }));
   }
 }
 
 export const deleteExtendedParameter = (get: any, set: any) => (propName: string) => {
-  const blockData = get().flow.blockData.find(
+  const blockData = get().flowSlice.flow.blockData.find(
     (block: any) => block.blockIdentifier === get().selectedBlockID
   );
 
   if (blockData) {
     const filteredParameters = blockData.extendedParameters.filter((param: any) => param.name !== propName)
 
-    set((state: any) => ({
-      ...state, flow: {
-        ...state.flow,
-        blockData: state.flow.blockData.map((x: any) => {
-          if (x.blockIdentifier === get().selectedBlockID) {
-            return {
-              ...x,
-              extendedParameters: filteredParameters
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        flow: {
+          ...state.flowSlice.flow,
+          blockData: state.flowSlice.flow.blockData.map((x: any) => {
+            if (x.blockIdentifier === get().selectedBlockID) {
+              return {
+                ...x,
+                extendedParameters: filteredParameters
+              }
             }
-          }
-          return x;
-        })
+            return x;
+          })
+        },
+
       }
     }));
   }
@@ -94,7 +107,7 @@ export const deleteExtendedParameter = (get: any, set: any) => (propName: string
 }
 
 export const addCustomParameter = (get: any, set: any): ((name: string, value: string) => boolean | undefined) => (name, value) => {
-  const blockData = get().flow.blockData.find(
+  const blockData = get().flowSlice.flow.blockData.find(
     (block: any) => block.blockIdentifier === get().selectedBlockID
   );
 
@@ -104,18 +117,22 @@ export const addCustomParameter = (get: any, set: any): ((name: string, value: s
 
     if (!existingParam && !existingExtendedParam) {
       const updatedExtendedParams = [...blockData.extendedParameters, { name: name, value: value }]
-      set((state: any) => ({
-        ...state, flow: {
-          ...state.flow,
-          blockData: state.flow.blockData.map((x: any) => {
-            if (x.blockIdentifier === get().selectedBlockID) {
-              return {
-                ...x,
-                extendedParameters: updatedExtendedParams
+      set((state: RFState) => ({
+        ...state, flowSlice: {
+          ...state.flowSlice,
+          flow: {
+            ...state.flowSlice.flow,
+            blockData: state.flowSlice.flow.blockData.map((x: any) => {
+              if (x.blockIdentifier === get().selectedBlockID) {
+                return {
+                  ...x,
+                  extendedParameters: updatedExtendedParams
+                }
               }
-            }
-            return x;
-          })
+              return x;
+            })
+          }
+
         }
       }));
       return true;

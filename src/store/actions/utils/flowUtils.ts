@@ -30,75 +30,78 @@ export function initializeFlow<IFlowData>(initialNodes: object, initialEdges: ob
 
 export function setFlow(data: any, set: any) {
     set((state: RFState) => ({
-        flow: {
-            ...state.flow,
-            created: data.created,
-            createdBy: data.createdBy,
-            flowConfig: data.flowConfig,
-            flowIdentifier: data.flowIdentifier,
-            flowVersion: data.flowVersion,
-            flowName: data.flowName,
-            isEnabled: data.isEnabled,
-            lastAmended: data.lastAmended,
-            lastAmendedBy: data.lastAmendedBy,
-            startBlock: data.startBlock,
-            serverIdentifier: data.serverIdentifier,
-            blockData: data.blockData.map((b: IBlockData) => {
-                return {
-                    name: b.name,
-                    blockIdentifier: b.blockIdentifier,
-                    blockVersion: b.blockVersion,
-                    blockLabel: b.blockLabel,
-                    blockType: b.blockType,
-                    description: b.description,
-                    typeName: b.typeName,
-                    baseTypeName: b.baseTypeName,
-                    parameters: b.parameters.map((p: IBlockParameters) => {
-                        return {
-                            name: p.name,
-                            value: p.value,
-                            required: p.required,
-                            format: p.format,
-                        };
-                    }),
-                    extendedParameters: b.extendedParameters.map(((p: IBlockParameters) => {
-                        return {
-                            name: p.name,
-                            value: p.value,
-                        };
-                    })),
-                };
-            }),
-            visual: {
-                ...state.flow.visual,
-                blocks: data.visual.blocks.map((b: IVisual) => {
+        flowSlice: {
+            ...state.flowSlice,
+            flow: {
+                ...state.flowSlice.flow,
+                created: data.created,
+                createdBy: data.createdBy,
+                flowConfig: data.flowConfig,
+                flowIdentifier: data.flowIdentifier,
+                flowVersion: data.flowVersion,
+                flowName: data.flowName,
+                isEnabled: data.isEnabled,
+                lastAmended: data.lastAmended,
+                lastAmendedBy: data.lastAmendedBy,
+                startBlock: data.startBlock,
+                serverIdentifier: data.serverIdentifier,
+                blockData: data.blockData.map((b: IBlockData) => {
                     return {
-                        id: b.id,
-                        type: "pointer",
-                        data: b.data,
-                        position: b.position,
+                        name: b.name,
+                        blockIdentifier: b.blockIdentifier,
+                        blockVersion: b.blockVersion,
+                        blockLabel: b.blockLabel,
+                        blockType: b.blockType,
+                        description: b.description,
+                        typeName: b.typeName,
+                        baseTypeName: b.baseTypeName,
+                        parameters: b.parameters.map((p: IBlockParameters) => {
+                            return {
+                                name: p.name,
+                                value: p.value,
+                                required: p.required,
+                                format: p.format,
+                            };
+                        }),
+                        extendedParameters: b.extendedParameters.map(((p: IBlockParameters) => {
+                            return {
+                                name: p.name,
+                                value: p.value,
+                            };
+                        })),
                     };
                 }),
-                edges: data.visual.edges.map((e: Edge) => {
+                visual: {
+                    ...state.flowSlice.flow.visual,
+                    blocks: data.visual.blocks.map((b: IVisual) => {
+                        return {
+                            id: b.id,
+                            type: "pointer",
+                            data: b.data,
+                            position: b.position,
+                        };
+                    }),
+                    edges: data.visual.edges.map((e: Edge) => {
+                        return {
+                            id: e.id,
+                            source: e.source,
+                            target: e.target,
+                            type: "step",
+                        };
+                    }),
+                },
+                substitutions: data.substitutions.map((sub: any) => {
                     return {
-                        id: e.id,
-                        source: e.source,
-                        target: e.target,
-                        type: "step",
+                        subKey: sub.subKey,
+                        subConfigs: sub.subConfigs.map((config: any) => {
+                            return {
+                                configName: config.configName,
+                                configValue: config.configValue,
+                            };
+                        }),
                     };
                 }),
             },
-            substitutions: data.substitutions.map((sub: any) => {
-                return {
-                    subKey: sub.subKey,
-                    subConfigs: sub.subConfigs.map((config: any) => {
-                        return {
-                            configName: config.configName,
-                            configValue: config.configValue,
-                        };
-                    }),
-                };
-            }),
         },
     }));
 }
@@ -106,7 +109,7 @@ export function setFlow(data: any, set: any) {
 export function updateFlowAfterSaving(set: any, flow: any, saveFlowMessage: string) {
     set((state: RFState) => ({
         flow: {
-            ...state.flow,
+            ...state.flowSlice,
             flowVersion: flow.flowVersion
         },
         modalWindowsSlice: {

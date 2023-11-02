@@ -8,7 +8,7 @@ import { useEffect } from "react";
 
 function Block() {
   const selectedBlockID = useStore((state) => state.selectedBlockID);
-  const blockData = useStore<IBlockData | undefined>((state) => state.flow.blockData.find((x: IBlockData) => x.blockIdentifier === selectedBlockID));
+  const blockData = useStore<IBlockData | undefined>((state) => state.flowSlice.flow.blockData.find((x: IBlockData) => x.blockIdentifier === selectedBlockID));
 
   return (
     <div>

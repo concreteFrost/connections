@@ -15,7 +15,7 @@ function FlowsItem(props: FlowsItemProps) {
     const [flowList, setFlowList] = useState([]);
     const getCurrentFlow = useStore((state) => state.getCurrentFlow);
     const currentFlow = useStore<any>((state) => state.server.currentFlow);
-    const loadFlow = useStore((state) => state.loadFlow);
+    const loadFlow = useStore((state) => state.flowSlice.loadFlow);
 
     useEffect(() => {
         getFlowListApi().then((res: any) => {

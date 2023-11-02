@@ -13,7 +13,7 @@ export const getParameterValue =
   };
 
 export const setParameterValue = (get: any, set: any) => (propertyName: string, value: string) => {
-  const blockData = get().flow.blockData.find((block: IBlockData) => block.blockIdentifier === get().selectedBlockID);
+  const blockData = get().flowSlice.flow.blockData.find((block: IBlockData) => block.blockIdentifier === get().selectedBlockID);
 
   if (!blockData) return;
 
@@ -30,11 +30,16 @@ export const setParameterValue = (get: any, set: any) => (propertyName: string, 
   set((state: RFState) => ({
     ...state,
     valueEditor: { valueToEdit: value, parameterToModify: propertyName },
-    flow: {
-      ...state.flow,
-      blockData: state.flow.blockData.map((block: IBlockData) =>
-        block.blockIdentifier === get().selectedBlockID ? updatedBlockData : block
-      ),
+
+    flowSlice: {
+      ...state.flowSlice,
+      flow: {
+        ...state.flowSlice.flow,
+        blockData: state.flowSlice.flow.blockData.map((block: IBlockData) =>
+          block.blockIdentifier === get().selectedBlockID ? updatedBlockData : block
+        ),
+      }
+
     },
   }));
 };

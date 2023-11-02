@@ -22,12 +22,16 @@ export const onBlocksChange =
     })
 
     set((state: RFState) => ({
-      flow: {
-        ...state.flow,
-        visual: {
-          ...state.flow.visual,
-          blocks: applyNodeChanges(changes, get().flow.visual.blocks)
-        },
+      flowSlice: {
+        ...state.flowSlice,
+        flow: {
+          ...state.flowSlice.flow,
+          visual: {
+            ...state.flowSlice.flow.visual,
+            blocks: applyNodeChanges(changes, get().flowSlice.flow.visual.blocks)
+          },
+        }
+
       },
     }));
 

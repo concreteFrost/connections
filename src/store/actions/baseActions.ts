@@ -4,8 +4,8 @@ import { IVisual } from "../interfaces/Ivisual";
 import { RFState } from "../types/rfState";
 
 export const getBlockProperties = (get: any, set: any) => () => {
-  const selectedBlockData = get()?.flow ? get().flow.blockData.find((block: IBlockData) => block.blockIdentifier === get().selectedBlockID) : {}
-  const selectedBlockVisuals = get()?.flow.visual ? get().flow.visual.blocks.find((blockVisual: IVisual) => blockVisual.id === get().selectedBlockID) : {};
+  const selectedBlockData = get()?.flow ? get().flowSlice.flow.blockData.find((block: IBlockData) => block.blockIdentifier === get().selectedBlockID) : {}
+  const selectedBlockVisuals = get()?.flow.visual ? get().flowSlice.flow.visual.blocks.find((blockVisual: IVisual) => blockVisual.id === get().selectedBlockID) : {};
 
   set((state: RFState) => ({
     ...state, selectedBlock: {
@@ -16,7 +16,7 @@ export const getBlockProperties = (get: any, set: any) => () => {
 }
 
 export const setBlockName = (set: any, get: any) => (text: string) => {
-  const nodeData: any = get().flow.blockData.map((x: any) => {
+  const nodeData: any = get().flowSlice.flow.blockData.map((x: any) => {
     if (x.blockIdentifier === get().selectedBlockID) {
       return {
         ...x,
@@ -26,15 +26,18 @@ export const setBlockName = (set: any, get: any) => (text: string) => {
   })
 
   set((state: RFState) => ({
-    flow: {
-      ...state.flow,
-      blockData: nodeData
+    flowSlice: {
+      ...state.flowSlice,
+      flow: {
+        ...state.flowSlice.flow,
+        blockData: nodeData,
+      }
     },
   }));
 };
 
 export const setBlockDescription = (set: any, get: any) => (description: string) => {
-  const nodeData: any = get().flow.blockData.map((x: any) => {
+  const nodeData: any = get().flowSlice.flow.blockData.map((x: any) => {
     if (x.blockIdentifier === get().selectedBlockID) {
       return {
         ...x,
@@ -44,16 +47,19 @@ export const setBlockDescription = (set: any, get: any) => (description: string)
   })
   set((state: RFState) => ({
 
-    flow: {
-      ...state.flow,
-      blockData: nodeData
+    flowSlice: {
+      ...state.flowSlice,
+      flow: {
+        ...state.flowSlice.flow,
+        blockData: nodeData
+      }
     },
   }));
 };
 
 export const setBlockColor = (set: any, get: any) => (color: string) => {
 
-  const nodeVisuals: any = get().flow.visual.blocks.map((x: IVisual) => {
+  const nodeVisuals: any = get().flowSlice.flow.visual.blocks.map((x: IVisual) => {
     if (x.id === get().selectedBlockID) {
       return {
         ...x,
@@ -64,12 +70,15 @@ export const setBlockColor = (set: any, get: any) => (color: string) => {
     } return x
   })
   set((state: RFState) => ({
-    flow: {
-      ...state.flow,
-      visual: {
-        ...state.flow.visual,
-        blocks: nodeVisuals
-      },
+    flowSlice: {
+      ...state.flowSlice,
+      flow: {
+        ...state.flowSlice.flow,
+        visual: {
+          ...state.flowSlice.flow.visual,
+          blocks: nodeVisuals
+        }
+      }
     },
   }));
 };

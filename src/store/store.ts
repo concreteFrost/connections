@@ -1,15 +1,12 @@
 import { create } from "zustand";
 import actions from "./actions/combinedActions";
-import initialNodes from "./nodes"
-import initialEdges from "./edges";
 import { RFState } from "./types/rfState";
 import { BackgroundVariant } from "react-flow-renderer";
-import { initializeFlow } from "./actions/utils/flowUtils";
 import topPanelSlice from "./slices/topPanelSlice";
 import modalWindowsSlice from "./slices/modalWindowsSlice";
+import flowSlice from "./slices/flowSlice";
 
 const useStore = create<RFState>((set, get) => ({
-  flow: initializeFlow(initialNodes, initialEdges),
   server: {
     currentFlow: {},
   },
@@ -29,27 +26,11 @@ const useStore = create<RFState>((set, get) => ({
   errorMessages: {
     substitutionAddError: ''
   },
+  flowSlice: flowSlice(get, set),
   topPanelSlice: topPanelSlice(get, set),
   modalWindowsSlice: modalWindowsSlice(get, set),
 
-  //Base Actions
-  getBlockProperties: actions.baseActtions.getBlockProperties(get, set),
-  setBlockName: actions.baseActtions.setBlockName(set, get),
-  setBlockDescription: actions.baseActtions.setBlockDescription(set, get),
-  setBlockColor: actions.baseActtions.setBlockColor(set, get),
 
-  //Block Actions
-  setStringParameter: actions.blockActions.setStringParameter(get, set),
-  setIntegerParameter: actions.blockActions.setIntegerParameter(get, set),
-  setFloatParameter: actions.blockActions.setFloatParameter(get, set),
-  setBooleanParameter: actions.blockActions.setBooleanParameter(get, set),
-  setBooleanYNParameter: actions.blockActions.setBooleanYNParameter(get, set),
-  setDateTimeParameter: actions.blockActions.setDateTimeParameter(get, set),
-  setExecutionParameter: actions.blockActions.setExecutionParameter(get, set),
-  setBigIntParameter: actions.blockActions.setBigIntParameter(get, set),
-  addCustomParameter: actions.blockActions.addCustomParameter(get, set),
-  setSelectedExtendedParameter: actions.blockActions.setSelectedExtendedParameter(get, set),
-  deleteExtendedParameter: actions.blockActions.deleteExtendedParameter(get, set),
 
   //Value Editor Actions
   getParameterValue: actions.valueEditorActions.getParameterValue(set),
@@ -81,16 +62,6 @@ const useStore = create<RFState>((set, get) => ({
 
   //Server Actions
   getCurrentFlow: actions.serverActions.getCurrentFlow(get, set),
-
-  //Flow Actions
-  createFlow: actions.flowActions.createFlow(get, set),
-  openFlow: actions.flowActions.openTestFlow(get, set),
-  saveFlow: actions.flowActions.saveFlow(get, set),
-  updateFlow: actions.flowActions.updateFlow(get, set),
-  loadFlow: actions.flowActions.loadFlow(get, set),
-  setFlowName: actions.flowActions.setFlowName(get, set),
-  setFlowVersion: actions.flowActions.setFlowVersion(get, set),
-  setFlowIsEnabled: actions.flowActions.setFlowIsEnabled(get, set),
 
   //Tooltip
   setTooltipText: actions.tooltipActions.setTooltipText(get, set),

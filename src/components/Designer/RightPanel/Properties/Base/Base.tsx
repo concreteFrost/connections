@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import useStore from "../../../../../store/store";
 import s from "./Base.module.scss";
 import { IBlockData } from "../../../../../store/interfaces/IBlock";
@@ -6,11 +5,11 @@ import { IVisual } from "../../../../../store/interfaces/Ivisual";
 
 function Base() {
   const selectedBlockID: any = useStore((state) => state.selectedBlockID);
-  const currentBlock = useStore<IBlockData | undefined>((store) => store.flow.blockData.find((x: IBlockData) => x.blockIdentifier === selectedBlockID));
-  const currentBlockVisual = useStore<IVisual | undefined>((store) => store.flow.visual.blocks.find((x: IVisual) => x.id === selectedBlockID));
-  const setBlockName = useStore((state) => state.setBlockName);
-  const setBlockColor = useStore((state) => state.setBlockColor);
-  const setBlockDescription = useStore((state) => state.setBlockDescription);
+  const currentBlock = useStore<IBlockData | undefined>((store) => store.flowSlice.flow.blockData.find((x: IBlockData) => x.blockIdentifier === selectedBlockID));
+  const currentBlockVisual = useStore<IVisual | undefined>((store) => store.flowSlice.flow.visual.blocks.find((x: IVisual) => x.id === selectedBlockID));
+  const setBlockName = useStore((state) => state.flowSlice.setBlockName);
+  const setBlockColor = useStore((state) => state.flowSlice.setBlockColor);
+  const setBlockDescription = useStore((state) => state.flowSlice.setBlockDescription);
 
   function _setBlockName(e: any) {
     setBlockName(e.target.value);

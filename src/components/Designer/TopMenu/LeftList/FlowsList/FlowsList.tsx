@@ -16,7 +16,7 @@ interface FlowListProps {
 
 function FlowsList(props: FlowListProps) {
 
-    const loadSelectedFlow = useStore((state) => state.loadFlow);
+    const loadSelectedFlow = useStore((state) => state.flowSlice.loadFlow);
 
     return (<div className={s.container}>
         <div className={s.header}>

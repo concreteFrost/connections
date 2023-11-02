@@ -11,13 +11,13 @@ function CustomProperties() {
     const [propName, setPropName] = useState<string>('');
     const [propValue, setPropValue] = useState<string>('');
 
-    const addCustomParameter = useStore((state) => state.addCustomParameter);
+    const addCustomParameter = useStore((state) => state.flowSlice.addCustomParameter);
     const getParameterValue = useStore((state) => state.getParameterValue);
-    const setParameter = useStore((state) => state.setSelectedExtendedParameter);
-    const deleteExtendedParameter = useStore((state) => state.deleteExtendedParameter);
+    const setParameter = useStore((state) => state.flowSlice.setSelectedExtendedParameter);
+    const deleteExtendedParameter = useStore((state) => state.flowSlice.deleteExtendedParameter);
 
     const selectedBlockID = useStore((state) => state.selectedBlockID)
-    const blockData = useStore<IBlockData | undefined>((state) => state.flow.blockData.find((x: IBlockData) => x.blockIdentifier === selectedBlockID));
+    const blockData = useStore<IBlockData | undefined>((state) => state.flowSlice.flow.blockData.find((x: IBlockData) => x.blockIdentifier === selectedBlockID));
 
     function triggerSubstitutions(e: any) {
         if (e.key === "{") {

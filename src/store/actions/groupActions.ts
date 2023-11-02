@@ -48,12 +48,16 @@ export const addGroup = (get: any, set: any) => () => {
 
     assignParent(get().flow.visual.blocks, newGroupNode);
     set((state: RFState) => ({
-      flow: {
-        ...state.flow,
-        visual: {
-          ...state.flow.visual,
-          blocks: [...state.flow.visual.blocks, newGroupNode],
-        },
+      flowSlice: {
+        ...state.flowSlice,
+        flow: {
+          ...state.flowSlice.flow,
+          visual: {
+            ...state.flowSlice.flow.visual,
+            blocks: [...state.flowSlice.flow.visual.blocks, newGroupNode],
+          },
+        }
+
       },
     }));
   }
@@ -90,34 +94,42 @@ export const deleteGroupOnButtonClick =
       (node: NodeProps) => node.id === groupToDelete
     );
     removeParent(get().flow.visual.blocks, matchNode);
-    set((state: any) => ({
-      flow: {
-        ...state.flow,
-        visual: {
-          ...state.flow.visual,
-          blocks: state.flow.visual.blocks.filter((node: NodeProps) => node.id !== groupToDelete),
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        flow: {
+          ...state.flowSlice.flow,
+          visual: {
+            ...state.flowSlice.flow.visual,
+            blocks: state.flowSlice.flow.visual.blocks.filter((node: any) => node.id !== groupToDelete),
+          }
         }
+
       }
 
     }));
   };
 
 const updateNode = (set: any) => (groupId: string, updateFn: any) => {
-  set((state: any) => ({
-    flow: {
-      ...state.flow,
-      visual: {
-        ...state.flow.visual,
-        blocks: state.flow.visual.blocks.map((node: any) => {
-          if (node.id === groupId) {
-            return {
-              ...node,
-              data: updateFn(node.data),
-            };
-          }
-          return node;
-        }),
+  set((state: RFState) => ({
+    flowSlice: {
+      ...state.flowSlice,
+      flow: {
+        ...state.flowSlice.flow,
+        visual: {
+          ...state.flowSlice.flow.visual,
+          blocks: state.flowSlice.flow.visual.blocks.map((node: any) => {
+            if (node.id === groupId) {
+              return {
+                ...node,
+                data: updateFn(node.data),
+              };
+            }
+            return node;
+          }),
+        },
       },
+
     },
   }));
 };
@@ -145,46 +157,54 @@ export const changeGroupLabel =
 
 export const changeGroupColor =
   (set: any) => (groupId: string, input: string) => {
-    set((state: any) => ({
-      flow: {
-        ...state.flow,
-        visual: {
-          ...state.flow.visual,
-          blocks: state.flow.visual.blocks.map((node: any) => {
-            if (node.id === groupId) {
-              return {
-                ...node,
-                style: { ...node.style, backgroundColor: input + "2a" },
-                data: { ...node.data, color: input + "2a" },
-              };
-            }
-            return node;
-          }),
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        flow: {
+          ...state.flowSlice.flow,
+          visual: {
+            ...state.flowSlice.flow.visual,
+            blocks: state.flowSlice.flow.visual.blocks.map((node: any) => {
+              if (node.id === groupId) {
+                return {
+                  ...node,
+                  style: { ...node.style, backgroundColor: input + "2a" },
+                  data: { ...node.data, color: input + "2a" },
+                };
+              }
+              return node;
+            }),
+          },
         },
+
       },
     }));
   };
 
 export const hideAllGroupModals = (set: any) => () => {
-  set((state: any) => ({
-    flow: {
-      ...state.flow,
-      visual: {
-        ...state.flow.visual,
-        blocks: state.flow.visual.blocks.map((node: NodeProps) => {
-          if (node.data.hasOwnProperty("isTextModalVisible")) {
-            return {
-              ...node,
-              data: {
-                ...node.data,
-                isTextModalVisible: false,
-                isColorModalVisible: false,
-              },
-            };
-          }
-          return node;
-        }),
-      },
+  set((state: RFState) => ({
+    flowSlice: {
+      ...state.flowSlice,
+      flow: {
+        ...state.flowSlice.flow,
+        visual: {
+          ...state.flowSlice.flow.visual,
+          blocks: state.flowSlice.flow.visual.blocks.map((node: any) => {
+            if (node.data.hasOwnProperty("isTextModalVisible")) {
+              return {
+                ...node,
+                data: {
+                  ...node.data,
+                  isTextModalVisible: false,
+                  isColorModalVisible: false,
+                },
+              };
+            }
+            return node;
+          }),
+        },
+      }
+
     },
   }));
 };
