@@ -1,3 +1,5 @@
+import { IBlockData, IBlockDataExtended } from "../../../../store/interfaces/IBlock";
+import { IFlowData } from "../../../../store/interfaces/Iflow";
 import useStore from "../../../../store/store";
 import s from "./Flow.module.scss";
 import BlockTable from "./FlowElements/BlockTable";
@@ -6,10 +8,11 @@ import FlowControl from "./FlowElements/FlowControl";
 import StaticProperties from "./FlowElements/StaticProperties";
 
 function Flow() {
-  const currentFlow = useStore((state) => state.serverSlice.currentFlow);
+  const currentFlow = useStore((state) => state.serverSlice.currentFlow) as IFlowData;
+
   return (
     <div className={s.wrapper}>
-      <StaticProperties
+      {currentFlow.flowIdentifier ? <StaticProperties
         className={s}
         staticProperties={{
           flowName: currentFlow.flowName,
@@ -21,10 +24,10 @@ function Flow() {
           created: currentFlow.created,
           createdBy: currentFlow.createdBy,
         }}
-      ></StaticProperties>
-      <ChangeLog className={s}></ChangeLog>
-      <FlowControl className={s}></FlowControl>
-      <BlockTable className={s} blockData={currentFlow.blockData}></BlockTable>
+      ></StaticProperties> : null}
+      {currentFlow.flowIdentifier ? <ChangeLog className={s}></ChangeLog> : null}
+      {currentFlow.flowIdentifier ? <FlowControl className={s}></FlowControl> : null}
+      <BlockTable className={s} blockData={currentFlow.blockData as IBlockDataExtended[]}></BlockTable>
     </div>
   );
 }

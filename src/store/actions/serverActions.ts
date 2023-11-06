@@ -35,3 +35,19 @@ export const getCurrentFlow = (get: () => RFState, set: any) => async (flowId: s
     })
 };
 
+export const toggleFlowControlState = (get: () => RFState, set: any) => (isEnabled: boolean) => {
+  set((state: RFState) => ({
+    serverSlice: {
+      ...state.serverSlice,
+      currentFlow: {
+        ...state.serverSlice.currentFlow,
+        isEnabled: isEnabled
+      }
+    }
+
+
+  }))
+
+  console.log('current flow', get())
+}
+

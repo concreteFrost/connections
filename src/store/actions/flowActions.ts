@@ -43,7 +43,6 @@ export const saveFlow = (get: () => RFState, set: any) => () => {
   }).catch((e) => {
     updateFlowAfterSaving(set, flow, e);
   })
-
 };
 
 export const updateFlow = (get: () => RFState, set: any) => (match: any) => {

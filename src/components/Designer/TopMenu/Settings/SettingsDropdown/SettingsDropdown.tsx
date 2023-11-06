@@ -1,7 +1,7 @@
 import s from "./SettingsDropdown.module.scss";
 import useStore from "../../../../../store/store";
-import { clearUserData } from "../../../../../store/actions/storageActions";
-import { useNavigate } from "react-router-dom"
+import Logout from "../../../../Logout/Logout";
+
 
 function SettingsDropdown() {
   const isSnapped = useStore((store) => store.topPanelSlice.settings.snapToGrid);
@@ -10,13 +10,6 @@ function SettingsDropdown() {
   const sliderVal = useStore((store) => store.topPanelSlice.settings.snapStep);
   const setSliderVal = useStore((store) => store.topPanelSlice.setSnapStep);
   const showMiniMap = useStore((store) => store.topPanelSlice.settings.showMiniMap)
-  const navigate = useNavigate();
-
-  function logout() {
-    clearUserData();
-    navigate('/login')
-  }
-
 
   return (
     <div className={s.wrapper}>
@@ -61,7 +54,7 @@ function SettingsDropdown() {
         </li>
       </ul> */}
       <div className={s.logout_container}>
-        <button onClick={logout}>Logout</button>
+        <Logout></Logout>
       </div>
 
     </div>

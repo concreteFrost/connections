@@ -47,7 +47,7 @@ import {
   setBlockName,
 } from "./baseActions";
 import { getParameterValue, setParameterValue } from "./valueEditorActions";
-import { getCurrentFlow } from "./serverActions";
+import { getCurrentFlow, toggleFlowControlState } from "./serverActions";
 import { setUserName } from "./userActions";
 import { toggleMessageModal, toggleUpdateFlowModal, setModalMessage } from "./modalActions";
 
@@ -140,6 +140,7 @@ const tooltipActions = {
 
 const serverActions = {
   getCurrentFlow: getCurrentFlow,
+  toggleFlowControlState: toggleFlowControlState
 
 }
 

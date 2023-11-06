@@ -1,4 +1,5 @@
 @import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
 
 .wrapper {
   position: relative;
@@ -11,26 +12,25 @@
   justify-content: center;
   align-items: center;
 
-
   .designer_button {
     position: absolute;
     left: 0;
     top: 0;
 
     button {
+      @include server_header_btn;
       margin-left: 20px;
-      background-color: white;
-      border: 0;
-      border-radius: 5px;
-      padding: 5px 10px;
-      font-family: $font-node-nav-header;
-      font-weight: bold;
+    }
+  }
 
-      &:hover {
-        background-color: rgb(148, 200, 230);
-      }
+  .logout_container {
+    position: absolute;
+    right: 0;
+    top: 0;
 
-      transition: background-color 0.2s ease-in-out;
+    button {
+      @include server_header_btn;
+      margin-right: 20px;
     }
   }
 }

@@ -11,6 +11,15 @@ export interface IBlockData {
   extendedParameters: any[];
 }
 
+export interface IBlockDataExtended extends IBlockData {
+  stats: {
+    errors: number;
+    fatalErrors: number;
+    isEnabled: boolean;
+    warnings: number;
+  }
+}
+
 export interface IBlockParameters {
   name: any;
   value: any;

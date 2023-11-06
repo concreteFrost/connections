@@ -1,21 +1,8 @@
-import { useEffect } from "react"
-
-interface IBlockData {
-  blockIdentifier: string;
-  name: string;
-  typeName: string;
-  isEnabled: boolean;
-  stats: {
-    errors: number;
-    fatalErrors: number;
-    isEnabled: boolean;
-    warnings: number;
-  }
-}
+import { IBlockDataExtended } from "../../../../../store/interfaces/IBlock";
 
 interface BlockTableProps {
   className: any;
-  blockData: Array<IBlockData>;
+  blockData: IBlockDataExtended[];
 }
 
 function BlockTable(props: BlockTableProps) {
@@ -34,7 +21,7 @@ function BlockTable(props: BlockTableProps) {
           </tr>
         </thead>
         <tbody>
-          {props.blockData && props.blockData.length > 0 ? props.blockData.map((block: IBlockData) => {
+          {props.blockData && props.blockData.length > 0 ? props.blockData.map((block: IBlockDataExtended) => {
             return (<tr key={block.blockIdentifier}>
               <td>{block.name}</td>
               <td>{block.typeName}</td>

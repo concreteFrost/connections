@@ -67,7 +67,7 @@ export function getFlowApi(id: any) {
   })
 }
 
-export function getBlockStatisticsAPI(id:string){
+export function getBlockStatisticsAPI(id: string) {
   return new Promise((resolve, reject) => {
     axios.get(baseUrl + "/Flow/BlockStatistics", {
       params: {
@@ -83,3 +83,36 @@ export function getBlockStatisticsAPI(id:string){
   })
 }
 
+export function enableFlowAPI(id: string) {
+  return new Promise((resolve, reject) => {
+    axios(baseUrl + "/Flow/Enable", {
+      method: "POST",
+      params: {
+        flowReference: id
+      },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getAccessToken().token,
+      }
+    }).then((res) => { resolve(res) }).catch((e) => {
+      reject(e)
+    })
+  })
+}
+
+export function disableFlowAPI(id: string) {
+  return new Promise((resolve, reject) => {
+    axios(baseUrl + "/Flow/Disable", {
+      method: "POST",
+      params: {
+        flowReference: id
+      },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getAccessToken().token,
+      }
+    }).then((res) => { resolve(res) }).catch((e) => {
+      reject(e)
+    })
+  })
+}
