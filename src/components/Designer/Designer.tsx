@@ -41,10 +41,9 @@ function Designer() {
             <LeftPanel></LeftPanel>
             <Substitutions></Substitutions>
             <RightPanel></RightPanel>
-
         </div>
         <Flow resetselectedBlockID={resetselectedBlockID}></Flow>
-        <Tooltip anchorSelect=".nodelist-body-elemet" place="right" style={{ zIndex: 1000 }}  >
+        <Tooltip anchorSelect=".nodelist-body-elemet" place="right" style={{ zIndex: 9999 }}  >
             {tooltipText}
         </Tooltip>
     </div>)

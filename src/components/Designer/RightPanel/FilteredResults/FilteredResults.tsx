@@ -2,8 +2,14 @@ import { useEffect, useState } from "react";
 import s from "./FilteredResults.module.scss";
 import useStore from "../../../../store/store";
 
+interface ISelection {
+  index: number,
+  value: string
+}
+
 interface FilteredResultsProps {
-  inputValue: string;
+  defaultInput: string,
+  selection: ISelection;
   onSubstitutionSelect: (value: string) => void;
 }
 
@@ -11,22 +17,25 @@ function FilteredResults(props: FilteredResultsProps) {
   const [filteredSubstitutions, setFilteredSubstitutions] = useState<any[]>([]);
 
   const substitutions = useStore((state) => state.flowSlice.flow.substitutions);
-  useEffect(() => {
-    function handleClickOutside(event: any) {
-      const suggestionList = document.querySelector(".suggestion-list-wrapper");
 
-      if (suggestionList && !suggestionList.contains(event.target)) {
-        clearFilteredSubstitutions();
-      }
+  function handleClickOutside(event: any) {
+    const suggestionList = document.querySelector(".suggestion-list-wrapper");
+    if (suggestionList && !suggestionList.contains(event.target)) {
+      clearFilteredSubstitutions();
     }
+  }
+
+  useEffect(() => {
     window.addEventListener("click", handleClickOutside);
     return () => {
       window.removeEventListener("click", handleClickOutside);
     };
+
+
   }, []);
 
   useEffect(() => {
-    const inputValue = props.inputValue;
+    const inputValue = props.selection.value;
 
     if (typeof inputValue !== 'string') {
       clearFilteredSubstitutions();
@@ -45,17 +54,25 @@ function FilteredResults(props: FilteredResultsProps) {
       return substitution.startsWith(searchTerm);
     });
 
-    if (inputValue.startsWith("{")) {
-      setFilteredSubstitutions(res);
-    } else {
-      clearFilteredSubstitutions();
-    }
-  }, [props.inputValue]);
+    setFilteredSubstitutions(res);
+
+  }, [props.selection.value]);
 
 
   function clearFilteredSubstitutions() {
     setFilteredSubstitutions([]);
   }
+
+  function insertSubstitution(subKey: string) {
+
+    const start = props.defaultInput.slice(0, props.selection.index);
+    const end = props.defaultInput.slice(props.selection.index + props.selection.value.length);
+    const newValue = start + `{${subKey}}` + end;
+    props.onSubstitutionSelect(newValue);
+    clearFilteredSubstitutions()
+  }
+
+
 
   return (
     <div className={s.suggestion_list}>
@@ -64,7 +81,7 @@ function FilteredResults(props: FilteredResultsProps) {
           {filteredSubstitutions.map((sub: any) => (
             <li
               key={filteredSubstitutions.indexOf(sub)}
-              onClick={() => props.onSubstitutionSelect(sub.subKey)}
+              onClick={() => insertSubstitution(sub.subKey)}
             >
               {sub.subKey}
             </li>

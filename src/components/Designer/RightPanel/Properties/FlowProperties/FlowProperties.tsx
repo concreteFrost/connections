@@ -7,33 +7,35 @@ function FlowProperties() {
   const setFlowIsEnabled = useStore((state) => state.flowSlice.setFlowIsEnabled);
   const setFlowVersion = useStore((state) => state.flowSlice.setFlowVersion);
   return (
-    <div>
+    <div className={s.wrapper}>
       <h5>FLOW</h5>
-      <ul className={s.properties_list}>
+      <ul>
         <li>
-          <label className={s.input_label}>FLOW NAME</label>
-          <input
-            type="text"
-            placeholder="New Flow"
-            value={flow.flowName}
-            onChange={(e: any) => setFlowName(e.target.value)}
-          />
+          <div className={s.grid_item}> <label>FLOW NAME</label></div>
+          <div className={s.grid_item}>
+            <input
+              type="text"
+              placeholder="New Flow"
+              value={flow.flowName}
+              onChange={(e: any) => setFlowName(e.target.value)}
+            />
+          </div>
         </li>
         <li>
-          <label className={s.input_label}>FLOW VERSION</label>
-          <input
+          <div className={s.grid_item}><label>FLOW VERSION</label></div>
+          <div className={s.grid_item}><input
             type="text"
             value={flow.flowVersion}
             onChange={(e) => setFlowVersion(e.target.value)}
-          />
+          /></div>
         </li>
         <li>
-          <label className={s.input_label}>IS ENABLED</label>
-          <input
+          <div className={s.grid_item}><label>IS ENABLED</label></div>
+          <div className={s.grid_item}><input
             type="checkbox"
             checked={flow.isEnabled === "true" ? true : false}
             onChange={() => setFlowIsEnabled()}
-          />
+          /></div>
         </li>
       </ul>
 

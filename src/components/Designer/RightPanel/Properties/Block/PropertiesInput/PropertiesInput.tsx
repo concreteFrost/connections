@@ -1,13 +1,22 @@
 import useStore from "../../../../../../store/store";
+import { useState, useEffect } from "react";
 import { IBlockParameters } from "../../../../../../store/interfaces/IBlock";
 import FilteredResults from "../../../FilteredResults/FilteredResults";
 import InputLabel from "./InputLabel/InputLabel";
 
-function PropertiesInput(props: {
+interface ISelection {
+  index: number,
+  value: string
+}
+
+interface PropertiesInputProps {
   blockData: IBlockParameters;
-  classData: string;
-}) {
+}
+
+function PropertiesInput(props: PropertiesInputProps) {
   const state = useStore((state) => state);
+
+  const [selection, setSelection] = useState<ISelection>({ index: 0, value: '' })
 
   function setCurrentParameter(parameterName: string, value: any) {
     switch (props.blockData.format) {
@@ -56,19 +65,38 @@ function PropertiesInput(props: {
   }
 
   function onSubstitutionSelect(e: any) {
-    setCurrentParameter(props.blockData.name, `{${e}}`);
+    setCurrentParameter(props.blockData.name, e);
   }
+
+  const setSelectionIndex = (e: any) => {
+    if (e.key === "{") {
+      setSelection({ ...selection, index: e.target.selectionStart })
+    }
+
+  }
+
+  function setSelectionValue(e: any) {
+    const res = e.target.value.slice(selection.index, e.target.value.length)
+    const cleanedRes = res.replace(/\s.*$/, '');
+    setSelection({ ...selection, value: cleanedRes })
+  }
+
+  useEffect(() => {
+    console.log(props.blockData.value)
+  }, [props.blockData.value])
 
   return (
     <>
       <InputLabel
         blockData={props.blockData}
-        classData={props.classData}
         defineInputType={defineInputType}
         setCurrentParameter={setCurrentParameter}
+        setSelectionIndex={setSelectionIndex}
+        setSelectionValue={setSelectionValue}
       />
       <FilteredResults
-        inputValue={props.blockData.value}
+        selection={selection}
+        defaultInput={props.blockData.value}
         onSubstitutionSelect={onSubstitutionSelect}
       />
     </>

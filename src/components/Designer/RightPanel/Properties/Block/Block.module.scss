@@ -1,50 +1,11 @@
 @import '/src/style/mixins.scss';
 
-.block_section {
+.wrapper {
+
   max-height: 300px;
 
   overflow-y: auto;
   overflow-x: hidden;
 
-  input {
-    @include overflow_input(150px);
-  }
-
-  li {
-
-    font-size: 0.75rem;
-    border-bottom: 1px solid $color-list-border;
-
-    height: 40px;
-    display: grid;
-    grid-template-columns: 6fr 6fr;
-    justify-items: start;
-    position: relative;
-
-  }
-
-  .input_label {
-    border-right: 1px solid $color-list-border;
-    display: flex;
-    align-items: center;
-    width: 140px;
-    font-size: 0.7rem;
-    text-align: start;
-    margin-left: 0;
-    padding-left: 10px;
-
-    &:hover {
-      background-color: $color-list-border;
-    }
-
-    transition: background-color 0.3s ease-in-out;
-  }
-
-}
-
-
-
-
-.radio_label {
-  margin-left: 10px;
+  @include section_container;
 }

@@ -114,6 +114,8 @@ export const addConfig =
         };
       });
 
+      console.log(get().flowSlice.flow.substitutions)
+
     };
 
 export const toggleSubstitutionsPanel = (get: () => RFState, set: any) => () => {

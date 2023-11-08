@@ -1,5 +1,7 @@
 @import "./variables.scss";
 
+//Right Panel
+
 //Left Panel
 @mixin left_panel_btn($bg) {
   font-family: $font-node-nav-header;
@@ -36,13 +38,15 @@
 @mixin section_container {
   h5 {
     color: $color-node-nav-container-header;
-    text-align: left;
-    padding: 10px;
+    background-color: $bg-node-nav-btn;
+    font-family: $font-node-nav-header;
     font-size: 1rem;
     margin: 0;
-    font-family: $font-node-nav-header;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
 
-    background-color: $bg-node-nav-btn;
   }
 
   ul {
@@ -50,56 +54,75 @@
     margin: 0;
   }
 
-  label {
-    font-family: $font-node-nav-list;
-    color: $color-node-nav-container-header;
-  }
-
-  input {
-    font-family: $font-node-nav-list;
-    outline: none;
-    margin-left: 10px;
-
-    &[type="text"] {
-      border: 0;
-      width: 100%;
-    }
-
-    &[type="number"] {
-      border: 0;
-      width: 100%;
-    }
-
-    &[type="color"] {
-      border: 1px solid gainsboro;
-      border-radius: 3px;
-      background-color: $bg-node-nav-btn;
-    }
-  }
-
-  button {
-    font-family: $font-node-nav-list;
-    width: 100%;
+  li {
+    display: grid;
+    grid-template-columns: 120px auto;
+    border-bottom: 1px solid rgb(238, 238, 238);
+    list-style: none;
     height: 40px;
-    border: 0;
-    background-color: $bg-node-nav-btn;
-    color: $color-node-nav-btn;
-    font-weight: bold;
-    box-shadow: $shadow-node-nav-btn;
-    text-align: left;
-    padding-left: 45px;
-  }
 
-  .color_input {
-    display: flex;
-    align-items: center;
-  }
+    input {
+      border: 0;
+      outline: none;
+      max-width: auto;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-  .radio {
-    display: flex;
-    width: 100%;
-    align-items: center;
+    input,
+    label {
+      padding-left: 10px;
+      font-size: 0.8rem;
+    }
+
+
+
+    label {
+      font-family: $font-node-nav-list;
+      color: $color-node-nav-container-header;
+      max-width: 90px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &:hover {
+        background-color: $bg-node-nav-btn;
+      }
+
+      transition: background-color 0.3s ease-in-out;
+
+    }
+
+    input[type="text"] {
+      width: 100%;
+    }
+
+    input[type="color"] {
+      border: 0;
+      border-radius: 50%;
+      margin-top: auto;
+      margin-bottom: auto;
+
+    }
+
+    input[type="radio"] {
+      width: 100%;
+    }
+
+    input[type="checkbox"] {
+      margin-top: auto;
+      margin-bottom: auto;
+      height: 20px;
+      margin-left: 10px;
+    }
+
   }
+}
+
+@mixin section_grid_item {
+  border-right: 1px solid rgb(238, 238, 238);
+  height: 40px;
+  display: flex;
+  align-items: center;
 }
 
 @mixin server_table {
@@ -107,8 +130,6 @@
   border-collapse: collapse;
 
   thead {
-
-
     tr {
       text-align: center;
       background-color: $bg-node-nav-btn;
@@ -205,10 +226,4 @@
   padding: 5px;
   border-bottom: 1px solid rgb(230, 230, 230);
   background-color: rgb(245, 245, 245);
-}
-
-@mixin overflow_input ($width) {
-  text-overflow: ellipsis;
-  max-width: $width;
-  overflow: hidden;
 }

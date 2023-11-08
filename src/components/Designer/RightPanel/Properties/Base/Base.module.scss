@@ -1,46 +1,12 @@
 @import "/src/style/mixins.scss";
-;
 
-.properties_list {
-  li {
-    display: grid;
-    grid-template-columns: 3fr 9fr;
-    align-items: stretch;
-    justify-items: start;
-    padding-left: 10px;
-    height: 40px;
-    border-bottom: 1px solid rgb(238, 238, 238);
 
+.wrapper {
+
+  @include section_container;
+
+  .grid_item {
+    @include section_grid_item;
   }
-
-  input {
-    @include overflow_input(150px);
-
-  }
-
-  input[type="color"] {
-    background-color: white;
-    border: 0;
-    border-radius: 50%;
-    margin-top: 5px;
-
-
-  }
-
-  .input_label {
-    border-right: 1px solid rgb(230, 230, 230);
-    display: flex;
-    align-items: center;
-    width: 100%;
-    font-size: 0.7rem;
-    text-align: start;
-
-
-  }
-
-
-
-
-
 
 }

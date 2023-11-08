@@ -23,36 +23,35 @@ function Base() {
     setBlockDescription(e.target.value);
   }
   return (
-    <div>
+    <div className={s.wrapper}>
       <h5>BASE</h5>
-      <ul className={s.properties_list}>
+      <ul>
         <li>
-          <label className={s.input_label}>BLOCK NAME</label>
-          <input
+          <div className={s.grid_item}> <label>BLOCK NAME</label></div>
+          <div className={s.grid_item}> <input
             type="text"
             placeholder="Block Name"
             value={currentBlock?.blockLabel}
             onChange={(e: any) => _setBlockName(e)}
-          />
+          /></div>
         </li>
         <li>
-          <label className={s.input_label}>COLOR</label>
-          <div className={s.color_input}>
-            <input
-              type="color"
-              value={currentBlockVisual?.data.color}
-              onChange={(e: any) => _setBlockColor(e)}
-            />
+          <div className={s.grid_item}><label>COLOR</label>
           </div>
+          <div className={s.grid_item}><input
+            type="color"
+            value={currentBlockVisual?.data.color}
+            onChange={(e: any) => _setBlockColor(e)}
+          /></div>
         </li>
         <li>
-          <label className={s.input_label}>DESCRIPTION</label>
-          <input
+          <div className={s.grid_item}><label>DESCRIPTION</label></div>
+          <div className={s.grid_item}><input
             type="text"
             placeholder="Description"
             value={currentBlock?.description}
             onChange={(e: any) => _setBlockDescription(e)}
-          />
+          /></div>
         </li>
       </ul>
     </div>

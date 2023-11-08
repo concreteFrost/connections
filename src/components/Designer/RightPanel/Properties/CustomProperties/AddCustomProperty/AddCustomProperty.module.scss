@@ -1,0 +1,67 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+.wrapper {
+
+    .add_property_container {
+        display: flex;
+        justify-content: center;
+
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+
+
+        .input_wrapper,
+        .value_wrapper {
+
+            @include section_grid_item;
+            font-family: $font-node-nav-header;
+            border-bottom: 1px solid $color-list-border;
+
+            label {
+                padding-left: 10px;
+                margin-right: 20px;
+                font-weight: bold;
+            }
+
+            input {
+                outline: none;
+                border: 0;
+            }
+        }
+
+        .value_wrapper {
+            position: relative;
+
+        }
+
+        .btn_wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1px;
+
+
+        }
+
+
+    }
+
+    button {
+        width: 100%;
+        border: 0;
+        height: 40px;
+        font-size: 0.7rem;
+        text-align: center;
+        background-color: $color-node-nav-icon;
+        color: white;
+        padding: 5px;
+    }
+
+    .error_message {
+        color: red;
+    }
+}

@@ -9,8 +9,6 @@ import MonitorsTable from "./Tables/MonitorsTable";
 import SchedulesTable from "./Tables/ISchedulesTable";
 import MetricsTable from "./Tables/MetricsTable";
 import { killServerAPI, startServerAPI, stopServerAPI } from "../../../../api/server";
-import { baseUrl } from "../../../../store/constants/baseUrl";
-import { io } from "socket.io-client";
 
 interface ITableData {
     alertsRaised: number;
@@ -62,19 +60,6 @@ function Servers() {
 
     const [tableData, setTableData] = useState<ITableData>(data)
     const [serverStatus, setServerStatus] = useState<string>('');
-    const [socket, setSocket] = useState<any>(null);
-
-    // useEffect(() => {
-    //     console.log('creating web socket')
-    //     const newSocket = io('https://iconn.cocoon.technology');
-    //     setSocket(newSocket);
-
-    //     newSocket.on('connect', () => {
-    //         console.log('connectet to server', newSocket.id)
-    //     })
-
-
-    // }, [])
 
     function startServer() {
         startServerAPI().then((res) => {
@@ -100,12 +85,34 @@ function Servers() {
         })
     }
 
-    useEffect(() => {
-        getServerStatusAPI().then((res: any) => {
+    function getServerStatus(res: ITableData) {
+        const status = {
+            0: 'offline',
+            1: 'starting',
+            2: 'running',
+            3: 'restarting',
+            4: 'shutting down'
+        }
+        return Object.entries(status).find(([key, val]: [string, string]) => key === res.status.toString())?.[1] ?? 'null';
+    }
+
+    function getServerData() {
+        getServerStatusAPI().then((res: ITableData) => {
             setTableData(res)
+            setServerStatus(getServerStatus(res))
+            console.log(res)
         }).catch((e: any) => {
             console.log(e)
         });
+    }
+
+    useEffect(() => {
+        //getting server data on component mounted
+        getServerData()
+        //assigning interval to get data up to date
+        const getStatusOnInterval = setInterval(getServerData, 5000)
+        // prevents from calling getStatusOnInterval when component unmounts
+        return () => { clearInterval(getStatusOnInterval) }
     }, [])
 
     return (<div className={s.wrapper}>
