@@ -2,6 +2,7 @@
 @import "/src/style/mixins.scss";
 
 .wrapper {
+    position: relative;
 
     .add_property_container {
         display: flex;
@@ -33,7 +34,7 @@
             }
         }
 
-        .value_wrapper {
+        .param_value {
             position: relative;
 
         }

@@ -7,5 +7,10 @@
   overflow-y: auto;
   overflow-x: hidden;
 
+
   @include section_container;
+
+  .list_item {
+    position: relative;
+  }
 }

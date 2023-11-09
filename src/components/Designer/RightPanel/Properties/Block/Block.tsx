@@ -13,7 +13,7 @@ function Block() {
       <ul>
         {blockData?.parameters && blockData.parameters.length > 0
           ? Object.entries(blockData.parameters).map(([key, val]: Array<any>) => (
-            <li key={key}>
+            <li key={key} className={s.list_item}>
               <PropertiesInput
                 blockData={val}
               ></PropertiesInput>

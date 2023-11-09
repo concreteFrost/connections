@@ -5,29 +5,9 @@
 .wrapper {
     @include section_container;
 
-    .grid_item {
-        @include section_grid_item;
-
-    }
-
     .custom_props_list {
         position: relative;
     }
 
-    .delete_param_btn {
-        position: absolute;
-        top: 0;
-        right: 0;
-        display: flex;
-        background-color: red;
-        height: 41px;
 
-        button {
-            border: 0;
-            border-radius: 5px;
-            color: white;
-            background-color: $bg-delete-btn;
-            width: 25px;
-        }
-    }
 }

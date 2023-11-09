@@ -1,0 +1,24 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+.custom_prop_grid_item {
+    @include section_grid_item;
+
+}
+
+.delete_param_btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    background-color: red;
+    height: 41px;
+
+    button {
+        border: 0;
+        border-radius: 5px;
+        color: white;
+        background-color: $bg-delete-btn;
+        width: 25px;
+    }
+}

@@ -4,6 +4,7 @@ import s from "./InputLabel.module.scss";
 
 interface InputLabelProps {
   blockData: IBlockParameters;
+
   defineInputType: () => string;
   setCurrentParameter: (parameterName: string, value: any) => void;
   setSelectionIndex: (e: any) => void;

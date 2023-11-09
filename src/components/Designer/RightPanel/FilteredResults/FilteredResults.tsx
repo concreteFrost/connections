@@ -72,8 +72,6 @@ function FilteredResults(props: FilteredResultsProps) {
     clearFilteredSubstitutions()
   }
 
-
-
   return (
     <div className={s.suggestion_list}>
       {filteredSubstitutions.length > 0 ? (

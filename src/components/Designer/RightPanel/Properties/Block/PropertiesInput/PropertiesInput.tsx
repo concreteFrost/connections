@@ -81,9 +81,6 @@ function PropertiesInput(props: PropertiesInputProps) {
     setSelection({ ...selection, value: cleanedRes })
   }
 
-  useEffect(() => {
-    console.log(props.blockData.value)
-  }, [props.blockData.value])
 
   return (
     <>
