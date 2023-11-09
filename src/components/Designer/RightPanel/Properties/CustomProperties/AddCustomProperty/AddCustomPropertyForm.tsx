@@ -78,8 +78,6 @@ function AddCustomPropertyForm() {
             {errorMessage.length > 0 ? <div className={s.error_message}>{errorMessage}</div> : null}
             <FilteredResults selection={selection} defaultInput={propValue} onSubstitutionSelect={(e: any) => setPropValue(e)}></FilteredResults>
         </div>)
-
-
 }
 
 export default AddCustomPropertyForm;

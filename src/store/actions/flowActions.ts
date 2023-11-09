@@ -15,7 +15,6 @@ export const createFlow = (get: () => RFState, set: any) => () => {
       ...state.flowSlice,
       flow: initializeFlow(initialNodes, initialEdges)
     }
-
   }))
 };
 
@@ -38,16 +37,19 @@ export const saveFlow = (get: () => RFState, set: any) => () => {
       updateFlowAfterSaving(set, flow, 'success!');
     }
     else {
+      console.log('failed', res)
       updateFlowAfterSaving(set, flow, res.data.message);
     }
   }).catch((e) => {
+    console.log('error saving flow', e)
     updateFlowAfterSaving(set, flow, e);
+
   })
 };
 
 export const updateFlow = (get: () => RFState, set: any) => (match: any) => {
   const flow = get().flowSlice.flow;
-
+  console.log(flow)
   if (flowVersionToInt(flow.flowVersion) <= flowVersionToInt(match.version)) {
     const parsedPreviousVersion = flowVersionToInt(match.version) + 1;
     const updatedPreviousVersion = parseFloatVersion(parsedPreviousVersion);
@@ -61,6 +63,7 @@ export const updateFlow = (get: () => RFState, set: any) => (match: any) => {
     }
     else {
       updateFlowAfterSaving(set, flow, res.data.message)
+      console.log('update flow failed', res.data.message)
     }
   }).catch((e) => {
     console.log('update flow error', e);

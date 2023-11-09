@@ -49,7 +49,7 @@ import {
 import { getParameterValue, setParameterValue } from "./valueEditorActions";
 import { getCurrentFlow, toggleFlowControlState } from "./serverActions";
 import { setUserName } from "./userActions";
-import { toggleMessageModal, toggleUpdateFlowModal, setModalMessage } from "./modalActions";
+import { toggleMessageModal, setModalMessage, toggleUpdateFlowModal, } from "./modalActions";
 
 
 const nodeActions = {
@@ -150,8 +150,8 @@ const userActions = {
 
 const modalActions = {
   toggleMessageModal: toggleMessageModal,
+  toggleUpdateFlowModal: toggleUpdateFlowModal,
   setModalMessage: setModalMessage,
-  toggleUpdateFlowModal: toggleUpdateFlowModal
 }
 
 const actions = {
@@ -163,6 +163,7 @@ const actions = {
   baseActtions: baseActtions,
   blockActions: blockActions,
   edgeActions: edgeActions,
+
   serverActions: serverActions,
   topMenuActions: topMenuActions,
   tooltipActions: tooltipActions,

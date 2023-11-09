@@ -9,7 +9,7 @@ export type ModalWindows = {
         message: string,
     }
 
-    toggleUpdateFlowModal: () => void;
+    toggleUpdateFlowModal: (isVisible: boolean) => void;
     toggleMessageModal: () => void;
     setModalMessage: (message: string) => void;
 }

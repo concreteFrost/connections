@@ -24,13 +24,13 @@ export const setModalMessage = (get: () => RFState, set: any) => (message: strin
     }))
 }
 
-export const toggleUpdateFlowModal = (get: () => RFState, set: any) => () => {
+export const toggleUpdateFlowModal = (get: () => RFState, set: any) => (isVisible: boolean) => {
     set((state: RFState) => ({
         modalWindowsSlice: {
             ...state.modalWindowsSlice,
             updateFlowModal: {
                 ...state.modalWindowsSlice.updateFlowModal,
-                isVisible: !state.modalWindowsSlice.updateFlowModal.isVisible
+                isVisible: isVisible
             }
         }
     }))

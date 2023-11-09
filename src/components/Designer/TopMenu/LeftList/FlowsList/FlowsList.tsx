@@ -1,6 +1,10 @@
 import useStore from "../../../../../store/store";
 import s from "./FlowsList.module.scss";
-
+import { useEffect, useState } from "react";
+import { getFlowListApi } from "../../../../../api/flow";
+import { UpdateFlowProcedures } from "../../../../Modals/UpdateFlowModal";
+import UpdateFlowModal from "../../../../Modals/UpdateFlowModal";
+import { flow } from "../../../../../testFlow/testFlow2";
 
 interface ILoadedFlow {
     flowId: string;
@@ -10,13 +14,22 @@ interface ILoadedFlow {
 }
 
 interface FlowListProps {
-    loadedFlows: any;
     closeSelecFlowModal: () => void;
 }
 
 function FlowsList(props: FlowListProps) {
 
-    const loadSelectedFlow = useStore((state) => state.flowSlice.loadFlow);
+    const toggleUpdateFlowModal = useStore((state) => state.modalWindowsSlice.toggleUpdateFlowModal)
+    const [loadedFlows, setLoadedFlows] = useState<Array<ILoadedFlow>>([]);
+    const [flowToLoad, setFlowToLoad] = useState<string>('');
+
+    useEffect(() => {
+        getFlowListApi().then((res: any) => {
+            setLoadedFlows(res.data)
+        }).catch((e) => {
+            console.log(e)
+        })
+    }, [])
 
     return (<div className={s.container}>
         <div className={s.header}>
@@ -32,20 +45,20 @@ function FlowsList(props: FlowListProps) {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.loadedFlows.length > 0 ? props.loadedFlows.map((flow: ILoadedFlow) => <tr key={props.loadedFlows.indexOf(flow)}>
+                    {loadedFlows.length > 0 ? loadedFlows.map((flow: ILoadedFlow) => <tr key={loadedFlows.indexOf(flow)}>
                         <td className={s.flow_name} onClick={() => {
-                            loadSelectedFlow(flow.flowId)
-                            props.closeSelecFlowModal()
+                            toggleUpdateFlowModal(true);
+                            setFlowToLoad(flow.flowId)
                         }}>{flow.name}</td>
                         <td>{flow.createdBy}</td>
                         <td>{flow.dateCreated}</td>
-
                     </tr>) : null}
                 </tbody>
 
             </table>
         </div>
         <div className={s.footer}><button onClick={props.closeSelecFlowModal}>Close</button></div>
+        <UpdateFlowModal currentProcedure={UpdateFlowProcedures.Load} flowToLoadID={flowToLoad}></UpdateFlowModal>
     </div>)
 }
 

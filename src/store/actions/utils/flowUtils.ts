@@ -108,9 +108,12 @@ export function setFlow(data: any, set: any) {
 
 export function updateFlowAfterSaving(set: any, flow: any, saveFlowMessage: string) {
     set((state: RFState) => ({
-        flow: {
+        flowSlice: {
             ...state.flowSlice,
-            flowVersion: flow.flowVersion
+            flow: {
+                ...state.flowSlice.flow,
+                flowVersion: flow.flowVersion
+            }
         },
         modalWindowsSlice: {
             ...state.modalWindowsSlice,
