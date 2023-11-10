@@ -5,19 +5,20 @@ import { IVisual } from "../../interfaces/Ivisual";
 import { Edge } from "react-flow-renderer";
 import { getFlowListApi } from "../../../api/flow";
 import { v4 as uuidv4 } from 'uuid';
+import { getAccessToken } from "../storageActions";
 
 export function initializeFlow<IFlowData>(initialNodes: object, initialEdges: object) {
     return <IFlowData>{
         blockData: [],
         created: new Date(),
-        createdBy: '',
+        createdBy: getAccessToken().userName,
         flowIdentifier: uuidv4(),
         flowName: "New Flow" + uuidv4().split('-')[0],
         flowConfig: "Debug",
         flowVersion: '1.0.0.0',
         isEnabled: "true",
         lastAmended: new Date(),
-        lastAmendedBy: "",
+        lastAmendedBy: getAccessToken().userName,
         startBlock: "",
         serverIdentifier: uuidv4(),
         substitutions: [],

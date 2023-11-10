@@ -30,9 +30,6 @@ const useStore = create<RFState>((set, get) => ({
   onConnect: actions.edgeActions.onEdgesConnect(get, set),
 
 
-  //User Actions
-  setUserName: actions.userActions.setUserName(get, set),
-
 }))
 
 export default useStore;

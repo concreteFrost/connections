@@ -30,9 +30,4 @@ export type RFState = {
   onBlocksChange: OnNodesChange;
   onConnect: OnConnect;
   onEdgesChange: OnEdgesChange;
-
-  //User Actions
-  setUserName: (userName: string) => void;
-
-
 };

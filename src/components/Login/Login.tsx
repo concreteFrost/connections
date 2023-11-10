@@ -1,23 +1,20 @@
 import s from "./Login.module.scss"
 import getToken from "../../api/token/getToken";
-import useStore from "../../store/store";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { setAccessToken } from "../../store/actions/storageActions";
 
-
 function Login() {
 
     const [defPassVal, setDefPassVal] = useState('cre4min9Tuff')
-    const userName = useStore((state) => state.flowSlice.flow.createdBy);
-    const setUserName = useStore((state) => state.setUserName);
+    const [userName, setUserName] = useState<string>(localStorage.getItem('iCon_username') ?? '');
 
     const navigate = useNavigate();
 
     function submit(e: any) {
         e.preventDefault();
         getToken(e.target[0].value, e.target[1].value).then((res: any) => {
-            setAccessToken(res.data)
+            setAccessToken(res.data, userName)
             navigate('/dashboard')
         }).catch(e => console.log(e))
     }

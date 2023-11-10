@@ -1,15 +1,18 @@
 import s from "./ModalWindow.module.scss";
 import useStore from "../../store/store";
 import { checkExistingFlowInDataBase } from "../../store/actions/utils/flowUtils";
+import { useNavigate } from "react-router";
 
 export enum UpdateFlowProcedures {
     Save,
     Load,
-    New
+    New,
+    Quit
 }
 interface UpdateFlowProps {
     currentProcedure: UpdateFlowProcedures
     flowToLoadID?: string
+    toggleLoadFlowModal?: () => void;
 }
 function UpdateFlowModal(props: UpdateFlowProps) {
 
@@ -20,25 +23,27 @@ function UpdateFlowModal(props: UpdateFlowProps) {
     const loadFlow = useStore((state) => state.flowSlice.loadFlow);
     const updateFlow = useStore((state) => state.flowSlice.updateFlow);
     const toggleUpdateFlowModal = useStore((state) => state.modalWindowsSlice.toggleUpdateFlowModal);
+    const toggleMessageModal = useStore((state) => state.modalWindowsSlice.toggleMessageModal);
+
+    const navigate = useNavigate();
 
     async function tryToSaveFlow() {
-        return new Promise(async (resolve: any, reject: any) => {
-            try {
-                const match = await checkExistingFlowInDataBase(flow);
-                if (match) {
-                    updateFlow(match);
-                } else {
-                    saveFlow();
-                }
+        try {
+            const match = await checkExistingFlowInDataBase(flow);
+            if (match) {
+                await updateFlow(match);
+            } else {
+                await saveFlow();
 
-                resolve(); // Resolve the promise when the operation is successful.
-            } catch (error) {
-
-                reject(error);
             }
-        });
-    }
+        } catch (error) {
+            console.log('error')
+        }
+        finally {
+            toggleUpdateFlowModal(false)
+        }
 
+    }
     async function createAndSave() {
         try {
             await tryToSaveFlow();
@@ -48,32 +53,61 @@ function UpdateFlowModal(props: UpdateFlowProps) {
         catch (e) {
             console.log('error')
         }
-
     }
 
     async function createWithoutSaving() {
         createFlow();
         toggleUpdateFlowModal(false);
-
     }
 
     async function saveAndLoad() {
         try {
-            await tryToSaveFlow()
+            await tryToSaveFlow();
             await loadFlow(props.flowToLoadID!);
             await toggleUpdateFlowModal(false);
+            if (props.toggleLoadFlowModal) {
+                await props.toggleLoadFlowModal();
+            }
         }
-
         catch (e) {
-            console.log('save and load error', e);
-        };
-
+            console.log(e)
+        }
     }
 
     async function loadWithoutSaving() {
-        loadFlow(props.flowToLoadID!);
-        toggleUpdateFlowModal(false);
 
+        try {
+            await loadFlow(props.flowToLoadID!);
+            await toggleUpdateFlowModal(false);
+            if (props.toggleLoadFlowModal) {
+                await props.toggleLoadFlowModal();
+            }
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
+
+    async function saveAndLeave() {
+        try {
+            await tryToSaveFlow();
+            await toggleUpdateFlowModal(false);
+            await toggleMessageModal();
+            await navigate('/dashboard/servers');
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
+
+    async function leaveWithoutSaving() {
+        try {
+            await toggleUpdateFlowModal(false);
+            await navigate('/dashboard/servers');
+        }
+        catch (e) {
+            console.log(e)
+        }
     }
 
     return (<>
@@ -105,6 +139,14 @@ function UpdateFlowModal(props: UpdateFlowProps) {
                         <div className={s.buttons_wrapper}>
                             <button onClick={tryToSaveFlow}>YES</button>
                             <button onClick={() => toggleUpdateFlowModal(false)}>NO</button>
+                            <button onClick={() => { toggleUpdateFlowModal(false) }}>CANCEL</button>
+                        </div>
+                        : null}
+                    {/*QUIT */}
+                    {props.currentProcedure === UpdateFlowProcedures.Quit ?
+                        <div className={s.buttons_wrapper}>
+                            <button onClick={saveAndLeave}>YES</button>
+                            <button onClick={leaveWithoutSaving}>NO</button>
                             <button onClick={() => { toggleUpdateFlowModal(false) }}>CANCEL</button>
                         </div>
                         : null}

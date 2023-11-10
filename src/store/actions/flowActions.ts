@@ -22,17 +22,19 @@ export const openTestFlow = (get: () => RFState, set: any) => () => {
   setFlow(flow, set);
 };
 
-export const loadFlow = (get: () => RFState, set: any) => (id: string) => {
-  getFlowApi(id).then((res: any) => {
+export const loadFlow = (get: () => RFState, set: any) => async (id: string) => {
+  await getFlowApi(id).then((res: any) => {
     setFlow(res.data.flowData, set);
+    console.log(res)
   }).catch((e) => {
     console.log('error loading flow', e)
   });
+
 };
 
-export const saveFlow = (get: () => RFState, set: any) => () => {
+export const saveFlow = (get: () => RFState, set: any) => async () => {
   const flow = get().flowSlice.flow;
-  saveFlowApi(flow).then((res: any) => {
+  await saveFlowApi(flow).then((res: any) => {
     if (res.data.success) {
       updateFlowAfterSaving(set, flow, 'success!');
     }
@@ -47,16 +49,16 @@ export const saveFlow = (get: () => RFState, set: any) => () => {
   })
 };
 
-export const updateFlow = (get: () => RFState, set: any) => (match: any) => {
+export const updateFlow = (get: () => RFState, set: any) => async (match: any) => {
   const flow = get().flowSlice.flow;
-  console.log(flow)
+
   if (flowVersionToInt(flow.flowVersion) <= flowVersionToInt(match.version)) {
     const parsedPreviousVersion = flowVersionToInt(match.version) + 1;
     const updatedPreviousVersion = parseFloatVersion(parsedPreviousVersion);
     flow.flowVersion = updatedPreviousVersion;
   }
 
-  updateFlowApi(flow).then((res: any) => {
+  await updateFlowApi(flow).then((res: any) => {
     if (res.data.success) {
       console.log('update flow success', res);
       updateFlowAfterSaving(set, flow, 'success!')

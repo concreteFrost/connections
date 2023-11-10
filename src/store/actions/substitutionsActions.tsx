@@ -120,9 +120,11 @@ export const addConfig =
 
 export const toggleSubstitutionsPanel = (get: () => RFState, set: any) => () => {
   set((state: RFState) => ({
+    designerVisualElementsSlice: {
+      ...state.designerVisualElementsSlice, substitutionsPanel: {
+        isCollapsed: !state.designerVisualElementsSlice.substitutionsPanel.isCollapsed
+      }
 
-    ...state.designerVisualElementsSlice.substitutionsPanel,
-    isCollapsed: !state.designerVisualElementsSlice.substitutionsPanel.isCollapsed
-
+    }
   }));
 }

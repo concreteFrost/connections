@@ -45,7 +45,6 @@ export type FlowSlice = {
     setExecutionParameter: (parameterName: string, value: string) => void;
     setBigIntParameter: (parameterName: string, value: BigInt) => void;
 
-
     //Extended Params Actions
     addCustomParameter: (name: string, value: string) => boolean | undefined;
     setSelectedExtendedParameter: (parameterName: string, value: string) => void;
