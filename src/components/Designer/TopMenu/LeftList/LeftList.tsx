@@ -2,14 +2,21 @@ import View from "./View/View";
 import s from "./LeftList.module.scss";
 import { UpdateFlowProcedures } from "../../../Modals/UpdateFlowModal";
 
-function LeftList(props: any) {
+interface LeftListProps {
+  setFunctionsToPass: (functions: any) => void,
+  setIsSelectFlowsVisible: (isVisible: boolean) => void,
+  toggleDropdown: (view: string) => void,
+  dropdowns: any
+}
+
+function LeftList(props: LeftListProps) {
 
   return (
     <div>
       <ul className={s.nav_list}>
-        <li className={s.nav_list_item} onClick={() => props.defineUpdateFlowProcedure(UpdateFlowProcedures.New)}>New</li>
-        <li className={s.nav_list_item} onClick={() => props.setIsSelectFlowVisible(true)}>Load</li>
-        <li className={s.nav_list_item} onClick={() => props.defineUpdateFlowProcedure(UpdateFlowProcedures.Save)}>Save</li>
+        <li className={s.nav_list_item} onClick={() => { }}>New</li>
+        <li className={s.nav_list_item} onClick={() => { props.setIsSelectFlowsVisible(true) }}>Load</li>
+        <li className={s.nav_list_item} onClick={() => { }}>Save</li>
         <li className={s.nav_list_item}>
           <div onClick={() => props.toggleDropdown("view")}>View</div>
           <div

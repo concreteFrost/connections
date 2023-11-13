@@ -1,8 +1,9 @@
-import useStore from "../../../../../store/store";
 import s from "./FlowsList.module.scss";
 import { useEffect, useState } from "react";
 import { getFlowListApi } from "../../../../../api/flow";
-import { UpdateFlowProcedures } from "../../../../Modals/UpdateFlowModal";
+import useStore from "../../../../../store/store";
+import { checkExistingFlowInDataBase } from "../../../../../store/actions/utils/flowUtils";
+import { UpdateFlowProps } from "../../../../Modals/UpdateFlowModal";
 
 interface ILoadedFlow {
     flowId: string;
@@ -13,13 +14,60 @@ interface ILoadedFlow {
 
 interface FlowListProps {
     closeSelecFlowModal: () => void;
-    setFlowToLoad: (flowID: string) => void;
-    defineUpdateFlowProcedure: (procedure: UpdateFlowProcedures) => void;
+    setFunctionsToPass: (functions: UpdateFlowProps) => void;
 }
 
 function FlowsList(props: FlowListProps) {
 
+    const flow = useStore((state) => state.flowSlice.flow);
+    const updateFlow = useStore((state) => state.flowSlice.updateFlow);
+    const saveFlow = useStore((state) => state.flowSlice.saveFlow);
+    const loadFlow = useStore((state) => state.flowSlice.loadFlow);
+    const toggleUpdateFlowModal = useStore((state) => state.modalWindowsSlice.toggleUpdateFlowModal);
     const [loadedFlows, setLoadedFlows] = useState<Array<ILoadedFlow>>([]);
+
+    function setFlowIDToLoad(id: string) {
+        localStorage.setItem('flowIdToLoad', id);
+    }
+
+    const handleFlowClick = (flowId: string) => {
+        setFlowIDToLoad(flowId);
+        props.setFunctionsToPass({ confirm: saveAndLoad, decline: loadWithoutSaving });
+        toggleUpdateFlowModal(true);
+    }
+
+    async function tryToSaveFlow() {
+        try {
+            const match = await checkExistingFlowInDataBase(flow.flowName);
+            if (match) {
+                await updateFlow(match)
+            } else {
+                await saveFlow();
+            }
+            await toggleUpdateFlowModal(false);
+        } catch (error) {
+            console.error('error on trying to save load', error);
+        }
+    }
+
+    const saveAndLoad = async () => {
+        try {
+            await tryToSaveFlow();
+            await loadFlow(localStorage.getItem('flowIdToLoad')?.toString()!);
+            await toggleUpdateFlowModal(false);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const loadWithoutSaving = async () => {
+        try {
+            await loadFlow(localStorage.getItem('flowIdToLoad')?.toString()!);
+            await toggleUpdateFlowModal(false);
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     useEffect(() => {
         getFlowListApi().then((res: any) => {
@@ -28,6 +76,7 @@ function FlowsList(props: FlowListProps) {
             console.log(e)
         })
     }, [])
+
 
     return (<div className={s.container}>
         <div className={s.header}>
@@ -43,11 +92,12 @@ function FlowsList(props: FlowListProps) {
                     </tr>
                 </thead>
                 <tbody>
-                    {loadedFlows.length > 0 ? loadedFlows.map((flow: ILoadedFlow) => <tr key={loadedFlows.indexOf(flow)}>
-                        <td className={s.flow_name} onClick={() => {
-                            props.setFlowToLoad(flow.flowId);
-                            props.defineUpdateFlowProcedure(UpdateFlowProcedures.Load)
-                        }}>{flow.name}</td>
+                    {loadedFlows.length > 0 ? loadedFlows.map((flow: ILoadedFlow) => <tr key={flow.flowId}>
+                        <td className={s.flow_name}
+                            onClick={() => {
+                                handleFlowClick(flow.flowId);
+                            }}
+                        >{flow.name}</td>
                         <td>{flow.createdBy}</td>
                         <td>{flow.dateCreated}</td>
                     </tr>) : null}
