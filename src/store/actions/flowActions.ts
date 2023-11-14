@@ -38,7 +38,7 @@ export const loadFlowFromDraft = (get: () => RFState, set: any) => async (id: st
   
   try {
     const res: any = await getDraftApi(id);
-    console.log(res.data)
+    console.log("loaded flow",res.data)
     setFlow(res.data.flowConfiguration, set);
     console.log('load flow success', res);
   } catch (e) {
@@ -65,7 +65,6 @@ export const saveDraftFlow = (get: () => RFState, set: any) => async (match: any
     subfolder:"new folder",
     basedOnLiveVersion:'',
     draftConfiguration:flow
-
   }
 
   await saveDraftFlowApi(draftStructure).then((res: any) => {
