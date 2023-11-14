@@ -17,37 +17,10 @@
     left: 0;
     right: 0;
 
-    li {
-        list-style: none;
-    }
-
     @media print {
         display: none;
     }
 
-    .server_button{
-        display: flex;
-        justify-content: start;
-        align-items: center;
-
-        button{
-            margin-left: 20px;
-            background-color: $bg-top-menu-btn-default;
-            padding: 5px 10px;
-            border: 0;
-            border-radius: 5px;
-            color: white;
-            font-family: $font-node-nav-header;
-    
-            font-weight: bold;
-
-            &:hover{
-                background-color: $bg-top-menu-btn-hover;
-            }
-
-            transition: background-color 0.2s ease-in-out;
-        }
-    }
 
 
 

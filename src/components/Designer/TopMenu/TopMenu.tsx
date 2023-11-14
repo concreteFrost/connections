@@ -6,13 +6,16 @@ import UpdateFlowModal, { UpdateFlowProps } from "../../Modals/UpdateFlowModal";
 import { useState } from "react";
 import FlowsList from "./LeftList/FlowsList/FlowsList";
 import MessageModal from "../../Modals/MessageModal";
-import actions from "../../../store/actions/combinedActions";
+import { checkExistingFlowInDataBase } from "../../../store/actions/utils/flowUtils";
 
 function TopMenu() {
   const dropdowns = useStore((state) => state.topPanelSlice.dropdowns);
   const toggleDropdown = useStore((state) => state.topPanelSlice.toggleDropdown);
-  const toggleUpdateFlowModal = useStore((state) => state.modalWindowsSlice.toggleUpdateFlowModal)
+  const {saveDraftFlow,loadFlowFromDraft,createFlow} = useStore((store)=>store.flowSlice);
+  const {toggleUpdateFlowModal, toggleMessageModal} = useStore((store)=>store.modalWindowsSlice);
+
   const [isSelectFlowVisible, setIsSelectFlowVisible] = useState<boolean>(false);
+  const flow = useStore((state)=>state.flowSlice.flow);
   const [functionsToPass, _setFunctionsToPass] = useState<UpdateFlowProps>({ confirm: () => { }, decline: () => { } });
 
   function closeSelectFlowModal() {
@@ -23,17 +26,47 @@ function TopMenu() {
     _setFunctionsToPass(functions);
   }
 
+  async function tryToSaveFlow() {
+    try {
+      const match = await checkExistingFlowInDataBase(flow.flowName);
+      await saveDraftFlow(match, "new folder");
+      await toggleUpdateFlowModal(false);
+    } catch (error) {
+      console.error("error on trying to save load", error);
+    }
+  }
+
+  const saveAndLoad = async () => {
+    try {
+      await tryToSaveFlow();
+      await loadFlowFromDraft(localStorage.getItem("flowIdToLoad")?.toString()!);
+      await toggleUpdateFlowModal(false);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const loadWithoutSaving = async () => {
+    try {
+      await loadFlowFromDraft(localStorage.getItem("flowIdToLoad")?.toString()!);
+      await toggleUpdateFlowModal(false);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div className={s.container}>
       <div className={s.wrapper}>
-        <div className={s.server_button}>
-          <button onClick={() => { }}>SERVER</button>
-        </div>
         <LeftList
           dropdowns={dropdowns}
           toggleDropdown={toggleDropdown}
           setFunctionsToPass={setFunctionsToPass}
           setIsSelectFlowsVisible={setIsSelectFlowVisible}
+          tryToSaveFlow={tryToSaveFlow}
+          toggleUpdateFlowModal={toggleUpdateFlowModal}
+          toggleMessageModal={toggleMessageModal}
+          createFlow={createFlow}
         ></LeftList>
         <Settings
           dropdowns={dropdowns}
@@ -43,6 +76,9 @@ function TopMenu() {
       {isSelectFlowVisible ? <FlowsList
         closeSelecFlowModal={closeSelectFlowModal}
         setFunctionsToPass={setFunctionsToPass}
+        saveAndLoad={saveAndLoad}
+        loadWithoutSaving={loadWithoutSaving}
+        toggleUpdateFlowModal={toggleUpdateFlowModal}
       ></FlowsList> : null}
       <UpdateFlowModal confirm={functionsToPass.confirm} decline={functionsToPass.decline} />
       <MessageModal></MessageModal>

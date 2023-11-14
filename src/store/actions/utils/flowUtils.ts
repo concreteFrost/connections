@@ -1,11 +1,12 @@
 import { RFState } from "../../types/rfState";
 import { IBlockData } from "../../interfaces/IBlock";
 import { IBlockParameters } from "../../interfaces/IBlock";
-import { IVisual } from "../../interfaces/Ivisual";
+import { IVisual } from "../../interfaces/IVisual";
 import { Edge } from "react-flow-renderer";
 import { getFlowListApi } from "../../../api/flow";
 import { v4 as uuidv4 } from 'uuid';
 import { getAccessToken } from "../storageActions";
+import { getDraftListApi } from "../../../api/draft";
 
 export function initializeFlow<IFlowData>(initialNodes: object, initialEdges: object) {
     return <IFlowData>{
@@ -142,13 +143,25 @@ export function flowVersionToInt(flowVersion: string) {
 
 export function checkExistingFlowInDataBase(flowName: string) {
     return new Promise((resolve, reject) => {
-        getFlowListApi().then((res: any) => {
-            const match = res.data.find((flow: any) => flow.name === flowName);
-            resolve(match);
+        getDraftListApi().then((res: any) => {
+           
+            const matchingObject = Object.values(res.data.draftFlows)
+                .flatMap((folderArray: any) => folderArray)
+                .find((item: any) => item.flowName === flowName);
+
+            if (matchingObject) {
+                console.log("Flow name matched:", matchingObject);
+                // You can do further processing or resolve with the matching object
+                resolve(matchingObject);
+            } else {
+                console.log("Flow name not found.");
+                resolve(null); // Resolve with null or any other indicator if the flow name is not found
+            }
         }).catch((error: any) => {
             reject(error);
         });
     });
 }
+
 
 

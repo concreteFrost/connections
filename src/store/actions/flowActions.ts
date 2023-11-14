@@ -4,11 +4,10 @@ import initialNodes from "../nodes"
 import initialEdges from "../edges";
 import { setFlow, parseFloatVersion, flowVersionToInt, updateFlowAfterSaving, initializeFlow } from "./utils/flowUtils";
 import {
-  saveFlowApi,
   getFlowApi,
-  updateFlowApi,
-  saveDraftFlowApi,
 } from "../../api/flow";
+import { getDraftApi, saveDraftFlowApi } from "../../api/draft";
+import { v4 as uuid } from "uuid";
 
 export const createFlow = (get: () => RFState, set: any) => () => {
   set((state: RFState) => ({
@@ -35,78 +34,45 @@ export const loadFlow = (get: () => RFState, set: any) => async (id: string) => 
   }
 };
 
-
-// export const saveFlow = (get: () => RFState, set: any) => async () => {
-//   const flow = get().flowSlice.flow;
-//   console.log('flow to save', flow)
-//   await saveFlowApi(flow).then((res: any) => {
-//     if (res.data.success) {
-//       updateFlowAfterSaving(set, flow, 'success!');
-//     }
-//     else {
-//       console.log('failed', res)
-//       updateFlowAfterSaving(set, flow, res.data.message);
-//     }
-//   }).catch((e) => {
-//     console.log('error saving flow', e)
-//     updateFlowAfterSaving(set, flow, e);
-//   })
-// };
-
-export const saveFlow = (get: () => RFState, set: any) => async () => {
-  const flow = get().flowSlice.flow;
-  console.log('flow to save', flow)
-  await saveDraftFlowApi(flow).then((res: any) => {
-    if (res.data.success) {
-      updateFlowAfterSaving(set, flow, 'success!');
-    }
-    else {
-      console.log('failed', res)
-      updateFlowAfterSaving(set, flow, res.data.message);
-    }
-  }).catch((e) => {
-    console.log('error saving flow', e)
-    updateFlowAfterSaving(set, flow, e);
-  })
+export const loadFlowFromDraft = (get: () => RFState, set: any) => async (id: string) => {
+  
+  try {
+    const res: any = await getDraftApi(id);
+    console.log(res.data)
+    setFlow(res.data.flowConfiguration, set);
+    console.log('load flow success', res);
+  } catch (e) {
+    console.log('error loading flow', e);
+    throw e; // Rethrowing the error to be caught by the calling function
+  }
 };
 
-// export const updateFlow = (get: () => RFState, set: any) => async (match: any) => {
-//   const flow = get().flowSlice.flow;
-//   console.log('flow to update', flow)
-//   if (flowVersionToInt(flow.flowVersion) <= flowVersionToInt(match.version)) {
-//     const parsedPreviousVersion = flowVersionToInt(match.version) + 1;
-//     const updatedPreviousVersion = parseFloatVersion(parsedPreviousVersion);
-//     flow.flowVersion = updatedPreviousVersion;
-//   }
 
-//   await updateFlowApi(flow).then((res: any) => {
-//     if (res.data.success) {
-//       console.log('update flow success', res);
-//       updateFlowAfterSaving(set, flow, 'success!')
-//     }
-//     else {
-//       updateFlowAfterSaving(set, flow, res.data.message)
-//       console.log('update flow failed', res.data.message)
-//     }
-//   }).catch((e) => {
-//     console.log('update flow error', e);
-//     updateFlowAfterSaving(set, flow, e)
-//   })
-// }
 
-export const updateFlow = (get: () => RFState, set: any) => async (match: any) => {
+export const saveDraftFlow = (get: () => RFState, set: any) => async (match: any, subfolder:string) => {
   const flow = get().flowSlice.flow;
-  console.log('flow to update', flow)
-  if (flowVersionToInt(flow.flowVersion) <= flowVersionToInt(match.version)) {
-    const parsedPreviousVersion = flowVersionToInt(match.version) + 1;
-    const updatedPreviousVersion = parseFloatVersion(parsedPreviousVersion);
-    flow.flowVersion = updatedPreviousVersion;
+
+  if(match){
+    if (flowVersionToInt(flow.flowVersion) <= flowVersionToInt(match.flowVersion)) {
+      const parsedPreviousVersion = flowVersionToInt(match.flowVersion) + 1;
+      const updatedPreviousVersion = parseFloatVersion(parsedPreviousVersion);
+      flow.flowVersion = updatedPreviousVersion;
+    }
   }
 
-  await saveDraftFlowApi(flow).then((res: any) => {
+  const draftStructure={
+    draftId: match ? match.draftId : 0,
+    subfolder:"new folder",
+    basedOnLiveVersion:'',
+    draftConfiguration:flow
+
+  }
+
+  await saveDraftFlowApi(draftStructure).then((res: any) => {
     if (res.data.success) {
       console.log('update flow success', res);
       updateFlowAfterSaving(set, flow, 'success!')
+      // loadFlow(get,set)
     }
     else {
       updateFlowAfterSaving(set, flow, res.data.message)
@@ -163,3 +129,63 @@ export const setFlowIsEnabled = (get: () => RFState, set: any) => () => {
   }));
 
 };
+
+
+// export const saveFlow = (get: () => RFState, set: any) => async () => {
+//   const flow = get().flowSlice.flow;
+//   console.log('flow to save', flow)
+//   await saveFlowApi(flow).then((res: any) => {
+//     if (res.data.success) {
+//       updateFlowAfterSaving(set, flow, 'success!');
+//     }
+//     else {
+//       console.log('failed', res)
+//       updateFlowAfterSaving(set, flow, res.data.message);
+//     }
+//   }).catch((e) => {
+//     console.log('error saving flow', e)
+//     updateFlowAfterSaving(set, flow, e);
+//   })
+// };
+
+// export const saveFlow = (get: () => RFState, set: any) => async () => {
+//   const flow = get().flowSlice.flow;
+//   console.log('flow to save', flow)
+//   await saveDraftFlowApi(flow).then((res: any) => {
+//     if (res.data.success) {
+//       updateFlowAfterSaving(set, flow, 'success!');
+//     }
+//     else {
+//       console.log('failed', res)
+//       updateFlowAfterSaving(set, flow, res.data.message);
+//     }
+//   }).catch((e) => {
+//     console.log('error saving flow', e)
+//     updateFlowAfterSaving(set, flow, e);
+//   })
+// };
+
+// export const updateFlow = (get: () => RFState, set: any) => async (match: any) => {
+//   const flow = get().flowSlice.flow;
+//   console.log('flow to update', flow)
+//   if (flowVersionToInt(flow.flowVersion) <= flowVersionToInt(match.version)) {
+//     const parsedPreviousVersion = flowVersionToInt(match.version) + 1;
+//     const updatedPreviousVersion = parseFloatVersion(parsedPreviousVersion);
+//     flow.flowVersion = updatedPreviousVersion;
+//   }
+
+//   await updateFlowApi(flow).then((res: any) => {
+//     if (res.data.success) {
+//       console.log('update flow success', res);
+//       updateFlowAfterSaving(set, flow, 'success!')
+//     }
+//     else {
+//       updateFlowAfterSaving(set, flow, res.data.message)
+//       console.log('update flow failed', res.data.message)
+//     }
+//   }).catch((e) => {
+//     console.log('update flow error', e);
+//     updateFlowAfterSaving(set, flow, e)
+//   })
+// }
+

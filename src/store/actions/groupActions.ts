@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { NodeProps, NodeRemoveChange } from "react-flow-renderer";
-import { IVisual } from "../interfaces/Ivisual";
+import { IVisual } from "../interfaces/IVisual";
 import { RFState } from "../types/rfState";
 import { INodeGroup, INodeType } from "../interfaces/INode";
 import { FlowSlice } from "../slices/flowSlice";

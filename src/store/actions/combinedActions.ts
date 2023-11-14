@@ -33,7 +33,7 @@ import {
 } from "./groupActions";
 import { setTooltipText } from "./tooltipActions";
 import { getBlocksList, addBlock } from "./leftPanelActions";
-import { createFlow, loadFlow, openTestFlow, saveFlow, setFlowIsEnabled, setFlowName, setFlowVersion, updateFlow } from "./flowActions";
+import { createFlow, loadFlow, loadFlowFromDraft, openTestFlow, saveDraftFlow,setFlowIsEnabled, setFlowName, setFlowVersion } from "./flowActions";
 import {
   addConfig,
   addSubstitutionKey,
@@ -126,8 +126,8 @@ const flowActions = {
   createFlow: createFlow,
   openTestFlow: openTestFlow,
   loadFlow: loadFlow,
-  saveFlow: saveFlow,
-  updateFlow: updateFlow,
+  loadFlowFromDraft: loadFlowFromDraft,
+  saveDraftFlow:saveDraftFlow,
   setFlowName: setFlowName,
   setFlowVersion: setFlowVersion,
   setFlowIsEnabled: setFlowIsEnabled,

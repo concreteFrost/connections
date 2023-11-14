@@ -6,6 +6,7 @@ import { initializeFlow } from "../actions/utils/flowUtils";
 import initialNodes from "../nodes"
 import initialEdges from "../edges";
 import actions from "../actions/combinedActions";
+import { IFlowData } from "../interfaces/Iflow";
 
 export type FlowSlice = {
     flow: {
@@ -60,9 +61,11 @@ export type FlowSlice = {
 
     //Flow Actions
     openFlow: () => void;
-    saveFlow: () => void;
-    updateFlow: (match: any) => void;
+    // saveFlow: () => void;
+    // updateFlow: (match: any) => void;
+    saveDraftFlow:(match:any,subfolder:string)=>void;
     loadFlow: (id: string) => void;
+    loadFlowFromDraft:(draftId:string)=>void;
     setFlowName: (name: string) => void;
     setFlowVersion: (version: string) => void;
     setFlowIsEnabled: () => void;
@@ -73,7 +76,6 @@ export type FlowSlice = {
     addConfig: (key: string, configName: string, configValue: string) => void;
     deleteSubstitution: (key: string) => void;
 }
-
 
 const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
     flow: initializeFlow(initialNodes, initialEdges),
@@ -108,9 +110,11 @@ const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
     //Flow Actions
     createFlow: actions.flowActions.createFlow(get, set),
     openFlow: actions.flowActions.openTestFlow(get, set),
-    saveFlow: actions.flowActions.saveFlow(get, set),
-    updateFlow: actions.flowActions.updateFlow(get, set),
+    // saveFlow: actions.flowActions.saveFlow(get, set),
+    // updateFlow: actions.flowActions.updateFlow(get, set),
+    saveDraftFlow:actions.flowActions.saveDraftFlow(get,set),
     loadFlow: actions.flowActions.loadFlow(get, set),
+    loadFlowFromDraft:actions.flowActions.loadFlowFromDraft(get,set),
     setFlowName: actions.flowActions.setFlowName(get, set),
     setFlowVersion: actions.flowActions.setFlowVersion(get, set),
     setFlowIsEnabled: actions.flowActions.setFlowIsEnabled(get, set),
