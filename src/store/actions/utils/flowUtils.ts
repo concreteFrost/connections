@@ -3,7 +3,6 @@ import { IBlockData } from "../../interfaces/IBlock";
 import { IBlockParameters } from "../../interfaces/IBlock";
 import { IVisual } from "../../interfaces/IVisual";
 import { Edge } from "react-flow-renderer";
-import { getFlowListApi } from "../../../api/flow";
 import { v4 as uuidv4 } from 'uuid';
 import { getAccessToken } from "../storageActions";
 import { getDraftListApi } from "../../../api/draft";
@@ -144,7 +143,7 @@ export function flowVersionToInt(flowVersion: string) {
 export function checkExistingFlowInDataBase(flowName: string) {
     return new Promise((resolve, reject) => {
         getDraftListApi().then((res: any) => {
-           
+
             const matchingObject = Object.values(res.data.draftFlows)
                 .flatMap((folderArray: any) => folderArray)
                 .find((item: any) => item.flowName === flowName);
@@ -162,6 +161,7 @@ export function checkExistingFlowInDataBase(flowName: string) {
         });
     });
 }
+
 
 
 

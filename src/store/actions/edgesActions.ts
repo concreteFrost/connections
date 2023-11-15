@@ -12,18 +12,18 @@ export function handleConnect(connection: Connection, state: RFState): Edge[] {
 }
 
 export const onEdgesChange = (get: () => RFState, set: any) => (changes: EdgeChange[]) => {
-  
+
   set((state: RFState) => ({
     flowSlice: {
       ...state.flowSlice,
-      flow:{
+      flow: {
         ...state.flowSlice.flow,
         visual: {
           ...state.flowSlice.flow.visual,
           edges: applyEdgeChanges(changes, state.flowSlice.flow.visual.edges)
         }
       }
-     
+
     }
   }))
 
@@ -46,3 +46,13 @@ export const onEdgesConnect = (get: () => RFState, set: any) => (connection: Con
   }))
 
 }
+
+
+const edgeActions = {
+  handleConnect: handleConnect,
+  onEdgesChange: onEdgesChange,
+  onEdgesConnect: onEdgesConnect,
+};
+
+
+export default edgeActions;

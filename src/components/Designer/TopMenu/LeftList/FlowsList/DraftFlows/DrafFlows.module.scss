@@ -1,32 +1,59 @@
 @import "/src/style/variables.scss";
 @import "/src/style/mixins.scss";
 
-.wrapper{
+.wrapper {
 
-    header{
-        font-weight: bold;
-        text-align: center;
+  header {
+    font-weight: bold;
+    text-align: center;
+  }
+
+  table {
+    width: 100%;
+    margin-bottom: 20px;
+    table-layout: table;
+
+    thead {
+      font-style: italic;
+
+      th {
+        text-align: left;
+      }
+
+      margin-bottom: 20px;
     }
-    table {
-        width: 100%;
-        margin-bottom: 20px;
-        thead {
-          font-style: italic;
-  
-          th {
-            text-align: left;    
-          }
-  
-          margin-bottom: 20px;
-        }
-  
-        tbody {
-          .flow_name {
-            font-weight: bold;
-  
-            color: $color-node-nav-icon;
-            cursor: pointer;
-          }
+
+    tbody {
+      background-color: rgb(247, 247, 247);
+
+      td {
+        height: 30px;
+      }
+
+
+      .flow_name {
+        font-weight: bold;
+        color: $color-node-nav-icon;
+        cursor: pointer;
+      }
+
+      .actions_wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+
+        button {
+          background-color: $bg-delete-btn;
+          border: 0;
+          padding: 5px;
+          color: white;
+          border-radius: 5px;
+          cursor: pointer;
         }
       }
+
+
+    }
+  }
 }

@@ -1,6 +1,6 @@
 import { RFState } from "../types/rfState"
-import actions from "../actions/combinedActions";
 import { IFlowData } from "../interfaces/Iflow";
+import serverActions from "../actions/serverActions";
 
 export type ServerSlice = {
 
@@ -13,8 +13,8 @@ export type ServerSlice = {
 
 const serverSlice = (get: () => RFState, set: any): ServerSlice => ({
     currentFlow: {},
-    getCurrentFlow: actions.serverActions.getCurrentFlow(get, set),
-    toggleFlowControlState: actions.serverActions.toggleFlowControlState(get, set)
+    getCurrentFlow: serverActions.getCurrentFlow(get, set),
+    toggleFlowControlState: serverActions.toggleFlowControlState(get, set)
 })
 
 export default serverSlice;

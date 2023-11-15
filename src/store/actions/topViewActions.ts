@@ -79,5 +79,16 @@ export const toggleMiniMap = (get: () => RFState, set: any) => () => {
   }))
 }
 
+const topMenuActions = {
+  setBgView: setBgView,
+  hideAllTopMenus: hideAllTopMenus,
+  toggleDropdown: toggleDropdown,
+  setSnapToGrid: setSnapToGrid,
+  setSnapStep: setSnapStep,
+  showMiniMap: toggleMiniMap,
+};
+
+export default topMenuActions;
+
 
 

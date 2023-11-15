@@ -1,9 +1,6 @@
 import s from "./FlowsList.module.scss";
 import { useEffect, useState } from "react";
-import { getFlowListApi } from "../../../../../api/flow";
-import useStore from "../../../../../store/store";
-import { checkExistingFlowInDataBase } from "../../../../../store/actions/utils/flowUtils";
-import { UpdateFlowProps } from "../../../../Modals/UpdateFlowModal";
+import { UpdateFlowActions, UpdateFlowProps } from "../../../../Modals/UpdateFlowModal";
 import { getDraftListApi } from "../../../../../api/draft";
 import DraftFlows from "./DraftFlows/DraftFlows";
 import LiveFlows from "./LiveFlows/LiveFlows";
@@ -17,10 +14,9 @@ interface ILoadedFlow {
 
 interface FlowListProps {
   closeSelecFlowModal: () => void;
-  setFunctionsToPass: (functions: UpdateFlowProps) => void;
-  saveAndLoad:()=>void;
-  loadWithoutSaving:()=>void;
-  toggleUpdateFlowModal:(isVisible:boolean)=>void;
+  toggleUpdateFlowModal: (isVisible: boolean) => void;
+  setCurrentActions: (actions: UpdateFlowActions) => void;
+  setFlowIdToLoad: (flowId: string) => void;
 }
 
 interface ISectionToOpen {
@@ -29,35 +25,25 @@ interface ISectionToOpen {
 }
 
 function FlowsList(props: FlowListProps) {
-    
-    const [currentDraftFolder, setCurrentDraftFolder] = useState<string>("");
-    const [loadedFlowFolders, setLoadedFlowFolders] = useState<Array<any>>([]);
-    const [draftSectionToOpen, setDraftSectionToOpen] = useState<ISectionToOpen>({
-      folders: true,
-      flows: false,
-    });
-    const [liveSectionToOpen, setLiveSectionToOpen] = useState<ISectionToOpen>({
-        folders: true,
-        flows: false,
-      });
-    
 
-  function setFlowIDToLoad(id: string) {
-    localStorage.setItem("flowIdToLoad", id);
+  const [currentDraftFolder, setCurrentDraftFolder] = useState<string>("");
+  const [loadedFlowFolders, setLoadedFlowFolders] = useState<Array<any>>([]);
+  const [draftSectionToOpen, setDraftSectionToOpen] = useState<ISectionToOpen>({
+    folders: true,
+    flows: false,
+  });
+  const [liveSectionToOpen, setLiveSectionToOpen] = useState<ISectionToOpen>({
+    folders: true,
+    flows: false,
+  });
+
+  function handleDraftClick(flowIdToLoad: string) {
+    props.toggleUpdateFlowModal(true);
+    props.setFlowIdToLoad(flowIdToLoad);
+    props.setCurrentActions(UpdateFlowActions.Load);
   }
 
-  const handleDraftFlowClick = (flowId: string) => {
-    setFlowIDToLoad(flowId);
-    props.setFunctionsToPass({
-      confirm: props.saveAndLoad,
-      decline: props.loadWithoutSaving,
-    });
-    props.closeSelecFlowModal();
-    props.toggleUpdateFlowModal(true);
-  };
-
-
-  useEffect(() => {
+  function loadDraftFlowList() {
     getDraftListApi()
       .then((res: any) => {
         setLoadedFlowFolders(res.data.draftFlows);
@@ -65,9 +51,11 @@ function FlowsList(props: FlowListProps) {
       .catch((e) => {
         console.log(e);
       });
-      
-  }, []);
+  }
 
+  useEffect(() => {
+    loadDraftFlowList();
+  }, []);
 
   return (
     <div className={s.container}>
@@ -75,24 +63,25 @@ function FlowsList(props: FlowListProps) {
         <h3>Select Flow</h3>
       </div>
       <div className={s.body}>
-        <div className={s.grid_element}> 
-        <DraftFlows
-        loadedFlowFolders={loadedFlowFolders}
-        sectionToOpen={draftSectionToOpen}
-        currentFolder={currentDraftFolder}
-        handleDraftFlowClick={handleDraftFlowClick}
-        setSectionToOpen={setDraftSectionToOpen}
-        setCurrentFolder={setCurrentDraftFolder}
-        />
+        <div className={s.grid_element}>
+          <DraftFlows
+            loadDraftFlowList={loadDraftFlowList}
+            loadedFlowFolders={loadedFlowFolders}
+            sectionToOpen={draftSectionToOpen}
+            currentFolder={currentDraftFolder}
+            setSectionToOpen={setDraftSectionToOpen}
+            setCurrentFolder={setCurrentDraftFolder}
+            handleDraftClick={handleDraftClick}
+          />
         </div>
-       <div className={s.grid_element}> 
-       <LiveFlows
-       sectionToOpen={liveSectionToOpen}
-       setSectionToOpen={setLiveSectionToOpen}
-       /></div>
+        <div className={s.grid_element}>
+          <LiveFlows
+            sectionToOpen={liveSectionToOpen}
+            setSectionToOpen={setLiveSectionToOpen}
+          /></div>
       </div>
       <div className={s.footer}>
-      
+
         <button onClick={props.closeSelecFlowModal}>Close</button>
       </div>
     </div>

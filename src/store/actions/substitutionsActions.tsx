@@ -128,3 +128,12 @@ export const toggleSubstitutionsPanel = (get: () => RFState, set: any) => () => 
     }
   }));
 }
+
+const substitutionsActions = {
+  addSubstitutionKey: addSubstitutionKey,
+  addConfig: addConfig,
+  deleteSubstitution: deleteSubstitution,
+  toggleSubstitutionsPanel: toggleSubstitutionsPanel,
+};
+
+export default substitutionsActions;

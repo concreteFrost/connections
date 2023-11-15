@@ -195,3 +195,21 @@ export const setExecutionParameter =
       setParameter(get, set)(propertyName, value);
     }
   };
+
+const blockActions = {
+  setStringParameter: setStringParameter,
+  setIntegerParameter: setIntegerParameter,
+  setFloatParameter: setFloatParameter,
+  setBooleanParameter: setBooleanParameter,
+  setBooleanYNParameter: setBooleanYNParameter,
+  setDateTimeParameter: setDateTimeParameter,
+  setExecutionParameter: setExecutionParameter,
+  setBigIntParameter: setBigIntParameter,
+  addCustomParameter: addCustomParameter,
+  setSelectedExtendedParameter: setSelectedExtendedParameter,
+  deleteExtendedParameter: deleteExtendedParameter
+};
+
+export default blockActions;
+
+

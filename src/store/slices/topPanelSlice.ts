@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import actions from "../actions/combinedActions";
+import topMenuActions from "../actions/topViewActions";
 
 export type TopPanelSlice = {
 
@@ -34,12 +34,12 @@ const topPanelSlice = (get: any, set: any): TopPanelSlice => ({
         showMiniMap: true
     },
 
-    setBgView: actions.topMenuActions.setBgView(set),
-    hideAllTopMenus: actions.topMenuActions.hideAllTopMenus(get, set),
-    toggleDropdown: actions.topMenuActions.toggleDropdown(get, set),
-    setSnapToGrid: actions.topMenuActions.setSnapToGrid(get, set),
-    setSnapStep: actions.topMenuActions.setSnapStep(get, set),
-    showMiniMap: actions.topMenuActions.showMiniMap(get, set),
+    setBgView: topMenuActions.setBgView(set),
+    hideAllTopMenus: topMenuActions.hideAllTopMenus(get, set),
+    toggleDropdown: topMenuActions.toggleDropdown(get, set),
+    setSnapToGrid: topMenuActions.setSnapToGrid(get, set),
+    setSnapStep: topMenuActions.setSnapStep(get, set),
+    showMiniMap: topMenuActions.showMiniMap(get, set),
 
 })
 

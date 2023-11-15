@@ -82,3 +82,13 @@ export const setBlockColor = (set: any, get: () => RFState) => (color: string) =
     },
   }));
 };
+
+const baseActtions = {
+
+  getBlockProperties: getBlockProperties,
+  setBlockColor: setBlockColor,
+  setBlockDescription: setBlockDescription,
+  setBlockName: setBlockName,
+};
+
+export default baseActtions;

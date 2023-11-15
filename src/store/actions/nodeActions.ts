@@ -3,9 +3,8 @@ import {
   NodeChange,
   applyNodeChanges,
 } from "react-flow-renderer";
-
-import actions from "./combinedActions";
 import { RFState } from "../types/rfState";
+import groupActions from "./groupActions";
 
 
 export const setselectedBlockID = (get: () => RFState, set: any) => (nodeId: string) => {
@@ -17,7 +16,7 @@ export const onBlocksChange =
 
     changes.forEach((change: NodeChange) => {
       if (change.type === 'remove') {
-        actions.groupActions.deleteGroup(get().flowSlice.flow.visual.blocks, change)
+        groupActions.deleteGroup(get().flowSlice.flow.visual.blocks, change)
       }
     })
 
@@ -36,4 +35,11 @@ export const onBlocksChange =
     }));
 
   };
+
+const nodeActions = {
+  setselectedBlockID: setselectedBlockID,
+  onBlocksChange: onBlocksChange,
+};
+
+export default nodeActions;
 

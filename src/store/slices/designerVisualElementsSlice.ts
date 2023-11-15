@@ -1,6 +1,8 @@
 import { BackgroundVariant } from "react-flow-renderer";
 import { RFState } from "../types/rfState";
-import actions from "../actions/combinedActions";
+import { setTooltipText } from "../actions/tooltipActions";
+import { toggleSubstitutionsPanel } from "../actions/substitutionsActions";
+import valueEditorActions from "../actions/valueEditorActions";
 
 export type DesignerVisualElementsSlice = {
 
@@ -45,10 +47,10 @@ const designerVisualElementsSlice = (get: () => RFState, set: any): DesignerVisu
         substitutionAddError: ''
     },
 
-    setTooltipText: actions.tooltipActions.setTooltipText(get, set),
-    toggleSubstitutionsPanel: actions.substitutionsActions.toggleSubstitutionsPanel(get, set),
-    getParameterValue: actions.valueEditorActions.getParameterValue(set),
-    setParameterValue: actions.valueEditorActions.setParameterValue(get, set),
+    setTooltipText: setTooltipText(get, set),
+    toggleSubstitutionsPanel: toggleSubstitutionsPanel(get, set),
+    getParameterValue: valueEditorActions.getParameterValue(set),
+    setParameterValue: valueEditorActions.setParameterValue(get, set),
 
 })
 

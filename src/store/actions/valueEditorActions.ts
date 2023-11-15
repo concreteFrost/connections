@@ -48,3 +48,11 @@ export const setParameterValue = (get: () => RFState, set: any) => (propertyName
   }));
 };
 
+
+const valueEditorActions = {
+  getParameterValue: getParameterValue,
+  setParameterValue: setParameterValue
+}
+
+export default valueEditorActions;
+

@@ -51,3 +51,11 @@ export const toggleFlowControlState = (get: () => RFState, set: any) => (isEnabl
   console.log('current flow', get())
 }
 
+
+const serverActions = {
+  getCurrentFlow: getCurrentFlow,
+  toggleFlowControlState: toggleFlowControlState
+
+}
+
+export default serverActions;

@@ -126,3 +126,10 @@ export const addBlock =
       },
     }));
   };
+
+const leftPanelActions = {
+  addBlock: addBlock,
+  getBlocksList: getBlocksList,
+};
+
+export default leftPanelActions;

@@ -1,76 +1,33 @@
 import View from "./View/View";
 import s from "./LeftList.module.scss";
-import { useNavigate } from "react-router";
-
+import { UpdateFlowActions } from "../../../Modals/UpdateFlowModal";
 
 interface LeftListProps {
-  setFunctionsToPass: (functions: any) => void;
   setIsSelectFlowsVisible: (isVisible: boolean) => void;
   toggleDropdown: (view: string) => void;
-  tryToSaveFlow:()=>void;
-  toggleUpdateFlowModal:(isVisble:boolean)=>void;
-  toggleMessageModal:()=>void;
-  createFlow:()=>void;
+  toggleUpdateFlowModal: (isVisble: boolean) => void;
+  setCurrentActions: (actions: UpdateFlowActions) => void;
   dropdowns: any;
 }
 
 function LeftList(props: LeftListProps) {
 
-  const navigate = useNavigate();
-  async function saveAndLeave() {
-    try {
-      await props.tryToSaveFlow();
-      await props.toggleUpdateFlowModal(false);
-      await props.toggleMessageModal();
-      await navigate("/dashboard/servers");
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  function leaveWithoutSaving() {
-    props.toggleUpdateFlowModal(false);
-    navigate("/dashboard/servers");
-  }
-
-  function cancelSaving() {
-    props.toggleUpdateFlowModal(false);
-  }
-
-  async function createAndSave() {
-    try {
-      await props.tryToSaveFlow();
-      await props.createFlow();
-      await props.toggleUpdateFlowModal(false);
-    } catch (e) {
-      console.log("error");
-    }
-  }
-
-  function createWithoutSaving() {
-    props.createFlow();
-    props.toggleUpdateFlowModal(false);
-  }
-
   return (
     <div className={s.wrapper}>
       <ul className={s.nav_list}>
         <li>
-        <div className={s.server_button}>
-          <button onClick={() => {
-            props.toggleUpdateFlowModal(true)
-            props.setFunctionsToPass({confirm:saveAndLeave,decline:leaveWithoutSaving})
-           }}>SERVER</button>
-        </div>
+          <div className={s.server_button}>
+            <button onClick={() => {
+              props.toggleUpdateFlowModal(true)
+              props.setCurrentActions(UpdateFlowActions.Quit)
+            }}>SERVER</button>
+          </div>
         </li>
         <li
           className={s.nav_list_item}
           onClick={() => {
             props.toggleUpdateFlowModal(true);
-            props.setFunctionsToPass({
-              confirm: createAndSave,
-              decline: createWithoutSaving,
-            });
+            props.setCurrentActions(UpdateFlowActions.Create)
           }}
         >
           New
@@ -87,10 +44,7 @@ function LeftList(props: LeftListProps) {
           className={s.nav_list_item}
           onClick={() => {
             props.toggleUpdateFlowModal(true);
-            props.setFunctionsToPass({
-              confirm: props.tryToSaveFlow,
-              decline: cancelSaving,
-            });
+            props.setCurrentActions(UpdateFlowActions.Save)
           }}
         >
           Save

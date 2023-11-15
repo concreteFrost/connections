@@ -50,3 +50,25 @@ export function getDraftApi(id: any) {
       .catch((e) => reject(e));
   });
 }
+
+export function deleteDraftFlowAPI(data: any) {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: "post",
+      url: baseUrl + "/Draft/Delete",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getAccessToken().token,
+      },
+      params: {
+        draftId: data
+      }
+    })
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((e) => reject(e));
+  });
+}
+
+

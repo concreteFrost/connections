@@ -210,3 +210,15 @@ export const hideAllGroupModals = (set: any) => () => {
     },
   }));
 };
+
+const groupActions = {
+  addGroup: addGroup,
+  deleteGroup: deleteGroup,
+  deleteGroupOnButtonClick: deleteGroupOnButtonClick,
+  showGroupModal: showGroupModal,
+  setGroupLabel: changeGroupLabel,
+  setGroupColor: changeGroupColor,
+  hideAllGroupModals: hideAllGroupModals,
+};
+
+export default groupActions;

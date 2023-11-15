@@ -1,8 +1,9 @@
-import actions from "../actions/combinedActions";
+import { setUpdateFlowSubfolderName, toggleMessageModal, toggleUpdateFlowModal, setModalMessage } from "../actions/modalActions";
 
 export type ModalWindows = {
     updateFlowModal: {
         isVisible: boolean,
+
     }
     messageModal: {
         isVisible: boolean,
@@ -12,20 +13,23 @@ export type ModalWindows = {
     toggleUpdateFlowModal: (isVisible: boolean) => void;
     toggleMessageModal: () => void;
     setModalMessage: (message: string) => void;
+    setUpdateFlowSubfolderName: (subfolder: string) => void;
 }
 
 const modalWindowsSlice = (get: any, set: any): ModalWindows => ({
     updateFlowModal: {
         isVisible: false,
+
     },
     messageModal: {
         isVisible: false,
         message: '',
     },
 
-    toggleUpdateFlowModal: actions.modalActions.toggleUpdateFlowModal(get, set),
-    toggleMessageModal: actions.modalActions.toggleMessageModal(get, set),
-    setModalMessage: actions.modalActions.setModalMessage(get, set),
+    toggleUpdateFlowModal: toggleUpdateFlowModal(get, set),
+    toggleMessageModal: toggleMessageModal(get, set),
+    setModalMessage: setModalMessage(get, set),
+    setUpdateFlowSubfolderName: setUpdateFlowSubfolderName(get, set)
 })
 
 export default modalWindowsSlice;

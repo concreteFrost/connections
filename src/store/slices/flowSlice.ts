@@ -1,12 +1,14 @@
 import { RFState } from "../types/rfState";
-import { create } from "zustand";
 import { Node, Edge } from "react-flow-renderer";
 import { ISubstitutions } from "../interfaces/ISubstitutions";
 import { initializeFlow } from "../actions/utils/flowUtils";
 import initialNodes from "../nodes"
 import initialEdges from "../edges";
-import actions from "../actions/combinedActions";
-import { IFlowData } from "../interfaces/Iflow";
+import flowActions from "../actions/flowActions";
+import baseActtions from "../actions/baseActions";
+import blockActions from "../actions/blockActions";
+import groupActions from "../actions/groupActions";
+import substitutionsActions from "../actions/substitutionsActions";
 
 export type FlowSlice = {
     flow: {
@@ -63,9 +65,10 @@ export type FlowSlice = {
     openFlow: () => void;
     // saveFlow: () => void;
     // updateFlow: (match: any) => void;
-    saveDraftFlow:(match:any,subfolder:string)=>void;
+    saveDraftFlow: (match: any, subfolder: string) => void;
+    deleteDraftFlow: (draftId: string) => void;
     loadFlow: (id: string) => void;
-    loadFlowFromDraft:(draftId:string)=>void;
+    loadFlowFromDraft: (draftId: string) => void;
     setFlowName: (name: string) => void;
     setFlowVersion: (version: string) => void;
     setFlowIsEnabled: () => void;
@@ -81,48 +84,49 @@ const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
     flow: initializeFlow(initialNodes, initialEdges),
 
     //Base Actions 
-    setBlockName: actions.baseActtions.setBlockName(set, get),
-    setBlockDescription: actions.baseActtions.setBlockDescription(set, get),
-    setBlockColor: actions.baseActtions.setBlockColor(set, get),
+    setBlockName: baseActtions.setBlockName(set, get),
+    setBlockDescription: baseActtions.setBlockDescription(set, get),
+    setBlockColor: baseActtions.setBlockColor(set, get),
+    getBlockProperties: baseActtions.getBlockProperties(get, set),
 
     //Block Actions
-    getBlockProperties: actions.blockActions.getBlockProperties(get, set),
-    setStringParameter: actions.blockActions.setStringParameter(get, set),
-    setIntegerParameter: actions.blockActions.setIntegerParameter(get, set),
-    setFloatParameter: actions.blockActions.setFloatParameter(get, set),
-    setBooleanParameter: actions.blockActions.setBooleanParameter(get, set),
-    setBooleanYNParameter: actions.blockActions.setBooleanYNParameter(get, set),
-    setDateTimeParameter: actions.blockActions.setDateTimeParameter(get, set),
-    setExecutionParameter: actions.blockActions.setExecutionParameter(get, set),
-    setBigIntParameter: actions.blockActions.setBigIntParameter(get, set),
-    addCustomParameter: actions.blockActions.addCustomParameter(get, set),
-    setSelectedExtendedParameter: actions.blockActions.setSelectedExtendedParameter(get, set),
-    deleteExtendedParameter: actions.blockActions.deleteExtendedParameter(get, set),
+    setStringParameter: blockActions.setStringParameter(get, set),
+    setIntegerParameter: blockActions.setIntegerParameter(get, set),
+    setFloatParameter: blockActions.setFloatParameter(get, set),
+    setBooleanParameter: blockActions.setBooleanParameter(get, set),
+    setBooleanYNParameter: blockActions.setBooleanYNParameter(get, set),
+    setDateTimeParameter: blockActions.setDateTimeParameter(get, set),
+    setExecutionParameter: blockActions.setExecutionParameter(get, set),
+    setBigIntParameter: blockActions.setBigIntParameter(get, set),
+    addCustomParameter: blockActions.addCustomParameter(get, set),
+    setSelectedExtendedParameter: blockActions.setSelectedExtendedParameter(get, set),
+    deleteExtendedParameter: blockActions.deleteExtendedParameter(get, set),
 
     //Group Actions
-    addBlockGroup: actions.groupActions.addGroup(get, set),
-    showGroupModal: actions.groupActions.showGroupModal(set),
-    setGroupColor: actions.groupActions.setGroupColor(set),
-    setGroupLabel: actions.groupActions.setGroupLabel(set),
-    hideAllGroupModals: actions.groupActions.hideAllGroupModals(set),
-    deleteGroupOnButtonClick: actions.groupActions.deleteGroupOnButtonClick(get, set),
+    addBlockGroup: groupActions.addGroup(get, set),
+    showGroupModal: groupActions.showGroupModal(set),
+    setGroupColor: groupActions.setGroupColor(set),
+    setGroupLabel: groupActions.setGroupLabel(set),
+    hideAllGroupModals: groupActions.hideAllGroupModals(set),
+    deleteGroupOnButtonClick: groupActions.deleteGroupOnButtonClick(get, set),
 
     //Flow Actions
-    createFlow: actions.flowActions.createFlow(get, set),
-    openFlow: actions.flowActions.openTestFlow(get, set),
+    createFlow: flowActions.createFlow(get, set),
+    openFlow: flowActions.openTestFlow(get, set),
     // saveFlow: actions.flowActions.saveFlow(get, set),
     // updateFlow: actions.flowActions.updateFlow(get, set),
-    saveDraftFlow:actions.flowActions.saveDraftFlow(get,set),
-    loadFlow: actions.flowActions.loadFlow(get, set),
-    loadFlowFromDraft:actions.flowActions.loadFlowFromDraft(get,set),
-    setFlowName: actions.flowActions.setFlowName(get, set),
-    setFlowVersion: actions.flowActions.setFlowVersion(get, set),
-    setFlowIsEnabled: actions.flowActions.setFlowIsEnabled(get, set),
+    saveDraftFlow: flowActions.saveDraftFlow(get, set),
+    deleteDraftFlow: flowActions.deleteDraftFlow(get, set),
+    loadFlow: flowActions.loadFlow(get, set),
+    loadFlowFromDraft: flowActions.loadFlowFromDraft(get, set),
+    setFlowName: flowActions.setFlowName(get, set),
+    setFlowVersion: flowActions.setFlowVersion(get, set),
+    setFlowIsEnabled: flowActions.setFlowIsEnabled(get, set),
 
     //Substitution Actions
-    addSubstitutionKey: actions.substitutionsActions.addSubstitutionKey(get, set),
-    addConfig: actions.substitutionsActions.addConfig(get, set),
-    deleteSubstitution: actions.substitutionsActions.deleteSubstitution(get, set),
+    addSubstitutionKey: substitutionsActions.addSubstitutionKey(get, set),
+    addConfig: substitutionsActions.addConfig(get, set),
+    deleteSubstitution: substitutionsActions.deleteSubstitution(get, set),
 })
 
 export default flowSlice;
