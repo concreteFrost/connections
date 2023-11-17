@@ -1,6 +1,8 @@
 import useStore from "../../../../../../store/store";
 import { UpdateFlowActions } from "../../../../../Modals/UpdateFlowModal";
-import s from "./DrafFlows.module.scss"
+import { getDraftListApi } from "../../../../../../api/draft";
+import s from "./DrafFlows.module.scss";
+import { useState, useEffect } from "react";
 import moment from "moment";
 
 interface ILoadedFlow {
@@ -11,24 +13,43 @@ interface ILoadedFlow {
   createdOn: string;
 }
 
+interface ISectionToOpen {
+  folders: boolean;
+  flows: boolean;
+}
+
 interface DrafFlowsProps {
-  loadedFlowFolders: any;
-  sectionToOpen: any;
-  currentFolder: any;
-  setSectionToOpen: (sections: any) => void;
-  setCurrentFolder: (folderName: string) => void;
   handleDraftClick: (flowIdToLoad: string) => void;
-  loadDraftFlowList: () => void;
 }
 
 function DraftFlows(props: DrafFlowsProps) {
 
   const deleteDraftFlow = useStore((state) => state.flowSlice.deleteDraftFlow);
+  const [loadedFlowFolders, setLoadedFlowFolders] = useState<any>([]);
+  const [currentDraftFolder, setCurrentDraftFolder] = useState<string>("");
+  const [draftSectionToOpen, setDraftSectionToOpen] = useState<ISectionToOpen>({
+    folders: true,
+    flows: false,
+  });
+
+  function loadDraftFlowList() {
+    getDraftListApi()
+      .then((res: any) => {
+        setLoadedFlowFolders(res.data.draftFlows);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+  useEffect(() => {
+    loadDraftFlowList();
+  }, []);
 
   async function deleteDraftAndUpdate(draftId: string) {
     try {
       await deleteDraftFlow(draftId);
-      await props.loadDraftFlowList();
+      await loadDraftFlowList();
     }
     catch (e) {
       console.log(e)
@@ -37,23 +58,8 @@ function DraftFlows(props: DrafFlowsProps) {
   return (
     <div className={s.wrapper}>
       <header>Drafts</header>
-      <ul>
-        {Object.entries(props.loadedFlowFolders).length > 0 &&
-          props.sectionToOpen.folders === true
-          ? Object.entries(props.loadedFlowFolders).map(([key, val]) => (
-            <li
-              key={key}
-              onClick={() => {
-                props.setSectionToOpen({ folders: false, flows: true });
-                props.setCurrentFolder(key);
-              }}
-            >
-              {key}
-            </li>
-          ))
-          : null}
-      </ul>
-      {props.sectionToOpen.flows === true ? (
+      {/*FLOWS TABLE */}
+      {draftSectionToOpen.flows === true ? (
         <table>
           <thead>
             <tr>
@@ -64,7 +70,7 @@ function DraftFlows(props: DrafFlowsProps) {
             </tr>
           </thead>
           <tbody>
-            {props.loadedFlowFolders[props.currentFolder]?.map(
+            {loadedFlowFolders[currentDraftFolder]?.map(
               (flow: ILoadedFlow) => (
                 <tr key={flow.draftId}>
                   <td
@@ -89,8 +95,25 @@ function DraftFlows(props: DrafFlowsProps) {
           </tbody>
         </table>
       ) : null}
+      {/*FOLDERS */}
+      <ul>
+        {Object.entries(loadedFlowFolders).length > 0 &&
+          draftSectionToOpen.folders === true
+          ? Object.entries(loadedFlowFolders).map(([key, val]) => (
+            <li
+              key={key}
+              onClick={() => {
+                setDraftSectionToOpen({ folders: false, flows: true });
+                setCurrentDraftFolder(key);
+              }}
+            >
+              {key}
+            </li>
+          ))
+          : null}
+      </ul>
       <button
-        onClick={() => props.setSectionToOpen({ folders: true, flows: false })}
+        onClick={() => setDraftSectionToOpen({ folders: true, flows: false })}
       >
         Back
       </button>

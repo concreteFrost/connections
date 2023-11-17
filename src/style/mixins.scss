@@ -157,6 +157,57 @@
   }
 }
 
+@mixin loaded_flows_table {
+
+  width: 100%;
+  margin-bottom: 20px;
+  table-layout: table;
+
+  thead {
+    font-style: italic;
+
+    th {
+      text-align: left;
+    }
+
+    margin-bottom: 20px;
+  }
+
+  tbody {
+    background-color: rgb(247, 247, 247);
+
+    td {
+      height: 30px;
+    }
+
+
+    .flow_name {
+      font-weight: bold;
+      color: $color-node-nav-icon;
+      cursor: pointer;
+    }
+
+    .actions_wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+
+      button {
+        background-color: $bg-delete-btn;
+        border: 0;
+        padding: 5px;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    }
+
+
+  }
+
+}
+
 @mixin server_header_btn {
 
   background-color: white;

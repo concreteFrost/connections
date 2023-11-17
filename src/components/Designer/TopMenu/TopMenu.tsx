@@ -1,10 +1,10 @@
 import s from "./TopMenu.module.scss";
-import LeftList from "./LeftList/LeftList";
+import CentralPanel from "./CentralPanel/CentralPanel";
 import Settings from "./Settings/Settings";
 import useStore from "../../../store/store";
 import UpdateFlowModal, { UpdateFlowActions } from "../../Modals/UpdateFlowModal";
 import { useState } from "react";
-import FlowsList from "./LeftList/FlowsList/FlowsList";
+import FlowsList from "./CentralPanel/FlowsList/FlowsList";
 import MessageModal from "../../Modals/MessageModal";
 
 function TopMenu() {
@@ -29,13 +29,13 @@ function TopMenu() {
           setCurrentActions={setCurrentActions}
           setFlowIdToLoad={setFlowIdToLoad}
         ></FlowsList> : null}
-        <LeftList
+        <CentralPanel
           dropdowns={dropdowns}
           toggleDropdown={toggleDropdown}
           setIsSelectFlowsVisible={setIsSelectFlowVisible}
           toggleUpdateFlowModal={toggleUpdateFlowModal}
           setCurrentActions={setCurrentActions}
-        ></LeftList>
+        ></CentralPanel>
         <Settings
           dropdowns={dropdowns}
           toggleDropdown={toggleDropdown}

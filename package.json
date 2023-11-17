@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "downshift": "^8.1.0",
+    "file-loader": "^6.2.0",
     "html-to-image": "^1.11.11",
     "moment": "^2.29.4",
     "node-sass": "^7.0.3",

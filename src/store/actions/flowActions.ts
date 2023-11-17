@@ -17,9 +17,6 @@ export const createFlow = (get: () => RFState, set: any) => () => {
   }))
 };
 
-export const openTestFlow = (get: () => RFState, set: any) => () => {
-  setFlow(flow, set);
-};
 
 export const loadFlow = (get: () => RFState, set: any) => async (id: string) => {
   try {
@@ -134,7 +131,6 @@ export const setFlowIsEnabled = (get: () => RFState, set: any) => () => {
 
 const flowActions = {
   createFlow: createFlow,
-  openTestFlow: openTestFlow,
   loadFlow: loadFlow,
   loadFlowFromDraft: loadFlowFromDraft,
   saveDraftFlow: saveDraftFlow,

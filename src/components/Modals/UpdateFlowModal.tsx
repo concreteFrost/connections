@@ -7,8 +7,9 @@ import { getDraftListApi } from "../../api/draft";
 
 export enum UpdateFlowActions {
     Create,
-    Save,
-    Load,
+    SaveDraft,
+    LoadDraft,
+    LoadLive,
     Quit
 }
 
@@ -57,7 +58,7 @@ function UpdateFlowModal(props: UpdateFlowProps) {
         }
     }
 
-    const saveAndLoad = async () => {
+    const saveAndLoadDraft = async () => {
         try {
             await tryToSaveFlow();
             await flowSlice.loadFlowFromDraft(props.flowIdToLoad);
@@ -67,7 +68,7 @@ function UpdateFlowModal(props: UpdateFlowProps) {
         }
     };
 
-    const loadWithoutSaving = async () => {
+    const loadDraftWithoutSaving = async () => {
 
         try {
             await flowSlice.loadFlowFromDraft(props.flowIdToLoad);
@@ -76,6 +77,25 @@ function UpdateFlowModal(props: UpdateFlowProps) {
             console.log(e);
         }
     };
+
+    const saveAndLoadLive = async () => {
+        try {
+            await tryToSaveFlow();
+            await flowSlice.loadFlow(props.flowIdToLoad);
+            await modalSlice.toggleUpdateFlowModal(false);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const loadLiveWithoutSaving = async () => {
+        try {
+            await flowSlice.loadFlow(props.flowIdToLoad);
+            await modalSlice.toggleUpdateFlowModal(false);
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
     async function saveAndLeave() {
         try {
@@ -116,12 +136,14 @@ function UpdateFlowModal(props: UpdateFlowProps) {
         switch (props.actions) {
             case UpdateFlowActions.Create:
                 return createAndSave();
-            case UpdateFlowActions.Save:
+            case UpdateFlowActions.SaveDraft:
                 return tryToSaveFlow();
-            case UpdateFlowActions.Load:
-                return saveAndLoad()
+            case UpdateFlowActions.LoadLive:
+                return saveAndLoadLive();
+            case UpdateFlowActions.LoadDraft:
+                return saveAndLoadDraft()
             case UpdateFlowActions.Quit:
-                return saveAndLeave()
+                return saveAndLeave();
         }
     }
 
@@ -129,10 +151,12 @@ function UpdateFlowModal(props: UpdateFlowProps) {
         switch (props.actions) {
             case UpdateFlowActions.Create:
                 return createWithoutSaving()
-            case UpdateFlowActions.Save:
-                return cancelSaving()
-            case UpdateFlowActions.Load:
-                return loadWithoutSaving()
+            case UpdateFlowActions.SaveDraft:
+                return cancelSaving();
+            case UpdateFlowActions.LoadLive:
+                return loadLiveWithoutSaving();
+            case UpdateFlowActions.LoadDraft:
+                return loadDraftWithoutSaving()
             case UpdateFlowActions.Quit:
                 return leaveWithoutSaving()
         }

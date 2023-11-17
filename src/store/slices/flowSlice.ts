@@ -62,7 +62,6 @@ export type FlowSlice = {
     deleteGroupOnButtonClick: (groupToDelete: any) => void;
 
     //Flow Actions
-    openFlow: () => void;
     // saveFlow: () => void;
     // updateFlow: (match: any) => void;
     saveDraftFlow: (match: any, subfolder: string) => void;
@@ -112,7 +111,6 @@ const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
 
     //Flow Actions
     createFlow: flowActions.createFlow(get, set),
-    openFlow: flowActions.openTestFlow(get, set),
     // saveFlow: actions.flowActions.saveFlow(get, set),
     // updateFlow: actions.flowActions.updateFlow(get, set),
     saveDraftFlow: flowActions.saveDraftFlow(get, set),

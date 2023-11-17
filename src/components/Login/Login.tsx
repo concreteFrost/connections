@@ -3,6 +3,8 @@ import getToken from "../../api/token/getToken";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { setAccessToken } from "../../store/actions/storageActions";
+import ConnectionsLogo from "../../assets/connections_logo";
+import CocoonLogo from "../../assets/cocoon_logo";
 
 function Login() {
 
@@ -20,22 +22,31 @@ function Login() {
     }
 
     return (<div className={s.wrapper}>
-        <header><h1>CONNECTIONS</h1></header>
+        {/* <header><h1>CONNECTIONS</h1></header> */}
+        <div className={s.logo_wrapper}>
+            <ConnectionsLogo></ConnectionsLogo>
+        </div>
 
-        <form onSubmit={submit}>
-            <div>
-                <label htmlFor="">username</label>
-                <input type="text" value={userName} onChange={(e: any) => setUserName(e.target.value)} />
-            </div>
-            <div>
-                <label htmlFor="">password</label>
-                <input type="password" value={defPassVal} onChange={(e: any) => setDefPassVal(e.target.value)} />
-            </div>
-            <div className={s.btn_wrapper}>
-                <button>LOGIN</button>
-            </div>
+        <div className={s.form_wrapper}>
+            <form onSubmit={submit}>
+                <div>
+                    <label htmlFor="">username</label>
+                    <input type="text" value={userName} onChange={(e: any) => setUserName(e.target.value)} />
+                </div>
+                <div>
+                    <label htmlFor="">password</label>
+                    <input type="password" value={defPassVal} onChange={(e: any) => setDefPassVal(e.target.value)} />
+                </div>
+                <div className={s.btn_wrapper}>
+                    <button>LOGIN</button>
+                </div>
+            </form>
+        </div>
 
-        </form>
+        <div className={s.cocoon_logo_wrapper}>
+            <CocoonLogo></CocoonLogo>
+        </div>
+
     </div>)
 }
 

@@ -1,8 +1,8 @@
 import View from "./View/View";
-import s from "./LeftList.module.scss";
+import s from "./CentralPanel.module.scss";
 import { UpdateFlowActions } from "../../../Modals/UpdateFlowModal";
 
-interface LeftListProps {
+interface CentralPanelProps {
   setIsSelectFlowsVisible: (isVisible: boolean) => void;
   toggleDropdown: (view: string) => void;
   toggleUpdateFlowModal: (isVisble: boolean) => void;
@@ -10,7 +10,7 @@ interface LeftListProps {
   dropdowns: any;
 }
 
-function LeftList(props: LeftListProps) {
+function CentralPanel(props: CentralPanelProps) {
 
   return (
     <div className={s.wrapper}>
@@ -44,7 +44,7 @@ function LeftList(props: LeftListProps) {
           className={s.nav_list_item}
           onClick={() => {
             props.toggleUpdateFlowModal(true);
-            props.setCurrentActions(UpdateFlowActions.Save)
+            props.setCurrentActions(UpdateFlowActions.SaveDraft)
           }}
         >
           Save
@@ -64,4 +64,4 @@ function LeftList(props: LeftListProps) {
   );
 }
 
-export default LeftList;
+export default CentralPanel;
