@@ -67,7 +67,6 @@ function UpdateFlowModal(props: UpdateFlowProps) {
 
       if (successSave) {
         await flowSlice.createFlow();
-        await modalSlice.toggleUpdateFlowModal(false);
       }
     } catch (e) {
       console.log("error");
@@ -80,7 +79,6 @@ function UpdateFlowModal(props: UpdateFlowProps) {
       if (successSave) {
         await tryToSaveFlow();
         await flowSlice.loadFlowFromDraft(props.flowIdToLoad);
-        await modalSlice.toggleUpdateFlowModal(false);
       }
     } catch (e) {
       console.log(e);
@@ -92,7 +90,6 @@ function UpdateFlowModal(props: UpdateFlowProps) {
       const successSave: boolean = await tryToSaveFlow();
       if (successSave) {
         await flowSlice.loadFlow(props.flowIdToLoad);
-        await modalSlice.toggleUpdateFlowModal(false);
       }
     } catch (e) {
       console.log(e);
