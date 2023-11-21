@@ -64,7 +64,7 @@ export type FlowSlice = {
     //Flow Actions
     // saveFlow: () => void;
     // updateFlow: (match: any) => void;
-    saveDraftFlow: (match: any, subfolder: string) => void;
+    saveDraftFlow: (match: any, subfolder: string) => Promise<boolean>;
     deleteDraftFlow: (draftId: string) => void;
     loadFlow: (id: string) => void;
     loadFlowFromDraft: (draftId: string) => void;

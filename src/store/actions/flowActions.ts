@@ -22,10 +22,8 @@ export const loadFlow = (get: () => RFState, set: any) => async (id: string) => 
   try {
     const res: any = await getFlowApi(id);
     setFlow(res.data.flowData, set);
-    console.log('load flow success', id);
     return res.data.flowData; // Returning the loaded flow data
   } catch (e) {
-    console.log('error loading flow', e);
     throw e; // Rethrowing the error to be caught by the calling function
   }
 };
@@ -34,47 +32,47 @@ export const loadFlowFromDraft = (get: () => RFState, set: any) => async (id: st
 
   try {
     const res: any = await getDraftApi(id);
-    console.log("loaded flow", res.data)
     setFlow(res.data.flowConfiguration, set);
-    console.log('load flow success', res);
   } catch (e) {
     console.log('error loading flow', e);
     throw e; // Rethrowing the error to be caught by the calling function
   }
 };
 
-export const saveDraftFlow = (get: () => RFState, set: any) => async (match: any, subfolder: string) => {
+export const saveDraftFlow = (get: () => RFState, set: any) => async (match: any, subfolder: string): Promise<boolean> => {
   const flow = get().flowSlice.flow;
 
   if (match) {
-    if (flowVersionToInt(flow.flowVersion) <= flowVersionToInt(match.flowVersion)) {
-      const parsedPreviousVersion = flowVersionToInt(match.flowVersion) + 1;
-      const updatedPreviousVersion = parseFloatVersion(parsedPreviousVersion);
-      flow.flowVersion = updatedPreviousVersion;
-    }
+      if (flowVersionToInt(flow.flowVersion) <= flowVersionToInt(match.flowVersion)) {
+          const parsedPreviousVersion = flowVersionToInt(match.flowVersion) + 1;
+          const updatedPreviousVersion = parseFloatVersion(parsedPreviousVersion);
+          flow.flowVersion = updatedPreviousVersion;
+      }
   }
 
   const draftStructure = {
-    draftId: match ? match.draftId : 0,
-    subfolder: subfolder,
-    basedOnLiveVersion: '',
-    draftConfiguration: flow
-  }
+      draftId: match ? match.draftId : 0,
+      subfolder: subfolder,
+      basedOnLiveVersion: '',
+      draftConfiguration: flow,
+  };
 
-  await saveDraftFlowApi(draftStructure).then((res: any) => {
-    if (res.data.success) {
-      console.log('update flow success', res);
-      updateFlowAfterSaving(set, flow, 'success!')
-    }
-    else {
-      updateFlowAfterSaving(set, flow, res.data.message)
-      console.log('update flow failed', res.data.message)
-    }
-  }).catch((e) => {
-    console.log('update flow error', e);
-    updateFlowAfterSaving(set, flow, e)
-  })
-}
+  try {
+      const res : any= await saveDraftFlowApi(draftStructure);
+      if (res.data.success) {
+          updateFlowAfterSaving(set, flow, 'success!!!');   
+          return true;
+      } else {
+          updateFlowAfterSaving(set, flow, res.data.message);        
+          return false;
+      }
+  } catch (e:any) {
+     
+      updateFlowAfterSaving(set, flow, e);
+      return false;
+  }
+};
+
 
 export const deleteDraftFlow = (get: () => RFState, set: any) => async (draftId: string) => {
   await deleteDraftFlowAPI(draftId).then((res) => {

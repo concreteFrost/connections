@@ -3,7 +3,7 @@ import { EdgeChange, applyEdgeChanges } from 'react-flow-renderer';
 import { RFState } from '../types/rfState';
 
 export function handleConnect(connection: Connection, state: RFState): Edge[] {
-  console.log('handling connection')
+
   const newConnection = {
     ...connection,
     type: 'step'

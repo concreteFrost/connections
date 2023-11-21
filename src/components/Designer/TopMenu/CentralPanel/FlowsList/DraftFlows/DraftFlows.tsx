@@ -4,6 +4,8 @@ import { getDraftListApi } from "../../../../../../api/draft";
 import s from "./DrafFlows.module.scss";
 import { useState, useEffect } from "react";
 import moment from "moment";
+import { connectionsIcons } from "../../../../../../icons/icons";
+import ApproveModal from "../../../../../Modals/ApproveModal";
 
 interface ILoadedFlow {
   flowId: string;
@@ -32,6 +34,8 @@ function DraftFlows(props: DrafFlowsProps) {
     flows: false,
   });
 
+  const {setApproveFlowModalMessage,toggleApproveFlowModal} = useStore((state)=>state.modalWindowsSlice);
+
   function loadDraftFlowList() {
     getDraftListApi()
       .then((res: any) => {
@@ -57,7 +61,24 @@ function DraftFlows(props: DrafFlowsProps) {
   }
   return (
     <div className={s.wrapper}>
-      <header>Drafts</header>
+        {/*FOLDERS */}
+        <header>Drafts</header>
+        <ul>
+        {Object.entries(loadedFlowFolders).length > 0 &&
+          draftSectionToOpen.folders === true
+          ? Object.entries(loadedFlowFolders).map(([key, val]) => (
+            <li
+              key={key}
+              onClick={() => {
+                setDraftSectionToOpen({ folders: false, flows: true });
+                setCurrentDraftFolder(key);
+              }}
+            >
+             <span>{connectionsIcons.folder}</span> {key}
+            </li>
+          ))
+          : null}
+      </ul>
       {/*FLOWS TABLE */}
       {draftSectionToOpen.flows === true ? (
         <table>
@@ -66,7 +87,7 @@ function DraftFlows(props: DrafFlowsProps) {
               <th colSpan={2}>Name</th>
               <th>Author</th>
               <th>Created</th>
-              <th>Delete</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -84,8 +105,14 @@ function DraftFlows(props: DrafFlowsProps) {
                   </td>
                   <td>{flow.createdBy}</td>
                   <td>{moment(flow.createdOn).calendar()}</td>
-                  <td className={s.actions_wrapper}>
-                    <button onClick={() => {
+                  <td className={s.actions_wrapper}>  
+                  <button className={s.action_confirm_btn}
+                  onClick={()=>{
+                    toggleApproveFlowModal(true, flow.draftId);
+                    setApproveFlowModalMessage(flow.flowName)
+                  }}
+                  >Approve</button>          
+                       <button className={s.action_delete_btn} onClick={() => {
                       deleteDraftAndUpdate(flow.draftId)
                     }}>X</button>
                   </td>
@@ -95,30 +122,19 @@ function DraftFlows(props: DrafFlowsProps) {
           </tbody>
         </table>
       ) : null}
-      {/*FOLDERS */}
-      <ul>
-        {Object.entries(loadedFlowFolders).length > 0 &&
-          draftSectionToOpen.folders === true
-          ? Object.entries(loadedFlowFolders).map(([key, val]) => (
-            <li
-              key={key}
-              onClick={() => {
-                setDraftSectionToOpen({ folders: false, flows: true });
-                setCurrentDraftFolder(key);
-              }}
-            >
-              {key}
-            </li>
-          ))
-          : null}
-      </ul>
-      <button
+    {draftSectionToOpen.flows == true  ? <button
+      className={s.footer_btn}
         onClick={() => setDraftSectionToOpen({ folders: true, flows: false })}
       >
         Back
-      </button>
+      </button> : null}
+     <ApproveModal></ApproveModal>
     </div>
   );
 }
+
+// TEMPLATE : CREATE TEMPLATE FROM EXISTING LIVE FLOW
+// UPDATE: UPDATE EXISTING LIVE FLOW
+//
 
 export default DraftFlows;

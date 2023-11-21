@@ -100,7 +100,6 @@ function Servers() {
         getServerStatusAPI().then((res: ITableData) => {
             setTableData(res)
             setServerStatus(getServerStatus(res))
-            console.log(res)
         }).catch((e: any) => {
             console.log(e)
         });

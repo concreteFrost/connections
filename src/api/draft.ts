@@ -71,4 +71,25 @@ export function deleteDraftFlowAPI(data: any) {
   });
 }
 
+export function approveAndReleaseAPI(draftId: string, keepDraft:boolean){
+  return new Promise((resolve, reject) => {
+    axios({
+      method: "post",
+      url: baseUrl + "/Draft/Delete",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getAccessToken().token,
+      },
+      params: {
+        draftId: draftId,
+        keepDraft: keepDraft
+      }
+    })
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((e) => reject(e));
+  });
+}
+
 

@@ -178,6 +178,7 @@
 
     td {
       height: 30px;
+      padding: 5px;
     }
 
 
@@ -192,15 +193,6 @@
       justify-content: center;
       align-items: center;
 
-
-      button {
-        background-color: $bg-delete-btn;
-        border: 0;
-        padding: 5px;
-        color: white;
-        border-radius: 5px;
-        cursor: pointer;
-      }
     }
 
 

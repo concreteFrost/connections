@@ -1,9 +1,6 @@
-import useStore from "../../../../../../store/store";
 import s from "./LiveFlows.module.scss";
 import { useEffect, useState } from "react";
 import { getFlowListApi } from "../../../../../../api/flow";
-import { flow } from "../../../../../../testFlow/testFlow2";
-
 
 interface IFlowConfig {
   config: string;
@@ -54,6 +51,7 @@ function LiveFlows(props: LiveFlowsProps) {
             <th>Name</th>
             <th>Author</th>
             <th>Created</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -63,16 +61,18 @@ function LiveFlows(props: LiveFlowsProps) {
             >{loadedFlow.name}</td>
             <td>{loadedFlow.createdBy}</td>
             <td>{loadedFlow.dateCreated}</td>
+            <td>
+              <div className={s.actions_wrapper}>
+                <button className={s.action_confirm_btn}>Template</button>
+                <button className={s.action_confirm_btn}>Update</button>
+              </div>
+            </td>
           </tr>
           ) : null}
         </tbody>
       </table>
-      <button
-        onClick={() => setLiveSectionToOpen({ folders: true, flows: false })}
-      >
-        Back
-      </button>
     </div>
+   
   );
 }
 

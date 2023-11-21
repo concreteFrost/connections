@@ -1,6 +1,9 @@
 import s from "./FlowsList.module.scss";
 import { useEffect, useState } from "react";
-import { UpdateFlowActions, UpdateFlowProps } from "../../../../Modals/UpdateFlowModal";
+import {
+  UpdateFlowActions,
+  UpdateFlowProps,
+} from "../../../../Modals/UpdateFlowModal";
 import DraftFlows from "./DraftFlows/DraftFlows";
 import LiveFlows from "./LiveFlows/LiveFlows";
 
@@ -19,7 +22,6 @@ interface FlowListProps {
 }
 
 function FlowsList(props: FlowListProps) {
-
   function handleDraftClick(flowIdToLoad: string) {
     props.toggleUpdateFlowModal(true);
     props.setFlowIdToLoad(flowIdToLoad);
@@ -38,14 +40,8 @@ function FlowsList(props: FlowListProps) {
         <h3>Select Flow</h3>
       </div>
       <div className={s.body}>
-        <div className={s.grid_element}>
-          <DraftFlows
-            handleDraftClick={handleDraftClick}
-          />
-        </div>
-        <div className={s.grid_element}>
-          <LiveFlows handleLiveFlowClick={handleLiveClick} />
-        </div>
+        <DraftFlows handleDraftClick={handleDraftClick} />
+        <LiveFlows handleLiveFlowClick={handleLiveClick} />
       </div>
       <div className={s.footer}>
         <button onClick={props.closeSelecFlowModal}>Close</button>

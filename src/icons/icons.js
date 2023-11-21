@@ -40,6 +40,7 @@ import {
   BsPlayFill,
   BsStopFill,
   BsExclamationTriangleFill,
+  BsFolder,
 } from "react-icons/bs";
 
 
@@ -113,7 +114,8 @@ export const connectionsIcons = {
   text: <BsFileFontFill></BsFileFontFill>,
   delete: <BsXCircleFill></BsXCircleFill>,
   expand: <BsArrowsAngleExpand></BsArrowsAngleExpand>,
-  collapse: <BsArrowsCollapse></BsArrowsCollapse>
+  collapse: <BsArrowsCollapse></BsArrowsCollapse>,
+  folder: <BsFolder></BsFolder>
 
 
 }

@@ -38,6 +38,7 @@ export const toggleUpdateFlowModal = (get: () => RFState, set: any) => (isVisibl
     }))
 }
 
+
 export const setUpdateFlowSubfolderName = (get: () => RFState, set: any) => (subfolder: string) => {
     set((state: RFState) => ({
         modalWindowsSlice: {
@@ -48,4 +49,42 @@ export const setUpdateFlowSubfolderName = (get: () => RFState, set: any) => (sub
             }
         }
     }))
+}
+
+//Approve Modal
+
+export const toggleApproveFlowModal = (get: () => RFState, set: any) => (isVisible: boolean, draftIdToApprove:string) => {
+    set((state: RFState) => ({
+        modalWindowsSlice: {
+            ...state.modalWindowsSlice,
+            approveFlowModal: {
+                ...state.modalWindowsSlice.approveFlowModal,
+                isVisible: isVisible,
+                draftIdToApprove:draftIdToApprove
+            }
+        }
+    }))
+    console.log('approve modal toggle')
+}
+
+export const setApproveFlowModalMessage = (get: () => RFState, set: any) => (message: string) => {
+    set((state: RFState) => ({
+        modalWindowsSlice: {
+            ...state.modalWindowsSlice,
+            approveFlowModal: {
+                ...state.modalWindowsSlice.approveFlowModal,
+                message:message
+            }
+        }
+    }))
+    console.log('approve modal message')
+}
+
+export const modalActions={
+    toggleMessageModal:toggleMessageModal,
+    setModalMessage:setModalMessage,
+    toggleUpdateFlowModal:toggleUpdateFlowModal,
+    setUpdateFlowSubfolderName:setUpdateFlowSubfolderName,
+    toggleApproveFlowModal:toggleApproveFlowModal,
+    setApproveFlowModalMessage:setApproveFlowModalMessage
 }
