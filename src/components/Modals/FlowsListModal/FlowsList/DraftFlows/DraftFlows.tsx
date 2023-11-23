@@ -19,11 +19,7 @@ interface ISectionToOpen {
   flows: boolean;
 }
 
-interface DrafFlowsProps {
-  handleDraftClick: (flowIdToLoad: string) => void;
-}
-
-function DraftFlows(props: DrafFlowsProps) {
+function DraftFlows() {
 
   const deleteDraftFlow = useStore((state) => state.flowSlice.deleteDraftFlow);
   const [loadedFlowFolders, setLoadedFlowFolders] = useState<any>([]);
@@ -32,6 +28,8 @@ function DraftFlows(props: DrafFlowsProps) {
     folders: true,
     flows: false,
   });
+  const modalSlice = useStore((state) => state.modalWindowsSlice);
+  const flowSlice = useStore((state) => state.flowSlice);
 
   const { setApproveFlowModalMessage, toggleApproveFlowModal } = useStore((state) => state.modalWindowsSlice);
 
@@ -48,6 +46,18 @@ function DraftFlows(props: DrafFlowsProps) {
   useEffect(() => {
     loadDraftFlowList();
   }, []);
+
+  const saveAndLoadDraft = (flowIdToLoad: string) => {
+    flowSlice.loadFlowFromDraft(flowIdToLoad);
+    modalSlice.toggleUpdateFlowModal(false)
+    modalSlice.toggleLoadFlowModal(false)
+  };
+
+  const loadDraftWithoutSaving = async (flowIdToLoad: string) => {
+    flowSlice.loadFlowFromDraft(flowIdToLoad);
+    modalSlice.toggleUpdateFlowModal(false)
+    modalSlice.toggleLoadFlowModal(false)
+  };
 
   async function deleteDraftAndUpdate(draftId: string) {
     try {
@@ -102,18 +112,29 @@ function DraftFlows(props: DrafFlowsProps) {
                   </td>
                   <td>{flow.createdBy}</td>
                   <td>{moment(flow.createdOn).calendar()}</td>
+
                   <td className={s.actions_wrapper}>
+                    {/*LOAD */}
                     <button className={s.action_confirm_btn}
                       onClick={() => {
-                        props.handleDraftClick(flow.draftId);
+                        if (flowSlice.flow.flowIdentifier) {
+                          modalSlice.toggleUpdateFlowModal(true)
+                          modalSlice.setUpdateFlowModalActions({ save: () => saveAndLoadDraft(flow.draftId), discard: () => loadDraftWithoutSaving(flow.draftId) })
+                        }
+                        else {
+                          flowSlice.loadFlowFromDraft(flow.draftId);
+                          modalSlice.toggleLoadFlowModal(false)
+                        }
                       }}
                     >Load</button>
+                    {/*APPROVE */}
                     <button className={s.action_confirm_btn}
                       onClick={() => {
                         toggleApproveFlowModal(true, flow.draftId);
                         setApproveFlowModalMessage(flow.flowName)
                       }}
                     >Approve</button>
+                    {/*DELETE */}
                     <button className={s.action_delete_btn} onClick={() => {
                       deleteDraftAndUpdate(flow.draftId)
                     }}>X</button>

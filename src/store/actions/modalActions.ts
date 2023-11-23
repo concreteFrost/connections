@@ -45,10 +45,24 @@ export const setUpdateFlowSubfolderName = (get: () => RFState, set: any) => (sub
             ...state.modalWindowsSlice,
             updateFlowModal: {
                 ...state.modalWindowsSlice.updateFlowModal,
-                subfolder: subfolder
+                subfolderName: subfolder
             }
         }
     }))
+    console.log(subfolder)
+}
+
+export const setUpdateFlowModalSaveChanges = (get: () => RFState, set: any) => (saveChanges: boolean) => {
+    set((state: RFState) => ({
+        modalWindowsSlice: {
+            ...state.modalWindowsSlice,
+            updateFlowModal: {
+                ...state.modalWindowsSlice.updateFlowModal,
+                saveChanges: saveChanges
+            }
+        }
+    }))
+
 }
 
 //Approve Modal
@@ -102,6 +116,7 @@ export const modalActions = {
     setModalMessage: setModalMessage,
     toggleUpdateFlowModal: toggleUpdateFlowModal,
     setUpdateFlowSubfolderName: setUpdateFlowSubfolderName,
+    setUpdateFlowModalSaveChanges: setUpdateFlowModalSaveChanges,
     toggleApproveFlowModal: toggleApproveFlowModal,
     setApproveFlowModalMessage: setApproveFlowModalMessage,
     toggleCreateTemplateFlowModal: toggleCreateTemplateFlowModal,

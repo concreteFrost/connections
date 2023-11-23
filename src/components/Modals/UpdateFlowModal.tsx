@@ -1,9 +1,8 @@
 import s from "./ModalWindow.module.scss";
 import useStore from "../../store/store";
-import { checkExistingFlowInDataBase } from "../../store/actions/utils/flowUtils";
-import { useNavigate } from "react-router";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { getDraftListApi } from "../../api/draft";
+import { checkExistingFlowInDataBase } from "../../store/actions/utils/flowUtils";
 
 export enum UpdateFlowActions {
   Create,
@@ -14,23 +13,18 @@ export enum UpdateFlowActions {
   Close
 }
 
-export interface UpdateFlowProps {
-  actions: UpdateFlowActions;
-  flowIdToLoad: string;
-}
-
 interface IDraftFlow {
   draftId: string;
   subfolder: string;
   flowName: string;
 }
 
-function UpdateFlowModal(props: UpdateFlowProps) {
+function UpdateFlowModal() {
   const flowSlice = useStore((state) => state.flowSlice);
   const modalSlice = useStore((state) => state.modalWindowsSlice);
-  const navigate = useNavigate();
-  const [subfolderName, setSubfolderName] = useState<string>("");
-  const toggleLoadFlowModal = useStore((state) => state.modalWindowsSlice.toggleLoadFlowModal);
+  const subfolderName = useStore((state) => state.modalWindowsSlice.updateFlowModal.subfolderName)
+  const setSubfolderName = useStore((state) => state.modalWindowsSlice.setUpdateFlowSubfolderName);
+  const actions = useStore((state) => state.modalWindowsSlice.updateFlowModal.actions);
 
   //sets subfolder name value if match
   async function compareSubfolderName() {
@@ -51,153 +45,24 @@ function UpdateFlowModal(props: UpdateFlowProps) {
     compareSubfolderName();
   }, [modalSlice.updateFlowModal.isVisible]);
 
-  async function tryToSaveFlow() {
-    try {
-      const match = await checkExistingFlowInDataBase(flowSlice.flow.flowName);
-      const saveDraftFlow = await flowSlice.saveDraftFlow(match, subfolderName);
-      await modalSlice.toggleUpdateFlowModal(false);
-      await toggleLoadFlowModal(false);
-      return saveDraftFlow;
-    } catch (error) {
-      return false;
-    }
-  }
-
-  async function createAndSave() {
-    try {
-      const successSave: boolean = await tryToSaveFlow();
-      if (successSave) {
-        await flowSlice.createFlow();
-      }
-    } catch (e) {
-      console.log("error");
-    }
-  }
-
-  const saveAndLoadDraft = async () => {
-    try {
-      const successSave: boolean = await tryToSaveFlow();
-      if (successSave) {
-        await tryToSaveFlow();
-        await flowSlice.loadFlowFromDraft(props.flowIdToLoad);
-
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const saveAndLoadLive = async () => {
-    try {
-      const successSave: boolean = await tryToSaveFlow();
-      if (successSave) {
-        await flowSlice.createUpdateDraftFromLiveTemplate(props.flowIdToLoad);
-
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-
-  async function saveAndLeave() {
-    try {
-      const saveSuccess: boolean = await tryToSaveFlow();
-      if (saveSuccess) {
-        await modalSlice.toggleUpdateFlowModal(false);
-
-        await navigate("/dashboard/servers");
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  async function saveAndClose() {
-    try {
-      const saveSuccess: boolean = await tryToSaveFlow();
-      if (saveSuccess) {
-        await modalSlice.toggleUpdateFlowModal(false);
-        await flowSlice.closeFlow();
-      }
-    }
-    catch (e) {
-      throw e;
-    }
-  }
-
-  const loadDraftWithoutSaving = async () => {
-    try {
-      await flowSlice.loadFlowFromDraft(props.flowIdToLoad);
-      await modalSlice.toggleUpdateFlowModal(false);
-      await toggleLoadFlowModal(false);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const loadLiveWithoutSaving = async () => {
-    try {
-      await flowSlice.createUpdateDraftFromLiveTemplate(props.flowIdToLoad);
-      await modalSlice.toggleUpdateFlowModal(false);
-      await toggleLoadFlowModal(false);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  function leaveWithoutSaving() {
-    modalSlice.toggleUpdateFlowModal(false);
-    toggleLoadFlowModal(false);
-    navigate("/dashboard/servers");
-  }
 
   function cancelSaving() {
     modalSlice.toggleUpdateFlowModal(false);
   }
 
-  function createWithoutSaving() {
-    flowSlice.createFlow();
-    modalSlice.toggleUpdateFlowModal(false);
-    toggleLoadFlowModal(false);
-  }
+  async function tryToSaveFlow() {
+    try {
+      const match = await checkExistingFlowInDataBase(flowSlice.flow.flowName);
+      const saveDraftFlow = await flowSlice.saveDraftFlow(match, modalSlice.updateFlowModal.subfolderName);
+      await modalSlice.toggleUpdateFlowModal(false);
+      await modalSlice.toggleLoadFlowModal(false);
 
-  function closeFlowWithoutSaving() {
-    flowSlice.closeFlow();
-    modalSlice.toggleUpdateFlowModal(false);
-  }
+      if (saveDraftFlow) {
+        await actions.save()
+      }
 
-  function defineConfirmActions() {
-    switch (props.actions) {
-      case UpdateFlowActions.Create:
-        return createAndSave();
-      case UpdateFlowActions.SaveDraft:
-        return tryToSaveFlow();
-      case UpdateFlowActions.LoadLive:
-        return saveAndLoadLive();
-      case UpdateFlowActions.LoadDraft:
-        return saveAndLoadDraft();
-      case UpdateFlowActions.Quit:
-        return saveAndLeave();
-      case UpdateFlowActions.Close:
-        return saveAndClose();
-    }
-  }
-
-  function defineDeclineActions() {
-    switch (props.actions) {
-      case UpdateFlowActions.Create:
-        return createWithoutSaving();
-      case UpdateFlowActions.SaveDraft:
-        return cancelSaving();
-      case UpdateFlowActions.LoadLive:
-        return loadLiveWithoutSaving();
-      case UpdateFlowActions.LoadDraft:
-        return loadDraftWithoutSaving();
-      case UpdateFlowActions.Quit:
-        return leaveWithoutSaving();
-      case UpdateFlowActions.Close:
-        return closeFlowWithoutSaving();
+    } catch (error) {
+      return false;
     }
   }
 
@@ -221,8 +86,8 @@ function UpdateFlowModal(props: UpdateFlowProps) {
                 />
               </div>
               <div className={s.buttons_wrapper}>
-                <button onClick={() => defineConfirmActions()}>YES</button>
-                <button onClick={() => defineDeclineActions()}>NO</button>
+                <button onClick={tryToSaveFlow}>YES</button>
+                <button onClick={actions.discard}>NO</button>
                 <button onClick={cancelSaving}>CANCEL</button>
               </div>
             </footer>

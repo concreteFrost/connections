@@ -20,20 +20,31 @@ interface IFlowConfig {
   version: string;
 }
 
-interface LiveFlowsProps {
-  handleLiveFlowClick: (flowId: string) => void;
-}
-
-function LiveFlows(props: LiveFlowsProps) {
+function LiveFlows() {
 
   const [loadedLiveFlows, setLoadedLiveFlows] = useState<Array<IFlowConfig>>([]);
   const toggleCreateTemplateFlowModal = useStore((state) => state.modalWindowsSlice.toggleCreateTemplateFlowModal);
+
+  const flowSlice = useStore((state) => state.flowSlice);
+  const modalSlice = useStore((state) => state.modalWindowsSlice);
+
+  const saveAndLoadLive = async (flowIdToLoad: string) => {
+    flowSlice.createUpdateDraftFromLiveTemplate(flowIdToLoad);
+    modalSlice.toggleUpdateFlowModal(false)
+    modalSlice.toggleLoadFlowModal(false)
+
+  };
+
+  const loadLiveWithoutSaving = async (flowIdToLoad: string) => {
+    flowSlice.createUpdateDraftFromLiveTemplate(flowIdToLoad);
+    modalSlice.toggleUpdateFlowModal(false)
+    modalSlice.toggleLoadFlowModal(false)
+  };
 
   useEffect(() => {
     getFlowListApi().then((res: any) => {
       const data = res.data;
       setLoadedLiveFlows(res.data)
-      console.log('loaded live flows', loadedLiveFlows)
     }).catch((e) => {
       console.log('error loading live flows', e)
     })
@@ -61,8 +72,19 @@ function LiveFlows(props: LiveFlowsProps) {
                 <button className={s.action_confirm_btn}
                   onClick={() => toggleCreateTemplateFlowModal(true, loadedFlow.flowId, loadedFlow.name)}
                 >Template</button>
+                {/*LOAD */}
                 <button className={s.action_confirm_btn}
-                  onClick={() => { props.handleLiveFlowClick(loadedFlow.flowId) }}
+                  onClick={() => {
+                    if (flowSlice.flow.flowIdentifier) {
+                      modalSlice.toggleUpdateFlowModal(true);
+                      modalSlice.setUpdateFlowModalActions({ save: () => saveAndLoadLive(loadedFlow.flowId), discard: () => loadLiveWithoutSaving(loadedFlow.flowId) })
+                    }
+                    else {
+                      flowSlice.createUpdateDraftFromLiveTemplate(loadedFlow.flowId);
+                      modalSlice.toggleLoadFlowModal(false)
+                    }
+
+                  }}
                 >Update</button>
               </div>
             </td>

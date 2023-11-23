@@ -4,7 +4,12 @@ import { RFState } from "../types/rfState";
 export type ModalWindows = {
     updateFlowModal: {
         isVisible: boolean,
-
+        subfolderName: string,
+        flowIdToLoad: string,
+        actions: {
+            save: (args?: any) => void;
+            discard: () => void;
+        }
     }
     messageModal: {
         isVisible: boolean,
@@ -32,12 +37,21 @@ export type ModalWindows = {
     setApproveFlowModalMessage: (message: string) => void;
     setModalMessage: (message: string) => void;
     setUpdateFlowSubfolderName: (subfolder: string) => void;
+    setUpdateFlowModalSaveChanges: (saveChanges: boolean) => void;
+    setUpdateFlowModalActions: (actions: { save: (args?: any) => void, discard: (args: any) => void }) => void;
+    setUpdateFlowModalFlowIdToLoad: (flowId: string) => void;
 
 }
 
 const modalWindowsSlice = (get: any, set: any): ModalWindows => ({
     updateFlowModal: {
         isVisible: false,
+        subfolderName: '',
+        actions: {
+            save: () => { },
+            discard: () => { },
+        },
+        flowIdToLoad: ''
 
     },
     messageModal: {
@@ -66,6 +80,7 @@ const modalWindowsSlice = (get: any, set: any): ModalWindows => ({
     toggleApproveFlowModal: modalActions.toggleApproveFlowModal(get, set),
     toggleCreateTemplateFlowModal: modalActions.toggleCreateTemplateFlowModal(get, set),
     setApproveFlowModalMessage: modalActions.setApproveFlowModalMessage(get, set),
+    setUpdateFlowModalSaveChanges: modalActions.setUpdateFlowModalSaveChanges(get, set),
     toggleLoadFlowModal: (isVisible: boolean) => {
         set((state: RFState) => ({
             modalWindowsSlice: {
@@ -75,7 +90,30 @@ const modalWindowsSlice = (get: any, set: any): ModalWindows => ({
                 }
             }
         }))
+    },
+    setUpdateFlowModalActions: (actions: { save: (args: any) => void, discard: (args: any) => void }) => {
+        set((state: RFState) => ({
+            modalWindowsSlice: {
+                ...state.modalWindowsSlice,
+                updateFlowModal: {
+                    ...state.modalWindowsSlice.updateFlowModal,
+                    actions: actions
+                }
+            }
+        }))
+    },
+    setUpdateFlowModalFlowIdToLoad: (flowId: string) => {
+        set((state: RFState) => ({
+            modalWindowsSlice: {
+                ...state.modalWindowsSlice,
+                updateFlowModal: {
+                    ...state.modalWindowsSlice.updateFlowModal,
+                    flowIdToLoad: flowId
+                }
+            }
+        }))
     }
+
 })
 
 export default modalWindowsSlice;
