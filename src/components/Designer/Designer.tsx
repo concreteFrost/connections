@@ -12,6 +12,7 @@ function Designer() {
 
     const getBlocksList = useStore((store) => store.getBlocksList);
     const tooltipText = useStore((store) => store.designerVisualElementsSlice.tooltip.text);
+    const { flow } = useStore((store) => store.flowSlice);
 
     const hideAllTopDropdowns = useStore((state) => state.topPanelSlice.hideAllTopMenus);
     const hideAllGroupModals = useStore((state) => state.flowSlice.hideAllGroupModals);
@@ -37,15 +38,19 @@ function Designer() {
     };
     return (<div className="App">
         <TopMenu></TopMenu>
-        <div className="dynamic_menu">
-            <LeftPanel></LeftPanel>
-            <Substitutions></Substitutions>
-            <RightPanel></RightPanel>
-        </div>
+        {flow.flowIdentifier ?
+            <div className="dynamic_menu">
+                <LeftPanel></LeftPanel>
+                <Substitutions></Substitutions>
+                <RightPanel></RightPanel>
+            </div> : null
+        }
+
         <Flow resetselectedBlockID={resetselectedBlockID}></Flow>
         <Tooltip anchorSelect=".nodelist-body-elemet" place="right" style={{ zIndex: 9999 }}  >
             {tooltipText}
         </Tooltip>
+
     </div>)
 }
 

@@ -71,11 +71,11 @@ export function deleteDraftFlowAPI(data: any) {
   });
 }
 
-export function approveAndReleaseAPI(draftId: string, keepDraft:boolean){
+export function approveAndReleaseAPI(draftId: string, keepDraft: boolean) {
   return new Promise((resolve, reject) => {
     axios({
       method: "post",
-      url: baseUrl + "/Draft/Delete",
+      url: baseUrl + "/Draft/ApproveAndRelease",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + getAccessToken().token,
@@ -88,6 +88,41 @@ export function approveAndReleaseAPI(draftId: string, keepDraft:boolean){
       .then((res) => {
         resolve(res);
       })
+      .catch((e) => reject(e));
+  });
+}
+
+export function createDraftFromLiveTemplateAPI(liveFlowID: string, newDraftName: string) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(baseUrl + "/Draft/CreateNewDraftFromLiveTemplate", {
+        params: {
+          originalFlowReference: liveFlowID,
+          newFlowName: newDraftName
+        },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + getAccessToken().token,
+        },
+      })
+      .then((res) => resolve(res))
+      .catch((e) => reject(e));
+  });
+}
+
+export function createUpdateDraftFromLiveAPI(liveFlowID: string) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(baseUrl + "/Draft/CreateUpdateDraftFromLive", {
+        params: {
+          flowReference: liveFlowID,
+        },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + getAccessToken().token,
+        },
+      })
+      .then((res) => resolve(res))
       .catch((e) => reject(e));
   });
 }

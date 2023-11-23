@@ -1,4 +1,5 @@
-import { getBlockStatisticsAPI, getFlowApi } from "../../api/flow";
+import { getBlockStatisticsAPI } from "../../api/flow";
+import { createUpdateDraftFromLiveAPI } from "../../api/draft"
 import { RFState } from "../types/rfState";
 
 export const getCurrentFlow = (get: () => RFState, set: any) => async (flowId: string) => {
@@ -7,8 +8,10 @@ export const getCurrentFlow = (get: () => RFState, set: any) => async (flowId: s
   }
   let _stats = [{}]
 
-  await getFlowApi(flowId).then((res: any) => {
-    currentFlow = res.data.flowData
+  await createUpdateDraftFromLiveAPI(flowId).then((res: any) => {
+    console.log(res.data)
+    currentFlow = res.data.flowConfiguration
+
   }).catch(e => console.log(e))
 
   await getBlockStatisticsAPI(flowId).then((res: any) => {
@@ -44,7 +47,6 @@ export const toggleFlowControlState = (get: () => RFState, set: any) => (isEnabl
         isEnabled: isEnabled
       }
     }
-
 
   }))
 

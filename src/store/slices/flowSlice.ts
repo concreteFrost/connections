@@ -32,7 +32,6 @@ export type FlowSlice = {
     }
 
     //Base Actions 
-
     setBlockName: (text: string) => void;
     setBlockColor: (color: string) => void;
     setBlockDescription: (description: string) => void;
@@ -62,16 +61,17 @@ export type FlowSlice = {
     deleteGroupOnButtonClick: (groupToDelete: any) => void;
 
     //Flow Actions
-    // saveFlow: () => void;
-    // updateFlow: (match: any) => void;
     saveDraftFlow: (match: any, subfolder: string) => Promise<boolean>;
     deleteDraftFlow: (draftId: string) => void;
-    loadFlow: (id: string) => void;
+
     loadFlowFromDraft: (draftId: string) => void;
     setFlowName: (name: string) => void;
     setFlowVersion: (version: string) => void;
     setFlowIsEnabled: () => void;
-    createFlow: () => void;
+    createFlow: (flowId?: string) => void;
+    closeFlow: () => void;
+    createFlowFromTemplate: (liveFlowID: string, newDraftName: string) => void;
+    createUpdateDraftFromLiveTemplate: (id: string) => void;
 
     //Substitutions Actions
     addSubstitutionKey: (key: string) => void;
@@ -111,11 +111,12 @@ const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
 
     //Flow Actions
     createFlow: flowActions.createFlow(get, set),
-    // saveFlow: actions.flowActions.saveFlow(get, set),
-    // updateFlow: actions.flowActions.updateFlow(get, set),
+    createFlowFromTemplate: flowActions.createFlowFromTemplate(get, set),
+    createUpdateDraftFromLiveTemplate: flowActions.createUpdateDraftFromLiveTemplate(get, set),
+    closeFlow: flowActions.closeFlow(get, set),
+
     saveDraftFlow: flowActions.saveDraftFlow(get, set),
     deleteDraftFlow: flowActions.deleteDraftFlow(get, set),
-    loadFlow: flowActions.loadFlow(get, set),
     loadFlowFromDraft: flowActions.loadFlowFromDraft(get, set),
     setFlowName: flowActions.setFlowName(get, set),
     setFlowVersion: flowActions.setFlowVersion(get, set),

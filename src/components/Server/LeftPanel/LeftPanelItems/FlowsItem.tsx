@@ -14,7 +14,7 @@ function FlowsItem(props: FlowsItemProps) {
   const [flowList, setFlowList] = useState([]);
   const getCurrentFlow = useStore((state) => state.serverSlice.getCurrentFlow);
   const currentFlow = useStore<any>((state) => state.serverSlice.currentFlow);
-  const loadFlow = useStore((state) => state.flowSlice.loadFlow);
+  const createUpdateDraftFromLiveTemplate = useStore((state) => state.flowSlice.createUpdateDraftFromLiveTemplate);
 
   useEffect(() => {
     getFlowListApi()
@@ -44,34 +44,33 @@ function FlowsItem(props: FlowsItemProps) {
         <ul>
           {flowList.length > 0
             ? flowList.map((flow: any) => (
-                <li
-                  key={flow.flowId}
-                  className={`${props.className.flow_list}  ${
-                    currentFlow.flowIdentifier === flow.flowId
-                      ? props.className["selected"]
-                      : null
+              <li
+                key={flow.flowId}
+                className={`${props.className.flow_list}  ${currentFlow.flowIdentifier === flow.flowId
+                    ? props.className["selected"]
+                    : null
                   }`}
+              >
+                <div
+                  onClick={async () => {
+                    await getCurrentFlow(flow.flowId);
+                    props.navigate("flows");
+                  }}
                 >
-                  <div
-                    onClick={async () => {
-                      await getCurrentFlow(flow.flowId);
-                      props.navigate("flows");
+                  {flow.name}
+                </div>
+                <div className={props.className.flow_list_btn_wrapper}>
+                  <button
+                    onClick={() => {
+                      createUpdateDraftFromLiveTemplate(flow.flowId);
+                      props.navigate("/designer");
                     }}
                   >
-                    {flow.name}
-                  </div>
-                  <div className={props.className.flow_list_btn_wrapper}>
-                    <button
-                      onClick={() => {
-                        loadFlow(flow.flowId);
-                        props.navigate("/designer");
-                      }}
-                    >
-                      EDIT
-                    </button>
-                  </div>
-                </li>
-              ))
+                    EDIT
+                  </button>
+                </div>
+              </li>
+            ))
             : null}
         </ul>
       )}

@@ -4,22 +4,27 @@ import { useState } from "react";
 import { approveAndReleaseAPI } from "../../api/draft";
 
 function ApproveModal() {
-  const {approveFlowModal, toggleApproveFlowModal} = useStore(
+  const { approveFlowModal, toggleApproveFlowModal, setModalMessage, toggleMessageModal } = useStore(
     (state) => state.modalWindowsSlice
   );
-  const toggleapproveModal = useStore(
-    (state) => state.modalWindowsSlice.toggleApproveFlowModal
-  );
+  const toggleLoadFlowModal = useStore((state) => state.modalWindowsSlice.toggleLoadFlowModal);
+
   const [keepDraft, setKeepDraft] = useState<boolean>(false);
 
   function approveDraftFlow() {
-    approveAndReleaseAPI(approveFlowModal.draftIdToApprove,keepDraft).then((res:any)=>{
-        console.log(approveFlowModal)
-        if(res.data.success){
+    approveAndReleaseAPI(approveFlowModal.draftIdToApprove, keepDraft).then((res: any) => {
+      if (!res.data.success) {
+        setModalMessage(res.data.message)
+      }
+      else {
+        setModalMessage('success!!!')
+        toggleLoadFlowModal(false);
+      }
+      toggleMessageModal()
+      toggleApproveFlowModal(false, '')
 
-        }
-    }).catch((e)=>{
-        console.log('approve error',e)
+    }).catch((e) => {
+      console.log('approve error', e)
     })
   }
   return (
@@ -27,7 +32,7 @@ function ApproveModal() {
       {approveFlowModal.isVisible ? (
         <div className={s.container}>
           <div className={s.modal_window}>
-            <header className={s.modal_header}>APPROVE</header>
+            <header className={s.modal_header}>Approve</header>
             <main className={s.modal_body}>
               <span>{approveFlowModal.message}</span> will be validated and
               instantiated to the server now
@@ -43,7 +48,7 @@ function ApproveModal() {
                   }}
                 />
                 <button onClick={approveDraftFlow}>Approve</button>
-                <button onClick={() => toggleapproveModal(false, "")}>
+                <button onClick={() => toggleApproveFlowModal(false, "")}>
                   Cancel
                 </button>
               </div>

@@ -11,6 +11,7 @@ export enum UpdateFlowActions {
   LoadDraft,
   LoadLive,
   Quit,
+  Close
 }
 
 export interface UpdateFlowProps {
@@ -29,6 +30,7 @@ function UpdateFlowModal(props: UpdateFlowProps) {
   const modalSlice = useStore((state) => state.modalWindowsSlice);
   const navigate = useNavigate();
   const [subfolderName, setSubfolderName] = useState<string>("");
+  const toggleLoadFlowModal = useStore((state) => state.modalWindowsSlice.toggleLoadFlowModal);
 
   //sets subfolder name value if match
   async function compareSubfolderName() {
@@ -54,7 +56,7 @@ function UpdateFlowModal(props: UpdateFlowProps) {
       const match = await checkExistingFlowInDataBase(flowSlice.flow.flowName);
       const saveDraftFlow = await flowSlice.saveDraftFlow(match, subfolderName);
       await modalSlice.toggleUpdateFlowModal(false);
-
+      await toggleLoadFlowModal(false);
       return saveDraftFlow;
     } catch (error) {
       return false;
@@ -64,7 +66,6 @@ function UpdateFlowModal(props: UpdateFlowProps) {
   async function createAndSave() {
     try {
       const successSave: boolean = await tryToSaveFlow();
-
       if (successSave) {
         await flowSlice.createFlow();
       }
@@ -79,6 +80,7 @@ function UpdateFlowModal(props: UpdateFlowProps) {
       if (successSave) {
         await tryToSaveFlow();
         await flowSlice.loadFlowFromDraft(props.flowIdToLoad);
+
       }
     } catch (e) {
       console.log(e);
@@ -89,18 +91,21 @@ function UpdateFlowModal(props: UpdateFlowProps) {
     try {
       const successSave: boolean = await tryToSaveFlow();
       if (successSave) {
-        await flowSlice.loadFlow(props.flowIdToLoad);
+        await flowSlice.createUpdateDraftFromLiveTemplate(props.flowIdToLoad);
+
       }
     } catch (e) {
       console.log(e);
     }
   };
 
+
   async function saveAndLeave() {
     try {
       const saveSuccess: boolean = await tryToSaveFlow();
       if (saveSuccess) {
         await modalSlice.toggleUpdateFlowModal(false);
+
         await navigate("/dashboard/servers");
       }
     } catch (e) {
@@ -108,10 +113,24 @@ function UpdateFlowModal(props: UpdateFlowProps) {
     }
   }
 
+  async function saveAndClose() {
+    try {
+      const saveSuccess: boolean = await tryToSaveFlow();
+      if (saveSuccess) {
+        await modalSlice.toggleUpdateFlowModal(false);
+        await flowSlice.closeFlow();
+      }
+    }
+    catch (e) {
+      throw e;
+    }
+  }
+
   const loadDraftWithoutSaving = async () => {
     try {
       await flowSlice.loadFlowFromDraft(props.flowIdToLoad);
       await modalSlice.toggleUpdateFlowModal(false);
+      await toggleLoadFlowModal(false);
     } catch (e) {
       console.log(e);
     }
@@ -119,8 +138,9 @@ function UpdateFlowModal(props: UpdateFlowProps) {
 
   const loadLiveWithoutSaving = async () => {
     try {
-      await flowSlice.loadFlow(props.flowIdToLoad);
+      await flowSlice.createUpdateDraftFromLiveTemplate(props.flowIdToLoad);
       await modalSlice.toggleUpdateFlowModal(false);
+      await toggleLoadFlowModal(false);
     } catch (e) {
       console.log(e);
     }
@@ -128,6 +148,7 @@ function UpdateFlowModal(props: UpdateFlowProps) {
 
   function leaveWithoutSaving() {
     modalSlice.toggleUpdateFlowModal(false);
+    toggleLoadFlowModal(false);
     navigate("/dashboard/servers");
   }
 
@@ -137,6 +158,12 @@ function UpdateFlowModal(props: UpdateFlowProps) {
 
   function createWithoutSaving() {
     flowSlice.createFlow();
+    modalSlice.toggleUpdateFlowModal(false);
+    toggleLoadFlowModal(false);
+  }
+
+  function closeFlowWithoutSaving() {
+    flowSlice.closeFlow();
     modalSlice.toggleUpdateFlowModal(false);
   }
 
@@ -152,6 +179,8 @@ function UpdateFlowModal(props: UpdateFlowProps) {
         return saveAndLoadDraft();
       case UpdateFlowActions.Quit:
         return saveAndLeave();
+      case UpdateFlowActions.Close:
+        return saveAndClose();
     }
   }
 
@@ -167,6 +196,8 @@ function UpdateFlowModal(props: UpdateFlowProps) {
         return loadDraftWithoutSaving();
       case UpdateFlowActions.Quit:
         return leaveWithoutSaving();
+      case UpdateFlowActions.Close:
+        return closeFlowWithoutSaving();
     }
   }
 
@@ -175,7 +206,7 @@ function UpdateFlowModal(props: UpdateFlowProps) {
       {modalSlice.updateFlowModal.isVisible ? (
         <div className={s.container}>
           <div className={s.modal_window}>
-            <header className={s.modal_header}></header>
+            <header className={s.modal_header}>Save current flow</header>
             <main className={s.modal_body}>
               Would you like to save changes in{" "}
               <span>{flowSlice.flow.flowName}</span> ?

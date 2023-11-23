@@ -9,13 +9,14 @@ import { getDraftListApi } from "../../../api/draft";
 
 export function initializeFlow<IFlowData>(
   initialNodes: object,
-  initialEdges: object
+  initialEdges: object,
+  flowId?: string
 ) {
   return <IFlowData>{
     blockData: [],
     created: new Date(),
     createdBy: getAccessToken().userName,
-    flowIdentifier: uuidv4(),
+    flowIdentifier: flowId ? flowId : null,
     flowName: "New Flow" + uuidv4().split("-")[0],
     flowConfig: "Debug",
     flowVersion: "1.0.0.0",
@@ -30,6 +31,7 @@ export function initializeFlow<IFlowData>(
       edges: initialEdges,
     },
   };
+
 }
 
 export function setFlow(data: any, set: any) {
@@ -134,7 +136,7 @@ export function updateFlowAfterSaving(
       },
     },
   }));
-  
+
 }
 
 export function parseFloatVersion(flowVersion: number) {

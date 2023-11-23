@@ -16,12 +16,14 @@ export type DesignerVisualElementsSlice = {
     errorMessages: {
         substitutionAddError: string;
     };
+
     tooltip: {
         text: string;
     };
     view: BackgroundVariant;
     setTooltipText: (text: string) => void;
     toggleSubstitutionsPanel: () => void;
+
     getParameterValue: (parameterName: string, value: string) => void;
     setParameterValue: (propertyName: string, value: string) => void;
 
@@ -51,6 +53,7 @@ const designerVisualElementsSlice = (get: () => RFState, set: any): DesignerVisu
     toggleSubstitutionsPanel: toggleSubstitutionsPanel(get, set),
     getParameterValue: valueEditorActions.getParameterValue(set),
     setParameterValue: valueEditorActions.setParameterValue(get, set),
+
 
 })
 

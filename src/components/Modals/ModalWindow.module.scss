@@ -25,7 +25,7 @@
     overflow: wrap;
     min-width: 300px;
     min-height: 100px;
-
+    font-family: $font-node-nav-list;
 }
 
 
@@ -33,6 +33,7 @@
     text-align: center;
     font-weight: bold;
     margin-bottom: 20px;
+
 }
 
 
@@ -41,11 +42,13 @@
     display: flex;
     justify-content: center;
 
-    span{
+
+    span {
         font-weight: bolder;
         margin-left: 5px;
         margin-right: 5px;
     }
+
     input[type="text"] {
         margin-left: 0;
         border: 1px solid rgb(160, 157, 157);
@@ -55,33 +58,60 @@
     }
 }
 
+.warning_message {
+
+    color: $color-warning-message;
+    margin-bottom: 20px;
+    font-weight: bold;
+
+    p {
+        font-size: 0.8rem;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+    }
+}
+
 .modal_footer {
 
     .buttons_wrapper {
         display: flex;
         justify-content: flex-end;
-        gap: 10px; 
+        gap: 5px;
 
         button {
             border-radius: 5px;
+            border: none;
+            background-color: $bg-top-menu-btn-default;
+            color: white;
+            font-weight: bold;
+            padding: 5px 10px;
+
         }
     }
 
-    .input_wrapper{
+    .input_wrapper {
         display: grid;
         grid-template-columns: 4fr 8fr;
         justify-content: start;
         margin-bottom: 20px;
-        label{
+
+        label {
             margin-right: 5px;
         }
-        input{
+
+        input {
             border-radius: 5px;
             border: 1px solid gray;
             outline: none;
-         
+
         }
     }
 
-    
+    .error_message {
+        color: red;
+        font-style: italic;
+    }
+
+
 }

@@ -53,19 +53,20 @@ export const setUpdateFlowSubfolderName = (get: () => RFState, set: any) => (sub
 
 //Approve Modal
 
-export const toggleApproveFlowModal = (get: () => RFState, set: any) => (isVisible: boolean, draftIdToApprove:string) => {
+export const toggleApproveFlowModal = (get: () => RFState, set: any) => (isVisible: boolean, draftIdToApprove: string) => {
     set((state: RFState) => ({
         modalWindowsSlice: {
             ...state.modalWindowsSlice,
             approveFlowModal: {
                 ...state.modalWindowsSlice.approveFlowModal,
                 isVisible: isVisible,
-                draftIdToApprove:draftIdToApprove
+                draftIdToApprove: draftIdToApprove
             }
         }
     }))
     console.log('approve modal toggle')
 }
+
 
 export const setApproveFlowModalMessage = (get: () => RFState, set: any) => (message: string) => {
     set((state: RFState) => ({
@@ -73,18 +74,35 @@ export const setApproveFlowModalMessage = (get: () => RFState, set: any) => (mes
             ...state.modalWindowsSlice,
             approveFlowModal: {
                 ...state.modalWindowsSlice.approveFlowModal,
-                message:message
+                message: message
             }
         }
     }))
     console.log('approve modal message')
 }
 
-export const modalActions={
-    toggleMessageModal:toggleMessageModal,
-    setModalMessage:setModalMessage,
-    toggleUpdateFlowModal:toggleUpdateFlowModal,
-    setUpdateFlowSubfolderName:setUpdateFlowSubfolderName,
-    toggleApproveFlowModal:toggleApproveFlowModal,
-    setApproveFlowModalMessage:setApproveFlowModalMessage
+export const toggleCreateTemplateFlowModal = (get: () => RFState, set: any) => (isVisible: boolean, liveFlowID?: string, liveFlowName?: string) => {
+    set((state: RFState) => ({
+        modalWindowsSlice: {
+            ...state.modalWindowsSlice,
+            createTemplateFlowModal: {
+                ...state.modalWindowsSlice.createTemplateFlowModal,
+                isVisible: isVisible,
+                liveFlowID: liveFlowID,
+                liveFlowName: liveFlowName
+            }
+        }
+    }))
+    console.log('approve modal toggle')
+}
+
+
+export const modalActions = {
+    toggleMessageModal: toggleMessageModal,
+    setModalMessage: setModalMessage,
+    toggleUpdateFlowModal: toggleUpdateFlowModal,
+    setUpdateFlowSubfolderName: setUpdateFlowSubfolderName,
+    toggleApproveFlowModal: toggleApproveFlowModal,
+    setApproveFlowModalMessage: setApproveFlowModalMessage,
+    toggleCreateTemplateFlowModal: toggleCreateTemplateFlowModal,
 }

@@ -1,6 +1,8 @@
 import s from "./LiveFlows.module.scss";
 import { useEffect, useState } from "react";
-import { getFlowListApi } from "../../../../../../api/flow";
+import { getFlowListApi } from "../../../../../api/flow";
+import useStore from "../../../../../store/store";
+import CreateTemplateFlowModal from "../../../CreateTemplateFlowModal";
 
 interface IFlowConfig {
   config: string;
@@ -22,15 +24,10 @@ interface LiveFlowsProps {
   handleLiveFlowClick: (flowId: string) => void;
 }
 
-
 function LiveFlows(props: LiveFlowsProps) {
 
-  const [liveSectionToOpen, setLiveSectionToOpen] = useState<any>({
-    folders: true,
-    flows: false,
-  });
   const [loadedLiveFlows, setLoadedLiveFlows] = useState<Array<IFlowConfig>>([]);
-
+  const toggleCreateTemplateFlowModal = useStore((state) => state.modalWindowsSlice.toggleCreateTemplateFlowModal);
 
   useEffect(() => {
     getFlowListApi().then((res: any) => {
@@ -56,23 +53,26 @@ function LiveFlows(props: LiveFlowsProps) {
         </thead>
         <tbody>
           {loadedLiveFlows.length > 0 ? loadedLiveFlows.map((loadedFlow: IFlowConfig) => <tr key={loadedFlow.flowId}>
-            <td className={s.flow_name}
-              onClick={() => { props.handleLiveFlowClick(loadedFlow.flowId) }}
-            >{loadedFlow.name}</td>
+            <td className={s.flow_name}>{loadedFlow.name}</td>
             <td>{loadedFlow.createdBy}</td>
             <td>{loadedFlow.dateCreated}</td>
             <td>
               <div className={s.actions_wrapper}>
-                <button className={s.action_confirm_btn}>Template</button>
-                <button className={s.action_confirm_btn}>Update</button>
+                <button className={s.action_confirm_btn}
+                  onClick={() => toggleCreateTemplateFlowModal(true, loadedFlow.flowId, loadedFlow.name)}
+                >Template</button>
+                <button className={s.action_confirm_btn}
+                  onClick={() => { props.handleLiveFlowClick(loadedFlow.flowId) }}
+                >Update</button>
               </div>
             </td>
           </tr>
           ) : null}
         </tbody>
       </table>
+      <CreateTemplateFlowModal></CreateTemplateFlowModal>
     </div>
-   
+
   );
 }
 

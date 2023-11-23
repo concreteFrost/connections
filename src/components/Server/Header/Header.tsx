@@ -1,11 +1,8 @@
-import useStore from "../../../store/store";
 import Logout from "../../Logout/Logout";
 import s from "./Header.module.scss";
 import { useNavigate } from "react-router";
 
 function Header() {
-
-  const createFlow = useStore((state) => state.flowSlice.createFlow);
 
   const navigate = useNavigate();
   return (
@@ -13,7 +10,6 @@ function Header() {
       <header>CONNECTIONS SERVER DASHBOARD</header>
       <div className={s.designer_button}>
         <button onClick={() => {
-          createFlow();
           navigate('/designer')
         }}>DESIGNER</button>
       </div>

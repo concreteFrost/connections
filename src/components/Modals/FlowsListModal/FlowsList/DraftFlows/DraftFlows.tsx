@@ -1,11 +1,10 @@
-import useStore from "../../../../../../store/store";
-import { UpdateFlowActions } from "../../../../../Modals/UpdateFlowModal";
-import { getDraftListApi } from "../../../../../../api/draft";
+import useStore from "../../../../../store/store";
+import { getDraftListApi } from "../../../../../api/draft";
 import s from "./DrafFlows.module.scss";
 import { useState, useEffect } from "react";
 import moment from "moment";
-import { connectionsIcons } from "../../../../../../icons/icons";
-import ApproveModal from "../../../../../Modals/ApproveModal";
+import { connectionsIcons } from "../../../../../icons/icons";
+import ApproveModal from "../../../ApproveModal";
 
 interface ILoadedFlow {
   flowId: string;
@@ -34,7 +33,7 @@ function DraftFlows(props: DrafFlowsProps) {
     flows: false,
   });
 
-  const {setApproveFlowModalMessage,toggleApproveFlowModal} = useStore((state)=>state.modalWindowsSlice);
+  const { setApproveFlowModalMessage, toggleApproveFlowModal } = useStore((state) => state.modalWindowsSlice);
 
   function loadDraftFlowList() {
     getDraftListApi()
@@ -61,9 +60,9 @@ function DraftFlows(props: DrafFlowsProps) {
   }
   return (
     <div className={s.wrapper}>
-        {/*FOLDERS */}
-        <header>Drafts</header>
-        <ul>
+      {/*FOLDERS */}
+      <header>Drafts</header>
+      <ul>
         {Object.entries(loadedFlowFolders).length > 0 &&
           draftSectionToOpen.folders === true
           ? Object.entries(loadedFlowFolders).map(([key, val]) => (
@@ -74,7 +73,7 @@ function DraftFlows(props: DrafFlowsProps) {
                 setCurrentDraftFolder(key);
               }}
             >
-             <span>{connectionsIcons.folder}</span> {key}
+              <span>{connectionsIcons.folder}</span> {key}
             </li>
           ))
           : null}
@@ -96,23 +95,26 @@ function DraftFlows(props: DrafFlowsProps) {
                 <tr key={flow.draftId}>
                   <td
                     className={s.flow_name}
-                    onClick={() => {
-                      props.handleDraftClick(flow.draftId);
-                    }}
+
                     colSpan={2}
                   >
                     {flow.flowName}
                   </td>
                   <td>{flow.createdBy}</td>
                   <td>{moment(flow.createdOn).calendar()}</td>
-                  <td className={s.actions_wrapper}>  
-                  <button className={s.action_confirm_btn}
-                  onClick={()=>{
-                    toggleApproveFlowModal(true, flow.draftId);
-                    setApproveFlowModalMessage(flow.flowName)
-                  }}
-                  >Approve</button>          
-                       <button className={s.action_delete_btn} onClick={() => {
+                  <td className={s.actions_wrapper}>
+                    <button className={s.action_confirm_btn}
+                      onClick={() => {
+                        props.handleDraftClick(flow.draftId);
+                      }}
+                    >Load</button>
+                    <button className={s.action_confirm_btn}
+                      onClick={() => {
+                        toggleApproveFlowModal(true, flow.draftId);
+                        setApproveFlowModalMessage(flow.flowName)
+                      }}
+                    >Approve</button>
+                    <button className={s.action_delete_btn} onClick={() => {
                       deleteDraftAndUpdate(flow.draftId)
                     }}>X</button>
                   </td>
@@ -122,13 +124,13 @@ function DraftFlows(props: DrafFlowsProps) {
           </tbody>
         </table>
       ) : null}
-    {draftSectionToOpen.flows == true  ? <button
-      className={s.footer_btn}
+      {draftSectionToOpen.flows == true ? <button
+        className={s.footer_btn}
         onClick={() => setDraftSectionToOpen({ folders: true, flows: false })}
       >
         Back
       </button> : null}
-     <ApproveModal></ApproveModal>
+      <ApproveModal></ApproveModal>
     </div>
   );
 }

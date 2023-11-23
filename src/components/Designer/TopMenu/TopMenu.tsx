@@ -4,7 +4,7 @@ import Settings from "./Settings/Settings";
 import useStore from "../../../store/store";
 import UpdateFlowModal, { UpdateFlowActions } from "../../Modals/UpdateFlowModal";
 import { useState } from "react";
-import FlowsList from "./CentralPanel/FlowsList/FlowsList";
+import FlowsListModal from "../../Modals/FlowsListModal/FlowsListModal";
 import MessageModal from "../../Modals/MessageModal";
 
 function TopMenu() {
@@ -12,27 +12,21 @@ function TopMenu() {
   const toggleDropdown = useStore((state) => state.topPanelSlice.toggleDropdown);
   const toggleUpdateFlowModal = useStore((state) => state.modalWindowsSlice.toggleUpdateFlowModal);
   const [currentActions, setCurrentActions] = useState<UpdateFlowActions>(UpdateFlowActions.Create);
-  const [isSelectFlowVisible, setIsSelectFlowVisible] = useState<boolean>(false);
   const [flowIdToLoad, setFlowIdToLoad] = useState<string>('');
+  const loadFlowModal = useStore((state) => state.modalWindowsSlice.loadFlowModal);
 
-
-  function closeSelectFlowModal() {
-    setIsSelectFlowVisible(false);
-  }
 
   return (
     <div className={s.container}>
       <div className={s.wrapper}>
-        {isSelectFlowVisible ? <FlowsList
-          closeSelecFlowModal={closeSelectFlowModal}
+        {loadFlowModal.isVisible ? <FlowsListModal
           toggleUpdateFlowModal={toggleUpdateFlowModal}
           setCurrentActions={setCurrentActions}
           setFlowIdToLoad={setFlowIdToLoad}
-        ></FlowsList> : null}
+        ></FlowsListModal> : null}
         <CentralPanel
           dropdowns={dropdowns}
           toggleDropdown={toggleDropdown}
-          setIsSelectFlowsVisible={setIsSelectFlowVisible}
           toggleUpdateFlowModal={toggleUpdateFlowModal}
           setCurrentActions={setCurrentActions}
         ></CentralPanel>
