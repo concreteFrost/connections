@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "./static/css/main.2845d330.css",
+    "main.js": "./static/js/main.ab9db07c.js",
+    "static/media/Inter-VariableFont_slnt,wght.ttf": "./static/media/Inter-VariableFont_slnt,wght.853e01975d2783d9fa29.ttf",
+    "static/media/Rajdhani-Regular.ttf": "./static/media/Rajdhani-Regular.148606c1eb703f6e597a.ttf",
+    "static/media/Inter-Regular.ttf": "./static/media/Inter-Regular.9ca9ba81e9dcaa12b3a1.ttf",
+    "index.html": "./index.html",
+    "main.2845d330.css.map": "./static/css/main.2845d330.css.map",
+    "main.ab9db07c.js.map": "./static/js/main.ab9db07c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2845d330.css",
+    "static/js/main.ab9db07c.js"
+  ]
+}
