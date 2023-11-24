@@ -13,19 +13,20 @@
     @include loaded_flows_table;
   }
 
-  li{
+  li {
     list-style: none;
     color: $color-node-nav-icon;
     font-family: $font-node-nav-list;
     font-weight: bold;
     font-size: 1 rem;
+    cursor: pointer;
   }
 
-  ul{
+  ul {
     padding: 0;
   }
 
-  .footer_btn{
+  .footer_btn {
     background-color: $bg-top-menu-btn-default;
     color: white;
     font-weight: bold;
@@ -34,21 +35,22 @@
     padding: 5px 10px;
   }
 
-  .action_delete_btn, .action_confirm_btn{
-      border: 0;
-      padding: 5px;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-left: 3px;
-      font-size: .7rem;
+  .action_delete_btn,
+  .action_confirm_btn {
+    border: 0;
+    padding: 5px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 3px;
+    font-size: .7rem;
   }
 
-  .action_delete_btn{
+  .action_delete_btn {
     background-color: $bg-delete-btn;
   }
 
-  .action_confirm_btn{
+  .action_confirm_btn {
     background-color: $bg-top-menu-btn-default;
   }
 }

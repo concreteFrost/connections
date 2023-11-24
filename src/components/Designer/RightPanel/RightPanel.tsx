@@ -8,6 +8,7 @@ import useStore from "../../../store/store";
 
 function RightPanel() {
   const [isPanelActive, setIsPanelActive] = useState(true);
+  const flowIdentifier = useStore((state) => state.flowSlice.flow.flowIdentifier)
 
   function togglePanel() {
     setIsPanelActive(!isPanelActive);
@@ -30,9 +31,12 @@ function RightPanel() {
         </button>
       </div>
       <div className={s.right_panel_container}>
-        <Properties></Properties>
-        {selectedBlockID !== "-1" || selectedBlockID !== null ? <ValueEditor></ValueEditor> : null}
-        <DebugConsole></DebugConsole>
+        {flowIdentifier ?
+          <div>
+            <Properties></Properties>
+            {selectedBlockID !== "-1" || selectedBlockID !== null ? <ValueEditor></ValueEditor> : null}
+            <DebugConsole></DebugConsole> </div> : <div className={s.section_container}>PROPERTIES</div>}
+
       </div>
     </div>
   );

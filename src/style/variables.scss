@@ -14,6 +14,7 @@ $color-node-nav-container-header: rgb(114, 114, 114);
 $color-node-nav-btn: rgb(31, 31, 31);
 $color-list-border: rgb(238, 238, 238);
 $color-list-label: #727272;
+$color-font-main: rgb(53, 53, 53);
 
 //icons colors
 $color-node-nav-icon: rgb(35, 124, 175);
@@ -28,8 +29,13 @@ $shadow-inset: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5
 
 //--FONTS--
 // $font-node-nav-list: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-$font-node-nav-list: 'Richard';
-$font-node-nav-header: 'Richard';
+$font-node-nav-list: 'Inter';
+$font-node-nav-header: 'Inter';
+
+//--FONT WEIGHTS
+$font-weight-regular : 300;
+$font-weight-bold : 400;
+$font-weight-bolder : 500;
 
 
 //--BREAKPOINTS--

@@ -38,13 +38,13 @@ function Designer() {
     };
     return (<div className="App">
         <TopMenu></TopMenu>
-        {flow.flowIdentifier ?
-            <div className="dynamic_menu">
-                <LeftPanel></LeftPanel>
-                <Substitutions></Substitutions>
-                <RightPanel></RightPanel>
-            </div> : null
-        }
+
+        <div className="dynamic_menu">
+            <LeftPanel></LeftPanel>
+            {flow.flowIdentifier ? <Substitutions></Substitutions> : <div></div>}
+
+            <RightPanel></RightPanel>
+        </div>
 
         <Flow resetselectedBlockID={resetselectedBlockID}></Flow>
         <Tooltip anchorSelect=".nodelist-body-elemet" place="right" style={{ zIndex: 9999 }}  >

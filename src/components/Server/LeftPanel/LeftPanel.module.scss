@@ -32,8 +32,9 @@
       li {
         cursor: pointer;
         list-style: none;
-        font-weight: bold;
+
         font-family: $font-node-nav-header;
+
         background-color: $bg-node-nav-btn;
         padding: 10px 0px 10px 20px;
         border-bottom: 1px solid rgb(204, 204, 204);
@@ -66,18 +67,19 @@
         }
       }
 
-      .draft_list_item_wrapper{
-        .folder_name{
+      .draft_list_item_wrapper {
+        .folder_name {
           padding-left: 10px;
           font-family: $font-node-nav-header;
-          font-weight: bold;
+
           color: $color-node-nav-container-header;
-         
+
         }
+
         border-bottom: 1px solid rgb(204, 204, 204);
       }
 
-     
+
 
       .section_header {
         display: flex;

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getFlowListApi } from "../../../../../api/flow";
 import useStore from "../../../../../store/store";
 import CreateTemplateFlowModal from "../../../CreateTemplateFlowModal";
+import moment from "moment";
 
 interface IFlowConfig {
   config: string;
@@ -66,7 +67,7 @@ function LiveFlows() {
           {loadedLiveFlows.length > 0 ? loadedLiveFlows.map((loadedFlow: IFlowConfig) => <tr key={loadedFlow.flowId}>
             <td className={s.flow_name}>{loadedFlow.name}</td>
             <td>{loadedFlow.createdBy}</td>
-            <td>{loadedFlow.dateCreated}</td>
+            <td>{moment(loadedFlow.dateCreated).calendar()}</td>
             <td>
               <div className={s.actions_wrapper}>
                 <button className={s.action_confirm_btn}

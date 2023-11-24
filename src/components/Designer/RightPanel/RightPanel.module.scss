@@ -26,6 +26,9 @@
     background-color: $bg-node-nav-container;
     box-shadow: $shadow-node-nav-container;
 
+    .section_container {
+        @include section_header;
+    }
 
 }
 
@@ -38,7 +41,7 @@
 
 
     button {
-        height: 56px;
+        height: 50px;
         border: 0;
         width: 30px;
         background-color: $bg-node-nav-container;

@@ -43,7 +43,7 @@ function CreateTemplateFlowModal() {
                 </div>
                 <footer className={s.modal_footer}>
                     <div className={s.buttons_wrapper}>
-                        <label>New Draft Name</label>
+                        <label>New Draft Name:</label>
                         <input
                             type="text"
                             value={newDraftName}

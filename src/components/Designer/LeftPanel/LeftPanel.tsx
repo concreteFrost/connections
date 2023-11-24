@@ -8,6 +8,7 @@ import { connectionsIcons } from "../../../icons/icons";
 
 
 function LeftPanel() {
+  const flowIdentifier = useStore((state) => state.flowSlice.flow.flowIdentifier)
   const leftPanelRef = useRef<HTMLDivElement>(null);
   const addBlock = useStore((state) => state.addBlock);
   const [isPanelActive, setIsPanelActive] = useState(true);
@@ -48,7 +49,7 @@ function LeftPanel() {
       <div className={toggleBtnClasses}><button onClick={togglePanel}>{isPanelActive ? connectionsIcons.leftCaret : connectionsIcons.rightCaret}</button></div>
       <div className={s.add_node_container}>
         <div className={s.header}>CREATE BLOCKS</div>
-        <div className={s.node_list_wrapper}><div className={s.node_list}>
+        {flowIdentifier ? <div className={s.node_list_wrapper}><div className={s.node_list}>
           <Section
             title="DATA STORE"
             onDragStart={onDragStart}
@@ -85,9 +86,10 @@ function LeftPanel() {
             nodeGroup={nodeGroup.outputGroup}
           />
 
-        </div></div>
+        </div></div> : null}
 
-        <div className={s.create_group}><button className={s.create_group_btn} onClick={() => { addBlockGroup() }}>CREATE GROUP</button></div>
+        {flowIdentifier ? <div className={s.create_group}><button className={s.create_group_btn} onClick={() => { addBlockGroup() }}>CREATE GROUP</button></div> : null}
+
       </div>
     </div>
   );

@@ -10,7 +10,12 @@
         table-layout: fixed;
         border-collapse: collapse;
         text-align: left;
+        font-family: $font-node-nav-header;
 
+        th {
+            text-align: center;
+            color: $color-node-nav-container-header;
+        }
 
         th,
         td {
@@ -34,8 +39,7 @@
             width: 95%;
             overflow-x: auto;
             border: none;
-            font-family: $font-node-nav-header;
-            font-weight: bold;
+
         }
 
         span {

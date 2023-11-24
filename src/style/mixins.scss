@@ -10,7 +10,7 @@
   border: 0;
   background-color: $bg;
   color: $color-node-nav-btn;
-  font-weight: bolder;
+
   font-size: 0.9rem;
   border-bottom: 1px solid rgb(219, 219, 219);
   text-align: left;
@@ -27,10 +27,10 @@
 //Right Panel
 @mixin section_header {
   padding-top: 15px;
-  font-weight: bold;
+
   font-family: $font-node-nav-header;
   color: $color-node-nav-container-header;
-  font-size: 1.2rem;
+
   margin-bottom: 15px;
   text-align: center;
 }
@@ -40,7 +40,6 @@
     color: $color-node-nav-container-header;
     background-color: $bg-node-nav-btn;
     font-family: $font-node-nav-header;
-    font-size: 1rem;
     margin: 0;
     height: 40px;
     display: flex;
@@ -137,7 +136,9 @@
       height: 40px;
 
       th {
-
+        font-family: $font-node-nav-header;
+        color: $color-font-main;
+        font-weight: $font-weight-bold;
         font-style: italic;
 
       }
@@ -162,12 +163,16 @@
   width: 100%;
   margin-bottom: 20px;
   table-layout: table;
+  font-family: $font-node-nav-header;
 
   thead {
     font-style: italic;
 
     th {
-      text-align: left;
+
+      font-size: 0.9rem;
+      font-weight: $font-weight-bold;
+
     }
 
     margin-bottom: 20px;
@@ -179,13 +184,14 @@
     td {
       height: 30px;
       padding: 5px;
+      font-size: 0.9rem;
     }
 
 
     .flow_name {
-      font-weight: bold;
+
       color: $color-node-nav-icon;
-      cursor: pointer;
+      font-weight: $font-weight-bolder;
     }
 
     .actions_wrapper {
@@ -207,7 +213,9 @@
   border-radius: 5px;
   padding: 5px 10px;
   font-family: $font-node-nav-header;
-  font-weight: bold;
+  font-weight: $font-weight-bold;
+  color: $color-font-main;
+
 
   &:hover {
     background-color: rgb(148, 200, 230);
@@ -246,7 +254,7 @@
     color: black;
     font-size: 0.9rem;
 
-    font-weight: bold;
+
 
     &:hover {
       background-color: lighten($color-node-nav-icon, 55%);
@@ -264,7 +272,6 @@
 
 @mixin dropdown_menu_section_title {
   text-align: center;
-  font-weight: bold;
 
   padding: 5px;
   border-bottom: 1px solid rgb(230, 230, 230);

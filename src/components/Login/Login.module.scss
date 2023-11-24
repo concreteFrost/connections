@@ -79,14 +79,16 @@
             padding: 20px 40px 100px 40px;
             position: relative;
             font-family: $font-node-nav-header;
+            font-weight: $font-weight-regular;
+            font-variation-settings: 'slnt';
             border-radius: 5px;
-            width: 200px;
+
             height: 150px;
+
 
             input {
                 padding: 10px;
                 font-size: 1rem;
-                font-family: $font-node-nav-header;
                 border-radius: 5px;
                 border: 1px solid rgb(174, 196, 209);
 

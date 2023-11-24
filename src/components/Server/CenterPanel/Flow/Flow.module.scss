@@ -10,7 +10,7 @@
 
   @media screen and (max-width: $breakpoint-lg) {
     grid-template-columns: 8fr 4fr;
-    
+
   }
 
   .static_properties,
@@ -31,7 +31,7 @@
       }
     }
 
-    textarea{
+    textarea {
       resize: none;
     }
 
@@ -39,6 +39,7 @@
       display: grid;
       grid-template-columns: repeat(3, 4fr);
       gap: 10px;
+
       input {
         width: 100px;
       }
@@ -61,6 +62,10 @@
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
 
+      label {
+        font-size: 0.8rem;
+      }
+
       section {
         display: flex;
         justify-content: space-between;
@@ -77,7 +82,7 @@
   .change_log {
 
     @media screen and(max-width: $breakpoint-lg) {
-      grid-row: 2;  
+      grid-row: 2;
       grid-column: 1;
     }
   }
@@ -101,7 +106,7 @@
     }
 
     @media screen and(max-width: $breakpoint-lg) {
-      grid-row: 2; 
+      grid-row: 2;
       grid-column: 2;
     }
   }
@@ -119,7 +124,7 @@
       }
 
       td {
-        font-weight: bold;
+        font-size: 0.9rem;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -127,12 +132,14 @@
     }
 
     @media screen and(max-width: $breakpoint-lg) {
-      grid-row: 4;  
+      grid-row: 4;
     }
   }
 
   header {
-    font-weight: bold;
+    font-weight: $font-weight-bold;
+    text-align: center;
+
   }
 
   input {

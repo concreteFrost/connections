@@ -2,32 +2,33 @@
 @import "/src/style/mixins.scss";
 
 
-.wrapper{
+.wrapper {
   grid-column: 2;
+
   .nav_list {
     display: flex;
     justify-content: center;
-   
-    li{
+
+    li {
       list-style: none;
     }
-  
+
     .nav_list_item {
-     
+
       margin-right: 30px;
       font-family: $font-node-nav-header;
-      font-weight: bold;
+
       padding: 0;
       cursor: pointer;
     }
-  
-    .server_button{
+
+    .server_button {
       position: absolute;
       left: 20px;
       top: 6px;
-     
-  
-      button{
+
+
+      button {
         margin-left: 20px;
         background-color: $bg-top-menu-btn-default;
         padding: 5px 10px;
@@ -35,20 +36,19 @@
         border-radius: 5px;
         color: white;
         font-family: $font-node-nav-header;
-  
-        font-weight: bold;
-  
-        &:hover{
-            background-color: $bg-top-menu-btn-hover;
+
+
+
+        &:hover {
+          background-color: $bg-top-menu-btn-hover;
         }
-  
+
         transition: background-color 0.2s ease-in-out;
-    }
+      }
     }
   }
-  
+
   .view_section_hidden {
     display: none;
   }
 }
-
