@@ -1,6 +1,6 @@
 
 import { IBlockData } from "../interfaces/IBlock";
-import { IVisual } from "../interfaces/IVisual";
+import { IVisual } from "../interfaces/Iflow";
 import { RFState } from "../types/rfState";
 
 export const getBlockProperties = (get: () => RFState, set: any) => () => {

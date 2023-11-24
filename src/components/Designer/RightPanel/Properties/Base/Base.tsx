@@ -1,7 +1,7 @@
 import useStore from "../../../../../store/store";
 import s from "./Base.module.scss";
 import { IBlockData } from "../../../../../store/interfaces/IBlock";
-import { IVisual } from "../../../../../store/interfaces/IVisual";
+import { IVisual } from "../../../../../store/interfaces/Iflow";
 
 function Base() {
   const selectedBlockID: any = useStore((state) => state.selectedBlockID);

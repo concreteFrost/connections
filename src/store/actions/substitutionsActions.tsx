@@ -1,5 +1,5 @@
 import { RFState } from "../types/rfState";
-import { ISubstitutions } from "../interfaces/ISubstitutions";
+import { ISubstitutions } from "../interfaces/Iflow";
 import { IBlockData } from "../interfaces/IBlock";
 
 export const addSubstitutionKey = (get: () => RFState, set: any) => (key: string) => {

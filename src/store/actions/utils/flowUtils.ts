@@ -1,7 +1,7 @@
 import { RFState } from "../../types/rfState";
 import { IBlockData } from "../../interfaces/IBlock";
 import { IBlockParameters } from "../../interfaces/IBlock";
-import { IVisual } from "../../interfaces/IVisual";
+import { IVisual } from "../../interfaces/Iflow";
 import { Edge } from "react-flow-renderer";
 import { v4 as uuidv4 } from "uuid";
 import { getAccessToken } from "../storageActions";

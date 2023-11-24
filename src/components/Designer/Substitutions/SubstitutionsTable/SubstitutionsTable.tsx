@@ -1,4 +1,4 @@
-import { ISubstitutions } from "../../../../store/interfaces/ISubstitutions";
+import { ISubstitutions } from "../../../../store/interfaces/Iflow";
 import useStore from "../../../../store/store";
 import s from "./SubstitutionsTable.module.scss"
 

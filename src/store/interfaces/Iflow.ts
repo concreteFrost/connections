@@ -1,5 +1,4 @@
 import { IBlockData } from "./IBlock";
-import { ISubstitutions } from "./ISubstitutions";
 
 export interface IFlowData {
     created: string;
@@ -19,5 +18,19 @@ export interface IFlowData {
     };
 }
 
+export interface IVisual {
+    id: string;
+    data: { color: string, icon: string };
+    position: { x: number, y: number };
+}
 
+export interface ISubstitutions {
+    subKey: string;
+    subConfigs: Array<ISubConfigs>
+}
+
+export interface ISubConfigs {
+    configName: string;
+    configValue: string
+}
 
