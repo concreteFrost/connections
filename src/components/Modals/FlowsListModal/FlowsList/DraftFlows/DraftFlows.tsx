@@ -89,62 +89,65 @@ function DraftFlows() {
           : null}
       </ul>
       {/*FLOWS TABLE */}
-      {draftSectionToOpen.flows === true ? (
-        <table>
-          <thead>
-            <tr>
-              <th colSpan={2}>Name</th>
-              <th>Author</th>
-              <th>Created</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {loadedFlowFolders[currentDraftFolder]?.map(
-              (flow: ILoadedFlow) => (
-                <tr key={flow.draftId}>
-                  <td
-                    className={s.flow_name}
+      <div className={s.table_wrapper}>
+        {draftSectionToOpen.flows === true ? (
+          <table>
+            <thead>
+              <tr>
+                <th colSpan={2}>Name</th>
+                <th>Author</th>
+                <th>Created</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {loadedFlowFolders[currentDraftFolder]?.map(
+                (flow: ILoadedFlow) => (
+                  <tr key={flow.draftId}>
+                    <td
+                      className={s.flow_name}
 
-                    colSpan={2}
-                  >
-                    {flow.flowName}
-                  </td>
-                  <td>{flow.createdBy}</td>
-                  <td>{moment(flow.createdOn).calendar()}</td>
+                      colSpan={2}
+                    >
+                      {flow.flowName}
+                    </td>
+                    <td>{flow.createdBy}</td>
+                    <td>{moment(flow.createdOn).calendar()}</td>
 
-                  <td className={s.actions_wrapper}>
-                    {/*LOAD */}
-                    <button className={s.action_confirm_btn}
-                      onClick={() => {
-                        if (flowSlice.flow.flowIdentifier) {
-                          modalSlice.toggleUpdateFlowModal(true)
-                          modalSlice.setUpdateFlowModalActions({ save: () => saveAndLoadDraft(flow.draftId), discard: () => loadDraftWithoutSaving(flow.draftId) })
-                        }
-                        else {
-                          flowSlice.loadFlowFromDraft(flow.draftId);
-                          modalSlice.toggleLoadFlowModal(false)
-                        }
-                      }}
-                    >Load</button>
-                    {/*APPROVE */}
-                    <button className={s.action_confirm_btn}
-                      onClick={() => {
-                        toggleApproveFlowModal(true, flow.draftId);
-                        setApproveFlowModalMessage(flow.flowName)
-                      }}
-                    >Approve</button>
-                    {/*DELETE */}
-                    <button className={s.action_delete_btn} onClick={() => {
-                      deleteDraftAndUpdate(flow.draftId)
-                    }}>X</button>
-                  </td>
-                </tr>
-              )
-            )}
-          </tbody>
-        </table>
-      ) : null}
+                    <td className={s.actions_wrapper}>
+                      {/*LOAD */}
+                      <button className={s.action_confirm_btn}
+                        onClick={() => {
+                          if (flowSlice.flow.flowIdentifier) {
+                            modalSlice.toggleUpdateFlowModal(true)
+                            modalSlice.setUpdateFlowModalActions({ save: () => saveAndLoadDraft(flow.draftId), discard: () => loadDraftWithoutSaving(flow.draftId) })
+                          }
+                          else {
+                            flowSlice.loadFlowFromDraft(flow.draftId);
+                            modalSlice.toggleLoadFlowModal(false)
+                          }
+                        }}
+                      >Load</button>
+                      {/*APPROVE */}
+                      <button className={s.action_confirm_btn}
+                        onClick={() => {
+                          toggleApproveFlowModal(true, flow.draftId);
+                          setApproveFlowModalMessage(flow.flowName)
+                        }}
+                      >Approve</button>
+                      {/*DELETE */}
+                      <button className={s.action_delete_btn} onClick={() => {
+                        deleteDraftAndUpdate(flow.draftId)
+                      }}>X</button>
+                    </td>
+                  </tr>
+                )
+              )}
+            </tbody>
+          </table>
+        ) : null}
+      </div>
+      {/*BACK BTN */}
       {draftSectionToOpen.flows == true ? <button
         className={s.footer_btn}
         onClick={() => setDraftSectionToOpen({ folders: true, flows: false })}
@@ -158,6 +161,6 @@ function DraftFlows() {
 
 // TEMPLATE : CREATE TEMPLATE FROM EXISTING LIVE FLOW
 // UPDATE: UPDATE EXISTING LIVE FLOW
-//
+
 
 export default DraftFlows;

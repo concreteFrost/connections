@@ -114,10 +114,13 @@
   .blocks_table {
 
     grid-column: 1/4;
+    max-height: 700px;
+    overflow-y: auto;
 
     table {
       @include server_table;
       table-layout: fixed;
+
 
       .centered_table_data {
         text-align: center;
@@ -129,6 +132,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
       }
+
     }
 
     @media screen and(max-width: $breakpoint-lg) {

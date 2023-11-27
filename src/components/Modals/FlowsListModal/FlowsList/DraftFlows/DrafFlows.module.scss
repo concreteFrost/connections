@@ -9,9 +9,23 @@
     margin-bottom: 20px;
   }
 
-  table {
-    @include loaded_flows_table;
+  .table_wrapper {
+    max-height: 200px;
+    overflow-y: auto;
+
+    table {
+      @include loaded_flows_table;
+
+      thead {
+        position: sticky;
+        top: 0;
+        background-color: #f1f1f1;
+        z-index: 1;
+      }
+    }
+
   }
+
 
   li {
     list-style: none;
@@ -24,6 +38,8 @@
 
   ul {
     padding: 0;
+    max-height: 200px;
+    overflow-y: auto;
   }
 
   .footer_btn {

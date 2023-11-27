@@ -117,6 +117,8 @@
   }
 }
 
+//Right Panel Props
+
 @mixin section_grid_item {
   border-right: 1px solid rgb(238, 238, 238);
   height: 40px;
@@ -128,7 +130,14 @@
   width: 100%;
   border-collapse: collapse;
 
+
   thead {
+
+    position: sticky;
+    top: 0;
+    background-color: #f1f1f1;
+    z-index: 1;
+
     tr {
       text-align: center;
       background-color: $bg-node-nav-btn;
@@ -146,6 +155,8 @@
   }
 
   tbody {
+
+
     td {
       border: 1px solid rgb(235, 235, 235);
       width: 50%;
@@ -153,10 +164,15 @@
       background-color: rgb(255, 255, 255);
       color: gray;
 
-
     }
+
+
   }
 }
+
+//TABLES
+
+//LOADED FLOWS
 
 @mixin loaded_flows_table {
 
@@ -187,7 +203,6 @@
       font-size: 0.9rem;
     }
 
-
     .flow_name {
 
       color: $color-node-nav-icon;
@@ -205,6 +220,8 @@
   }
 
 }
+
+//SERVER
 
 @mixin server_header_btn {
 
@@ -232,6 +249,8 @@
   color: gray;
 }
 
+//TOP MENU
+
 @mixin dropdown_menu {
   position: absolute;
   top: 35px;
@@ -249,12 +268,9 @@
     display: grid;
     grid-template-columns: 6fr 6fr;
     padding: 10px;
-
     text-align: left;
     color: black;
     font-size: 0.9rem;
-
-
 
     &:hover {
       background-color: lighten($color-node-nav-icon, 55%);
@@ -272,7 +288,6 @@
 
 @mixin dropdown_menu_section_title {
   text-align: center;
-
   padding: 5px;
   border-bottom: 1px solid rgb(230, 230, 230);
   background-color: rgb(245, 245, 245);

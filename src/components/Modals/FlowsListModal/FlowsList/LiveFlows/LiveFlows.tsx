@@ -54,45 +54,48 @@ function LiveFlows() {
   return (
     <div className={s.wrapper}>
       <header>Live</header>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Author</th>
-            <th>Created</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {loadedLiveFlows.length > 0 ? loadedLiveFlows.map((loadedFlow: IFlowConfig) => <tr key={loadedFlow.flowId}>
-            <td className={s.flow_name}>{loadedFlow.name}</td>
-            <td>{loadedFlow.createdBy}</td>
-            <td>{moment(loadedFlow.dateCreated).calendar()}</td>
-            <td>
-              <div className={s.actions_wrapper}>
-                <button className={s.action_confirm_btn}
-                  onClick={() => toggleCreateTemplateFlowModal(true, loadedFlow.flowId, loadedFlow.name)}
-                >Template</button>
-                {/*LOAD */}
-                <button className={s.action_confirm_btn}
-                  onClick={() => {
-                    if (flowSlice.flow.flowIdentifier) {
-                      modalSlice.toggleUpdateFlowModal(true);
-                      modalSlice.setUpdateFlowModalActions({ save: () => saveAndLoadLive(loadedFlow.flowId), discard: () => loadLiveWithoutSaving(loadedFlow.flowId) })
-                    }
-                    else {
-                      flowSlice.createUpdateDraftFromLiveTemplate(loadedFlow.flowId);
-                      modalSlice.toggleLoadFlowModal(false)
-                    }
+      <div className={s.table_wrapper}>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Author</th>
+              <th>Created</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {loadedLiveFlows.length > 0 ? loadedLiveFlows.map((loadedFlow: IFlowConfig) => <tr key={loadedFlow.flowId}>
+              <td className={s.flow_name}>{loadedFlow.name}</td>
+              <td>{loadedFlow.createdBy}</td>
+              <td>{moment(loadedFlow.dateCreated).calendar()}</td>
+              <td>
+                <div className={s.actions_wrapper}>
+                  <button className={s.action_confirm_btn}
+                    onClick={() => toggleCreateTemplateFlowModal(true, loadedFlow.flowId, loadedFlow.name)}
+                  >Template</button>
+                  {/*LOAD */}
+                  <button className={s.action_confirm_btn}
+                    onClick={() => {
+                      if (flowSlice.flow.flowIdentifier) {
+                        modalSlice.toggleUpdateFlowModal(true);
+                        modalSlice.setUpdateFlowModalActions({ save: () => saveAndLoadLive(loadedFlow.flowId), discard: () => loadLiveWithoutSaving(loadedFlow.flowId) })
+                      }
+                      else {
+                        flowSlice.createUpdateDraftFromLiveTemplate(loadedFlow.flowId);
+                        modalSlice.toggleLoadFlowModal(false)
+                      }
 
-                  }}
-                >Update</button>
-              </div>
-            </td>
-          </tr>
-          ) : null}
-        </tbody>
-      </table>
+                    }}
+                  >Update</button>
+                </div>
+              </td>
+            </tr>
+            ) : null}
+          </tbody>
+        </table>
+      </div>
+
       <CreateTemplateFlowModal></CreateTemplateFlowModal>
     </div>
 

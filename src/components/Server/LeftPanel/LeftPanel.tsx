@@ -10,14 +10,14 @@ import DraftFlowsItem from "./LeftPanelItems/DraftFlowsItem";
 interface ILeftPanel {
   servers: boolean;
   flows: boolean;
-  drafts:boolean;
+  drafts: boolean;
   statistics: boolean;
   settings: boolean;
 
 }
 function LeftPanel() {
   const [isSectionOpened, setIsSectionOpened] = useState<ILeftPanel>({
-    servers:false,
+    servers: false,
     flows: false,
     drafts: false,
     statistics: false,
@@ -39,9 +39,9 @@ function LeftPanel() {
       <div className={s.sections_container}>
         <ServersItem className={s} isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></ServersItem>
         <FlowsItem className={s} isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></FlowsItem>
-        <DraftFlowsItem className={s}  isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></DraftFlowsItem>
-        <StatisticsItem className={s} isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></StatisticsItem>
-        <SettingsItem className={s} isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></SettingsItem>
+        <DraftFlowsItem className={s} isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></DraftFlowsItem>
+        {/* <StatisticsItem className={s} isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></StatisticsItem>
+        <SettingsItem className={s} isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></SettingsItem> */}
       </div>
     </div>
   );

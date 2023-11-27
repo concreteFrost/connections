@@ -9,7 +9,6 @@
     .section {
       position: relative;
       overflow-x: auto;
-
       background-color: $bg-node-nav-container;
 
       &.opened {
@@ -34,7 +33,6 @@
         list-style: none;
 
         font-family: $font-node-nav-header;
-
         background-color: $bg-node-nav-btn;
         padding: 10px 0px 10px 20px;
         border-bottom: 1px solid rgb(204, 204, 204);
@@ -69,10 +67,17 @@
 
       .draft_list_item_wrapper {
         .folder_name {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
           padding-left: 10px;
+          height: 40px;
           font-family: $font-node-nav-header;
-
           color: $color-node-nav-container-header;
+
+          span {
+            margin-right: 10px;
+          }
 
         }
 
