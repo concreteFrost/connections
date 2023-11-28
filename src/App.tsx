@@ -6,7 +6,7 @@ import Designer from "./components/Designer/Designer";
 import NotFound from "./components/NotFound/NotFound";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import Server from "./components/Server/Server";
-
+import Alerts from "./components/Alerts/Alerts";
 
 function App() {
 
@@ -16,6 +16,7 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/dashboard/*" element={<ProtectedRoute><Server></Server></ProtectedRoute>} />
         <Route path="/designer" element={<ProtectedRoute><Designer></Designer></ProtectedRoute>} />
+        <Route path="/alerts" element={<ProtectedRoute><Alerts></Alerts></ProtectedRoute>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

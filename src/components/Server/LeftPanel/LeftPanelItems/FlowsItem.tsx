@@ -46,7 +46,7 @@ function FlowsItem(props: FlowsItemProps) {
             ? flowList.map((flow: any) => (
               <li
                 key={flow.flowId}
-                className={`${props.className.flow_list}  ${currentFlow.flowIdentifier === flow.flowId
+                className={`${props.className.flow_list_item}  ${currentFlow.flowIdentifier === flow.flowId
                     ? props.className["selected"]
                     : null
                   }`}

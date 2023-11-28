@@ -29,40 +29,15 @@
       }
 
       li {
-        cursor: pointer;
-        list-style: none;
-
-        font-family: $font-node-nav-header;
-        background-color: $bg-node-nav-btn;
-        padding: 10px 0px 10px 20px;
-        border-bottom: 1px solid rgb(204, 204, 204);
+       @include server_flow_list;
       }
 
-      .flow_list {
-        display: grid;
-        grid-template-columns: 6fr 6fr;
-        align-items: center;
+      .flow_list_item {
+       @include server_flow_list_item;
+      }
 
-        &.selected {
-          background-color: rgb(179, 179, 179);
-        }
-
-        transition: background-color 0.3s ease-in-out;
-
-        .flow_list_btn_wrapper {
-          width: 100%;
-          display: flex;
-          justify-content: right;
-
-          button {
-            margin-right: 5px;
-            background-color: $bg-top-menu-btn-default;
-            color: white;
-            padding: 7px;
-            border: none;
-            z-index: 1000;
-          }
-        }
+      .flow_list_btn_wrapper {
+       @include server_flow_list_btn_wrapper;
       }
 
       .draft_list_item_wrapper {

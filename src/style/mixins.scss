@@ -292,3 +292,42 @@
   border-bottom: 1px solid rgb(230, 230, 230);
   background-color: rgb(245, 245, 245);
 }
+
+//SERVER FLOW LIST
+
+@mixin server_flow_list{
+  cursor: pointer;
+  list-style: none;
+
+  font-family: $font-node-nav-header;
+  background-color: $bg-node-nav-btn;
+  padding: 10px 0px 10px 20px;
+  border-bottom: 1px solid rgb(204, 204, 204);
+}
+
+@mixin server_flow_list_item{
+  display: grid;
+  grid-template-columns: 6fr 6fr;
+  align-items: center;
+
+  &.selected {
+    background-color: rgb(179, 179, 179);
+  }
+
+  transition: background-color 0.3s ease-in-out;
+}
+
+@mixin server_flow_list_btn_wrapper{
+  width: 100%;
+  display: flex;
+  justify-content: right;
+
+  button {
+    margin-right: 5px;
+    background-color: $bg-top-menu-btn-default;
+    color: white;
+    padding: 7px;
+    border: none;
+    z-index: 1000;
+  }
+}

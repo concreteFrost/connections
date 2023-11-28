@@ -12,6 +12,17 @@
   justify-content: center;
   align-items: center;
 
+  .alerts_button{
+    position: absolute;
+    left: 95px;
+    top: 0;
+
+    button {
+      @include server_header_btn;
+      margin-left: 20px;
+    }
+  }
+
   .designer_button {
     position: absolute;
     left: 0;

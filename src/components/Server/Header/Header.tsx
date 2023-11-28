@@ -13,6 +13,11 @@ function Header() {
           navigate('/designer')
         }}>DESIGNER</button>
       </div>
+      <div className={s.alerts_button}>
+        <button onClick={() => {
+          navigate('/alerts')
+        }}>ALERTS</button>
+      </div>
       <div className={s.logout_container}>
         <Logout></Logout>
       </div>

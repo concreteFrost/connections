@@ -1,0 +1,35 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+.wrapper{
+
+    ul{
+        margin-top: 20px;
+        padding: 0;
+
+    }
+
+    .list_item{
+        list-style: none;
+        display: grid;
+        grid-template-columns: 2fr 10fr;
+      
+        border-bottom: 1px solid rgb(231, 231, 231);
+        padding: 10px 5px;
+        font-family: $font-node-nav-header;
+    
+
+        .list_item_title{
+            font-weight: $font-weight-bolder;
+        }
+        label{
+            margin-right: 5px;
+        }
+
+        input{
+            margin-right: 10px;
+            margin-left: 0;
+          
+        }
+    }
+}
