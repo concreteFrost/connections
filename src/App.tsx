@@ -6,7 +6,7 @@ import Designer from "./components/Designer/Designer";
 import NotFound from "./components/NotFound/NotFound";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import Server from "./components/Server/Server";
-import Alerts from "./components/Alerts/Alerts";
+import Alerts from "./components/Notifications/Noticifations";
 
 function App() {
 

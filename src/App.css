@@ -1,5 +1,7 @@
 
-
+body{
+  margin: 0;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -17,7 +19,6 @@
   right: 0;
   bottom: 0;
   display: grid;
-  
   grid-template-columns:  1.4fr 6fr 1.4fr;
 }
 

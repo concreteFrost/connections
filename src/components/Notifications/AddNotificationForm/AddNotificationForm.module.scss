@@ -1,0 +1,98 @@
+@import "/src/style/mixins.scss";
+@import "/src/style/variables.scss";
+
+.wrapper {
+  position: relative;
+  font-family: $font-node-nav-header;
+
+  .toggle_btn_wrapper {
+    position: absolute;
+    z-index: 1000;
+    top: 5px;
+    left: 20px;
+
+    button {
+      @include blue_btn;
+    }
+  }
+
+  .form_wrapper {
+    font-size: 0.8rem;
+
+    &.opened {
+      transform: translateY(0);
+      
+    }
+
+    &.closed {
+      transform: translateY(-100%);
+      height: 37px;
+      header,form{
+        display: none;
+        
+      }
+    }
+
+    transition: transform 0.3s ease-in-out;
+
+    header {
+      text-align: center;
+      padding-top: 10px;
+      color: $color-list-label;
+      font-weight: $font-weight-bolder;
+      margin-bottom: 10px;
+     
+    }
+
+    .new_notification_form {
+      background-color: rgb(228, 238, 243);
+      display: grid;
+      padding: 20px;
+      grid-template-columns: repeat(3, 4fr);
+      gap: 30px;
+      width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      box-shadow: $shadow-top-menu-btn;
+
+      .double_row {
+        position: relative;
+
+        button {
+          @include blue_btn;
+          position: absolute;
+          bottom: 10px;
+          width: 100%;
+          height: 30px;
+        }
+      }
+
+      section {
+        display: grid;
+        margin-bottom: 10px;
+        grid-template-rows: 20px 30px;
+
+        input,
+        textarea,
+        select {
+          border: 1px solid rgb(197, 226, 226);
+          outline: none;
+        }
+
+        input,textarea{
+          padding: 5px;
+        }
+
+        textarea {
+          resize: none;
+        }
+
+        label {
+          font-weight: $font-weight-bolder;
+        }
+      }
+    }
+  }
+}

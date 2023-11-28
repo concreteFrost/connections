@@ -1,0 +1,83 @@
+@import "/src/style/mixins.scss";
+@import "/src/style/variables.scss";
+
+.wrapper {
+  height: 81vh;
+
+  border: 1px solid rgb(231, 231, 231);
+  font-family: $font-node-nav-header;
+  position: relative;
+
+  .panel_header {
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .panel_footer {
+    position: absolute;
+    bottom: 70px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    button {
+      @include blue_btn;
+      background-color: $bg-delete-btn;
+    }
+  }
+
+  .actions_wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    input {
+      position: absolute;
+      right: 10px;
+      margin-bottom: 10px;
+    }
+    .actions_header {
+      margin-left: 20px;
+      height: 30px;
+    }
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    @include server_flow_list;
+    display: grid;
+    grid-template-columns: 8fr 4fr;
+    align-items: center;
+    font-size: 0.9rem;
+
+    .notification_actions{
+      display: flex;
+      gap: 5px;
+      padding-right: 10px;
+
+      button{
+        font-size: 0.7rem;
+        font-weight: bold;
+      }
+
+      .edit_btn{
+        @include blue_btn;
+      }
+
+      .delete_btn{
+        @include blue_btn;
+        background-color: $bg-delete-btn;
+      }
+    }
+  }
+
+  .flow_list_item {
+    @include server_flow_list_item;
+  }
+}

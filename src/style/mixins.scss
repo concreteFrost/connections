@@ -1,7 +1,21 @@
 @import "./variables.scss";
 
-//Right Panel
+//BUTTONS
 
+@mixin blue_btn{
+  background-color: $bg-top-menu-btn-default;
+  padding: 5px 10px;
+  border: 0;
+  border-radius: 5px;
+  color: white;
+  font-family: $font-node-nav-header;
+
+  &:hover {
+    background-color: $bg-top-menu-btn-hover;
+  }
+
+  transition: background-color 0.2s ease-in-out;
+}
 //Left Panel
 @mixin left_panel_btn($bg) {
   font-family: $font-node-nav-header;

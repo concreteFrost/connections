@@ -1,0 +1,65 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+.wrapper {
+  border: 1px solid rgb(231, 231, 231);
+  ul {
+    margin-top: 20px;
+    padding: 0;
+  }
+
+  font-family: $font-node-nav-header;
+
+  .list_item {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+    align-items: end;
+    height: 30px;
+    border-bottom: 1px solid rgb(231, 231, 231);
+    padding: 0px 10px;
+
+    .list_item_title {
+      font-weight: $font-weight-bolder;
+    }
+
+    .list_item_value {
+      font-size: 0.9rem;
+    }
+    label {
+      margin-right: 5px;
+    }
+
+    input {
+      margin-right: 10px;
+      margin-left: 0;
+    }
+  }
+
+  .message_wrapper {
+    padding: 10px;
+    border-bottom: 1px solid rgb(231, 231, 231);
+
+    .message_header {
+      font-weight: $font-weight-bolder;
+      margin-bottom: 10px;
+    }
+  }
+
+  .editor_footer{
+    display: flex;
+    justify-content: start;
+    margin-top: 20px;
+    margin-left: 5px;
+
+    button{
+        @include blue_btn;
+        font-size: 1.1rem;
+        margin-left: 5px;
+    }
+
+    .delete_notification_btn{
+      background-color: $bg-delete-btn;
+    }
+  }
+}
