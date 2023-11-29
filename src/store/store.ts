@@ -8,6 +8,7 @@ import serverSlice from "./slices/serverSlice";
 import edgeActions from "./actions/edgesActions";
 import nodeActions from "./actions/nodeActions";
 import leftPanelActions from "./actions/leftPanelActions";
+import notificationSlice from "./slices/notificationSlice";
 
 const useStore = create<RFState>((set, get) => ({
 
@@ -18,6 +19,7 @@ const useStore = create<RFState>((set, get) => ({
   modalWindowsSlice: modalWindowsSlice(get, set),
   designerVisualElementsSlice: designerVisualElementsSlice(get, set),
   serverSlice: serverSlice(get, set),
+  notificationSlice: notificationSlice(get, set),
   //Value Editor Actions
 
 

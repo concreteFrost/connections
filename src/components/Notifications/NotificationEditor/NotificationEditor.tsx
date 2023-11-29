@@ -1,6 +1,17 @@
+import { useEffect } from "react";
 import s from "./NotificationEditor.module.scss";
+import { getNotificationTypesAPI } from "../../../api/notification"
 
 function NotificationEditor() {
+
+  useEffect(() => {
+    // getNotificationTypesAPI().then((res: any) => {
+    //   console.log(res)
+    // }).catch((e) => {
+    //   console.log(e)
+    // })
+
+  }, [])
   return (
     <div className={s.wrapper}>
       <ul>
@@ -47,14 +58,14 @@ function NotificationEditor() {
       <div className={s.message_wrapper}>
         <header className={s.message_header}>Message:</header>
         <div className={s.message_body}>
-        Queue size for flowName has reached or exceeded targetLevel at alertTime 
+          Queue size for flowName has reached or exceeded targetLevel at alertTime
         </div>
       </div>
 
       <footer className={s.editor_footer}>
-          <button>Update</button>
-          <button>Close</button>
-          <button className={s.delete_notification_btn}>Delete</button>
+        <button>Update</button>
+        <button>Close</button>
+        <button className={s.delete_notification_btn}>Delete</button>
       </footer>
     </div>
   );

@@ -10,6 +10,7 @@ import { ModalWindows } from "../slices/modalWindowsSlice";
 import { FlowSlice } from "../slices/flowSlice";
 import { DesignerVisualElementsSlice } from "../slices/designerVisualElementsSlice";
 import { ServerSlice } from "../slices/serverSlice";
+import { NotificationSlice } from "../slices/notificationSlice";
 
 export type RFState = {
 
@@ -20,6 +21,7 @@ export type RFState = {
   modalWindowsSlice: ModalWindows,
   designerVisualElementsSlice: DesignerVisualElementsSlice,
   serverSlice: ServerSlice,
+  notificationSlice: NotificationSlice,
 
 
   //Value Editor Actions

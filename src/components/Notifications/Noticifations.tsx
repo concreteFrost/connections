@@ -5,6 +5,7 @@ import NofificationEditor from "./NotificationEditor/NotificationEditor";
 import AddNotificationForm from "./AddNotificationForm/AddNotificationForm";
 
 function Nofifications() {
+
   return (
     <div className={s.wrapper}>
       <Header></Header>
