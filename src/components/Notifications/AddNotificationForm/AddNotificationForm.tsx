@@ -4,43 +4,70 @@ import { useState, useEffect } from "react";
 import { INotification, INotificationType } from "../../../store/interfaces/INotification";
 import { v4 as uuid } from "uuid"
 import useStore from "../../../store/store";
+import { IGroup, IUser } from "../../../store/interfaces/ISecurity";
+import MessageModal from "../../Modals/MessageModal";
+
+
+const defaultFormState = {
+  notificationId: uuid(),
+  name: '',
+  description: '',
+  userMessage: '',
+  notificationTypeId: '',
+  userOrGroupId: '',
+  notifyDashboard: false,
+  notifyByEmail: false,
+  notifyBySMS: false,
+  active: false
+}
+
 function AddNotificationForm() {
   const [isFormActive, setIsFormActive] = useState<boolean>(false);
   const getNotificationList = useStore((state) => state.notificationSlice.getNotificationsList)
 
-  const [formElements, setFormElements] = useState<INotification>({
-    notificationId: uuid(),
-    name: '',
-    description: '',
-    userMessage: '',
-    notificationTypeId: '',
-    userOrGroupId: '6bfd9258-0c22-4515-a605-aefad52858a2',
-    notifyDashboard: false,
-    notifyByEmail: false,
-    notifyBySMS: false,
-    active: false
-  })
+  const [formElements, setFormElements] = useState<INotification>(defaultFormState)
 
-  const [notificationTypes, setNotificationType] = useState<Array<INotificationType>>([]);
+  const getUserList = useStore((state) => state.securitySlice.getUserList);
+  const getGroupList = useStore((state) => state.securitySlice.getGroupList);
+  const getNotificationTypes = useStore((state) => state.notificationSlice.getNotificationsTypes);
+  const notificationTypes = useStore((state) => state.notificationSlice.notificationsTypes);
+  const { userList, groupList } = useStore((state) => state.securitySlice);
+  const modalSlice = useStore((state) => state.modalWindowsSlice);
 
-  async function fetchNotificationTypes() {
-    await getNotificationTypesAPI().then((res: any) => {
-      setNotificationType(res.data);
-      setFormElements({ ...formElements, notificationTypeId: res.data[0].notificationTypeId })
-    }).catch((e) => {
-      console.log(e)
-    })
+  async function fetchData() {
+    try {
+      await getNotificationTypes();
+      await getUserList();
+      await getGroupList();
+      await setFormElements({
+        ...formElements,
+        notificationTypeId: notificationTypes[0].notificationTypeId,
+        userOrGroupId: userList[0].userId
+      })
+
+    }
+    catch (e) {
+      console.log('error fetching data', e)
+    }
+
   }
 
   useEffect(() => {
-    fetchNotificationTypes();
+    fetchData()
+    //insert api here
   }, [])
 
   function submitForm(e: any) {
     e.preventDefault()
+
     newNotificationAPI(formElements).then((res: any) => {
-      console.log('new notification success', res);
-      getNotificationList()
+      if (res.data.success) {
+        setFormElements(defaultFormState)
+        getNotificationList()
+      }
+      modalSlice.toggleMessageModal()
+      modalSlice.setModalMessage(res.data.message.length > 0 ? res.data.message : 'success!!!')
+
     }).catch((e) => {
       console.log('new notification error', e)
     })
@@ -68,24 +95,27 @@ function AddNotificationForm() {
           <div className={s.first_column}>
             <section>
               <label>Name:</label>
-              <input type="text" value={formElements.name} onChange={(e) => setFormElements({ ...formElements, name: e.target.value })} />
+              <input type="text" value={formElements.name} onChange={(e) => setFormElements({ ...formElements, name: e.target.value })} required />
             </section>
 
             <section>
               <label>Description:</label>
-              <textarea value={formElements.description} onChange={(e) => setFormElements({ ...formElements, description: e.target.value })}></textarea>
+              <textarea value={formElements.description} onChange={(e) => setFormElements({ ...formElements, description: e.target.value })} required></textarea>
             </section>
 
             <section>
               <label>Message:</label>
-              <textarea value={formElements.userMessage} onChange={(e) => setFormElements({ ...formElements, userMessage: e.target.value })} ></textarea>
+              <textarea value={formElements.userMessage} onChange={(e) => setFormElements({ ...formElements, userMessage: e.target.value })} required ></textarea>
             </section>
           </div>
 
           <div className={s.second_column}>
             <section>
               <label>Type:</label>
-              <select value={formElements.notificationTypeId} onChange={(e) => setFormElements({ ...formElements, notificationTypeId: e.target.value })}>
+              <select
+                value={formElements.notificationTypeId}
+                onChange={(e) => setFormElements({ ...formElements, notificationTypeId: e.target.value })}
+              >
                 {notificationTypes.length > 0 ? notificationTypes.map((notification: INotificationType) =>
                   <option value={notification.notificationTypeId} key={notification.notificationTypeId}>{notification.name}</option>) : null}
               </select>
@@ -93,11 +123,22 @@ function AddNotificationForm() {
 
             <section>
               <label>User/Group:</label>
-              {/* <select value={formElements.userOrGroupId} onChange={(e) => setFormElements({ ...formElements, userOrGroupId: e.target.value })}>
-                <option value="1">1</option>
-                <option value="2">2</option>
-              </select> */}
+              <select
+                value={formElements.userOrGroupId}
+                onChange={(e) => setFormElements({ ...formElements, userOrGroupId: e.target.value })}
+              >
+                <optgroup label="USERS">
+                  {userList.length > 0 ? userList.map((user: IUser) =>
+                    <option key={user.userId} value={user.userId}>{user.userName}</option>) : null}
+                </optgroup>
+                <optgroup label="GROUPS">
+                  {groupList.length > 0 ? groupList.map((group: IGroup) =>
+                    <option key={group.groupId} value={group.groupId}>{group.name}</option>) : null}
+                </optgroup>
+              </select>
             </section>
+
+
 
             <section>
               <label>Media:</label>
@@ -135,6 +176,7 @@ function AddNotificationForm() {
           </div>
         </form>
       </div>
+      <MessageModal></MessageModal>
     </div>
   );
 }

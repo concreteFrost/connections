@@ -86,9 +86,8 @@ export function updateNotificationAPI(notificationRecord: INotification) {
                 "Content-Type": "application/json",
                 Authorization: "Bearer " + getAccessToken().token,
             },
-            params: {
-                notificationRecord: notificationRecord
-            }
+            data: notificationRecord
+
         })
             .then((res) => {
                 resolve(res);

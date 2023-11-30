@@ -14,5 +14,5 @@ export interface INotification {
 export interface INotificationType {
     defaultText: string,
     name: string,
-    notificationTypeId: number
+    notificationTypeId: string
 }

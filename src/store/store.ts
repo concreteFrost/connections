@@ -9,6 +9,7 @@ import edgeActions from "./actions/edgesActions";
 import nodeActions from "./actions/nodeActions";
 import leftPanelActions from "./actions/leftPanelActions";
 import notificationSlice from "./slices/notificationSlice";
+import securitySlice from "./slices/securitySlice";
 
 const useStore = create<RFState>((set, get) => ({
 
@@ -20,6 +21,7 @@ const useStore = create<RFState>((set, get) => ({
   designerVisualElementsSlice: designerVisualElementsSlice(get, set),
   serverSlice: serverSlice(get, set),
   notificationSlice: notificationSlice(get, set),
+  securitySlice: securitySlice(get, set),
   //Value Editor Actions
 
 

@@ -11,6 +11,7 @@ import { FlowSlice } from "../slices/flowSlice";
 import { DesignerVisualElementsSlice } from "../slices/designerVisualElementsSlice";
 import { ServerSlice } from "../slices/serverSlice";
 import { NotificationSlice } from "../slices/notificationSlice";
+import { SecuritySlice } from "../slices/securitySlice";
 
 export type RFState = {
 
@@ -22,7 +23,7 @@ export type RFState = {
   designerVisualElementsSlice: DesignerVisualElementsSlice,
   serverSlice: ServerSlice,
   notificationSlice: NotificationSlice,
-
+  securitySlice: SecuritySlice,
 
   //Value Editor Actions
 

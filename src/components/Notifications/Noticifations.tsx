@@ -3,8 +3,11 @@ import s from "./Notifications.module.scss";
 import CurrentNotifications from "./CurrentNotifications/CurrentNotifications";
 import NofificationEditor from "./NotificationEditor/NotificationEditor";
 import AddNotificationForm from "./AddNotificationForm/AddNotificationForm";
+import useStore from "../../store/store";
 
 function Nofifications() {
+
+  const currentNote = useStore((state) => state.notificationSlice.currentNotification)
 
   return (
     <div className={s.wrapper}>
@@ -12,7 +15,7 @@ function Nofifications() {
       <AddNotificationForm></AddNotificationForm>
       <div className={s.content}>
         <CurrentNotifications></CurrentNotifications>
-        <NofificationEditor></NofificationEditor>
+        {currentNote ? <NofificationEditor></NofificationEditor> : null}
       </div>
     </div>
   );

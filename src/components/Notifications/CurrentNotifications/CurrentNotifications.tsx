@@ -6,10 +6,30 @@ import { INotification } from "../../../store/interfaces/INotification";
 function CurrentNotifications() {
 
   const notificationsList = useStore((state) => state.notificationSlice.notificationsList);
-  const getNotificationsList = useStore((state) => state.notificationSlice.getNotificationsList);
+  const currentNote = useStore((state) => state.notificationSlice.currentNotification);
+  const { getNotificationsList, setCurrentNotification, deleteNotification } = useStore((state) => state.notificationSlice);
+
+  async function fetchData() {
+    try {
+      await getNotificationsList()
+    }
+    catch (e) {
+      console.log('error getting list of notifications', e)
+    }
+  }
+
+  async function performSingleDeletion(notificationId: string) {
+    try {
+      await deleteNotification(notificationId);
+      await getNotificationsList();
+    }
+    catch (e) {
+      console.log('error deleting notification', e)
+    }
+  }
+
   useEffect(() => {
-    getNotificationsList()
-    console.log(notificationsList, 'notificationList')
+    fetchData();
   }, [])
 
 
@@ -22,7 +42,13 @@ function CurrentNotifications() {
       </section>
       <ul>
         {notificationsList.length > 0 ? notificationsList.map((notification: INotification) =>
-          <li key={notification.notificationId}>{notification.name}</li>) : null}
+          <li key={notification.notificationId}><div>{notification.name}</div>
+            <div className={s.notification_actions}>
+              <button className={s.edit_btn} onClick={() => setCurrentNotification(notification)}>EDIT</button>
+              <button className={s.delete_btn} onClick={() => performSingleDeletion(notification.notificationId)} >X</button>
+              <input type="checkbox" />
+            </div>
+          </li>) : null}
       </ul>
 
       <footer className={s.panel_footer}>
@@ -33,28 +59,3 @@ function CurrentNotifications() {
 }
 
 export default CurrentNotifications;
-
-{/* <li>
-<div>Flow2 Started</div>
-<div className={s.notification_actions}>
-  <button className={s.edit_btn}>EDIT</button>
-  <button className={s.delete_btn}>X</button>
-  <input type="checkbox" />
-</div>
-</li>
-<li>
-<div>Flow2 Stopped</div>
-<div className={s.notification_actions}>
-  <button className={s.edit_btn}>EDIT</button>
-  <button className={s.delete_btn}>X</button>
-  <input type="checkbox" />
-</div>
-</li>
-<li>
-<div>Server Started</div>
-<div className={s.notification_actions}>
-  <button className={s.edit_btn}>EDIT</button>
-  <button className={s.delete_btn}>X</button>
-  <input type="checkbox" />
-</div>
-</li> */}

@@ -1,71 +1,137 @@
-import { useEffect } from "react";
 import s from "./NotificationEditor.module.scss";
-import { getNotificationTypesAPI } from "../../../api/notification"
+import useStore from "../../../store/store";
+import { INotificationType } from "../../../store/interfaces/INotification";
+import { IUser, IGroup } from "../../../store/interfaces/ISecurity";
 
 function NotificationEditor() {
 
-  useEffect(() => {
-    // getNotificationTypesAPI().then((res: any) => {
-    //   console.log(res)
-    // }).catch((e) => {
-    //   console.log(e)
-    // })
+  const { currentNotification,
+    notificationsTypes,
+    setCurrentNotificationProps,
+    deleteNotification,
+    setCurrentNotification,
+    getNotificationsList,
+    updateNotification } = useStore((state) => state.notificationSlice);
+  const { userList, groupList } = useStore((state) => state.securitySlice);
+  const modalSlice = useStore((state) => state.modalWindowsSlice)
 
-  }, [])
+  async function performDeletion() {
+    try {
+      if (currentNotification?.notificationId) {
+        await deleteNotification(currentNotification?.notificationId)
+        await setCurrentNotification(null);
+        await getNotificationsList()
+      }
+    }
+    catch (e) {
+      console.log('error on deleting notification', e)
+    }
+  }
+
+  async function performUpdate() {
+    try {
+      if (currentNotification) {
+        const res: any = await updateNotification(currentNotification);
+        if (res.data.success) {
+          await modalSlice.setModalMessage("success!!!");
+          await getNotificationsList();
+        }
+        else {
+          await modalSlice.setModalMessage(res.data.message);
+        }
+        await modalSlice.toggleMessageModal();
+      }
+    } catch (e) {
+      console.log('error updating notification', e)
+    }
+
+  }
+
   return (
     <div className={s.wrapper}>
       <ul>
         <li className={s.list_item}>
           <div className={s.list_item_title}>Name:</div>
-          <div className={s.list_item_value}>GFlow5 Queue Alert</div>
+          <div className={s.list_item_value}><input type="text" value={currentNotification?.name}
+            onChange={(e) => setCurrentNotificationProps("name", e.target.value)}
+          /></div>
         </li>
-
         <li className={s.list_item}>
           <div className={s.list_item_title}>Description:</div>
           <div className={s.list_item_value}>
-            GFlow5 Input3 unprocessed file drop queue monitor
+            <input type="text" value={currentNotification?.description} onChange={(e) => setCurrentNotificationProps("description", e.target.value)} />
           </div>
         </li>
 
         <li className={s.list_item}>
           <div className={s.list_item_title}>Type:</div>
-          <div className={s.list_item_value}>FlowQueueCount</div>
+          <div className={s.list_item_value}> <select
+            value={currentNotification?.notificationTypeId}
+            onChange={(e) => setCurrentNotificationProps("notificationTypeId", e.target.value)}
+          >
+            {notificationsTypes.length > 0 ? notificationsTypes.map((notification: INotificationType) =>
+              <option value={notification.notificationTypeId} key={notification.notificationTypeId}>{notification.name}</option>) : null}
+          </select></div>
+        </li>
+
+        <li className={s.list_item}>
+          <div className={s.list_item_title}>User/Group:</div>
+          <div className={s.list_item_value}>
+            <select value={currentNotification?.userOrGroupId}
+              onChange={(e) => setCurrentNotificationProps("userOrGroupId", e.target.value)}
+            >
+              <optgroup label="USERS">
+                {userList.length > 0 ? userList.map((user: IUser) =>
+                  <option key={user.userId} value={user.userId}>{user.userName}</option>) : null}
+              </optgroup>
+              <optgroup label="GROUPS">
+                {groupList.length > 0 ? groupList.map((group: IGroup) =>
+                  <option key={group.groupId} value={group.groupId}>{group.name}</option>) : null}
+              </optgroup>
+            </select></div>
         </li>
 
         <li className={s.list_item}>
           <div className={s.list_item_title}>Media:</div>
           <div className={s.list_item_value}>
             <label>Dashboard:</label>
-            <input type="checkbox" />
+            <input type="checkbox" checked={currentNotification?.notifyDashboard}
+              onChange={(e) => setCurrentNotificationProps("notifyDashboard", !currentNotification?.notifyDashboard)}
+            />
             <label>Email:</label>
-            <input type="checkbox" />
+            <input type="checkbox" checked={currentNotification?.notifyByEmail}
+              onChange={(e) => setCurrentNotificationProps("notifyByEmail", !currentNotification?.notifyByEmail)}
+            />
             <label>Sms:</label>
-            <input type="checkbox" />
+            <input type="checkbox" checked={currentNotification?.notifyBySMS}
+              onChange={(e) => setCurrentNotificationProps("notifyBySMS", !currentNotification?.notifyBySMS)}
+            />
           </div>
         </li>
 
-        <li className={s.list_item}>
-          <div className={s.list_item_title}>User/Group:</div>
-          <div className={s.list_item_value}>MonitorGrp</div>
-        </li>
+
 
         <li className={s.list_item}>
           <div className={s.list_item_title}>Active:</div>
-          <div className={s.list_item_value}> <input type="checkbox" /></div>
+          <div className={s.list_item_value}> <input type="checkbox" checked={currentNotification?.active}
+            onChange={(e) => setCurrentNotificationProps("active", !currentNotification?.active)}
+          /></div>
         </li>
       </ul>
 
       <div className={s.message_wrapper}>
         <header className={s.message_header}>Message:</header>
         <div className={s.message_body}>
-          Queue size for flowName has reached or exceeded targetLevel at alertTime
+          <textarea value={currentNotification?.userMessage}
+            onChange={(e) => setCurrentNotificationProps("userMessage", e.target.value)}
+          ></textarea>
         </div>
       </div>
 
       <footer className={s.editor_footer}>
-        <button>Update</button>
-        <button>Close</button>
-        <button className={s.delete_notification_btn}>Delete</button>
+        <button onClick={performUpdate}>Update</button>
+        <button onClick={() => setCurrentNotification(null)}>Close</button>
+        <button className={s.delete_notification_btn} onClick={performDeletion}>Delete</button>
       </footer>
     </div>
   );
