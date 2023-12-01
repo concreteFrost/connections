@@ -29,6 +29,7 @@ const getNotificationTypes = (get: () => RFState, set: any) => async () => {
             }
         }))
 
+
     } catch (e) {
         console.log('error loading notifications', e);
 
@@ -78,13 +79,33 @@ const updateNotification = (get: () => RFState, set: any) => async (notification
     }
 }
 
+const toggleSelectNotification = (get: () => RFState, set: any) => async (notificationId: string) => {
+    const updatedNotifications = get().notificationSlice.notificationsList.map((notification: any) => {
+        if (notificationId === notification.notificationId) {
+            return {
+                ...notification,
+                isSelected: !notification.isSelected
+            }
+        }
+        else return notification
+    })
+
+    set((state: RFState) => ({
+        notificationSlice: {
+            ...state.notificationSlice,
+            notificationsList: updatedNotifications
+        }
+    }))
+}
+
 const notificationsActions = {
     getNotificationList: getNotificationList,
     getNotificationTypes: getNotificationTypes,
     setCurrentNotification: setCurrentNotification,
     deleteNotification: deleteNotification,
     setCurrentNotificationProps: setCurrentNotificationProps,
-    updateNotification: updateNotification
+    updateNotification: updateNotification,
+    toggleSelectNotification: toggleSelectNotification
 }
 
 export default notificationsActions

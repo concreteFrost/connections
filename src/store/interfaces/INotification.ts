@@ -9,6 +9,7 @@ export interface INotification {
     notifyDashboard: boolean;
     notifyByEmail: boolean;
     notifyBySMS: boolean;
+
 }
 
 export interface INotificationType {

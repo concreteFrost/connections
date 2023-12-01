@@ -22,29 +22,20 @@ const defaultFormState = {
 }
 
 function AddNotificationForm() {
-  const [isFormActive, setIsFormActive] = useState<boolean>(false);
-  const getNotificationList = useStore((state) => state.notificationSlice.getNotificationsList)
 
+  const { notificationsTypes, getNotificationsList, getNotificationsTypes } = useStore((state) => state.notificationSlice)
+  const { userList, groupList, getUserList, getGroupList } = useStore((state) => state.securitySlice);
+  const modalSlice = useStore((state) => state.modalWindowsSlice);
+
+  const [isFormActive, setIsFormActive] = useState<boolean>(false);
   const [formElements, setFormElements] = useState<INotification>(defaultFormState)
 
-  const getUserList = useStore((state) => state.securitySlice.getUserList);
-  const getGroupList = useStore((state) => state.securitySlice.getGroupList);
-  const getNotificationTypes = useStore((state) => state.notificationSlice.getNotificationsTypes);
-  const notificationTypes = useStore((state) => state.notificationSlice.notificationsTypes);
-  const { userList, groupList } = useStore((state) => state.securitySlice);
-  const modalSlice = useStore((state) => state.modalWindowsSlice);
 
   async function fetchData() {
     try {
-      await getNotificationTypes();
+      await getNotificationsTypes();
       await getUserList();
       await getGroupList();
-      await setFormElements({
-        ...formElements,
-        notificationTypeId: notificationTypes[0].notificationTypeId,
-        userOrGroupId: userList[0].userId
-      })
-
     }
     catch (e) {
       console.log('error fetching data', e)
@@ -55,7 +46,7 @@ function AddNotificationForm() {
   useEffect(() => {
     fetchData()
     //insert api here
-  }, [])
+  }, [isFormActive])
 
   function submitForm(e: any) {
     e.preventDefault()
@@ -63,7 +54,7 @@ function AddNotificationForm() {
     newNotificationAPI(formElements).then((res: any) => {
       if (res.data.success) {
         setFormElements(defaultFormState)
-        getNotificationList()
+        getNotificationsList()
       }
       modalSlice.toggleMessageModal()
       modalSlice.setModalMessage(res.data.message.length > 0 ? res.data.message : 'success!!!')
@@ -116,7 +107,8 @@ function AddNotificationForm() {
                 value={formElements.notificationTypeId}
                 onChange={(e) => setFormElements({ ...formElements, notificationTypeId: e.target.value })}
               >
-                {notificationTypes.length > 0 ? notificationTypes.map((notification: INotificationType) =>
+                <option value={-1}>Select Type</option>
+                {notificationsTypes.length > 0 ? notificationsTypes.map((notification: INotificationType) =>
                   <option value={notification.notificationTypeId} key={notification.notificationTypeId}>{notification.name}</option>) : null}
               </select>
             </section>
@@ -127,6 +119,7 @@ function AddNotificationForm() {
                 value={formElements.userOrGroupId}
                 onChange={(e) => setFormElements({ ...formElements, userOrGroupId: e.target.value })}
               >
+                <option value={-1}>Select User/Group</option>
                 <optgroup label="USERS">
                   {userList.length > 0 ? userList.map((user: IUser) =>
                     <option key={user.userId} value={user.userId}>{user.userName}</option>) : null}
@@ -137,8 +130,6 @@ function AddNotificationForm() {
                 </optgroup>
               </select>
             </section>
-
-
 
             <section>
               <label>Media:</label>
