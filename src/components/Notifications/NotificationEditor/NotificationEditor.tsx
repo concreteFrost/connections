@@ -13,7 +13,8 @@ function NotificationEditor() {
     getNotificationsList,
     updateNotification } = useStore((state) => state.notificationSlice);
   const { userList, groupList } = useStore((state) => state.securitySlice);
-  const modalSlice = useStore((state) => state.modalWindowsSlice)
+  const modalSlice = useStore((state) => state.modalWindowsSlice);
+  const { setConfirmationModalActions, toggleConfirmationModal } = useStore((state) => state.modalWindowsSlice)
 
   async function performDeletion() {
     try {
@@ -109,8 +110,6 @@ function NotificationEditor() {
           </div>
         </li>
 
-
-
         <li className={s.list_item}>
           <div className={s.list_item_title}>Active:</div>
           <div className={s.list_item_value}> <input type="checkbox" checked={currentNotification?.active}
@@ -131,7 +130,10 @@ function NotificationEditor() {
       <footer className={s.editor_footer}>
         <button onClick={performUpdate}>Update</button>
         <button onClick={() => setCurrentNotification(null)}>Close</button>
-        <button className={s.delete_notification_btn} onClick={performDeletion}>Delete</button>
+        <button className={s.delete_notification_btn} onClick={() => {
+          toggleConfirmationModal(true, `Would you like to delete ${currentNotification?.name}?`)
+          setConfirmationModalActions(() => performDeletion())
+        }}>Delete</button>
       </footer>
     </div>
   );

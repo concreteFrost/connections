@@ -65,8 +65,42 @@ export const setUpdateFlowModalSaveChanges = (get: () => RFState, set: any) => (
 
 }
 
-//Approve Modal
+export const toggleLoadFlowModal = (get: () => RFState, set: any) => (isVisible: boolean) => {
+    set((state: RFState) => ({
+        modalWindowsSlice: {
+            ...state.modalWindowsSlice,
+            loadFlowModal: {
+                isVisible: isVisible
+            }
+        }
+    }))
+}
 
+export const setUpdateFlowModalFlowIdToLoad = (get: () => RFState, set: any) => (flowId: string) => {
+    set((state: RFState) => ({
+        modalWindowsSlice: {
+            ...state.modalWindowsSlice,
+            updateFlowModal: {
+                ...state.modalWindowsSlice.updateFlowModal,
+                flowIdToLoad: flowId
+            }
+        }
+    }))
+}
+
+export const setUpdateFlowModalActions = (get: () => RFState, set: any) => (actions: { save: (args: any) => void, discard: (args: any) => void }) => {
+    set((state: RFState) => ({
+        modalWindowsSlice: {
+            ...state.modalWindowsSlice,
+            updateFlowModal: {
+                ...state.modalWindowsSlice.updateFlowModal,
+                actions: actions
+            }
+        }
+    }))
+}
+
+//Approve Modal
 export const toggleApproveFlowModal = (get: () => RFState, set: any) => (isVisible: boolean, draftIdToApprove: string) => {
     set((state: RFState) => ({
         modalWindowsSlice: {
@@ -78,7 +112,6 @@ export const toggleApproveFlowModal = (get: () => RFState, set: any) => (isVisib
             }
         }
     }))
-    console.log('approve modal toggle')
 }
 
 
@@ -92,7 +125,7 @@ export const setApproveFlowModalMessage = (get: () => RFState, set: any) => (mes
             }
         }
     }))
-    console.log('approve modal message')
+
 }
 
 export const toggleCreateTemplateFlowModal = (get: () => RFState, set: any) => (isVisible: boolean, liveFlowID?: string, liveFlowName?: string) => {
@@ -107,9 +140,34 @@ export const toggleCreateTemplateFlowModal = (get: () => RFState, set: any) => (
             }
         }
     }))
-    console.log('approve modal toggle')
+
 }
 
+// CONFIRMATION MODAL
+export const toggleConfirmationModal = (get: () => RFState, set: any) => (isVisible: boolean, message: string) => {
+    set((state: RFState) => ({
+        modalWindowsSlice: {
+            ...state.modalWindowsSlice,
+            confirmationModal: {
+                ...state.modalWindowsSlice.confirmationModal,
+                isVisible: isVisible,
+                message: message
+            }
+        }
+    }))
+}
+
+export const setConfirmationModalActions = (get: () => RFState, set: any) => (action: any) => {
+    set((state: RFState) => ({
+        modalWindowsSlice: {
+            ...state.modalWindowsSlice,
+            confirmationModal: {
+                ...state.modalWindowsSlice.confirmationModal,
+                action: action
+            }
+        }
+    }))
+}
 
 export const modalActions = {
     toggleMessageModal: toggleMessageModal,
@@ -120,4 +178,9 @@ export const modalActions = {
     toggleApproveFlowModal: toggleApproveFlowModal,
     setApproveFlowModalMessage: setApproveFlowModalMessage,
     toggleCreateTemplateFlowModal: toggleCreateTemplateFlowModal,
+    toggleConfirmationModal: toggleConfirmationModal,
+    setConfirmationModalActions: setConfirmationModalActions,
+    toggleLoadFlowModal: toggleLoadFlowModal,
+    setUpdateFlowModalActions: setUpdateFlowModalActions,
+    setUpdateFlowModalFlowIdToLoad: setUpdateFlowModalFlowIdToLoad
 }

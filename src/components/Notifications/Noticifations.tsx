@@ -4,6 +4,7 @@ import CurrentNotifications from "./CurrentNotifications/CurrentNotifications";
 import NofificationEditor from "./NotificationEditor/NotificationEditor";
 import AddNotificationForm from "./AddNotificationForm/AddNotificationForm";
 import useStore from "../../store/store";
+import ConfirmationModal from "../Modals/ConfirmationModal";
 
 function Nofifications() {
 
@@ -17,6 +18,7 @@ function Nofifications() {
         <CurrentNotifications></CurrentNotifications>
         {currentNote ? <NofificationEditor></NofificationEditor> : null}
       </div>
+      <ConfirmationModal></ConfirmationModal>
     </div>
   );
 }

@@ -10,7 +10,12 @@ export type ModalWindows = {
             save: (args?: any) => void;
             discard: () => void;
         }
-    }
+    },
+    confirmationModal: {
+        isVisible: boolean,
+        message: string,
+        action: () => void;
+    },
     messageModal: {
         isVisible: boolean,
         message: string,
@@ -27,7 +32,8 @@ export type ModalWindows = {
     },
     loadFlowModal: {
         isVisible: boolean
-    }
+    },
+
 
     toggleUpdateFlowModal: (isVisible: boolean) => void;
     toggleMessageModal: () => void;
@@ -40,6 +46,8 @@ export type ModalWindows = {
     setUpdateFlowModalSaveChanges: (saveChanges: boolean) => void;
     setUpdateFlowModalActions: (actions: { save: (args?: any) => void, discard: (args: any) => void }) => void;
     setUpdateFlowModalFlowIdToLoad: (flowId: string) => void;
+    toggleConfirmationModal: (isVisible: boolean, message: string) => void;
+    setConfirmationModalActions: (action: any) => void;
 
 }
 
@@ -53,6 +61,11 @@ const modalWindowsSlice = (get: any, set: any): ModalWindows => ({
         },
         flowIdToLoad: ''
 
+    },
+    confirmationModal: {
+        isVisible: false,
+        message: '',
+        action: () => { },
     },
     messageModal: {
         isVisible: false,
@@ -81,38 +94,11 @@ const modalWindowsSlice = (get: any, set: any): ModalWindows => ({
     toggleCreateTemplateFlowModal: modalActions.toggleCreateTemplateFlowModal(get, set),
     setApproveFlowModalMessage: modalActions.setApproveFlowModalMessage(get, set),
     setUpdateFlowModalSaveChanges: modalActions.setUpdateFlowModalSaveChanges(get, set),
-    toggleLoadFlowModal: (isVisible: boolean) => {
-        set((state: RFState) => ({
-            modalWindowsSlice: {
-                ...state.modalWindowsSlice,
-                loadFlowModal: {
-                    isVisible: isVisible
-                }
-            }
-        }))
-    },
-    setUpdateFlowModalActions: (actions: { save: (args: any) => void, discard: (args: any) => void }) => {
-        set((state: RFState) => ({
-            modalWindowsSlice: {
-                ...state.modalWindowsSlice,
-                updateFlowModal: {
-                    ...state.modalWindowsSlice.updateFlowModal,
-                    actions: actions
-                }
-            }
-        }))
-    },
-    setUpdateFlowModalFlowIdToLoad: (flowId: string) => {
-        set((state: RFState) => ({
-            modalWindowsSlice: {
-                ...state.modalWindowsSlice,
-                updateFlowModal: {
-                    ...state.modalWindowsSlice.updateFlowModal,
-                    flowIdToLoad: flowId
-                }
-            }
-        }))
-    }
+    toggleLoadFlowModal: modalActions.toggleLoadFlowModal(get, set),
+    setUpdateFlowModalActions: modalActions.setUpdateFlowModalActions(get, set),
+    setUpdateFlowModalFlowIdToLoad: modalActions.setUpdateFlowModalFlowIdToLoad(get, set),
+    toggleConfirmationModal: modalActions.toggleConfirmationModal(get, set),
+    setConfirmationModalActions: modalActions.setConfirmationModalActions(get, set)
 
 })
 
