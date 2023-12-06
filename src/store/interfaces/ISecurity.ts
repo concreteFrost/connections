@@ -1,11 +1,11 @@
 export interface IUser {
     belongsToGroups: any[];
     dateCreated: string;
-    emailAddress: string | null;
+    emailAddress: string;
     emailConfirmed: boolean;
     isActive: boolean;
     lastUpdated: string;
-    phone: string | null;
+    phone: string;
     phoneConfirmed: boolean;
     restrictedToIPAddress: string;
     userId: string;
@@ -16,6 +16,22 @@ export interface IUser {
     userRoles: any[];
 }
 
+export interface INewUser {
+    userLogin: string;
+    password: string;
+    userName: string;
+    isActive: boolean;
+    emailAddress: string;
+    emailConfirmed: boolean;
+    phone: string;
+    phoneConfirmed: boolean;
+    userLevel: number;
+    restrictedToIPAddress: string;
+    addToGroups: any[];
+    userRoleIds: any[];
+}
+
+
 export interface IGroup {
     groupId: string;
     name: string;
@@ -25,3 +41,11 @@ export interface IGroup {
     dateCreated: string;
     lastAmended: string;
 }
+
+export interface IRole {
+    roleDescription: string;
+    roleId: string;
+    roleName: string;
+}
+
+

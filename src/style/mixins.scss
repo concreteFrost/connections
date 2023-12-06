@@ -2,7 +2,7 @@
 
 //BUTTONS
 
-@mixin blue_btn{
+@mixin blue_btn {
   background-color: $bg-top-menu-btn-default;
   padding: 5px 10px;
   border: 0;
@@ -16,6 +16,7 @@
 
   transition: background-color 0.2s ease-in-out;
 }
+
 //Left Panel
 @mixin left_panel_btn($bg) {
   font-family: $font-node-nav-header;
@@ -309,7 +310,7 @@
 
 //SERVER FLOW LIST
 
-@mixin server_flow_list{
+@mixin server_flow_list {
   cursor: pointer;
   list-style: none;
 
@@ -319,7 +320,7 @@
   border-bottom: 1px solid rgb(204, 204, 204);
 }
 
-@mixin server_flow_list_item{
+@mixin server_flow_list_item {
   display: grid;
   grid-template-columns: 6fr 6fr;
   align-items: center;
@@ -331,7 +332,7 @@
   transition: background-color 0.3s ease-in-out;
 }
 
-@mixin server_flow_list_btn_wrapper{
+@mixin server_flow_list_btn_wrapper {
   width: 100%;
   display: flex;
   justify-content: right;

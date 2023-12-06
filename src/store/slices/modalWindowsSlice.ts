@@ -34,7 +34,6 @@ export type ModalWindows = {
         isVisible: boolean
     },
 
-
     toggleUpdateFlowModal: (isVisible: boolean) => void;
     toggleMessageModal: () => void;
     toggleApproveFlowModal: (isVisible: boolean, draftIdToApprove: string) => void;
@@ -84,7 +83,6 @@ const modalWindowsSlice = (get: any, set: any): ModalWindows => ({
     loadFlowModal: {
         isVisible: false
     },
-
 
     toggleUpdateFlowModal: modalActions.toggleUpdateFlowModal(get, set),
     toggleMessageModal: modalActions.toggleMessageModal(get, set),

@@ -6,6 +6,7 @@ import FlowsItem from "./LeftPanelItems/FlowsItem";
 import StatisticsItem from "./LeftPanelItems/StatisticsItem";
 import SettingsItem from "./LeftPanelItems/SettingsItem";
 import DraftFlowsItem from "./LeftPanelItems/DraftFlowsItem";
+import SecurityItem from "./LeftPanelItems/SecurityItem";
 
 interface ILeftPanel {
   servers: boolean;
@@ -13,6 +14,7 @@ interface ILeftPanel {
   drafts: boolean;
   statistics: boolean;
   settings: boolean;
+  security: boolean;
 
 }
 function LeftPanel() {
@@ -22,6 +24,7 @@ function LeftPanel() {
     drafts: false,
     statistics: false,
     settings: false,
+    security: false
   });
 
   const navigate = useNavigate();
@@ -42,6 +45,7 @@ function LeftPanel() {
         <DraftFlowsItem className={s} isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></DraftFlowsItem>
         {/* <StatisticsItem className={s} isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></StatisticsItem>
         <SettingsItem className={s} isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></SettingsItem> */}
+        <SecurityItem className={s} isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></SecurityItem>
       </div>
     </div>
   );

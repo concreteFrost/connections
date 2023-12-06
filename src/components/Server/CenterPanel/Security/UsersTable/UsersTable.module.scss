@@ -1,0 +1,60 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+.wrapper {
+
+    padding: 10px;
+    font-family: $font-node-nav-header;
+
+    header {
+        color: $color-font-main;
+    }
+
+    .table_container {
+        overflow-y: auto;
+        max-height: 500px;
+
+        table {
+
+            @include server_table;
+            height: 200px !important;
+            overflow-y: scroll;
+            table-layout: fixed;
+
+            tbody {
+
+                .table_actions {
+                    text-align: center;
+
+                    button {
+                        @include blue_btn;
+                        margin-left: 5px;
+                    }
+
+                    .delete_btn {
+                        background-color: $bg-delete-btn;
+                    }
+
+                }
+
+                ul {
+                    padding: 0;
+
+                    li {
+                        list-style: none;
+                    }
+                }
+            }
+
+        }
+
+        .add_user_wrapper {
+            margin-top: 10px;
+
+            button {
+                @include blue_btn;
+            }
+        }
+    }
+
+}

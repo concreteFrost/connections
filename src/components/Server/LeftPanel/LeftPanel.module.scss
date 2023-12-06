@@ -29,15 +29,19 @@
       }
 
       li {
-       @include server_flow_list;
+        @include server_flow_list;
+      }
+
+      h5 {
+        cursor: pointer;
       }
 
       .flow_list_item {
-       @include server_flow_list_item;
+        @include server_flow_list_item;
       }
 
       .flow_list_btn_wrapper {
-       @include server_flow_list_btn_wrapper;
+        @include server_flow_list_btn_wrapper;
       }
 
       .draft_list_item_wrapper {
