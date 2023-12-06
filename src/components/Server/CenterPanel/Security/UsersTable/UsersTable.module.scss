@@ -23,6 +23,14 @@
 
             tbody {
 
+                .contacts {
+                    font-size: 0.8rem;
+
+                    span {
+                        font-weight: bold;
+                    }
+                }
+
                 .table_actions {
                     text-align: center;
 
@@ -48,12 +56,14 @@
 
         }
 
-        .add_user_wrapper {
-            margin-top: 10px;
 
-            button {
-                @include blue_btn;
-            }
+    }
+
+    .add_user_wrapper {
+        margin-top: 10px;
+
+        button {
+            @include blue_btn;
         }
     }
 

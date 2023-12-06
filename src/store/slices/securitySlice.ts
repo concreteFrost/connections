@@ -14,6 +14,7 @@ export type SecuritySlice = {
     getRolesList: () => void;
     updateUser: (userRecord: IUser) => void;
     addUser: (userRecord: INewUser) => void;
+    deleteUser: (userId: string) => void;
 }
 
 const securitySlice = (get: () => RFState, set: any): SecuritySlice => ({
@@ -26,7 +27,8 @@ const securitySlice = (get: () => RFState, set: any): SecuritySlice => ({
     getGroupList: securityActions.getGroupList(get, set),
     getRolesList: securityActions.getRoleList(get, set),
     updateUser: securityActions.updateUser(get, set),
-    addUser: securityActions.addUser(get, set)
+    addUser: securityActions.addUser(get, set),
+    deleteUser: securityActions.deleteUser(get, set)
 })
 
 export default securitySlice;

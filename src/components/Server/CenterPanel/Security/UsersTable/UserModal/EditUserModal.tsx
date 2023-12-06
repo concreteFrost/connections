@@ -11,6 +11,7 @@ interface EditUserModalProps {
 function EditUserModal(props: EditUserModalProps) {
 
     const { currentUser, getUserList, groupList, rolesList, updateUser } = useStore((state) => state.securitySlice);
+    const { toggleMessageModal, setModalMessage } = useStore((state) => state.modalWindowsSlice);
     const [userToEdit, setUserToEdit] = useState<IUser | null>(currentUser);
 
     function setTextProps(propName: keyof IUser, value: any) {
@@ -47,18 +48,24 @@ function EditUserModal(props: EditUserModalProps) {
 
     async function submitForm(e: React.FormEvent) {
         e.preventDefault();
+
         try {
             if (userToEdit) {
-                await updateUser(userToEdit)
-                await getUserList()
-
+                const res: any = await updateUser(userToEdit);
+                await toggleMessageModal();
+                if (res.data.success) {
+                    await setModalMessage('success!!!');
+                    await getUserList();
+                    await props.toggleEditUser(null);
+                } else {
+                    await setModalMessage(res.data.message);
+                }
             }
+        } catch (e) {
+            console.error(e);
         }
-        catch (e) {
-            console.log(e)
-        }
-
     }
+
 
     useEffect(() => {
         setUserToEdit(currentUser)
@@ -157,7 +164,6 @@ function EditUserModal(props: EditUserModalProps) {
                             <button>UPDATE</button>
                             <button onClick={() => props.toggleEditUser(null)}>CANCEL</button>
                         </section>
-
                     </form>
                 </main>
 

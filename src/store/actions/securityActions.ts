@@ -1,4 +1,4 @@
-import { addUserAPI, getGroupListAPI, getRoleListAPI, getUserAPI, getUserListAPI, updateUserAPI } from "../../api/security";
+import { addUserAPI, getGroupListAPI, getRoleListAPI, getUserAPI, getUserListAPI, removeUserAPI, updateUserAPI } from "../../api/security";
 import { IUser, IGroup, INewUser } from "../interfaces/ISecurity";
 import { RFState } from "../types/rfState";
 
@@ -79,8 +79,9 @@ const getRoleList = (get: () => RFState, set: any) => async () => {
 
 const updateUser = (get: () => RFState, set: any) => async (userRecord: IUser) => {
     try {
-        console.log(userRecord, 'userRecord')
-        const res: any = await updateUserAPI(userRecord);
+
+        const res = await updateUserAPI(userRecord);
+        return res;
     }
     catch (e) {
         console.log('error getting user list')
@@ -89,8 +90,18 @@ const updateUser = (get: () => RFState, set: any) => async (userRecord: IUser) =
 
 const addUser = (get: () => RFState, set: any) => async (userRecord: INewUser) => {
     try {
-
         const res: any = await addUserAPI(userRecord);
+        return res;
+    }
+    catch (e) {
+        console.log('error getting user list')
+    }
+}
+
+const deleteUser = (get: () => RFState, set: any) => async (userId: string) => {
+    try {
+
+        const res: any = await removeUserAPI(userId);
         console.log(res);
     }
     catch (e) {
@@ -104,7 +115,8 @@ const securityActions = {
     getGroupList: getGroupList,
     getRoleList: getRoleList,
     updateUser: updateUser,
-    addUser: addUser
+    addUser: addUser,
+    deleteUser: deleteUser
 }
 
 

@@ -5,12 +5,13 @@ import { IGroup, IRole, IUser } from "../../../../../store/interfaces/ISecurity"
 import moment from "moment";
 import EditUserModal from "./UserModal/EditUserModal";
 import AddUserModal from "./UserModal/AddUserModal";
+import MessageModal from "../../../../Modals/MessageModal";
 
 function UsersTable() {
 
-    const { userList, getUserList, getGroupList, getRolesList, getUser } = useStore((state) => state.securitySlice);
+    const { userList, getUserList, getGroupList, getRolesList, getUser, deleteUser } = useStore((state) => state.securitySlice);
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-    const [isAddUserModalVisible, setIsAddUserModalVisible] = useState<boolean>(true)
+    const [isAddUserModalVisible, setIsAddUserModalVisible] = useState<boolean>(false)
 
     function toggleEditUser(user: IUser | null) {
         setIsModalVisible(user !== null ? true : false)
@@ -31,9 +32,19 @@ function UsersTable() {
         }
     }
 
+    async function performUserDelete(userId: string) {
+        try {
+            await deleteUser(userId)
+        }
+        catch (e) {
+            console.log('error deleting user', e)
+        }
+    }
+
     useEffect(() => {
         fetchData();
     }, [])
+
     return (
         <section className={s.wrapper}>
             <h3>Users</h3>
@@ -43,8 +54,7 @@ function UsersTable() {
                         <tr>
                             <th colSpan={2}>Name</th>
                             <th colSpan={2}>Created</th>
-                            <th colSpan={2}>Email</th>
-                            <th colSpan={2}>Phone</th>
+                            <th colSpan={2}>Contacts</th>
                             <th colSpan={2}>Roles</th>
                             <th colSpan={2}>Groups</th>
                             <th colSpan={1}>Actions</th>
@@ -54,8 +64,9 @@ function UsersTable() {
                         {userList.length > 0 ? userList.map((user: IUser) => <tr key={user.userId}>
                             <td colSpan={2}> {user.userName}</td>
                             <td colSpan={2}> {moment(user.dateCreated).format('MMM Do YY')}</td>
-                            <td colSpan={2}> {user.emailAddress} ({user.emailConfirmed ? `confirmed` : 'not confirmed'})</td>
-                            <td colSpan={2}> {user.phone} ({user.phoneConfirmed ? 'confirmed' : 'not confirmed'})</td>
+                            <td colSpan={2} className={s.contacts}>
+                                <div><span>Email: </span>{user.emailAddress} ({user.emailConfirmed ? `confirmed` : 'not confirmed'})</div>
+                                <div><span>Phone: </span> {user.phone} ({user.phoneConfirmed ? 'confirmed' : 'not confirmed'})</div></td>
                             <td colSpan={2}>
                                 <ul>
                                     {user.userRoles && user.userRoles.length > 0 ? user.userRoles.map((role: IRole) => <li key={role.roleId}>{role.roleName}</li>) : "-"}
@@ -70,20 +81,21 @@ function UsersTable() {
                                 await getUser(user)
                                 await toggleEditUser(user)
                             }}>EDIT</button>
-                                <button className={s.delete_btn}>X</button></td>
+                                <button className={s.delete_btn} onClick={() => performUserDelete(user.userId)}>X</button></td>
                         </tr>)
                             : null}
                     </tbody>
                 </table>
-                <div className={s.add_user_wrapper}>
-                    <button onClick={() => toggleAddUserModal(true)}>ADD USER</button>
-                </div>
+            </div>
+            <div className={s.add_user_wrapper}>
+                <button onClick={() => toggleAddUserModal(true)}>ADD USER</button>
             </div>
             <EditUserModal
                 isVisible={isModalVisible}
                 toggleEditUser={toggleEditUser}
             ></EditUserModal>
             <AddUserModal isVisible={isAddUserModalVisible} toggleAddUserModal={toggleAddUserModal}></AddUserModal>
+            <MessageModal></MessageModal>
         </section>
     )
 }
