@@ -167,7 +167,7 @@ function AddNotificationForm() {
           </div>
         </form>
       </div>
-      <MessageModal></MessageModal>
+
     </div>
   );
 }

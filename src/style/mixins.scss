@@ -145,6 +145,10 @@
   width: 100%;
   border-collapse: collapse;
 
+  @media screen and (max-width: $breakpoint-md) {
+    font-size: 0.8rem;
+    word-break: break-all;
+  }
 
   thead {
 

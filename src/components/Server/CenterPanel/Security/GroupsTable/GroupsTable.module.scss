@@ -18,17 +18,20 @@
 
             @include server_table;
             height: 200px !important;
-            overflow-y: scroll;
+
             table-layout: fixed;
+            word-break: normal;
 
             tbody {
+                tr {
+                    td {
+                        text-overflow: ellipsis;
+                    }
+                }
+
 
                 .contacts {
                     font-size: 0.8rem;
-
-                    @media screen and (max-width:$breakpoint-md) {
-                        font-size: 0.6rem;
-                    }
 
                     span {
                         font-weight: bold;
@@ -63,7 +66,7 @@
 
     }
 
-    .add_user_wrapper {
+    .add_group_wrapper {
         margin-top: 10px;
 
         button {

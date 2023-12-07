@@ -1,6 +1,6 @@
 import s from "./UsersTable.module.scss";
 import useStore from "../../../../../store/store";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IGroup, IRole, IUser } from "../../../../../store/interfaces/ISecurity";
 import moment from "moment";
 import EditUserModal from "./UserModal/EditUserModal";
@@ -9,7 +9,7 @@ import MessageModal from "../../../../Modals/MessageModal";
 
 function UsersTable() {
 
-    const { userList, getUserList, getGroupList, getRolesList, getUser, deleteUser } = useStore((state) => state.securitySlice);
+    const { userList, getUser, deleteUser } = useStore((state) => state.securitySlice);
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
     const [isAddUserModalVisible, setIsAddUserModalVisible] = useState<boolean>(false)
 
@@ -21,17 +21,6 @@ function UsersTable() {
         setIsAddUserModalVisible(isVisible)
     }
 
-    async function fetchData() {
-        try {
-            await getUserList();
-            await getGroupList()
-            await getRolesList()
-        }
-        catch (e) {
-            console.log('error fetching groups');
-        }
-    }
-
     async function performUserDelete(userId: string) {
         try {
             await deleteUser(userId)
@@ -41,10 +30,6 @@ function UsersTable() {
         }
     }
 
-    useEffect(() => {
-        fetchData();
-    }, [])
-
     return (
         <section className={s.wrapper}>
             <h3>Users</h3>
@@ -53,7 +38,7 @@ function UsersTable() {
                     <thead>
                         <tr>
                             <th colSpan={2}>Name</th>
-                            <th colSpan={2}>Created</th>
+                            <th colSpan={1}>Created</th>
                             <th colSpan={2}>Contacts</th>
                             <th colSpan={2}>Roles</th>
                             <th colSpan={2}>Groups</th>
@@ -63,7 +48,7 @@ function UsersTable() {
                     <tbody>
                         {userList.length > 0 ? userList.map((user: IUser) => <tr key={user.userId}>
                             <td colSpan={2}> {user.userName}</td>
-                            <td colSpan={2}> {moment(user.dateCreated).format('MMM Do YY')}</td>
+                            <td colSpan={1}> {moment(user.dateCreated).format('MMM Do YY')}</td>
                             <td colSpan={2} className={s.contacts}>
                                 <div><span>Email: </span>{user.emailAddress} ({user.emailConfirmed ? `confirmed` : 'not confirmed'})</div>
                                 <div><span>Phone: </span> {user.phone} ({user.phoneConfirmed ? 'confirmed' : 'not confirmed'})</div></td>
@@ -94,8 +79,11 @@ function UsersTable() {
                 isVisible={isModalVisible}
                 toggleEditUser={toggleEditUser}
             ></EditUserModal>
-            <AddUserModal isVisible={isAddUserModalVisible} toggleAddUserModal={toggleAddUserModal}></AddUserModal>
-            <MessageModal></MessageModal>
+            <AddUserModal
+                isVisible={isAddUserModalVisible}
+                toggleAddUserModal={toggleAddUserModal}
+            ></AddUserModal>
+
         </section>
     )
 }

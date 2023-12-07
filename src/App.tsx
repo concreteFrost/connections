@@ -7,6 +7,7 @@ import NotFound from "./components/NotFound/NotFound";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import Server from "./components/Server/Server";
 import Alerts from "./components/Notifications/Noticifations";
+import MessageModal from "./components/Modals/MessageModal";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/alerts" element={<ProtectedRoute><Alerts></Alerts></ProtectedRoute>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <MessageModal></MessageModal>
     </Router>
   );
 }

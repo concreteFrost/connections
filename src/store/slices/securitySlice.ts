@@ -8,13 +8,18 @@ export type SecuritySlice = {
     userList: Array<IUser>,
     groupList: Array<IGroup>,
     rolesList: Array<IRole>,
+
+    //user actions
     getUser: (user: IUser) => void;
     getUserList: () => void;
-    getGroupList: () => void;
-    getRolesList: () => void;
     updateUser: (userRecord: IUser) => void;
     addUser: (userRecord: INewUser) => void;
     deleteUser: (userId: string) => void;
+    getRolesList: () => void;
+    //group actions
+    getGroupList: () => void;
+    createGroup: (groupRecord: IGroup) => void;
+    deleteGroup: (groupId: string) => void;
 }
 
 const securitySlice = (get: () => RFState, set: any): SecuritySlice => ({
@@ -24,11 +29,14 @@ const securitySlice = (get: () => RFState, set: any): SecuritySlice => ({
     rolesList: [],
     getUser: securityActions.getUser(get, set),
     getUserList: securityActions.getUserList(get, set),
-    getGroupList: securityActions.getGroupList(get, set),
     getRolesList: securityActions.getRoleList(get, set),
     updateUser: securityActions.updateUser(get, set),
     addUser: securityActions.addUser(get, set),
-    deleteUser: securityActions.deleteUser(get, set)
+    deleteUser: securityActions.deleteUser(get, set),
+
+    getGroupList: securityActions.getGroupList(get, set),
+    createGroup: securityActions.addGroup(get, set),
+    deleteGroup: securityActions.deleteGroup(get, set)
 })
 
 export default securitySlice;

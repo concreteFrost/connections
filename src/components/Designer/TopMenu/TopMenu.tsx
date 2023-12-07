@@ -29,7 +29,7 @@ function TopMenu() {
         ></Settings>
       </div>
       <UpdateFlowModal />
-      <MessageModal></MessageModal>
+
     </div>
   );
 }
