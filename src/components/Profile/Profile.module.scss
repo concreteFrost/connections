@@ -1,0 +1,87 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+.wrapper {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-right: 20px;
+    height: 100%;
+    position: relative;
+    font-family: $font-node-nav-header;
+
+
+    span {
+        color: white;
+        cursor: pointer;
+        font-size: 2em;
+        padding-top: 10px;
+    }
+
+    .profile_wrapper {
+        z-index: 1000;
+        position: absolute;
+        background-color: white;
+        top: 50px;
+        border: 1px solid $color-list-border-darker;
+        padding: 10px;
+        width: 300px;
+
+
+        header {
+            text-align: center;
+            font-weight: $font-weight-bolder;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+
+            input {
+                border: 1px solid $color-list-border-darker;
+            }
+        }
+
+        .account_info_wrapper {
+
+            .account_info_item {
+                position: relative;
+                display: grid;
+                margin-bottom: 10px;
+                height: 50px;
+
+                span {
+                    color: $color-node-nav-icon;
+                    font-size: 1.1rem;
+                    position: absolute;
+                    top: 20px;
+                    right: 5px;
+                }
+            }
+
+            button {
+                @include blue_btn;
+                background-color: white;
+                color: $color-list-label;
+
+                &:hover {
+                    background-color: white;
+                    color: black;
+                }
+            }
+        }
+
+    }
+
+    .btn_wrapper {
+        display: flex;
+
+        button {
+            @include blue_btn;
+            margin-top: 10px;
+            width: 100%;
+        }
+    }
+
+
+}

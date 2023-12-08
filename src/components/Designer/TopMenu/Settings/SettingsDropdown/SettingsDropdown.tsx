@@ -1,6 +1,6 @@
 import s from "./SettingsDropdown.module.scss";
 import useStore from "../../../../../store/store";
-import Logout from "../../../../Logout/Logout";
+import Profile from "../../../../Profile/Profile";
 
 
 function SettingsDropdown() {
@@ -54,7 +54,7 @@ function SettingsDropdown() {
         </li>
       </ul> */}
       <div className={s.logout_container}>
-        <Logout></Logout>
+        <Profile></Profile>
       </div>
 
     </div>

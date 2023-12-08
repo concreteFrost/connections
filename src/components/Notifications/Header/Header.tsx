@@ -1,4 +1,4 @@
-import Logout from "../../Logout/Logout";
+import Profile from "../../Profile/Profile";
 import s from "./Header.module.scss";
 import { useNavigate } from "react-router";
 
@@ -19,7 +19,7 @@ function Header() {
         }}>DESIGNER</button>
       </div>
       <div className={s.logout_container}>
-        <Logout></Logout>
+        <Profile></Profile>
       </div>
 
     </div>

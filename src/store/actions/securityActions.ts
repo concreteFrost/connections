@@ -1,4 +1,4 @@
-import { addUserAPI, createGroupAPI, getGroupListAPI, getRoleListAPI, getUserAPI, getUserListAPI, removeGroupAPI, removeUserAPI, updateUserAPI } from "../../api/security";
+import { addUserAPI, createGroupAPI, generatePasswordAPI, getGroupListAPI, getGroupMembersAPI, getRoleListAPI, getUserAPI, getUserListAPI, removeGroupAPI, removeUserAPI, updateUserAPI } from "../../api/security";
 import { IUser, IGroup, INewUser } from "../interfaces/ISecurity";
 import { RFState } from "../types/rfState";
 
@@ -10,7 +10,7 @@ import { RFState } from "../types/rfState";
 //         console.log(data)
 //         set((state: RFState) => ({
 //             securitySlice: {
-//                 ...state.securitySlice, currentUser: data
+//                 ...state.securitySlice, userToEdit: data
 //             }
 //         }))
 
@@ -26,7 +26,7 @@ import { RFState } from "../types/rfState";
 const getUser = (get: () => RFState, set: any) => (user: IUser) => {
     set((state: RFState) => ({
         securitySlice: {
-            ...state.securitySlice, currentUser: user
+            ...state.securitySlice, userToEdit: user
         }
     }))
 }
@@ -95,6 +95,18 @@ const deleteUser = (get: () => RFState, set: any) => async (userId: string) => {
         console.log('error deleting user')
     }
 }
+
+const generatePassword = (get: () => RFState, set: any) => async (genType: number, length: number) => {
+    try {
+
+        const res: any = await generatePasswordAPI(genType, length);
+
+        return res.data.message;
+    }
+    catch (e) {
+        console.log('error deleting user')
+    }
+}
 //#endregion
 
 
@@ -115,6 +127,18 @@ const getGroupList = (get: () => RFState, set: any) => async () => {
         console.log('error getting user list')
     }
 }
+
+const getGroupMembers = (get: () => RFState, set: any) => async () => {
+    try {
+        const res: any = await getGroupMembersAPI();
+        return res;
+    }
+    catch (e) {
+        console.log('error getting user list')
+    }
+}
+
+
 
 const addGroup = (get: () => RFState, set: any) => async (groupRecord: IGroup) => {
     try {
@@ -146,7 +170,9 @@ const securityActions = {
     updateUser: updateUser,
     addUser: addUser,
     deleteUser: deleteUser,
+    generatePassword: generatePassword,
     getGroupList: getGroupList,
+    getGroupMembers: getGroupMembers,
     addGroup: addGroup,
     deleteGroup: deleteGroup
 }

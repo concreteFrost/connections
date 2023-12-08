@@ -1,7 +1,7 @@
 import s from "./EditUserModal.module.scss";
 import useStore from "../../../../../../store/store";
 import { IGroup, IRole, INewUser } from "../../../../../../store/interfaces/ISecurity";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 
 interface EditUserModalProps {
@@ -26,7 +26,7 @@ const initialUser: INewUser = {
 
 function AddUserModal(props: EditUserModalProps) {
 
-    const { addUser, getUserList, groupList, rolesList } = useStore((state) => state.securitySlice);
+    const { addUser, getUserList, groupList, rolesList, generatePassword } = useStore((state) => state.securitySlice);
     const [newUser, setNewUser] = useState<INewUser>(initialUser);
     const { toggleMessageModal, setModalMessage } = useStore((state) => state.modalWindowsSlice);
 
@@ -59,6 +59,16 @@ function AddUserModal(props: EditUserModalProps) {
                 ...newUser,
                 userRoleIds: updatedRoles,
             });
+        }
+    }
+
+    async function performPasswordGeneration() {
+        try {
+            const res: any = await generatePassword(1, 12);
+            setTextProps('password', res)
+        }
+        catch (e) {
+            console.log('error generating password', e);
         }
     }
 
@@ -106,6 +116,7 @@ function AddUserModal(props: EditUserModalProps) {
                                 <input type="text" id="password" name="password" value={newUser?.password ? newUser.password : ''}
                                     onChange={(e) => setTextProps('password', e.target.value)}
                                     required />
+                                <div className={s.generate_password_btn}><button type="button" onClick={performPasswordGeneration}>GENERATE</button></div>
 
                             </div>
 

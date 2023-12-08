@@ -41,6 +41,9 @@ import {
   BsStopFill,
   BsExclamationTriangleFill,
   BsFolder,
+  BsPerson,
+  BsPen,
+  BsPenFill,
 } from "react-icons/bs";
 
 
@@ -100,7 +103,7 @@ export const connectionsIcons = {
     stop: <BsStopFill></BsStopFill>,
     kill: <BsExclamationTriangleFill></BsExclamationTriangleFill>
   },
-
+  profile: <BsPerson></BsPerson>,
   leftCaret: <BsCaretLeft></BsCaretLeft>,
   rightCaret: <BsCaretRight></BsCaretRight>,
   upCaret: <BsCaretUp></BsCaretUp>,
@@ -115,7 +118,9 @@ export const connectionsIcons = {
   delete: <BsXCircleFill></BsXCircleFill>,
   expand: <BsArrowsAngleExpand></BsArrowsAngleExpand>,
   collapse: <BsArrowsCollapse></BsArrowsCollapse>,
-  folder: <BsFolder></BsFolder>
+  folder: <BsFolder></BsFolder>,
+  editOff: <BsPenFill></BsPenFill>,
+  editOn: <BsPen></BsPen>
 
 
 }

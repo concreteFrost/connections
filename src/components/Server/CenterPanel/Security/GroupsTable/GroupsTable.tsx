@@ -37,7 +37,7 @@ function GroupsTable() {
                         <tr>
                             <th colSpan={2}>Name</th>
                             <th colSpan={1}>Created</th>
-                            <th colSpan={2}>Owner</th>
+                            <th colSpan={1}>Owner</th>
                             <th colSpan={2}>Description</th>
                             <th colSpan={1}>Active</th>
                             <th colSpan={1}>Actions</th>
@@ -47,11 +47,14 @@ function GroupsTable() {
                         {groupList.length > 0 ? groupList.map((group: IGroup) => <tr key={group.groupId}>
                             <td colSpan={2}> {group.name}</td>
                             <td colSpan={1}> {moment(group.dateCreated).format('MMM Do YY')}</td>
-                            <td colSpan={2}>{group.owner}</td>
+                            <td colSpan={1}>{group.owner}</td>
                             <td colSpan={2}>{group.description}</td>
                             <td colSpan={1}>{group.active}</td>
                             <td colSpan={1} className={s.table_actions}>
-                                <button className={s.delete_btn} onClick={() => performGroupDelete(group.groupId)}>X</button></td>
+                                <button className={s.delete_btn} onClick={() => performGroupDelete(group.groupId)}>X</button>
+                                <button>MEMBERS</button>
+                            </td>
+
                         </tr>)
                             : null}
                     </tbody>
