@@ -3,33 +3,28 @@ import { useNavigate } from "react-router-dom"
 import { connectionsIcons } from "../../icons/icons";
 import { useState, useRef, useEffect } from "react";
 import s from "./Profile.module.scss";
+import { getMeAPI } from "../../api/security";
+import { IUser } from "../../store/interfaces/ISecurity";
 
-interface ICurrentUser {
-    name: {
-        value: string,
-        isEditable: boolean
-    },
-    login: {
-        value: string,
-        isEditable: boolean
-    }
-}
 
 function Profile() {
     const navigate = useNavigate();
 
     const [isProfileModalVisible, setProfileModalVisible] = useState<boolean>(false);
     const modalRef = useRef<HTMLDivElement>(null);
-    const [user, setUser] = useState<ICurrentUser>({
-        name: {
-            value: 'ilia',
-            isEditable: false,
-        },
-        login: {
-            value: 'ilia22',
-            isEditable: false,
+
+    const [currentUser, setCurrentUser] = useState<IUser>();
+
+    async function getMe() {
+        try {
+            const res: any = await getMeAPI();
+            console.log(res)
+            setCurrentUser(res.data.userRecord);
         }
-    })
+        catch (e) {
+            console.log('error getting me', e)
+        }
+    }
 
     function handleOutsideClick(e: MouseEvent) {
         if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
@@ -46,41 +41,11 @@ function Profile() {
         navigate('/login')
     }
 
-    function toggleEditableValue(propName: keyof ICurrentUser, isEditable: boolean) {
-        // Create a copy of the user state
-        const updatedUser = { ...user };
-
-        // Reset isEditable for all fields
-        Object.keys(updatedUser).forEach((key) => {
-            updatedUser[key as keyof ICurrentUser].isEditable = false;
-        });
-
-        // Set the desired field to isEditable
-        updatedUser[propName].isEditable = isEditable;
-
-        // Update the state
-        setUser(updatedUser);
-    }
-
-    function setUserValue(propName: keyof ICurrentUser, value: any) {
-        setUser({
-            ...user,
-            [propName]: {
-                ...user[propName],
-                value: value
-            },
-
-        })
-    }
-
-
     useEffect(() => {
         if (isProfileModalVisible) {
             document.addEventListener("mousedown", handleOutsideClick);
-            console.log('aaded')
         } else {
             document.removeEventListener("mousedown", handleOutsideClick);
-            console.log('removed')
         }
         return () => {
             document.removeEventListener("mousedown", handleOutsideClick);
@@ -88,7 +53,10 @@ function Profile() {
     }, [isProfileModalVisible]);
 
     return (<div className={s.wrapper}>
-        <span onClick={() => toggleProfileModalVisibility(!isProfileModalVisible)}>{connectionsIcons.profile}</span>
+        <span onClick={() => {
+            getMe();
+            toggleProfileModalVisibility(!isProfileModalVisible)
+        }}>{connectionsIcons.profile}</span>
 
         {isProfileModalVisible ? <div className={s.profile_wrapper} ref={modalRef}>
             {/*ACCOUNT INFO */}
@@ -97,19 +65,11 @@ function Profile() {
                 <main>
                     <div className={s.account_info_item}>
                         <label htmlFor="userName">Name:</label>
-                        <input type="text" value={user.name.value} readOnly={!user.name.isEditable}
-                            onChange={(e: any) => setUserValue('name', e.target.value)}
-                        />
-                        <span onClick={() => toggleEditableValue('name', !user.name.isEditable)}>
-                            {user.name.isEditable ? connectionsIcons.editOff : connectionsIcons.editOn}</span>
+                        <p>{currentUser?.userName}</p>
                     </div>
-
                     <div className={s.account_info_item}>
                         <label htmlFor="userLogin">Login:</label>
-                        <input type="text" value={user.login.value} readOnly={!user.login.isEditable}
-                            onChange={(e: any) => setUserValue('login', e.target.value)} />
-                        <span onClick={() => toggleEditableValue('login', !user.login.isEditable)}>
-                            {user.login.isEditable ? connectionsIcons.editOff : connectionsIcons.editOn}</span>
+                        <p>{currentUser?.userLogin}</p>
                     </div>
                     <button>RESET PASSWORD</button>
                 </main>
@@ -117,6 +77,7 @@ function Profile() {
             {/*LOGOUT WRAPPER */}
             <section className={s.btn_wrapper}>
                 <button onClick={logout}>Logout</button>
+                <button className={s.close_btn} onClick={() => { toggleProfileModalVisibility(false) }}>CLOSE</button>
             </section>
         </div> : null
         }

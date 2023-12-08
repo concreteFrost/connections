@@ -4,8 +4,6 @@
 .wrapper {
   height: 50px;
   background-color: $bg-top-menu-btn-default;
-
-
   display: grid;
   grid-template-columns: repeat(3, 4fr);
   align-items: center;
@@ -32,6 +30,12 @@
     font-family: $font-node-nav-header;
     font-size: 2rem;
     color: white;
+    margin-left: auto;
+    margin-right: auto;
+
+    @media screen and (max-width:$breakpoint-lg) {
+      font-size: 1rem;
+    }
   }
 
 

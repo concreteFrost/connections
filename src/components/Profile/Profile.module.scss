@@ -31,32 +31,33 @@
         header {
             text-align: center;
             font-weight: $font-weight-bolder;
+            margin-bottom: 20px;
         }
 
         main {
             display: flex;
             flex-direction: column;
 
-            input {
-                border: 1px solid $color-list-border-darker;
-            }
         }
 
         .account_info_wrapper {
 
             .account_info_item {
-                position: relative;
-                display: grid;
+                display: flex;
                 margin-bottom: 10px;
-                height: 50px;
 
-                span {
-                    color: $color-node-nav-icon;
-                    font-size: 1.1rem;
-                    position: absolute;
-                    top: 20px;
-                    right: 5px;
+
+                label,
+                p {
+                    display: inline-block;
+                    margin-top: 0;
+                    margin-bottom: 0;
                 }
+
+                p {
+                    margin-left: 10px;
+                }
+
             }
 
             button {
@@ -75,11 +76,16 @@
 
     .btn_wrapper {
         display: flex;
+        gap: 10px;
 
         button {
             @include blue_btn;
             margin-top: 10px;
             width: 100%;
+        }
+
+        .close_btn {
+            background-color: $color-list-label;
         }
     }
 

@@ -4,6 +4,21 @@ import { baseUrl } from "../store/constants/baseUrl";
 import { INewUser, IUser, IGroup } from "../store/interfaces/ISecurity";
 
 //GET
+export function getMeAPI() {
+    return new Promise((resolve, reject) => {
+        axios.get(baseUrl + "/Security/GetMe", {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + getAccessToken().token,
+            },
+        })
+            .then((res) => {
+                resolve(res);
+            })
+            .catch((e) => reject(e));
+    });
+}
+
 export function getUserAPI(userId: string) {
     return new Promise((resolve, reject) => {
         axios.get(baseUrl + "/Security/GetUser", {

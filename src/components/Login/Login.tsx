@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { setAccessToken } from "../../store/actions/storageActions";
 import ConnectionsLogo from "../../assets/connections_logo";
 import CocoonLogo from "../../assets/cocoon_logo";
+import { getMeAPI } from "../../api/security";
 
 function Login() {
 
@@ -16,7 +17,7 @@ function Login() {
     function submit(e: any) {
         e.preventDefault();
         getToken(e.target[0].value, e.target[1].value).then((res: any) => {
-            setAccessToken(res.data, userName)
+            setAccessToken(res.data, userName);
             navigate('/dashboard')
         }).catch(e => console.log(e))
     }

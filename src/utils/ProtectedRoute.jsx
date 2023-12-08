@@ -5,6 +5,7 @@ import { clearUserData } from "../store/actions/storageActions";
 const ProtectedRoute = ({ children }) => {
   const user = getAccessToken();
 
+  //Redirects if the session expired
   useEffect(() => {
     if (!user.token || new Date() > new Date(user.expires)) {
       clearUserData();
