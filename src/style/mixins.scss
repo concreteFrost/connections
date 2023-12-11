@@ -8,7 +8,7 @@
   border: 0;
   border-radius: 5px;
   color: white;
-  font-family: $font-node-nav-header;
+  ;
 
   &:hover {
     background-color: $bg-top-menu-btn-hover;
@@ -19,7 +19,7 @@
 
 //Left Panel
 @mixin left_panel_btn($bg) {
-  font-family: $font-node-nav-header;
+  ;
   width: 100%;
   height: 40px;
   border: 0;
@@ -43,7 +43,7 @@
 @mixin section_header {
   padding-top: 15px;
 
-  font-family: $font-node-nav-header;
+  ;
   color: $color-node-nav-container-header;
 
   margin-bottom: 15px;
@@ -54,7 +54,7 @@
   h5 {
     color: $color-node-nav-container-header;
     background-color: $bg-node-nav-btn;
-    font-family: $font-node-nav-header;
+    ;
     margin: 0;
     height: 40px;
     display: flex;
@@ -92,7 +92,6 @@
 
 
     label {
-      font-family: $font-node-nav-list;
       color: $color-node-nav-container-header;
       max-width: 90px;
       overflow: hidden;
@@ -164,7 +163,7 @@
       height: 40px;
 
       th {
-        font-family: $font-node-nav-header;
+        ;
         color: $color-font-main;
         font-weight: $font-weight-bold;
         font-style: italic;
@@ -198,7 +197,7 @@
   width: 100%;
   margin-bottom: 20px;
   table-layout: table;
-  font-family: $font-node-nav-header;
+  ;
 
   thead {
     font-style: italic;
@@ -248,7 +247,7 @@
   border: 0;
   border-radius: 5px;
   padding: 5px 10px;
-  font-family: $font-node-nav-header;
+  ;
   font-weight: $font-weight-bold;
   color: $color-font-main;
 
@@ -277,7 +276,7 @@
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   padding: auto;
   border-radius: 3px;
-  font-family: $font-node-nav-header;
+  ;
 
   ul {
     padding: 0;
@@ -318,7 +317,7 @@
   cursor: pointer;
   list-style: none;
 
-  font-family: $font-node-nav-header;
+  ;
   background-color: $bg-node-nav-btn;
   padding: 10px 0px 10px 20px;
   border-bottom: 1px solid rgb(204, 204, 204);
@@ -349,4 +348,50 @@
     border: none;
     z-index: 1000;
   }
+}
+
+//MODAL WINDOWS
+@mixin modal_container {
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+}
+
+@mixin modal_window {
+  padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  color: rgb(0, 0, 0);
+  z-index: 9999;
+  border-radius: 16px;
+  box-shadow: $shadow-node-nav-container;
+  overflow: wrap;
+  min-width: 400px;
+  min-height: 100px;
+  color: $color-font-main;
+}
+
+@mixin modal_header {
+  text-align: center;
+  font-weight: $font-weight-bolder;
+  margin-bottom: 20px;
+
+}
+
+@mixin modal_body {
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+@mixin modal_form {
+  display: grid;
+  gap: 20px;
+  align-items: start;
 }

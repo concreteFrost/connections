@@ -1,4 +1,4 @@
-import { addUserAPI, createGroupAPI, generatePasswordAPI, getGroupListAPI, getGroupMembersAPI, getRoleListAPI, getUserAPI, getUserListAPI, removeGroupAPI, removeUserAPI, updateUserAPI } from "../../api/security";
+import { addUserAPI, createGroupAPI, generatePasswordAPI, getGroupListAPI, getGroupMembersAPI, getRoleListAPI, getUserAPI, getUserListAPI, removeGroupAPI, removeUserAPI, resetPasswordAPI, updateUserAPI } from "../../api/security";
 import { IUser, IGroup, INewUser } from "../interfaces/ISecurity";
 import { RFState } from "../types/rfState";
 
@@ -81,7 +81,7 @@ const addUser = (get: () => RFState, set: any) => async (userRecord: INewUser) =
         return res;
     }
     catch (e) {
-        console.log('error adding user')
+        console.log('error adding user', e)
     }
 }
 
@@ -92,7 +92,7 @@ const deleteUser = (get: () => RFState, set: any) => async (userId: string) => {
         console.log(res);
     }
     catch (e) {
-        console.log('error deleting user')
+        console.log('error deleting user', e)
     }
 }
 
@@ -104,7 +104,18 @@ const generatePassword = (get: () => RFState, set: any) => async (genType: numbe
         return res.data.message;
     }
     catch (e) {
-        console.log('error deleting user')
+        console.log('error generating password', e)
+    }
+}
+
+const resetPassword = (get: () => RFState, set: any) => async (userId: string, newPasword: string, emailUser: boolean) => {
+    try {
+        const res: any = await resetPasswordAPI(userId, newPasword, emailUser);
+        console.log(res)
+        return res.data.message;
+    }
+    catch (e) {
+        console.log('error reseting user password', e)
     }
 }
 //#endregion
@@ -171,10 +182,11 @@ const securityActions = {
     addUser: addUser,
     deleteUser: deleteUser,
     generatePassword: generatePassword,
+    resetPassword: resetPassword,
     getGroupList: getGroupList,
     getGroupMembers: getGroupMembers,
     addGroup: addGroup,
-    deleteGroup: deleteGroup
+    deleteGroup: deleteGroup,
 }
 
 

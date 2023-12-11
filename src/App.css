@@ -1,17 +1,19 @@
-
-body{
+body {
   margin: 0;
+  font-family: "Inter";
 }
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
-.dynamic_menu{
+.dynamic_menu {
   position: absolute;
   overflow: hidden;
   top: 40px;
@@ -19,17 +21,18 @@ body{
   right: 0;
   bottom: 0;
   display: grid;
-  grid-template-columns:  1.4fr 6fr 1.4fr;
+  grid-template-columns: 1.4fr 6fr 1.4fr;
 }
 
 
-.react-flow__attribution a{
+.react-flow__attribution a {
   display: none;
 }
 
 /* Customize the scrollbar track */
 ::-webkit-scrollbar {
-  width: 5px; /* Width of the scrollbar */
+  width: 5px;
+  /* Width of the scrollbar */
   height: 5px;
   background-color: rgb(213, 232, 243)
 }
@@ -37,17 +40,19 @@ body{
 /* Customize the scrollbar thumb (the draggable part) */
 ::-webkit-scrollbar-thumb {
   background-color: rgb(74, 148, 190);
-  border-radius: 6px; /* Rounded corners for the thumb */
-  
+  border-radius: 6px;
+  /* Rounded corners for the thumb */
+
 }
 
 /* Customize the scrollbar track on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background-color:rgb(31, 108, 153); /* Color of the thumb on hover */
+  background-color: rgb(31, 108, 153);
+  /* Color of the thumb on hover */
 }
 
 /* Customize the scrollbar track when pressed */
 ::-webkit-scrollbar-thumb:active {
-  background-color:rgb(24, 82, 116);/* Color of the thumb when pressed */
+  background-color: rgb(24, 82, 116);
+  /* Color of the thumb when pressed */
 }
-

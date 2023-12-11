@@ -17,7 +17,6 @@ function GroupsTable() {
     async function performGroupDelete(groupId: string) {
         try {
             const res: any = await deleteGroup(groupId)
-            console.log(res)
             if (res.data.success) {
                 await getGroupList()
             }
@@ -52,7 +51,6 @@ function GroupsTable() {
                             <td colSpan={1}>{group.active}</td>
                             <td colSpan={1} className={s.table_actions}>
                                 <button className={s.delete_btn} onClick={() => performGroupDelete(group.groupId)}>X</button>
-                                <button>MEMBERS</button>
                             </td>
 
                         </tr>)

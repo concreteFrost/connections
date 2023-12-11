@@ -3,8 +3,8 @@ import useStore from "../../../../../store/store";
 import { useState } from "react";
 import { IGroup, IRole, IUser } from "../../../../../store/interfaces/ISecurity";
 import moment from "moment";
-import EditUserModal from "./UserModal/EditUserModal";
-import AddUserModal from "./UserModal/AddUserModal";
+import EditUserModal from "../../../../Modals/UserModals/EditUserModal/EditUserModal";
+import AddUserModal from "../../../../Modals/UserModals/AddUserModal/AddUserModal";
 import MessageModal from "../../../../Modals/MessageModal";
 
 function UsersTable() {
@@ -13,8 +13,8 @@ function UsersTable() {
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
     const [isAddUserModalVisible, setIsAddUserModalVisible] = useState<boolean>(false)
 
-    function toggleEditUser(user: IUser | null) {
-        setIsModalVisible(user !== null ? true : false)
+    function toggleEditUser(isVisible: boolean) {
+        setIsModalVisible(isVisible)
     }
 
     function toggleAddUserModal(isVisible: boolean) {
@@ -64,7 +64,7 @@ function UsersTable() {
                             </td>
                             <td colSpan={1} className={s.table_actions}><button onClick={async () => {
                                 await getUser(user)
-                                await toggleEditUser(user)
+                                await toggleEditUser(true)
                             }}>EDIT</button>
                                 <button className={s.delete_btn} onClick={() => performUserDelete(user.userId)}>X</button></td>
                         </tr>)

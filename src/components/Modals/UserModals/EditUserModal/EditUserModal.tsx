@@ -1,18 +1,51 @@
 import s from "./EditUserModal.module.scss";
-import useStore from "../../../../../../store/store";
-import { IGroup, IRole, IUser } from "../../../../../../store/interfaces/ISecurity";
+import useStore from "../../../../store/store";
+import { IGroup, IRole, IUser } from "../../../../store/interfaces/ISecurity";
 import { useState, useEffect } from 'react';
 
 interface EditUserModalProps {
     isVisible: boolean,
-    toggleEditUser: (user: IUser | null) => void;
+    toggleEditUser: (isVisible: boolean) => void;
 }
 
 function EditUserModal(props: EditUserModalProps) {
 
-    const { userToEdit, getUserList, groupList, rolesList, updateUser } = useStore((state) => state.securitySlice);
+    const { userToEdit, groupList, rolesList, updateUser, getGroupList, getRolesList, generatePassword, resetPassword, getUserList } = useStore((state) => state.securitySlice);
     const { toggleMessageModal, setModalMessage } = useStore((state) => state.modalWindowsSlice);
     const [_userToEdit, setUserToEdit] = useState<IUser | null>(userToEdit);
+    const [isResetPasswordActive, setResetPasswordActive] = useState<boolean>(false);
+    const [newPassword, setNewPassword] = useState<string>('');
+    const [emailUserPassword, setEmailUserPassword] = useState<boolean>(false);
+
+    async function fetchGroupsAndRoles() {
+        try {
+            await getGroupList();
+            await getRolesList();
+        }
+        catch (e) {
+            console.log('error fetching groups', e)
+        }
+    }
+
+    async function performResetPassword() {
+        if (userToEdit)
+            try {
+                await resetPassword(userToEdit?.userId, newPassword, emailUserPassword);
+            }
+            catch (e) {
+                console.log('error reseting user password', e)
+            }
+    }
+
+    async function performPasswordGeneration() {
+        try {
+            const res: any = await generatePassword(1, 12);
+            setNewPassword(res)
+        }
+        catch (e) {
+            console.log('error generating password', e);
+        }
+    }
 
     function setTextProps(propName: keyof IUser, value: any) {
         if (_userToEdit) {
@@ -56,7 +89,7 @@ function EditUserModal(props: EditUserModalProps) {
                 if (res.data.success) {
                     await setModalMessage('success!!!');
                     await getUserList();
-                    await props.toggleEditUser(null);
+                    await props.toggleEditUser(false);
                 } else {
                     await setModalMessage(res.data.message);
                 }
@@ -69,6 +102,7 @@ function EditUserModal(props: EditUserModalProps) {
 
     useEffect(() => {
         setUserToEdit(userToEdit)
+        fetchGroupsAndRoles();
     }, [props.isVisible])
 
     return (<>
@@ -102,7 +136,34 @@ function EditUserModal(props: EditUserModalProps) {
                                 <input type="number" id="userLevel" name="userLevel" value={_userToEdit?.userLevel ? _userToEdit?.userLevel : ''}
                                     onChange={(e) => setTextProps('userLevel', e.target.value)}
                                     required />
+
                             </div>
+                        </section>
+
+                        <section className={s.reset_password_wrapper}>
+                            <div className={s.reset_password_item}>
+                                <button type="button" className={s.reset_password_btn} onClick={() => setResetPasswordActive(!isResetPasswordActive)}>RESET PASSWORD</button>
+                            </div>
+                            {/*RESET PASSWORD */}
+                            {isResetPasswordActive ?
+                                <><div className={s.reset_password_item}>
+
+                                    <label htmlFor="newPassword">New Password:</label>
+                                    <input type="text" id="newPassword" name="newPassword" value={newPassword}
+                                        onChange={(e: any) => setNewPassword(e.target.value)}
+                                    />
+                                    <div className={s.generate_password_btn}><button type="button" onClick={performPasswordGeneration} >GENERATE</button></div>
+                                </div>
+                                    <div className={s.reset_password_footer}>
+                                        <div>
+                                            <label htmlFor="newPassword">Email user:</label>
+                                            <input type="checkbox" checked={emailUserPassword} onChange={(e: any) => setEmailUserPassword(!emailUserPassword)} />
+                                        </div>
+
+                                        <button type="button" onClick={performResetPassword}>Reset</button>
+                                    </div>
+                                </> : null
+                            }
                         </section>
 
                         <section className={s.dropdown_wrapper}>
@@ -162,7 +223,7 @@ function EditUserModal(props: EditUserModalProps) {
                         </section>
                         <section className={s.form_btns_wrapper}>
                             <button>UPDATE</button>
-                            <button onClick={() => props.toggleEditUser(null)}>CANCEL</button>
+                            <button onClick={() => props.toggleEditUser(false)}>CANCEL</button>
                         </section>
                     </form>
                 </main>

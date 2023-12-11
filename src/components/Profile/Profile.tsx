@@ -5,21 +5,23 @@ import { useState, useRef, useEffect } from "react";
 import s from "./Profile.module.scss";
 import { getMeAPI } from "../../api/security";
 import { IUser } from "../../store/interfaces/ISecurity";
+import EditUserModal from "../Modals/UserModals/EditUserModal/EditUserModal";
+import useStore from "../../store/store";
 
 
 function Profile() {
     const navigate = useNavigate();
 
     const [isProfileModalVisible, setProfileModalVisible] = useState<boolean>(false);
+    const [isEditUserVisible, setEditUserVisible] = useState<boolean>(false);
     const modalRef = useRef<HTMLDivElement>(null);
 
-    const [currentUser, setCurrentUser] = useState<IUser>();
+    const { userToEdit, getUser } = useStore((state) => state.securitySlice);
 
     async function getMe() {
         try {
             const res: any = await getMeAPI();
-            console.log(res)
-            setCurrentUser(res.data.userRecord);
+            await getUser(res.data.userRecord);
         }
         catch (e) {
             console.log('error getting me', e)
@@ -34,6 +36,10 @@ function Profile() {
 
     function toggleProfileModalVisibility(isVisible: boolean) {
         setProfileModalVisible(isVisible)
+    }
+
+    function toggleEditUserModal(isVisible: boolean) {
+        setEditUserVisible(isVisible)
     }
 
     function logout() {
@@ -62,16 +68,16 @@ function Profile() {
             {/*ACCOUNT INFO */}
             <section className={s.account_info_wrapper}>
                 <header>Account Info</header>
+                <p className={s.edit_btn} onClick={() => toggleEditUserModal(true)}>edit</p>
                 <main>
                     <div className={s.account_info_item}>
                         <label htmlFor="userName">Name:</label>
-                        <p>{currentUser?.userName}</p>
+                        <p>{userToEdit?.userName}</p>
                     </div>
                     <div className={s.account_info_item}>
                         <label htmlFor="userLogin">Login:</label>
-                        <p>{currentUser?.userLogin}</p>
+                        <p>{userToEdit?.userLogin}</p>
                     </div>
-                    <button>RESET PASSWORD</button>
                 </main>
             </section>
             {/*LOGOUT WRAPPER */}
@@ -81,7 +87,7 @@ function Profile() {
             </section>
         </div> : null
         }
-
+        <EditUserModal isVisible={isEditUserVisible} toggleEditUser={toggleEditUserModal} ></EditUserModal>
 
     </div>)
 }

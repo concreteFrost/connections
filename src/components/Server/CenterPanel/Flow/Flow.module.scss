@@ -6,7 +6,7 @@
   grid-template-columns: 5fr 5fr 2fr;
   padding: 20px;
   gap: 10px;
-  font-family: $font-node-nav-header;
+  ;
 
   @media screen and (max-width: $breakpoint-lg) {
     grid-template-columns: 8fr 4fr;
@@ -97,7 +97,7 @@
       background-color: $bg-top-menu-btn-default;
       color: white;
       border-radius: 5px;
-      font-family: $font-node-nav-header;
+      ;
       border: 0;
       font-weight: bold;
       font-size: 1.2rem;

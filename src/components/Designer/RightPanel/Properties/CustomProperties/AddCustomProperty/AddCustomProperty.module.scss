@@ -19,7 +19,7 @@
         .value_wrapper {
 
             @include section_grid_item;
-            font-family: $font-node-nav-header;
+
             border-bottom: 1px solid $color-list-border;
 
             label {

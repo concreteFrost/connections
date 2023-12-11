@@ -6,14 +6,14 @@
   height: 50px;
   background-color: $bg-top-menu-btn-default;
   color: white;
-  font-family: $font-node-nav-header;
+  ;
   font-size: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
 
-  .designer_button{
+  .designer_button {
     position: absolute;
     left: 80px;
     top: 0;

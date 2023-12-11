@@ -5,7 +5,7 @@
   height: 81vh;
 
   border: 1px solid rgb(231, 231, 231);
-  font-family: $font-node-nav-header;
+  ;
   position: relative;
 
   .panel_header {
@@ -38,6 +38,7 @@
       right: 10px;
       margin-bottom: 10px;
     }
+
     .actions_header {
       margin-left: 20px;
       height: 30px;
@@ -56,21 +57,21 @@
     align-items: center;
     font-size: 0.9rem;
 
-    .notification_actions{
+    .notification_actions {
       display: flex;
       gap: 5px;
       padding-right: 10px;
 
-      button{
+      button {
         font-size: 0.7rem;
         font-weight: bold;
       }
 
-      .edit_btn{
+      .edit_btn {
         @include blue_btn;
       }
 
-      .delete_btn{
+      .delete_btn {
         @include blue_btn;
         background-color: $bg-delete-btn;
       }

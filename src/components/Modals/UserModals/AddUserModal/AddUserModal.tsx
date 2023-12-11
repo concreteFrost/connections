@@ -1,6 +1,6 @@
-import s from "./EditUserModal.module.scss";
-import useStore from "../../../../../../store/store";
-import { IGroup, IRole, INewUser } from "../../../../../../store/interfaces/ISecurity";
+import s from "./AddUserModal.module.scss";
+import useStore from "../../../../store/store";
+import { IGroup, IRole, INewUser } from "../../../../store/interfaces/ISecurity";
 import { useState } from "react";
 
 
