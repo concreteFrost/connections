@@ -10,3 +10,9 @@ export const setTooltipText = (get: () => RFState, set: any) => (text: string) =
     }
   }));
 };
+
+const tooltipActions = {
+  setTooltipText: setTooltipText
+}
+
+export default tooltipActions;

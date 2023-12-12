@@ -21,7 +21,7 @@ function NodeListItem(props: NodeProps) {
   )?.[1];
 
   return (
-    <div className='nodelist-body-elemet' data-tooltip-delay-show={1000} onMouseEnter={() => setTooltipText(props.nodeType.data.description)}>
+    <div className='tooltip-item' data-tooltip-delay-show={1000} onMouseEnter={() => setTooltipText(props.nodeType.data.description)}>
 
       <button className={s.node_list_btn}
         onDragEnd={(event) => {

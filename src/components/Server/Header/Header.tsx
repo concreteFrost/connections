@@ -7,7 +7,6 @@ function Header() {
   const navigate = useNavigate();
   return (
     <div className={s.wrapper}>
-
       <div className={s.nav_btns_wrapper}>
         <div className={s.designer_button}>
           <button onClick={() => {

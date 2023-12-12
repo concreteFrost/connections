@@ -8,7 +8,7 @@
   border: 0;
   border-radius: 5px;
   color: white;
-  ;
+  cursor: pointer;
 
   &:hover {
     background-color: $bg-top-menu-btn-hover;
@@ -17,9 +17,18 @@
   transition: background-color 0.2s ease-in-out;
 }
 
+//NAV 
+@mixin nav_wrapper {
+
+  background-color: $bg-top-menu-btn-default;
+  display: grid;
+  grid-template-columns: repeat(3, 4fr);
+  align-items: center;
+}
+
 //Left Panel
 @mixin left_panel_btn($bg) {
-  ;
+
   width: 100%;
   height: 40px;
   border: 0;
@@ -42,8 +51,6 @@
 //Right Panel
 @mixin section_header {
   padding-top: 15px;
-
-  ;
   color: $color-node-nav-container-header;
 
   margin-bottom: 15px;
@@ -54,7 +61,6 @@
   h5 {
     color: $color-node-nav-container-header;
     background-color: $bg-node-nav-btn;
-    ;
     margin: 0;
     height: 40px;
     display: flex;
@@ -163,7 +169,6 @@
       height: 40px;
 
       th {
-        ;
         color: $color-font-main;
         font-weight: $font-weight-bold;
         font-style: italic;
@@ -250,7 +255,7 @@
   ;
   font-weight: $font-weight-bold;
   color: $color-font-main;
-
+  cursor: pointer;
 
   &:hover {
     background-color: rgb(148, 200, 230);
@@ -267,7 +272,7 @@
   color: gray;
 }
 
-//TOP MENU
+//DROPDOWN
 
 @mixin dropdown_menu {
   position: absolute;

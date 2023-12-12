@@ -22,7 +22,7 @@ function InputLabel(props: InputLabelProps) {
     <>
       <div className={s.grid_item}>
         <label
-          className="nodelist-body-elemet"
+          className="tooltip-item"
           onClick={() => {
             getParameterValue(props.blockData.value);
           }}

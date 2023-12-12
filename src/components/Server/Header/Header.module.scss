@@ -2,11 +2,7 @@
 @import "/src/style/mixins.scss";
 
 .wrapper {
-  height: 50px;
-  background-color: $bg-top-menu-btn-default;
-  display: grid;
-  grid-template-columns: repeat(3, 4fr);
-  align-items: center;
+  @include nav_wrapper;
 
   .nav_btns_wrapper {
     display: flex;

@@ -30,6 +30,7 @@ function DraftFlows() {
   });
   const modalSlice = useStore((state) => state.modalWindowsSlice);
   const flowSlice = useStore((state) => state.flowSlice);
+  const setTooltipText = useStore((state) => state.designerVisualElementsSlice.setTooltipText);
 
   const { setApproveFlowModalMessage, toggleApproveFlowModal } = useStore((state) => state.modalWindowsSlice);
 
@@ -106,7 +107,6 @@ function DraftFlows() {
                   <tr key={flow.draftId}>
                     <td
                       className={s.flow_name}
-
                       colSpan={2}
                     >
                       {flow.flowName}
@@ -116,7 +116,8 @@ function DraftFlows() {
 
                     <td className={s.actions_wrapper}>
                       {/*LOAD */}
-                      <button className={s.action_confirm_btn}
+                      <button className={`${s.action_confirm_btn} tooltip-item`}
+                        onMouseEnter={() => setTooltipText('Retrieves a draft flow configuration from the server')}
                         onClick={() => {
                           if (flowSlice.flow.flowIdentifier) {
                             modalSlice.toggleUpdateFlowModal(true)
@@ -129,7 +130,8 @@ function DraftFlows() {
                         }}
                       >Load</button>
                       {/*APPROVE */}
-                      <button className={s.action_confirm_btn}
+                      <button className={`${s.action_confirm_btn} tooltip-item`}
+                        onMouseEnter={() => setTooltipText('Approves a draft version and if validated will be released to the live system')}
                         onClick={() => {
                           toggleApproveFlowModal(true, flow.draftId);
                           setApproveFlowModalMessage(flow.flowName)

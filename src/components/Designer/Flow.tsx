@@ -30,7 +30,7 @@ function Flow(props: any) {
   const snapStep = useStore((state) => state.topPanelSlice.settings.snapStep)
   const showMinimap = useStore((state) => state.topPanelSlice.settings.showMiniMap)
   return (
-    <div style={{ height: 930 }}>
+    <div style={{ height: 1280, overflowY: 'hidden' }}>
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -41,7 +41,6 @@ function Flow(props: any) {
         onClick={props.resetselectedBlockID}
         snapToGrid={snapToGrid}
         snapGrid={[snapStep[0], snapStep[1]]}
-
       >
         <Background color={`rgb(74, 148, 190,${bgView === BackgroundVariant.Dots ? 1 : 0.5})`} variant={bgView}></Background>
         {/* <MiniMap nodeStrokeColor={"black"} nodeStrokeWidth={10} className={s.minimap} nodeColor={'rgb(74, 120, 190)'} style={{ display: showMinimap ? "block" : "none" }} ></MiniMap> */}

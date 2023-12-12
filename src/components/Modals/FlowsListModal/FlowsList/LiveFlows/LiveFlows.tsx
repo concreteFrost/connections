@@ -25,6 +25,7 @@ function LiveFlows() {
 
   const [loadedLiveFlows, setLoadedLiveFlows] = useState<Array<IFlowConfig>>([]);
   const toggleCreateTemplateFlowModal = useStore((state) => state.modalWindowsSlice.toggleCreateTemplateFlowModal);
+  const setTooltipText = useStore((state) => state.designerVisualElementsSlice.setTooltipText)
 
   const flowSlice = useStore((state) => state.flowSlice);
   const modalSlice = useStore((state) => state.modalWindowsSlice);
@@ -71,11 +72,13 @@ function LiveFlows() {
               <td>{moment(loadedFlow.dateCreated).calendar()}</td>
               <td>
                 <div className={s.actions_wrapper}>
-                  <button className={s.action_confirm_btn}
+                  <button className={`${s.action_confirm_btn} tooltip-item`}
+                    onMouseEnter={() => setTooltipText('Returns a new draft structure based on a live server flow configuration')}
                     onClick={() => toggleCreateTemplateFlowModal(true, loadedFlow.flowId, loadedFlow.name)}
                   >Template</button>
                   {/*LOAD */}
-                  <button className={s.action_confirm_btn}
+                  <button className={`${s.action_confirm_btn} tooltip-item`}
+                    onMouseEnter={() => setTooltipText('Returns a draft copy structure from a live server flow configuration for updating purposes')}
                     onClick={() => {
                       if (flowSlice.flow.flowIdentifier) {
                         modalSlice.toggleUpdateFlowModal(true);

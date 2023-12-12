@@ -2,47 +2,41 @@
 @import "/src/style/mixins.scss";
 
 .wrapper {
-  position: relative;
-  height: 50px;
-  background-color: $bg-top-menu-btn-default;
-  color: white;
-  ;
-  font-size: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+  @include nav_wrapper;
 
-  .designer_button {
-    position: absolute;
-    left: 80px;
-    top: 0;
+  header {
+    font-size: 2rem;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
 
-    button {
-      @include server_header_btn;
-      margin-left: 20px;
+    @media screen and (max-width:$breakpoint-lg) {
+      font-size: 1rem;
     }
   }
 
-  .server_button {
-    position: absolute;
-    left: 0;
-    top: 0;
+  .nav_btns_wrapper {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    z-index: 1000;
 
-    button {
-      @include server_header_btn;
-      margin-left: 20px;
+    .designer_button,
+    .server_button {
+      color: white;
+
+      button {
+        @include server_header_btn;
+        margin-left: 20px;
+      }
     }
+
   }
 
   .logout_container {
-    position: absolute;
-    right: 0;
-    top: 0;
-
-    button {
-      @include server_header_btn;
-      margin-right: 20px;
-    }
+    z-index: 1000;
   }
+
+
+
 }

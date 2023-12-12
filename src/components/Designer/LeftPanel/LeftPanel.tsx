@@ -6,7 +6,6 @@ import Section from "./Section/Section";
 import { nodeGroup } from "../../../store/constants/nodeConst";
 import { connectionsIcons } from "../../../icons/icons";
 
-
 function LeftPanel() {
   const flowIdentifier = useStore((state) => state.flowSlice.flow.flowIdentifier)
   const leftPanelRef = useRef<HTMLDivElement>(null);

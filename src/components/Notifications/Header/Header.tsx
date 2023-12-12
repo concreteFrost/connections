@@ -7,17 +7,19 @@ function Header() {
   const navigate = useNavigate();
   return (
     <div className={s.wrapper}>
-      <header>ALERTS</header>
-      <div className={s.server_button}>
-        <button onClick={() => {
-          navigate('/server')
-        }}>SERVER</button>
+      <div className={s.nav_btns_wrapper}>
+        <div className={s.server_button}>
+          <button onClick={() => {
+            navigate('/server')
+          }}>SERVER</button>
+        </div>
+        <div className={s.designer_button}>
+          <button onClick={() => {
+            navigate('/designer')
+          }}>DESIGNER</button>
+        </div>
       </div>
-      <div className={s.designer_button}>
-        <button onClick={() => {
-          navigate('/designer')
-        }}>DESIGNER</button>
-      </div>
+      <header>NOTIFICATIONS</header>
       <div className={s.logout_container}>
         <Profile></Profile>
       </div>
