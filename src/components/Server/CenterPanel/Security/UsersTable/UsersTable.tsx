@@ -5,11 +5,10 @@ import { IGroup, IRole, IUser } from "../../../../../store/interfaces/ISecurity"
 import moment from "moment";
 import EditUserModal from "../../../../Modals/UserModals/EditUserModal/EditUserModal";
 import AddUserModal from "../../../../Modals/UserModals/AddUserModal/AddUserModal";
-import MessageModal from "../../../../Modals/MessageModal";
 
 function UsersTable() {
 
-    const { userList, getUser, deleteUser } = useStore((state) => state.securitySlice);
+    const { userList, getUser, deleteUser, getUserList, getGroupList } = useStore((state) => state.securitySlice);
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
     const [isAddUserModalVisible, setIsAddUserModalVisible] = useState<boolean>(false)
 
@@ -23,7 +22,11 @@ function UsersTable() {
 
     async function performUserDelete(userId: string) {
         try {
-            await deleteUser(userId)
+            const res: any = await deleteUser(userId)
+            if (res.data.success) {
+                await getUserList()
+                await getGroupList()
+            }
         }
         catch (e) {
             console.log('error deleting user', e)
@@ -62,11 +65,15 @@ function UsersTable() {
                                     {user.belongsToGroups && user.belongsToGroups.length > 0 ? user.belongsToGroups.map((group: IGroup) => <li key={group.groupId}>{group.name}</li>) : "-"}
                                 </ul>
                             </td>
-                            <td colSpan={1} className={s.table_actions}><button onClick={async () => {
-                                await getUser(user)
-                                await toggleEditUser(true)
-                            }}>EDIT</button>
-                                <button className={s.delete_btn} onClick={() => performUserDelete(user.userId)}>X</button></td>
+                            <td colSpan={1} >
+                                <div className={s.table_actions}>
+                                    <button onClick={async () => {
+                                        await getUser(user)
+                                        await toggleEditUser(true)
+                                    }}>EDIT</button>
+                                    <button className={s.delete_btn} onClick={() => performUserDelete(user.userId)}>X</button>
+                                </div>
+                            </td>
                         </tr>)
                             : null}
                     </tbody>

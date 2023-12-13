@@ -40,6 +40,11 @@ export interface IGroup {
     owner: string;
     dateCreated: string;
     lastAmended: string;
+
+}
+
+export interface IGroupWithUsers extends IGroup {
+    groupMembers: Array<IUser>
 }
 
 export interface IRole {

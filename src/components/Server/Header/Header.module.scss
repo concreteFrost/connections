@@ -4,10 +4,22 @@
 .wrapper {
   @include nav_wrapper;
 
+  .title {
+    font-size: 1rem;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+
+    @media screen and (max-width:$breakpoint-lg) {
+      font-size: 1rem;
+    }
+  }
+
   .nav_btns_wrapper {
     display: flex;
     height: 100%;
     align-items: center;
+    z-index: 1000;
 
     .alerts_button,
     .designer_button {
@@ -21,16 +33,7 @@
 
   }
 
-  .title {
-    font-size: 2rem;
-    color: white;
-    margin-left: auto;
-    margin-right: auto;
 
-    @media screen and (max-width:$breakpoint-lg) {
-      font-size: 1rem;
-    }
-  }
 
 
 }

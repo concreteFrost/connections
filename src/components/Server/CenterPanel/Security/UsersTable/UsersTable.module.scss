@@ -4,7 +4,6 @@
 .wrapper {
 
     padding: 10px;
-    ;
 
     header {
         color: $color-font-main;
@@ -17,11 +16,11 @@
         table {
 
             @include server_table;
-            height: 200px !important;
-            overflow-y: scroll;
             table-layout: fixed;
+            font-size: 0.9rem;
 
             tbody {
+                @include user_group_table_body;
 
                 .contacts {
                     font-size: 0.8rem;
@@ -33,34 +32,14 @@
                     span {
                         font-weight: bold;
                     }
+
                 }
 
                 .table_actions {
-                    text-align: center;
-
-                    button {
-                        @include blue_btn;
-                        margin-left: 5px;
-                    }
-
-                    .delete_btn {
-                        background-color: $bg-delete-btn;
-                    }
-
-                }
-
-                ul {
-                    padding: 0;
-
-                    li {
-                        list-style: none;
-                    }
+                    @include user_group_table_actions_column;
                 }
             }
-
         }
-
-
     }
 
     .add_user_wrapper {

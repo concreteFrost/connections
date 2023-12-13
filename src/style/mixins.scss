@@ -244,6 +244,43 @@
 
 }
 
+// User And Group Table
+
+@mixin user_group_table_body {
+  tr {
+    td {
+      text-overflow: ellipsis;
+    }
+
+    .group_members {
+      font-size: 0.9rem;
+    }
+
+    ul {
+      padding: 0;
+
+      li {
+        list-style: none;
+      }
+    }
+  }
+}
+
+@mixin user_group_table_actions_column {
+  display: flex;
+  justify-content: center;
+
+  button {
+    @include blue_btn;
+    margin-left: 5px;
+  }
+
+  .delete_btn {
+    background-color: $bg-delete-btn;
+  }
+
+}
+
 //SERVER
 
 @mixin server_header_btn {

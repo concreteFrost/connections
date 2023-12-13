@@ -1,5 +1,5 @@
-import { addUserAPI, createGroupAPI, generatePasswordAPI, getGroupListAPI, getGroupMembersAPI, getRoleListAPI, getUserAPI, getUserListAPI, removeGroupAPI, removeUserAPI, resetPasswordAPI, updateUserAPI } from "../../api/security";
-import { IUser, IGroup, INewUser } from "../interfaces/ISecurity";
+import { addGroupMemberAPI, addUserAPI, createGroupAPI, generatePasswordAPI, getGroupListAPI, getGroupMembersAPI, getRoleListAPI, getUserAPI, getUserListAPI, removeGroupAPI, removeGroupMemberAPI, removeUserAPI, resetPasswordAPI, updateUserAPI } from "../../api/security";
+import { IUser, IGroup, INewUser, IGroupWithUsers } from "../interfaces/ISecurity";
 import { RFState } from "../types/rfState";
 
 // const getUser = (get: () => RFState, set: any) => async (userId: string) => {
@@ -89,7 +89,7 @@ const deleteUser = (get: () => RFState, set: any) => async (userId: string) => {
     try {
 
         const res: any = await removeUserAPI(userId);
-        console.log(res);
+        return res;
     }
     catch (e) {
         console.log('error deleting user', e)
@@ -127,7 +127,6 @@ const getGroupList = (get: () => RFState, set: any) => async () => {
     try {
         const res: any = await getGroupListAPI();
         const data: Array<IGroup> = res.data.groups;
-
         set((state: RFState) => ({
             securitySlice: {
                 ...state.securitySlice, groupList: data
@@ -139,21 +138,34 @@ const getGroupList = (get: () => RFState, set: any) => async () => {
     }
 }
 
-const getGroupMembers = (get: () => RFState, set: any) => async () => {
+const getGroupMembers = (get: () => RFState, set: any) => async (groupdId: string) => {
     try {
-        const res: any = await getGroupMembersAPI();
-        return res;
+        const res: any = await getGroupMembersAPI(groupdId);
+        const data: IUser[] = res.data.users
+
+        const groupToUpdate = get().securitySlice.groupList.find((group: IGroup) => group.groupId === groupdId);
+
+        if (groupToUpdate) {
+            //applying changes here
+            groupToUpdate.groupMembers = data
+
+            //just refreshing securitySlice 
+            set((state: RFState) => ({
+                securitySlice: {
+                    ...state.securitySlice
+                }
+            }))
+        }
+
     }
     catch (e) {
         console.log('error getting user list')
     }
 }
 
-
-
 const addGroup = (get: () => RFState, set: any) => async (groupRecord: IGroup) => {
     try {
-        const res: any = createGroupAPI(groupRecord);
+        const res: any = await createGroupAPI(groupRecord);
         return res;
     }
     catch (e) {
@@ -163,16 +175,36 @@ const addGroup = (get: () => RFState, set: any) => async (groupRecord: IGroup) =
 
 const deleteGroup = (get: () => RFState, set: any) => async (groupId: string) => {
     try {
-        const res: any = removeGroupAPI(groupId);
+        const res: any = await removeGroupAPI(groupId);
         return res;
     }
     catch (e) {
         console.log('error deleting group')
     }
 }
+
+const addGroupMember = (get: () => RFState, set: any) => async (userId: string, groupId: string) => {
+    try {
+        const res: any = await addGroupMemberAPI(userId, groupId);
+        console.log('adding group member', res)
+        return res;
+    }
+    catch (e) {
+        console.log('error adding group member')
+    }
+}
+
+const removeGroupMember = (get: () => RFState, set: any) => async (userId: string, groupId: string) => {
+    try {
+        const res: any = await removeGroupMemberAPI(userId, groupId);
+        console.log(res)
+        return res;
+    }
+    catch (e) {
+        console.log('error removing group member')
+    }
+}
 //#endregion
-
-
 
 const securityActions = {
     getUser: getUser,
@@ -187,6 +219,8 @@ const securityActions = {
     getGroupMembers: getGroupMembers,
     addGroup: addGroup,
     deleteGroup: deleteGroup,
+    addGroupMember: addGroupMember,
+    removeGroupMember: removeGroupMember
 }
 
 

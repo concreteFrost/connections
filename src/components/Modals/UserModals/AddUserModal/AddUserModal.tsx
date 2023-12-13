@@ -26,7 +26,7 @@ const initialUser: INewUser = {
 
 function AddUserModal(props: EditUserModalProps) {
 
-    const { addUser, getUserList, groupList, rolesList, generatePassword } = useStore((state) => state.securitySlice);
+    const { addUser, getUserList, groupList, rolesList, generatePassword, getGroupList } = useStore((state) => state.securitySlice);
     const [newUser, setNewUser] = useState<INewUser>(initialUser);
     const { toggleMessageModal, setModalMessage } = useStore((state) => state.modalWindowsSlice);
 
@@ -82,6 +82,7 @@ function AddUserModal(props: EditUserModalProps) {
                 if (res.data.success) {
                     await setModalMessage('success!!!');
                     await getUserList();
+                    await getGroupList()
                     await props.toggleAddUserModal(false)
                 } else {
                     await setModalMessage(res.data.message);

@@ -1,0 +1,74 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+.container {
+    @include modal_container;
+}
+
+.modal_window {
+    @include modal_window;
+
+}
+
+.modal_header {
+    @include modal_header;
+
+}
+
+.modal_body {
+    @include modal_body;
+
+    .form {
+        display: grid;
+
+        gap: 20px;
+        align-items: start;
+
+        label,
+        input {
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .lists_wrapper {
+            display: grid;
+            grid-template-columns: 6fr 6fr;
+            gap: 20px;
+
+
+            ul {
+                margin-left: 0;
+                padding-left: 5px;
+            }
+
+            li {
+                list-style: none;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                height: 25px;
+
+            }
+
+
+        }
+
+        .form_btns_wrapper {
+            display: flex;
+            justify-self: end;
+
+
+            button {
+                @include blue_btn;
+
+                margin-left: 5px;
+            }
+        }
+
+    }
+
+}

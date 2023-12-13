@@ -19,7 +19,6 @@ function EditUserModal(props: EditUserModalProps) {
 
     async function fetchGroupsAndRoles() {
         try {
-            await getGroupList();
             await getRolesList();
         }
         catch (e) {
@@ -68,6 +67,7 @@ function EditUserModal(props: EditUserModalProps) {
 
     function setUserRoles(role: IRole) {
         if (_userToEdit) {
+            console.log(role)
             const updatedRoles = (_userToEdit.userRoles ?? []).some(existingRole => existingRole.roleId === role.roleId)
                 ? (_userToEdit.userRoles ?? []).filter(existingRole => existingRole.roleId !== role.roleId)
                 : [...(_userToEdit.userRoles ?? []), role];

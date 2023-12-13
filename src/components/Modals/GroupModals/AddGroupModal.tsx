@@ -1,7 +1,7 @@
 import s from "./AddGroupModal.module.scss";
-import useStore from "../../../../../store/store";
+import useStore from "../../../store/store";
 import { useEffect, useState } from "react";
-import { IGroup, IUser } from "../../../../../store/interfaces/ISecurity";
+import { IGroup, IUser } from "../../../store/interfaces/ISecurity";
 
 interface EditUserModalProps {
     isVisible: boolean,

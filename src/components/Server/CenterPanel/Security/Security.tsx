@@ -3,6 +3,7 @@ import useStore from "../../../../store/store";
 import { useEffect } from "react";
 import UsersTable from "./UsersTable/UsersTable";
 import GroupsTable from "./GroupsTable/GroupsTable";
+import { IGroup } from "../../../../store/interfaces/ISecurity";
 
 function Security() {
 
@@ -13,6 +14,7 @@ function Security() {
             await getUserList();
             await getGroupList();
             await getRolesList();
+
         }
         catch (e) {
             console.log('error getting user/group list', e);

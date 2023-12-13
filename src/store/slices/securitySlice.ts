@@ -1,12 +1,12 @@
 
 import securityActions from "../actions/securityActions";
-import { IGroup, INewUser, IRole, IUser } from "../interfaces/ISecurity";
+import { IGroup, IGroupWithUsers, INewUser, IRole, IUser } from "../interfaces/ISecurity";
 import { RFState } from "../types/rfState"
 
 export type SecuritySlice = {
     userToEdit: IUser | null,
     userList: Array<IUser>,
-    groupList: Array<IGroup>,
+    groupList: Array<IGroupWithUsers>,
     rolesList: Array<IRole>,
 
     //user actions
@@ -20,9 +20,11 @@ export type SecuritySlice = {
     resetPassword: (userId: string, newPasword: string, emailUser: boolean) => void;
     //group actions
     getGroupList: () => void;
-    getGroupMembers: () => void;
+    getGroupMembers: (groupdId: string) => void;
     createGroup: (groupRecord: IGroup) => void;
     deleteGroup: (groupId: string) => void;
+    addGroupMember: (userId: string, groupId: string) => void;
+    removeGroupMember: (userId: string, groupId: string) => void
 
 }
 
@@ -42,7 +44,9 @@ const securitySlice = (get: () => RFState, set: any): SecuritySlice => ({
     getGroupMembers: securityActions.getGroupMembers(get, set),
     getGroupList: securityActions.getGroupList(get, set),
     createGroup: securityActions.addGroup(get, set),
-    deleteGroup: securityActions.deleteGroup(get, set)
+    deleteGroup: securityActions.deleteGroup(get, set),
+    addGroupMember: securityActions.addGroupMember(get, set),
+    removeGroupMember: securityActions.removeGroupMember(get, set),
 })
 
 export default securitySlice;

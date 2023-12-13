@@ -70,14 +70,16 @@ export function getGroupListAPI() {
     });
 }
 
-export function getGroupMembersAPI() {
+export function getGroupMembersAPI(groupId: string) {
     return new Promise((resolve, reject) => {
         axios.get(baseUrl + "/Security/GetGroupMembers", {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: "Bearer " + getAccessToken().token,
             },
-
+            params: {
+                groupId: groupId
+            }
         })
             .then((res) => {
                 resolve(res);
@@ -145,7 +147,9 @@ export function removeUserAPI(userId: string) {
                 "Content-Type": "application/json",
                 Authorization: "Bearer " + getAccessToken().token,
             },
-            data: userId
+            params: {
+                userId: userId
+            }
         })
             .then((res) => {
                 resolve(res);
@@ -180,7 +184,9 @@ export function removeGroupAPI(groupId: string) {
                 "Content-Type": "application/json",
                 Authorization: "Bearer " + getAccessToken().token,
             },
-            data: groupId
+            params: {
+                groupId: groupId
+            }
         })
             .then((res) => {
                 resolve(res);
@@ -189,7 +195,7 @@ export function removeGroupAPI(groupId: string) {
     });
 }
 
-export function addGroupMemberAPI(groupId: string, userId: string) {
+export function addGroupMemberAPI(userId: string, groupId: string) {
     return new Promise((resolve, reject) => {
         axios(baseUrl + "/Security/AddGroupMember", {
             method: "post",
@@ -197,7 +203,7 @@ export function addGroupMemberAPI(groupId: string, userId: string) {
                 "Content-Type": "application/json",
                 Authorization: "Bearer " + getAccessToken().token,
             },
-            data: {
+            params: {
                 groupId: groupId,
                 userId: userId
             }
@@ -209,7 +215,7 @@ export function addGroupMemberAPI(groupId: string, userId: string) {
     });
 }
 
-export function removeGroupMemberAPI(groupId: string, userId: string) {
+export function removeGroupMemberAPI(userId: string, groupId: string) {
     return new Promise((resolve, reject) => {
         axios(baseUrl + "/Security/RemoveGroupMember", {
             method: "post",
@@ -217,7 +223,7 @@ export function removeGroupMemberAPI(groupId: string, userId: string) {
                 "Content-Type": "application/json",
                 Authorization: "Bearer " + getAccessToken().token,
             },
-            data: {
+            params: {
                 groupId: groupId,
                 userId: userId
             }
