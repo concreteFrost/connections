@@ -117,6 +117,39 @@ export function registerClientNotificationAPI(notificationId: string, callbackUR
     });
 }
 
+/**
+ * 
+ * @param yourCallbackUrl - your client url you want to receive a callback from
+ * @param user -credentials: username to access your client url
+ * @param pass -credentials: password to access your client url
+ * @param anyText -Text here will be changed before sending to the client url as HttpContent string
+ * @returns 
+ */
+
+export function testClientCallbackAPI(yourCallbackUrl: string, user: string, pass: string, anyText: string) {
+    return new Promise((resolve, reject) => {
+        axios({
+            method: "post",
+            url: baseUrl + "/Notification/TestClientCallback",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + getAccessToken().token,
+            },
+            params: {
+                yourCallbackUrl: yourCallbackUrl,
+                user: user,
+                pass: pass,
+                anyText: anyText
+            }
+        })
+            .then((res) => {
+                resolve(res);
+            })
+            .catch((e) => reject(e));
+    });
+}
+
+
 
 
 

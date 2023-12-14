@@ -1,4 +1,4 @@
-import { getNotificationTypesAPI, getNotificationsAPI, removeNotificationAPI, updateNotificationAPI } from "../../api/notification";
+import { getNotificationTypesAPI, getNotificationsAPI, removeNotificationAPI, testClientCallbackAPI, updateNotificationAPI } from "../../api/notification";
 import { INotification, INotificationType } from "../interfaces/INotification";
 import { RFState } from "../types/rfState";
 
@@ -98,6 +98,16 @@ const toggleSelectNotification = (get: () => RFState, set: any) => async (notifi
     }))
 }
 
+const testClientCallback = (get: () => RFState, set: any) => async (yourCallbackUrl: string, user: string, pass: string, anyText: string) => {
+    try {
+        const res: any = await testClientCallbackAPI(yourCallbackUrl, user, pass, anyText);
+        console.log(res)
+    }
+    catch (e) {
+        console.log('error testing callback', e)
+    }
+}
+
 const notificationsActions = {
     getNotificationList: getNotificationList,
     getNotificationTypes: getNotificationTypes,
@@ -105,7 +115,8 @@ const notificationsActions = {
     deleteNotification: deleteNotification,
     setCurrentNotificationProps: setCurrentNotificationProps,
     updateNotification: updateNotification,
-    toggleSelectNotification: toggleSelectNotification
+    toggleSelectNotification: toggleSelectNotification,
+    testClientCallback: testClientCallback
 }
 
 export default notificationsActions

@@ -17,6 +17,11 @@
   transition: background-color 0.2s ease-in-out;
 }
 
+@mixin red_btn {
+  @include blue_btn();
+  background-color: $bg-delete-btn;
+}
+
 //NAV 
 @mixin nav_wrapper {
 

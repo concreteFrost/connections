@@ -92,10 +92,15 @@ function EditGroupModal(props: EditGroupModalProps) {
                                 <label htmlFor="currentMembers">Current Members:</label>
                                 <ul>
                                     {currentMembers && currentMembers.length > 0 ?
-                                        currentMembers.map((user: IUser) => <li key={user.userId}><p>{user.userName}</p> <button className={s.remove_member} onClick={() => {
-                                            if (props.groupToEdit)
-                                                removeFromGroup(user, props.groupToEdit?.groupId)
-                                        }}>X</button></li>
+                                        currentMembers.map((user: IUser) => <li key={user.userId}>
+                                            <div className={s.list_item_wrapper}>
+                                                <p>{user.userName}</p>
+                                                <button className={s.delete_from_group_btn} onClick={() => {
+                                                    if (props.groupToEdit)
+                                                        removeFromGroup(user, props.groupToEdit?.groupId)
+                                                }}>X</button>
+                                            </div>
+                                        </li>
                                         ) : null}
                                 </ul>
                             </div>
@@ -103,10 +108,15 @@ function EditGroupModal(props: EditGroupModalProps) {
                                 <label htmlFor="availableMembers">Available Members:</label>
                                 <ul>
                                     {availableMembers && availableMembers.length > 0 ?
-                                        availableMembers.map((user: IUser) => <li key={user.userId}><p>{user.userName}</p> <button className={s.remove_member} onClick={() => {
-                                            if (props.groupToEdit)
-                                                addToGroup(user, props.groupToEdit?.groupId)
-                                        }}>ADD</button></li>
+                                        availableMembers.map((user: IUser) => <li key={user.userId}>
+                                            <div className={s.list_item_wrapper}>
+                                                <p>{user.userName}</p>
+                                                <button className={s.add_to_group_btn} onClick={() => {
+                                                    if (props.groupToEdit)
+                                                        addToGroup(user, props.groupToEdit?.groupId)
+                                                }}>ADD</button>
+                                            </div>
+                                        </li>
                                         ) : null}
                                 </ul>
                             </div>

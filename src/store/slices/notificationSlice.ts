@@ -12,6 +12,7 @@ export type NotificationSlice = {
     deleteNotification: (notificationId: string) => void;
     setCurrentNotificationProps: (propName: any, value: any) => void;
     updateNotification: (notification: INotification) => void;
+    testClientCallback: (yourCallbackUrl: string, user: string, pass: string, anyText: string) => void;
 }
 
 const notificationSlice = (get: () => RFState, set: any): NotificationSlice => ({
@@ -23,7 +24,8 @@ const notificationSlice = (get: () => RFState, set: any): NotificationSlice => (
     setCurrentNotification: notificationsActions.setCurrentNotification(get, set),
     deleteNotification: notificationsActions.deleteNotification(get, set),
     setCurrentNotificationProps: notificationsActions.setCurrentNotificationProps(get, set),
-    updateNotification: notificationsActions.updateNotification(get, set)
+    updateNotification: notificationsActions.updateNotification(get, set),
+    testClientCallback: notificationsActions.testClientCallback(get, set)
 })
 
 export default notificationSlice;

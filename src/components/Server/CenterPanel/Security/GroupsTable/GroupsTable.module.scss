@@ -12,6 +12,7 @@
     .table_container {
         overflow-y: auto;
         max-height: 500px;
+        border-bottom: 1px solid $color-list-border-darker;
 
         table {
             @include server_table;

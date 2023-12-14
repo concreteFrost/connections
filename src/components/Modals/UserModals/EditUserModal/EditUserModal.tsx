@@ -26,6 +26,7 @@ function EditUserModal(props: EditUserModalProps) {
         }
     }
 
+
     async function performResetPassword() {
         if (userToEdit)
             try {

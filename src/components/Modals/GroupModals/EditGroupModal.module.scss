@@ -47,11 +47,34 @@
 
             li {
                 list-style: none;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                height: 25px;
+                margin-left: 0;
+                padding-left: 0;
 
+                width: 100%;
+
+                .list_item_wrapper {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding-left: 5px;
+                    height: 25px;
+                    margin-bottom: 10px;
+                    cursor: pointer;
+                }
+
+                :hover {
+                    background-color: rgb(240, 240, 240)
+                }
+
+                .delete_from_group_btn {
+                    @include red_btn;
+                    margin-left: 5px;
+                }
+
+                .add_to_group_btn {
+                    @include blue_btn;
+                    margin-left: 5px;
+                }
             }
 
 
