@@ -6,6 +6,7 @@ import { v4 as uuid } from "uuid"
 import useStore from "../../../store/store";
 import { IGroup, IUser } from "../../../store/interfaces/ISecurity";
 import MessageModal from "../../Modals/MessageModal";
+import { setModalMessage, toggleMessageModal } from "../../../store/actions/modalActions";
 
 
 const defaultFormState = {
@@ -23,7 +24,7 @@ const defaultFormState = {
 
 function AddNotificationForm() {
 
-  const { notificationsTypes, getNotificationsList, getNotificationsTypes } = useStore((state) => state.notificationSlice)
+  const { notificationsTypes, getNotificationsList, getNotificationsTypes,registerClientNotification, addNewNotifications } = useStore((state) => state.notificationSlice)
   const { userList, groupList, getUserList, getGroupList } = useStore((state) => state.securitySlice);
   const modalSlice = useStore((state) => state.modalWindowsSlice);
 
@@ -45,23 +46,29 @@ function AddNotificationForm() {
 
   useEffect(() => {
     fetchData()
-    //insert api here
   }, [isFormActive])
 
-  function submitForm(e: any) {
+  async function submitForm(e: any) {
     e.preventDefault()
 
-    newNotificationAPI(formElements).then((res: any) => {
-      if (res.data.success) {
+    try{
+      const res:any = await addNewNotifications(formElements);
+
+      if(res.data.success){
+        await getNotificationsList()
         setFormElements(defaultFormState)
-        getNotificationsList()
+        modalSlice.setModalMessage(res.data.message);
+        // const registerNotificationResult: any = await registerClientNotification(formElements.notificationId,'https://smee.io/ZKtI8Yid3J7gny');
+        // console.log(registerNotificationResult)   
+      }
+      else{
+        modalSlice.setModalMessage(res.data.message)
       }
       modalSlice.toggleMessageModal()
-      modalSlice.setModalMessage(res.data.message.length > 0 ? res.data.message : 'success!!!')
-
-    }).catch((e) => {
-      console.log('new notification error', e)
-    })
+    }
+    catch(e){
+      console.log('error addin new note');
+    }
   }
 
   const formWrapperClasses = `${s.form_wrapper} ${isFormActive ? s["opened"] : s["closed"]}`;

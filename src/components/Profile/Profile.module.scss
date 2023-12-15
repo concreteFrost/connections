@@ -8,11 +8,15 @@
     margin-right: 20px;
     height: 100%;
     position: relative;
-    ;
+    
+    .icon { 
+        &.light{
+            color: white;
+        }
 
-
-    span {
-        color: white;
+        &.dark{
+            color: $color-node-nav-icon
+        }
         cursor: pointer;
         font-size: 2em;
         padding-top: 10px;

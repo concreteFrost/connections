@@ -10,27 +10,34 @@ interface EditUserModalProps {
 
 function EditUserModal(props: EditUserModalProps) {
 
-    const { userToEdit, groupList, rolesList, updateUser, getGroupList, getRolesList, generatePassword, resetPassword, getUserList } = useStore((state) => state.securitySlice);
+    const { userToEdit, groupList, rolesList, updateUser, getRolesList, generatePassword, resetPassword, getUserList,getGroupList } = useStore((state) => state.securitySlice);
     const { toggleMessageModal, setModalMessage } = useStore((state) => state.modalWindowsSlice);
     const [_userToEdit, setUserToEdit] = useState<IUser | null>(userToEdit);
     const [isResetPasswordActive, setResetPasswordActive] = useState<boolean>(false);
     const [newPassword, setNewPassword] = useState<string>('');
     const [emailUserPassword, setEmailUserPassword] = useState<boolean>(false);
 
-    async function fetchGroupsAndRoles() {
+    async function fetchRolesAndGroups() {
         try {
             await getRolesList();
+            await getGroupList();
         }
         catch (e) {
             console.log('error fetching groups', e)
         }
     }
 
-
     async function performResetPassword() {
         if (userToEdit)
             try {
-                await resetPassword(userToEdit?.userId, newPassword, emailUserPassword);
+                const res:any = await resetPassword(userToEdit?.userId, newPassword, emailUserPassword);
+                if(!res.data.success){    
+                    setModalMessage(res.data.message);    
+                }
+                else{
+                    setModalMessage('success!!!')
+                }
+                toggleMessageModal()
             }
             catch (e) {
                 console.log('error reseting user password', e)
@@ -82,11 +89,10 @@ function EditUserModal(props: EditUserModalProps) {
 
     async function submitForm(e: React.FormEvent) {
         e.preventDefault();
-
         try {
             if (_userToEdit) {
                 const res: any = await updateUser(_userToEdit);
-                await toggleMessageModal();
+                
                 if (res.data.success) {
                     await setModalMessage('success!!!');
                     await getUserList();
@@ -94,20 +100,20 @@ function EditUserModal(props: EditUserModalProps) {
                 } else {
                     await setModalMessage(res.data.message);
                 }
+                toggleMessageModal();
             }
         } catch (e) {
             console.error(e);
         }
     }
 
-
     useEffect(() => {
         setUserToEdit(userToEdit)
-        fetchGroupsAndRoles();
+        fetchRolesAndGroups();
     }, [props.isVisible])
 
     return (<>
-        {props.isVisible ? <div className={s.container}>
+        {props.isVisible && _userToEdit ? <div className={s.container}>
             <div className={s.modal_window}>
                 <header className={s.modal_header}>EDIT</header>
                 <main className={s.modal_body}>
@@ -116,12 +122,12 @@ function EditUserModal(props: EditUserModalProps) {
                             <div className={s.text_values_item}>
                                 {/*USER NAME */}
                                 <label htmlFor="userName">User Name:</label>
-                                <input type="text" id="userName" name="userName" value={_userToEdit?.userName ? _userToEdit?.userName : ''}
+                                <input type="text" id="userName" name="userName" value={_userToEdit.userName}
                                     onChange={(e) => setTextProps('userName', e.target.value)}
                                     required />
                                 {/*EMAIL */}
                                 <label htmlFor="emailAddress">Email Address:</label>
-                                <input type="text" id="emailAddress" name="emailAddress" value={_userToEdit?.emailAddress ? _userToEdit?.emailAddress : ''}
+                                <input type="text" id="emailAddress" name="emailAddress" value={_userToEdit.emailAddress}
                                     onChange={(e) => setTextProps('emailAddress', e.target.value)}
                                 />
                             </div>
@@ -129,12 +135,12 @@ function EditUserModal(props: EditUserModalProps) {
                             <div className={s.text_values_item}>
                                 {/*PHONE */}
                                 <label htmlFor="phone">Phone:</label>
-                                <input type="text" id="phone" name="phone" value={_userToEdit?.phone ? _userToEdit?.phone : ''}
+                                <input type="text" id="phone" name="phone" value={_userToEdit.phone}
                                     onChange={(e) => setTextProps('phone', e.target.value)}
                                 />
                                 {/*LEVEL */}
                                 <label htmlFor="userLevel">User Level:</label>
-                                <input type="number" id="userLevel" name="userLevel" value={_userToEdit?.userLevel ? _userToEdit?.userLevel : ''}
+                                <input type="number" id="userLevel" name="userLevel" value={_userToEdit.userLevel}
                                     onChange={(e) => setTextProps('userLevel', e.target.value)}
                                     required />
 
@@ -179,7 +185,7 @@ function EditUserModal(props: EditUserModalProps) {
                                                 <input
                                                     type="checkbox"
                                                     checked={
-                                                        _userToEdit?.belongsToGroups?.some(
+                                                        _userToEdit.belongsToGroups?.some(
                                                             (userGroup: IGroup) => userGroup.groupId === group.groupId
                                                         )
                                                     }
@@ -201,7 +207,7 @@ function EditUserModal(props: EditUserModalProps) {
                                                 <input
                                                     type="checkbox"
                                                     checked={
-                                                        _userToEdit?.userRoles?.some(
+                                                        _userToEdit.userRoles?.some(
                                                             (userRole: IRole) => userRole.roleId === role.roleId
                                                         )
                                                     }
@@ -218,8 +224,8 @@ function EditUserModal(props: EditUserModalProps) {
                             <div className={s.checkboxes_item}>
                                 {/*IS ACTIVE */}
                                 <label htmlFor="isActive">Is Active:</label>
-                                <input type="checkbox" id="isActive" name="isActive" checked={_userToEdit?.isActive}
-                                    onChange={(e: any) => setTextProps('isActive', !_userToEdit?.isActive)} />
+                                <input type="checkbox" id="isActive" name="isActive" checked={_userToEdit.isActive}
+                                    onChange={(e: any) => setTextProps('isActive', !_userToEdit.isActive)} />
                             </div>
                         </section>
                         <section className={s.form_btns_wrapper}>

@@ -2,7 +2,6 @@ import TopMenu from "./TopMenu/TopMenu";
 import LeftPanel from "./LeftPanel/LeftPanel";
 import RightPanel from "./RightPanel/RightPanel";
 import Flow from "./Flow";
-import { Tooltip } from "react-tooltip";
 import useStore from "../../store/store";
 import { useEffect } from "react";
 import { getBlocks } from "../../api/data";
@@ -11,7 +10,6 @@ import Substitutions from "./Substitutions/Substitutions";
 function Designer() {
 
     const getBlocksList = useStore((store) => store.getBlocksList);
-    const tooltipText = useStore((store) => store.designerVisualElementsSlice.tooltip.text);
     const { flow } = useStore((store) => store.flowSlice);
 
     const hideAllTopDropdowns = useStore((state) => state.topPanelSlice.hideAllTopMenus);
@@ -42,15 +40,9 @@ function Designer() {
         <div className="dynamic_menu">
             <LeftPanel></LeftPanel>
             {flow.flowIdentifier ? <Substitutions></Substitutions> : <div></div>}
-
             <RightPanel></RightPanel>
         </div>
-
         <Flow resetselectedBlockID={resetselectedBlockID}></Flow>
-        <Tooltip anchorSelect=".tooltip-item" place="right" style={{ zIndex: 9999 }}  >
-            {tooltipText}
-        </Tooltip>
-
     </div>)
 }
 

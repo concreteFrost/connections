@@ -9,6 +9,7 @@ import MonitorsTable from "./Tables/MonitorsTable";
 import SchedulesTable from "./Tables/ISchedulesTable";
 import MetricsTable from "./Tables/MetricsTable";
 import { killServerAPI, startServerAPI, stopServerAPI } from "../../../../api/server";
+import useStore from "../../../../store/store";
 
 interface ITableData {
     alertsRaised: number;
@@ -60,6 +61,7 @@ function Servers() {
 
     const [tableData, setTableData] = useState<ITableData>(data)
     const [serverStatus, setServerStatus] = useState<string>('');
+    const {setTooltipText} = useStore((store)=>store.designerVisualElementsSlice)
 
     function startServer() {
         startServerAPI().then((res) => {
@@ -117,9 +119,18 @@ function Servers() {
     return (<div className={s.wrapper}>
         <div className={s.header}>
             <div className={s.header_buttons}>
-                <button className={s.play} onClick={startServer}>{connectionsIcons.serverButtonsIcons.play}</button>
-                <button className={s.stop} onClick={stopServer}>{connectionsIcons.serverButtonsIcons.stop}</button>
-                <button className={s.kill} onClick={killServer}>{connectionsIcons.serverButtonsIcons.kill}</button>
+                <button className={`${s.play} tooltip-item`} 
+                onClick={startServer}
+                onMouseEnter={()=>setTooltipText('Start Connections Server')}
+                >{connectionsIcons.serverButtonsIcons.play}</button>
+                <button className={`${s.stop} tooltip-item`} 
+                onClick={stopServer}
+                onMouseEnter={()=>setTooltipText('Perform a graceful shutdown of the Connections Server')}
+                >{connectionsIcons.serverButtonsIcons.stop}</button>
+                <button className={`${s.kill} tooltip-item`} 
+                onClick={killServer}
+                onMouseEnter={()=>setTooltipText('Hard shutdown of the Connections Server (all current workflows will be terminated)')}
+                >{connectionsIcons.serverButtonsIcons.kill}</button>
             </div>
             <div className={s.server_status}>server status : {serverStatus}</div>
         </div>

@@ -14,7 +14,7 @@ function Nofifications() {
 
   async function testCallback() {
     try {
-      const res: any = await testClientCallback('/alerts', 'iliaM', 'cre4min9Tuff', 'sample text');
+      const res: any = await testClientCallback('https://smee.io/ZKtI8Yid3J7gny', 'iliaM', 'cre4min9Tuff', 'sample text');
       console.log(res)
     }
     catch (e) {
@@ -23,7 +23,7 @@ function Nofifications() {
   }
 
   useEffect(() => {
-    testCallback()
+    // testCallback()
   })
 
   return (

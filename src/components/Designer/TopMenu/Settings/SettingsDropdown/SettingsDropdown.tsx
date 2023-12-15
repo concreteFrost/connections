@@ -54,7 +54,6 @@ function SettingsDropdown() {
         </li>
       </ul> */}
       <div className={s.logout_container}>
-        <Profile></Profile>
       </div>
 
     </div>

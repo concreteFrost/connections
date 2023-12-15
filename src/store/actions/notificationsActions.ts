@@ -1,4 +1,4 @@
-import { getNotificationTypesAPI, getNotificationsAPI, removeNotificationAPI, testClientCallbackAPI, updateNotificationAPI } from "../../api/notification";
+import { getNotificationTypesAPI, getNotificationsAPI, newNotificationAPI, registerClientNotificationAPI, removeNotificationAPI, testClientCallbackAPI, updateNotificationAPI } from "../../api/notification";
 import { INotification, INotificationType } from "../interfaces/INotification";
 import { RFState } from "../types/rfState";
 
@@ -28,7 +28,6 @@ const getNotificationTypes = (get: () => RFState, set: any) => async () => {
                 notificationsTypes: data
             }
         }))
-
 
     } catch (e) {
         console.log('error loading notifications', e);
@@ -68,11 +67,20 @@ const deleteNotification = (get: () => RFState, set: any) => async (notification
     }
 }
 
+const addNewNotifications =  (get: () => RFState, set: any) => async (notificationRecord: INotification)=>{
+    try{
+        const res : any = await newNotificationAPI(notificationRecord);
+        return res;
+    }
+    catch(e){
+
+    }
+}
+
 const updateNotification = (get: () => RFState, set: any) => async (notification: INotification) => {
     try {
         const res: any = await updateNotificationAPI(notification);
-        return res
-
+        return res;
     }
     catch (e) {
         console.log('error on updating notification', e)
@@ -101,10 +109,20 @@ const toggleSelectNotification = (get: () => RFState, set: any) => async (notifi
 const testClientCallback = (get: () => RFState, set: any) => async (yourCallbackUrl: string, user: string, pass: string, anyText: string) => {
     try {
         const res: any = await testClientCallbackAPI(yourCallbackUrl, user, pass, anyText);
-        console.log(res)
+        return res;
     }
     catch (e) {
         console.log('error testing callback', e)
+    }
+}
+
+const registerClientNotification = (get: () => RFState, set: any) => async (notificationId:string,callbackURI:string) => {
+    try {
+        const res: any = await registerClientNotificationAPI(notificationId,callbackURI)
+        return res;
+    }
+    catch (e) {
+        console.log('error registering notification', e)
     }
 }
 
@@ -113,10 +131,12 @@ const notificationsActions = {
     getNotificationTypes: getNotificationTypes,
     setCurrentNotification: setCurrentNotification,
     deleteNotification: deleteNotification,
+    addNewNotifications:addNewNotifications,
     setCurrentNotificationProps: setCurrentNotificationProps,
     updateNotification: updateNotification,
     toggleSelectNotification: toggleSelectNotification,
-    testClientCallback: testClientCallback
+    testClientCallback: testClientCallback,
+    registerClientNotification:registerClientNotification
 }
 
 export default notificationsActions

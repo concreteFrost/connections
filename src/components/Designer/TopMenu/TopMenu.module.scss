@@ -17,6 +17,12 @@
     left: 0;
     right: 0;
 
+    .settings_wrapper{
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
     @media print {
         display: none;
     }

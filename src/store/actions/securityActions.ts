@@ -111,8 +111,7 @@ const generatePassword = (get: () => RFState, set: any) => async (genType: numbe
 const resetPassword = (get: () => RFState, set: any) => async (userId: string, newPasword: string, emailUser: boolean) => {
     try {
         const res: any = await resetPasswordAPI(userId, newPasword, emailUser);
-        console.log(res)
-        return res.data.message;
+        return res;
     }
     catch (e) {
         console.log('error reseting user password', e)

@@ -1,7 +1,6 @@
 import s from "./ModalWindow.module.scss";
 import useStore from "../../store/store";
 
-
 function MessageModal() {
 
     const messageModal = useStore((state) => state.modalWindowsSlice.messageModal);

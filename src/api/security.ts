@@ -243,7 +243,7 @@ export function resetPasswordAPI(userId: string, newPasword: string, emailUser: 
                 "Content-Type": "application/json",
                 Authorization: "Bearer " + getAccessToken().token,
             },
-            data: {
+            params: {
                 userId: userId,
                 newPasword: newPasword,
                 emailUser: emailUser

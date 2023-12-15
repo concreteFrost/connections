@@ -8,8 +8,13 @@ import ProtectedRoute from "./utils/ProtectedRoute";
 import Server from "./components/Server/Server";
 import Alerts from "./components/Notifications/Noticifations";
 import MessageModal from "./components/Modals/MessageModal";
+import { Tooltip } from "react-tooltip";
+import useStore from "./store/store";
+
 
 function App() {
+
+  const tooltipText = useStore((store) => store.designerVisualElementsSlice.tooltip.text);
 
   return (
     <Router>
@@ -21,6 +26,10 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <MessageModal></MessageModal>
+      <Tooltip anchorSelect=".tooltip-item" place="right" style={{ zIndex: 9999 }}  >
+            {tooltipText}
+        </Tooltip>
+
     </Router>
   );
 }

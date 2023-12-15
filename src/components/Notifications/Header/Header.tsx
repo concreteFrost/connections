@@ -1,3 +1,4 @@
+import { ProfileIconVariants } from "../../../store/enums/profile";
 import Profile from "../../Profile/Profile";
 import s from "./Header.module.scss";
 import { useNavigate } from "react-router";
@@ -21,7 +22,7 @@ function Header() {
       </div>
       <header>NOTIFICATIONS</header>
       <div className={s.logout_container}>
-        <Profile></Profile>
+        <Profile themeColor={ProfileIconVariants.Light}></Profile>
       </div>
 
     </div>

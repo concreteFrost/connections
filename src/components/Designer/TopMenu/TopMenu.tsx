@@ -6,6 +6,8 @@ import UpdateFlowModal, { UpdateFlowActions } from "../../Modals/UpdateFlowModal
 import { useState } from "react";
 import FlowsListModal from "../../Modals/FlowsListModal/FlowsListModal";
 import MessageModal from "../../Modals/MessageModal";
+import Profile from "../../Profile/Profile";
+import { ProfileIconVariants } from "../../../store/enums/profile";
 
 function TopMenu() {
   const dropdowns = useStore((state) => state.topPanelSlice.dropdowns);
@@ -23,10 +25,14 @@ function TopMenu() {
           toggleDropdown={toggleDropdown}
           setCurrentActions={setCurrentActions}
         ></CentralPanel>
+        <div className={s.settings_wrapper}>
         <Settings
           dropdowns={dropdowns}
           toggleDropdown={toggleDropdown}
         ></Settings>
+        <Profile themeColor={ProfileIconVariants.Dark}></Profile>
+        </div>
+        
       </div>
       <UpdateFlowModal />
 

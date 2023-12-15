@@ -3,7 +3,7 @@
 
 .wrapper {
   @include nav_wrapper;
-
+  z-index: 9999;
   header {
     font-size: 1rem;
     color: white;
