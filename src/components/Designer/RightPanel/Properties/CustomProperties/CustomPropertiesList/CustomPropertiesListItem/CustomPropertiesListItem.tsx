@@ -35,7 +35,7 @@ function CustomPropertiesListItem(props: CustomPropertiesListItemProps) {
 
     return (<>
         <div className={s.custom_prop_grid_item}>
-            <label className={s.param_name} placeholder={props.params.name} onClick={() => {
+            <label className={s.param_name} title={props.params.name} onClick={() => {
                 getParameterValue(props.params.name, props.params.value)
             }}> {props.params.name}</label></div>
         <div className={s.custom_prop_grid_item}>
