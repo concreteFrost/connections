@@ -1,7 +1,6 @@
 @import "/src/style/variables.scss";
 @import "/src/style/mixins.scss";
 
-
 .wrapper {
   grid-column: 2;
 
@@ -14,10 +13,7 @@
     }
 
     .nav_list_item {
-
       margin-right: 30px;
-      ;
-
       padding: 0;
       cursor: pointer;
     }
@@ -27,17 +23,8 @@
       left: 20px;
       top: 6px;
 
-
       button {
-        margin-left: 20px;
-        background-color: $bg-top-menu-btn-default;
-        padding: 5px 10px;
-        border: 0;
-        border-radius: 5px;
-        color: white;
-        ;
-
-
+        @include blue-btn;
 
         &:hover {
           background-color: $bg-top-menu-btn-hover;

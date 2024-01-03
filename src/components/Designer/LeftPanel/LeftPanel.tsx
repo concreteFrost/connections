@@ -87,7 +87,8 @@ function LeftPanel() {
 
         </div></div> : null}
 
-        {flowIdentifier ? <div className={s.create_group}><button className={s.create_group_btn} onClick={() => { addBlockGroup() }}>CREATE GROUP</button></div> : null}
+        {/*Uncomment this ones tested with SAVE/LOAD flow functionality */}
+        {/* {flowIdentifier ? <div className={s.create_group}><button className={s.create_group_btn} onClick={() => { addBlockGroup() }}>CREATE GROUP</button></div> : null} */}
 
       </div>
     </div>

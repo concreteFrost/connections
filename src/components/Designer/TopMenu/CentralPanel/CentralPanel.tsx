@@ -23,8 +23,8 @@ function CentralPanel(props: CentralPanelProps) {
     <div className={s.wrapper}>
       <ul className={s.nav_list}>
         <SwitchToServerView ></SwitchToServerView>
-        {flowId ? <Save></Save> : null}
         <Create ></Create>
+        {flowId ? <Save></Save> : null} 
         <Load></Load>
         {flowId ? <Close></Close> : null}
         {/*VIEW */}

@@ -49,10 +49,8 @@
             align-items: center;
 
             button {
-                background-color: $bg-top-menu-btn-default;
-                color: white;
-                border: 0;
-                border-radius: 3px;
+               @include blue-btn;
+               padding: 3px 5px;
             }
 
         }

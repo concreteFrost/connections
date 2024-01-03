@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import moment from "moment";
 import { connectionsIcons } from "../../../../../icons/icons";
 import ApproveModal from "../../../ApproveModal";
+import { line } from "d3-shape";
 
 interface ILoadedFlow {
   flowId: string;
@@ -33,6 +34,7 @@ function DraftFlows() {
   const setTooltipText = useStore((state) => state.designerVisualElementsSlice.setTooltipText);
 
   const { setApproveFlowModalMessage, toggleApproveFlowModal } = useStore((state) => state.modalWindowsSlice);
+  const {toggleConfirmationModal,setConfirmationModalActions} = useStore((state)=>state.modalWindowsSlice);
 
   function loadDraftFlowList() {
     getDraftListApi()
@@ -87,7 +89,7 @@ function DraftFlows() {
               <span>{connectionsIcons.folder}</span> {key}
             </li>
           ))
-          : null}
+          : <li className={s.empty_draft_list}>Nothing to show...</li>}
       </ul>
       {/*FLOWS TABLE */}
       <div className={s.table_wrapper}>
@@ -138,9 +140,15 @@ function DraftFlows() {
                         }}
                       >Approve</button>
                       {/*DELETE */}
-                      <button className={s.action_delete_btn} onClick={() => {
-                        deleteDraftAndUpdate(flow.draftId)
-                      }}>X</button>
+                      <button className={s.action_delete_btn}   onClick={() => {
+                            toggleConfirmationModal(
+                              true,
+                              `Would you like to delete ${flow.flowName}?`
+                            );
+                            setConfirmationModalActions(() =>
+                              deleteDraftAndUpdate(flow.draftId)
+                            );
+                          }}>X</button>
                     </td>
                   </tr>
                 )

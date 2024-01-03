@@ -10,6 +10,7 @@ import Alerts from "./components/Notifications/Noticifations";
 import MessageModal from "./components/Modals/MessageModal";
 import { Tooltip } from "react-tooltip";
 import useStore from "./store/store";
+import ConfirmationModal from "./components/Modals/ConfirmationModal";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <MessageModal></MessageModal>
+      <ConfirmationModal></ConfirmationModal>
       <Tooltip anchorSelect=".tooltip-item" place="right" style={{ zIndex: 9999 }}  >
             {tooltipText}
         </Tooltip>

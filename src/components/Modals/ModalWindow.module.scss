@@ -59,13 +59,7 @@
         gap: 5px;
 
         button {
-            border-radius: 5px;
-            border: none;
-            background-color: $bg-top-menu-btn-default;
-            color: white;
-            font-weight: bold;
-            padding: 5px 10px;
-
+         @include blue-btn;
         }
     }
 

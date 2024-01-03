@@ -18,6 +18,15 @@ const getNotificationList = (get: () => RFState, set: any) => async (userId?: st
     }
 }
 
+const toggleHaveCheckedNotifications=(get:()=>RFState,set:any) =>(haveCheckedNotifications:boolean)=>{
+    set((state:RFState)=>({
+        notificationSlice: {
+            ...state.notificationSlice,
+            haveCheckedNotifications: haveCheckedNotifications
+        }  
+    }))
+}
+
 const getNotificationTypes = (get: () => RFState, set: any) => async () => {
     try {
         const res: any = await getNotificationTypesAPI();
@@ -135,6 +144,7 @@ const notificationsActions = {
     setCurrentNotificationProps: setCurrentNotificationProps,
     updateNotification: updateNotification,
     toggleSelectNotification: toggleSelectNotification,
+    toggleHaveCheckedNotifications:toggleHaveCheckedNotifications,
     testClientCallback: testClientCallback,
     registerClientNotification:registerClientNotification
 }

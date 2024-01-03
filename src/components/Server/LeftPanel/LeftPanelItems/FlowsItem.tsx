@@ -14,7 +14,9 @@ function FlowsItem(props: FlowsItemProps) {
   const [flowList, setFlowList] = useState([]);
   const getCurrentFlow = useStore((state) => state.serverSlice.getCurrentFlow);
   const currentFlow = useStore<any>((state) => state.serverSlice.currentFlow);
-  const createUpdateDraftFromLiveTemplate = useStore((state) => state.flowSlice.createUpdateDraftFromLiveTemplate);
+  const createUpdateDraftFromLiveTemplate = useStore(
+    (state) => state.flowSlice.createUpdateDraftFromLiveTemplate
+  );
 
   useEffect(() => {
     getFlowListApi()
@@ -26,15 +28,15 @@ function FlowsItem(props: FlowsItemProps) {
 
   return (
     <div className={props.className.section}>
-      <div className={props.className.section_header}>
+      <div
+        className={props.className.section_header}
+        onClick={() => props.toggleSection("flows")}
+      >
         <span className={props.className.header_icon}>
           {connectionsIcons.serverMenuIcons.flows}
         </span>
         <h5 className={props.className.section_title}>FLOWS</h5>
-        <span
-          className={props.className.arrow_icon}
-          onClick={() => props.toggleSection("flows")}
-        >
+        <span className={props.className.arrow_icon}>
           {props.isSectionOpened.flows
             ? connectionsIcons.arrowDown
             : connectionsIcons.arrowUp}
@@ -44,33 +46,34 @@ function FlowsItem(props: FlowsItemProps) {
         <ul>
           {flowList.length > 0
             ? flowList.map((flow: any) => (
-              <li
-                key={flow.flowId}
-                className={`${props.className.flow_list_item}  ${currentFlow.flowIdentifier === flow.flowId
-                    ? props.className["selected"]
-                    : null
+                <li
+                  key={flow.flowId}
+                  className={`${props.className.flow_list_item}  ${
+                    currentFlow.flowIdentifier === flow.flowId
+                      ? props.className["selected"]
+                      : null
                   }`}
-              >
-                <div
-                  onClick={async () => {
-                    await getCurrentFlow(flow.flowId);
-                    props.navigate("flows");
-                  }}
                 >
-                  {flow.name}
-                </div>
-                <div className={props.className.flow_list_btn_wrapper}>
-                  <button
-                    onClick={() => {
-                      createUpdateDraftFromLiveTemplate(flow.flowId);
-                      props.navigate("/designer");
+                  <div className={props.className.flow_list_title_wrapper}
+                    onClick={async () => {
+                      await getCurrentFlow(flow.flowId);
+                      props.navigate("flows");
                     }}
                   >
-                    EDIT
-                  </button>
-                </div>
-              </li>
-            ))
+                    {flow.name}
+                  </div>
+                  <div className={props.className.flow_list_btn_wrapper}>
+                    <button
+                      onClick={() => {
+                        createUpdateDraftFromLiveTemplate(flow.flowId);
+                        props.navigate("/designer");
+                      }}
+                    >
+                      EDIT
+                    </button>
+                  </div>
+                </li>
+              ))
             : null}
         </ul>
       )}

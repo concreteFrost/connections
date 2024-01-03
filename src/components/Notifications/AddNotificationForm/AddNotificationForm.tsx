@@ -57,7 +57,7 @@ function AddNotificationForm() {
       if(res.data.success){
         await getNotificationsList()
         setFormElements(defaultFormState)
-        modalSlice.setModalMessage(res.data.message);
+        modalSlice.setModalMessage("success!!!");
         // const registerNotificationResult: any = await registerClientNotification(formElements.notificationId,'https://smee.io/ZKtI8Yid3J7gny');
         // console.log(registerNotificationResult)   
       }

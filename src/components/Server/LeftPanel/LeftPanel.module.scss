@@ -30,6 +30,7 @@
 
       li {
         @include server_flow_list;
+        cursor: pointer;
       }
 
       h5 {
@@ -38,10 +39,22 @@
 
       .flow_list_item {
         @include server_flow_list_item;
+      
+      }
+
+      .flow_list_title_wrapper{
+      
+        height: 100%;
+        padding-left: 10px;
+        display: flex;
+        align-items: center;
       }
 
       .flow_list_btn_wrapper {
         @include server_flow_list_btn_wrapper;
+        button{
+          cursor: pointer;
+        }
       }
 
       .draft_list_item_wrapper {
@@ -51,19 +64,15 @@
           align-items: center;
           padding-left: 10px;
           height: 40px;
-          ;
           color: $color-node-nav-container-header;
-
+          cursor: pointer;
           span {
             margin-right: 10px;
           }
-
         }
 
         border-bottom: 1px solid rgb(204, 204, 204);
       }
-
-
 
       .section_header {
         display: flex;

@@ -7,7 +7,6 @@ interface SettingsItemProps {
     isSectionOpened: any;
 }
 
-
 function SecurityItem(props: SettingsItemProps) {
     return (<div className={props.className.section}>
         <div className={props.className.section_header}>

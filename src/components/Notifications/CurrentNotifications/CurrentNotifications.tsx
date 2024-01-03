@@ -4,19 +4,27 @@ import useStore from "../../../store/store";
 import { INotification } from "../../../store/interfaces/INotification";
 
 function CurrentNotifications() {
+  const {
+    currentNotification,
+    notificationsList,
+    getNotificationsList,
+    setCurrentNotification,
+    deleteNotification,
+  } = useStore((state) => state.notificationSlice);
 
-  const { currentNotification, notificationsList, getNotificationsList, setCurrentNotification, deleteNotification } = useStore((state) => state.notificationSlice);
-
-  const [selectedNotifications, setSelectedNotifications] = useState<Array<INotification>>([]);
+  const [selectedNotifications, setSelectedNotifications] = useState<
+    Array<INotification>
+  >([]);
   const [isAllSelected, setIsAllSelected] = useState<boolean>(false);
-  const { setConfirmationModalActions, toggleConfirmationModal } = useStore((state) => state.modalWindowsSlice)
+  const { setConfirmationModalActions, toggleConfirmationModal } = useStore(
+    (state) => state.modalWindowsSlice
+  );
 
   async function fetchData() {
     try {
-      await getNotificationsList()
-    }
-    catch (e) {
-      console.log('error getting list of notifications', e)
+      await getNotificationsList();
+    } catch (e) {
+      console.log("error getting list of notifications", e);
     }
   }
 
@@ -24,22 +32,27 @@ function CurrentNotifications() {
     try {
       await deleteNotification(notificationId);
       await getNotificationsList();
-    }
-    catch (e) {
-      console.log('error deleting notification', e)
+    } catch (e) {
+      console.log("error deleting notification", e);
     }
   }
 
   useEffect(() => {
     fetchData();
-  }, [])
+  }, []);
 
   const toggleAddNotification = (newNotification: INotification) => {
-    setSelectedNotifications(prevNotifications => {
-      const notificationExists = prevNotifications.some(notification => notification.notificationId === newNotification.notificationId);
+    setSelectedNotifications((prevNotifications) => {
+      const notificationExists = prevNotifications.some(
+        (notification) =>
+          notification.notificationId === newNotification.notificationId
+      );
 
       if (notificationExists) {
-        return prevNotifications.filter(notification => notification.notificationId !== newNotification.notificationId);
+        return prevNotifications.filter(
+          (notification) =>
+            notification.notificationId !== newNotification.notificationId
+        );
       } else {
         return [...prevNotifications, newNotification];
       }
@@ -47,7 +60,7 @@ function CurrentNotifications() {
   };
 
   const toggleAllAddNotification = () => {
-    setIsAllSelected(!isAllSelected)
+    setIsAllSelected(!isAllSelected);
 
     if (!isAllSelected) {
       setSelectedNotifications([...notificationsList]);
@@ -58,20 +71,21 @@ function CurrentNotifications() {
 
   async function performDeleteSelected() {
     try {
-
-      await Promise.all(selectedNotifications.map(async (note: INotification) => {
-        if (note.notificationId === currentNotification?.notificationId) {
-          setCurrentNotification(null)
-        }
-        await deleteNotification(note.notificationId);
-      }));
+      await Promise.all(
+        selectedNotifications.map(async (note: INotification) => {
+          if (note.notificationId === currentNotification?.notificationId) {
+            setCurrentNotification(null);
+          }
+          await deleteNotification(note.notificationId);
+        })
+      );
 
       await getNotificationsList();
 
       setSelectedNotifications([]);
       setIsAllSelected(false);
     } catch (error) {
-      console.log('Error deleting notifications', error);
+      console.log("Error deleting notifications", error);
     }
   }
 
@@ -80,32 +94,67 @@ function CurrentNotifications() {
       <header className={s.panel_header}>Notifications</header>
       <section className={s.actions_wrapper}>
         <header className={s.actions_header}>Select All</header>
-        <input type="checkbox" checked={isAllSelected} onChange={toggleAllAddNotification} />
+        <input
+          type="checkbox"
+          checked={isAllSelected}
+          onChange={toggleAllAddNotification}
+        />
       </section>
       <ul>
-        {notificationsList.length > 0 ? notificationsList.map((notification: INotification) =>
-          <li key={notification.notificationId}><div>{notification.name}</div>
-            <div className={s.notification_actions}>
-              <button className={s.edit_btn} onClick={() => setCurrentNotification(notification)}>EDIT</button>
-              <button className={s.delete_btn} onClick={() => {
-                toggleConfirmationModal(true, `Would you like to delete ${notification.name}?`)
-                setConfirmationModalActions(() => performSingleDeletion(notification.notificationId))
-              }} >X</button>
-              <input type="checkbox"
-                checked={selectedNotifications.some(selectedNotification => selectedNotification.notificationId === notification.notificationId)}
-                onChange={() => toggleAddNotification(notification)}
-              />
-            </div>
-          </li>) : null}
+        {notificationsList.length > 0
+          ? notificationsList.map((notification: INotification) => (
+              <li key={notification.notificationId}>
+                <div>{notification.name}</div>
+                <div className={s.notification_actions}>
+                  <button
+                    className={s.edit_btn}
+                    onClick={() => setCurrentNotification(notification)}
+                  >
+                    EDIT
+                  </button>
+                  <button
+                    className={s.delete_btn}
+                    onClick={() => {
+                      toggleConfirmationModal(
+                        true,
+                        `Would you like to delete ${notification.name}?`
+                      );
+                      setConfirmationModalActions(() =>
+                        performSingleDeletion(notification.notificationId)
+                      );
+                    }}
+                  >
+                    X
+                  </button>
+                  <input
+                    type="checkbox"
+                    checked={selectedNotifications.some(
+                      (selectedNotification) =>
+                        selectedNotification.notificationId ===
+                        notification.notificationId
+                    )}
+                    onChange={() => toggleAddNotification(notification)}
+                  />
+                </div>
+              </li>
+            ))
+          : null}
       </ul>
 
       <footer className={s.panel_footer}>
-        <button onClick={() => {
-          if (selectedNotifications.length > 0) {
-            toggleConfirmationModal(true, `Would you like to delete selected notifications?`)
-            setConfirmationModalActions(() => performDeleteSelected())
-          }
-        }}>DELETE SELECTED</button>
+        <button
+          onClick={() => {
+            if (selectedNotifications.length > 0) {
+              toggleConfirmationModal(
+                true,
+                `Would you like to delete selected notifications?`
+              );
+              setConfirmationModalActions(() => performDeleteSelected());
+            }
+          }}
+        >
+          DELETE SELECTED
+        </button>
       </footer>
     </div>
   );

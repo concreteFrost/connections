@@ -2,13 +2,10 @@ import { v4 as uuidv4 } from "uuid";
 import { NodeProps, NodeRemoveChange } from "react-flow-renderer";
 import { IVisual } from "../interfaces/Iflow";
 import { RFState } from "../types/rfState";
-import { INodeGroup, INodeType } from "../interfaces/INode";
-import { FlowSlice } from "../slices/flowSlice";
 
 export const getAllselectedBlockIDs = (nodes: NodeProps[]) => {
   return nodes.filter((node) => node.selected === true).length > 1;
 };
-
 
 export const addGroup = (get: () => RFState, set: any) => () => {
   const selectedBlockIDs = get().flowSlice.flow.visual.blocks.filter(
@@ -59,9 +56,10 @@ export const addGroup = (get: () => RFState, set: any) => () => {
             blocks: [...state.flowSlice.flow.visual.blocks, newGroupNode],
           },
         }
-
       },
     }));
+
+    console.log('group added', get().flowSlice)
   }
 };
 

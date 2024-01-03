@@ -361,10 +361,8 @@
 //SERVER FLOW LIST
 
 @mixin server_flow_list {
-  cursor: pointer;
+ 
   list-style: none;
-
-  ;
   background-color: $bg-node-nav-btn;
   padding: 10px 0px 10px 20px;
   border-bottom: 1px solid rgb(204, 204, 204);
@@ -372,8 +370,10 @@
 
 @mixin server_flow_list_item {
   display: grid;
-  grid-template-columns: 6fr 6fr;
+  grid-template-columns: 10fr 2fr;
+  height: 40px;
   align-items: center;
+  padding: 0;
 
   &.selected {
     background-color: rgb(179, 179, 179);
@@ -386,7 +386,7 @@
   width: 100%;
   display: flex;
   justify-content: right;
-
+  
   button {
     margin-right: 5px;
     background-color: $bg-top-menu-btn-default;
@@ -394,6 +394,7 @@
     padding: 7px;
     border: none;
     z-index: 1000;
+
   }
 }
 

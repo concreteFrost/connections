@@ -2,7 +2,6 @@
 @import "/src/style/mixins.scss";
 
 .wrapper {
-
   header {
     font-weight: bold;
     text-align: center;
@@ -23,22 +22,28 @@
         z-index: 1;
       }
     }
-
-  }
-
-
-  li {
-    list-style: none;
-    color: $color-node-nav-icon;
-    font-weight: bold;
-    font-size: 1 rem;
-    cursor: pointer;
   }
 
   ul {
     padding: 0;
     max-height: 200px;
     overflow-y: auto;
+
+    li {
+      list-style: none;
+      color: $color-node-nav-icon;
+      font-weight: bold;
+      font-size: 1 rem;
+      cursor: pointer;
+    }
+
+    .empty_draft_list {
+      cursor:auto ;
+      color: $color-list-label;
+      font-weight: 400;
+      text-align: center;
+      font-style: italic;
+    }
   }
 
   .footer_btn {
@@ -58,7 +63,7 @@
     border-radius: 5px;
     cursor: pointer;
     margin-left: 3px;
-    font-size: .7rem;
+    font-size: 0.7rem;
   }
 
   .action_delete_btn {
