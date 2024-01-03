@@ -10,7 +10,7 @@ function Server() {
   const { registerClientNotification, notificationsList } = useStore(
     (state) => state.notificationSlice
   );
-  const { appUser, appUserPassword, getMe } = useStore(
+  const { appUser,getMe } = useStore(
     (state) => state.securitySlice
   );
 
@@ -24,11 +24,10 @@ function Server() {
 
   async function _registerClientNotification(notification: INotification) {
     if (notification.userOrGroupId == appUser?.userId) {
-      console.log(notification.notificationTypeId)
       try {
         const res = await registerClientNotification(
           notification.notificationId,
-          "https://smee.io/OzII8k90t0fySZOe",
+          "https://smee.io/07vDrsYjh5lpP3GQ",
           "iliaM",
           "cre4min9Tuff"
         );
@@ -46,10 +45,8 @@ function Server() {
   }
 
   useEffect(() => {
-    // _getMe();
-    // fetchAndRegisterNotifications();
-    const CALLBACK_URL = process.env.REACT_APP_CALLBACK_URL || "https://your-default-callback-url";
-    console.log(CALLBACK_URL)
+    _getMe();
+    fetchAndRegisterNotifications();
   }, []);
 
   return (
