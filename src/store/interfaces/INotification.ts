@@ -1,5 +1,5 @@
 export interface INotification {
-    notificationId: string;
+    notificationId: number;
     name: string;
     description: string;
     notificationTypeId: string;

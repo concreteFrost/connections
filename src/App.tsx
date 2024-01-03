@@ -12,7 +12,6 @@ import { Tooltip } from "react-tooltip";
 import useStore from "./store/store";
 import ConfirmationModal from "./components/Modals/ConfirmationModal";
 
-
 function App() {
 
   const tooltipText = useStore((store) => store.designerVisualElementsSlice.tooltip.text);

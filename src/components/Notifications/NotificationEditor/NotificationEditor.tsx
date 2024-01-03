@@ -12,7 +12,6 @@ function NotificationEditor() {
     setCurrentNotification,
     getNotificationsList,
     updateNotification,
-    registerClientNotification
   } = useStore((state) => state.notificationSlice);
   const { userList, groupList } = useStore((state) => state.securitySlice);
   const modalSlice = useStore((state) => state.modalWindowsSlice);
@@ -38,8 +37,6 @@ function NotificationEditor() {
         if (res.data.success) {
           await modalSlice.setModalMessage("success!!!");
           await getNotificationsList();
-          const registerClientNotificationRes:any = await registerClientNotification(currentNotification.notificationId,'https://smee.io/ZKtI8Yid3J7gny');
-          console.log(registerClientNotificationRes,'client register result')
         }
         else {
           await modalSlice.setModalMessage(res.data.message);

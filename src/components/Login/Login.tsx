@@ -5,25 +5,25 @@ import { useNavigate } from "react-router-dom"
 import { setAccessToken } from "../../store/actions/storageActions";
 import ConnectionsLogo from "../../assets/connections_logo";
 import CocoonLogo from "../../assets/cocoon_logo";
-import { getMeAPI } from "../../api/security";
+import useStore from "../../store/store";
 
 function Login() {
 
-    const [defPassVal, setDefPassVal] = useState('cre4min9Tuff')
     const [userName, setUserName] = useState<string>(localStorage.getItem('iCon_username') ?? '');
+    const {setAppUserPassword, appUserPassword} = useStore((state)=>state.securitySlice);
 
     const navigate = useNavigate();
 
     function submit(e: any) {
         e.preventDefault();
-        getToken(e.target[0].value, e.target[1].value).then((res: any) => {
+        if(appUserPassword && userName)
+        getToken(userName, appUserPassword).then((res: any) => {
             setAccessToken(res.data, userName);
             navigate('/dashboard')
         }).catch(e => console.log(e))
     }
 
     return (<div className={s.wrapper}>
-        {/* <header><h1>CONNECTIONS</h1></header> */}
         <div className={s.logo_wrapper}>
             <ConnectionsLogo></ConnectionsLogo>
         </div>
@@ -36,7 +36,7 @@ function Login() {
                 </div>
                 <div>
                     <label htmlFor="">password</label>
-                    <input type="password" value={defPassVal} onChange={(e: any) => setDefPassVal(e.target.value)} />
+                    <input type="password" value={appUserPassword} onChange={(e: any) => setAppUserPassword(e.target.value)} />
                 </div>
                 <div className={s.btn_wrapper}>
                     <button>LOGIN</button>

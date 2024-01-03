@@ -15,7 +15,6 @@ export const createFlow = (get: () => RFState, set: any) => () => {
     }
   }))
 
-  console.log(get().flowSlice.flow)
 };
 
 export const closeFlow = (get: () => RFState, set: any) => () => {
@@ -27,7 +26,6 @@ export const closeFlow = (get: () => RFState, set: any) => () => {
     }
   }))
 
-  console.log(get().flowSlice.flow)
 };
 
 export const createFlowFromTemplate = (get: () => RFState, set: any) => async (liveFlowID: string, newDraftName: string) => {

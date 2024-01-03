@@ -4,12 +4,15 @@ import { IGroup, IGroupWithUsers, INewUser, IRole, IUser } from "../interfaces/I
 import { RFState } from "../types/rfState"
 
 export type SecuritySlice = {
+    appUser: IUser | null,
+    appUserPassword: string | undefined,
     userToEdit: IUser | null,
     userList: Array<IUser>,
     groupList: Array<IGroupWithUsers>,
     rolesList: Array<IRole>,
 
     //user actions
+    getMe:()=>void;
     getUser: (user: IUser) => void;
     getUserList: () => void;
     updateUser: (userRecord: IUser) => void;
@@ -18,6 +21,7 @@ export type SecuritySlice = {
     generatePassword: (passwordType: number, length: number) => void;
     getRolesList: () => void;
     resetPassword: (userId: string, newPasword: string, emailUser: boolean) => void;
+    setAppUserPassword:(pass:string)=>void;
     //group actions
     getGroupList: () => void;
     getGroupMembers: (groupdId: string) => void;
@@ -29,10 +33,14 @@ export type SecuritySlice = {
 }
 
 const securitySlice = (get: () => RFState, set: any): SecuritySlice => ({
+    appUser:null,
+    appUserPassword:'cre4min9Tuff',
     userToEdit: null,
     userList: [],
     groupList: [],
     rolesList: [],
+    setAppUserPassword:securityActions.setAppUserPassword(get,set),
+    getMe: securityActions.getMe(get,set),
     getUser: securityActions.getUser(get, set),
     getUserList: securityActions.getUserList(get, set),
     getRolesList: securityActions.getRoleList(get, set),

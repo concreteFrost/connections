@@ -1,77 +1,80 @@
-import { getNotificationTypesAPI, newNotificationAPI } from "../../../api/notification";
+
 import s from "./AddNotificationForm.module.scss";
 import { useState, useEffect } from "react";
-import { INotification, INotificationType } from "../../../store/interfaces/INotification";
-import { v4 as uuid } from "uuid"
+import {
+  INotification,
+  INotificationType,
+} from "../../../store/interfaces/INotification";
+import { v4 as uuid } from "uuid";
 import useStore from "../../../store/store";
 import { IGroup, IUser } from "../../../store/interfaces/ISecurity";
-import MessageModal from "../../Modals/MessageModal";
-import { setModalMessage, toggleMessageModal } from "../../../store/actions/modalActions";
 
 
 const defaultFormState = {
-  notificationId: uuid(),
-  name: '',
-  description: '',
-  userMessage: '',
-  notificationTypeId: '',
-  userOrGroupId: '',
+  notificationId: 0,
+  name: "",
+  description: "",
+  userMessage: "",
+  notificationTypeId: "",
+  userOrGroupId: "",
   notifyDashboard: false,
   notifyByEmail: false,
   notifyBySMS: false,
-  active: false
-}
+  active: false,
+};
 
 function AddNotificationForm() {
-
-  const { notificationsTypes, getNotificationsList, getNotificationsTypes,registerClientNotification, addNewNotifications } = useStore((state) => state.notificationSlice)
-  const { userList, groupList, getUserList, getGroupList } = useStore((state) => state.securitySlice);
+  const {
+    notificationsTypes,
+    getNotificationsList,
+    getNotificationsTypes,
+    addNewNotifications,
+  } = useStore((state) => state.notificationSlice);
+  const { userList, groupList, getUserList, getGroupList } = useStore(
+    (state) => state.securitySlice
+  );
   const modalSlice = useStore((state) => state.modalWindowsSlice);
 
   const [isFormActive, setIsFormActive] = useState<boolean>(false);
-  const [formElements, setFormElements] = useState<INotification>(defaultFormState)
-
+  const [formElements, setFormElements] =
+    useState<INotification>(defaultFormState);
 
   async function fetchData() {
     try {
       await getNotificationsTypes();
       await getUserList();
       await getGroupList();
+    } catch (e) {
+      console.log("error fetching data", e);
     }
-    catch (e) {
-      console.log('error fetching data', e)
-    }
-
   }
 
   useEffect(() => {
-    fetchData()
-  }, [isFormActive])
+    fetchData();
+  }, [isFormActive]);
 
   async function submitForm(e: any) {
-    e.preventDefault()
+    e.preventDefault();
 
-    try{
-      const res:any = await addNewNotifications(formElements);
+    try {
+      const res: any = await addNewNotifications(formElements);
 
-      if(res.data.success){
-        await getNotificationsList()
-        setFormElements(defaultFormState)
+      if (res.data.success) {
+        await getNotificationsList();
+        // setFormElements(defaultFormState);
         modalSlice.setModalMessage("success!!!");
-        // const registerNotificationResult: any = await registerClientNotification(formElements.notificationId,'https://smee.io/ZKtI8Yid3J7gny');
-        // console.log(registerNotificationResult)   
+      } else {
+        modalSlice.setModalMessage(res.data.message);
       }
-      else{
-        modalSlice.setModalMessage(res.data.message)
-      }
-      modalSlice.toggleMessageModal()
-    }
-    catch(e){
-      console.log('error addin new note');
+      modalSlice.toggleMessageModal();
+    } catch (e) {
+      console.log("error addin new note");
     }
   }
 
-  const formWrapperClasses = `${s.form_wrapper} ${isFormActive ? s["opened"] : s["closed"]}`;
+  const formWrapperClasses = `${s.form_wrapper} ${
+    isFormActive ? s["opened"] : s["closed"]
+  }`;
 
   return (
     <div className={s.wrapper}>
@@ -89,21 +92,51 @@ function AddNotificationForm() {
         <header>ADD NEW NOTIFICATION</header>
         {/*FORM */}
 
-        <form className={s.new_notification_form} onSubmit={submitForm}>
+        <form
+          className={s.new_notification_form}
+          onSubmit={(e: any) => {
+            submitForm(e);
+          }}
+        >
           <div className={s.first_column}>
             <section>
               <label>Name:</label>
-              <input type="text" value={formElements.name} onChange={(e) => setFormElements({ ...formElements, name: e.target.value })} required />
+              <input
+                type="text"
+                value={formElements.name}
+                onChange={(e) =>
+                  setFormElements({ ...formElements, name: e.target.value })
+                }
+                required
+              />
             </section>
 
             <section>
               <label>Description:</label>
-              <textarea value={formElements.description} onChange={(e) => setFormElements({ ...formElements, description: e.target.value })} required></textarea>
+              <textarea
+                value={formElements.description}
+                onChange={(e) =>
+                  setFormElements({
+                    ...formElements,
+                    description: e.target.value,
+                  })
+                }
+                required
+              ></textarea>
             </section>
 
             <section>
               <label>Message:</label>
-              <textarea value={formElements.userMessage} onChange={(e) => setFormElements({ ...formElements, userMessage: e.target.value })} required ></textarea>
+              <textarea
+                value={formElements.userMessage}
+                onChange={(e) =>
+                  setFormElements({
+                    ...formElements,
+                    userMessage: e.target.value,
+                  })
+                }
+                required
+              ></textarea>
             </section>
           </div>
 
@@ -112,11 +145,26 @@ function AddNotificationForm() {
               <label>Type:</label>
               <select
                 value={formElements.notificationTypeId}
-                onChange={(e) => setFormElements({ ...formElements, notificationTypeId: e.target.value })}
+                onChange={(e) =>
+                  setFormElements({
+                    ...formElements,
+                    notificationTypeId: e.target.value,
+                  })
+                }
               >
                 <option value={-1}>Select Type</option>
-                {notificationsTypes.length > 0 ? notificationsTypes.map((notification: INotificationType) =>
-                  <option value={notification.notificationTypeId} key={notification.notificationTypeId}>{notification.name}</option>) : null}
+                {notificationsTypes.length > 0
+                  ? notificationsTypes.map(
+                      (notification: INotificationType) => (
+                        <option
+                          value={notification.notificationTypeId}
+                          key={notification.notificationTypeId}
+                        >
+                          {notification.name}
+                        </option>
+                      )
+                    )
+                  : null}
               </select>
             </section>
 
@@ -124,16 +172,31 @@ function AddNotificationForm() {
               <label>User/Group:</label>
               <select
                 value={formElements.userOrGroupId}
-                onChange={(e) => setFormElements({ ...formElements, userOrGroupId: e.target.value })}
+                onChange={(e) =>
+                  setFormElements({
+                    ...formElements,
+                    userOrGroupId: e.target.value,
+                  })
+                }
               >
                 <option value={-1}>Select User/Group</option>
                 <optgroup label="USERS">
-                  {userList.length > 0 ? userList.map((user: IUser) =>
-                    <option key={user.userId} value={user.userId}>{user.userName}</option>) : null}
+                  {userList.length > 0
+                    ? userList.map((user: IUser) => (
+                        <option key={user.userId} value={user.userId}>
+                          {user.userName}
+                        </option>
+                      ))
+                    : null}
                 </optgroup>
                 <optgroup label="GROUPS">
-                  {groupList.length > 0 ? groupList.map((group: IGroup) =>
-                    <option key={group.groupId} value={group.groupId}>{group.name}</option>) : null}
+                  {groupList.length > 0
+                    ? groupList.map((group: IGroup) => (
+                        <option key={group.groupId} value={group.groupId}>
+                          {group.name}
+                        </option>
+                      ))
+                    : null}
                 </optgroup>
               </select>
             </section>
@@ -142,20 +205,38 @@ function AddNotificationForm() {
               <label>Media:</label>
               <div>
                 <label>Dashboard</label>
-                <input type="checkbox" checked={formElements.notifyDashboard}
+                <input
+                  type="checkbox"
+                  checked={formElements.notifyDashboard}
                   onChange={(e: any) => {
-                    setFormElements({ ...formElements, notifyDashboard: !formElements.notifyDashboard })
-                  }} />
+                    setFormElements({
+                      ...formElements,
+                      notifyDashboard: !formElements.notifyDashboard,
+                    });
+                  }}
+                />
                 <label>Email</label>
-                <input type="checkbox" checked={formElements.notifyByEmail}
+                <input
+                  type="checkbox"
+                  checked={formElements.notifyByEmail}
                   onChange={(e: any) => {
-                    setFormElements({ ...formElements, notifyByEmail: !formElements.notifyByEmail })
-                  }} />
+                    setFormElements({
+                      ...formElements,
+                      notifyByEmail: !formElements.notifyByEmail,
+                    });
+                  }}
+                />
                 <label>Sms</label>
-                <input type="checkbox" checked={formElements.notifyBySMS}
+                <input
+                  type="checkbox"
+                  checked={formElements.notifyBySMS}
                   onChange={(e: any) => {
-                    setFormElements({ ...formElements, notifyBySMS: !formElements.notifyBySMS })
-                  }} />
+                    setFormElements({
+                      ...formElements,
+                      notifyBySMS: !formElements.notifyBySMS,
+                    });
+                  }}
+                />
               </div>
             </section>
           </div>
@@ -163,10 +244,16 @@ function AddNotificationForm() {
           <div className={s.double_row}>
             <section>
               <label>Is Active:</label>
-              <input type="checkbox" checked={formElements.active}
+              <input
+                type="checkbox"
+                checked={formElements.active}
                 onChange={(e: any) => {
-                  setFormElements({ ...formElements, active: !formElements.active })
-                }} />
+                  setFormElements({
+                    ...formElements,
+                    active: !formElements.active,
+                  });
+                }}
+              />
             </section>
             <section>
               <button>ADD</button>
@@ -174,7 +261,6 @@ function AddNotificationForm() {
           </div>
         </form>
       </div>
-
     </div>
   );
 }

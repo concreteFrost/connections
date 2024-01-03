@@ -7,6 +7,7 @@ export const setAccessToken = (data: any, userName: string) => {
     localStorage.setItem(connectionsPrefix + 'issued', data['.issued'])
     localStorage.setItem(connectionsPrefix + 'is_logged_in', true.toString())
     localStorage.setItem(connectionsPrefix + 'userName', userName);
+
 }
 
 export const getAccessToken = () => {

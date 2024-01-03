@@ -28,7 +28,7 @@ function CurrentNotifications() {
     }
   }
 
-  async function performSingleDeletion(notificationId: string) {
+  async function performSingleDeletion(notificationId: number) {
     try {
       await deleteNotification(notificationId);
       await getNotificationsList();

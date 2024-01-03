@@ -57,7 +57,7 @@ export function newNotificationAPI(notificationRecord: INotification) {
 }
 
 
-export function removeNotificationAPI(notificationID: string) {
+export function removeNotificationAPI(notificationID: number) {
     return new Promise((resolve, reject) => {
         axios({
             method: "post",
@@ -96,7 +96,7 @@ export function updateNotificationAPI(notificationRecord: INotification) {
     });
 }
 
-export function registerClientNotificationAPI(notificationId: string, callbackURI: string) {
+export function registerClientNotificationAPI(notificationId: number, callbackURI: string, userName:string,password:string) {
     return new Promise((resolve, reject) => {
         axios({
             method: "post",
@@ -107,7 +107,9 @@ export function registerClientNotificationAPI(notificationId: string, callbackUR
             },
             params: {
                 notificationId: notificationId,
-                callbackURI: callbackURI
+                callbackURI: callbackURI,
+                username:userName,
+                password:password
             }
         })
             .then((res) => {

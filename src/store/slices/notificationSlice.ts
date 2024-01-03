@@ -10,12 +10,12 @@ export type NotificationSlice = {
     getNotificationsList: (userId?: string, groupId?: string) => void;
     getNotificationsTypes: () => void;
     setCurrentNotification: (notification: INotification | null) => void;
-    deleteNotification: (notificationId: string) => void;
+    deleteNotification: (notificationId: number) => void;
     setCurrentNotificationProps: (propName: any, value: any) => void;
     updateNotification: (notification: INotification) => void;
     testClientCallback: (yourCallbackUrl: string, user: string, pass: string, anyText: string) => void;
     addNewNotifications:(notificationRecord:INotification)=>void;
-    registerClientNotification:(notificationId:string,callbackURI:string)=>void;
+    registerClientNotification:(notificationId:number,callbackURI:string,userName:string,password:string)=>void;
     toggleHaveCheckedNotifications:(haveChecked:boolean)=>void;
 }
 

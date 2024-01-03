@@ -7,19 +7,7 @@ import { useEffect, useState } from "react";
 
 function Header() {
   const navigate = useNavigate();
-  const { getNotificationsList, notificationsList, toggleHaveCheckedNotifications, haveCheckedNotifications } = useStore((state) => state.notificationSlice)
-
-  useEffect(() => {
-    async function fetchNotifications() {
-      try {
-        await getNotificationsList();
-      } catch (e) {
-        console.log("error getting list of notifications", e);
-      }
-    }
-
-    fetchNotifications();
-  }, []);
+  const {  notificationsList, toggleHaveCheckedNotifications, haveCheckedNotifications } = useStore((state) => state.notificationSlice)
 
   const handleNotificationsClick = () => {
     toggleHaveCheckedNotifications(true);

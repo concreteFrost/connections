@@ -15,10 +15,10 @@ function Nofifications() {
   async function testCallback() {
     try {
       const res: any = await testClientCallback(
-        "https://smee.io/ZKtI8Yid3J7gny",
+        "https://smee.io/r1YmYlXurF6r5uWv",
         "iliaM",
         "cre4min9Tuff",
-        "sample text"
+        "sample text 22"
       );
       console.log(res);
     } catch (e) {

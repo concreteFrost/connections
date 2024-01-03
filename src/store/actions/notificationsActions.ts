@@ -65,7 +65,7 @@ const setCurrentNotificationProps = (get: () => RFState, set: any) => (propToCha
     }))
 }
 
-const deleteNotification = (get: () => RFState, set: any) => async (notificationId: string) => {
+const deleteNotification = (get: () => RFState, set: any) => async (notificationId: number) => {
     try {
         const res = await removeNotificationAPI(notificationId);
         return res;
@@ -96,7 +96,7 @@ const updateNotification = (get: () => RFState, set: any) => async (notification
     }
 }
 
-const toggleSelectNotification = (get: () => RFState, set: any) => async (notificationId: string) => {
+const toggleSelectNotification = (get: () => RFState, set: any) => async (notificationId: number) => {
     const updatedNotifications = get().notificationSlice.notificationsList.map((notification: any) => {
         if (notificationId === notification.notificationId) {
             return {
@@ -125,9 +125,9 @@ const testClientCallback = (get: () => RFState, set: any) => async (yourCallback
     }
 }
 
-const registerClientNotification = (get: () => RFState, set: any) => async (notificationId:string,callbackURI:string) => {
+const registerClientNotification = (get: () => RFState, set: any) => async (notificationId:number,callbackURI:string, userName:string,password:string) => {
     try {
-        const res: any = await registerClientNotificationAPI(notificationId,callbackURI)
+        const res: any = await registerClientNotificationAPI(notificationId,callbackURI,userName,password)
         return res;
     }
     catch (e) {
