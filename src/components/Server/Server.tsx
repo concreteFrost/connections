@@ -7,12 +7,8 @@ import { useEffect } from "react";
 import { INotification } from "../../store/interfaces/INotification";
 
 function Server() {
-  const { registerClientNotification, notificationsList } = useStore(
-    (state) => state.notificationSlice
-  );
-  const { appUser,getMe } = useStore(
-    (state) => state.securitySlice
-  );
+  const { registerClientNotification, notificationsList } = useStore((state) => state.notificationSlice);
+  const { appUser,getMe } = useStore((state) => state.securitySlice);
 
   async function _getMe() {
     try {
@@ -27,11 +23,12 @@ function Server() {
       try {
         const res = await registerClientNotification(
           notification.notificationId,
-          "https://smee.io/07vDrsYjh5lpP3GQ",
+          "https://webhook.site/b84d1b8a-904a-4fe5-8310-db510908fb3c",
           "iliaM",
           "cre4min9Tuff"
         );
-        console.log("result of registering client notification", res);
+
+        console.log(res)
       } catch (e) {
         console.log("error registering callback", e);
       }
@@ -39,9 +36,9 @@ function Server() {
   }
 
   async function fetchAndRegisterNotifications() {
-    notificationsList.forEach((note: INotification) => {
-      _registerClientNotification(note);
-    });
+    notificationsList.map(async (note: INotification) => {
+      await _registerClientNotification(note);
+    })
   }
 
   useEffect(() => {
