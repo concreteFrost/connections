@@ -2,12 +2,13 @@ import { connectionsIcons } from "../../../../icons/icons";
 import { useEffect, useState } from "react";
 import useStore from "../../../../store/store";
 import { getFlowListApi } from "../../../../api/flow";
+import { ILeftPanelSections } from "../LeftPanel";
 
 interface FlowsItemProps {
   className: any;
   toggleSection: (section: string) => void;
   navigate: (route: string) => void;
-  isSectionOpened: any;
+  currentSection: ILeftPanelSections;
 }
 
 function FlowsItem(props: FlowsItemProps) {
@@ -37,12 +38,12 @@ function FlowsItem(props: FlowsItemProps) {
         </span>
         <h5 className={props.className.section_title}>FLOWS</h5>
         <span className={props.className.arrow_icon}>
-          {props.isSectionOpened.flows
+          {props.currentSection.flows
             ? connectionsIcons.arrowDown
             : connectionsIcons.arrowUp}
         </span>
       </div>
-      {props.isSectionOpened.flows && (
+      {props.currentSection.flows && (
         <ul>
           {flowList.length > 0
             ? flowList.map((flow: any) => (

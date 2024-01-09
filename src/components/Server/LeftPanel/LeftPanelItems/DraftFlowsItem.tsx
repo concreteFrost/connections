@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import useStore from "../../../../store/store";
 import { getDraftListApi } from "../../../../api/draft";
 import { connectionsIcons } from "../../../../icons/icons";
+import { ILeftPanelSections } from "../LeftPanel";
 
 interface FlowsItemProps {
   className: any;
   toggleSection: (section: string) => void;
   navigate: (route: string) => void;
-  isSectionOpened: any;
+  currentSection: ILeftPanelSections;
 }
 
 interface DraftFlowData {
@@ -63,33 +64,28 @@ function DraftFlowsItem(props: FlowsItemProps) {
 
   return (
     <div className={props.className.section}>
-      <div className={props.className.section_header}
+      <div
+        className={props.className.section_header}
         onClick={() => props.toggleSection("drafts")}
       >
         <span className={props.className.header_icon}>
           {connectionsIcons.serverMenuIcons.flows}
         </span>
         <h5 className={props.className.section_title}>DRAFTS</h5>
-        <span
-          className={props.className.arrow_icon}
-        
-        >
-          {props.isSectionOpened.drafts
+        <span className={props.className.arrow_icon}>
+          {props.currentSection.drafts
             ? connectionsIcons.arrowDown
             : connectionsIcons.arrowUp}
         </span>
       </div>
-      {props.isSectionOpened.drafts ?? Object.keys(draftFlowList).length > 0
+      {props.currentSection.drafts ?? Object.keys(draftFlowList).length > 0
         ? Object.keys(draftFlowList).map((folderName: any) => (
             <div
               key={folderName}
               className={props.className.draft_list_item_wrapper}
               onClick={() => toggleFolderToOpen(folderName)}
             >
-              <div
-                className={props.className.folder_name}
-              
-              >
+              <div className={props.className.folder_name}>
                 <header>{folderName}</header>
                 <span>
                   {draftFlowList[folderName].isExpanded
@@ -100,7 +96,10 @@ function DraftFlowsItem(props: FlowsItemProps) {
               {draftFlowList[folderName].isExpanded ? (
                 <ul>
                   {draftFlowList[folderName].map((flow: DraftFlowData) => (
-                    <li key={flow.draftId} className={props.className.flow_list_item}> 
+                    <li
+                      key={flow.draftId}
+                      className={props.className.flow_list_item}
+                    >
                       <div className={props.className.flow_list_title_wrapper}>
                         {flow.flowName}
                       </div>

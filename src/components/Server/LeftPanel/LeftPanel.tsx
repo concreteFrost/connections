@@ -8,7 +8,7 @@ import SettingsItem from "./LeftPanelItems/SettingsItem";
 import DraftFlowsItem from "./LeftPanelItems/DraftFlowsItem";
 import SecurityItem from "./LeftPanelItems/SecurityItem";
 
-interface ILeftPanel {
+export interface ILeftPanelSections {
   servers: boolean;
   flows: boolean;
   drafts: boolean;
@@ -18,7 +18,7 @@ interface ILeftPanel {
 
 }
 function LeftPanel() {
-  const [isSectionOpened, setIsSectionOpened] = useState<ILeftPanel>({
+  const [sectionToOpen, setSectionToOpen] = useState<ILeftPanelSections>({
     servers: false,
     flows: false,
     drafts: false,
@@ -31,7 +31,7 @@ function LeftPanel() {
 
   const toggleSection = (section: any) => {
 
-    setIsSectionOpened((prevState: any) => ({
+    setSectionToOpen((prevState: any) => ({
       ...prevState,
       [section]: !prevState[section],
     }));
@@ -40,12 +40,12 @@ function LeftPanel() {
   return (
     <div className={s.wrapper}>
       <div className={s.sections_container}>
-        <ServersItem className={s} isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></ServersItem>
-        <FlowsItem className={s} isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></FlowsItem>
-        <DraftFlowsItem className={s} isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></DraftFlowsItem>
+        <ServersItem className={s} currentSection={sectionToOpen} toggleSection={toggleSection} navigate={navigate}></ServersItem>
+        <FlowsItem className={s} currentSection={sectionToOpen} toggleSection={toggleSection} navigate={navigate}></FlowsItem>
+        <DraftFlowsItem className={s} currentSection={sectionToOpen} toggleSection={toggleSection} navigate={navigate}></DraftFlowsItem>
         {/* <StatisticsItem className={s} isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></StatisticsItem>
         <SettingsItem className={s} isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></SettingsItem> */}
-        <SecurityItem className={s} isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></SecurityItem>
+        <SecurityItem className={s} currentSection={sectionToOpen} toggleSection={toggleSection} navigate={navigate}></SecurityItem>
       </div>
     </div>
   );

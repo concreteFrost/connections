@@ -1,10 +1,11 @@
 import { connectionsIcons } from "../../../../icons/icons";
+import { ILeftPanelSections } from "../LeftPanel";
 
 interface SettingsItemProps {
     className: any;
     toggleSection: (section: string) => void;
     navigate: (route: string) => void;
-    isSectionOpened: any;
+    currentSection: ILeftPanelSections;
 }
 
 function SecurityItem(props: SettingsItemProps) {

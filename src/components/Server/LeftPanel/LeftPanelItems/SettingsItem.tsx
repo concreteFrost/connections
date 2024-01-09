@@ -1,12 +1,12 @@
 import { connectionsIcons } from "../../../../icons/icons";
+import { ILeftPanelSections } from "../LeftPanel";
 
 interface SettingsItemProps {
     className: any;
     toggleSection: (section: string) => void;
     navigate: (route: string) => void;
-    isSectionOpened: any;
+    currentSection: ILeftPanelSections;
 }
-
 
 function SettingsItem(props: SettingsItemProps) {
     return (<div className={props.className.section}>
@@ -19,12 +19,12 @@ function SettingsItem(props: SettingsItemProps) {
                 className={props.className.arrow_icon}
                 onClick={() => props.toggleSection("settings")}
             >
-                {props.isSectionOpened.settings
+                {props.currentSection.settings
                     ? connectionsIcons.arrowDown
                     : connectionsIcons.arrowUp}
             </span>
         </div>
-        {props.isSectionOpened.settings && (
+        {props.currentSection.settings && (
             <ul>
                 <li onClick={() => props.navigate("/dashboard/settings")}>test</li>
             </ul>

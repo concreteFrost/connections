@@ -1,10 +1,11 @@
 import { connectionsIcons } from "../../../../icons/icons"
+import { ILeftPanelSections } from "../LeftPanel";
 
 interface StatisticsItemProps {
     className: any;
     toggleSection: (section: string) => void;
     navigate: (route: string) => void;
-    isSectionOpened: any;
+    currentSection: ILeftPanelSections;
 }
 
 function StatisticsItem(props: StatisticsItemProps) {
@@ -18,12 +19,12 @@ function StatisticsItem(props: StatisticsItemProps) {
                 className={props.className.arrow_icon}
                 onClick={() => props.toggleSection("statistics")}
             >
-                {props.isSectionOpened.statistics
+                {props.currentSection.statistics
                     ? connectionsIcons.arrowDown
                     : connectionsIcons.arrowUp}
             </span>
         </div>
-        {props.isSectionOpened.statistics && (
+        {props.currentSection.statistics && (
             <ul>
                 <li onClick={() => props.navigate("/dashboard/statistics")}>test</li>
             </ul>

@@ -23,7 +23,7 @@ function Header() {
         <div className={s.notifications_button}>
           <button onClick={handleNotificationsClick}>NOTIFICATIONS</button>
           { !haveCheckedNotifications && notificationsList.length > 0 ? (
-            <span>{notificationsList.length}</span>
+            <span>10</span>
           ) : null}
         </div>
       </div>

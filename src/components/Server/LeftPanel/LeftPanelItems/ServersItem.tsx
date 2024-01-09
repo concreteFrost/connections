@@ -1,8 +1,9 @@
 import { connectionsIcons } from "../../../../icons/icons";
+import { ILeftPanelSections } from "../LeftPanel";
 
 interface ServersItemProps {
   className: any;
-  isSectionOpened: any;
+  currentSection: ILeftPanelSections;
   toggleSection: (section: string) => void;
   navigate: (route: string) => void;
 }
@@ -19,12 +20,12 @@ function ServersItem(props: ServersItemProps) {
         </span>
         <h5 className={props.className.section_title}>SERVERS</h5>
         <span className={props.className.arrow_icon}>
-          {props.isSectionOpened.servers
+          {props.currentSection.servers
             ? connectionsIcons.arrowDown
             : connectionsIcons.arrowUp}
         </span>
       </div>
-      {props.isSectionOpened.servers && (
+      {props.currentSection.servers && (
         <ul>
           <li onClick={() => props.navigate("servers")}>localhost</li>
         </ul>
