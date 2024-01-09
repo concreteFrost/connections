@@ -21,7 +21,7 @@ function App() {
 
   useEffect(() => {
     // Open a WebSocket connection
-    const ws : any = new WebSocket('wss://livepersoninc.github.io/ws-test-page/');
+    const ws :any = new WebSocket('ws://livepersoninc.github.io/ws-test-page/');
 
     // Event listener for when the connection is opened
     ws.addEventListener('open', () => {
@@ -45,14 +45,16 @@ function App() {
       console.log('WebSocket connection closed');
     });
 
+    // Set the WebSocket instance in the state
+    setWebSocket(ws);
+
     // Cleanup function to close the WebSocket connection when the component unmounts
     return () => {
       if (ws && ws.readyState === WebSocket.OPEN) {
         ws.close();
       }
-    }; 
+    };
   }, []);
-  
 
   return (
     <Router>
