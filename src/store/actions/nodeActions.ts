@@ -7,7 +7,7 @@ import { RFState } from "../types/rfState";
 import groupActions from "./groupActions";
 
 
-export const setselectedBlockID = (get: () => RFState, set: any) => (nodeId: string) => {
+export const setSelectedBlockId = (get: () => RFState, set: any) => (nodeId: string) => {
   set({ selectedBlockID: nodeId });
 };
 
@@ -37,7 +37,7 @@ export const onBlocksChange =
   };
 
 const nodeActions = {
-  setselectedBlockID: setselectedBlockID,
+  setSelectedBlockId: setSelectedBlockId,
   onBlocksChange: onBlocksChange,
 };
 

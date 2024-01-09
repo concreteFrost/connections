@@ -1,23 +1,26 @@
 import { useEffect, useState } from "react";
 import s from "./FilteredResults.module.scss";
 import useStore from "../../../../store/store";
+import { ISubstitutions } from "../../../../store/interfaces/Iflow";
 
 interface ISelection {
-  index: number,
-  value: string
+  index: number;
+  value: string;
 }
 
 interface FilteredResultsProps {
-  defaultInput: string,
+  defaultInput: string;
   selection: ISelection;
   onSubstitutionSelect: (value: string) => void;
 }
 
 function FilteredResults(props: FilteredResultsProps) {
-  const [filteredSubstitutions, setFilteredSubstitutions] = useState<any[]>([]);
-
+  const [filteredSubstitutions, setFilteredSubstitutions] = useState<
+    ISubstitutions[]
+  >([]);
   const substitutions = useStore((state) => state.flowSlice.flow.substitutions);
 
+  //hides the suggestion list if clicked outside the element
   function handleClickOutside(event: any) {
     const suggestionList = document.querySelector(".suggestion-list-wrapper");
     if (suggestionList && !suggestionList.contains(event.target)) {
@@ -30,14 +33,12 @@ function FilteredResults(props: FilteredResultsProps) {
     return () => {
       window.removeEventListener("click", handleClickOutside);
     };
-
-
   }, []);
 
   useEffect(() => {
     const inputValue = props.selection.value;
 
-    if (typeof inputValue !== 'string') {
+    if (typeof inputValue !== "string") {
       clearFilteredSubstitutions();
       return;
     }
@@ -49,27 +50,26 @@ function FilteredResults(props: FilteredResultsProps) {
 
     const searchTerm = inputValue.substring(1).toLowerCase();
 
-    const res = substitutions.filter((sub) => {
+    const res = substitutions.filter((sub: ISubstitutions) => {
       const substitution = sub.subKey.toLowerCase();
       return substitution.startsWith(searchTerm);
     });
 
     setFilteredSubstitutions(res);
-
   }, [props.selection.value]);
-
 
   function clearFilteredSubstitutions() {
     setFilteredSubstitutions([]);
   }
 
   function insertSubstitution(subKey: string) {
-
-    const start = props.defaultInput.slice(0, props.selection.index);
-    const end = props.defaultInput.slice(props.selection.index + props.selection.value.length);
+    const start = props.defaultInput.slice(0, props.selection.index); //defines where the prompting is starting
+    const end = props.defaultInput.slice(
+      props.selection.index + props.selection.value.length
+    );
     const newValue = start + `{${subKey}}` + end;
     props.onSubstitutionSelect(newValue);
-    clearFilteredSubstitutions()
+    clearFilteredSubstitutions();
   }
 
   return (

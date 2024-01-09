@@ -12,16 +12,18 @@ interface Block {
 }
 
 export default function BaseNode(props: any) {
-  const setselectedBlockID = useStore((state) => state.setselectedBlockID);
+
+  const setSelectedBlockId = useStore((state) => state.setSelectedBlockId);
   const getParameterValue = useStore((state) => state.designerVisualElementsSlice.getParameterValue);
   const selectedBlockId = useStore((state) => state.selectedBlockID);
   const [isOutlined, setIsOutlined] = useState(false);
+  
   const blockData: Block[] = useStore((state) => state.flowSlice.flow.blockData);
   const blockName = blockData.find((b: any) => b.blockIdentifier === props.id)?.name;
   const blockLabel = blockData.find((b: any) => b.blockIdentifier === props.id)?.blockLabel;
 
-  function _setselectedBlockID() {
-    setselectedBlockID(props.id);
+  function _setSelectedBlockId() {
+    setSelectedBlockId(props.id);
     getParameterValue('', '');
   }
 
@@ -43,7 +45,7 @@ export default function BaseNode(props: any) {
   return (
     <div className={wrapperClasses}>
       <div
-        onClick={_setselectedBlockID}
+        onClick={_setSelectedBlockId}
         className={nodeBodyClasses}
         style={{ backgroundColor: props.data.color, zIndex: 999999 }}
       >

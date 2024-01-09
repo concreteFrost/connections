@@ -1,5 +1,5 @@
-import { create } from "zustand";
 import topMenuActions from "../actions/topViewActions";
+import { RFState } from "../types/rfState";
 
 export type TopPanelSlice = {
 
@@ -22,7 +22,7 @@ export type TopPanelSlice = {
 
 };
 
-const topPanelSlice = (get: any, set: any): TopPanelSlice => ({
+const topPanelSlice = (get: ()=>RFState, set: any): TopPanelSlice => ({
     dropdowns: {
         view: { id: 'view', isVisible: false },
         exportFlow: { id: 'exportFlow', isVisible: false },

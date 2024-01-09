@@ -38,7 +38,7 @@ function Flow(props: any) {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         nodeTypes={nodeTypes}
-        onClick={props.resetselectedBlockID}
+        onClick={props.resetSelectedBlockId}
         snapToGrid={snapToGrid}
         snapGrid={[snapStep[0], snapStep[1]]}
       >

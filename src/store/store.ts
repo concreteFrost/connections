@@ -28,7 +28,7 @@ const useStore = create<RFState>((set, get) => ({
   //Node Actions
   getBlocksList: leftPanelActions.getBlocksList(set),
   addBlock: leftPanelActions.addBlock(get, set),
-  setselectedBlockID: nodeActions.setselectedBlockID(get, set),
+  setSelectedBlockId: nodeActions.setSelectedBlockId(get, set),
   onBlocksChange: nodeActions.onBlocksChange(get, set),
 
   //Edge Actions

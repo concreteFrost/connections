@@ -49,7 +49,6 @@ export const setUpdateFlowSubfolderName = (get: () => RFState, set: any) => (sub
             }
         }
     }))
-    console.log(subfolder)
 }
 
 export const setUpdateFlowModalSaveChanges = (get: () => RFState, set: any) => (saveChanges: boolean) => {

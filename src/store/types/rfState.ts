@@ -29,7 +29,7 @@ export type RFState = {
 
   getBlocksList: (data: any) => void;
   addBlock: (type: INodeType, posX: number, posY: number) => void;
-  setselectedBlockID: (nodeId: string) => void;
+  setSelectedBlockId: (nodeId: string) => void;
   onBlocksChange: OnNodesChange;
   onConnect: OnConnect;
   onEdgesChange: OnEdgesChange;

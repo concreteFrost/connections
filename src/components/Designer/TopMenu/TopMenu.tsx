@@ -5,7 +5,6 @@ import useStore from "../../../store/store";
 import UpdateFlowModal, { UpdateFlowActions } from "../../Modals/UpdateFlowModal";
 import { useState } from "react";
 import FlowsListModal from "../../Modals/FlowsListModal/FlowsListModal";
-import MessageModal from "../../Modals/MessageModal";
 import Profile from "../../Profile/Profile";
 import { ProfileIconVariants } from "../../../store/enums/profile";
 
@@ -13,7 +12,6 @@ function TopMenu() {
   const dropdowns = useStore((state) => state.topPanelSlice.dropdowns);
   const toggleDropdown = useStore((state) => state.topPanelSlice.toggleDropdown);
   const [currentActions, setCurrentActions] = useState<UpdateFlowActions>(UpdateFlowActions.Create);
-
   const loadFlowModal = useStore((state) => state.modalWindowsSlice.loadFlowModal);
 
   return (
@@ -35,7 +33,6 @@ function TopMenu() {
         
       </div>
       <UpdateFlowModal />
-
     </div>
   );
 }

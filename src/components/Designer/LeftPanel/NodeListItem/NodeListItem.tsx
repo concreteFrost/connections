@@ -1,33 +1,34 @@
-
 import { INodeType } from "../../../../store/interfaces/INode";
-import s from "./NodeListItem.module.scss"
+import s from "./NodeListItem.module.scss";
 import { connectionsIcons } from "../../../../icons/icons";
 import useStore from "../../../../store/store";
 
-type onDragStart = (e: any) => void;
-type onDragEnd = (e: any, nodeType: INodeType) => void;
-
 interface NodeProps {
-  onDragStart: onDragStart,
-  onDragEnd: onDragEnd,
-  nodeType: any,
+  onDragEnd: (e: any, nodeType: INodeType) => void;
+  nodeType: INodeType
 }
 
 function NodeListItem(props: NodeProps) {
+  const setTooltipText = useStore(
+    (state) => state.designerVisualElementsSlice.setTooltipText
+  );
 
-  const setTooltipText = useStore((state) => state.designerVisualElementsSlice.setTooltipText);
+  //returns the icon if icon names matches with any of nodeIcons in connectionsIcons object
   const matchedIcon = Object.entries(connectionsIcons.nodeIcons).find(
     ([key]) => key === props.nodeType.visualData.icon.toLowerCase()
   )?.[1];
 
   return (
-    <div className='tooltip-item' data-tooltip-delay-show={1000} onMouseEnter={() => setTooltipText(props.nodeType.data.description)}>
-
-      <button className={s.node_list_btn}
+    <div
+      className="tooltip-item"
+      data-tooltip-delay-show={1000}
+      onMouseEnter={() => setTooltipText(props.nodeType.data.description)}
+    >
+      <button
+        className={s.node_list_btn}
         onDragEnd={(event) => {
           props.onDragEnd(event, props.nodeType);
         }}
-        onDragStart={props.onDragStart}
         draggable
       >
         <span className={s.node_list_icon}>
@@ -35,10 +36,7 @@ function NodeListItem(props: NodeProps) {
         </span>
         {props.nodeType.data.name}
       </button>
-
-
     </div>
-
-  )
+  );
 }
 export default NodeListItem;
