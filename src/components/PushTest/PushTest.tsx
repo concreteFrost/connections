@@ -4,7 +4,7 @@ function PushTest() {
   useEffect(() => {
     const registerServiceWorker = async () => {
       try {
-        const sw = await navigator.serviceWorker.register('../notifications/sw.js');
+        const sw = await navigator.serviceWorker.register('/notifications/sw.js');
         console.log('Service Worker registered:', sw);
       } catch (error) {
         console.error('Error registering Service Worker:', error);
