@@ -3,18 +3,14 @@ import { useEffect } from "react";
 function PushTest() {
   useEffect(() => {
     const registerServiceWorker = async () => {
-      try {
-        const sw = await navigator.serviceWorker.register('/notifications/sw.js');
-        console.log('Service Worker registered:', sw);
-      } catch (error) {
-        console.error('Error registering Service Worker:', error);
-      }
+      const sw = await navigator.serviceWorker.register('/notifications/sw.js');
+      console.log('Service Worker registered:', sw);
     };
 
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', registerServiceWorker);
+      console.log('service worker is in nav')
     }
-
     // Cleanup the event listener when the component is unmounted
     return () => {
       window.removeEventListener('load', registerServiceWorker);
@@ -22,7 +18,6 @@ function PushTest() {
   }, []);
 
   const subscribeToPush = async () => {
-    console.log('trying to sub')
     const registration = await navigator.serviceWorker.ready;
     const subscription = await registration.pushManager.subscribe({
       userVisibleOnly: true,

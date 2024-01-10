@@ -1,4 +1,4 @@
-const webpush = require('web-push');
+const push = require('web-push');
 
 // VAPID keys should be generated only once.
 let vapidKeys = {
@@ -6,10 +6,10 @@ let vapidKeys = {
   privateKey: 'WFcvWtVGhofEZwYiZTRVLnfVs8fvcHLArdHT66zZ1-g'
 }
 
-webpush.setVapidDetails('mailto:test@code.co.uk',vapidKeys.publicKey,vapidKeys.privateKey);
+push.setVapidDetails('mailto:test@code.co.uk',vapidKeys.publicKey,vapidKeys.privateKey);
 
 let sub = {}
-webpush.sendNotification(sub,'test message');
+push.sendNotification(sub,'test message');
 
 // webpush.setGCMAPIKey('<Your GCM API Key Here>');
 // webpush.setVapidDetails(
