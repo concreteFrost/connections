@@ -8,9 +8,6 @@ let vapidKeys = {
 
 push.setVapidDetails('mailto:test@code.co.uk',vapidKeys.publicKey,vapidKeys.privateKey);
 
-let sub = {}
-push.sendNotification(sub,'test message');
-
 // webpush.setGCMAPIKey('<Your GCM API Key Here>');
 // webpush.setVapidDetails(
 //   'mailto:example@yourdomain.org',
@@ -20,12 +17,12 @@ push.sendNotification(sub,'test message');
 
 // console.log(vapidKeys)
 // This is the same output of calling JSON.stringify on a PushSubscription
-// const pushSubscription = {
-//   endpoint: '.....',
-//   keys: {
-//     auth: '.....',
-//     p256dh: '.....'
-//   }
-// };
+const pushSubscription = {
+  endpoint: 'https://fcm.googleapis.com/fcm/send/cLQgfWrqplg:APA91bF1TPVofg3OoXJCbuWQaHZPkThZrk3ZGOXCBky7y44DGvQVmCd6J_zlRFEPXLDaPsYcpKC55bHrc-UA5VvAImY2zRTwDstsr6p5O36zpOxpg-sZQ2nA1NnuqvJqbTvS_-xrWaiy',
+  keys: {
+    auth: '2ausDPqspPVU8ZRMdPvFWw',
+    p256dh: 'BI8SQAS_RIkk8NyGsL4H6V1w-b-zmP5Woo5Fcl2EWs8PKGK2V6mNLJme0q1ohU0K--rW9CPv4Juk-ti4LbCgYdE'
+  }
+};
 
-// webpush.sendNotification(pushSubscription, 'Your Push Payload Text');
+push.sendNotification(pushSubscription, 'Your Push Payload Text');

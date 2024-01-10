@@ -5,7 +5,7 @@ function PushTest() {
 
   useEffect(() => {
     const registerServiceWorker = async () => {
-      const sw = await navigator.serviceWorker.register('/notifications/sw.js');
+      const sw = await navigator.serviceWorker.register('/sw.js');
       console.log('Service Worker registered:', sw);
     };
 
@@ -28,7 +28,6 @@ function PushTest() {
       });
 
       setSubscription(newSubscription);
-
       // Send the subscription object to your server for future use
       console.log('Subscription:', JSON.stringify(newSubscription));
     } catch (error) {
