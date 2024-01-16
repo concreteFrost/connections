@@ -2,7 +2,9 @@
 self.addEventListener('push', function (event) {
   const eventData = event.data.json();
   const message = eventData.message;
-  const options = message
+  const options = {
+    body: message,
+  };
 
   const cacheKey = 'notification_' + Date.now();
 
