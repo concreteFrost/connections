@@ -11,12 +11,14 @@ import MessageModal from "./components/Modals/MessageModal";
 import { Tooltip } from "react-tooltip";
 import useStore from "./store/store";
 import ConfirmationModal from "./components/Modals/ConfirmationModal";
+import PushTest from "./components/PushTest/PushTest";
 
 function App() {
 
   const tooltipText = useStore((store) => store.designerVisualElementsSlice.tooltip.text);
   
   return (
+    
     <Router>
       <Routes>
         <Route path="/login" element={<Login />}></Route>
@@ -25,6 +27,7 @@ function App() {
         <Route path="/alerts" element={<ProtectedRoute><Alerts></Alerts></ProtectedRoute>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <PushTest></PushTest>
       <MessageModal></MessageModal>
       <ConfirmationModal></ConfirmationModal>
       <Tooltip anchorSelect=".tooltip-item" place="right" style={{ zIndex: 9999 }}  >

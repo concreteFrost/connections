@@ -1,45 +1,62 @@
 import { useEffect, useState } from "react";
+import useStore from "../../store/store";
+import { getAccessToken } from "../../store/actions/storageActions";
+import { ISubscription } from "../../store/interfaces/INotification";
 
-function PushTest() {
-  const [subscription, setSubscription] = useState(null);
+export function PushTest() {
+  const { getVapidKeys } = useStore((state) => state.securitySlice);
+  const {enableClientNotification} = useStore((state)=>state.notificationSlice);
 
-  useEffect(() => {
-    const registerServiceWorker = async () => {
-      const sw = await navigator.serviceWorker.register('/sw.js');
-      console.log('Service Worker registered:', sw);
-    };
-
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', registerServiceWorker);
-    }
-
-    // Cleanup the event listener when the component is unmounted
-    return () => {
-      window.removeEventListener('load', registerServiceWorker);
-    };
-  }, []);
-
-  const subscribeToPush = async () => {
+  const registerServiceWorker = async (vapidKeys: any) : Promise<ISubscription | null> => {
     try {
+      const sw = await navigator.serviceWorker.register("sw.js");
+      console.log('Service Worker registered');
+
       const registration = await navigator.serviceWorker.ready;
-      const newSubscription : any = await registration.pushManager.subscribe({
+
+      // Check for existing subscription
+      const existingSubscription = await registration.pushManager.getSubscription();
+      if (existingSubscription) {
+        await existingSubscription.unsubscribe();
+      }
+      // Subscribe with the new applicationServerKey
+      const newSubscription :any = await registration.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: 'BMAm0ZdfJ_pa5ec_Q17CAnhPLlE2mXcrv13ZMAVY2EESrT2piQf4Y0FvD5nWU39_Dh1XxytD43J7BYY6DFsk0Jo',
+        applicationServerKey: vapidKeys.publicKey,
       });
 
-      setSubscription(newSubscription);
-      // Send the subscription object to your server for future use
-      console.log('Subscription:', JSON.stringify(newSubscription));
+      const parsedSubscription : ISubscription = JSON.parse(JSON.stringify(newSubscription, null, 2));
+      return parsedSubscription;
     } catch (error) {
-      console.error('Error subscribing to push notifications:', error);
+      console.error('Error registering service worker:', error);
+      return null;
     }
   };
 
-  return (
-    <div>
-      <button onClick={subscribeToPush}>SUBSCRIBE</button>
-    </div>
-  );
+  const handleNotificationsRegistertation = async () => {
+    try {
+      const res: any = await getVapidKeys();
+      const vapidKeys:any = res.data;
+      const subscription : ISubscription|null = await registerServiceWorker(vapidKeys);
+      if(subscription){
+        await enableClientNotification(subscription)
+      }
+      
+    } catch (e) {
+      console.log('Error getting vapid keys', e);
+    }
+  };
+
+
+  useEffect(() => {
+
+    if (getAccessToken().is_logged_in === "true") {
+      handleNotificationsRegistertation();
+    }
+  }, []);
+
+  // No JSX to render
+  return null;
 }
 
 export default PushTest;

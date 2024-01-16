@@ -29,6 +29,8 @@ export type SecuritySlice = {
     deleteGroup: (groupId: string) => void;
     addGroupMember: (userId: string, groupId: string) => void;
     removeGroupMember: (userId: string, groupId: string) => void
+    //notifications
+    getVapidKeys:()=>void;
 
 }
 
@@ -55,6 +57,7 @@ const securitySlice = (get: () => RFState, set: any): SecuritySlice => ({
     deleteGroup: securityActions.deleteGroup(get, set),
     addGroupMember: securityActions.addGroupMember(get, set),
     removeGroupMember: securityActions.removeGroupMember(get, set),
+    getVapidKeys: securityActions.getVapidKeys(get,set),
 })
 
 export default securitySlice;

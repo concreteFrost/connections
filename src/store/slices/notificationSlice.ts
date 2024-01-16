@@ -1,5 +1,5 @@
 import notificationsActions from "../actions/notificationsActions";
-import { INotification, INotificationType } from "../interfaces/INotification";
+import { INotification, INotificationType, ISubscription } from "../interfaces/INotification";
 import { RFState } from "../types/rfState"
 
 export type NotificationSlice = {
@@ -17,6 +17,7 @@ export type NotificationSlice = {
     addNewNotifications:(notificationRecord:INotification)=>void;
     registerClientNotification:(notificationId:number,callbackURI:string,userName:string,password:string)=>void;
     toggleHaveCheckedNotifications:(haveChecked:boolean)=>void;
+    enableClientNotification:(subscription:ISubscription)=>void;
 }
 
 const notificationSlice = (get: () => RFState, set: any): NotificationSlice => ({
@@ -33,7 +34,8 @@ const notificationSlice = (get: () => RFState, set: any): NotificationSlice => (
     testClientCallback: notificationsActions.testClientCallback(get, set),
     addNewNotifications:notificationsActions.addNewNotifications(get,set),
     registerClientNotification: notificationsActions.registerClientNotification(get,set),
-    toggleHaveCheckedNotifications:notificationsActions.toggleHaveCheckedNotifications(get,set)
+    toggleHaveCheckedNotifications:notificationsActions.toggleHaveCheckedNotifications(get,set),
+    enableClientNotification:notificationsActions.enableClientNotifications(get,set),
 })
 
 export default notificationSlice;

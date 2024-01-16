@@ -106,6 +106,22 @@ export function getRoleListAPI() {
   });
 }
 
+export function getVapidKeysAPI() {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(baseUrl + "/Security/GetVapidKeys", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + getAccessToken().token,
+        },
+      })
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((e) => reject(e));
+  });
+}
+
 //POST
 export function addUserAPI(userRecord: INewUser) {
   return new Promise((resolve, reject) => {
@@ -280,3 +296,6 @@ export function generatePasswordAPI(genType: number, length: number) {
       .catch((e) => reject(e));
   });
 }
+
+//NOTIFICATIONS
+

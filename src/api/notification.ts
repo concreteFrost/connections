@@ -1,7 +1,7 @@
 import axios from "axios";
 import { baseUrl } from "../store/constants/baseUrl";
 import { getAccessToken } from "../store/actions/storageActions";
-import { INotification } from "../store/interfaces/INotification";
+import { INotification, ISubscription } from "../store/interfaces/INotification";
 
 export function getNotificationTypesAPI() {
     return new Promise((resolve, reject) => {
@@ -96,7 +96,30 @@ export function updateNotificationAPI(notificationRecord: INotification) {
     });
 }
 
-export function registerClientNotificationAPI(notificationId: number, callbackURI: string, userName:string,password:string) {
+export function enableClientNotificationsAPI(subscribtion: ISubscription) {
+    return new Promise((resolve, reject) => {
+        axios({
+            method: "post",
+            url: baseUrl + "/Notification/EnableClientNotifications",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + getAccessToken().token,
+            },
+            data: {
+                endpoint: subscribtion.endpoint,
+                auth: subscribtion.keys.auth,
+                p256DH: subscribtion.keys.p256dh
+            }
+
+        })
+            .then((res) => {
+                resolve(res);
+            })
+            .catch((e) => reject(e));
+    });
+}
+
+export function registerClientNotificationAPI(notificationId: number, callbackURI: string, userName: string, password: string) {
     return new Promise((resolve, reject) => {
         axios({
             method: "post",
@@ -108,8 +131,8 @@ export function registerClientNotificationAPI(notificationId: number, callbackUR
             params: {
                 notificationId: notificationId,
                 callbackURI: callbackURI,
-                username:userName,
-                password:password
+                username: userName,
+                password: password
             }
         })
             .then((res) => {

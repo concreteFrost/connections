@@ -38,7 +38,7 @@ function Profile(props:ProfileProps) {
         }
     }
 
-    function toggleProfileModalVisibility(isVisible: boolean) {
+function toggleProfileModalVisibility(isVisible: boolean) {
         setProfileModalVisible(isVisible)
     }
 
@@ -46,11 +46,12 @@ function Profile(props:ProfileProps) {
         setEditUserVisible(isVisible)
     }
 
-    function logout() {
-        clearUserData();
-        navigate('/login')
-    }
-
+    async function logout() {
+    
+        // Clear user data and navigate to the login page
+        await clearUserData();
+        await navigate('/login');
+      }
     useEffect(() => {
         if (isProfileModalVisible) {
             document.addEventListener("mousedown", handleOutsideClick);

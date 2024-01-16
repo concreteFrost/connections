@@ -9,6 +9,7 @@ import {
   getRoleListAPI,
   getUserAPI,
   getUserListAPI,
+  getVapidKeysAPI,
   removeGroupAPI,
   removeGroupMemberAPI,
   removeUserAPI,
@@ -247,6 +248,18 @@ const removeGroupMember =
   };
 //#endregion
 
+//#region NOTIFICATIONS
+const getVapidKeys=(get: () => RFState, set: any) => async()=>{
+  try{
+    const res : any = await getVapidKeysAPI();
+    return res;
+  }
+  catch(e){
+    console.log('error getting vapid keys',e)
+  }
+}
+//#endregion
+
 const securityActions = {
   setAppUserPassword: setAppUserPassword,
   getMe: getMe,
@@ -264,6 +277,7 @@ const securityActions = {
   deleteGroup: deleteGroup,
   addGroupMember: addGroupMember,
   removeGroupMember: removeGroupMember,
+  getVapidKeys:getVapidKeys,
 };
 
 export default securityActions;

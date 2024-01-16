@@ -17,3 +17,11 @@ export interface INotificationType {
     name: string,
     notificationTypeId: string
 }
+
+export interface ISubscription{
+    endpoint: string,
+    keys:{
+        auth: string,
+        p256dh: string
+    }
+  }
