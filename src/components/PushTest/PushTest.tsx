@@ -26,6 +26,7 @@ export function PushTest() {
       });
 
       const parsedSubscription : ISubscription = JSON.parse(JSON.stringify(newSubscription, null, 2));
+      console.log('parsed subscription:',parsedSubscription)
       return parsedSubscription;
     } catch (error) {
       console.error('Error registering service worker:', error);
