@@ -47,13 +47,12 @@ export function PushTest() {
     }
   };
 
-
   useEffect(() => {
 
     if (getAccessToken().is_logged_in === "true") {
       handleNotificationsRegistertation();
     }
-  }, []);
+  }, [getAccessToken().is_logged_in]);
 
   // No JSX to render
   return null;
