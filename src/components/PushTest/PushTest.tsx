@@ -9,6 +9,7 @@ export function PushTest() {
 
   const registerServiceWorker = async (vapidKeys: any) : Promise<ISubscription | null> => {
     try {
+
       const sw = await navigator.serviceWorker.register("/sw.js");
       console.log('Service Worker registereds');
 
@@ -26,7 +27,7 @@ export function PushTest() {
       });
 
       const parsedSubscription : ISubscription = JSON.parse(JSON.stringify(newSubscription, null, 2));
-      console.log('parsed subscription:',parsedSubscription)
+      
       return parsedSubscription;
     } catch (error) {
       console.error('Error registering service worker:', error);

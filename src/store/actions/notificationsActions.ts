@@ -118,7 +118,6 @@ const toggleSelectNotification = (get: () => RFState, set: any) => async (notifi
 const enableClientNotifications = (get: () => RFState, set: any) => async (subscription:ISubscription) => {
     try{
         const res : any = await enableClientNotificationsAPI(subscription);
-        console.log(res)
     }
     catch(e){
         console.log('error enabling client notifications',e)
