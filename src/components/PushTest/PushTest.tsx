@@ -11,7 +11,7 @@ export function PushTest() {
     try {
 
       const sw = await navigator.serviceWorker.register("/sw.js");
-      console.log('Service Worker registereds');
+      console.log('Service Worker registered');
 
       const registration = await navigator.serviceWorker.ready;
 
