@@ -1,7 +1,9 @@
 self.addEventListener('push', function (event) {
+
   const eventData = event.data.json();
-  
+
   if (eventData.length > 0) {
+
     event.waitUntil(
       caches.open('notifications').then(function (cache) {
         // Итерируем по массиву объектов и добавляем каждый объект в кэш

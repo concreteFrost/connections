@@ -1,3 +1,6 @@
+@import "/src/style/mixins.scss";
+@import "/src/style/variables.scss";
+
 .wrapper {
     display: flex;
     justify-content: end;
@@ -16,11 +19,44 @@
     .badge {
         position: absolute;
         right: -10px;
-        bottom:20px;
+        bottom: 20px;
         background-color: red;
         color: white;
         border-radius: 50%;
-        padding: 3px 5px;
+        padding: 2px 5px;
         font-size: 10px;
+    }
+
+    .notifications_list {
+        position: absolute;
+        top: 50px;
+        border: 1px solid $color-list-border-darker;
+        border-radius: 5px;
+        background-color: white;
+        padding: 20px;
+        width: 400px;
+
+        ul {
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+            border-bottom: 1px solid $color-list-border-darker;
+            display: grid;
+            grid-template-columns: 8fr 4fr;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+
+            .message{
+                font-style: italic;
+            }
+
+            .date{
+                font-size: 0.7rem;
+            }
+            
+
+        }
     }
 }
