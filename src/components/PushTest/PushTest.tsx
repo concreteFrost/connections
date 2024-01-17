@@ -10,8 +10,15 @@ export function PushTest() {
   const registerServiceWorker = async (vapidKeys: any): Promise<ISubscription | null> => {
     try {
       if ("serviceWorker" in navigator) {
-        const sw = await navigator.serviceWorker.register("/sw.js");
-        console.log("Service Worker registered");
+
+        navigator.serviceWorker.register("/sw.js", { scope: "/" }).then(
+          (registration) => {
+            console.log("Service worker registration succeeded:", registration);
+          },
+          (error) => {
+            console.error(`Service worker registration failed: ${error}`);
+          },
+        );
 
         const registration = await navigator.serviceWorker.ready;
 
