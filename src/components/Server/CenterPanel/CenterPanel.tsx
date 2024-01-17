@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import Servers from './Servers/Servers';
 import s from "./CenterPanel.module.scss"
 import Flow from './Flow/Flow';

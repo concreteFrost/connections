@@ -1,6 +1,5 @@
-
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from "./components/Login/Login";
 import Designer from "./components/Designer/Designer";
 import NotFound from "./components/NotFound/NotFound";
@@ -14,11 +13,9 @@ import ConfirmationModal from "./components/Modals/ConfirmationModal";
 import PushTest from "./components/PushTest/PushTest";
 
 function App() {
-
   const tooltipText = useStore((store) => store.designerVisualElementsSlice.tooltip.text);
   
   return (
-  
     <Router>
       <Routes>
         <Route path="/login" element={<Login />}></Route>
@@ -30,13 +27,11 @@ function App() {
       {/* <PushTest></PushTest> */}
       <MessageModal></MessageModal>
       <ConfirmationModal></ConfirmationModal>
-      <Tooltip anchorSelect=".tooltip-item" place="right" style={{ zIndex: 9999 }}  >
-            {tooltipText}
-        </Tooltip>
-
+      <Tooltip anchorSelect=".tooltip-item" place="right" style={{ zIndex: 9999 }}>
+        {tooltipText}
+      </Tooltip>
     </Router>
   );
 }
 
 export default App;
-
