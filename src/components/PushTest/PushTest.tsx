@@ -10,7 +10,7 @@ export function PushTest() {
   const registerServiceWorker = async (vapidKeys: any) : Promise<ISubscription | null> => {
     try {
 
-      const sw = await navigator.serviceWorker.register("/public/sw.js");
+      const sw = await navigator.serviceWorker.register("/sw.js");
       console.log('Service Worker registereds');
 
       const registration = await navigator.serviceWorker.ready;

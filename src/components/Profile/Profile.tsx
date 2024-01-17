@@ -47,7 +47,6 @@ function toggleProfileModalVisibility(isVisible: boolean) {
     }
 
     async function logout() {
-    
         // Clear user data and navigate to the login page
         await clearUserData();
         await navigate('/login');
