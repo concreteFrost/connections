@@ -9,9 +9,9 @@ function CenterPanel() {
     return (
         <div className={s.wrapper}>
             <Routes>
-                <Route  path='/servers' element={<ProtectedRoute><Servers></Servers></ProtectedRoute> }></Route>
-                <Route path='/flows' element={<ProtectedRoute><Flow></Flow></ProtectedRoute> }></Route>
-                <Route path='/security' element={<ProtectedRoute><Security></Security></ProtectedRoute>}></Route>
+                <Route  path='servers' element={<ProtectedRoute><Servers></Servers></ProtectedRoute> }></Route>
+                <Route path='flows' element={<ProtectedRoute><Flow></Flow></ProtectedRoute> }></Route>
+                <Route path='security' element={<ProtectedRoute><Security></Security></ProtectedRoute>}></Route>
             </Routes>
         </div>)
 }
