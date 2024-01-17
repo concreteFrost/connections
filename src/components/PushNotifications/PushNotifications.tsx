@@ -1,11 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { connectionsIcons } from "../../icons/icons";
+import s from "./PushNotifications.module.scss"
 
-function CachedNotifications() {
+function PushNotifications() {
+
+    const[notificationsCount,setNotificationsCount] = useState<number>(0);
 
     async function getNotifications() {
         const cache = await caches.open('notifications');
         const keys = await cache.keys();
-        console.log(keys,'keys')
 
         const notifications = await Promise.all(keys.map(async (key) => {
             const response: any = await cache.match(key);
@@ -17,8 +20,9 @@ function CachedNotifications() {
     }
 
     useEffect(() => {
-        getNotifications().then((notifications) => {
+        getNotifications().then((notifications : any) => {
             console.log('Cached notifications:', notifications);
+            setNotificationsCount(notifications.length)
         });
     }, [])
 
@@ -32,8 +36,11 @@ function CachedNotifications() {
         });
     }
 
-
-    return (<div onClick={clearNotifications}>Clear Cache</div>)
+    return (<div className={s.wrapper}>
+        <span className={s.icon}>{connectionsIcons.bell}</span>
+        {notificationsCount > 0 ? <span className={s.badge}>{notificationsCount}</span> : null}
+        
+    </div>)
 }
 
-export default CachedNotifications;
+export default PushNotifications;

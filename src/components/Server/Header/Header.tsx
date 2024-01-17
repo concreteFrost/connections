@@ -4,10 +4,11 @@ import s from "./Header.module.scss";
 import { useNavigate } from "react-router";
 import useStore from "../../../store/store";
 import { useEffect, useState } from "react";
+import PushNotifications from "../../PushNotifications/PushNotifications";
 
 function Header() {
   const navigate = useNavigate();
-  const {  notificationsList, toggleHaveCheckedNotifications, haveCheckedNotifications } = useStore((state) => state.notificationSlice)
+  const { notificationsList, toggleHaveCheckedNotifications, haveCheckedNotifications } = useStore((state) => state.notificationSlice)
 
   const handleNotificationsClick = () => {
     toggleHaveCheckedNotifications(true);
@@ -22,13 +23,16 @@ function Header() {
         </div>
         <div className={s.notifications_button}>
           <button onClick={handleNotificationsClick}>NOTIFICATIONS</button>
-          { !haveCheckedNotifications && notificationsList.length > 0 ? (
+          {!haveCheckedNotifications && notificationsList.length > 0 ? (
             <span>10</span>
           ) : null}
         </div>
       </div>
+
       <header className={s.title}>CONNECTIONS SERVER DASHBOARD</header>
-      <div className={s.logout_container}>
+
+      <div className={s.nav_right_btns_wrapper}>
+        <PushNotifications></PushNotifications>
         <Profile themeColor={ProfileIconVariants.Light}></Profile>
       </div>
     </div>
