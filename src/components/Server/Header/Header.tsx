@@ -3,7 +3,6 @@ import Profile from "../../Profile/Profile";
 import s from "./Header.module.scss";
 import { useNavigate } from "react-router";
 import useStore from "../../../store/store";
-import { useEffect, useState } from "react";
 import PushNotifications from "../../PushNotifications/PushNotifications";
 
 function Header() {
