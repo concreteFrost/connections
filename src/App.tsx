@@ -24,7 +24,7 @@ function App() {
         <Route path="/alerts" element={<ProtectedRoute><Alerts></Alerts></ProtectedRoute>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      {/* <PushTest></PushTest> */}
+      <PushTest></PushTest>
       <MessageModal></MessageModal>
       <ConfirmationModal></ConfirmationModal>
       <Tooltip anchorSelect=".tooltip-item" place="right" style={{ zIndex: 9999 }}>
