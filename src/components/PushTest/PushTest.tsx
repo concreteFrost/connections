@@ -10,7 +10,7 @@ export function PushTest() {
   const registerServiceWorker = async (vapidKeys: any) : Promise<ISubscription | null> => {
     try {
 
-      const sw = await navigator.serviceWorker.register("/sw.js");
+      const sw = await navigator.serviceWorker.register("/public/sw.js");
       console.log('Service Worker registereds');
 
       const registration = await navigator.serviceWorker.ready;
@@ -50,11 +50,19 @@ export function PushTest() {
   };
 
   useEffect(() => {
-
-    if (getAccessToken().is_logged_in === "true") {
-      handleNotificationsRegistertation();
-    }
+    const fetchData = async () => {
+      try {
+        if (getAccessToken().is_logged_in === "true") {
+          await handleNotificationsRegistertation();
+        }
+      } catch (error) {
+        console.error('Error in useEffect:', error);
+      }
+    };
+  
+    fetchData();
   }, [getAccessToken().is_logged_in]);
+  
 
   // No JSX to render
   return null;
