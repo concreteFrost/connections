@@ -30,7 +30,7 @@ function Header() {
       <header className={s.title}>CONNECTIONS SERVER DASHBOARD</header>
 
       <div className={s.nav_right_btns_wrapper}>
-        <PushNotifications></PushNotifications>
+        {/* <PushNotifications></PushNotifications> */}
         <Profile themeColor={ProfileIconVariants.Light}></Profile>
       </div>
     </div>
