@@ -2,34 +2,45 @@
 @import "/src/style/variables.scss";
 
 .wrapper {
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    margin-right: 15px;
-    height: 100%;
-    position: relative;
 
-    .icon {
-        color: white;
-        cursor: pointer;
-        font-size: 1em;
-        padding-top: 10px;
+    .icon_wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 40px;
+        .icon {
+            color: white;
+            cursor: pointer;
+            font-size: 1em;
+            padding-top: 10px;
+
+            &.light {
+                color: white;
+            }
+
+            &.dark {
+                color: $color-node-nav-icon
+            }
+        }
+
+        .badge {
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 5px;
+            font-size: 10px;
+        }
     }
 
-    .badge {
-        position: absolute;
-        right: -10px;
-        bottom: 20px;
-        background-color: red;
-        color: white;
-        border-radius: 50%;
-        padding: 2px 5px;
-        font-size: 10px;
-    }
+
 
     .notifications_list {
         position: absolute;
         top: 50px;
+        right: 75px;
         border: 1px solid $color-list-border-darker;
         border-radius: 5px;
         background-color: white;
@@ -38,6 +49,8 @@
 
         ul {
             padding: 0;
+            max-height: 300px;
+            overflow-y: auto;
         }
 
         li {
@@ -56,7 +69,10 @@
                 font-size: 0.7rem;
             }
 
+        }
 
+        .clear_btn {
+            @include blue_btn;
         }
     }
 }

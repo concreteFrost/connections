@@ -1,0 +1,22 @@
+.wrapper{
+    header{
+        margin-bottom: 20px;
+    }
+
+    .radio_btns{
+        display: flex;
+        flex-direction: column;
+        input{
+            float: right;
+        } 
+        margin-bottom: 10px;
+    }
+
+    .input_wrapper{
+        input{
+            width: 100%;
+            margin-bottom: 10px;
+        }
+       
+    }
+}

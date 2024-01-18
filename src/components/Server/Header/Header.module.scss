@@ -47,10 +47,6 @@
   }
 
   .nav_right_btns_wrapper {
-    display: flex;
-    height: 100%;
-    align-items: center;
-    justify-content: right;
-    z-index: 1000;
+    @include nav_right_section;
   }
 }

@@ -1,0 +1,31 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+.wrapper{
+    padding: 20px;
+    .header{
+        margin-bottom: 10px;
+
+        button{
+            @include blue_btn;
+        }
+    }
+
+    .log_grid{
+        display: grid;
+        grid-template-columns: 2fr 2fr 5fr 3fr;
+        gap: 10px;
+      
+
+        section{
+            background-color: $bg-node-nav-btn;
+            box-shadow: $shadow-node-nav-container;
+            padding: 20px;
+            header{
+                
+                text-align: center;
+            }
+        }
+    }
+
+}

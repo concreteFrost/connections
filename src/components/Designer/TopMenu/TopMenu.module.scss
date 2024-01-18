@@ -1,6 +1,6 @@
 @import "/src/style/variables.scss";
 @import "/src/style/mixins.scss";
-;
+
 
 .wrapper {
     background-color: $bg-node-nav-container;
@@ -17,17 +17,17 @@
     left: 0;
     right: 0;
 
-    .settings_wrapper{
+    .settings_wrapper {
         display: flex;
         align-items: center;
-        justify-content: flex-end;
+        justify-self: end;
+        justify-content: space-between;
+        
+        align-self: flex-end; /* Use align-self to align the container to the end */
     }
-
+    
     @media print {
         display: none;
     }
-
-
-
 
 }

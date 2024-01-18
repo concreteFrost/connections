@@ -7,10 +7,10 @@ import { getMeAPI } from "../../api/security";
 import { IUser } from "../../store/interfaces/ISecurity";
 import EditUserModal from "../Modals/UserModals/EditUserModal/EditUserModal";
 import useStore from "../../store/store";
-import { ProfileIconVariants } from "../../store/enums/profile";
+import { IconVariants } from "../../store/enums/profile";
 
 interface ProfileProps{
-    themeColor: ProfileIconVariants
+    themeColor: IconVariants
 }
 
 function Profile(props:ProfileProps) {
@@ -63,7 +63,7 @@ function toggleProfileModalVisibility(isVisible: boolean) {
     }, [isProfileModalVisible]);
 
     return (<div className={s.wrapper}>
-        <span className={`${s.icon}  ${props.themeColor === ProfileIconVariants.Dark ? s['dark'] : s['light']}` } onClick={() => {
+        <span className={`${s.icon}  ${props.themeColor === IconVariants.Dark ? s['dark'] : s['light']}` } onClick={() => {
             getMe();
             toggleProfileModalVisibility(!isProfileModalVisible)
         }}>{connectionsIcons.profile}</span>

@@ -6,7 +6,8 @@ import UpdateFlowModal, { UpdateFlowActions } from "../../Modals/UpdateFlowModal
 import { useState } from "react";
 import FlowsListModal from "../../Modals/FlowsListModal/FlowsListModal";
 import Profile from "../../Profile/Profile";
-import { ProfileIconVariants } from "../../../store/enums/profile";
+import { IconVariants } from "../../../store/enums/profile";
+import PushNotifications from "../../PushNotifications/PushNotifications";
 
 function TopMenu() {
   const dropdowns = useStore((state) => state.topPanelSlice.dropdowns);
@@ -24,13 +25,15 @@ function TopMenu() {
           setCurrentActions={setCurrentActions}
         ></CentralPanel>
         <div className={s.settings_wrapper}>
-        <Settings
-          dropdowns={dropdowns}
-          toggleDropdown={toggleDropdown}
-        ></Settings>
-        <Profile themeColor={ProfileIconVariants.Dark}></Profile>
+        <PushNotifications themeColor={IconVariants.Dark}></PushNotifications>
+          <Settings
+            dropdowns={dropdowns}
+            toggleDropdown={toggleDropdown}
+          ></Settings>
+          
+          <Profile themeColor={IconVariants.Dark}></Profile>
         </div>
-        
+
       </div>
       <UpdateFlowModal />
     </div>

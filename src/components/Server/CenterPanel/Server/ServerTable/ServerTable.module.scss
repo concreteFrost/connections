@@ -3,12 +3,20 @@
 
 .wrapper {
   background-color: white;
-  ;
-
 
   .header {
     display: grid;
     grid-template-columns: 4fr 4fr 4fr;
+
+    .log_search_btn_wrapper{
+      display: flex;
+      align-items: center;
+      margin-left: 20px;
+
+      button{
+        @include blue-btn;
+      }
+    }
   }
 
   .server_status {

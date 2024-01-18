@@ -1,7 +1,9 @@
 self.addEventListener('push', function (event) {
 
   const eventData = event.data.json();
-
+  
+  console.log('event data',eventData)
+  
   if (eventData.length > 0) {
 
     event.waitUntil(

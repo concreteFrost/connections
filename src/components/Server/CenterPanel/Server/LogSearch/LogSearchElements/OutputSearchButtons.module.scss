@@ -1,0 +1,30 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+.wrapper {
+
+    padding: 20px;
+    margin-bottom: 20px;
+
+    header {
+
+        text-align: center;
+    }
+
+
+    .btns_wrapper {
+
+        height: 100%;
+        display: flex;
+      
+        justify-content: center;
+        gap: 5px;
+
+        button {
+            @include blue_btn;
+
+        }
+    }
+
+
+}

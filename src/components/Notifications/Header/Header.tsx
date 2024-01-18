@@ -1,5 +1,6 @@
-import { ProfileIconVariants } from "../../../store/enums/profile";
+import { IconVariants } from "../../../store/enums/profile";
 import Profile from "../../Profile/Profile";
+import PushNotifications from "../../PushNotifications/PushNotifications";
 import s from "./Header.module.scss";
 import { useNavigate } from "react-router";
 
@@ -21,8 +22,9 @@ function Header() {
         </div>
       </div>
       <header>NOTIFICATIONS</header>
-      <div className={s.logout_container}>
-        <Profile themeColor={ProfileIconVariants.Light}></Profile>
+      <div className={s.settings_container}>
+        <PushNotifications themeColor={IconVariants.Light}></PushNotifications>
+        <Profile themeColor={IconVariants.Light}></Profile>
       </div>
 
     </div>

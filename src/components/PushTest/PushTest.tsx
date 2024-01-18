@@ -11,15 +11,8 @@ export function PushTest() {
     try {
       if ("serviceWorker" in navigator) {
 
-        navigator.serviceWorker.register("/sw.js", { scope: "/" }).then(
-          (registration) => {
-            console.log("Service worker registration succeeded:", registration);
-          },
-          (error) => {
-            console.error(`Service worker registration failed: ${error}`);
-          },
-        );
-
+        const sw= await navigator.serviceWorker.register("/sw.js")
+        console.log('Service worker registered', sw)
         const registration = await navigator.serviceWorker.ready;
 
         // Check for existing subscription

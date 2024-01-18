@@ -2,13 +2,14 @@ import { useEffect, useState, useRef } from "react";
 import { connectionsIcons } from "../../icons/icons";
 import s from "./PushNotifications.module.scss";
 import moment from "moment";
+import { IconVariants } from "../../store/enums/profile";
 
 interface IPushNotification {
   Message: string;
   LoggedTime: string;
 }
 
-function PushNotifications() {
+function PushNotifications(props: { themeColor  : IconVariants}) {
   const [notificationsCount, setNotificationsCount] = useState<number>(0);
   const [notificationsList, setNotificationsList] = useState<Array<IPushNotification>>();
   const [isListVisible, setListVisible] = useState<boolean>(false);
@@ -74,10 +75,12 @@ function PushNotifications() {
 
   return (
     <div className={s.wrapper}>
-      <span className={s.icon} onClick={() => setListVisible(!isListVisible)}>
+      <div className={s.icon_wrapper}>
+      <span className={`${s.icon}  ${props.themeColor === IconVariants.Dark ? s['dark'] : s['light']}` }  onClick={() => setListVisible(!isListVisible)}>
         {connectionsIcons.bell}
       </span>
       {notificationsCount > 0 ? <span className={s.badge}>{notificationsCount}</span> : null}
+      </div>
       {isListVisible && notificationsList && notificationsList.length > 0 ? (
         <div className={s.notifications_list} ref={modalRef}>
           <ul>
@@ -88,7 +91,7 @@ function PushNotifications() {
               </li>
             ))}
           </ul>
-          <button onClick={clearNotifications}>CLEAR</button>
+          <button className={s.clear_btn} onClick={clearNotifications}>CLEAR</button>
         </div>
       ) : null}
     </div>

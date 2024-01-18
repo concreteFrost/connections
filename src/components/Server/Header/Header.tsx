@@ -1,4 +1,4 @@
-import { ProfileIconVariants } from "../../../store/enums/profile";
+import { IconVariants } from "../../../store/enums/profile";
 import Profile from "../../Profile/Profile";
 import s from "./Header.module.scss";
 import { useNavigate } from "react-router";
@@ -29,8 +29,8 @@ function Header() {
       <header className={s.title}>CONNECTIONS SERVER DASHBOARD</header>
 
       <div className={s.nav_right_btns_wrapper}>
-        <PushNotifications></PushNotifications>
-        <Profile themeColor={ProfileIconVariants.Light}></Profile>
+        <PushNotifications themeColor={IconVariants.Light}></PushNotifications>
+        <Profile themeColor={IconVariants.Light}></Profile>
       </div>
     </div>
   );

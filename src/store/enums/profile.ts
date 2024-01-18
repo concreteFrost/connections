@@ -1,4 +1,4 @@
-export enum ProfileIconVariants{
+export enum IconVariants{
     Light,
     Dark
 }
