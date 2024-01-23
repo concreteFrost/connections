@@ -4,22 +4,8 @@ import { getFlowListApi } from "../../../../../api/flow";
 import useStore from "../../../../../store/store";
 import CreateTemplateFlowModal from "../../../CreateTemplateFlowModal";
 import moment from "moment";
+import { IFlowConfig } from "../../../../../store/interfaces/Iflow";
 
-interface IFlowConfig {
-  config: string;
-  createdBy: string;
-  dateCreated: string;
-  enabled: boolean;
-  fileName: string;
-  flowId: string;
-  lastUpdateBy: string;
-  lastUpdated: string | null;
-  name: string;
-  processBlockCollection: any; // You might want to replace 'any' with the actual type
-  startBlock: string;
-  status: number;
-  version: string;
-}
 
 function LiveFlows() {
 

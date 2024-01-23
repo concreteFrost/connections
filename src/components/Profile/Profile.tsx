@@ -4,7 +4,6 @@ import { connectionsIcons } from "../../icons/icons";
 import { useState, useRef, useEffect } from "react";
 import s from "./Profile.module.scss";
 import { getMeAPI } from "../../api/security";
-import { IUser } from "../../store/interfaces/ISecurity";
 import EditUserModal from "../Modals/UserModals/EditUserModal/EditUserModal";
 import useStore from "../../store/store";
 import { IconVariants } from "../../store/enums/profile";

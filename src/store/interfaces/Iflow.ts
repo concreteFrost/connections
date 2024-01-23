@@ -18,6 +18,22 @@ export interface IFlowData {
     };
 }
 
+export interface IFlowConfig {
+    config: string;
+    createdBy: string;
+    dateCreated: string;
+    enabled: boolean;
+    fileName: string;
+    flowId: string;
+    lastUpdateBy: string;
+    lastUpdated: string | null;
+    name: string;
+    processBlockCollection: any; // You might want to replace 'any' with the actual type
+    startBlock: string;
+    status: number;
+    version: string;
+  }
+
 export interface IVisual {
     id: string;
     data: { color: string, icon: string };

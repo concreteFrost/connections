@@ -1,10 +1,15 @@
-import s from "./TextSearch.module.scss"
+import s from "./TextSearch.module.scss";
 
-function TextSearch() {
+interface TextSearchProps{
+  setSearchText:(value : string) => void;
+  searchText:string|undefined;
+}
+
+function TextSearch(props: TextSearchProps) {
     return (
       <section className={s.wrapper}>
         <header>Additional Text Search</header>
-        <textarea name="" id="" ></textarea>
+        <textarea value={props.searchText} onChange={(e:any)=> props.setSearchText(e.target.value)} ></textarea>
       </section>
     );
   }
