@@ -6,8 +6,9 @@ import Keys from "./LogSearchElements/Keys";
 import OutputSearchButtons from "./LogSearchElements/OutputSearchButtons";
 import TextSearch from "./LogSearchElements/TextSearch";
 import LogTable from "./LogTable/LogTable";
+import { getDataLogsAPI } from "../../../../../api/data";
 
-interface ILogSearchQuery {
+export interface ILogSearchQuery {
     type: number | undefined;
     status: number | undefined;
     flowId: string | undefined;
@@ -22,15 +23,16 @@ const initialLogSearchQuery: ILogSearchQuery = {
     status: undefined,
     flowId: undefined,
     blockId: undefined,
-    timeFrom: undefined,
-    timeTo: undefined,
+    timeFrom: '',
+    timeTo: '',
     searchText: undefined,
 };
 
 function LogSearch(props: { setCurrentView: (view: string) => void }) {
+
     const [logSearchQuery, setLogSearchQuery] = useState<ILogSearchQuery>(initialLogSearchQuery);
 
-    const updateLogSearchQuery = (key: string, value: any) => {
+    const updateLogSearchQuery = (key: keyof ILogSearchQuery, value: any) => {
         if (key in initialLogSearchQuery) {
             // Only update if the key exists in the initialLogSearchQuery
             setLogSearchQuery((prevQuery) => ({
@@ -42,16 +44,16 @@ function LogSearch(props: { setCurrentView: (view: string) => void }) {
         }
     };
 
-    function submitQuery(){
-        const queryToSubmit : any = {};
+    async function submitQuery() {
 
-        for (const key in logSearchQuery) {
-            if (logSearchQuery[key as keyof ILogSearchQuery] !== undefined) {
-                queryToSubmit[key] = logSearchQuery[key as keyof ILogSearchQuery];
-            }
+        try {
+            const res = await getDataLogsAPI(logSearchQuery);
+            
+
+        } catch (e) {
+            console.log('Error:', e);
         }
 
-        console.log(queryToSubmit);
     }
 
     return (
@@ -61,7 +63,7 @@ function LogSearch(props: { setCurrentView: (view: string) => void }) {
             </div>
             <div className={s.log_grid}>
                 <DateRange
-                    setTimeFrom={(value:string | number | readonly string[] | undefined) => updateLogSearchQuery("timeFrom", value)}
+                    setTimeFrom={(value: string | number | readonly string[] | undefined) => updateLogSearchQuery("timeFrom", value)}
                     setTimeTo={(value: string | number | readonly string[] | undefined) => updateLogSearchQuery("timeTo", value)}
                     timeFrom={logSearchQuery.timeFrom}
                     timeTo={logSearchQuery.timeTo}
@@ -76,9 +78,9 @@ function LogSearch(props: { setCurrentView: (view: string) => void }) {
                     type={logSearchQuery.type}
                     status={logSearchQuery.status}
                 />
-                <TextSearch 
-                setSearchText={(value: string) => updateLogSearchQuery("searchText", value)}
-                searchText={logSearchQuery.searchText} />
+                <TextSearch
+                    setSearchText={(value: string) => updateLogSearchQuery("searchText", value)}
+                    searchText={logSearchQuery.searchText} />
                 {/* <Keys onUpdate={(value) => updateLogSearchQuery("key", value)} /> */}
             </div>
             <OutputSearchButtons submitQuery={submitQuery}></OutputSearchButtons>

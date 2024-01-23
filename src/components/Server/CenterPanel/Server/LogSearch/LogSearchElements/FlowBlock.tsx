@@ -1,9 +1,9 @@
 import s from "./FlowBlock.module.scss"
 import { getFlowListApi } from "../../../../../../api/flow";
-import { getBlocks } from "../../../../../../api/data";
+import { getBlockLookupListAPI } from "../../../../../../api/data";
 import { useState, useEffect } from "react";
 import { IFlowConfig } from "../../../../../../store/interfaces/Iflow";
-import { IBlockData } from "../../../../../../store/interfaces/IBlock";
+import { IBlockLookup } from "../../../../../../store/interfaces/IBlock";
 
 interface FlowBlockProps {
     setFlowId: (value: string) => void;
@@ -19,7 +19,7 @@ interface FlowBlockProps {
 function FlowBlock(props: FlowBlockProps) {
 
     const [loadedLiveFlows, setLoadedLiveFlows] = useState<Array<IFlowConfig>>([]);
-    const [loadedBlocks, setLoadedBlocks] = useState<Array<IBlockData>>([]);
+    const [loadedBlocks, setLoadedBlocks] = useState<Array<IBlockLookup>>([]);
 
     async function getFlowList() {
         try {
@@ -34,12 +34,8 @@ function FlowBlock(props: FlowBlockProps) {
 
     async function getBlockList() {
         try {
-            const res: any = await getBlocks();
-            setLoadedBlocks(res);
-
-            await loadedBlocks.forEach((block:IBlockData)=>{
-                console.log('blockl',block)
-            })
+            const res: any = await getBlockLookupListAPI();
+            setLoadedBlocks(res.data);
         }
         catch (e) {
             console.log(e);
@@ -60,7 +56,7 @@ function FlowBlock(props: FlowBlockProps) {
             </select>
             <select value={props.blockId} onChange={(e:any)=>props.setBlockId(e.target.value)}>
                 <option value={''}>All Blocks</option>
-                {loadedBlocks.length > 0 ? loadedBlocks.map((block: IBlockData) => <option key={loadedBlocks.indexOf(block)} value={block.blockIdentifier}>{block.name}</option>) : null}
+                {loadedBlocks.length > 0 ? loadedBlocks.map((block: IBlockLookup) => <option key={loadedBlocks.indexOf(block)} value={block.blockId}>{block.name}</option>) : null}
             </select>
             <select value={props.type} onChange={(e:any)=>props.setType(e.target.value)}>
                 <option value={''}>All Types</option>

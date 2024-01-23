@@ -20,6 +20,11 @@ export interface IBlockDataExtended extends IBlockData {
   }
 }
 
+export interface IBlockLookup{
+  blockId:string,
+  name:string
+}
+
 export interface IBlockParameters {
   name: any;
   value: any;
