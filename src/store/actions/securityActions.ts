@@ -22,6 +22,7 @@ import {
   INewUser,
   IGroupWithUsers,
 } from "../interfaces/ISecurity";
+import { ILogObject } from "../interfaces/IServer";
 import { RFState } from "../types/rfState";
 
 // const getUser = (get: () => RFState, set: any) => async (userId: string) => {
@@ -259,6 +260,8 @@ const getVapidKeys=(get: () => RFState, set: any) => async()=>{
   }
 }
 //#endregion
+
+
 
 const securityActions = {
   setAppUserPassword: setAppUserPassword,

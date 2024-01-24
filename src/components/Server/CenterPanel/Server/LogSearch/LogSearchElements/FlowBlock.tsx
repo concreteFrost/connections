@@ -10,6 +10,10 @@ interface FlowBlockProps {
     setBlockId: (value: string) => void;
     setStatus: (value: number) => void;
     setType: (value: number) => void;
+    setLoadedLiveFlows:(data: Array<IFlowConfig>)=>void;
+    setLoadedBlocks:(data: Array<IBlockLookup>)=>void;
+    loadedBlocks:Array<IBlockLookup>;
+    loadedLiveFlows:Array<IFlowConfig>;
     flowId: string | undefined;
     blockId: string | undefined;
     type: number | undefined;
@@ -18,14 +22,11 @@ interface FlowBlockProps {
 
 function FlowBlock(props: FlowBlockProps) {
 
-    const [loadedLiveFlows, setLoadedLiveFlows] = useState<Array<IFlowConfig>>([]);
-    const [loadedBlocks, setLoadedBlocks] = useState<Array<IBlockLookup>>([]);
-
     async function getFlowList() {
         try {
             const res: any = await getFlowListApi();
             const data = res.data;
-            setLoadedLiveFlows(data);
+            props.setLoadedLiveFlows(data);
         }
         catch (e) {
             console.log(e)
@@ -35,7 +36,7 @@ function FlowBlock(props: FlowBlockProps) {
     async function getBlockList() {
         try {
             const res: any = await getBlockLookupListAPI();
-            setLoadedBlocks(res.data);
+            props.setLoadedBlocks(res.data);
         }
         catch (e) {
             console.log(e);
@@ -52,11 +53,11 @@ function FlowBlock(props: FlowBlockProps) {
             <header>Flow/Block</header>
             <select value={props.flowId} onChange={(e:any)=>props.setFlowId(e.target.value)}>
                 <option value={''}>All Flows</option>
-                {loadedLiveFlows.length > 0 ? loadedLiveFlows.map((flow: IFlowConfig) => <option key={loadedLiveFlows.indexOf(flow)} value={flow.flowId}>{flow.name}</option>) : null}
+                {props.loadedLiveFlows.length > 0 ? props.loadedLiveFlows.map((flow: IFlowConfig) => <option key={props.loadedLiveFlows.indexOf(flow)} value={flow.flowId}>{flow.name}</option>) : null}
             </select>
             <select value={props.blockId} onChange={(e:any)=>props.setBlockId(e.target.value)}>
                 <option value={''}>All Blocks</option>
-                {loadedBlocks.length > 0 ? loadedBlocks.map((block: IBlockLookup) => <option key={loadedBlocks.indexOf(block)} value={block.blockId}>{block.name}</option>) : null}
+                {props.loadedBlocks.length > 0 ? props.loadedBlocks.map((block: IBlockLookup) => <option key={props.loadedBlocks.indexOf(block)} value={block.blockId}>{block.name}</option>) : null}
             </select>
             <select value={props.type} onChange={(e:any)=>props.setType(e.target.value)}>
                 <option value={''}>All Types</option>
