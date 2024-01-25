@@ -7,12 +7,12 @@ function Base() {
   const selectedBlockID: any = useStore((state) => state.selectedBlockID);
   const currentBlock = useStore<IBlockData | undefined>((store) =>
     store.flowSlice.flow.blockData.find(
-      (x: IBlockData) => x.blockIdentifier === selectedBlockID
+      (x: IBlockData) => x.blockIdentifier === selectedBlockID[0]
     )
   );
   const currentBlockVisual = useStore<IVisual | undefined>((store) =>
     store.flowSlice.flow.visual.blocks.find(
-      (x: IVisual) => x.id === selectedBlockID
+      (x: IVisual) => x.id === selectedBlockID[0]
     )
   );
   const {setBlockName,setBlockColor,setBlockDescription} = useStore((state) => state.flowSlice);

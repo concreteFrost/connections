@@ -30,7 +30,6 @@ export const onEdgesChange = (get: () => RFState, set: any) => (changes: EdgeCha
 }
 
 export const onEdgesConnect = (get: () => RFState, set: any) => (connection: Connection) => {
-  console.log("connecting")
   set((state: RFState) => ({
     flowSlice: {
       ...state.flowSlice,

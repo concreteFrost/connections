@@ -18,8 +18,6 @@ function Designer() {
     (state) => state.flowSlice.hideAllGroupModals
   );
 
-  const setSelectedBlockId = useStore((state) => state.setSelectedBlockId);
-
   useEffect(() => {
     getBlocks()
       .then((res) => {
@@ -34,7 +32,6 @@ function Designer() {
     );
 
     if (isContainer) {
-      setSelectedBlockId("-1");
       //deal with right panel clearance
       hideAllGroupModals();
     }

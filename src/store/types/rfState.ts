@@ -16,7 +16,7 @@ import { SecuritySlice } from "../slices/securitySlice";
 export type RFState = {
 
   blockList: INodeType[];
-  selectedBlockID: string | null;
+  selectedBlockID: string[];
   flowSlice: FlowSlice,
   topPanelSlice: TopPanelSlice,
   modalWindowsSlice: ModalWindows,
@@ -29,7 +29,6 @@ export type RFState = {
 
   getBlocksList: (data: any) => void;
   addBlock: (type: INodeType, posX: number, posY: number) => void;
-  setSelectedBlockId: (nodeId: string) => void;
   onBlocksChange: OnNodesChange;
   onConnect: OnConnect;
   onEdgesChange: OnEdgesChange;

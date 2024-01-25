@@ -5,18 +5,25 @@ import {
 } from "react-flow-renderer";
 import { RFState } from "../types/rfState";
 import groupActions from "./groupActions";
-
-
-export const setSelectedBlockId = (get: () => RFState, set: any) => (nodeId: string) => {
-  set({ selectedBlockID: nodeId });
-};
+import blockActions from "./blockActions";
 
 export const onBlocksChange =
   (get: () => RFState, set: any) => (changes: NodeChange[]) => {
 
     changes.forEach((change: NodeChange) => {
-      if (change.type === 'remove') {
-        groupActions.deleteGroup(get().flowSlice.flow.visual.blocks, change)
+      // if (change.type === 'remove') {
+      //   // groupActions.deleteGroup(get().flowSlice.flow.visual.blocks, change)
+      //   blockActions.deleteBlock(get, set)()
+      // }
+      if (change.type === "select") {
+
+        if (change.selected) {
+          blockActions.setSelectedBlockId(get, set)(change.id)
+        }
+        else {
+          blockActions.removeSelectedBlockId(get, set)(change.id)
+        }
+
       }
     })
 
@@ -37,7 +44,6 @@ export const onBlocksChange =
   };
 
 const nodeActions = {
-  setSelectedBlockId: setSelectedBlockId,
   onBlocksChange: onBlocksChange,
 };
 

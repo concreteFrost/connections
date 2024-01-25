@@ -2,8 +2,22 @@
 @import "/src/style/mixins.scss";
 
 .wrapper{
-    table{
-        @include server_table;
-        table-layout: fixed;
+
+    .table_wrapper{
+        max-height: 600px;
+        overflow-y: auto;
+
+        table{
+            @include server_table;
+            table-layout: fixed;
+    
+            tr{
+                td{
+                    font-size: 0.8rem;
+                }
+            }
+            
+        }
     }
+   
 }

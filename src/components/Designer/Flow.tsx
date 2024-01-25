@@ -1,5 +1,6 @@
-import ReactFlow, { Background, BackgroundVariant, MiniMap } from "react-flow-renderer";
+import ReactFlow, { Background, BackgroundVariant} from "react-flow-renderer";
 import { shallow } from "zustand/shallow";
+import {createWithEqualityFn} from "zustand/traditional";
 import useStore from "../../store/store";
 import PointerNode from "./CustomNodes/PointerNode";
 import NodeGroup from "./CustomNodes/NodeGroup";
@@ -41,6 +42,7 @@ function Flow(props: any) {
         onClick={props.resetSelectedBlockId}
         snapToGrid={snapToGrid}
         snapGrid={[snapStep[0], snapStep[1]]}
+        deleteKeyCode={null}
       >
         <Background color={`rgb(74, 148, 190, ${bgView === BackgroundVariant.Dots ? 1 : 0.5})`} variant={bgView}></Background>
         {/* <MiniMap nodeStrokeColor={"black"} nodeStrokeWidth={10} className={s.minimap} nodeColor={'rgb(74, 120, 190)'} style={{ display: showMinimap ? "block" : "none" }} ></MiniMap> */}

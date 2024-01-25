@@ -5,7 +5,7 @@ import { IBlockData } from "../../../../../store/interfaces/IBlock";
 
 function Block() {
   const selectedBlockID = useStore((state) => state.selectedBlockID);
-  const blockData = useStore<IBlockData | undefined>((state) => state.flowSlice.flow.blockData.find((x: IBlockData) => x.blockIdentifier === selectedBlockID));
+  const blockData = useStore<IBlockData | undefined>((state) => state.flowSlice.flow.blockData.find((x: IBlockData) => x.blockIdentifier === selectedBlockID[0]));
 
   return (
     <div className={s.wrapper}>

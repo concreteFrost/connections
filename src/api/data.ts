@@ -1,9 +1,8 @@
 import axios, { AxiosResponse } from "axios";
 import { getAccessToken } from "../store/actions/storageActions";
 import { baseUrl } from "../store/constants/baseUrl";
-import { ILogSearchQuery } from "../components/Server/CenterPanel/Server/LogSearch/LogSearch";
+import { ILogSearchQuery } from "../store/interfaces/IServer";
 
-//https://iconn.cocoon.technology:9143/iconn
 export function getBlocks(): Promise<any> {
   const headers = {
     "Content-Type": "application/json",
@@ -63,6 +62,17 @@ export function getDataLogsAPI(query: ILogSearchQuery): Promise<any> {
     "Content-Type": "application/json",
     Authorization: "Bearer " + getAccessToken().token,
   };
+  
+  function getEndOfDay(dateString : any) {
+    // Parse the input string to create a Date object
+    const date = new Date(dateString);
+
+    // Set hours, minutes, seconds, and milliseconds to the end of the day
+    date.setHours(23, 59, 59, 999);
+
+    // Convert the Date object to ISO string
+    return date.toISOString();
+}
 
   const newQuery = {
     type: query.type ? query.type : null,
@@ -70,11 +80,11 @@ export function getDataLogsAPI(query: ILogSearchQuery): Promise<any> {
     flowId: query.flowId ? query.status : null,
     blockId: query.blockId ? query.blockId : null,
     timeFrom: query.timeFrom ? new Date(query.timeFrom.toString()).toISOString() : null,
-    timeTo: query.timeTo ? new Date(query.timeTo.toString()).toISOString() : null,
+    timeTo: query.timeTo ? getEndOfDay(query.timeTo) : null,
     searchText: query.searchText ? query.searchText : null,
   }
 
-  console.log(newQuery);
+  console.log(newQuery)
 
   return new Promise<any>((resolve, reject) => {
     axios(baseUrl + "/data/logs", {

@@ -37,6 +37,7 @@ export type FlowSlice = {
     setBlockDescription: (description: string) => void;
 
     //Block Actions
+    deleteBlock:()=>void;
     getBlockProperties: () => void;
     setStringParameter: (parameterName: string, value: string) => void;
     setIntegerParameter: (parameterName: string, value: number) => void;
@@ -89,6 +90,7 @@ const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
     getBlockProperties: baseActtions.getBlockProperties(get, set),
 
     //Block Actions
+    deleteBlock:blockActions.deleteBlock(get,set),
     setStringParameter: blockActions.setStringParameter(get, set),
     setIntegerParameter: blockActions.setIntegerParameter(get, set),
     setFloatParameter: blockActions.setFloatParameter(get, set),

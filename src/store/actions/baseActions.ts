@@ -4,8 +4,8 @@ import { IVisual } from "../interfaces/Iflow";
 import { RFState } from "../types/rfState";
 
 export const getBlockProperties = (get: () => RFState, set: any) => () => {
-  const selectedBlockData = get()?.flowSlice.flow ? get().flowSlice.flow.blockData.find((block: IBlockData) => block.blockIdentifier === get().selectedBlockID) : {}
-  const selectedBlockVisuals = get()?.flowSlice.flow.visual ? get().flowSlice.flow.visual.blocks.find((blockVisual: IVisual) => blockVisual.id === get().selectedBlockID) : {};
+  const selectedBlockData = get()?.flowSlice.flow ? get().flowSlice.flow.blockData.find((block: IBlockData) => block.blockIdentifier === get().selectedBlockID[0]) : {}
+  const selectedBlockVisuals = get()?.flowSlice.flow.visual ? get().flowSlice.flow.visual.blocks.find((blockVisual: IVisual) => blockVisual.id === get().selectedBlockID[0]) : {};
 
   set((state: RFState) => ({
     ...state, selectedBlock: {
@@ -17,7 +17,7 @@ export const getBlockProperties = (get: () => RFState, set: any) => () => {
 
 export const setBlockName = (set: any, get: () => RFState) => (text: string) => {
   const nodeData: any = get().flowSlice.flow.blockData.map((x: any) => {
-    if (x.blockIdentifier === get().selectedBlockID) {
+    if (x.blockIdentifier === get().selectedBlockID[0]) {
       return {
         ...x,
         blockLabel: text
@@ -38,7 +38,7 @@ export const setBlockName = (set: any, get: () => RFState) => (text: string) => 
 
 export const setBlockDescription = (set: any, get: () => RFState) => (description: string) => {
   const nodeData: any = get().flowSlice.flow.blockData.map((x: any) => {
-    if (x.blockIdentifier === get().selectedBlockID) {
+    if (x.blockIdentifier === get().selectedBlockID[0]) {
       return {
         ...x,
         description: description
@@ -60,7 +60,7 @@ export const setBlockDescription = (set: any, get: () => RFState) => (descriptio
 export const setBlockColor = (set: any, get: () => RFState) => (color: string) => {
 
   const nodeVisuals: any = get().flowSlice.flow.visual.blocks.map((x: IVisual) => {
-    if (x.id === get().selectedBlockID) {
+    if (x.id === get().selectedBlockID[0]) {
       return {
         ...x,
         data: {

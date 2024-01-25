@@ -19,7 +19,7 @@
     "https-browserify": "^1.0.0",
     "moment": "^2.29.4",
     "node-polyfill-webpack-plugin": "^3.0.0",
-    "push": "^0.1.1",
+    "push": "^0.0.1",
     "react-flow-renderer": "^10.3.17",
     "react-icons": "^4.9.0",
     "react-navigation": "^4.4.4",
@@ -83,6 +83,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.69.6",
+    "source-map-loader": "^5.0.0",
+    "webpack": "^5.90.0",
     "workbox-webpack-plugin": "^7.0.0"
   }
 }

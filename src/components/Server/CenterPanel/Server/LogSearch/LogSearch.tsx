@@ -8,20 +8,11 @@ import TextSearch from "./LogSearchElements/TextSearch";
 import LogTable from "./LogTable/LogTable";
 import { getDataLogsAPI } from "../../../../../api/data";
 import moment from "moment";
-import { ILogObject } from "../../../../../store/interfaces/IServer";
 import useStore from "../../../../../store/store";
 import { IFlowConfig } from "../../../../../store/interfaces/Iflow";
 import { IBlockLookup } from "../../../../../store/interfaces/IBlock";
+import { ILogSearchQuery } from "../../../../../store/interfaces/IServer";
 
-export interface ILogSearchQuery {
-    type: number | undefined;
-    status: number | undefined;
-    flowId: string | undefined;
-    blockId: string | undefined;
-    timeFrom: string | number | readonly string[] | undefined;
-    timeTo: string | number | readonly string[] | undefined;
-    searchText: string | undefined;
-}
 
 const initialLogSearchQuery: ILogSearchQuery = {
     type: undefined,

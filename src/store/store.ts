@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { createWithEqualityFn } from "zustand/traditional";
 import { RFState } from "./types/rfState";
 import topPanelSlice from "./slices/topPanelSlice";
 import modalWindowsSlice from "./slices/modalWindowsSlice";
@@ -11,10 +11,10 @@ import leftPanelActions from "./actions/leftPanelActions";
 import notificationSlice from "./slices/notificationSlice";
 import securitySlice from "./slices/securitySlice";
 
-const useStore = create<RFState>((set, get) => ({
+const useStore = createWithEqualityFn<RFState>((set, get) => ({
 
   blockList: [],
-  selectedBlockID: "-1",
+  selectedBlockID: [],
   flowSlice: flowSlice(get, set),
   topPanelSlice: topPanelSlice(get, set),
   modalWindowsSlice: modalWindowsSlice(get, set),
@@ -28,7 +28,6 @@ const useStore = create<RFState>((set, get) => ({
   //Node Actions
   getBlocksList: leftPanelActions.getBlocksList(set),
   addBlock: leftPanelActions.addBlock(get, set),
-  setSelectedBlockId: nodeActions.setSelectedBlockId(get, set),
   onBlocksChange: nodeActions.onBlocksChange(get, set),
 
   //Edge Actions

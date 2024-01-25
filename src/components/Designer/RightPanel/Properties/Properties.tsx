@@ -12,7 +12,7 @@ function Properties() {
   return (
     <section className={s.section_container}>
       <div className={s.section_header}>PROPERTIES</div>
-      {selectedBlockID === "-1" || !selectedBlockID ? (
+      {selectedBlockID.length===0 ? (
         <FlowProperties></FlowProperties>
       ) : (
         <div>

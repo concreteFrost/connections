@@ -34,7 +34,7 @@ function RightPanel() {
         {flowIdentifier ?
           <div>
             <Properties></Properties>
-            {selectedBlockID !== "-1" || selectedBlockID !== null ? <ValueEditor></ValueEditor> : null}
+            {selectedBlockID.length>0 ? <ValueEditor></ValueEditor> : null}
             <DebugConsole></DebugConsole> </div> : <div className={s.section_container}>PROPERTIES</div>}
 
       </div>

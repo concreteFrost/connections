@@ -1,35 +1,37 @@
 // BaseNode component
 import s from "./BaseNode.module.scss";
 import useStore from "../../../store/store";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { connectionsIcons } from "../../../icons/icons";
-import { Position, Handle } from "react-flow-renderer";
+import { Position, Handle, NodeRemoveChange } from "react-flow-renderer";
 import { isDarkBackground } from "../../../store/actions/utils/nodeUtils";
+import { NodeChange } from "react-flow-renderer";
+import { onEdgesChange } from "../../../store/actions/edgesActions";
+
 
 interface Block {
   blockLabel: string;
   name: string
 }
 
+
+
 export default function BaseNode(props: any) {
 
-  const setSelectedBlockId = useStore((state) => state.setSelectedBlockId);
   const getParameterValue = useStore((state) => state.designerVisualElementsSlice.getParameterValue);
+  const {deleteBlock} = useStore((state)=>state.flowSlice)
   const selectedBlockId = useStore((state) => state.selectedBlockID);
   const [isOutlined, setIsOutlined] = useState(false);
+  const change = useStore((state)=>state.onBlocksChange);
   
   const blockData: Block[] = useStore((state) => state.flowSlice.flow.blockData);
   const blockName = blockData.find((b: any) => b.blockIdentifier === props.id)?.name;
   const blockLabel = blockData.find((b: any) => b.blockIdentifier === props.id)?.blockLabel;
 
-  function _setSelectedBlockId() {
-    setSelectedBlockId(props.id);
-    getParameterValue('', '');
-  }
-
   useEffect(() => {
-    selectedBlockId === props.id ? setIsOutlined(true) : setIsOutlined(false);
-  }, [selectedBlockId]);
+    selectedBlockId[0] === props.id ? setIsOutlined(true) : setIsOutlined(false);
+  }, [selectedBlockId[0]]);
+
 
   const nodeBodyClasses = `${s.node_body} ${isDarkBackground(props.data.color) ? s["dark-text"] : s["light-text"]
     }`;
@@ -44,8 +46,9 @@ export default function BaseNode(props: any) {
 
   return (
     <div className={wrapperClasses}>
+      {isOutlined? <div className={s.delete_btn_wrapper}><button onClick={deleteBlock}>x</button></div> : null}
       <div
-        onClick={_setSelectedBlockId}
+        onClick={()=>getParameterValue('', '')}
         className={nodeBodyClasses}
         style={{ backgroundColor: props.data.color, zIndex: 999999 }}
       >

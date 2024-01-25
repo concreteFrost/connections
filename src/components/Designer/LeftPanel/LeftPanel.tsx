@@ -25,7 +25,7 @@ function LeftPanel() {
 
   //uncomment this if any error occurs
   // const onDragStart = (event: any) => {
-  //   event.dataTransfer.setData("application/reactflow", event.target);
+  //   event.dataTransfer.setData("application/react-flow-renderer", event.target);
   //   event.dataTransfer.effectAllowed = "move";
   // };
 

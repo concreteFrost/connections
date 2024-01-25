@@ -6,12 +6,29 @@
 ;
 
 .node_wrapper {
+    position: relative;
     &.outlined {
         border-radius: 5px;
         padding: 2.3px;
 
         background-color: rgb(47, 158, 202);
         transition: padding 0.1s ease-in-out;
+    }
+
+    .delete_btn_wrapper{
+        position: absolute;
+        top:-25px;
+        right: 0;
+
+        button{
+            z-index: 9999;
+            border-radius: 20px;
+            border: 0;
+            background-color: red;
+            color: white;
+            padding: 1px 6px;
+            cursor: pointer;
+        }
     }
 }
 

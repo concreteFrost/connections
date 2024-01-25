@@ -67,6 +67,7 @@ export const loadFlowFromDraft = (get: () => RFState, set: any) => async (id: st
 
 export const saveDraftFlow = (get: () => RFState, set: any) => async (match: any, subfolder: string): Promise<boolean> => {
   const flow = get().flowSlice.flow;
+  console.log(flow)
 
   if (match) {
     if (flowVersionToInt(flow.flowVersion) <= flowVersionToInt(match.flowVersion)) {
