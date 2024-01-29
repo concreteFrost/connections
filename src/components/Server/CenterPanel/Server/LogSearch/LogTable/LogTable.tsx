@@ -1,83 +1,100 @@
-import React, { useEffect, useState } from "react";
+import { useMemo } from "react";
 import s from "./LogTable.module.scss";
 import useStore from "../../../../../../store/store";
-import { ILogObject } from "../../../../../../store/interfaces/IServer";
-
+import { useTable, useSortBy, usePagination } from "react-table";
 
 
 function LogTable() {
   const { logList } = useStore((state) => state.serverSlice.logSearch);
+  const columns: any = useMemo(() => [{
+    Header: "TIMESTAMP",
+    accessor: "timeStamp",
+  },
+  {
+    Header: "LOG TYPE",
+    accessor: "logType",
+  },
+  {
+    Header: "PROCESS ID",
+    accessor: "processId"
+  },
+  {
+    Header: "FLOW ID",
+    accessor: "flowId"
+  },
+  {
+    Header: "BLOCK ID",
+    accessor: "blockId"
+  },
+  {
+    Header: "STATUS CODE",
+    accessor: "statusCode"
+  },
+  {
+    Header: "DURATION",
+    accessor: "duration"
+  },
+  {
+    Header: "KEY LIST",
+    accessor: "keyList"
+  },
+  {
+    Header: "ADDITIONAL TEXT",
+    accessor: "additionalText"
+  }
+  ], [])
 
-  // Step 1: Define state variables for pagination
-  const itemsPerPage = 15; // You can adjust the number of items per page
-  const [currentPage, setCurrentPage] = useState(1);
+  const tableInstance = useTable({ columns: columns, data: logList }, useSortBy, usePagination);
+  const { getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    page,
+    nextPage,
+    previousPage,
+    canNextPage,
+    canPreviousPage,
+    pageOptions,
+    state
+  }: any = tableInstance;
 
-  // Calculate the range of logs to display on the current page
-  const indexOfLastLog = currentPage * itemsPerPage;
-  const indexOfFirstLog = indexOfLastLog - itemsPerPage;
-  const currentLogs = logList.slice(indexOfFirstLog, indexOfLastLog);
-  const lastPageIndex = Math.ceil(logList.length / itemsPerPage);
-  
-  // Step 2: Add controls for moving between pages
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  const { pageIndex} = state
 
   return (
     <div className={s.wrapper}>
       <div className={s.table_wrapper}>
-      <table>
-        <thead>
-          <tr>
-            <th colSpan={2}>Timestamp</th>
-            <th colSpan={2}>Log Type</th>
-            <th colSpan={1}>Proc..</th>
-            <th colSpan={2}>Flow</th>
-            <th colSpan={2}>Block</th>
-            <th colSpan={2}>Status</th>
-            <th colSpan={2}>Duration</th>
-            <th colSpan={1}>Key List</th>
-            <th colSpan={2}>Details</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentLogs.length > 0 ? (
-            currentLogs.map((log: ILogObject) => (
-              <tr key={logList.indexOf(log)}>
-                <td colSpan={2}>{log.timeStamp}</td>
-                <td colSpan={2}>{log.logType}</td>
-                <td colSpan={1}>{log.processId}</td>
-                <td colSpan={2}>{log.flowId}</td>
-                <td colSpan={2}>{log.blockId}</td>
-                <td colSpan={2}>{log.statusCode}</td>
-                <td colSpan={2}>{log.duration}</td>
-                <td colSpan={1}>{log.keyList}</td>
-                <td colSpan={2}>{log.additionalText}</td>
+        <table {...getTableProps()}>
+          <thead >
+            {headerGroups.map((headerGroup: any) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column: any) => (
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>{
+                    column.render("Header")
+                  }</th>
+                ))}
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan={16}>No logs found</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {page.map((row: any) => {
+              prepareRow(row)
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell: any) => {
+                    return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                  })}
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
       </div>
-   
-
-      {currentLogs.length > 0 ? <div className={s.pagination}>
-        <button
-          onClick={() => paginate(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        <span>{currentPage} of {lastPageIndex}</span>
-        <button
-          onClick={() => paginate(currentPage + 1)}
-          disabled={indexOfLastLog >= logList.length}
-        >
-          Next
-        </button>
-      </div>:null}
+      <div className={s.table_footer_wrapper}>
+        {canPreviousPage ? <button onClick={previousPage}>Previous</button> : null}
+        
+        {pageOptions.length>1 ? <span>Page {pageIndex + 1} of {pageOptions.length}</span> : null }
+        {canNextPage ? <button onClick={nextPage} >Next</button> : null}
+      </div>
     </div>
   );
 }

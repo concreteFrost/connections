@@ -6,7 +6,12 @@ import { useState } from "react";
 import { connectionsIcons } from "../../../icons/icons";
 import useStore from "../../../store/store";
 
-function RightPanel() {
+interface RightPanelProps{
+  isRightPanelResized: boolean,
+  setRightPanelResized: (isResized:boolean)=>void;
+}
+
+function RightPanel(props:RightPanelProps) {
   const [isPanelActive, setIsPanelActive] = useState(true);
   const flowIdentifier = useStore((state) => state.flowSlice.flow.flowIdentifier)
 
@@ -21,8 +26,12 @@ function RightPanel() {
   const wrapperClasses = `${s.wrapper} ${isPanelActive ? s["opened"] : s["closed"]
     }`;
 
+  const resizable_btn_classes=`${s.resizable_btn} ${props.isRightPanelResized ? s['resized'] : s['']
+}`;
+
   return (
     <div className={wrapperClasses}>
+      <span className={resizable_btn_classes} onClick={()=>props.setRightPanelResized(!props.isRightPanelResized)}>{connectionsIcons.resize}</span>
       <div className={btnClasses}>
         <button onClick={togglePanel}>
           {isPanelActive
@@ -36,7 +45,6 @@ function RightPanel() {
             <Properties></Properties>
             {selectedBlockID.length>0 ? <ValueEditor></ValueEditor> : null}
             <DebugConsole></DebugConsole> </div> : <div className={s.section_container}>PROPERTIES</div>}
-
       </div>
     </div>
   );

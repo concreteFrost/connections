@@ -18,6 +18,25 @@
     }
 
     transition: translate 0.3s ease-out;
+
+    .resizable_btn{
+        position: absolute;
+        top: 0;
+        right: 20px;
+        top: 10px;
+        z-index: 9999;
+        background-color: $bg-top-menu-btn-default;
+        color: white;
+        padding: 5px 10px 3px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &.resized{
+            color: $bg-top-menu-btn-default;
+            background-color: white;
+        }
+        
+}
 }
 
 .right_panel_container {

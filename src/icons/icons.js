@@ -45,7 +45,8 @@ import {
   BsPerson,
   BsPen,
   BsPenFill,
-  BsBellFill
+  BsBellFill,
+  BsArrowsExpandVertical
 } from "react-icons/bs";
 
 
@@ -123,7 +124,8 @@ export const connectionsIcons = {
   folder: <BsFolder></BsFolder>,
   editOff: <BsPenFill></BsPenFill>,
   editOn: <BsPen></BsPen>,
-  bell: <BsBellFill></BsBellFill>
+  bell: <BsBellFill></BsBellFill>,
+  resize: <BsArrowsExpandVertical></BsArrowsExpandVertical>
 
 
 }
