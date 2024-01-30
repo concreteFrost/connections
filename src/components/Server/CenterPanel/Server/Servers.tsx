@@ -4,7 +4,7 @@ import { useState } from "react";
 
 function Servers() {
 
-    const [currentView, setCurrentView] = useState<string>('search');
+    const [currentView, setCurrentView] = useState<string>('table');
     return (<>
         {currentView === 'table' ? <ServerTable setCurrentView={setCurrentView}/> : <LogSearch setCurrentView={setCurrentView}></LogSearch>}
         </>

@@ -1,20 +1,15 @@
 // BaseNode component
 import s from "./BaseNode.module.scss";
 import useStore from "../../../store/store";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { connectionsIcons } from "../../../icons/icons";
-import { Position, Handle, NodeRemoveChange } from "react-flow-renderer";
+import { Position, Handle} from "react-flow-renderer";
 import { isDarkBackground } from "../../../store/actions/utils/nodeUtils";
-import { NodeChange } from "react-flow-renderer";
-import { onEdgesChange } from "../../../store/actions/edgesActions";
-
 
 interface Block {
   blockLabel: string;
   name: string
 }
-
-
 
 export default function BaseNode(props: any) {
 
@@ -22,11 +17,12 @@ export default function BaseNode(props: any) {
   const {deleteBlock} = useStore((state)=>state.flowSlice)
   const selectedBlockId = useStore((state) => state.selectedBlockID);
   const [isOutlined, setIsOutlined] = useState(false);
-  const change = useStore((state)=>state.onBlocksChange);
   
   const blockData: Block[] = useStore((state) => state.flowSlice.flow.blockData);
   const blockName = blockData.find((b: any) => b.blockIdentifier === props.id)?.name;
   const blockLabel = blockData.find((b: any) => b.blockIdentifier === props.id)?.blockLabel;
+
+  const {toggleConfirmationModal,setConfirmationModalActions} = useStore((state)=>state.modalWindowsSlice);
 
   useEffect(() => {
     selectedBlockId[0] === props.id ? setIsOutlined(true) : setIsOutlined(false);
@@ -46,7 +42,9 @@ export default function BaseNode(props: any) {
 
   return (
     <div className={wrapperClasses}>
-      {isOutlined? <div className={s.delete_btn_wrapper}><button onClick={deleteBlock}>x</button></div> : null}
+      {isOutlined? <div className={s.delete_btn_wrapper}><button onClick={()=>{
+        setConfirmationModalActions(deleteBlock)
+        toggleConfirmationModal(true,`You are about to delete ${blockLabel} block. Would you like to proceed?`)}}>x</button></div> : null}
       <div
         onClick={()=>getParameterValue('', '')}
         className={nodeBodyClasses}

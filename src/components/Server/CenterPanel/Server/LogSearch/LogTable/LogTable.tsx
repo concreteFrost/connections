@@ -3,7 +3,6 @@ import s from "./LogTable.module.scss";
 import useStore from "../../../../../../store/store";
 import { useTable, useSortBy, usePagination } from "react-table";
 
-
 function LogTable() {
   const { logList } = useStore((state) => state.serverSlice.logSearch);
   const columns: any = useMemo(() => [{
@@ -90,8 +89,7 @@ function LogTable() {
         </table>
       </div>
       <div className={s.table_footer_wrapper}>
-        {canPreviousPage ? <button onClick={previousPage}>Previous</button> : null}
-        
+        {canPreviousPage ? <button onClick={previousPage}>Previous</button> : null} 
         {pageOptions.length>1 ? <span>Page {pageIndex + 1} of {pageOptions.length}</span> : null }
         {canNextPage ? <button onClick={nextPage} >Next</button> : null}
       </div>
