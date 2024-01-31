@@ -11,6 +11,7 @@ import { Tooltip } from "react-tooltip";
 import useStore from "./store/store";
 import ConfirmationModal from "./components/Modals/ConfirmationModal";
 import PushTest from "./components/PushTest/PushTest";
+import ApproveModal from "./components/Modals/ApproveModal";
 
 function App() {
   const tooltipText = useStore((store) => store.designerVisualElementsSlice.tooltip.text);
@@ -26,6 +27,7 @@ function App() {
       </Routes>
       <PushTest></PushTest>
       <MessageModal></MessageModal>
+      <ApproveModal></ApproveModal>
       <ConfirmationModal></ConfirmationModal>
       <Tooltip anchorSelect=".tooltip-item" place="right" style={{ zIndex: 9999 }}>
         {tooltipText}

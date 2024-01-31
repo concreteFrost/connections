@@ -46,7 +46,8 @@ import {
   BsPen,
   BsPenFill,
   BsBellFill,
-  BsArrowsExpandVertical
+  BsArrowsExpandVertical,
+  BsIncognito
 } from "react-icons/bs";
 
 
@@ -99,7 +100,8 @@ export const connectionsIcons = {
     server: <BsServer></BsServer>,
     flows: <BsDiagram2Fill></BsDiagram2Fill>,
     stats: <BsGraphDown></BsGraphDown>,
-    settings: <BsGear></BsGear>
+    settings: <BsGear></BsGear>,
+    security:<BsIncognito></BsIncognito>
   },
   serverButtonsIcons: {
     play: <BsPlayFill></BsPlayFill>,

@@ -43,9 +43,9 @@ function LeftPanel() {
         <ServersItem className={s} currentSection={sectionToOpen} toggleSection={toggleSection} navigate={navigate}></ServersItem>
         <FlowsItem className={s} currentSection={sectionToOpen} toggleSection={toggleSection} navigate={navigate}></FlowsItem>
         <DraftFlowsItem className={s} currentSection={sectionToOpen} toggleSection={toggleSection} navigate={navigate}></DraftFlowsItem>
-        {/* <StatisticsItem className={s} isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></StatisticsItem>
-        <SettingsItem className={s} isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></SettingsItem> */}
+        {/* <StatisticsItem className={s} isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></StatisticsItem>*/}
         <SecurityItem className={s} currentSection={sectionToOpen} toggleSection={toggleSection} navigate={navigate}></SecurityItem>
+        <SettingsItem className={s} currentSection={sectionToOpen}  toggleSection={toggleSection} navigate={navigate}></SettingsItem>
       </div>
     </div>
   );

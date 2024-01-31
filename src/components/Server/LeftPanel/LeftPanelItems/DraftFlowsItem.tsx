@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import useStore from "../../../../store/store";
 import { getDraftListApi } from "../../../../api/draft";
 import { connectionsIcons } from "../../../../icons/icons";
@@ -33,20 +33,42 @@ interface IFolderStructure {
 
 function DraftFlowsItem(props: FlowsItemProps) {
   const [draftFlowList, setDraftFlowList] = useState<Array<any>>([]);
-  const loadDraftFlow = useStore((state) => state.flowSlice.loadFlowFromDraft);
+  const { loadFlowFromDraft, deleteDraftFlow } = useStore(
+    (state) => state.flowSlice
+  );
+  const { toggleApproveFlowModal, setApproveFlowModalMessage } = useStore(
+    (state) => state.modalWindowsSlice
+  );
 
-  useEffect(() => {
+  async function fetchDraftFlowList() {
     getDraftListApi()
       .then((res: any) => {
         const data = res.data.draftFlows;
         const updatedObject = Object.keys(data).reduce((result: any, key) => {
           result[key] = data[key];
           result[key].isExpanded = false;
+          result[key].forEach((draft: any) => {
+            draft.isDropdownVisible = false;
+          });
           return result;
         }, {});
+
         setDraftFlowList(updatedObject);
       })
       .catch((e) => console.log(e));
+  }
+
+  async function performDraftDeletion(flowId: string) {
+    try {
+      await deleteDraftFlow(flowId);
+      await fetchDraftFlowList();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    fetchDraftFlowList();
   }, []);
 
   function toggleFolderToOpen(folderName: string) {
@@ -55,6 +77,7 @@ function DraftFlowsItem(props: FlowsItemProps) {
         result[key] = draftFlowList[key];
         result[key].isExpanded =
           folderName === key ?? !draftFlowList[key].isExpanded;
+
         return result;
       },
       {}
@@ -95,7 +118,7 @@ function DraftFlowsItem(props: FlowsItemProps) {
               </div>
               {draftFlowList[folderName].isExpanded ? (
                 <ul>
-                  {draftFlowList[folderName].map((flow: DraftFlowData) => (
+                  {draftFlowList[folderName].map((flow: any) => (
                     <li
                       key={flow.draftId}
                       className={props.className.flow_list_item}
@@ -104,15 +127,42 @@ function DraftFlowsItem(props: FlowsItemProps) {
                         {flow.flowName}
                       </div>
                       <div className={props.className.flow_list_btn_wrapper}>
-                        <button
-                          onClick={() => {
-                            loadDraftFlow(flow.draftId);
-                            props.navigate("/designer");
-                          }}
-                        >
-                          EDIT
+                        <button onClick={() => (flow.isDropdownVisible = true)}>
+                          ...
                         </button>
                       </div>
+                      {flow.isDropdownVisible ? (
+                        <div
+                          className={props.className.flow_list_dropdown_actions}
+                        >
+                          <button
+                            onClick={() => (flow.isDropdownVisible = false)}
+                          >
+                            x
+                          </button>
+                          <button
+                            onClick={() => {
+                              loadFlowFromDraft(flow.draftId);
+                              props.navigate("/designer");
+                            }}
+                          >
+                            LOAD
+                          </button>
+                          <button
+                            onClick={() => {
+                              setApproveFlowModalMessage(flow.flowName);
+                              toggleApproveFlowModal(true, flow.draftId);
+                            }}
+                          >
+                            APPROVE
+                          </button>
+                          <button
+                            onClick={() => performDraftDeletion(flow.draftId)}
+                          >
+                            DELETE
+                          </button>
+                        </div>
+                      ) : null}
                     </li>
                   ))}
                 </ul>
@@ -125,25 +175,3 @@ function DraftFlowsItem(props: FlowsItemProps) {
 }
 
 export default DraftFlowsItem;
-
-// <ul>
-// {draftFlowList.length > 0
-//     ? draftFlowList.map((flow: any) => (
-//         <li key={flow.flowId} className={`${props.className.flow_list}  ${currentFlow.flowIdentifier === flow.flowId ? props.className['selected'] : null}`}>
-//             <div
-//                 onClick={async () => {
-//                     await getCurrentFlow(flow.flowId)
-//                     props.navigate("flows")
-//                 }}>
-//                 {flow.name}
-//             </div>
-//             <div className={props.className.flow_list_btn_wrapper}>
-//                 <button onClick={() => {
-//                     loadDraftFlow(flow.flowId);
-//                     props.navigate('/designer')
-//                 }}>EDIT</button>
-//             </div>
-//         </li>
-//     ))
-//     : null}
-// </ul>

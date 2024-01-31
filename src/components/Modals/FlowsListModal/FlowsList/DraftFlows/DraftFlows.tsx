@@ -4,7 +4,7 @@ import s from "./DrafFlows.module.scss";
 import { useState, useEffect } from "react";
 import moment from "moment";
 import { connectionsIcons } from "../../../../../icons/icons";
-import ApproveModal from "../../../ApproveModal";
+
 import { line } from "d3-shape";
 
 interface ILoadedFlow {
@@ -164,7 +164,7 @@ function DraftFlows() {
       >
         Back
       </button> : null}
-      <ApproveModal></ApproveModal>
+
     </div>
   );
 }

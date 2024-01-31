@@ -1,0 +1,46 @@
+@import "/src/style/mixins.scss";
+@import "/src/style/variables.scss";
+
+.wrapper {
+  padding: 20px;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      list-style: none;
+      margin-bottom: 20px;
+
+      .setting_wrapper {
+        .title_and_description {
+          display: grid;
+          align-items: center;
+          margin-bottom: 20px;
+         
+          header {
+            font-weight: bolder;
+          }
+
+          span {
+            font-size: 0.8rem;
+            font-style: italic;
+         
+          }
+        }
+
+        .input_and_submit {
+          display: flex;
+          width: 300px;
+          justify-content: space-between;
+          gap: 20px;
+          input {
+          }
+
+          button {
+            @include blue-btn;
+          }
+        }
+      }
+    }
+  }
+}

@@ -39,6 +39,7 @@
 
       .flow_list_item {
         @include server_flow_list_item;
+        position: relative;
       
       }
 
@@ -53,8 +54,33 @@
       .flow_list_btn_wrapper {
         @include server_flow_list_btn_wrapper;
         button{
-          cursor: pointer;
+          @include blue-btn;
+          
         }
+      }
+      
+      .flow_list_dropdown_actions{
+        position:  absolute;
+        right: 5px;
+        top: 5px;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        border: 1px solid $color-list-border-darker;
+        border-radius: 5px;
+        padding: 10px;
+        z-index: 9999;
+
+        .delete_btn,button{
+          @include blue-btn;
+          font-size: 0.7rem;
+          margin-bottom: 2px;
+        }
+
+        .delete_btn{
+          background-color: $bg-delete-btn;
+        }
+        
       }
 
       .draft_list_item_wrapper {
