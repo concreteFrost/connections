@@ -39,14 +39,14 @@ function LeftPanel() {
 
   return (
     <div className={s.wrapper}>
-      <div className={s.sections_container}>
-        <ServersItem className={s} currentSection={sectionToOpen} toggleSection={toggleSection} navigate={navigate}></ServersItem>
-        <FlowsItem className={s} currentSection={sectionToOpen} toggleSection={toggleSection} navigate={navigate}></FlowsItem>
-        <DraftFlowsItem className={s} currentSection={sectionToOpen} toggleSection={toggleSection} navigate={navigate}></DraftFlowsItem>
-        {/* <StatisticsItem className={s} isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></StatisticsItem>*/}
-        <SecurityItem className={s} currentSection={sectionToOpen} toggleSection={toggleSection} navigate={navigate}></SecurityItem>
-        <SettingsItem className={s} currentSection={sectionToOpen}  toggleSection={toggleSection} navigate={navigate}></SettingsItem>
-      </div>
+ 
+        <ServersItem currentSection={sectionToOpen} toggleSection={toggleSection} navigate={navigate}></ServersItem>
+        <FlowsItem currentSection={sectionToOpen} toggleSection={toggleSection} navigate={navigate}></FlowsItem>
+        <DraftFlowsItem currentSection={sectionToOpen} toggleSection={toggleSection} navigate={navigate}></DraftFlowsItem>
+        {/* <StatisticsItem isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></StatisticsItem>*/}
+        <SecurityItem currentSection={sectionToOpen} toggleSection={toggleSection} navigate={navigate}></SecurityItem>
+        <SettingsItem currentSection={sectionToOpen}  toggleSection={toggleSection} navigate={navigate}></SettingsItem>
+   
     </div>
   );
 }

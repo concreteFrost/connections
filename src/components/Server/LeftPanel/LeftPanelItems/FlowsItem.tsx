@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import useStore from "../../../../store/store";
 import { getFlowListApi } from "../../../../api/flow";
 import { ILeftPanelSections } from "../LeftPanel";
+import s from "./ListItem.module.scss"
 
 interface FlowsItemProps {
-  className: any;
   toggleSection: (section: string) => void;
   navigate: (route: string) => void;
   currentSection: ILeftPanelSections;
@@ -28,16 +28,16 @@ function FlowsItem(props: FlowsItemProps) {
   }, []);
 
   return (
-    <div className={props.className.section}>
+    <div className={s.section}>
       <div
-        className={props.className.section_header}
+        className={s.section_header}
         onClick={() => props.toggleSection("flows")}
       >
-        <span className={props.className.header_icon}>
+        <span className={s.header_icon}>
           {connectionsIcons.serverMenuIcons.flows}
         </span>
-        <h5 className={props.className.section_title}>FLOWS</h5>
-        <span className={props.className.arrow_icon}>
+        <h5 className={s.section_title}>FLOWS</h5>
+        <span className={s.arrow_icon}>
           {props.currentSection.flows
             ? connectionsIcons.arrowDown
             : connectionsIcons.arrowUp}
@@ -49,13 +49,13 @@ function FlowsItem(props: FlowsItemProps) {
             ? flowList.map((flow: any) => (
                 <li
                   key={flow.flowId}
-                  className={`${props.className.flow_list_item}  ${
+                  className={`${s.flow_list_item}  ${
                     currentFlow.flowIdentifier === flow.flowId
-                      ? props.className["selected"]
+                      ? s["selected"]
                       : null
                   }`}
                 >
-                  <div className={props.className.flow_list_title_wrapper}
+                  <div className={s.flow_list_title_wrapper}
                     onClick={async () => {
                       await getCurrentFlow(flow.flowId);
                       props.navigate("flows");
@@ -63,7 +63,7 @@ function FlowsItem(props: FlowsItemProps) {
                   >
                     {flow.name}
                   </div>
-                  <div className={props.className.flow_list_btn_wrapper}>
+                  <div className={s.flow_list_btn_wrapper}>
                     <button
                       onClick={() => {
                         createUpdateDraftFromLiveTemplate(flow.flowId);

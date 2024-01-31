@@ -1,8 +1,8 @@
 import { connectionsIcons } from "../../../../icons/icons";
 import { ILeftPanelSections } from "../LeftPanel";
+import s from "./ListItem.module.scss"
 
 interface ServersItemProps {
-  className: any;
   currentSection: ILeftPanelSections;
   toggleSection: (section: string) => void;
   navigate: (route: string) => void;
@@ -10,16 +10,16 @@ interface ServersItemProps {
 
 function ServersItem(props: ServersItemProps) {
   return (
-    <div className={props.className.section}>
+    <div className={s.section}>
       <div
-        className={props.className.section_header}
+        className={s.section_header}
         onClick={() => props.toggleSection("servers")}
       >
-        <span className={props.className.header_icon}>
+        <span className={s.header_icon}>
           {connectionsIcons.serverMenuIcons.server}
         </span>
-        <h5 className={props.className.section_title}>SERVERS</h5>
-        <span className={props.className.arrow_icon}>
+        <h5 className={s.section_title}>SERVERS</h5>
+        <span className={s.arrow_icon}>
           {props.currentSection.servers
             ? connectionsIcons.arrowDown
             : connectionsIcons.arrowUp}

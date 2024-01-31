@@ -1,22 +1,23 @@
 import { connectionsIcons } from "../../../../icons/icons"
 import { ILeftPanelSections } from "../LeftPanel";
+import s from "./ListItem.module.scss"
 
 interface StatisticsItemProps {
-    className: any;
+
     toggleSection: (section: string) => void;
     navigate: (route: string) => void;
     currentSection: ILeftPanelSections;
 }
 
 function StatisticsItem(props: StatisticsItemProps) {
-    return (<div className={props.className.section}>
-        <div className={props.className.section_header}>
-            <span className={props.className.header_icon}>
+    return (<div className={s.section}>
+        <div className={s.section_header}>
+            <span className={s.header_icon}>
                 {connectionsIcons.serverMenuIcons.stats}
             </span>
-            <h5 className={props.className.section_title}>STATISTICS</h5>
+            <h5 className={s.section_title}>STATISTICS</h5>
             <span
-                className={props.className.arrow_icon}
+                className={s.arrow_icon}
                 onClick={() => props.toggleSection("statistics")}
             >
                 {props.currentSection.statistics

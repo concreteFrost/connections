@@ -1,20 +1,20 @@
 import { connectionsIcons } from "../../../../icons/icons";
 import { ILeftPanelSections } from "../LeftPanel";
+import s from "./ListItem.module.scss"
 
 interface SettingsItemProps {
-    className: any;
     toggleSection: (section: string) => void;
     navigate: (route: string) => void;
     currentSection: ILeftPanelSections;
 }
 
 function SecurityItem(props: SettingsItemProps) {
-    return (<div className={props.className.section}>
-        <div className={props.className.section_header}>
-            <span className={props.className.header_icon}>
+    return (<div className={s.section}>
+        <div className={s.section_header}>
+            <span className={s.header_icon}>
                 {connectionsIcons.serverMenuIcons.security}
             </span>
-            <h5 className={props.className.section_title} onClick={() => props.navigate("/dashboard/security")}>SECURITY</h5>
+            <h5 className={s.section_title} onClick={() => props.navigate("/dashboard/security")}>SECURITY</h5>
 
         </div>
     </div>)

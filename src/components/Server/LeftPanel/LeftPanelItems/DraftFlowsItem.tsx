@@ -3,32 +3,12 @@ import useStore from "../../../../store/store";
 import { getDraftListApi } from "../../../../api/draft";
 import { connectionsIcons } from "../../../../icons/icons";
 import { ILeftPanelSections } from "../LeftPanel";
+import s from "./ListItem.module.scss"
 
 interface FlowsItemProps {
-  className: any;
   toggleSection: (section: string) => void;
   navigate: (route: string) => void;
   currentSection: ILeftPanelSections;
-}
-
-interface DraftFlowData {
-  approved: boolean;
-  approvedBy: string;
-  basedOnLiveVersion: string;
-  createdBy: string;
-  createdOn: string;
-  draftId: string;
-  flowFileName: string;
-  flowName: string;
-  flowVersion: string;
-  subFolder: string;
-  updatedBy: string;
-  updatedOn: string;
-}
-
-interface IFolderStructure {
-  folderName: string;
-  isExpanded: boolean;
 }
 
 function DraftFlowsItem(props: FlowsItemProps) {
@@ -41,21 +21,26 @@ function DraftFlowsItem(props: FlowsItemProps) {
   );
 
   async function fetchDraftFlowList() {
-    getDraftListApi()
-      .then((res: any) => {
-        const data = res.data.draftFlows;
-        const updatedObject = Object.keys(data).reduce((result: any, key) => {
-          result[key] = data[key];
-          result[key].isExpanded = false;
-          result[key].forEach((draft: any) => {
-            draft.isDropdownVisible = false;
-          });
-          return result;
-        }, {});
+    try {
+      const res: any = await getDraftListApi();
+      const data: any = res.data.draftFlows;
 
-        setDraftFlowList(updatedObject);
-      })
-      .catch((e) => console.log(e));
+      const updatedData = Object.keys(data).reduce(
+        (previousObject: any, key) => {
+          previousObject[key] = data[key];
+          previousObject[key].isExpanded = false;
+          previousObject[key].forEach((x: any) => {
+            x.isDropdownVisible = false;
+          });
+          return previousObject;
+        },
+        {}
+      );
+      
+      setDraftFlowList(updatedData);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async function performDraftDeletion(flowId: string) {
@@ -72,30 +57,36 @@ function DraftFlowsItem(props: FlowsItemProps) {
   }, []);
 
   function toggleFolderToOpen(folderName: string) {
-    const updatedObject = Object.keys(draftFlowList).reduce(
-      (result: any, key: any) => {
-        result[key] = draftFlowList[key];
-        result[key].isExpanded =
-          folderName === key ?? !draftFlowList[key].isExpanded;
-
-        return result;
+    const updatedFolders = Object.keys(draftFlowList).reduce(
+      (previousObject: any, key: any) => {
+        previousObject[key] = draftFlowList[key];
+        previousObject[key].isExpanded =
+          folderName === key ?? !previousObject[key].isExpanded;
+        //close dropdown options if folder name is not eq key
+        if (folderName !== key) {
+          previousObject[key].forEach((x: any) => {
+            x.isDropdownVisible = false;
+          });
+        }
+        return previousObject;
       },
       {}
     );
-    setDraftFlowList(updatedObject);
+
+    setDraftFlowList(updatedFolders);
   }
 
   return (
-    <div className={props.className.section}>
+    <div className={s.section}>
       <div
-        className={props.className.section_header}
+        className={s.section_header}
         onClick={() => props.toggleSection("drafts")}
       >
-        <span className={props.className.header_icon}>
+        <span className={s.header_icon}>
           {connectionsIcons.serverMenuIcons.flows}
         </span>
-        <h5 className={props.className.section_title}>DRAFTS</h5>
-        <span className={props.className.arrow_icon}>
+        <h5 className={s.section_title}>DRAFTS</h5>
+        <span className={s.arrow_icon}>
           {props.currentSection.drafts
             ? connectionsIcons.arrowDown
             : connectionsIcons.arrowUp}
@@ -105,10 +96,10 @@ function DraftFlowsItem(props: FlowsItemProps) {
         ? Object.keys(draftFlowList).map((folderName: any) => (
             <div
               key={folderName}
-              className={props.className.draft_list_item_wrapper}
+              className={s.draft_list_item_wrapper}
               onClick={() => toggleFolderToOpen(folderName)}
             >
-              <div className={props.className.folder_name}>
+              <div className={s.folder_name}>
                 <header>{folderName}</header>
                 <span>
                   {draftFlowList[folderName].isExpanded
@@ -121,19 +112,19 @@ function DraftFlowsItem(props: FlowsItemProps) {
                   {draftFlowList[folderName].map((flow: any) => (
                     <li
                       key={flow.draftId}
-                      className={props.className.flow_list_item}
+                      className={s.flow_list_item}
                     >
-                      <div className={props.className.flow_list_title_wrapper}>
+                      <div className={s.flow_list_title_wrapper}>
                         {flow.flowName}
                       </div>
-                      <div className={props.className.flow_list_btn_wrapper}>
+                      <div className={s.flow_list_btn_wrapper}>
                         <button onClick={() => (flow.isDropdownVisible = true)}>
                           ...
                         </button>
                       </div>
                       {flow.isDropdownVisible ? (
                         <div
-                          className={props.className.flow_list_dropdown_actions}
+                          className={s.flow_list_dropdown_actions}
                         >
                           <button
                             onClick={() => (flow.isDropdownVisible = false)}
