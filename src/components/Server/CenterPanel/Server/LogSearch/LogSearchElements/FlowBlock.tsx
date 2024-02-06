@@ -62,8 +62,8 @@ function FlowBlock(props: FlowBlockProps) {
             <select value={props.type} onChange={(e:any)=>props.setType(e.target.value)}>
                 <option value={''}>All Types</option>
                 <option value={0}>System</option>
-                <option value={1}>Infortmation</option>
-                <option value={1}>Debug</option>
+                <option value={1}>Information</option>
+                <option value={2}>Debug</option>
             </select>
             <select value={props.status} onChange={(e:any)=>props.setStatus(e.target.value)}>
                 <option value={''}>Any Status</option>
