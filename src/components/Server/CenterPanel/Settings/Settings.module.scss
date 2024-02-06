@@ -27,20 +27,21 @@
          
           }
         }
-
-        .input_and_submit {
-          display: flex;
-          width: 300px;
-          justify-content: space-between;
-          gap: 20px;
-          input {
-          }
-
-          button {
-            @include blue-btn;
-          }
-        }
+ 
       }
+    }
+  }
+
+  .input_and_submit {
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
+    gap: 20px;
+    input {
+    }
+
+    button {
+      @include blue-btn;
     }
   }
 }
