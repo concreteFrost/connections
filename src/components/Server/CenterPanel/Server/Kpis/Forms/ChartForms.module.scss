@@ -1,0 +1,23 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+.line_form {
+  background-color: $bg-node-nav-btn;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+
+  label{
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  input{
+    border-radius: 5px;
+    border: 1px solid rgb(214, 214, 214);
+  }
+  button{
+  @include blue_btn;
+  margin-top: 20px;
+  }
+}

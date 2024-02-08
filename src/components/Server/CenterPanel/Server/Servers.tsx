@@ -1,14 +1,20 @@
+import React, { useState } from "react";
 import LogSearch from "./LogSearch/LogSearch";
-import ServerTable from "./ServerTable/ServerTable"
-import { useState } from "react";
+import ServerTable from "./ServerTable/ServerTable";
+import Kpis from "./Kpis/Kpis";
 
 function Servers() {
+  const [currentView, setCurrentView] = useState<string>("kpis");
 
-    const [currentView, setCurrentView] = useState<string>('table');
-    return (<>
-        {currentView === 'table' ? <ServerTable setCurrentView={setCurrentView}/> : <LogSearch setCurrentView={setCurrentView}></LogSearch>}
-        </>
-    )
+  return (
+    <>
+      {currentView === "table" ? (
+        <ServerTable setCurrentView={setCurrentView} />
+      ) : currentView === "search" ? (
+        <LogSearch setCurrentView={setCurrentView} />
+      ) : <Kpis/> }
+    </>
+  );
 }
 
 export default Servers;

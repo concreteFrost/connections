@@ -1,0 +1,48 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+.wrapper{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+     
+    background-color: rgb(243, 243, 243);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: $shadow-top-menu-btn;
+
+    header{
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    .line{
+        background-color: rgb(243, 243, 243);
+        margin-bottom: 10px;
+        background-color: white;
+        border-radius: 5px;
+
+        @media screen and (max-width:1700px) { 
+            margin-left: auto;
+            margin-right: auto;
+          }
+    }
+
+    .pie{
+        border-radius: 5px;
+        margin-bottom: 10px;
+        background-color: white;
+
+        @media screen and (max-width:1700px) { 
+            margin-left: auto;
+            margin-right: auto;
+          }
+    }
+    button{
+        @include blue-btn;
+        width: 100px;
+        margin-left: auto;
+        margin-right: auto;
+       
+    }
+}
+

@@ -143,6 +143,7 @@ function ServerTable(props:{setCurrentView:(view:string)=>void}) {
       <div className={s.header}>
         <div className={s.log_search_btn_wrapper}>
           <button onClick={()=>props.setCurrentView('search')}>LOG SEARCH</button>
+          <button onClick={()=>props.setCurrentView('kpis')}>KPIS</button>
         </div>
         <div className={s.header_buttons}>
           <button

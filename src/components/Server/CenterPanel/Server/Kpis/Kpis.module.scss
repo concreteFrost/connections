@@ -1,0 +1,27 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+.wrapper {
+ 
+  .cols_3 {
+    display: grid;
+    grid-template-columns: 4fr 4fr 4fr;
+    justify-content: center;
+    gap: 10px;
+
+    @media screen and (max-width:1700px) {
+      grid-template-columns: 6fr 6fr;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+ 
+  padding: 20px;
+
+  .grouped_charts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
