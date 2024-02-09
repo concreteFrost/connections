@@ -2,6 +2,15 @@
 @import "/src/style/mixins.scss";
 
 .wrapper {
+
+  .header{
+    margin-bottom: 10px;
+
+    button{
+        @include blue_btn;
+        margin-right: 5px;
+    }
+}
  
   .cols_3 {
     display: grid;

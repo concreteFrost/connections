@@ -12,7 +12,7 @@ function Servers() {
         <ServerTable setCurrentView={setCurrentView} />
       ) : currentView === "search" ? (
         <LogSearch setCurrentView={setCurrentView} />
-      ) : <Kpis/> }
+      ) : <Kpis setCurrentView={setCurrentView}/> }
     </>
   );
 }

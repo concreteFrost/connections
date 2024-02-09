@@ -26,7 +26,11 @@ const initialChartsState: ChartsState = {
   vertical: { isVisible: true, isExpanded: false },
 };
 
-function Kpis() {
+interface KpisProps{
+  setCurrentView:(view:string)=>void;
+}
+
+function Kpis(props:KpisProps) {
   const [chartsState, setChartsState] =
     useState<ChartsState>(initialChartsState);
   const [isChartExpanded, setChartExpanded] = useState<Boolean>(false)
@@ -49,6 +53,10 @@ function Kpis() {
 
   return (
     <div className={s.wrapper}>
+        <div className={s.header}>
+        <button onClick={() => props.setCurrentView("table")}>SERVER</button>
+        <button onClick={()=>props.setCurrentView('search')}>LOG SEARCH</button>
+      </div>
       {isChartExpanded ? <button onClick={() => toggleChartState()}>CLOSE</button> : null}
       <div className={gridClasses}>
         {isChartExpanded ? <LineForm></LineForm> : null}
