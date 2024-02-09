@@ -1,48 +1,50 @@
 @import "/src/style/variables.scss";
 @import "/src/style/mixins.scss";
 
-.wrapper{
+.wrapper {
     display: flex;
-    justify-content: center;
     flex-direction: column;
-     
-    background-color: rgb(243, 243, 243);
     padding: 10px;
     border-radius: 5px;
     box-shadow: $shadow-top-menu-btn;
 
-    header{
+    header {
         margin-bottom: 10px;
         text-align: center;
     }
-    .line{
-        background-color: rgb(243, 243, 243);
+
+    .line {
+       
         margin-bottom: 10px;
         background-color: white;
         border-radius: 5px;
+        margin-left: auto;
+        margin-right: auto;
 
-        @media screen and (max-width:1700px) { 
+        @media screen and (max-width:1700px) {
             margin-left: auto;
             margin-right: auto;
-          }
+        }
     }
 
-    .pie{
+    .pie {
         border-radius: 5px;
         margin-bottom: 10px;
-        background-color: white;
+      
+        margin-left: auto;
+        margin-right: auto;
 
-        @media screen and (max-width:1700px) { 
+        @media screen and (max-width:1700px) {
             margin-left: auto;
             margin-right: auto;
-          }
+        }
     }
-    button{
+
+    button {
         @include blue-btn;
         width: 100px;
         margin-left: auto;
         margin-right: auto;
-       
+
     }
 }
-

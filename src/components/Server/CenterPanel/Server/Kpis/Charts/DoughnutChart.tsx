@@ -15,7 +15,7 @@ interface ChartProps {
 function DoughnutChart(props: ChartProps) {
   return (
     <div className={s.wrapper}>
-      <div>
+     
         <header>Doughnut</header>
         <Doughnut
           height={300}
@@ -25,8 +25,8 @@ function DoughnutChart(props: ChartProps) {
           options={doughnutChart.options}
         ></Doughnut>
         <button onClick={() => props.toggleChartState("doughnut")}>view</button>
-      </div>
-      {props.chartState.doughnut.isExpanded ? <LineForm></LineForm> : null}
+    
+     
     </div>
   );
 }

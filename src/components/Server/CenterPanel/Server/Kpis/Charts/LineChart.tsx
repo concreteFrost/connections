@@ -32,7 +32,6 @@ interface ChartProps {
 function LineChart(props: ChartProps) {
   return (
     <div className={s.wrapper}>
-      <div>
         <header>Line</header>
         <Line
           className={s.line}
@@ -42,8 +41,6 @@ function LineChart(props: ChartProps) {
           data={{datasets:lineChart.dataSets,labels:lineChartLabels}}
         ></Line>
         <button onClick={() => props.toggleChartState("line")}>view</button>
-      </div>
-     {props.chartState.line.isExpanded ? <LineForm></LineForm> : null} 
     </div>
   );
 }

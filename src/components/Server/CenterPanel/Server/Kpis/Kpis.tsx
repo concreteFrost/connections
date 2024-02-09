@@ -6,6 +6,7 @@ import GroupedChart from "./Charts/GroupedChart";
 import DoughnutChart from "./Charts/DoughnutChart";
 import ScatterChart from "./Charts/ScatterChart";
 import { useState } from "react";
+import LineForm from "./Forms/LineForm";
 
 export interface ChartsState {
   doughnut: { isVisible: boolean; isExpanded: boolean };
@@ -28,16 +29,29 @@ const initialChartsState: ChartsState = {
 function Kpis() {
   const [chartsState, setChartsState] =
     useState<ChartsState>(initialChartsState);
+  const [isChartExpanded, setChartExpanded] = useState<Boolean>(false)
 
-  function toggleChartState(chartName: keyof ChartsState) {
-    setChartsState((prevState) => ({
-      ...prevState,
-      [chartName]: {...prevState[chartName], isExpanded : !prevState[chartName].isExpanded}
+  function toggleChartState(chartName?: keyof ChartsState) {
+    setChartsState((prevState): ChartsState => ({
+      ...Object.fromEntries(
+        Object.entries(prevState).map(([key, value]: any) => [
+          key,
+          { ...value, isVisible: chartName ? key === chartName : true },
+        ])
+      ),
     }));
+
+    setChartExpanded(!!chartName);
   }
+
+
+  const gridClasses = `${s.cols_3} ${isChartExpanded ? s["resized"] : s["not_resized"]}`;
+
   return (
     <div className={s.wrapper}>
-      <div className={s.cols_3}>
+      {isChartExpanded ? <button onClick={() => toggleChartState()}>CLOSE</button> : null}
+      <div className={gridClasses}>
+        {isChartExpanded ? <LineForm></LineForm> : null}
         {chartsState.line.isVisible ? (
           <LineChart
             toggleChartState={toggleChartState}
@@ -74,7 +88,10 @@ function Kpis() {
             chartState={chartsState}
           ></DoughnutChart>
         ) : null}
+
+
       </div>
+
     </div>
   );
 }

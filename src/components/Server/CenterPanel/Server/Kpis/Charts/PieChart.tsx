@@ -14,7 +14,7 @@ interface ChartProps{
 function PieChart(props:ChartProps) {
   return (
     <div className={s.wrapper}>
-      <header>Test</header>
+      <header>Pie</header>
       <Pie
         height={300}
         width={500}
