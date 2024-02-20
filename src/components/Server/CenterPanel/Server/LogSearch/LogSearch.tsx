@@ -2,12 +2,10 @@ import { useState } from "react";
 import s from "./LogSearch.module.scss";
 import DateRange from "./LogSearchElements/DateRange";
 import FlowBlock from "./LogSearchElements/FlowBlock";
-import Keys from "./LogSearchElements/Keys";
 import OutputSearchButtons from "./LogSearchElements/OutputSearchButtons";
 import TextSearch from "./LogSearchElements/TextSearch";
 import LogTable from "./LogTable/LogTable";
 import { getDataLogsAPI } from "../../../../../api/data";
-import moment from "moment";
 import useStore from "../../../../../store/store";
 import { IFlowConfig } from "../../../../../store/interfaces/Iflow";
 import { IBlockLookup } from "../../../../../store/interfaces/IBlock";
@@ -59,7 +57,7 @@ function LogSearch(props: { setCurrentView: (view: string) => void }) {
     <div className={s.wrapper}>
       <div className={s.header}>
         <button onClick={() => props.setCurrentView("table")}>SERVER</button>
-        <button onClick={()=>props.setCurrentView('kpis')}>KPIS</button>
+        <button onClick={()=>props.setCurrentView('kpis')}>SEARCH</button>
       </div>
       <div className={s.log_grid}>
         <DateRange
