@@ -1,0 +1,14 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+.wrapper{
+    position: relative;
+
+    button{
+
+        @include blue_btn;
+        position: absolute;
+        right: 22px;
+        top: 40px;
+    }
+}

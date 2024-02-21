@@ -47,9 +47,12 @@ import {
   BsPenFill,
   BsBellFill,
   BsArrowsExpandVertical,
-  BsIncognito
+  BsIncognito,
+  BsAlarm
 } from "react-icons/bs";
 
+
+import { RiAlertLine} from "react-icons/ri";
 
 import { FaGlobe, FaFileExport, FaCodeBranch, FaChevronDown, FaChevronUp } from "react-icons/fa";
 
@@ -101,7 +104,8 @@ export const connectionsIcons = {
     flows: <BsDiagram2Fill></BsDiagram2Fill>,
     stats: <BsGraphDown></BsGraphDown>,
     settings: <BsGear></BsGear>,
-    security:<BsIncognito></BsIncognito>
+    security:<BsIncognito></BsIncognito>,
+    alert:<RiAlertLine></RiAlertLine>
   },
   serverButtonsIcons: {
     play: <BsPlayFill></BsPlayFill>,

@@ -7,6 +7,7 @@ import StatisticsItem from "./LeftPanelItems/StatisticsItem";
 import SettingsItem from "./LeftPanelItems/SettingsItem";
 import DraftFlowsItem from "./LeftPanelItems/DraftFlowsItem";
 import SecurityItem from "./LeftPanelItems/SecurityItem";
+import AlertsItem from "./LeftPanelItems/AlertsItem";
 
 export interface ILeftPanelSections {
   servers: boolean;
@@ -15,6 +16,7 @@ export interface ILeftPanelSections {
   statistics: boolean;
   settings: boolean;
   security: boolean;
+  alerts:boolean;
 
 }
 function LeftPanel() {
@@ -24,7 +26,8 @@ function LeftPanel() {
     drafts: false,
     statistics: false,
     settings: false,
-    security: false
+    security: false,
+    alerts:false
   });
 
   const navigate = useNavigate();
@@ -44,9 +47,10 @@ function LeftPanel() {
         <FlowsItem currentSection={sectionToOpen} toggleSection={toggleSection} navigate={navigate}></FlowsItem>
         <DraftFlowsItem currentSection={sectionToOpen} toggleSection={toggleSection} navigate={navigate}></DraftFlowsItem>
         {/* <StatisticsItem isSectionOpened={isSectionOpened} toggleSection={toggleSection} navigate={navigate}></StatisticsItem>*/}
+        <AlertsItem currentSection={sectionToOpen}  toggleSection={toggleSection} navigate={navigate}></AlertsItem>
         <SecurityItem currentSection={sectionToOpen} toggleSection={toggleSection} navigate={navigate}></SecurityItem>
         <SettingsItem currentSection={sectionToOpen}  toggleSection={toggleSection} navigate={navigate}></SettingsItem>
-   
+    
     </div>
   );
 }
