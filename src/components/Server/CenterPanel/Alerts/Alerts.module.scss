@@ -4,7 +4,7 @@
 .wrapper{
     position: relative;
 
-    button{
+    .header_btn{
 
         @include blue_btn;
         position: absolute;

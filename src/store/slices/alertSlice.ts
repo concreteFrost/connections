@@ -1,12 +1,14 @@
 import alertActions from "../actions/alertActions";
-import { IDirective } from "../interfaces/IAlerts";
+import { IDirective} from "../interfaces/IAlerts";
 import { RFState } from "../types/rfState"
 export type AlertSlice = {
-    getDirectives: () => void;
+    getDirectives: () => Promise<IDirective[]>;
+    updateDirective:(directive: IDirective)=>void;
 }
 
 const alertSlice = (get: () => RFState, set: any): AlertSlice => ({
-    getDirectives: alertActions.getDirectives(get, set)
+    getDirectives: alertActions.getDirectives(),
+    updateDirective:alertActions.updateDirective(),
 })
 
 export default alertSlice;

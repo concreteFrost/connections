@@ -1,18 +1,29 @@
-import { getDirectivesApi } from "../../api/ehd";
-import { RFState } from "../types/rfState";
+import { UpdateDirectiveApi, getDirectivesApi } from "../../api/ehd";
+import { IDirective } from "../interfaces/IAlerts";
 
-const getDirectives = (get: () => RFState, set: any) => async () => {
+const getDirectives = () => async (): Promise<IDirective[]> => {
     try {
-        const res = await getDirectivesApi();
+        const res: any = await getDirectivesApi();
         return res.data;
     } catch (error) {
         console.log("error getting directives");
+        return [];
     }
-
 }
 
-const alertActions ={
-    getDirectives:getDirectives
+const updateDirective = () => async (directive: IDirective) => {
+    try {
+       const res = await UpdateDirectiveApi(directive);
+       return res;
+    } catch (error) {
+        console.log("error getting directives");
+
+    }
+}
+
+const alertActions = {
+    getDirectives: getDirectives,
+    updateDirective: updateDirective
 }
 
 export default alertActions;

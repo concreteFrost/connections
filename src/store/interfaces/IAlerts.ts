@@ -44,32 +44,15 @@ export interface IDirectiveConfig {
 }
 
 export interface IDirective {
-    name: string;
-    description: string;
-    directives: IDirectiveConfig[];
-}
-
-export interface IUpdateDirectiveConfig {
-    ehDirectiveId: number;
-    optionId: number;
-    inputValue: number;
-    alertFormatId: number;
-    preventProcessing: boolean;
-    stopFlow: number;
-    startFlow: string;
-    runScript: string;
-    addToCounter: boolean;
-    clearCounter: boolean;
-    lastAmended: Date;
-}
-
-export interface IUpdateDirective {
     ehControlId: number;
     name: string;
     description: string;
-    category: number;
-    lastAmended: Date;
-    directives: IUpdateDirectiveConfig[];
+    category:number;
+    dateCreated: any;
+    lastAmended: any;
+    directives: IDirectiveConfig[];
 }
+
+
 
 

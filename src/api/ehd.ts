@@ -1,7 +1,7 @@
 import axios from "axios";
 import { baseUrl } from "../store/constants/baseUrl";
 import { getAccessToken } from "../store/actions/storageActions";
-import { IAlertFormat, IDirective, INewAlertFormat, IUpdateDirective } from "../store/interfaces/IAlerts";
+import { IAlertFormat, IDirective, INewAlertFormat} from "../store/interfaces/IAlerts";
 import { ISubscription } from "../store/interfaces/INotification";
 
 // Function to generate headers with authorization token
@@ -32,7 +32,7 @@ export function addDirectiveApi(directive: IDirective) {
     });
 }
 
-export function UpdateDirectiveApi(directive: IUpdateDirective) {
+export function UpdateDirectiveApi(directive: IDirective) {
     return axios.post(baseUrl + "/Ehd/UpdateDirective", directive, {
         headers: generateHeaders()
     });
