@@ -18,10 +18,10 @@ export interface INotificationType {
     notificationTypeId: string
 }
 
-export interface ISubscription{
+export interface ISubscription {
     endpoint: string,
-    keys:{
+    keys: {
         auth: string,
         p256dh: string
     }
-  }
+}

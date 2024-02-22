@@ -14,7 +14,7 @@ function AlertsItem(props: SettingsItemProps) {
             <span className={s.header_icon}>
                 {connectionsIcons.serverMenuIcons.alert}
             </span>
-            <h5 className={s.section_title} onClick={() => props.navigate("/dashboard/alerts")}>ALERTS</h5>
+            <h5 className={s.section_title} onClick={() => props.navigate("/dashboard/alerts/")}>ALERTS</h5>
 
         </div>
     </div>)

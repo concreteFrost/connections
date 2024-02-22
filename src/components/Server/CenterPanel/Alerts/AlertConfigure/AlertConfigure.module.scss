@@ -1,0 +1,11 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+.wrapper{
+    padding: 20px;
+
+    h3{
+        color: $color-font-main;
+        margin-bottom: 10px;
+    }
+}

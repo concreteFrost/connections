@@ -12,6 +12,7 @@ import { DesignerVisualElementsSlice } from "../slices/designerVisualElementsSli
 import { ServerSlice } from "../slices/serverSlice";
 import { NotificationSlice } from "../slices/notificationSlice";
 import { SecuritySlice } from "../slices/securitySlice";
+import { AlertSlice } from "../slices/alertSlice";
 
 export type RFState = {
 
@@ -24,6 +25,7 @@ export type RFState = {
   serverSlice: ServerSlice,
   notificationSlice: NotificationSlice,
   securitySlice: SecuritySlice,
+  alertSlice: AlertSlice
 
   //Value Editor Actions
 

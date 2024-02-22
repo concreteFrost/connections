@@ -1,9 +1,13 @@
 import s from "./CurrentAlertsTable.module.scss";
+import { useNavigate } from "react-router";
 
 function CurrentAlertsTable() {
+
+  const navigate= useNavigate()
   return (
     <section className={s.wrapper}>
       <h3>Current Alerts</h3>
+      <header><button onClick={()=>navigate('configure')}>CONFIGURE</button></header>
       <main>
         <table>
           <thead>

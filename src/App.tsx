@@ -22,7 +22,6 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/dashboard/*" element={<ProtectedRoute><Server></Server></ProtectedRoute>} />
         <Route path="/designer" element={<ProtectedRoute><Designer></Designer></ProtectedRoute>} />
-        <Route path="/alerts" element={<ProtectedRoute><Alerts></Alerts></ProtectedRoute>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <PushTest></PushTest>
