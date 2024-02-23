@@ -2,14 +2,27 @@ import s from "./AlertConfigure.module.scss";
 import useStore from "../../../../../store/store";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { IDirective, IDirectiveConfig} from "../../../../../store/interfaces/IAlerts";
+import { IDirective, IDirectiveConfig } from "../../../../../store/interfaces/IAlerts";
+import { getFlowListApi } from "../../../../../api/flow";
+import { IFlowConfig } from "../../../../../store/interfaces/Iflow";
 
 function AlertConfigure() {
   const navigate = useNavigate();
-  const { getDirectives, updateDirective } = useStore((state) => state.alertSlice);
+  const { getDirectives, updateDirective,deleteDirective } = useStore((state) => state.alertSlice);
   const [directives, setDirectives] = useState<Array<IDirective>>();
-  const [originalDirectives, setOriginalDirectives] = useState<Array<IDirective>>()
+  const [originalDirectives, setOriginalDirectives] = useState<Array<IDirective>>();
   const [currentDirectiveIndex, setCurrentDirectiveIndex] = useState<Number>(-1);
+  const { setModalMessage, toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
+  const [flowList, setFlowList] = useState<Array<IFlowConfig>>()
+
+  async function fetchFlowList() {
+    try {
+      const res: any = await getFlowListApi();
+      setFlowList(res.data);
+    } catch (e) {
+      console.log("error fetching flows", e);
+    }
+  }
 
   async function fetchDirectives() {
     try {
@@ -22,24 +35,29 @@ function AlertConfigure() {
   }
 
   useEffect(() => {
+    fetchFlowList();
     fetchDirectives();
+
   }, []);
 
   function editDirective(id: number, key: keyof IDirective, value: any) {
-    if (directives) {
-      const updatedDirectives: Array<IDirective> = directives.map((directive: IDirective, index: number) => {
-        if (index === id) {
-          return {
-            ...directive,
-            [key]: value
-          };
-        } else {
-          return directive;
-        }
-      });
-      setDirectives(updatedDirectives);
-    }
+    if (!directives) return;
+
+    const updatedDirectives = directives.map((directive: IDirective, index: number) =>
+      index === id ? { ...directive, [key]: value } : directive
+    );
+    setDirectives(updatedDirectives);
   }
+
+  function editDirectiveConfig(directiveIndex: number, configIndex: number, key: keyof IDirectiveConfig, value: any) {
+    if (!directives) return;
+
+    const updatedDirectives = [...directives];
+    const updatedConfig = { ...updatedDirectives[directiveIndex].directives[configIndex], [key]: value };
+    updatedDirectives[directiveIndex].directives[configIndex] = updatedConfig;
+    setDirectives(updatedDirectives);
+  }
+
 
   function checkCurrentDirectives(index: Number) {
     if (currentDirectiveIndex !== index) {
@@ -48,22 +66,36 @@ function AlertConfigure() {
     }
   }
 
-
-  async function handleDirectiveUpdate(directive : IDirective) {
-    try{
-      const res = await updateDirective(directive);
-      console.log(res);
+  async function handleDirectiveUpdate(directive: IDirective) {
+    try {
+      const res: any = await updateDirective(directive);
+      setModalMessage(res.data.success ? 'sucess!!!' : res.data.message)
+      toggleMessageModal()
       await fetchDirectives()
+
     }
-    catch(e){
-      console.log('error updating directive',e);
+    catch (e) {
+      console.log('error updating directive', e);
+    }
+  }
+
+  async function handleDirectiveDelete(ehControlId:number){
+    try {
+      const res :any = await deleteDirective(ehControlId);
+      setModalMessage(res.data.success ? 'sucess!!!' : res.data.message)
+      toggleMessageModal()
+      await fetchDirectives();
+    } catch (error) {
+      console.log('error deleting directive',error);
     }
   }
 
   return (
     <section className={s.wrapper}>
-      <h3>Configure</h3>
+
+      <h3>Directives Control</h3>
       <header><button onClick={() => navigate('/dashboard/alerts')}>ALERTS</button></header>
+
       <main>
         <table className={s.table}>
           <thead>
@@ -111,57 +143,59 @@ function AlertConfigure() {
                 </td>
                 <td colSpan={3} onFocus={() => { checkCurrentDirectives(index) }}>
                   <ul>
-                    {directive.directives.map((config: IDirectiveConfig, index: number) => (
-                      <li key={index}>
-                        <header>CONFIG: {index}</header>
+                    {directive.directives.length > 0 ? directive.directives.map((config: IDirectiveConfig, config_index: number) => (
+                      <li key={config_index}>
+                        <header>CONFIG: {config_index}</header>
                         <div className={s.directive_item}>
-                          <label htmlFor={`optionId-${index}`} className={s.label}>Option ID:</label>
-                          <input type="text" id={`optionId-${index}`} value={config.optionId} readOnly />
+                          <label htmlFor={`startFlow-${config_index}`} className={s.label}>Start Flow:</label>
+                          <select id={`startFlow-${config_index}`} value={config.startFlow ? config.startFlow : 0} onChange={(e) => editDirectiveConfig(index, config_index, "startFlow", e.target.value)} >
+                            <option value={0}>null</option>
+                            {flowList && flowList.length > 0 ?
+                              flowList.map((flow: IFlowConfig, index: number) => <option key={index} value={flow.flowId}>{flow.name}</option>) : <option>No Flows Available</option>}
+                          </select>
                         </div>
                         <div className={s.directive_item}>
-                          <label htmlFor={`inputValue-${index}`} className={s.label}>Input Value:</label>
-                          <input type="text" id={`inputValue-${index}`} value={config.inputValue} readOnly />
+                          <label htmlFor={`stopFlow-${config_index}`} className={s.label}>Stop Flow:</label>
+                          <input type="number" id={`stopFlow-${config_index}`} value={config.stopFlow} onChange={(e) => editDirectiveConfig(index, config_index, "stopFlow", e.target.value)} />
                         </div>
                         <div className={s.directive_item}>
-                          <label htmlFor={`alertFormatId-${index}`} className={s.label}>Alert Format ID:</label>
-                          <input type="text" id={`alertFormatId-${index}`} value={config.alertFormatId} readOnly />
+                          <label htmlFor={`optionId-${config_index}`} className={s.label}>Option ID:</label>
+                          <input type="text" id={`optionId-${config_index}`} value={config.optionId} onChange={(e) => editDirectiveConfig(index, config_index, "optionId", e.target.value)} />
                         </div>
                         <div className={s.directive_item}>
-                          <label htmlFor={`preventProcessing-${index}`} className={s.label}>Prevent Processing:</label>
-                          <input type="text" id={`preventProcessing-${index}`} value={config.preventProcessing ? 'Yes' : 'No'} readOnly />
+                          <label htmlFor={`inputValue-${config_index}`} className={s.label}>Input Value:</label>
+                          <input type="number" id={`inputValue-${config_index}`} value={config.inputValue ?? ''} onChange={(e) => editDirectiveConfig(index, config_index, "inputValue", e.target.value)} />
                         </div>
                         <div className={s.directive_item}>
-                          <label htmlFor={`stopFlow-${index}`} className={s.label}>Stop Flow:</label>
-                          <input type="text" id={`stopFlow-${index}`} value={config.stopFlow} readOnly />
+                          <label htmlFor={`alertFormatId-${config_index}`} className={s.label}>Alert Format ID:</label>
+                          <input type="text" id={`alertFormatId-${config_index}`} value={config.alertFormatId ?? ''} onChange={(e) => editDirectiveConfig(index, config_index, "alertFormatId", e.target.value)} />
                         </div>
                         <div className={s.directive_item}>
-                          <label htmlFor={`startFlow-${index}`} className={s.label}>Start Flow:</label>
-                          <input type="text" id={`startFlow-${index}`} value={config.startFlow} readOnly />
+                          <label htmlFor={`runScript-${config_index}`} className={s.label}>Run Script:</label>
+                          <input type="text" id={`runScript-${config_index}`} value={config.runScript ?? ''} onChange={(e) => editDirectiveConfig(index, config_index, "runScript", e.target.value)} />
                         </div>
                         <div className={s.directive_item}>
-                          <label htmlFor={`runScript-${index}`} className={s.label}>Run Script:</label>
-                          <input type="text" id={`runScript-${index}`} value={config.runScript} readOnly />
+                          <label htmlFor={`preventProcessing-${config_index}`} className={s.label}>Prevent Processing:</label>
+                          <input type="checkBox" id={`preventProcessing-${config_index}`} checked={config.preventProcessing} onChange={(e) => editDirectiveConfig(index, config_index, "preventProcessing", !config)} />
                         </div>
                         <div className={s.directive_item}>
-                          <label htmlFor={`addToCounter-${index}`} className={s.label}>Add To Counter:</label>
-                          <input type="text" id={`addToCounter-${index}`} value={config.addToCounter ? 'Yes' : 'No'} readOnly />
+                          <label htmlFor={`addToCounter-${config_index}`} className={s.label}>Add To Counter:</label>
+                          <input type="checkBox" id={`addToCounter-${config_index}`} checked={config.addToCounter} onChange={(e) => editDirectiveConfig(index, config_index, "addToCounter", !config.addToCounter)} />
                         </div>
                         <div className={s.directive_item}>
-                          <label htmlFor={`clearCounter-${index}`} className={s.label}>Clear Counter:</label>
-                          <input type="text" id={`clearCounter-${index}`} value={config.clearCounter ? 'Yes' : 'No'} readOnly />
+                          <label htmlFor={`clearCounter-${config_index}`} className={s.label}>Clear Counter:</label>
+                          <input type="checkBox" id={`clearCounter-${config_index}`} checked={config.clearCounter} onChange={(e) => editDirectiveConfig(index, config_index, "clearCounter", !config.clearCounter)} />
                         </div>
                       </li>
-                    ))}
+                    )) : <div className={s.empty_directives}>No directives available</div>}
                   </ul>
-
                 </td>
                 <td colSpan={1}>
                   <div className={s.action_btns_wrapper}>
                     {currentDirectiveIndex === index ? (
                       <button onClick={() => handleDirectiveUpdate(directive)}>Save</button>
                     ) : null}
-                    <button>DELETE</button></div>
-
+                    <button onClick={()=>handleDirectiveDelete(directive.ehControlId)}>DELETE</button></div>
                 </td>
               </tr>
             ))}

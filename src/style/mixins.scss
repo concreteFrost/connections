@@ -1,7 +1,19 @@
 @import "./variables.scss";
 
-//BUTTONS
+//MESSAGES
+@mixin error_message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffcccc;
+  padding: 10px 20px;
+  border: 1px solid #ff0000;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
 
+//BUTTONS
 @mixin blue_btn {
   background-color: $bg-top-menu-btn-default;
   padding: 5px 10px;

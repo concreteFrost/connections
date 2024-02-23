@@ -1,4 +1,4 @@
-import { UpdateDirectiveApi, getDirectivesApi } from "../../api/ehd";
+import { RemoveDirectiveApi, UpdateDirectiveApi, getDirectivesApi } from "../../api/ehd";
 import { IDirective } from "../interfaces/IAlerts";
 
 const getDirectives = () => async (): Promise<IDirective[]> => {
@@ -21,9 +21,20 @@ const updateDirective = () => async (directive: IDirective) => {
     }
 }
 
+const deleteDirective = () => async (ehControlId:number) => {
+    try {
+       const res = await RemoveDirectiveApi(ehControlId);
+       return res;
+    } catch (error) {
+        console.log("error deleting directives");
+
+    }
+}
+
 const alertActions = {
     getDirectives: getDirectives,
-    updateDirective: updateDirective
+    updateDirective: updateDirective,
+    deleteDirective:deleteDirective
 }
 
 export default alertActions;
