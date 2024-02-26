@@ -7,6 +7,8 @@ import { IDirective, IDirectiveConfig } from "../../../../../../../store/interfa
 import moment from "moment";
 
 const initialDirectiveConfig: IDirectiveConfig = {
+  ehControlId:0,
+  ehDirectiveId:0,
   optionId: 1,
   inputValue: 10,
   alertFormatId: 1,
@@ -181,6 +183,7 @@ function AddDirectiveForm(props: DirectiveFormProps) {
                       <label htmlFor={`inputValue-${config_index}`} className={s.label}>Input Value:</label>
                       <input type="number" id={`inputValue-${config_index}`} value={config.inputValue ?? ''} onChange={(e) => editDirectiveConfig(config_index, "inputValue", e.target.value)} />
                     </div>
+                   
                     <div className={s.directive_item}>
                       <label htmlFor={`alertFormatId-${config_index}`} className={s.label}>Alert Format ID:</label>
                       <input type="text" id={`alertFormatId-${config_index}`} value={config.alertFormatId ?? ''} onChange={(e) => editDirectiveConfig(config_index, "alertFormatId", e.target.value)} />

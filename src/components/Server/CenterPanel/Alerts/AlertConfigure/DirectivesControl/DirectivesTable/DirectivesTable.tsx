@@ -16,6 +16,8 @@ interface DirectivesTableProps {
 }
 
 const initialDirectiveConfig: IDirectiveConfig = {
+  ehControlId:0,
+  ehDirectiveId:0,
   optionId: 1,
   inputValue: 0,
   alertFormatId: 1,
@@ -176,6 +178,7 @@ function DirectivesTable(props: DirectivesTableProps) {
                         <input type="number" id={`stopFlow-${config_index}`} value={config.stopFlow} onChange={(e) => editDirectiveConfig(index, config_index, "stopFlow", e.target.value)} />
                         <span>{connectionsIcons.pen}</span>
                       </div>
+                     
                       <div className={s.directive_item}>
                         <label htmlFor={`optionId-${config_index}`} className={s.label}>Option ID:</label>
                         <input type="number" id={`optionId-${config_index}`} value={config.optionId} onChange={(e) => editDirectiveConfig(index, config_index, "optionId", e.target.value)} />
@@ -197,8 +200,16 @@ function DirectivesTable(props: DirectivesTableProps) {
                         <span>{connectionsIcons.pen}</span>
                       </div>
                       <div className={s.directive_item}>
+                        <label htmlFor={`ehControlId${config_index}`} className={s.label}>EH Control ID:</label>
+                        <input type="number" id={`ehControlId${config_index}`} value={config.ehControlId} readOnly/>           
+                      </div>
+                      <div className={s.directive_item}>
+                        <label htmlFor={`ehDirectiveId${config_index}`} className={s.label}>EH Directive ID:</label>
+                        <input type="number" id={`ehDirectiveId${config_index}`} value={config.ehDirectiveId} readOnly/>            
+                      </div>
+                      <div className={s.directive_item}>
                         <label htmlFor={`preventProcessing-${config_index}`} className={s.label}>Prevent Processing:</label>
-                        <input type="checkBox" id={`preventProcessing-${config_index}`} checked={config.preventProcessing} onChange={(e) => editDirectiveConfig(index, config_index, "preventProcessing", !config)} />
+                        <input type="checkBox" id={`preventProcessing-${config_index}`} checked={config.preventProcessing} onChange={(e) => editDirectiveConfig(index, config_index, "preventProcessing", !config.preventProcessing)} />
                       </div>
                       <div className={s.directive_item}>
                         <label htmlFor={`addToCounter-${config_index}`} className={s.label}>Add To Counter:</label>

@@ -41,6 +41,8 @@ export interface IDirectiveConfig {
     runScript: string;
     addToCounter: boolean;
     clearCounter: boolean;
+    ehDirectiveId:number;
+    ehControlId:number;
 }
 
 export interface IDirective {
