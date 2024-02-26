@@ -27,7 +27,9 @@ export function getAlertFormatsApi() {
 
 //POST
 export function addDirectiveApi(directive: IDirective) {
-    return axios.post(baseUrl + "/Ehd/AddDirective", directive, {
+
+    const {category,ehControlId,...rest} = directive
+    return axios.post(baseUrl + "/Ehd/AddDirective", rest, {
         headers: generateHeaders()
     });
 }

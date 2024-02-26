@@ -48,13 +48,12 @@ import {
   BsBellFill,
   BsArrowsExpandVertical,
   BsIncognito,
-  BsAlarm
 } from "react-icons/bs";
 
 
 import { RiAlertLine} from "react-icons/ri";
 
-import { FaGlobe, FaFileExport, FaCodeBranch, FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { FaGlobe, FaFileExport, FaCodeBranch, FaChevronDown, FaChevronUp,FaPen } from "react-icons/fa";
 
 export const connectionsIcons = {
   nodeIcons: {
@@ -131,7 +130,8 @@ export const connectionsIcons = {
   editOff: <BsPenFill></BsPenFill>,
   editOn: <BsPen></BsPen>,
   bell: <BsBellFill></BsBellFill>,
-  resize: <BsArrowsExpandVertical></BsArrowsExpandVertical>
+  resize: <BsArrowsExpandVertical></BsArrowsExpandVertical>,
+  pen: <FaPen></FaPen>
 
 
 }

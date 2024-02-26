@@ -1,0 +1,151 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+.wrapper {
+    h3 {
+        color: $color-font-main;
+        margin-bottom: 10px;
+    }
+
+    .add_new_directive{
+        button{
+            @include blue_btn;
+        }
+        margin-bottom: 10px;
+        
+    }
+
+    table {
+        @include server-table;
+        table-layout: fixed;
+
+        select,
+        input {
+            border: none;
+        }
+
+        input[type="datetime-local"]{
+            padding-right: 15px;
+        }
+
+        select {
+            margin-left: 0;
+            width: 100%;
+        }
+
+
+        .directive {
+
+            .directive_item {
+                display: grid;
+                grid-template-columns: 4fr 8fr;
+                align-items: center;
+                margin-bottom: 10px;
+                position: relative;
+
+                textarea{
+                    resize: none;
+                    height: 100px;
+                    padding: 5px;
+                    border-radius: 5px;
+                    border:1px solid rgb(216, 216, 216);
+                    
+                }
+
+                span {
+                    position: absolute;
+                    right: 10px;
+                    font-size: 0.7rem;
+                }
+            }
+        }
+
+        ul {
+            margin-left: 0;
+            padding-left: 0;
+            max-height: 200px;
+            overflow: auto;
+
+            .add_directive_btn {
+                display: flex;
+                justify-content: center;
+
+                button {
+                    @include blue_btn;
+                }
+            }
+
+            .empty_directives {
+                text-align: center;
+            }
+
+            li {
+                list-style: none;
+                padding: 5px;
+                margin-bottom: 10px;
+                position: relative;
+
+                .directive_item{
+                    position: relative;
+
+                    span {
+                        position: absolute;
+                        top:3px;
+                        right: 5px;
+                        font-size: 0.7rem;
+                    }
+                }
+
+              
+
+                .delete_config_btn {
+                    position: absolute;
+                    top: 0;
+                    right: 10px;
+
+                    button {
+                        @include red_btn;
+                    }
+                }
+
+
+
+                header {
+                    text-align: center;
+                    margin-bottom: 10px;
+                    font-weight: bolder;
+                }
+
+                .directive_item {
+                    display: grid;
+                    grid-template-columns: 6fr 6fr;
+                    border-bottom: 1px solid rgb(216, 216, 216);
+                }
+
+            }
+
+
+        }
+
+        .action_btns_wrapper {
+            display: flex;
+            flex-direction: column;
+
+            button {
+                
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 5px;
+            }
+
+            .save_btn{
+                @include blue_btn;
+            }
+
+            .delete_btn{
+                @include red_btn;
+            }
+        }
+    }
+
+}
