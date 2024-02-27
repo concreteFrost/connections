@@ -1,0 +1,45 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+.wrapper {
+
+    .header_btn_wrapper {
+        button {
+            @include blue-btn;
+        }
+
+        margin-bottom: 10px;
+    }
+
+    .table_wrapper{
+        max-height: 800px;
+        overflow-y: auto;
+        margin-bottom: 20px;
+
+        table{
+            @include server_table;
+            table-layout: fixed;
+    
+            tr{
+      
+                th,td{
+                    font-size: 0.8rem;
+                }
+            }
+            
+        }
+    }
+
+    .table_footer_wrapper{
+        display: flex;
+        justify-content: center;
+
+        button{
+            @include blue_btn;
+        }
+        span{
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+    }
+}

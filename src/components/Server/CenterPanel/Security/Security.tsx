@@ -30,7 +30,6 @@ function Security() {
             <main>
                 <UsersTable></UsersTable>
                 <GroupsTable></GroupsTable>
-
             </main>
         </div>
     </div>)

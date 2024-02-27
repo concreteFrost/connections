@@ -10,15 +10,15 @@ export function PushTest() {
   const registerServiceWorker = async (vapidKeys: any): Promise<ISubscription | null> => {
     try {
       if ("serviceWorker" in navigator) {
-
-        const sw= await navigator.serviceWorker.register("/sw.js")
+        const sw = await navigator.serviceWorker.register("/sw.js")
         // console.log('Service worker registered', sw)
         const registration = await navigator.serviceWorker.ready;
-
         // Check for existing subscription
         const existingSubscription = await registration.pushManager.getSubscription();
+
         if (existingSubscription) {
-          await existingSubscription.unsubscribe();
+          console.log('already subscribed');
+          return null;
         }
         // Subscribe with the new applicationServerKey
         const newSubscription: any = await registration.pushManager.subscribe({
@@ -29,7 +29,8 @@ export function PushTest() {
         const parsedSubscription: ISubscription = JSON.parse(JSON.stringify(newSubscription, null, 2));
 
         return parsedSubscription;
-      } else {
+      }
+      else {
         console.error("Service Worker not supported");
         return null;
       }
@@ -45,6 +46,7 @@ export function PushTest() {
       const vapidKeys: any = res.data;
       const subscription: ISubscription | null = await registerServiceWorker(vapidKeys);
       if (subscription) {
+        console.log('enabling')
         await enableClientNotification(subscription);
       }
     } catch (e) {

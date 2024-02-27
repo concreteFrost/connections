@@ -1,6 +1,6 @@
 import s from "./Login.module.scss"
 import getToken from "../../api/token/getToken";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { setAccessToken } from "../../store/actions/storageActions";
 import ConnectionsLogo from "../../assets/connections_logo";
@@ -10,17 +10,40 @@ import useStore from "../../store/store";
 function Login() {
 
     const [userName, setUserName] = useState<string>(localStorage.getItem('iCon_username') ?? '');
-    const {setAppUserPassword, appUserPassword} = useStore((state)=>state.securitySlice);
+    const { setAppUserPassword, appUserPassword } = useStore((state) => state.securitySlice);
 
     const navigate = useNavigate();
 
+    async function checkSubscription() {
+        try {
+            if ("serviceWorker" in navigator) {
+                const sw = await navigator.serviceWorker.register("/sw.js")
+                // console.log('Service worker registered', sw)
+                const registration = await navigator.serviceWorker.ready;
+                // Check for existing subscription
+                const existingSubscription = await registration.pushManager.getSubscription();
+
+                if (existingSubscription) {
+                    console.log('subscription found')
+                    existingSubscription.unsubscribe()
+                }
+            }
+        } catch (error) {
+            console.error("Error registering service worker:", error);
+        }
+    }
+
+    useEffect(() => {
+        checkSubscription();
+    }, [])
+
     function submit(e: any) {
         e.preventDefault();
-        if(appUserPassword && userName)
-        getToken(userName, appUserPassword).then((res: any) => {
-            setAccessToken(res.data, userName);
-            navigate('/dashboard')
-        }).catch(e => console.log(e))
+        if (appUserPassword && userName)
+            getToken(userName, appUserPassword).then((res: any) => {
+                setAccessToken(res.data, userName);
+                navigate('/dashboard')
+            }).catch(e => console.log(e))
     }
 
     return (<div className={s.wrapper}>

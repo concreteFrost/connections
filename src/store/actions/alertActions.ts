@@ -1,5 +1,5 @@
-import { RemoveDirectiveApi, UpdateDirectiveApi, addDirectiveApi, getDirectivesApi } from "../../api/ehd";
-import { IDirective } from "../interfaces/IAlerts";
+import { RemoveDirectiveApi, UpdateDirectiveApi, addDirectiveApi, getAlertFormatsApi, getDirectivesApi } from "../../api/ehd";
+import { IAlertFormat, IDirective } from "../interfaces/IAlerts";
 
 const getDirectives = () => async (): Promise<IDirective[]> => {
     try {
@@ -14,6 +14,7 @@ const getDirectives = () => async (): Promise<IDirective[]> => {
 const updateDirective = () => async (directive: IDirective) => {
     try {
         const res = await UpdateDirectiveApi(directive);
+        console.log(res)
         return res;
     } catch (error) {
         console.log("error getting directives");
@@ -40,11 +41,23 @@ const addDirective = () => async (newDirective: IDirective) => {
     }
 }
 
+const getAlertFormats = () => async (): Promise<IAlertFormat[]> => {
+    try {
+        const res: any = await getAlertFormatsApi();
+        return res.data;
+    } catch (error) {
+        console.log("error getting alert formats");
+        return [];
+    }
+}
+
+
 const alertActions = {
     getDirectives: getDirectives,
     updateDirective: updateDirective,
     deleteDirective: deleteDirective,
-    addDirective: addDirective
+    addDirective: addDirective,
+    getAlertFormats:getAlertFormats
 }
 
 export default alertActions;

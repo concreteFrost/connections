@@ -19,27 +19,32 @@ function DraftFlowsItem(props: FlowsItemProps) {
   const { toggleApproveFlowModal, setApproveFlowModalMessage } = useStore(
     (state) => state.modalWindowsSlice
   );
+  const [isListLoaded, setListLoaded] = useState<boolean>(false);
 
   async function fetchDraftFlowList() {
-    try {
-      const res: any = await getDraftListApi();
-      const data: any = res.data.draftFlows;
-
-      const updatedData = Object.keys(data).reduce(
-        (previousObject: any, key) => {
-          previousObject[key] = data[key];
-          previousObject[key].isExpanded = false;
-          previousObject[key].forEach((x: any) => {
-            x.isDropdownVisible = false;
-          });
-          return previousObject;
-        },
-        {}
-      );
-      
-      setDraftFlowList(updatedData);
-    } catch (e) {
-      console.log(e);
+    if(!isListLoaded){
+      try {
+        console.log('fetching draft flows list')
+        const res: any = await getDraftListApi();
+        const data: any = res.data.draftFlows;
+  
+        const updatedData = Object.keys(data).reduce(
+          (previousObject: any, key) => {
+            previousObject[key] = data[key];
+            previousObject[key].isExpanded = false;
+            previousObject[key].forEach((x: any) => {
+              x.isDropdownVisible = false;
+            });
+            return previousObject;
+          },
+          {}
+        );
+        
+        setDraftFlowList(updatedData);
+        setListLoaded(true)
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 
@@ -51,10 +56,6 @@ function DraftFlowsItem(props: FlowsItemProps) {
       console.log(e);
     }
   }
-
-  useEffect(() => {
-    fetchDraftFlowList();
-  }, []);
 
   function toggleFolderToOpen(folderName: string) {
     const updatedFolders = Object.keys(draftFlowList).reduce(
@@ -80,7 +81,11 @@ function DraftFlowsItem(props: FlowsItemProps) {
     <div className={s.section}>
       <div
         className={s.section_header}
-        onClick={() => props.toggleSection("drafts")}
+        onClick={async() => {
+          await fetchDraftFlowList()
+          props.toggleSection("drafts")
+        }
+      }
       >
         <span className={s.header_icon}>
           {connectionsIcons.serverMenuIcons.flows}
