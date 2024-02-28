@@ -1,16 +1,15 @@
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import useStore from "../../../../../../../store/store";
-import { getFlowListApi } from "../../../../../../../api/flow";
 import { IFlowConfig } from "../../../../../../../store/interfaces/Iflow";
 import s from "./AddDirectiveForm.module.scss"
 import { IDirective, IDirectiveConfig } from "../../../../../../../store/interfaces/IAlerts";
 import moment from "moment";
 
 const initialDirectiveConfig: IDirectiveConfig = {
-  ehControlId:0,
-  ehDirectiveId:0,
+  ehControlId: 0,
+  ehDirectiveId: 0,
   optionId: 1,
-  inputValue: 10,
+  inputValue: 0,
   alertFormatId: 1,
   preventProcessing: false,
   stopFlow: 0,
@@ -19,6 +18,7 @@ const initialDirectiveConfig: IDirectiveConfig = {
   addToCounter: false,
   clearCounter: false
 };
+
 
 const initialDirective: IDirective = {
   name: "New Directive",
@@ -32,13 +32,14 @@ const initialDirective: IDirective = {
 
 interface DirectiveFormProps {
   setAddDirectiveFormVisible: (isVisible: boolean) => void;
-  fetchDirectives:()=>void;
+  setDirectives: (directives: Array<IDirective>) => void;
+  directives: IDirective[];
   flowList: Array<IFlowConfig>;
 }
 
 function AddDirectiveForm(props: DirectiveFormProps) {
-  const { addDirective} = useStore((state) => state.alertSlice);
-  const [newDirective, setNewDirective] = useState(initialDirective);
+  const { addDirective } = useStore((state) => state.alertSlice);
+  const [newDirective, setNewDirective] = useState<IDirective>(initialDirective);
   const { setModalMessage, toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
 
 
@@ -92,19 +93,22 @@ function AddDirectiveForm(props: DirectiveFormProps) {
   async function handleAddDirective() {
     try {
       const res: any = await addDirective(newDirective);
-      
-
+    
       if (res.data.success === false) {
         setModalMessage(res.data.message);
         toggleMessageModal();
         return;
       }
 
+      const data : IDirective = res.data
+
       setModalMessage("success!!!");
       toggleMessageModal();
       props.setAddDirectiveFormVisible(false)
 
-      await props.fetchDirectives();
+      props.setDirectives([...props.directives, data])
+
+      // await props.fetchDirectives();
     } catch (error) {
       setModalMessage("error while adding new directive");
       toggleMessageModal();
@@ -183,7 +187,7 @@ function AddDirectiveForm(props: DirectiveFormProps) {
                       <label htmlFor={`inputValue-${config_index}`} className={s.label}>Input Value:</label>
                       <input type="number" id={`inputValue-${config_index}`} value={config.inputValue ?? ''} onChange={(e) => editDirectiveConfig(config_index, "inputValue", e.target.value)} />
                     </div>
-                   
+
                     <div className={s.directive_item}>
                       <label htmlFor={`alertFormatId-${config_index}`} className={s.label}>Alert Format ID:</label>
                       <input type="text" id={`alertFormatId-${config_index}`} value={config.alertFormatId ?? ''} onChange={(e) => editDirectiveConfig(config_index, "alertFormatId", e.target.value)} />

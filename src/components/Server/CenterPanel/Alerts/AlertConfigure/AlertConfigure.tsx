@@ -1,6 +1,7 @@
 import s from "./AlertConfigure.module.scss";
 import { useNavigate } from "react-router";
 import DirectivesControl from "./DirectivesControl/DirectivesControl";
+import AlertFormatTable from "./AlertFormat/AlertFormatTable/AlertFormatTable";
 import AlertFormat from "./AlertFormat/AlertFormat";
 function AlertConfigure() {
   const navigate = useNavigate();
@@ -8,7 +9,7 @@ function AlertConfigure() {
   return (
     <section className={s.wrapper}>
       <header><button onClick={() => navigate('/dashboard/alerts')}>ALERTS</button></header>
-      {/* <AlertFormat></AlertFormat> */}
+      <AlertFormat></AlertFormat>
       <DirectivesControl></DirectivesControl>
     </section>
   );

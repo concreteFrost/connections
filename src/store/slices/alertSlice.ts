@@ -1,5 +1,5 @@
 import alertActions from "../actions/alertActions";
-import { IDirective, IAlertFormat} from "../interfaces/IAlerts";
+import { IDirective, IAlertFormat, INewAlertFormat} from "../interfaces/IAlerts";
 import { RFState } from "../types/rfState"
 export type AlertSlice = {
 
@@ -9,6 +9,9 @@ export type AlertSlice = {
     addDirective:(newDirective:IDirective)=>void;
 
     getAlertFormats:()=>Promise<IAlertFormat[]>;
+    updateAlertFormat:(alertFromat:IAlertFormat)=>void;
+    deleteAlertFormat:(alertFormatId:number)=>void;
+    addAlertFormat:(newAlertFormat:INewAlertFormat)=>void;
 }
 
 const alertSlice = (get: () => RFState, set: any): AlertSlice => ({
@@ -17,7 +20,10 @@ const alertSlice = (get: () => RFState, set: any): AlertSlice => ({
     deleteDirective:alertActions.deleteDirective(),
     addDirective:alertActions.addDirective(),
     
-    getAlertFormats:alertActions.getAlertFormats()
+    getAlertFormats:alertActions.getAlertFormats(),
+    updateAlertFormat:alertActions.updateAlertFormat(),
+    deleteAlertFormat:alertActions.deleteAlertFormat(),
+    addAlertFormat:alertActions.addAlertFormat()
 })
 
 export default alertSlice;

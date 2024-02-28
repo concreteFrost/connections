@@ -5,19 +5,10 @@ import { IDirective, IDirectiveConfig } from "../../../../../../../store/interfa
 import { IFlowConfig } from "../../../../../../../store/interfaces/Iflow";
 import { connectionsIcons } from "../../../../../../../icons/icons";
 
-interface DirectivesTableProps {
-  fetchDirectives: () => void;
-  setDirectives: (directives: Array<IDirective>) => void;
-
-  directives: Array<IDirective>;
-  flowList: Array<IFlowConfig>;
-
-}
-
 const initialDirectiveConfig: IDirectiveConfig = {
   ehControlId: 0,
   ehDirectiveId: 0,
-  optionId: 2,
+  optionId: 1,
   inputValue: 0,
   alertFormatId: 1,
   preventProcessing: false,
@@ -27,6 +18,13 @@ const initialDirectiveConfig: IDirectiveConfig = {
   addToCounter: false,
   clearCounter: false
 };
+
+interface DirectivesTableProps {
+  setDirectives: (directives: Array<IDirective>) => void;
+  fetchDirectives:()=>void;
+  directives: Array<IDirective>;
+  flowList: Array<IFlowConfig>;
+}
 
 const PAGE_SIZE = 3;
 
@@ -60,7 +58,11 @@ function DirectivesTable(props: DirectivesTableProps) {
       const res: any = await updateDirective(directive);
       setModalMessage(res.data.success ? 'sucess!!!' : res.data.message)
       toggleMessageModal()
-      await props.fetchDirectives()
+
+      if (!res.data.success) {
+        await props.fetchDirectives()
+      }
+
     }
     catch (e) {
       setModalMessage("Internal Server Error")
@@ -73,7 +75,12 @@ function DirectivesTable(props: DirectivesTableProps) {
       const res: any = await deleteDirective(ehControlId);
       setModalMessage(res.data.success ? 'sucess!!!' : res.data.message)
       toggleMessageModal()
-      await props.fetchDirectives();
+
+      if (res.data.success) {
+        const filteredDirectives = props.directives.filter((dir: IDirective) => dir.ehControlId != ehControlId);
+        props.setDirectives(filteredDirectives);
+      }
+
     } catch (error) {
       console.log('error deleting directive', error);
     }
@@ -121,10 +128,7 @@ function DirectivesTable(props: DirectivesTableProps) {
 
   //resets unsaved changes in edited directive
   function checkCurrentDirectives(index: Number) {
-
-    console.log(index)
     setCurrentDirectiveIndex(index);
-
   }
 
   function showConfirmationOnDelete(ehControlId: number, directiveName: string) {

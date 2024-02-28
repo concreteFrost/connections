@@ -7,6 +7,7 @@ import { IFlowConfig } from "../../../../../../store/interfaces/Iflow";
 import { getFlowListApi } from "../../../../../../api/flow";
 import s from "./DirectivesControl.module.scss"
 
+
 function DirectivesControl() {
   const [isAddDirectiveVisible, setAddDirectiveVisible] = useState<boolean>(false);
   const { getDirectives } = useStore((state) => state.alertSlice);
@@ -42,11 +43,12 @@ function DirectivesControl() {
       <header><h3>Directives Control</h3></header>
       <div className={s.header_btn_wrapper}><button onClick={() => setAddDirectiveVisible(true)}>ADD</button></div>
       {isAddDirectiveVisible ? <AddDirectiveForm
+      directives={directives}
         flowList={flowList}
-        fetchDirectives={fetchDirectives}
+        setDirectives={setDirectives}
         setAddDirectiveFormVisible={setAddDirectiveVisible}></AddDirectiveForm> : null}
       <DirectivesTable
-        fetchDirectives={fetchDirectives}
+      fetchDirectives={fetchDirectives}
         setDirectives={setDirectives}
         directives={directives}
         flowList={flowList}

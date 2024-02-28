@@ -1,5 +1,5 @@
-import { RemoveDirectiveApi, UpdateDirectiveApi, addDirectiveApi, getAlertFormatsApi, getDirectivesApi } from "../../api/ehd";
-import { IAlertFormat, IDirective } from "../interfaces/IAlerts";
+import { AddAlertFormatApi, RemoveAlertFormatApi, RemoveDirectiveApi, UpdateAlertFormatApi, UpdateDirectiveApi, addDirectiveApi, getAlertFormatsApi, getDirectivesApi } from "../../api/ehd";
+import { IAlertFormat, IDirective,INewAlertFormat } from "../interfaces/IAlerts";
 
 const getDirectives = () => async (): Promise<IDirective[]> => {
     try {
@@ -51,13 +51,46 @@ const getAlertFormats = () => async (): Promise<IAlertFormat[]> => {
     }
 }
 
+const updateAlertFormat = () => async (alertFormat: IAlertFormat) => {
+    try {
+        const res = await UpdateAlertFormatApi(alertFormat);
+        return res;
+    } catch (error) {
+        console.log("error getting directives");
+
+    }
+}
+
+const deleteAlertFormat = () => async (alertFormatId: number) => {
+    try {
+        const res = await RemoveAlertFormatApi(alertFormatId);
+        return res;
+    } catch (error) {
+        console.log("error deleting directives");
+
+    }
+}
+
+const addAlertFormat = () => async (newAlertFormat: INewAlertFormat) => {
+    try {
+        const res = await AddAlertFormatApi(newAlertFormat)
+        return res;
+    } catch (error) {
+        console.log("error adding directive");
+    }
+}
+
+
 
 const alertActions = {
     getDirectives: getDirectives,
     updateDirective: updateDirective,
     deleteDirective: deleteDirective,
     addDirective: addDirective,
-    getAlertFormats:getAlertFormats
+    getAlertFormats:getAlertFormats,
+    updateAlertFormat:updateAlertFormat,
+    deleteAlertFormat:deleteAlertFormat,
+    addAlertFormat:addAlertFormat
 }
 
 export default alertActions;

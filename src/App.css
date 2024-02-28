@@ -3,6 +3,9 @@ body {
   font-family: "Inter";
 }
 
+textarea,input,select,button{
+  font-family: "Inter";
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

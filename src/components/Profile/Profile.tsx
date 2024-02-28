@@ -91,7 +91,6 @@ function toggleProfileModalVisibility(isVisible: boolean) {
         </div> : null
         }
         <EditUserModal isVisible={isEditUserVisible} toggleEditUser={toggleEditUserModal} ></EditUserModal>
-
     </div>)
 }
 

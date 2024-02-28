@@ -108,8 +108,11 @@ function EditUserModal(props: EditUserModalProps) {
     }
 
     useEffect(() => {
-        setUserToEdit(userToEdit)
-        fetchRolesAndGroups();
+        if(props.isVisible){
+            setUserToEdit(userToEdit)
+            fetchRolesAndGroups();
+        }
+       
     }, [props.isVisible])
 
     return (<>

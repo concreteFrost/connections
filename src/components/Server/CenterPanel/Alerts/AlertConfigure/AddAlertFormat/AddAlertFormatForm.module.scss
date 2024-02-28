@@ -1,0 +1,124 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+.wrapper {
+    @include modal_container;
+}
+
+.modal_window {
+    @include modal_window;
+}
+
+.modal_header {
+    @include modal_header;
+
+    position: relative;
+
+    .close_modal {
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        button {
+            @include blue_btn;
+        }
+    }
+}
+
+.modal_body {
+    @include modal_body;
+
+    .form {
+        .alert_format {
+            .alert_format_item {
+                display: grid;
+                grid-template-columns: 4fr 8fr;
+                margin-bottom: 10px;
+            }
+        }
+
+        .add_config_wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+
+            button {
+                @include blue_btn;
+            }
+        }
+
+        textarea {
+            resize: none;
+            height: 100px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid rgb(216, 216, 216);
+
+        }
+
+        label,
+        input {
+            display: inline-block;
+        }
+
+        input,
+        select {
+
+            border-radius: 5px;
+            border: 1px solid $color-list-border-darker;
+            padding-left: 5px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        ul {
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 20px;
+            margin-bottom: 20px;
+
+            li {
+
+                list-style: none;
+                position: relative;
+
+
+                header {
+                    background-color: rgb(245, 245, 245);
+
+                    h3 {
+                        text-align: center;
+                    }
+                }
+
+                .delete_config_btn {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+
+                    button {
+                        @include red_btn;
+                        padding: 3px 10px;
+                    }
+                }
+            }
+
+        }
+
+        .action_btns_wrapper {
+            display: flex;
+            justify-content: center;
+
+            button {
+                @include blue_btn;
+            }
+        }
+
+
+
+
+    }
+
+}
