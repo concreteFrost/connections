@@ -6,6 +6,7 @@ import { ISubscription } from "../../store/interfaces/INotification";
 export function PushTest() {
   const { getVapidKeys } = useStore((state) => state.securitySlice);
   const { enableClientNotification } = useStore((state) => state.notificationSlice);
+  const {enablieClientAlerts} = useStore((state)=>state.alertSlice)
 
   const registerServiceWorker = async (vapidKeys: any): Promise<ISubscription | null> => {
     try {
@@ -48,6 +49,7 @@ export function PushTest() {
       if (subscription) {
         console.log('enabling')
         await enableClientNotification(subscription);
+        await enablieClientAlerts(subscription);
       }
     } catch (e) {
       console.log("Error getting vapid keys", e);

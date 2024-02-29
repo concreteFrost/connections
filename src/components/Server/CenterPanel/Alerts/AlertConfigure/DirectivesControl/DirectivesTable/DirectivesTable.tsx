@@ -21,7 +21,7 @@ const initialDirectiveConfig: IDirectiveConfig = {
 
 interface DirectivesTableProps {
   setDirectives: (directives: Array<IDirective>) => void;
-  fetchDirectives:()=>void;
+  fetchDirectives: () => void;
   directives: Array<IDirective>;
   flowList: Array<IFlowConfig>;
 }
@@ -188,23 +188,16 @@ function DirectivesTable(props: DirectivesTableProps) {
                       <li key={config_index}>
                         <header>CONFIG: {config_index}</header>
                         <span className={s.delete_config_btn}><button onClick={() => deleteDirectiveConfig(props.directives.indexOf(directive), config_index)}>x</button></span>
-                        <div className={s.directive_item}>
-                          <label htmlFor={`startFlow-${config_index}`} className={s.label}>Start Flow:</label>
-                          <select id={`startFlow-${config_index}`} value={config.startFlow ? config.startFlow : 0} onChange={(e) => editDirectiveConfig(props.directives.indexOf(directive), config_index, "startFlow", e.target.value)} >
-                            <option value={0}>null</option>
-                            {props.flowList && props.flowList.length > 0 ?
-                              props.flowList.map((flow: IFlowConfig, index: number) => <option key={index} value={flow.flowId}>{flow.name}</option>) : <option>No Flows Available</option>}
-                          </select>
-                        </div>
-                        <div className={s.directive_item}>
-                          <label className={s.label}>Stop Flow:</label>
-                          <input type="number" value={config.stopFlow} onChange={(e) => editDirectiveConfig(props.directives.indexOf(directive), config_index, "stopFlow", e.target.value)} />
-                          <span>{connectionsIcons.pen}</span>
-                        </div>
+
 
                         <div className={s.directive_item}>
                           <label className={s.label}>Option ID:</label>
-                          <input type="number" value={config.optionId} onChange={(e) => editDirectiveConfig(props.directives.indexOf(directive), config_index, "optionId", e.target.value)} />
+
+                          <select value={config.optionId} onChange={(e) => editDirectiveConfig(props.directives.indexOf(directive), config_index, "optionId", e.target.value)}>
+                            <option value={1}>Terminate</option>
+                            <option value={2}>Pause Current</option>
+                            <option value={3}>Retry</option>
+                          </select>
                           <span>{connectionsIcons.pen}</span>
                         </div>
                         <div className={s.directive_item}>
@@ -214,25 +207,32 @@ function DirectivesTable(props: DirectivesTableProps) {
                         </div>
                         <div className={s.directive_item}>
                           <label className={s.label}>Alert Format ID:</label>
-                          <input type="text" value={config.alertFormatId ?? ''} onChange={(e) => editDirectiveConfig(props.directives.indexOf(directive), config_index, "alertFormatId", e.target.value)} />
+                          <select value={config.alertFormatId} onChange={(e) => editDirectiveConfig(props.directives.indexOf(directive), config_index, "alertFormatId", e.target.value)}  >
+                            <option value={0}>Default</option>
+                            <option value={1}>User</option>
+                          </select>
+                        </div>
+                        <div className={s.directive_item}>
+                          <label className={s.label}>Prevent Processing:</label>
+                          <input type="checkBox" checked={config.preventProcessing} onChange={(e) => editDirectiveConfig(props.directives.indexOf(directive), config_index, "preventProcessing", !config.preventProcessing)} />
+                        </div>
+                        <div className={s.directive_item}>
+                          <label className={s.label}>Stop Flow:</label>
+                          <input type="number" value={config.stopFlow} onChange={(e) => editDirectiveConfig(props.directives.indexOf(directive), config_index, "stopFlow", e.target.value)} />
                           <span>{connectionsIcons.pen}</span>
+                        </div>
+                        <div className={s.directive_item}>
+                          <label htmlFor={`startFlow-${config_index}`} className={s.label}>Start Flow:</label>
+                          <select id={`startFlow-${config_index}`} value={config.startFlow ? config.startFlow : 0} onChange={(e) => editDirectiveConfig(props.directives.indexOf(directive), config_index, "startFlow", e.target.value)} >
+                            <option value={0}>null</option>
+                            {props.flowList && props.flowList.length > 0 ?
+                              props.flowList.map((flow: IFlowConfig, index: number) => <option key={index} value={flow.flowId}>{flow.name}</option>) : <option>No Flows Available</option>}
+                          </select>
                         </div>
                         <div className={s.directive_item}>
                           <label className={s.label}>Run Script:</label>
                           <input type="text" value={config.runScript ?? ''} onChange={(e) => editDirectiveConfig(props.directives.indexOf(directive), config_index, "runScript", e.target.value)} />
                           <span>{connectionsIcons.pen}</span>
-                        </div>
-                        <div className={s.directive_item}>
-                          <label className={s.label}>EH Control ID:</label>
-                          <input type="number" value={config.ehControlId} readOnly />
-                        </div>
-                        <div className={s.directive_item}>
-                          <label className={s.label}>EH Directive ID:</label>
-                          <input type="number" value={config.ehDirectiveId} readOnly />
-                        </div>
-                        <div className={s.directive_item}>
-                          <label className={s.label}>Prevent Processing:</label>
-                          <input type="checkBox" checked={config.preventProcessing} onChange={(e) => editDirectiveConfig(props.directives.indexOf(directive), config_index, "preventProcessing", !config.preventProcessing)} />
                         </div>
                         <div className={s.directive_item}>
                           <label className={s.label}>Add To Counter:</label>

@@ -34,55 +34,55 @@ export function addDirectiveApi(directive: IDirective) {
     });
 }
 
-export function UpdateDirectiveApi(directive: IDirective) {
+export function updateDirectiveApi(directive: IDirective) {
     return axios.post(baseUrl + "/Ehd/UpdateDirective", directive, {
         headers: generateHeaders()
     });
 }
 
-export function RemoveDirectiveApi(ehControlId: number) {
+export function removeDirectiveApi(ehControlId: number) {
     return axios.post(baseUrl + "/Ehd/RemoveDirective", ehControlId, {
         headers: generateHeaders()
     });
 }
 
-export function AddAlertFormatApi(alertFormat: INewAlertFormat) {
+export function addAlertFormatApi(alertFormat: INewAlertFormat) {
     return axios.post(baseUrl + "/Ehd/AddAlertFormat", alertFormat, {
         headers: generateHeaders()
     });
 }
 
-export function UpdateAlertFormatApi(alertFormat: IAlertFormat) {
+export function updateAlertFormatApi(alertFormat: IAlertFormat) {
     return axios.post(baseUrl + "/Ehd/UpdateAlertFormat", alertFormat, {
         headers: generateHeaders()
     });
 }
 
-export function RemoveAlertFormatApi(alertFormatId: number) {
+export function removeAlertFormatApi(alertFormatId: number) {
     return axios.post(baseUrl + "/Ehd/RemoveAlertFormat", alertFormatId, {
         headers: generateHeaders()
     });
 }
 
-export function EnabliClientAlertsApi(subscription: ISubscription) {
+export function enabliClientAlertsApi(subscription: ISubscription) {
     return axios.post(baseUrl + "/Ehd/EnableClientAlerts", subscription, {
         headers: generateHeaders()
     });
 }
 
-export function GetAlertsApi(unreadOnly: boolean) {
+export function getAlertsApi(unreadOnly: boolean) {
     return axios.post(baseUrl + "/Ehd/GetAlerts", unreadOnly, {
         headers: generateHeaders()
     });
 }
 
-export function AlertMarkAsReadApi(alertId: number) {
+export function alertMarkAsReadApi(alertId: number) {
     return axios.post(baseUrl + "/Ehd/AlertMarkAsRead", alertId, {
         headers: generateHeaders()
     });
 }
 
-export function AlertRemoveApi(alertId: number) {
+export function alertRemoveApi(alertId: number) {
     return axios.post(baseUrl + "/Ehd/AlertRemove", alertId, {
         headers: generateHeaders()
     });

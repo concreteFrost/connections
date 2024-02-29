@@ -8,7 +8,7 @@ import moment from "moment";
 const initialDirectiveConfig: IDirectiveConfig = {
   ehControlId: 0,
   ehDirectiveId: 0,
-  optionId: 1,
+  optionId: 2,
   inputValue: 0,
   alertFormatId: 1,
   preventProcessing: false,
@@ -155,6 +155,34 @@ function AddDirectiveForm(props: DirectiveFormProps) {
                     <header><h3>CONFIG: {config_index}</h3> </header>
                     <span className={s.delete_config_btn}><button type="button" onClick={() => deleteDirectiveConfig(config_index)}>x</button></span>
                     <div className={s.directive_item}>
+                      <label htmlFor={`optionId-${config_index}`} className={s.label}>Option ID:</label>
+                     <select  id={`optionId-${config_index}`} value={config.optionId}  onChange={(e) => editDirectiveConfig(config_index, "optionId", e.target.value)}>
+                     <option value={1}>Terminate</option>
+                     <option value={2}>Pause Current</option>
+                     <option value={3}>Retry</option>
+                     </select>
+                    </div>
+                    <div className={s.directive_item}>
+                      <label htmlFor={`inputValue-${config_index}`} className={s.label}>Input Value:</label>
+                      <input type="number" id={`inputValue-${config_index}`} value={config.inputValue ?? ''} onChange={(e) => editDirectiveConfig(config_index, "inputValue", e.target.value)} />
+                    </div>
+                    
+                    <div className={s.directive_item}>
+                      <label htmlFor={`alertFormatId-${config_index}`} className={s.label}>Alert Format ID:</label>
+                      <select id={`alertFormatId-${config_index}`} value={config.alertFormatId}  onChange={(e) => editDirectiveConfig(config_index, "alertFormatId", e.target.value)} >
+                        <option value={0}>Default</option>
+                        <option value={1}>User</option>
+                      </select>    
+                    </div>
+                    <div className={s.directive_item}>
+                      <label htmlFor={`preventProcessing-${config_index}`} className={s.label}>Prevent Processing:</label>
+                      <input type="checkBox" id={`preventProcessing-${config_index}`} checked={config.preventProcessing} onChange={(e) => editDirectiveConfig(config_index, "preventProcessing", !config.preventProcessing)} />
+                    </div>
+                    <div className={s.directive_item}>
+                      <label htmlFor={`stopFlow-${config_index}`} className={s.label}>Stop Flow:</label>
+                      <input type="number" id={`stopFlow-${config_index}`} value={config.stopFlow} onChange={(e) => editDirectiveConfig(config_index, "stopFlow", e.target.value)} />
+                    </div>
+                    <div className={s.directive_item}>
                       <label htmlFor={`startFlow-${config_index}`} className={s.label}>
                         Start Flow:
                       </label>
@@ -176,30 +204,10 @@ function AddDirectiveForm(props: DirectiveFormProps) {
                       </select>
                     </div>
                     <div className={s.directive_item}>
-                      <label htmlFor={`stopFlow-${config_index}`} className={s.label}>Stop Flow:</label>
-                      <input type="number" id={`stopFlow-${config_index}`} value={config.stopFlow} onChange={(e) => editDirectiveConfig(config_index, "stopFlow", e.target.value)} />
-                    </div>
-                    <div className={s.directive_item}>
-                      <label htmlFor={`optionId-${config_index}`} className={s.label}>Option ID:</label>
-                      <input type="text" id={`optionId-${config_index}`} value={config.optionId} onChange={(e) => editDirectiveConfig(config_index, "optionId", e.target.value)} />
-                    </div>
-                    <div className={s.directive_item}>
-                      <label htmlFor={`inputValue-${config_index}`} className={s.label}>Input Value:</label>
-                      <input type="number" id={`inputValue-${config_index}`} value={config.inputValue ?? ''} onChange={(e) => editDirectiveConfig(config_index, "inputValue", e.target.value)} />
-                    </div>
-
-                    <div className={s.directive_item}>
-                      <label htmlFor={`alertFormatId-${config_index}`} className={s.label}>Alert Format ID:</label>
-                      <input type="text" id={`alertFormatId-${config_index}`} value={config.alertFormatId ?? ''} onChange={(e) => editDirectiveConfig(config_index, "alertFormatId", e.target.value)} />
-                    </div>
-                    <div className={s.directive_item}>
                       <label htmlFor={`runScript-${config_index}`} className={s.label}>Run Script:</label>
                       <input type="text" id={`runScript-${config_index}`} value={config.runScript ?? ''} onChange={(e) => editDirectiveConfig(config_index, "runScript", e.target.value)} />
                     </div>
-                    <div className={s.directive_item}>
-                      <label htmlFor={`preventProcessing-${config_index}`} className={s.label}>Prevent Processing:</label>
-                      <input type="checkBox" id={`preventProcessing-${config_index}`} checked={config.preventProcessing} onChange={(e) => editDirectiveConfig(config_index, "preventProcessing", !config.preventProcessing)} />
-                    </div>
+
                     <div className={s.directive_item}>
                       <label htmlFor={`addToCounter-${config_index}`} className={s.label}>Add To Counter:</label>
                       <input type="checkBox" id={`addToCounter-${config_index}`} checked={config.addToCounter} onChange={(e) => editDirectiveConfig(config_index, "addToCounter", !config.addToCounter)} />

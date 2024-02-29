@@ -1,5 +1,6 @@
-import { AddAlertFormatApi, RemoveAlertFormatApi, RemoveDirectiveApi, UpdateAlertFormatApi, UpdateDirectiveApi, addDirectiveApi, getAlertFormatsApi, getDirectivesApi } from "../../api/ehd";
+import { addAlertFormatApi, removeAlertFormatApi, removeDirectiveApi, updateAlertFormatApi, updateDirectiveApi, addDirectiveApi, getAlertFormatsApi, getDirectivesApi, enabliClientAlertsApi } from "../../api/ehd";
 import { IAlertFormat, IDirective,INewAlertFormat } from "../interfaces/IAlerts";
+import { ISubscription } from "../interfaces/INotification";
 
 const getDirectives = () => async (): Promise<IDirective[]> => {
     try {
@@ -13,7 +14,7 @@ const getDirectives = () => async (): Promise<IDirective[]> => {
 
 const updateDirective = () => async (directive: IDirective) => {
     try {
-        const res = await UpdateDirectiveApi(directive);
+        const res = await updateDirectiveApi(directive);
         console.log(res)
         return res;
     } catch (error) {
@@ -24,7 +25,7 @@ const updateDirective = () => async (directive: IDirective) => {
 
 const deleteDirective = () => async (ehControlId: number) => {
     try {
-        const res = await RemoveDirectiveApi(ehControlId);
+        const res = await removeDirectiveApi(ehControlId);
         return res;
     } catch (error) {
         console.log("error deleting directives");
@@ -53,7 +54,7 @@ const getAlertFormats = () => async (): Promise<IAlertFormat[]> => {
 
 const updateAlertFormat = () => async (alertFormat: IAlertFormat) => {
     try {
-        const res = await UpdateAlertFormatApi(alertFormat);
+        const res = await updateAlertFormatApi(alertFormat);
         return res;
     } catch (error) {
         console.log("error getting directives");
@@ -63,7 +64,7 @@ const updateAlertFormat = () => async (alertFormat: IAlertFormat) => {
 
 const deleteAlertFormat = () => async (alertFormatId: number) => {
     try {
-        const res = await RemoveAlertFormatApi(alertFormatId);
+        const res = await removeAlertFormatApi(alertFormatId);
         return res;
     } catch (error) {
         console.log("error deleting directives");
@@ -73,8 +74,17 @@ const deleteAlertFormat = () => async (alertFormatId: number) => {
 
 const addAlertFormat = () => async (newAlertFormat: INewAlertFormat) => {
     try {
-        const res = await AddAlertFormatApi(newAlertFormat)
+        const res = await addAlertFormatApi(newAlertFormat)
         return res;
+    } catch (error) {
+        console.log("error adding directive");
+    }
+}
+
+const enableClientAlerts = () => async (subscription: ISubscription) => {
+    try {
+        const res = await enabliClientAlertsApi(subscription);
+        console.log("result of alert client notifications reg", res);
     } catch (error) {
         console.log("error adding directive");
     }
@@ -90,7 +100,8 @@ const alertActions = {
     getAlertFormats:getAlertFormats,
     updateAlertFormat:updateAlertFormat,
     deleteAlertFormat:deleteAlertFormat,
-    addAlertFormat:addAlertFormat
+    addAlertFormat:addAlertFormat,
+    enableClientAlerts:enableClientAlerts
 }
 
 export default alertActions;

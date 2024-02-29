@@ -120,9 +120,8 @@ function AlertFormatTable(props: AlertFormatTableProps) {
                                                 onChange={(e) => updateAlertFormatData(alertFormat.alertFormatId, "description", e.target.value)}
                                             />
                                         </div>
-
                                     </td>
-                                    <td colSpan={1}>{alertFormat.category}</td>
+                                    <td colSpan={1}>{alertFormat.category === 0 ? "Default" : "User"}</td>
                                     <td colSpan={2}>
                                         <select
                                             value={alertFormat.userOrGroupId}
