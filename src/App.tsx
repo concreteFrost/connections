@@ -12,6 +12,7 @@ import useStore from "./store/store";
 import ConfirmationModal from "./components/Modals/ConfirmationModal";
 import PushTest from "./components/PushTest/PushTest";
 import ApproveModal from "./components/Modals/ApproveModal";
+import Notifications from "./components/Notifications/Noticifations";
 
 function App() {
   const tooltipText = useStore((store) => store.designerVisualElementsSlice.tooltip.text);
@@ -22,6 +23,7 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/dashboard/*" element={<ProtectedRoute><Server></Server></ProtectedRoute>} />
         <Route path="/designer" element={<ProtectedRoute><Designer></Designer></ProtectedRoute>} />
+        <Route path="/alerts" element={<ProtectedRoute><Notifications></Notifications></ProtectedRoute>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <PushTest></PushTest>

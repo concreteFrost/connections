@@ -1,9 +1,17 @@
+import { useState } from "react";
 import s from "./CurrentAlertsTable.module.scss";
 import { useNavigate } from "react-router";
+import { getAlertsApi } from "../../../../../api/ehd";
 
 function CurrentAlertsTable() {
 
   const navigate= useNavigate()
+
+  useState(()=>{
+     getAlertsApi(true).then((res : any)=>{
+      console.log(res)
+     })
+  })
   return (
     <section className={s.wrapper}>
       <h3>Current Alerts</h3>
