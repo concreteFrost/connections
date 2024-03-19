@@ -16,6 +16,15 @@ textarea,input,select,button{
   }
 }
 
+::selection {
+  display: none;
+}
+
+::-moz-selection {
+display: none;
+}
+
+
 .resized_dynamic_menu,.dynamic_menu {
   position: absolute;
   overflow: hidden;

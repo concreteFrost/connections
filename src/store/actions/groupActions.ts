@@ -3,8 +3,8 @@ import { NodeProps, NodeRemoveChange } from "react-flow-renderer";
 import { IVisual } from "../interfaces/Iflow";
 import { RFState } from "../types/rfState";
 
-export const getAllselectedBlockIDs = (nodes: NodeProps[]) => {
-  return nodes.filter((node) => node.selected === true).length > 1;
+export const getAllselectedBlockIDs = (nodes: any) => {
+  return nodes.filter((node : any) => node.selected === true).length > 1;
 };
 
 export const addGroup = (get: () => RFState, set: any) => () => {

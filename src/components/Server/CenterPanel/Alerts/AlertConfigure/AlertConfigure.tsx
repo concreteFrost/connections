@@ -8,7 +8,7 @@ function AlertConfigure() {
 
   return (
     <section className={s.wrapper}>
-      <header><button onClick={() => navigate('/dashboard/alerts')}>ALERTS</button></header>
+      <header><button className={s.alerts_btn} onClick={() => navigate('/dashboard/alerts')}>ALERTS</button></header>
       <AlertFormat></AlertFormat>
       <DirectivesControl></DirectivesControl>
     </section>

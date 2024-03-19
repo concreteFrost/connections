@@ -9,16 +9,16 @@ import blockActions from "./blockActions";
 
 export const onBlocksChange =
   (get: () => RFState, set: any) => (changes: NodeChange[]) => {
-
+ 
     changes.forEach((change: NodeChange) => {
       // if (change.type === 'remove') {
       //   // groupActions.deleteGroup(get().flowSlice.flow.visual.blocks, change)
       //   blockActions.deleteBlock(get, set)()
       // }
       if (change.type === "select") {
-
         if (change.selected) {
           blockActions.setSelectedBlockId(get, set)(change.id)
+         
         }
         else {
           blockActions.removeSelectedBlockId(get, set)(change.id)

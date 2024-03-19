@@ -9,6 +9,11 @@
         color: $color-font-main;
         margin-bottom: 10px;
     }
+
+    .configure_btn{
+        @include blue_btn;
+        margin-bottom: 10px;
+    }
     table{  
         @include server_table;
         table-layout: fixed;

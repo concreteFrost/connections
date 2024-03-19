@@ -13,10 +13,13 @@ import ConfirmationModal from "./components/Modals/ConfirmationModal";
 import PushTest from "./components/PushTest/PushTest";
 import ApproveModal from "./components/Modals/ApproveModal";
 import Notifications from "./components/Notifications/Noticifations";
+import { useEffect } from "react";
+import { getUserSettingsData } from "./store/actions/storageActions";
 
 function App() {
   const tooltipText = useStore((store) => store.designerVisualElementsSlice.tooltip.text);
-  
+
+  useEffect(()=>{getUserSettingsData()},[])
   return (
     <Router>
       <Routes>

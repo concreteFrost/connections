@@ -1,5 +1,12 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
 
 .wrapper {
     padding: 20px;
+
+    .alerts_btn{
+        @include blue_btn;
+        
+    }
 
 }

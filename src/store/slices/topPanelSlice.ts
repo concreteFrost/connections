@@ -1,3 +1,4 @@
+import { getUserSettingsData, initialSettings } from "../actions/storageActions";
 import topMenuActions from "../actions/topViewActions";
 import { RFState } from "../types/rfState";
 
@@ -29,8 +30,8 @@ const topPanelSlice = (get: ()=>RFState, set: any): TopPanelSlice => ({
         settings: { id: 'settings', isVisible: false }
     },
     settings: {
-        snapToGrid: false,
-        snapStep: [1, 1],
+        snapToGrid: getUserSettingsData().designer.isGridSnapped ? true : false,
+        snapStep: [Number(getUserSettingsData().designer.gridStep),Number(getUserSettingsData().designer.gridStep)],
         showMiniMap: true
     },
 

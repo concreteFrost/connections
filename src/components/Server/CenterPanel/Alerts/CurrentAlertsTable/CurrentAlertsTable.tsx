@@ -15,7 +15,7 @@ function CurrentAlertsTable() {
   return (
     <section className={s.wrapper}>
       <h3>Current Alerts</h3>
-      <header><button onClick={()=>navigate('configure')}>CONFIGURE</button></header>
+      <header><button className={s.configure_btn} onClick={()=>navigate('configure')}>CONFIGURE</button></header>
       <main>
         <table>
           <thead>

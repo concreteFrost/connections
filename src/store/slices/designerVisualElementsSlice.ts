@@ -3,6 +3,8 @@ import { RFState } from "../types/rfState";
 import tooltipActions from "../actions/tooltipActions";
 import { toggleSubstitutionsPanel } from "../actions/substitutionsActions";
 import valueEditorActions from "../actions/valueEditorActions";
+import { getUserSettingsData, initialSettings } from "../actions/storageActions";
+import { Node } from "react-flow-renderer";
 
 export type DesignerVisualElementsSlice = {
 
@@ -23,18 +25,14 @@ export type DesignerVisualElementsSlice = {
     view: BackgroundVariant;
     setTooltipText: (text: string) => void;
     toggleSubstitutionsPanel: () => void;
-
     getParameterValue: (parameterName: string, value: string) => void;
     setParameterValue: (propertyName: string, value: string) => void;
-
 
 }
 
 const designerVisualElementsSlice = (get: () => RFState, set: any): DesignerVisualElementsSlice =>
 ({
-
-    view: BackgroundVariant.Dots,
-
+    view: getUserSettingsData().designer.canvasView,  
     tooltip: {
         text: ''
     },
@@ -53,7 +51,6 @@ const designerVisualElementsSlice = (get: () => RFState, set: any): DesignerVisu
     toggleSubstitutionsPanel: toggleSubstitutionsPanel(get, set),
     getParameterValue: valueEditorActions.getParameterValue(set),
     setParameterValue: valueEditorActions.setParameterValue(get, set),
-
 
 })
 

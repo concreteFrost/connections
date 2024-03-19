@@ -1,0 +1,68 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins";
+
+.wrapper {
+  position: fixed;
+  top: 0px;
+  left: 50vw;
+  z-index: 1000;
+
+  .body {
+    @include modal_window;
+    top: 200px;
+    min-width: 300px;
+    min-height: 20px;
+
+    .header {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .expand_modal{
+        position: absolute;
+        top: 20px;
+        right: 20px;
+
+        button{
+            @include blue_btn;
+        }
+    }
+
+    section {
+      margin-bottom: 20px;
+      header {
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .input_wrapper,
+      .btn_wrapper {
+        display: flex;
+        justify-content: center;
+      }
+
+      .btn_wrapper {
+        button {
+          @include blue_btn;
+          margin-left: 10px;
+        }
+      }
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      max-height: 200px;
+      overflow-y: auto; // Enable vertical scrolling if needed
+    }
+
+    li {
+      padding: 5px;
+      list-style: none;
+    }
+
+    li:last-child {
+      border-bottom: none; // Remove border from last list item
+    }
+  }
+}
