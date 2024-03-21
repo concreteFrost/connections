@@ -1,0 +1,10 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+
+.wrapper{
+    button{
+        @include red-btn;
+        
+    }
+}

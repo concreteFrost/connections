@@ -32,6 +32,7 @@ const useStore = createWithEqualityFn<RFState>((set, get) => ({
 
   //Edge Actions
   onEdgesChange: edgeActions.onEdgesChange(get, set),
+  // onEdgeRemove: edgeActions.onEdgeRemove(get,set),
   onConnect: edgeActions.onEdgesConnect(get, set),
 }))
 

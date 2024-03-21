@@ -94,7 +94,7 @@ export function setFlow(data: any, set: any) {
               id: e.id,
               source: e.source,
               target: e.target,
-              type: "step",
+              type: "button",
             };
           }),
         },

@@ -6,10 +6,33 @@ export function handleConnect(connection: Connection, state: RFState): Edge[] {
 
   const newConnection = {
     ...connection,
-    type: 'step'
+    type: 'button'
   }
   return addEdge(newConnection, state.flowSlice.flow.visual.edges);
 }
+
+export const deleteEdge = (get: () => RFState, set: any) => (edgeId: string) => {
+
+  const filteredEdges = get().flowSlice.flow.visual.edges.filter((edge: Edge) => edge.id !== edgeId);
+
+  set((state: RFState) => ({
+    flowSlice: {
+      ...state.flowSlice,
+      flow: {
+        ...state.flowSlice.flow,
+        visual: {
+          ...state.flowSlice.flow.visual,
+          edges: filteredEdges
+        }
+      }
+
+    }
+  }))
+
+  console.log(get().flowSlice.flow.visual)
+
+}
+
 
 export const onEdgesChange = (get: () => RFState, set: any) => (changes: EdgeChange[]) => {
 
@@ -51,6 +74,7 @@ const edgeActions = {
   handleConnect: handleConnect,
   onEdgesChange: onEdgesChange,
   onEdgesConnect: onEdgesConnect,
+  deleteEdge: deleteEdge
 };
 
 

@@ -11,10 +11,12 @@ import groupActions from "../actions/groupActions";
 import substitutionsActions from "../actions/substitutionsActions";
 import { INodeType } from "../interfaces/INode";
 import blocksWidgetActions from "../actions/blocksWidgetActions";
+import { IBlockData } from "../interfaces/IBlock";
+import edgeActions from "../actions/edgesActions";
 
 export type FlowSlice = {
   flow: {
-    blockData: [];
+    blockData: Array<IBlockData>;
     created: Date;
     createdBy: string;
     flowIdentifier: string;
@@ -52,7 +54,8 @@ export type FlowSlice = {
 
   //Multiple Selected Blocks Actions
   setSelectedBlocksColors: (color: string) => void;
-  allignSelectedBlocksVerticaly: () => void;
+  allignSelectedBlocks: (allignment: "x" | "y") => void;
+  deleteMultupleBlocks:()=>void;
 
   //Extended Params Actions
   addCustomParameter: (name: string, value: string) => boolean | undefined;
@@ -84,6 +87,9 @@ export type FlowSlice = {
   addSubstitutionKey: (key: string) => void;
   addConfig: (key: string, configName: string, configValue: string) => void;
   deleteSubstitution: (key: string) => void;
+
+  //Edges Actions
+  deleteEdge:(edgeId:string)=>void;
 };
 
 const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
@@ -120,6 +126,9 @@ const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
   hideAllGroupModals: groupActions.hideAllGroupModals(set),
   deleteGroupOnButtonClick: groupActions.deleteGroupOnButtonClick(get, set),
 
+  //Edges Actions
+  deleteEdge:edgeActions.deleteEdge(get,set),
+
   //Flow Actions
   createFlow: flowActions.createFlow(get, set),
   createFlowFromTemplate: flowActions.createFlowFromTemplate(get, set),
@@ -141,7 +150,8 @@ const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
 
   //Multple Selected Blocks Actions
   setSelectedBlocksColors:blocksWidgetActions.setSelectedBlocksColors(get,set),
-  allignSelectedBlocksVerticaly:blocksWidgetActions.allignSelectedBlocksVerticaly(get,set)
+  allignSelectedBlocks:blocksWidgetActions.allignSelectedBlocks(get,set),
+  deleteMultupleBlocks:blocksWidgetActions.deleteMultipleBlocks(get,set)
 
   
 });

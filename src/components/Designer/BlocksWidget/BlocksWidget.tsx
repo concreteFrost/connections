@@ -4,7 +4,7 @@ import useStore from "../../../store/store";
 
 function BlocksWidget() {
   const [expanded, setExpanded] = useState<boolean>(false);
-  const { setSelectedBlocksColors ,allignSelectedBlocksVerticaly } = useStore((state) => state.flowSlice);
+  const { setSelectedBlocksColors ,allignSelectedBlocks,deleteMultupleBlocks } = useStore((state) => state.flowSlice);
   return (
     <div className={s.wrapper}>
       <div className={s.body}>
@@ -27,15 +27,15 @@ function BlocksWidget() {
             <section>
               <header>Allignment</header>
               <div className={s.btn_wrapper}>
-                <button>Horizontal</button>
-                <button onClick={()=>allignSelectedBlocksVerticaly()}>Vertical</button>
+                <button onClick={()=>allignSelectedBlocks("x")}>Horizontal</button>
+                <button onClick={()=>allignSelectedBlocks("y")}>Vertical</button>
               </div>
             </section>
 
             <section>
               <header>Actions</header>
               <div className={s.btn_wrapper}>
-                <button>Delete</button>
+                <button onClick={deleteMultupleBlocks}>Delete</button>
                 <button>New Group</button>
               </div>
             </section>

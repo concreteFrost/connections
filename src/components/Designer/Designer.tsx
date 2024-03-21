@@ -8,11 +8,12 @@ import { getBlocks } from "../../api/data";
 import Substitutions from "./Substitutions/Substitutions";
 import BlocksWidget from "./BlocksWidget/BlocksWidget";
 import { getAllselectedBlockIDs } from "../../store/actions/groupActions";
+import { ReactFlowProvider } from "reactflow";
 
 function Designer() {
   const getBlocksList = useStore((store) => store.getBlocksList);
   const { flow } = useStore((store) => store.flowSlice);
-  
+
   const [isRightPanelExpanded, setRightPanelExpanded] =
     useState<boolean>(false);
 
@@ -46,9 +47,8 @@ function Designer() {
     <div className="App">
       <TopMenu></TopMenu>
       <div
-        className={`${
-          isRightPanelExpanded ? "resized_dynamic_menu" : "dynamic_menu"
-        }`}
+        className={`${isRightPanelExpanded ? "resized_dynamic_menu" : "dynamic_menu"
+          }`}
       >
         <LeftPanel></LeftPanel>
         {flow.flowIdentifier ? <Substitutions></Substitutions> : <div></div>}
@@ -57,8 +57,11 @@ function Designer() {
           setRightPanelResized={setRightPanelExpanded}
         ></RightPanel>
       </div>
+
       <Flow resetSelectedBlockId={resetSelectedBlockId}></Flow>
-      {getAllselectedBlockIDs(flow.visual.blocks) ?<BlocksWidget></BlocksWidget> : null}
+
+      {getAllselectedBlockIDs(flow.visual.blocks) ? <BlocksWidget></BlocksWidget> : null}
+
     </div>
   );
 }

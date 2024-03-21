@@ -15,6 +15,7 @@ import ApproveModal from "./components/Modals/ApproveModal";
 import Notifications from "./components/Notifications/Noticifations";
 import { useEffect } from "react";
 import { getUserSettingsData } from "./store/actions/storageActions";
+import { ReactFlowProvider } from "reactflow";
 
 function App() {
   const tooltipText = useStore((store) => store.designerVisualElementsSlice.tooltip.text);
@@ -25,7 +26,10 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/dashboard/*" element={<ProtectedRoute><Server></Server></ProtectedRoute>} />
-        <Route path="/designer" element={<ProtectedRoute><Designer></Designer></ProtectedRoute>} />
+        <Route path="/designer" element={<ProtectedRoute>
+          <ReactFlowProvider>
+          <Designer></Designer>
+          </ReactFlowProvider></ProtectedRoute>} />
         <Route path="/alerts" element={<ProtectedRoute><Notifications></Notifications></ProtectedRoute>} />
         <Route path="*" element={<NotFound />} />
       </Routes>

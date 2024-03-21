@@ -5,7 +5,7 @@ const connectionsSettingsPrefix = "_iConSettings";
 
 type userSetting = {
   designer: {
-    isGridSnapped: string|null,
+    isGridSnapped: boolean|null,
     gridStep: string|null,
     canvasView: BackgroundVariant;
   };
@@ -13,8 +13,8 @@ type userSetting = {
 
 export const initialSettings :userSetting ={
     designer:{
-        isGridSnapped: "false",
-        gridStep:"0",
+        isGridSnapped: false,
+        gridStep:"5",
         canvasView: BackgroundVariant.Dots
     }
 }

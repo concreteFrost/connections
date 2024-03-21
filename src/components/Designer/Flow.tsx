@@ -1,9 +1,9 @@
-import ReactFlow, { Background, BackgroundVariant} from "react-flow-renderer";
+import ReactFlow, { Background, BackgroundVariant, EdgeTypes, NodeTypes} from "react-flow-renderer";
 import { shallow } from "zustand/shallow";
-import {createWithEqualityFn} from "zustand/traditional";
 import useStore from "../../store/store";
 import PointerNode from "./CustomNodes/PointerNode";
 import NodeGroup from "./CustomNodes/NodeGroup";
+import ButtonEdge from "./CustomEdge/ButtonEdge";
 
 const selector = (state: any) => ({
   nodes: state.nodes,
@@ -14,10 +14,14 @@ const selector = (state: any) => ({
   onConnect: state.onConnect,
 });
 
-const nodeTypes = {
+const nodeTypes : NodeTypes = {
   pointer: PointerNode,
   group: NodeGroup
 };
+
+const edgeTypes : EdgeTypes={
+  button: ButtonEdge
+}
 
 function Flow(props: any) {
   const { onBlocksChange, onEdgesChange, onConnect } = useStore(
@@ -39,6 +43,7 @@ function Flow(props: any) {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         onClick={props.resetSelectedBlockId}
         snapToGrid={snapToGrid}
         snapGrid={[snapStep[0], snapStep[1]]}
