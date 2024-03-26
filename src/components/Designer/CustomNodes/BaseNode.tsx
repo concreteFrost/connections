@@ -3,8 +3,10 @@ import s from "./BaseNode.module.scss";
 import useStore from "../../../store/store";
 import { useEffect, useState } from "react";
 import { connectionsIcons } from "../../../icons/icons";
-import { Position, Handle} from "react-flow-renderer";
+import { Position, Handle } from "react-flow-renderer";
 import { isDarkBackground } from "../../../store/actions/utils/nodeUtils";
+import { Node } from "reactflow";
+import flowSlice from "../../../store/slices/flowSlice";
 
 interface Block {
   blockLabel: string;
@@ -14,19 +16,26 @@ interface Block {
 export default function BaseNode(props: any) {
 
   const getParameterValue = useStore((state) => state.designerVisualElementsSlice.getParameterValue);
-  const {deleteBlock} = useStore((state)=>state.flowSlice)
-  const selectedBlockId = useStore((state) => state.selectedBlockID);
+  const { deleteBlock } = useStore((state) => state.flowSlice);
+  const { getBlockProperties } = useStore((state) => state.flowSlice);
+  const blocks = useStore((state) => state.flowSlice.flow.visual.blocks);
   const [isOutlined, setIsOutlined] = useState(false);
-  
+
   const blockData: Block[] = useStore((state) => state.flowSlice.flow.blockData);
   const blockName = blockData.find((b: any) => b.blockIdentifier === props.id)?.name;
   const blockLabel = blockData.find((b: any) => b.blockIdentifier === props.id)?.blockLabel;
 
-  const {toggleConfirmationModal,setConfirmationModalActions} = useStore((state)=>state.modalWindowsSlice);
+  const { toggleConfirmationModal, setConfirmationModalActions } = useStore((state) => state.modalWindowsSlice);
 
   useEffect(() => {
-    selectedBlockId[0] === props.id ? setIsOutlined(true) : setIsOutlined(false);
-  }, [selectedBlockId[0]]);
+    // selectedBlockId[0] === props.id ? setIsOutlined(true) : setIsOutlined(false);
+    const selectedBlock = blocks.find((b: Node<any>) => b.selected);
+    if (selectedBlock?.id === props.id) {
+      setIsOutlined(true);
+      return
+    }
+    setIsOutlined(false);
+  }, [blocks]);
 
 
   const nodeBodyClasses = `${s.node_body} ${isDarkBackground(props.data.color) ? s["dark-text"] : s["light-text"]
@@ -42,11 +51,17 @@ export default function BaseNode(props: any) {
 
   return (
     <div className={wrapperClasses}>
-      {isOutlined? <div className={s.delete_btn_wrapper}><button onClick={()=>{
+      {isOutlined ? <div className={s.delete_btn_wrapper}><button onClick={() => {
         setConfirmationModalActions(deleteBlock)
-        toggleConfirmationModal(true,`You are about to delete ${blockLabel} block. Would you like to proceed?`)}}>x</button></div> : null}
+        toggleConfirmationModal(true, `You are about to delete ${blockLabel} block. Would you like to proceed?`)
+      }}>x</button></div> : null}
       <div
-        onClick={()=>getParameterValue('', '')}
+        onClick={() => {
+          getParameterValue('', '')
+          getBlockProperties()
+        }
+
+        }
         className={nodeBodyClasses}
         style={{ backgroundColor: props.data.color, zIndex: 999999 }}
       >

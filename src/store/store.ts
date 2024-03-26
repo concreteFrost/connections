@@ -15,7 +15,6 @@ import alertSlice from "./slices/alertSlice";
 const useStore = createWithEqualityFn<RFState>((set, get) => ({
 
   blockList: [],
-  selectedBlockID: [],
   flowSlice: flowSlice(get, set),
   topPanelSlice: topPanelSlice(get, set),
   modalWindowsSlice: modalWindowsSlice(get, set),

@@ -2,36 +2,16 @@ import { IBlockData, IBlockParameters } from "../interfaces/IBlock";
 import flowSlice from "../slices/flowSlice";
 import { RFState } from "../types/rfState";
 import { Edge, Node } from "react-flow-renderer";
+import { getSelectedBlock } from "./utils/blockUtils";
 
-const setSelectedBlockId = (get: () => RFState, set: any) => (nodeId: string | null) => {
-  if (nodeId !== null) {
-    set((state: RFState) => ({
-      selectedBlockID: [...state.selectedBlockID, nodeId]
-    }))
-
-  }
-
-};
-
-const removeSelectedBlockId = (get: () => RFState, set: any) => (nodeId: string | null) => {
-  if (nodeId !== null) {
-    set((state: RFState) => ({
-      selectedBlockID: state.selectedBlockID.filter((block: any) => block !== nodeId)
-    }))
-
-  }
-
-};
 
 const deleteBlock = (get: () => RFState, set: any) => () => {
 
-  const filteredBlocks = get().flowSlice.flow.blockData.filter((block: IBlockData) => block.blockIdentifier !== get().selectedBlockID[0]);
-  const filteredVisualBlocks = get().flowSlice.flow.visual.blocks.filter((block: Node) => block.id !== get().selectedBlockID[0])
+  const filteredBlocks = get().flowSlice.flow.blockData.filter((block: IBlockData) => block.blockIdentifier !== getSelectedBlock(get).id);
+  const filteredVisualBlocks = get().flowSlice.flow.visual.blocks.filter((block: Node) => block.id !== getSelectedBlock(get).id)
   const filteredEdges = get().flowSlice.flow.visual.edges.filter((edge: Edge) =>
-    edge.source !== get().selectedBlockID[0] && edge.target !== get().selectedBlockID[0]
+    edge.source !== getSelectedBlock(get).id && edge.target !== getSelectedBlock(get).id
   );
-
-  console.log(filteredEdges)
 
   set((state: RFState) => ({
     selectedBlockID: [],
@@ -54,7 +34,7 @@ const deleteBlock = (get: () => RFState, set: any) => () => {
 
 const setParameter = (get: () => RFState, set: any) => (propertyName: string, value: any) => {
   const blockData = get().flowSlice.flow.blockData.find(
-    (block: IBlockData) => block.blockIdentifier === get().selectedBlockID[0]
+    (block: IBlockData) => block.blockIdentifier === getSelectedBlock(get).id
   ) as IBlockData | undefined;
 
   if (blockData) {
@@ -74,7 +54,7 @@ const setParameter = (get: () => RFState, set: any) => (propertyName: string, va
         flow: {
           ...state.flowSlice.flow,
           blockData: state.flowSlice.flow.blockData.map((x: any) => {
-            if (x.blockIdentifier === get().selectedBlockID[0]) {
+            if (x.blockIdentifier === getSelectedBlock(get).id) {
               return {
                 ...x,
                 parameters: parameter
@@ -92,7 +72,7 @@ const setParameter = (get: () => RFState, set: any) => (propertyName: string, va
 
 export const setSelectedExtendedParameter = (get: () => RFState, set: any) => (propertyName: string, value: string) => {
   const blockData = get().flowSlice.flow.blockData.find(
-    (block: IBlockData) => block.blockIdentifier === get().selectedBlockID[0]
+    (block: IBlockData) => block.blockIdentifier === getSelectedBlock(get).id
   ) as IBlockData | undefined;
 
   if (blockData) {
@@ -112,7 +92,7 @@ export const setSelectedExtendedParameter = (get: () => RFState, set: any) => (p
         flow: {
           ...state.flowSlice.flow,
           blockData: state.flowSlice.flow.blockData.map((x: any) => {
-            if (x.blockIdentifier === get().selectedBlockID[0]) {
+            if (x.blockIdentifier === getSelectedBlock(get).id) {
               return {
                 ...x,
                 extendedParameters: parameter
@@ -129,7 +109,7 @@ export const setSelectedExtendedParameter = (get: () => RFState, set: any) => (p
 
 export const deleteExtendedParameter = (get: () => RFState, set: any) => (propName: string) => {
   const blockData = get().flowSlice.flow.blockData.find(
-    (block: any) => block.blockIdentifier === get().selectedBlockID[0]
+    (block: any) => block.blockIdentifier === getSelectedBlock(get).id
   ) as IBlockData | undefined;
 
   if (blockData) {
@@ -141,7 +121,7 @@ export const deleteExtendedParameter = (get: () => RFState, set: any) => (propNa
         flow: {
           ...state.flowSlice.flow,
           blockData: state.flowSlice.flow.blockData.map((x: any) => {
-            if (x.blockIdentifier === get().selectedBlockID[0]) {
+            if (x.blockIdentifier === getSelectedBlock(get).id) {
               return {
                 ...x,
                 extendedParameters: filteredParameters
@@ -159,7 +139,7 @@ export const deleteExtendedParameter = (get: () => RFState, set: any) => (propNa
 
 export const addCustomParameter = (get: () => RFState, set: any): ((name: string, value: string) => boolean | undefined) => (name, value) => {
   const blockData = get().flowSlice.flow.blockData.find(
-    (block: IBlockData) => block.blockIdentifier === get().selectedBlockID[0]
+    (block: IBlockData) => block.blockIdentifier === getSelectedBlock(get).id
   ) as IBlockData | undefined;
 
   if (blockData) {
@@ -174,7 +154,7 @@ export const addCustomParameter = (get: () => RFState, set: any): ((name: string
           flow: {
             ...state.flowSlice.flow,
             blockData: state.flowSlice.flow.blockData.map((x: any) => {
-              if (x.blockIdentifier === get().selectedBlockID[0]) {
+              if (x.blockIdentifier === getSelectedBlock(get).id) {
                 return {
                   ...x,
                   extendedParameters: updatedExtendedParams
@@ -248,8 +228,6 @@ export const setExecutionParameter =
   };
 
 const blockActions = {
-  setSelectedBlockId: setSelectedBlockId,
-  removeSelectedBlockId: removeSelectedBlockId,
   deleteBlock: deleteBlock,
   setStringParameter: setStringParameter,
   setIntegerParameter: setIntegerParameter,

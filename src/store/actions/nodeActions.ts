@@ -15,16 +15,16 @@ export const onBlocksChange =
       //   // groupActions.deleteGroup(get().flowSlice.flow.visual.blocks, change)
       //   blockActions.deleteBlock(get, set)()
       // }
-      if (change.type === "select") {
-        if (change.selected) {
-          blockActions.setSelectedBlockId(get, set)(change.id)
+      // if (change.type === "select") {
+      //   if (change.selected) {
+      //     blockActions.setSelectedBlockId(get, set)(change.id)
          
-        }
-        else {
-          blockActions.removeSelectedBlockId(get, set)(change.id)
-        }
+      //   }
+      //   else {
+      //     blockActions.removeSelectedBlockId(get, set)(change.id)
+      //   }
 
-      }
+      // }
     })
 
     set((state: RFState) => ({

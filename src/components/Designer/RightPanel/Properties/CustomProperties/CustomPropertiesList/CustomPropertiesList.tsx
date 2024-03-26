@@ -4,9 +4,7 @@ import s from "./CustomPropertiesList.module.scss"
 import CustomPropertiesListItem from "./CustomPropertiesListItem/CustomPropertiesListItem";
 
 function CustomPropertiesList() {
-
-    const selectedBlockID = useStore((state) => state.selectedBlockID)
-    const blockData = useStore<IBlockData | undefined>((state) => state.flowSlice.flow.blockData.find((x: IBlockData) => x.blockIdentifier === selectedBlockID[0]));
+    const blockData = useStore<IBlockData | undefined>((state) => state.flowSlice.flow.blockData.find((x: IBlockData) => x.blockIdentifier === state.flowSlice.flow.visual.blocks.find((b)=>b.selected)?.id));
 
     return (
         <div className={s.wrapper}>

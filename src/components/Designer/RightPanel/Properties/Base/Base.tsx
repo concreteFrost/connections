@@ -2,17 +2,17 @@ import useStore from "../../../../../store/store";
 import s from "./Base.module.scss";
 import { IBlockData } from "../../../../../store/interfaces/IBlock";
 import { IVisual } from "../../../../../store/interfaces/Iflow";
+import { getSelectedBlock } from "../../../../../store/actions/utils/blockUtils";
 
 function Base() {
-  const selectedBlockID: any = useStore((state) => state.selectedBlockID);
   const currentBlock = useStore<IBlockData | undefined>((store) =>
     store.flowSlice.flow.blockData.find(
-      (x: IBlockData) => x.blockIdentifier === selectedBlockID[0]
+      (x: IBlockData) => x.blockIdentifier === store.flowSlice.flow.visual.blocks.find((b)=>b.selected)?.id)
     )
-  );
+  
   const currentBlockVisual = useStore<IVisual | undefined>((store) =>
     store.flowSlice.flow.visual.blocks.find(
-      (x: IVisual) => x.id === selectedBlockID[0]
+      (x: IVisual) => x.id === store.flowSlice.flow.visual.blocks.find((b)=>b.selected)?.id
     )
   );
   const {setBlockName,setBlockColor,setBlockDescription} = useStore((state) => state.flowSlice);

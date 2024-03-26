@@ -7,12 +7,12 @@ import CustomProperties from "./CustomProperties/CustomProperties";
 
 
 function Properties() {
-  const selectedBlockID = useStore((state) => state.selectedBlockID);
+  const selectedBlockID = useStore((state) => state.flowSlice.flow.visual.blocks.find((b)=>b.selected)?.id);
 
   return (
     <section className={s.section_container}>
       <div className={s.section_header}>PROPERTIES</div>
-      {selectedBlockID.length===0 ? (
+      {!selectedBlockID ? (
         <FlowProperties></FlowProperties>
       ) : (
         <div>

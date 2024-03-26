@@ -18,7 +18,7 @@ function RightPanel(props:RightPanelProps) {
   function togglePanel() {
     setIsPanelActive(!isPanelActive);
   }
-  const selectedBlockID = useStore((state) => state.selectedBlockID);
+  const selectedBlockID = useStore((state) => state.flowSlice.flow.visual.blocks.find((b)=>b.selected)?.id);
 
   const btnClasses = `${s.toggle_btn} ${isPanelActive ? s["opened"] : s["closed"]
     }`;
@@ -43,7 +43,7 @@ function RightPanel(props:RightPanelProps) {
         {flowIdentifier ?
           <div>
             <Properties></Properties>
-            {selectedBlockID.length>0 ? <ValueEditor></ValueEditor> : null}
+            {selectedBlockID? <ValueEditor></ValueEditor> : null}
             <DebugConsole></DebugConsole> </div> : <div className={s.section_container}>PROPERTIES</div>}
       </div>
     </div>

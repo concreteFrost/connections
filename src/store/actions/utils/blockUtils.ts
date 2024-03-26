@@ -25,3 +25,8 @@ export const blockAlignment = (get: () => RFState, selectedBlocks: Node<any>[], 
 
     return updatedBlocks;
 }
+
+
+export const getSelectedBlock=(get:()=>RFState):Node<any>=>{
+    return get().flowSlice.flow.visual.blocks.find((b:Node<any>)=> b.selected === true)!;
+}

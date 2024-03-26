@@ -36,6 +36,7 @@ export function initializeFlow<IFlowData>(
 
 export function setFlow(data: any, set: any) {
   set((state: RFState) => ({
+    selectedBlockID:[],
     flowSlice: {
       ...state.flowSlice,
       flow: {

@@ -1,5 +1,6 @@
 import { IBlockData, IBlockParameters } from "../interfaces/IBlock";
 import { RFState } from "../types/rfState";
+import { getSelectedBlock } from "./utils/blockUtils";
 
 export const getParameterValue =
   (set: any) => (parameter: string, value: string) => {
@@ -16,7 +17,7 @@ export const getParameterValue =
   };
 
 export const setParameterValue = (get: () => RFState, set: any) => (propertyName: string, value: string) => {
-  const blockData = get().flowSlice.flow.blockData.find((block: IBlockData) => block.blockIdentifier === get().selectedBlockID[0]) as IBlockData | undefined;
+  const blockData = get().flowSlice.flow.blockData.find((block: IBlockData) => block.blockIdentifier === getSelectedBlock(get).id) as IBlockData | undefined;
 
   if (!blockData) return;
 
@@ -40,7 +41,7 @@ export const setParameterValue = (get: () => RFState, set: any) => (propertyName
       flow: {
         ...state.flowSlice.flow,
         blockData: state.flowSlice.flow.blockData.map((block: IBlockData) =>
-          block.blockIdentifier === get().selectedBlockID[0] ? updatedBlockData : block
+          block.blockIdentifier === getSelectedBlock(get).id ? updatedBlockData : block
         ),
       }
 

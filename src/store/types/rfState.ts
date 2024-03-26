@@ -17,7 +17,6 @@ import { AlertSlice } from "../slices/alertSlice";
 export type RFState = {
 
   blockList: INodeType[];
-  selectedBlockID: string[];
   flowSlice: FlowSlice,
   topPanelSlice: TopPanelSlice,
   modalWindowsSlice: ModalWindows,
