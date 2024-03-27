@@ -13,7 +13,6 @@ function LeftPanel() {
   const leftPanelRef = useRef<HTMLDivElement>(null); //used to identify the borders of the left panel element
   const addBlock = useStore((state) => state.addBlock);
   const [isPanelActive, setIsPanelActive] = useState(true);
-  const addBlockGroup = useStore((state) => state.flowSlice.addBlockGroup); //will be used once the group element will be fixed
   const blockList = useStore((state) => state.blockList);
 
   //returns true if the block was dropped inside left panel element

@@ -4,7 +4,9 @@ import { ISubscription } from "../interfaces/INotification";
 import { RFState } from "../types/rfState"
 export type AlertSlice = {
 
+    directives:IDirective[],
     getDirectives: () => Promise<IDirective[]>;
+    getDirectivesGlobal: ()=>void;
     updateDirective:(directive: IDirective)=>void;
     deleteDirective:(ehControlId:number)=>void;
     addDirective:(newDirective:IDirective)=>void;
@@ -18,7 +20,9 @@ export type AlertSlice = {
 }
 
 const alertSlice = (get: () => RFState, set: any): AlertSlice => ({
+    directives:[],
     getDirectives: alertActions.getDirectives(),
+    getDirectivesGlobal:alertActions.getDirectivesGlobal(get,set),
     updateDirective:alertActions.updateDirective(),
     deleteDirective:alertActions.deleteDirective(),
     addDirective:alertActions.addDirective(),

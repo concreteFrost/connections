@@ -1,7 +1,9 @@
 import { addAlertFormatApi, removeAlertFormatApi, removeDirectiveApi, updateAlertFormatApi, updateDirectiveApi, addDirectiveApi, getAlertFormatsApi, getDirectivesApi, enabliClientAlertsApi } from "../../api/ehd";
 import { IAlertFormat, IDirective,INewAlertFormat } from "../interfaces/IAlerts";
 import { ISubscription } from "../interfaces/INotification";
+import { RFState } from "../types/rfState";
 
+//for local state
 const getDirectives = () => async (): Promise<IDirective[]> => {
     try {
         const res: any = await getDirectivesApi();
@@ -10,6 +12,26 @@ const getDirectives = () => async (): Promise<IDirective[]> => {
         console.log("error getting directives");
         return [];
     }
+}
+
+//for global state
+const getDirectivesGlobal=(get:()=>RFState,set:any)=>async()=>{
+    try {
+        const res: any = await getDirectivesApi();
+        const data : IDirective[] = res.data;
+        set((state:RFState)=>({
+            alertSlice:{
+                ...state.alertSlice,
+                directives: data.filter((dir:IDirective)=> dir.category === 1)
+            }
+        }))
+
+        console.log(get().alertSlice.directives);
+    } catch (error) {
+        console.log("error getting directives");
+        
+    }
+    
 }
 
 const updateDirective = () => async (directive: IDirective) => {
@@ -94,6 +116,7 @@ const enableClientAlerts = () => async (subscription: ISubscription) => {
 
 const alertActions = {
     getDirectives: getDirectives,
+    getDirectivesGlobal:getDirectivesGlobal,
     updateDirective: updateDirective,
     deleteDirective: deleteDirective,
     addDirective: addDirective,

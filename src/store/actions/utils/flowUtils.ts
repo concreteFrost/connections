@@ -62,6 +62,7 @@ export function setFlow(data: any, set: any) {
             description: b.description,
             typeName: b.typeName,
             baseTypeName: b.baseTypeName,
+            ehDirective: b.ehDirective,
             parameters: b.parameters.map((p: IBlockParameters) => {
               return {
                 name: p.name,

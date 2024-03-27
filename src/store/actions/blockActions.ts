@@ -172,8 +172,27 @@ export const addCustomParameter = (get: () => RFState, set: any): ((name: string
       return false;
     }
   }
+}
 
+export const setDirective = (get: () => RFState, set: any) => (diretive: string) => {
 
+  set((state: RFState) => ({
+    ...state, flowSlice: {
+      ...state.flowSlice,
+      flow: {
+        ...state.flowSlice.flow,
+        blockData: state.flowSlice.flow.blockData.map((x: any) => {
+          if (x.blockIdentifier === getSelectedBlock(get).id) {
+            return {
+              ...x,
+              ehDirective: diretive
+            }
+          }
+          return x;
+        })
+      }
+    }
+  }))
 }
 
 export const setStringParameter =
@@ -239,7 +258,8 @@ const blockActions = {
   setBigIntParameter: setBigIntParameter,
   addCustomParameter: addCustomParameter,
   setSelectedExtendedParameter: setSelectedExtendedParameter,
-  deleteExtendedParameter: deleteExtendedParameter
+  deleteExtendedParameter: deleteExtendedParameter,
+  setDirective:setDirective,
 };
 
 export default blockActions;

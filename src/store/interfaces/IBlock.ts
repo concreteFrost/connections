@@ -7,6 +7,7 @@ export interface IBlockData {
   description: string;
   typeName: string;
   baseTypeName: string;
+  ehDirective:string;
   parameters: any[];
   extendedParameters: any[];
 }

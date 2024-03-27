@@ -24,6 +24,8 @@ export  interface INodeType {
         baseTypeName: string;
         category: string;
         parameters: [];
+        extendedParameters:[];
+        ehDirective:string;
         //Custom parameters
         color: string;
         icon: any;

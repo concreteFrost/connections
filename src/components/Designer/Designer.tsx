@@ -12,6 +12,7 @@ import { ReactFlowProvider } from "reactflow";
 
 function Designer() {
   const getBlocksList = useStore((store) => store.getBlocksList);
+  const { getDirectivesGlobal } = useStore((store) => store.alertSlice);
   const { flow } = useStore((store) => store.flowSlice);
 
   const [isRightPanelExpanded, setRightPanelExpanded] =
@@ -24,12 +25,22 @@ function Designer() {
     (state) => state.flowSlice.hideAllGroupModals
   );
 
+  const fetchDirectives = async () => {
+    try {
+      await getDirectivesGlobal();
+    }
+    catch (e) {
+      console.log("error getting directivea");
+    }
+  }
+
   useEffect(() => {
     getBlocks()
       .then((res) => {
         getBlocksList(res);
       })
       .catch((e) => console.log(e));
+    fetchDirectives();
   }, []);
 
   const resetSelectedBlockId = (event: any) => {

@@ -14,7 +14,6 @@ export const createFlow = (get: () => RFState, set: any) => () => {
       flow: initializeFlow(initialNodes, initialEdges, flowId)
     }
   }))
-
 };
 
 export const closeFlow = (get: () => RFState, set: any) => () => {
@@ -59,6 +58,7 @@ export const loadFlowFromDraft = (get: () => RFState, set: any) => async (id: st
   try {
     const res: any = await getDraftApi(id);
     setFlow(res.data.flowConfiguration, set);
+    console.log(res.data.flowConfiguration)
   } catch (e) {
     console.log('error loading flow', e);
     throw e; // Rethrowing the error to be caught by the calling function
@@ -82,6 +82,7 @@ export const saveDraftFlow = (get: () => RFState, set: any) => async (match: any
     draftConfiguration: flow,
   };
 
+  console.log(draftStructure)
   try {
     const res: any = await saveDraftFlowApi(draftStructure);
     if (res.data.success) {
@@ -96,6 +97,8 @@ export const saveDraftFlow = (get: () => RFState, set: any) => async (match: any
     updateFlowAfterSaving(set, flow, e);
     return false;
   }
+
+  
 };
 
 

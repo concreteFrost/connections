@@ -5,8 +5,6 @@ import { useState, useEffect } from "react";
 import moment from "moment";
 import { connectionsIcons } from "../../../../../icons/icons";
 
-import { line } from "d3-shape";
-
 interface ILoadedFlow {
   flowId: string;
   draftId: string;

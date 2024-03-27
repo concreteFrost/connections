@@ -47,6 +47,7 @@ export const getBlocksList = (set: any) => (data: any) => {
         description: d.description,
         typeName: d.libraryType,
         baseTypeName: d.category,
+        // ehDirective: null,
         parameters: d.parameters.map((parameter: any) => {
           return {
             name: parameter.name,
@@ -77,6 +78,7 @@ export const getBlocksList = (set: any) => (data: any) => {
         description: block.description,
         typeName: block.libraryType,
         baseTypeName: block.category,
+        // ehDirective: null,
         parameters: block.parameters.map((parameter: any) => {
           return {
             name: parameter.name,
@@ -125,6 +127,8 @@ export const addBlock =
 
       },
     }));
+
+    console.log(newNode)
   };
 
 const leftPanelActions = {

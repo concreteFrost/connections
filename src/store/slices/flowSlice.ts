@@ -13,6 +13,7 @@ import { INodeType } from "../interfaces/INode";
 import blocksWidgetActions from "../actions/blocksWidgetActions";
 import { IBlockData } from "../interfaces/IBlock";
 import edgeActions from "../actions/edgesActions";
+import { IDirective } from "../interfaces/IAlerts";
 
 export type FlowSlice = {
   flow: {
@@ -35,6 +36,9 @@ export type FlowSlice = {
     };
   };
 
+  //directives 
+  directivesList: IDirective[],
+
   //Base Actions
   setBlockName: (text: string) => void;
   setBlockColor: (color: string) => void;
@@ -43,6 +47,7 @@ export type FlowSlice = {
   //Block Actions
   deleteBlock: () => void;
   getBlockProperties: () => void;
+  setDirective:(directive:string)=>void;
   setStringParameter: (parameterName: string, value: string) => void;
   setIntegerParameter: (parameterName: string, value: number) => void;
   setFloatParameter: (parameterName: string, value: number) => void;
@@ -90,10 +95,13 @@ export type FlowSlice = {
 
   //Edges Actions
   deleteEdge:(edgeId:string)=>void;
+
+
 };
 
 const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
   flow: initializeFlow(initialNodes, initialEdges),
+  directivesList:[],
 
   //Base Actions
   setBlockName: baseActtions.setBlockName(set, get),
@@ -103,6 +111,7 @@ const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
 
   //Block Actions
   deleteBlock: blockActions.deleteBlock(get, set),
+  setDirective:blockActions.setDirective(get,set),
   setStringParameter: blockActions.setStringParameter(get, set),
   setIntegerParameter: blockActions.setIntegerParameter(get, set),
   setFloatParameter: blockActions.setFloatParameter(get, set),
