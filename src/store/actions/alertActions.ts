@@ -36,8 +36,9 @@ const getDirectivesGlobal=(get:()=>RFState,set:any)=>async()=>{
 
 const updateDirective = () => async (directive: IDirective) => {
     try {
+        console.log(directive)
         const res = await updateDirectiveApi(directive);
-        console.log(res)
+
         return res;
     } catch (error) {
         console.log("error getting directives");
@@ -57,6 +58,7 @@ const deleteDirective = () => async (ehControlId: number) => {
 
 const addDirective = () => async (newDirective: IDirective) => {
     try {
+        console.log(newDirective)
         const res = await addDirectiveApi(newDirective)
         return res;
     } catch (error) {

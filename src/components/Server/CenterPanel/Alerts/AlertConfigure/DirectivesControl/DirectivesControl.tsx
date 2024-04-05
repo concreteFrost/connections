@@ -7,7 +7,6 @@ import { IFlowConfig } from "../../../../../../store/interfaces/Iflow";
 import { getFlowListApi } from "../../../../../../api/flow";
 import s from "./DirectivesControl.module.scss"
 
-
 function DirectivesControl() {
   const [isAddDirectiveVisible, setAddDirectiveVisible] = useState<boolean>(false);
   const { getDirectives } = useStore((state) => state.alertSlice);
@@ -26,6 +25,7 @@ function DirectivesControl() {
   async function fetchDirectives() {
     try {
       const res: IDirective[] = await getDirectives();
+      
       setDirectives(res);
       return res;
     } catch (e) {

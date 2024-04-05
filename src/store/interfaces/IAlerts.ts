@@ -32,6 +32,7 @@ export interface INewAlertFormat{
 }
 
 export interface IDirectiveConfig {
+    directiveOrder:number;
     optionId: number;
     inputValue: number;
     alertFormatId: number;
@@ -54,7 +55,3 @@ export interface IDirective {
     lastAmended: any;
     directives: IDirectiveConfig[];
 }
-
-
-
-
