@@ -1,4 +1,5 @@
 import { IconVariants } from "../../../store/enums/profile";
+import AlertNotifications from "../../AlertsNotifications/AlertNotifications";
 import Profile from "../../Profile/Profile";
 import PushNotifications from "../../PushNotifications/PushNotifications";
 import s from "./Header.module.scss";
@@ -24,7 +25,9 @@ function Header() {
       <header>NOTIFICATIONS</header>
       <div className={s.settings_container}>
         <PushNotifications themeColor={IconVariants.Light}></PushNotifications>
+        <AlertNotifications themeColor={IconVariants.Light}></AlertNotifications>
         <Profile themeColor={IconVariants.Light}></Profile>
+    
       </div>
 
     </div>

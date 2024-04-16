@@ -4,6 +4,7 @@ import s from "./Header.module.scss";
 import { useNavigate } from "react-router";
 import useStore from "../../../store/store";
 import PushNotifications from "../../PushNotifications/PushNotifications";
+import AlertNotifications from "../../AlertsNotifications/AlertNotifications";
 
 function Header() {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ function Header() {
 
       <div className={s.nav_right_btns_wrapper}>
         <PushNotifications themeColor={IconVariants.Light}></PushNotifications>
+        <AlertNotifications themeColor={IconVariants.Light}></AlertNotifications>
         <Profile themeColor={IconVariants.Light}></Profile>
       </div>
     </div>

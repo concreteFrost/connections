@@ -10,6 +10,7 @@ import FlowsListModal from "../../Modals/FlowsListModal/FlowsListModal";
 import Profile from "../../Profile/Profile";
 import { IconVariants } from "../../../store/enums/profile";
 import PushNotifications from "../../PushNotifications/PushNotifications";
+import AlertNotifications from "../../AlertsNotifications/AlertNotifications";
 
 function TopMenu() {
   const dropdowns = useStore((state) => state.topPanelSlice.dropdowns);
@@ -34,6 +35,7 @@ function TopMenu() {
         ></CentralPanel>
         <div className={s.settings_wrapper}>
           <PushNotifications themeColor={IconVariants.Dark}></PushNotifications>
+          <AlertNotifications themeColor={IconVariants.Dark}></AlertNotifications>
           <Settings
             dropdowns={dropdowns}
             toggleDropdown={toggleDropdown}
