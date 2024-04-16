@@ -11,7 +11,8 @@ function Login() {
 
     const [userName, setUserName] = useState<string>(localStorage.getItem('iCon_username') ?? '');
     const { setAppUserPassword, appUserPassword } = useStore((state) => state.securitySlice);
-
+    const {setIsLoggedIn} = useStore((state)=>state.userSlice);
+    
     const navigate = useNavigate();
 
     async function checkSubscription() {
@@ -42,6 +43,7 @@ function Login() {
         if (appUserPassword && userName)
             getToken(userName, appUserPassword).then((res: any) => {
                 setAccessToken(res.data, userName);
+                setIsLoggedIn(true);
                 navigate('/dashboard')
             }).catch(e => console.log(e))
     }

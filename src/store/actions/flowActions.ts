@@ -31,11 +31,15 @@ export const createFlowFromTemplate = (get: () => RFState, set: any) => async (l
   try {
     const res: any = await createDraftFromLiveTemplateAPI(liveFlowID, newDraftName);
     const data = await res.data;
-    const returnedFlowStructure = await data.flowConfiguration;
-    await setFlow(returnedFlowStructure, set);
+
+    if (data.success) {
+      await setFlow(data.flowConfiguration, set);
+    }
+
+    return res;
   }
   catch (e) {
-    throw e;
+    console.log('error creating flow from template', e)
   }
 }
 
@@ -43,13 +47,14 @@ export const createFlowFromTemplate = (get: () => RFState, set: any) => async (l
 export const createUpdateDraftFromLiveTemplate = (get: () => RFState, set: any) => async (id: string) => {
   try {
     const res: any = await createUpdateDraftFromLiveAPI(id);
-    console.log(res)
-    setFlow(res.data.flowConfiguration
-      , set);
-    return res.data.flowConfiguration
-      ; // Returning the loaded flow data
+
+    if(res.data.success){
+      setFlow(res.data.flowConfiguration,set);
+    }
+   
+    return res;
   } catch (e) {
-    throw e; // Rethrowing the error to be caught by the calling function
+    console.log('error creating update draft from live template', e)
   }
 };
 
@@ -61,7 +66,7 @@ export const loadFlowFromDraft = (get: () => RFState, set: any) => async (id: st
     console.log(res.data.flowConfiguration)
   } catch (e) {
     console.log('error loading flow', e);
-    throw e; // Rethrowing the error to be caught by the calling function
+
   }
 };
 
@@ -98,15 +103,17 @@ export const saveDraftFlow = (get: () => RFState, set: any) => async (match: any
     return false;
   }
 
-  
+
 };
 
 
 export const deleteDraftFlow = (get: () => RFState, set: any) => async (draftId: string) => {
-  await deleteDraftFlowAPI(draftId).then((res) => {
-  }).catch((e) => {
-    console.log(e)
-  })
+  try {
+    const res: any = await deleteDraftFlowAPI(draftId);
+    return res;
+  } catch (error) {
+    return error;
+  }
 }
 
 

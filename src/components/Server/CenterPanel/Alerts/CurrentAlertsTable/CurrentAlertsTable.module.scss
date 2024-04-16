@@ -17,5 +17,27 @@
     table{  
         @include server_table;
         table-layout: fixed;
+
+        .actions_btn_wrapper{
+            display: flex;
+            flex-direction: column;
+ 
+           button{
+            @include blue_btn;
+            width: 100px;
+            margin: auto;
+            margin-top: 3px;
+           
+           }
+
+           .read_btn{
+            background-color: $bg-warning-btn;
+           }
+
+           .delete_btn{
+            background-color: $bg-delete-btn;
+           }
+         
+        }
     }
 }

@@ -3,6 +3,7 @@ import { connectionsIcons } from "../../icons/icons";
 import s from "./PushNotifications.module.scss";
 import moment from "moment";
 import { IconVariants } from "../../store/enums/profile";
+import useStore from "../../store/store";
 
 interface IPushNotification {
   Message: string;
@@ -13,32 +14,42 @@ function PushNotifications(props: { themeColor  : IconVariants}) {
   const [notificationsCount, setNotificationsCount] = useState<number>(0);
   const [notificationsList, setNotificationsList] = useState<Array<IPushNotification>>();
   const [isListVisible, setListVisible] = useState<boolean>(false);
+
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const refreshInterval = 1000; // Обновление каждую минуту (в миллисекундах)
+  const refreshInterval = 2000; // Обновление каждую минуту (в миллисекундах)
 
   async function getNotifications() {
     const cache = await caches.open('notifications');
     const keys = await cache.keys();
 
-    const notifications = await Promise.all(keys.map(async (key) => {
+    const cahceData = await Promise.all(keys.map(async (key) => {
       const response: any = await cache.match(key);
       const data: any = await response.json();
-      return data;
+      if(data.hasOwnProperty("NotificationId")){
+        return data;
+      }
     }));
+
+    const notifications = cahceData.filter(notification => notification !== undefined);;
 
     setNotificationsCount(notifications.length);
     setNotificationsList(notifications);
   }
-
   async function clearNotifications() {
     await setListVisible(false);
     await setNotificationsCount(0);
     await setNotificationsList([]);
-    await caches.keys().then((cacheNames: any) => {
-      return Promise.all(cacheNames.map((name: any) => caches.delete(name)));
-    });
-  }
+
+    caches.keys().then(cacheNames=>{
+      return Promise.all(cacheNames.map((cache)=>{
+          if(cache === "notifications"){
+            return caches.delete(cache)
+          }
+      }))
+    })
+}
+
 
   function handleOutsideClick(e: MouseEvent) {
     if (modalRef.current && !modalRef.current.contains(e.target as Node)) {

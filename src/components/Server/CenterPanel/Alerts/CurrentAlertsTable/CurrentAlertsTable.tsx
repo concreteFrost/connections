@@ -1,46 +1,87 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import s from "./CurrentAlertsTable.module.scss";
 import { useNavigate } from "react-router";
-import { getAlertsApi } from "../../../../../api/ehd";
+import { getAlertsApi, alertMarkAsReadApi, alertRemoveApi } from "../../../../../api/ehd";
+import { IAlert } from "../../../../../store/interfaces/IAlerts";
+import useStore from "../../../../../store/store";
 
 function CurrentAlertsTable() {
 
-  const navigate= useNavigate()
+  const navigate = useNavigate();
 
-  useState(()=>{
-     getAlertsApi(true).then((res : any)=>{
-      console.log(res)
-     })
-  })
+  const [alerts, setAlerts] = useState<Array<IAlert>>();
+  const {setModalMessage,toggleMessageModal} =useStore((state)=>state.modalWindowsSlice);
+
+  useEffect(() => {
+    getAlertsApi(true).then((res: any) => {
+      console.log(res);
+      setAlerts(res.data);
+    })
+  },[])
+
+  async function removeAlertFromCache() {
+   
+    caches.keys().then(cacheNames=>{
+      return Promise.all(cacheNames.map((cache)=>{
+          if(cache === "alert"){
+            // return caches.delete(cache)
+          }
+      }))
+    })
+}
+
+  async function handleMarkAsRead(alertId : number){
+    console.log('alert id :', alertId)
+    try {
+      const res : any = await alertMarkAsReadApi(alertId)
+      console.log('result of reading alert',res.data)
+
+      if(!res.data.success){
+        toggleMessageModal()
+        setModalMessage(res.data.message)
+      }
+    } catch (error) {
+      console.log('error reading the alert',error);
+    }
+  }
+
+  async function handleAlertDelete(alertId : number){
+    console.log('alert id :', alertId)
+    try {
+      const res : any = await alertRemoveApi(alertId)
+      console.log('result of reading alert',res.data)
+    } catch (error) {
+      console.log('error reading the alert',error);
+    }
+  }
+
+  console.log(alerts)
+
   return (
     <section className={s.wrapper}>
       <h3>Current Alerts</h3>
-      <header><button className={s.configure_btn} onClick={()=>navigate('configure')}>CONFIGURE</button></header>
+      <header><button className={s.configure_btn} onClick={() => navigate('configure')}>CONFIGURE</button></header>
       <main>
         <table>
           <thead>
             <tr>
-              <th>Format</th>
-              <th colSpan={2}>Message</th>
-              <th>Priority</th>
-              <th>App Status</th>
-              <th>Email Status</th>
-              <th>User Status</th>
-              <th>Logged</th>
+              <th colSpan={4}>Message</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>-</td>
-              <td colSpan={2}>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-            </tr>
+            {alerts && alerts?.length > 0 ? alerts?.map((element: IAlert) => <tr key={alerts.indexOf(element)}>
+              <td colSpan={4}>{element.messageText}</td>
+              <td><div className={s.actions_btn_wrapper}>
+                <button className={s.read_btn} onClick={()=>handleMarkAsRead(element.alertId)}>READ</button>
+                <button className={s.delete_btn} onClick={()=>handleAlertDelete(element.alertId)}>DELETE</button></div></td>
+            </tr>) :
+              <tr>
+                <td colSpan={4}>-</td>
+                
+                <td></td>
+              </tr>
+            }
           </tbody>
         </table>
       </main>

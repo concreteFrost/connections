@@ -25,8 +25,6 @@ const getDirectivesGlobal=(get:()=>RFState,set:any)=>async()=>{
                 directives: data.filter((dir:IDirective)=> dir.category === 1)
             }
         }))
-
-        console.log(get().alertSlice.directives);
     } catch (error) {
         console.log("error getting directives");
         
@@ -106,11 +104,11 @@ const addAlertFormat = () => async (newAlertFormat: INewAlertFormat) => {
 }
 
 const enableClientAlerts = () => async (subscription: ISubscription) => {
+    console.log('alerts payload', subscription)
     try {
         const res = await enabliClientAlertsApi(subscription);
-        console.log("result of alert client notifications reg", res);
-    } catch (error) {
-        console.log("error adding directive");
+    } catch (error) { console.log('subscription',subscription)
+        console.log("error registering alerts callback", error);
     }
 }
 

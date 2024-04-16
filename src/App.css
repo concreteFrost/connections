@@ -16,13 +16,13 @@ textarea,input,select,button{
   }
 }
 
-::selection {
+/* ::selection {
   display: none;
 }
 
 ::-moz-selection {
 display: none;
-}
+} */
 
 
 .resized_dynamic_menu,.dynamic_menu {

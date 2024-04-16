@@ -17,16 +17,37 @@ function LiveFlows() {
   const modalSlice = useStore((state) => state.modalWindowsSlice);
 
   const saveAndLoadLive = async (flowIdToLoad: string) => {
-    flowSlice.createUpdateDraftFromLiveTemplate(flowIdToLoad);
-    modalSlice.toggleUpdateFlowModal(false)
-    modalSlice.toggleLoadFlowModal(false)
+    try {
+      const res:any =await flowSlice.createUpdateDraftFromLiveTemplate(flowIdToLoad);
 
+      if(res.data.success){
+        modalSlice.toggleLoadFlowModal(false)    
+      }
+    } catch (error) {
+      modalSlice.setModalMessage("Something went wrong");
+      modalSlice.toggleMessageModal();
+    }
+
+    modalSlice.toggleUpdateFlowModal(false);
+    
   };
 
   const loadLiveWithoutSaving = async (flowIdToLoad: string) => {
-    flowSlice.createUpdateDraftFromLiveTemplate(flowIdToLoad);
-    modalSlice.toggleUpdateFlowModal(false)
-    modalSlice.toggleLoadFlowModal(false)
+
+    try {
+      const res:any=await flowSlice.createUpdateDraftFromLiveTemplate(flowIdToLoad);
+
+      if(res.data.success){
+        modalSlice.toggleLoadFlowModal(false)
+      }
+    } catch (error) {
+      
+      modalSlice.setModalMessage("Something went wrong");
+      modalSlice.toggleMessageModal();
+    }
+
+    modalSlice.toggleUpdateFlowModal(false);
+
   };
 
   useEffect(() => {

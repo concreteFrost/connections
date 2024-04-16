@@ -107,8 +107,8 @@ export function enableClientNotificationsAPI(subscribtion: ISubscription) {
             },
             data: {
                 endpoint: subscribtion.endpoint,
-                auth: subscribtion.keys.auth,
-                p256DH: subscribtion.keys.p256dh
+                auth: subscribtion.auth,
+                p256DH: subscribtion.p256dh
             }
 
         })

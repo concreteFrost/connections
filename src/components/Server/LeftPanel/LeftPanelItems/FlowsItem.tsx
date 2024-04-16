@@ -47,34 +47,33 @@ function FlowsItem(props: FlowsItemProps) {
         <ul>
           {flowList.length > 0
             ? flowList.map((flow: any) => (
-                <li
-                  key={flow.flowId}
-                  className={`${s.flow_list_item}  ${
-                    currentFlow.flowIdentifier === flow.flowId
-                      ? s["selected"]
-                      : null
+              <li
+                key={flow.flowId}
+                className={`${s.flow_list_item}  ${currentFlow.flowIdentifier === flow.flowId
+                    ? s["selected"]
+                    : null
                   }`}
+              >
+                <div className={s.flow_list_title_wrapper}
+                  onClick={async () => {
+                    await getCurrentFlow(flow.flowId);
+                    props.navigate("flows");
+                  }}
                 >
-                  <div className={s.flow_list_title_wrapper}
-                    onClick={async () => {
-                      await getCurrentFlow(flow.flowId);
-                      props.navigate("flows");
+                  {flow.name}
+                </div>
+                <div className={s.flow_list_btn_wrapper}>
+                  <button
+                    onClick={() => {
+                      createUpdateDraftFromLiveTemplate(flow.flowId);
+                      props.navigate("/designer");
                     }}
                   >
-                    {flow.name}
-                  </div>
-                  <div className={s.flow_list_btn_wrapper}>
-                    <button
-                      onClick={() => {
-                        createUpdateDraftFromLiveTemplate(flow.flowId);
-                        props.navigate("/designer");
-                      }}
-                    >
-                      EDIT
-                    </button>
-                  </div>
-                </li>
-              ))
+                    EDIT
+                  </button>
+                </div>
+              </li>
+            ))
             : null}
         </ul>
       )}

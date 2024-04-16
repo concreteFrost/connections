@@ -29,7 +29,7 @@ export function getDraftListApi() {
           Authorization: "Bearer " + getAccessToken().token,
         },
       })
-      .then((res) => resolve(res))
+      .then((res) => {resolve(res)})
       .catch((e) => reject(e));
   });
 }
@@ -46,7 +46,9 @@ export function getDraftApi(id: any) {
           Authorization: "Bearer " + getAccessToken().token,
         },
       })
-      .then((res) => resolve(res))
+      .then((res) => {resolve(res)
+        console.log('getting draft')
+      })
       .catch((e) => reject(e));
   });
 }
@@ -122,7 +124,9 @@ export function createUpdateDraftFromLiveAPI(liveFlowID: string) {
           Authorization: "Bearer " + getAccessToken().token,
         },
       })
-      .then((res) => resolve(res))
+      .then((res) => {
+        console.log('create update draft live',res)
+        resolve(res); })
       .catch((e) => reject(e));
   });
 }

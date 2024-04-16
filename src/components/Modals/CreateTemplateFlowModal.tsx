@@ -7,7 +7,7 @@ import { useState } from "react";
 function CreateTemplateFlowModal() {
 
     const { isVisible, liveFlowID, liveFlowName } = useStore((state) => state.modalWindowsSlice.createTemplateFlowModal);
-    const createDraftFromLiveTemplate = useStore((state) => state.flowSlice.createFlowFromTemplate);
+    const {createFlowFromTemplate} = useStore((state) => state.flowSlice);
     const [newDraftName, setNewDraftName] = useState<string>('');
     const [errorMessage, setErrorMessage] = useState<string>('');
     const toggleCreateTemplateFlowModal = useStore((state) => state.modalWindowsSlice.toggleCreateTemplateFlowModal);
@@ -22,11 +22,21 @@ function CreateTemplateFlowModal() {
             }, 3000)
         }
         else {
-            createDraftFromLiveTemplate(liveFlowID, newDraftName);
-            toggleCreateTemplateFlowModal(false)
-            toggleLoadFlowModal(false)
+            try{
+                const res: any =  await createFlowFromTemplate(liveFlowID, newDraftName);
+                console.log(res)
+                if(res.data.success){
+                    toggleCreateTemplateFlowModal(false)
+                    toggleLoadFlowModal(false)
+                }
+            }
+            catch(e){
+                setErrorMessage('*Something went wrong')
+                setTimeout(() => {
+                    setErrorMessage('')
+                }, 3000)
+            } 
         }
-
     }
 
     return (<>

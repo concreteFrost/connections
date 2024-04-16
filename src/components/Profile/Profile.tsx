@@ -17,6 +17,7 @@ function Profile(props:ProfileProps) {
 
     const [isProfileModalVisible, setProfileModalVisible] = useState<boolean>(false);
     const [isEditUserVisible, setEditUserVisible] = useState<boolean>(false);
+    const {setIsLoggedIn} = useStore((state)=>state.userSlice);
     const modalRef = useRef<HTMLDivElement>(null);
 
     const { userToEdit, getUser } = useStore((state) => state.securitySlice);
@@ -47,6 +48,7 @@ function toggleProfileModalVisibility(isVisible: boolean) {
 
     async function logout() {
         // Clear user data and navigate to the login page
+        setIsLoggedIn(false);
         await clearUserData();
         await navigate('/login');
       }

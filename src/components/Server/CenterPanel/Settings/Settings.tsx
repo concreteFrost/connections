@@ -17,7 +17,6 @@ function Settings() {
   const fetchSettings = async () => {
     try {
       const res: any = await getSettingsAPI();
-      console.log(res)
       const sort = res.data.sort((a: ISetting) => (a.readOnly ? 1 : -1));
 
       setDefaultSettings(sort);

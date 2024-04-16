@@ -1,5 +1,5 @@
-import { getBlockStatisticsAPI } from "../../api/flow";
-import { createUpdateDraftFromLiveAPI } from "../../api/draft"
+import { getBlockStatisticsAPI, getFlowApi } from "../../api/flow";
+import { createUpdateDraftFromLiveAPI, getDraftApi } from "../../api/draft"
 import { RFState } from "../types/rfState";
 import { ILogObject } from "../interfaces/IServer";
 import { IFlowConfig } from "../interfaces/Iflow";
@@ -12,11 +12,14 @@ export const getCurrentFlow = (get: () => RFState, set: any) => async (flowId: s
   }
   let _stats = [{}]
 
-  await createUpdateDraftFromLiveAPI(flowId).then((res: any) => {
-    console.log(res.data)
-    currentFlow = res.data.flowConfiguration
+  // await createUpdateDraftFromLiveAPI(flowId).then((res: any) => {
+  //   currentFlow = res.data.flowConfiguration
+  // }).catch(e => console.log(e))
 
-  }).catch(e => console.log(e))
+  await getFlowApi(flowId).then((res:any)=>{
+    console.log(res.data)
+    currentFlow = res.data.flowData;
+  }).catch(e=>console.log(e));
 
   await getBlockStatisticsAPI(flowId).then((res: any) => {
     _stats = res.data.statistics
@@ -53,8 +56,6 @@ export const toggleFlowControlState = (get: () => RFState, set: any) => (isEnabl
     }
 
   }))
-
-  console.log('current flow', get())
 }
 
 //#region LOG SEARCH

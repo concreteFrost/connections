@@ -88,6 +88,17 @@
   }
 
   .flow_control {
+
+    .start_stop_wrapper{
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+
+      button{
+        @include blue_btn;
+        width: 100%;
+      }
+    }
     select {
       display: flex;
       justify-self: center;

@@ -12,7 +12,7 @@ function Flow() {
 
   return (
     <div className={s.wrapper}>
-      {currentFlow.flowIdentifier ? <StaticProperties
+      {currentFlow.flowIdentifier ? <><StaticProperties
         className={s}
         staticProperties={{
           flowName: currentFlow.flowName,
@@ -24,9 +24,9 @@ function Flow() {
           created: currentFlow.created,
           createdBy: currentFlow.createdBy,
         }}
-      ></StaticProperties> : null}
-      {currentFlow.flowIdentifier ? <ChangeLog className={s}></ChangeLog> : null}
-      {currentFlow.flowIdentifier ? <FlowControl className={s}></FlowControl> : null}
+      ></StaticProperties> 
+      <ChangeLog className={s}></ChangeLog> 
+      <FlowControl className={s}></FlowControl></> : null}
       <BlockTable className={s} blockData={currentFlow.blockData as IBlockDataExtended[]}></BlockTable>
     </div>
   );

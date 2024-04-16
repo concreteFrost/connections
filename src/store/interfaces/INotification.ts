@@ -20,8 +20,8 @@ export interface INotificationType {
 
 export interface ISubscription {
     endpoint: string,
-    keys: {
-        auth: string,
-        p256dh: string
-    }
+
+    auth: string,
+    p256dh: string
+
 }

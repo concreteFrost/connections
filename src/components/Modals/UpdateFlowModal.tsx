@@ -49,7 +49,6 @@ function UpdateFlowModal() {
   function cancelSaving() {
     modalSlice.toggleUpdateFlowModal(false);
   }
-
   async function tryToSaveFlow() {
     try {
       const match = await checkExistingFlowInDataBase(flowSlice.flow.flowName);

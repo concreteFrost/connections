@@ -2,6 +2,7 @@ import s from "./Server.module.scss";
 import LeftPanel from "./LeftPanel/LeftPanel";
 import Header from "./Header/Header";
 import CenterPanel from "./CenterPanel/CenterPanel";
+import PushTest from "../PushTest/PushTest";
 
 function Server() {
   return (
