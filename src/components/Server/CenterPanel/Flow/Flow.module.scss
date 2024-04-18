@@ -91,9 +91,10 @@
 
     .start_stop_wrapper{
       display: flex;
-      justify-content: space-between;
-      gap: 10px;
-
+      justify-content: center;
+      justify-self: center;
+      width: 200px;
+      margin-bottom: 5px;
       button{
         @include blue_btn;
         width: 100%;
@@ -108,7 +109,6 @@
       background-color: $bg-top-menu-btn-default;
       color: white;
       border-radius: 5px;
-      ;
       border: 0;
       font-weight: bold;
       font-size: 1.2rem;

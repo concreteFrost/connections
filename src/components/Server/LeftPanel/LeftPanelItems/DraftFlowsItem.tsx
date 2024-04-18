@@ -73,6 +73,8 @@ function DraftFlowsItem(props: FlowsItemProps) {
     }
   }
 
+  console.log(props.currentSection.flows)
+
   function toggleFolderToOpen(folderName: string) {
     const updatedFolders = Object.keys(draftFlowList).reduce(
       (previousObject: any, key: any) => {

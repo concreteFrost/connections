@@ -35,9 +35,10 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <PushTest></PushTest>
-      <MessageModal></MessageModal>
+      
       <ApproveModal></ApproveModal>
       <ConfirmationModal></ConfirmationModal>
+      <MessageModal></MessageModal>
       <Tooltip anchorSelect=".tooltip-item" place="right" style={{ zIndex: 9999 }}>
         {tooltipText}
       </Tooltip>

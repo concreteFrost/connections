@@ -1,7 +1,8 @@
 import s from "./ModalWindow.module.scss";
 import useStore from "../../store/store";
 import { useState } from "react";
-import { approveAndReleaseAPI } from "../../api/draft";
+import { approveAndReleaseAPI, getDraftApi } from "../../api/draft";
+import { getFlowApi } from "../../api/flow";
 
 function ApproveModal() {
   const { approveFlowModal, toggleApproveFlowModal, setModalMessage, toggleMessageModal } = useStore(
@@ -11,21 +12,52 @@ function ApproveModal() {
 
   const [keepDraft, setKeepDraft] = useState<boolean>(false);
 
-  function approveDraftFlow() {
-    approveAndReleaseAPI(approveFlowModal.draftIdToApprove, keepDraft).then((res: any) => {
-      if (!res.data.success) {
-        setModalMessage(res.data.message)
-      }
-      else {
-        setModalMessage('success!!!')
-        toggleLoadFlowModal(false);
-      }
-      toggleMessageModal()
-      toggleApproveFlowModal(false, '')
+  async function tryToApproveDraftFlow() {
 
-    }).catch((e) => {
-      console.log('approve error', e)
-    })
+
+    try {
+
+      const res: any = await getDraftApi(approveFlowModal.draftIdToApprove);
+
+      if (res.data.success) {
+        console.log('success')
+
+        if (res.data.flowConfiguration.isEnabled) {
+
+          setModalMessage("cant approve flow that is currently enabled");
+          toggleMessageModal();
+          toggleApproveFlowModal(false, '')
+        }
+
+        else {
+          approveDraftFlow();
+        }
+      }
+
+    }
+    catch (e) {
+      console.log(e);
+    }
+
+    async function approveDraftFlow() {
+      const res2: any = await approveAndReleaseAPI(approveFlowModal.draftIdToApprove, keepDraft);
+
+      try {
+        if (!res2.data.success) {
+          setModalMessage(res2.data.message)
+        }
+        else {
+          setModalMessage('success!!!')
+          toggleLoadFlowModal(false);
+        }
+        toggleMessageModal()
+        toggleApproveFlowModal(false, '')
+      }
+      catch (error) {
+        console.log('approve error', error)
+      }
+    }
+
   }
   return (
     <>
@@ -47,7 +79,7 @@ function ApproveModal() {
                     setKeepDraft(!keepDraft);
                   }}
                 />
-                <button onClick={approveDraftFlow}>Approve</button>
+                <button onClick={tryToApproveDraftFlow}>Approve</button>
                 <button onClick={() => toggleApproveFlowModal(false, "")}>
                   Cancel
                 </button>

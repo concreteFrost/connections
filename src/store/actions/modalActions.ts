@@ -107,7 +107,7 @@ export const toggleApproveFlowModal = (get: () => RFState, set: any) => (isVisib
             approveFlowModal: {
                 ...state.modalWindowsSlice.approveFlowModal,
                 isVisible: isVisible,
-                draftIdToApprove: draftIdToApprove
+                draftIdToApprove: draftIdToApprove,
             }
         }
     }))
