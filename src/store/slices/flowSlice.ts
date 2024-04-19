@@ -9,7 +9,6 @@ import baseActtions from "../actions/baseActions";
 import blockActions from "../actions/blockActions";
 import groupActions from "../actions/groupActions";
 import substitutionsActions from "../actions/substitutionsActions";
-import { INodeType } from "../interfaces/INode";
 import blocksWidgetActions from "../actions/blocksWidgetActions";
 import { IBlockData } from "../interfaces/IBlock";
 import edgeActions from "../actions/edgesActions";
@@ -35,6 +34,12 @@ export type FlowSlice = {
       edges: Edge<any>[];
     };
   };
+
+  draft:{
+    draftId:string|null;
+    canApprove:boolean;
+  }
+ 
 
   //directives 
   directivesList: IDirective[],
@@ -88,6 +93,9 @@ export type FlowSlice = {
   createFlowFromTemplate: (liveFlowID: string, newDraftName: string) => void;
   createUpdateDraftFromLiveTemplate: (id: string) => void;
 
+  //Draft Actions
+  setCanApprove:(canApprove:boolean)=>void;
+
   //Substitutions Actions
   addSubstitutionKey: (key: string) => void;
   addConfig: (key: string, configName: string, configValue: string) => void;
@@ -95,12 +103,16 @@ export type FlowSlice = {
 
   //Edges Actions
   deleteEdge:(edgeId:string)=>void;
-
-
 };
 
 const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
   flow: initializeFlow(initialNodes, initialEdges),
+
+  draft:{
+    draftId:null,
+    canApprove:false
+  },
+  
   directivesList:[],
 
   //Base Actions
@@ -152,6 +164,9 @@ const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
   setFlowVersion: flowActions.setFlowVersion(get, set),
   setFlowIsEnabled: flowActions.setFlowIsEnabled(get, set),
 
+  //Draft Actions
+  setCanApprove:flowActions.setCanApprove(get,set),
+
   //Substitution Actions
   addSubstitutionKey: substitutionsActions.addSubstitutionKey(get, set),
   addConfig: substitutionsActions.addConfig(get, set),
@@ -162,7 +177,6 @@ const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
   allignSelectedBlocks:blocksWidgetActions.allignSelectedBlocks(get,set),
   deleteMultupleBlocks:blocksWidgetActions.deleteMultipleBlocks(get,set)
 
-  
 });
 
 export default flowSlice;

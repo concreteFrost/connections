@@ -12,7 +12,7 @@ interface IPushAlert {
 
 function AlertNotifications(props: { themeColor: IconVariants }) {
   const [alertsCount, setAlertsCount] = useState<number>(1);
-  const [alertsList, setAlertsList] = useState<Array<IPushAlert>>([]);
+  const [alertsList, setAlertsList] = useState<Array<IPushAlert>>([{Message:"test", LoggedTime:"12345"}]);
   const [isListVisible, setListVisible] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -27,6 +27,7 @@ function AlertNotifications(props: { themeColor: IconVariants }) {
     const cahceData = await Promise.all(keys.map(async (key) => {
       const response: any = await cache.match(key);
       const data: any = await response.json();
+      console.log(data)
       if (data.hasOwnProperty("AlertId")) {
         return data;
       }

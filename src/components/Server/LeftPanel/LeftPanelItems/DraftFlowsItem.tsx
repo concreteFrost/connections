@@ -3,7 +3,7 @@ import useStore from "../../../../store/store";
 import { getDraftListApi } from "../../../../api/draft";
 import { connectionsIcons } from "../../../../icons/icons";
 import { ILeftPanelSections } from "../LeftPanel";
-import s from "./ListItem.module.scss"
+import s from "./ListItem.module.scss";
 
 interface FlowsItemProps {
   toggleSection: (section: string) => void;
@@ -16,22 +16,18 @@ function DraftFlowsItem(props: FlowsItemProps) {
   const { loadFlowFromDraft, deleteDraftFlow } = useStore(
     (state) => state.flowSlice
   );
-  const { toggleApproveFlowModal, setApproveFlowModalMessage } = useStore(
-    (state) => state.modalWindowsSlice
-  );
+
   const [isListLoaded, setListLoaded] = useState<boolean>(false);
 
   async function fetchDraftFlowList() {
     if (!isListLoaded) {
       try {
         const res: any = await getDraftListApi();
-
         if (res.data.hasOwnProperty("draftFlows")) {
           const data: any = await res.data.draftFlows;
-          sortDraftsByFolder(data)
-          setListLoaded(true)
+          sortDraftsByFolder(data);
+          setListLoaded(true);
         }
-
       } catch (e) {
         console.log(e);
       }
@@ -51,15 +47,16 @@ function DraftFlowsItem(props: FlowsItemProps) {
       {}
     );
 
-    setDraftFlowList(sortedDrafts)
-
-  }
+    setDraftFlowList(sortedDrafts);
+  };
 
   async function performDraftDeletion(flowId: string, folderName: any) {
     try {
       const res: any = await deleteDraftFlow(flowId);
       if (res.data.success) {
-        const filtered = draftFlowList[folderName].filter((flow: any) => flow.draftId !== flowId);
+        const filtered = draftFlowList[folderName].filter(
+          (flow: any) => flow.draftId !== flowId
+        );
         draftFlowList[folderName] = filtered;
 
         if (draftFlowList[folderName].length <= 0) {
@@ -67,25 +64,23 @@ function DraftFlowsItem(props: FlowsItemProps) {
         }
         setDraftFlowList(draftFlowList);
       }
-
     } catch (e) {
       console.log(e);
     }
   }
-
-  console.log(props.currentSection.flows)
 
   function toggleFolderToOpen(folderName: string) {
     const updatedFolders = Object.keys(draftFlowList).reduce(
       (previousObject: any, key: any) => {
         previousObject[key] = draftFlowList[key];
         previousObject[key].isExpanded =
-          folderName === key ?? !previousObject[key].isExpanded;
+          folderName === key ? !previousObject[key].isExpanded : false;
         //close dropdown options if folder name is not eq key
         if (folderName !== key) {
           previousObject[key].forEach((x: any) => {
             x.isDropdownVisible = false;
           });
+        
         }
         return previousObject;
       },
@@ -100,10 +95,9 @@ function DraftFlowsItem(props: FlowsItemProps) {
       <div
         className={s.section_header}
         onClick={async () => {
-          await fetchDraftFlowList()
-          props.toggleSection("drafts")
-        }
-        }
+          await fetchDraftFlowList();
+          props.toggleSection("drafts");
+        }}
       >
         <span className={s.header_icon}>
           {connectionsIcons.serverMenuIcons.flows}
@@ -117,72 +111,61 @@ function DraftFlowsItem(props: FlowsItemProps) {
       </div>
       {props.currentSection.drafts ?? Object.keys(draftFlowList).length > 0
         ? Object.keys(draftFlowList).map((folderName: any) => (
-          <div
-            key={folderName}
-            className={s.draft_list_item_wrapper}
-            onClick={() => toggleFolderToOpen(folderName)}
-          >
-            <div className={s.folder_name}>
-              <header>{folderName}</header>
-              <span>
-                {draftFlowList[folderName].isExpanded
-                  ? connectionsIcons.arrowDown
-                  : connectionsIcons.arrowUp}
-              </span>
-            </div>
-            {draftFlowList[folderName].isExpanded ? (
-              <ul>
-                {draftFlowList[folderName].map((flow: any) => (
-                  <li
-                    key={flow.draftId}
-                    className={s.flow_list_item}
-                  >
-                    <div className={s.flow_list_title_wrapper}>
-                      {flow.flowName}
-                    </div>
-                    <div className={s.flow_list_btn_wrapper}>
-                      <button onClick={() => (flow.isDropdownVisible = true)}>
-                        ...
-                      </button>
-                    </div>
-                    {flow.isDropdownVisible ? (
-                      <div
-                        className={s.flow_list_dropdown_actions}
-                      >
-                        <button
-                          onClick={() => (flow.isDropdownVisible = false)}
-                        >
-                          x
-                        </button>
-                        <button
-                          onClick={() => {
-                            loadFlowFromDraft(flow.draftId);
-                            props.navigate("/designer");
-                          }}
-                        >
-                          LOAD
-                        </button>
-                        <button
-                          onClick={() => {
-                            setApproveFlowModalMessage(flow.flowName);
-                            toggleApproveFlowModal(true, flow.draftId);
-                          }}
-                        >
-                          APPROVE
-                        </button>
-                        <button
-                          onClick={() => performDraftDeletion(flow.draftId, folderName)}
-                        >
-                          DELETE
+            <div
+              key={folderName}
+              className={s.draft_list_item_wrapper}
+              onClick={() => toggleFolderToOpen(folderName)}
+            >
+              <div className={s.folder_name}>
+                <header>{folderName}</header>
+                <span>
+                  {draftFlowList[folderName].isExpanded
+                    ? connectionsIcons.arrowDown
+                    : connectionsIcons.arrowUp}
+                </span>
+              </div>
+              {draftFlowList[folderName].isExpanded ? (
+                <ul>
+                  {draftFlowList[folderName].map((flow: any) => (
+                    <li key={flow.draftId} className={s.flow_list_item}>
+                      <div className={s.flow_list_title_wrapper}>
+                        {flow.flowName}
+                      </div>
+                      <div className={s.flow_list_btn_wrapper}>
+                        <button onClick={() => (flow.isDropdownVisible = true)}>
+                          ...
                         </button>
                       </div>
-                    ) : null}
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </div>
-        ))
+                      {flow.isDropdownVisible ? (
+                        <div className={s.flow_list_dropdown_actions}>
+                          <button
+                            onClick={() => (flow.isDropdownVisible = false)}
+                          >
+                            CLOSE
+                          </button>
+                          <button
+                            onClick={() => {
+                              loadFlowFromDraft(flow.draftId);
+                              props.navigate("/designer");
+                            }}
+                          >
+                            LOAD
+                          </button>
+                          <button className={s.delete_btn}
+                            onClick={() =>
+                              performDraftDeletion(flow.draftId, folderName)
+                            }
+                          >
+                            DELETE
+                          </button>
+                        </div>
+                      ) : null}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+          ))
         : null}
     </div>
   );

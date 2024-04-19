@@ -2,62 +2,52 @@ import s from "./ModalWindow.module.scss";
 import useStore from "../../store/store";
 import { useState } from "react";
 import { approveAndReleaseAPI, getDraftApi } from "../../api/draft";
-import { getFlowApi } from "../../api/flow";
 
 function ApproveModal() {
-  const { approveFlowModal, toggleApproveFlowModal, setModalMessage, toggleMessageModal } = useStore(
-    (state) => state.modalWindowsSlice
-  );
-  const toggleLoadFlowModal = useStore((state) => state.modalWindowsSlice.toggleLoadFlowModal);
+  const {
+    approveFlowModal,
+    toggleApproveFlowModal,
+    setModalMessage,
+    toggleMessageModal,
+  } = useStore((state) => state.modalWindowsSlice);
+
+  const {setCanApprove} = useStore((state)=>state.flowSlice)
 
   const [keepDraft, setKeepDraft] = useState<boolean>(false);
 
+  function showMessageOnApproval(message: string) {
+    setModalMessage(message);
+    toggleMessageModal();
+    toggleApproveFlowModal(false, "");
+  }
+
   async function tryToApproveDraftFlow() {
-
-
     try {
-
       const res: any = await getDraftApi(approveFlowModal.draftIdToApprove);
-
       if (res.data.success) {
-        console.log('success')
-
         if (res.data.flowConfiguration.isEnabled) {
-
-          setModalMessage("cant approve flow that is currently enabled");
-          toggleMessageModal();
-          toggleApproveFlowModal(false, '')
-        }
-
-        else {
+          showMessageOnApproval("cant approve flow that is currently enabled");
+        } else {
           approveDraftFlow();
         }
       }
-
-    }
-    catch (e) {
-      console.log(e);
+    } catch (e) {
+      showMessageOnApproval("something went wrong");
     }
 
     async function approveDraftFlow() {
-      const res2: any = await approveAndReleaseAPI(approveFlowModal.draftIdToApprove, keepDraft);
 
+      const res: any = await approveAndReleaseAPI(
+        approveFlowModal.draftIdToApprove,
+        keepDraft
+      );
       try {
-        if (!res2.data.success) {
-          setModalMessage(res2.data.message)
-        }
-        else {
-          setModalMessage('success!!!')
-          toggleLoadFlowModal(false);
-        }
-        toggleMessageModal()
-        toggleApproveFlowModal(false, '')
-      }
-      catch (error) {
-        console.log('approve error', error)
+        showMessageOnApproval(res.data.success? "success!!!" : res.data.message) 
+        setCanApprove(false)
+      } catch (error) {
+        showMessageOnApproval("something went wrong");
       }
     }
-
   }
   return (
     <>

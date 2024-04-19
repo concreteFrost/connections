@@ -13,13 +13,7 @@ import PushNotifications from "../../PushNotifications/PushNotifications";
 import AlertNotifications from "../../AlertsNotifications/AlertNotifications";
 
 function TopMenu() {
-  const dropdowns = useStore((state) => state.topPanelSlice.dropdowns);
-  const toggleDropdown = useStore(
-    (state) => state.topPanelSlice.toggleDropdown
-  );
-  const [currentActions, setCurrentActions] = useState<UpdateFlowActions>(
-    UpdateFlowActions.Create
-  );
+
   const loadFlowModal = useStore(
     (state) => state.modalWindowsSlice.loadFlowModal
   );
@@ -28,19 +22,11 @@ function TopMenu() {
     <div className={s.container}>
       <div className={s.wrapper}>
         {loadFlowModal.isVisible ? <FlowsListModal></FlowsListModal> : null}
-        <CentralPanel
-          dropdowns={dropdowns}
-          toggleDropdown={toggleDropdown}
-          setCurrentActions={setCurrentActions}
-        ></CentralPanel>
+        <CentralPanel></CentralPanel>
         <div className={s.settings_wrapper}>
           <PushNotifications themeColor={IconVariants.Dark}></PushNotifications>
           <AlertNotifications themeColor={IconVariants.Dark}></AlertNotifications>
-          <Settings
-            dropdowns={dropdowns}
-            toggleDropdown={toggleDropdown}
-          ></Settings>
-
+          <Settings></Settings>
           <Profile themeColor={IconVariants.Dark}></Profile>
         </div>
       </div>

@@ -3,7 +3,6 @@ import initialNodes from "../nodes"
 import initialEdges from "../edges";
 import { setFlow, parseFloatVersion, flowVersionToInt, updateFlowAfterSaving, initializeFlow } from "./utils/flowUtils";
 import { v4 as uuidv4 } from "uuid";
-
 import { deleteDraftFlowAPI, getDraftApi, saveDraftFlowApi, createDraftFromLiveTemplateAPI, createUpdateDraftFromLiveAPI } from "../../api/draft";
 
 export const createFlow = (get: () => RFState, set: any) => () => {
@@ -14,17 +13,20 @@ export const createFlow = (get: () => RFState, set: any) => () => {
       flow: initializeFlow(initialNodes, initialEdges, flowId)
     }
   }))
+  setDraftId(get,set)(null);
+  setCanApprove(get,set)(false);
+
 };
 
 export const closeFlow = (get: () => RFState, set: any) => () => {
-
   set((state: RFState) => ({
     flowSlice: {
       ...state.flowSlice,
       flow: initializeFlow(initialNodes, initialEdges)
     }
   }))
-
+  setDraftId(get,set)(null);
+  setCanApprove(get,set)(false);
 };
 
 export const createFlowFromTemplate = (get: () => RFState, set: any) => async (liveFlowID: string, newDraftName: string) => {
@@ -34,6 +36,7 @@ export const createFlowFromTemplate = (get: () => RFState, set: any) => async (l
 
     if (data.success) {
       await setFlow(data.flowConfiguration, set);
+      setCanApprove(get,set)(false);
     }
 
     return res;
@@ -50,8 +53,8 @@ export const createUpdateDraftFromLiveTemplate = (get: () => RFState, set: any) 
 
     if(res.data.success){
       setFlow(res.data.flowConfiguration,set);
+      setCanApprove(get,set)(false);
     }
-   
     return res;
   } catch (e) {
     console.log('error creating update draft from live template', e)
@@ -59,14 +62,13 @@ export const createUpdateDraftFromLiveTemplate = (get: () => RFState, set: any) 
 };
 
 export const loadFlowFromDraft = (get: () => RFState, set: any) => async (id: string) => {
-
   try {
     const res: any = await getDraftApi(id);
+    console.log('loaded flow',res.data)
     setFlow(res.data.flowConfiguration, set);
-    console.log(res.data.flowConfiguration)
+    setCanApprove(get,set)(false);
   } catch (e) {
     console.log('error loading flow', e);
-
   }
 };
 
@@ -87,11 +89,12 @@ export const saveDraftFlow = (get: () => RFState, set: any) => async (match: any
     draftConfiguration: flow,
   };
 
-  console.log(draftStructure)
   try {
     const res: any = await saveDraftFlowApi(draftStructure);
     if (res.data.success) {
       updateFlowAfterSaving(set, flow, 'success!!!');
+      setDraftId(get,set)(res.data.draftRecord.draftId)
+      setCanApprove(get,set)(true);
       return true;
     } else {
       updateFlowAfterSaving(set, flow, res.data.message);
@@ -106,7 +109,6 @@ export const saveDraftFlow = (get: () => RFState, set: any) => async (match: any
 
 };
 
-
 export const deleteDraftFlow = (get: () => RFState, set: any) => async (draftId: string) => {
   try {
     const res: any = await deleteDraftFlowAPI(draftId);
@@ -115,7 +117,6 @@ export const deleteDraftFlow = (get: () => RFState, set: any) => async (draftId:
     return error;
   }
 }
-
 
 export const setFlowName = (get: () => RFState, set: any) => (name: string) => {
   set((state: RFState) => ({
@@ -148,7 +149,6 @@ export const setFlowVersion = (get: () => RFState, set: any) => (version: string
 
 };
 
-
 export const setFlowIsEnabled = (get: () => RFState, set: any) => () => {
   set((state: RFState) => ({
     flowSlice: {
@@ -162,6 +162,30 @@ export const setFlowIsEnabled = (get: () => RFState, set: any) => () => {
 
 };
 
+//internal functions
+const setDraftId =(get:()=>RFState,set:any)=>(id:string|null)=>{
+  set((state:RFState)=>({
+    flowSlice:{
+      ...state.flowSlice,
+      draft:{
+        ...state.flowSlice.draft,
+        draftId:id
+      }
+  }}))
+}
+
+export const setCanApprove =(get:()=>RFState,set:any)=>(canApprove:boolean)=>{
+  set((state:RFState)=>({
+    flowSlice:{
+      ...state.flowSlice,
+      draft:{
+        ...state.flowSlice.draft,
+        canApprove:canApprove
+      }
+  }}))
+}
+
+
 const flowActions = {
   createFlow: createFlow,
   createFlowFromTemplate: createFlowFromTemplate,
@@ -173,6 +197,7 @@ const flowActions = {
   setFlowName: setFlowName,
   setFlowVersion: setFlowVersion,
   setFlowIsEnabled: setFlowIsEnabled,
+  setCanApprove:setCanApprove
 };
 
 export default flowActions;

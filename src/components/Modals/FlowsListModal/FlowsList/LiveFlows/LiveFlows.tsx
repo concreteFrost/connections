@@ -69,6 +69,7 @@ function LiveFlows() {
               <th>Name</th>
               <th>Author</th>
               <th>Created</th>
+              <th>Version</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -77,6 +78,7 @@ function LiveFlows() {
               <td className={s.flow_name}>{loadedFlow.name}</td>
               <td>{loadedFlow.createdBy}</td>
               <td>{moment(loadedFlow.dateCreated).calendar()}</td>
+              <td>{loadedFlow.version}</td>
               <td>
                 <div className={s.actions_wrapper}>
                   <button className={`${s.action_confirm_btn} tooltip-item`}

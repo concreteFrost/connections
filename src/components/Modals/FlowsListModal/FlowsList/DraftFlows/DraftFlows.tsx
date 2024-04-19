@@ -4,14 +4,7 @@ import s from "./DrafFlows.module.scss";
 import { useState, useEffect } from "react";
 import moment from "moment";
 import { connectionsIcons } from "../../../../../icons/icons";
-
-interface ILoadedFlow {
-  flowId: string;
-  draftId: string;
-  flowName: string;
-  createdBy: string;
-  createdOn: string;
-}
+import { ILoadedFlow } from "../../../../../store/interfaces/Iflow";
 
 interface ISectionToOpen {
   folders: boolean;
@@ -30,8 +23,6 @@ function DraftFlows() {
   const modalSlice = useStore((state) => state.modalWindowsSlice);
   const flowSlice = useStore((state) => state.flowSlice);
   const setTooltipText = useStore((state) => state.designerVisualElementsSlice.setTooltipText);
-
-  const { setApproveFlowModalMessage, toggleApproveFlowModal } = useStore((state) => state.modalWindowsSlice);
   const {toggleConfirmationModal,setConfirmationModalActions} = useStore((state)=>state.modalWindowsSlice);
 
   function loadDraftFlowList() {
@@ -69,6 +60,7 @@ function DraftFlows() {
       console.log(e)
     }
   }
+
   return (
     <div className={s.wrapper}>
       {/*FOLDERS */}
@@ -98,6 +90,7 @@ function DraftFlows() {
                 <th colSpan={2}>Name</th>
                 <th>Author</th>
                 <th>Created</th>
+                <th>Version</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -113,7 +106,7 @@ function DraftFlows() {
                     </td>
                     <td>{flow.createdBy}</td>
                     <td>{moment(flow.createdOn).calendar()}</td>
-
+                    <td>{flow.flowVersion}</td>
                     <td className={s.actions_wrapper}>
                       {/*LOAD */}
                       <button className={`${s.action_confirm_btn} tooltip-item`}
@@ -129,14 +122,6 @@ function DraftFlows() {
                           }
                         }}
                       >Load</button>
-                      {/*APPROVE */}
-                      <button className={`${s.action_confirm_btn} tooltip-item`}
-                        onMouseEnter={() => setTooltipText('Approves a draft version and if validated will be released to the live system')}
-                        onClick={() => {
-                          toggleApproveFlowModal(true, flow.draftId);
-                          setApproveFlowModalMessage(flow.flowName)
-                        }}
-                      >Approve</button>
                       {/*DELETE */}
                       <button className={s.action_delete_btn}   onClick={() => {
                             toggleConfirmationModal(

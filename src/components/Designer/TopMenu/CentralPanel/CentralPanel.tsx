@@ -5,20 +5,22 @@ import Create from "./Create";
 import Save from "./Save";
 import Load from "./Load";
 import Close from "./Close";
+import Approve from "./Approve";
 import SwitchToServerView from "./SwitchToServerView";
 import useStore from "../../../../store/store";
+import { useRef, useState } from "react";
+import useEscapeKeyHandler from "../../../../hooks/useEscapeKeyHandler";
+import useOutsideMouseClick from "../../../../hooks/useOutsideMouseClick";
 
+function CentralPanel() {
 
-interface CentralPanelProps {
-  toggleDropdown: (view: string) => void;
-  setCurrentActions: (actions: UpdateFlowActions) => void;
-  dropdowns: any;
-}
+  const flowId = useStore((state) => state.flowSlice.flow.flowIdentifier);
+  const [isViewSectionVisible,setViewSectionVisible] = useState<boolean>(false);
+  const viewRef:any = useRef();
 
-function CentralPanel(props: CentralPanelProps) {
-
-  const flowId = useStore((state) => state.flowSlice.flow.flowIdentifier)
-
+  useEscapeKeyHandler(()=> setViewSectionVisible(false))
+  useOutsideMouseClick(viewRef,()=>setViewSectionVisible(false))
+  
   return (
     <div className={s.wrapper}>
       <ul className={s.nav_list}>
@@ -28,16 +30,13 @@ function CentralPanel(props: CentralPanelProps) {
         <Load></Load>
         {flowId ? <Close></Close> : null}
         {/*VIEW */}
-        <li className={s.nav_list_item}>
-          <div onClick={() => props.toggleDropdown("view")}>View</div>
-          <div
-            className={
-              props.dropdowns.view.isVisible ? null : s.view_section_hidden
-            }
-          >
-            <View />
-          </div>
+        <li className={s.nav_list_item} ref={viewRef}>
+        <div onClick={()=>setViewSectionVisible(!isViewSectionVisible)}>View</div>
+         {isViewSectionVisible ? <View /> : null}
         </li>
+        <li className={s.nav_list_item}>
+          <Approve></Approve>
+          </li>
       </ul>
     </div>
   );

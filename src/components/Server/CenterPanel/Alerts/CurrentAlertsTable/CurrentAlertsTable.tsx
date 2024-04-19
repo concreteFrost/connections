@@ -14,7 +14,6 @@ function CurrentAlertsTable() {
 
   useEffect(() => {
     getAlertsApi(true).then((res: any) => {
-      console.log(res);
       setAlerts(res.data);
     })
   },[])
@@ -54,8 +53,6 @@ function CurrentAlertsTable() {
       console.log('error reading the alert',error);
     }
   }
-
-  console.log(alerts)
 
   return (
     <section className={s.wrapper}>

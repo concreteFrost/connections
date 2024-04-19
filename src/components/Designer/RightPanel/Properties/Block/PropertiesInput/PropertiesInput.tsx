@@ -19,6 +19,7 @@ function PropertiesInput(props: PropertiesInputProps) {
   const [selection, setSelection] = useState<ISelection>({ index: 0, value: '' })
 
   function setCurrentParameter(parameterName: string, value: any) {
+    console.log(props)
     switch (props.blockData.format) {
       case "0":
         return state.flowSlice.setStringParameter(parameterName, value);

@@ -3,6 +3,8 @@ import useStore from "../../store/store";
 import { useEffect } from "react";
 import { getDraftListApi } from "../../api/draft";
 import { checkExistingFlowInDataBase } from "../../store/actions/utils/flowUtils";
+import useEscapeKeyHandler from "../../hooks/useEscapeKeyHandler";
+import { toggleApproveFlowModal } from "../../store/actions/modalActions";
 
 export enum UpdateFlowActions {
   Create,
@@ -10,7 +12,7 @@ export enum UpdateFlowActions {
   LoadDraft,
   LoadLive,
   Quit,
-  Close
+  Close,
 }
 
 interface IDraftFlow {
@@ -22,9 +24,15 @@ interface IDraftFlow {
 function UpdateFlowModal() {
   const flowSlice = useStore((state) => state.flowSlice);
   const modalSlice = useStore((state) => state.modalWindowsSlice);
-  const subfolderName = useStore((state) => state.modalWindowsSlice.updateFlowModal.subfolderName)
-  const setSubfolderName = useStore((state) => state.modalWindowsSlice.setUpdateFlowSubfolderName);
-  const actions = useStore((state) => state.modalWindowsSlice.updateFlowModal.actions);
+  const subfolderName = useStore(
+    (state) => state.modalWindowsSlice.updateFlowModal.subfolderName
+  );
+  const setSubfolderName = useStore(
+    (state) => state.modalWindowsSlice.setUpdateFlowSubfolderName
+  );
+  const actions = useStore(
+    (state) => state.modalWindowsSlice.updateFlowModal.actions
+  );
 
   //sets subfolder name value if match
   async function compareSubfolderName() {
@@ -37,32 +45,34 @@ function UpdateFlowModal() {
       const matchSubfolderName = mergedFolders.find(
         (flow: any) => flow.flowName === flowSlice.flow.flowName
       )?.subFolder;
-      setSubfolderName(matchSubfolderName ? matchSubfolderName : "");
+      setSubfolderName(matchSubfolderName ? matchSubfolderName : "drafts");
     });
+  }
+
+  async function tryToSaveFlow() {
+    try {
+      const match = await checkExistingFlowInDataBase(flowSlice.flow.flowName);
+      const saveDraftFlow = await flowSlice.saveDraftFlow(
+        match,
+        modalSlice.updateFlowModal.subfolderName
+      );
+      await modalSlice.toggleUpdateFlowModal(false);
+      await modalSlice.toggleLoadFlowModal(false);
+
+      if (saveDraftFlow) {
+        await actions.save();
+      }
+    } catch (error) {
+      return false;
+    }
   }
 
   useEffect(() => {
     compareSubfolderName();
   }, [modalSlice.updateFlowModal.isVisible]);
 
-
   function cancelSaving() {
     modalSlice.toggleUpdateFlowModal(false);
-  }
-  async function tryToSaveFlow() {
-    try {
-      const match = await checkExistingFlowInDataBase(flowSlice.flow.flowName);
-      const saveDraftFlow = await flowSlice.saveDraftFlow(match, modalSlice.updateFlowModal.subfolderName);
-      await modalSlice.toggleUpdateFlowModal(false);
-      await modalSlice.toggleLoadFlowModal(false);
-
-      if (saveDraftFlow) {
-        await actions.save()
-      }
-
-    } catch (error) {
-      return false;
-    }
   }
 
   return (

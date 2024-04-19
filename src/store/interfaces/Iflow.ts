@@ -34,6 +34,16 @@ export interface IFlowConfig {
     version: string;
   }
 
+  export interface ILoadedFlow {
+    flowId: string;
+    draftId: string;
+    flowName: string;
+    createdBy: string;
+    createdOn: string;
+    flowVersion:string;
+  }
+  
+
 export interface IVisual {
     id: string;
     data: { color: string, icon: string };

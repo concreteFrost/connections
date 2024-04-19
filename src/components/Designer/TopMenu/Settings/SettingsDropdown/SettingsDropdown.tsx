@@ -1,7 +1,5 @@
 import s from "./SettingsDropdown.module.scss";
 import useStore from "../../../../../store/store";
-import Profile from "../../../../Profile/Profile";
-
 
 function SettingsDropdown() {
   const isSnapped = useStore((store) => store.topPanelSlice.settings.snapToGrid);
@@ -10,6 +8,7 @@ function SettingsDropdown() {
   const sliderVal = useStore((store) => store.topPanelSlice.settings.snapStep);
   const setSliderVal = useStore((store) => store.topPanelSlice.setSnapStep);
   const showMiniMap = useStore((store) => store.topPanelSlice.settings.showMiniMap)
+
 
   return (
     <div className={s.wrapper}>

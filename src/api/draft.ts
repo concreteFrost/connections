@@ -46,9 +46,7 @@ export function getDraftApi(id: any) {
           Authorization: "Bearer " + getAccessToken().token,
         },
       })
-      .then((res) => {resolve(res)
-        console.log('getting draft')
-      })
+      .then((res) => resolve(res))
       .catch((e) => reject(e));
   });
 }
@@ -125,7 +123,6 @@ export function createUpdateDraftFromLiveAPI(liveFlowID: string) {
         },
       })
       .then((res) => {
-        console.log('create update draft live',res)
         resolve(res); })
       .catch((e) => reject(e));
   });
