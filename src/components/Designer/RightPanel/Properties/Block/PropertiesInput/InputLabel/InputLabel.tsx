@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { IBlockParameters } from "../../../../../../../store/interfaces/IBlock";
 import useStore from "../../../../../../../store/store";
 import s from "./InputLabel.module.scss";
@@ -15,7 +16,12 @@ function InputLabel(props: InputLabelProps) {
   const _getParameterValue = useStore((state) => state.designerVisualElementsSlice.getParameterValue);
   const setTooltipText = useStore((state) => state.designerVisualElementsSlice.setTooltipText);
 
+  useEffect(()=>{
+    getParameterValue(props.blockData.value);
+  },[props.blockData])
+
   function getParameterValue(value: any) {
+    console.log('getting par')
     _getParameterValue(props.blockData.name, value);
   }
   return (
@@ -23,9 +29,7 @@ function InputLabel(props: InputLabelProps) {
       <div className={s.grid_item}>
         <label
           className="tooltip-item"
-          onClick={() => {
-            getParameterValue(props.blockData.value);
-          }}
+         
           onMouseEnter={() => setTooltipText(props.blockData.name)}
         >
           {props.blockData.name}

@@ -43,7 +43,8 @@ function PropertiesInput(props: PropertiesInputProps) {
   }
 
   function defineInputType() {
-    switch (props.blockData.format) {
+    const format = String(props.blockData.format); // Преобразуем в строку
+    switch (format) {
       case "0":
         return "text";
       case "1":
@@ -64,6 +65,7 @@ function PropertiesInput(props: PropertiesInputProps) {
         return "text";
     }
   }
+  
 
   function onSubstitutionSelect(e: any) {
     setCurrentParameter(props.blockData.name, e);
@@ -81,7 +83,6 @@ function PropertiesInput(props: PropertiesInputProps) {
     const cleanedRes = res.replace(/\s.*$/, '');
     setSelection({ ...selection, value: cleanedRes })
   }
-
 
   return (
     <>
