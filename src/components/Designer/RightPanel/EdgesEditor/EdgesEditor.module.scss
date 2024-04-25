@@ -1,0 +1,17 @@
+@import "/src/style/mixins.scss";
+
+.section_container {
+    @include section_container;
+
+    .block_wrapper {
+        display: grid;
+        grid-template-columns: 8fr 4fr;
+        padding: 10px;
+        background-color: rgb(233, 229, 229);
+        margin-bottom: 5px;
+    }
+}
+
+.section_header {
+    @include section_header;
+}

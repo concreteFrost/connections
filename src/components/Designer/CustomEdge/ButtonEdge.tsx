@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, useEffect, useState } from 'react';
 import {
   getSmoothStepPath,
   getEdgeCenter,
@@ -21,6 +21,7 @@ const ButtonEdge: React.FC<any> = ({
   style = {},
   arrowHeadType,
   markerEndId,
+
 }) => {
   const edgePath = getSmoothStepPath({
     sourceX,
@@ -32,8 +33,9 @@ const ButtonEdge: React.FC<any> = ({
   });
 
 
-  const {deleteEdge} = useStore((store)=>store.flowSlice);
-
+  const { deleteEdge } = useStore((store) => store.flowSlice);
+  const { edges } = useStore((store) => store.flowSlice.flow.visual);
+  const matchEdge = edges.find((x) => x.id === id);
   const markerEnd = getMarkerEnd(arrowHeadType, markerEndId);
   const [edgeCenterX, edgeCenterY] = getEdgeCenter({
     sourceX,
@@ -52,19 +54,25 @@ const ButtonEdge: React.FC<any> = ({
         markerEnd={markerEnd}
       />
       <foreignObject
-      className={s.wrapper}
+        className={s.wrapper}
         width={foreignObjectSize}
         height={foreignObjectSize}
         x={edgeCenterX - foreignObjectSize / 2}
         y={edgeCenterY - foreignObjectSize / 2}
       >
-
-          <button
-            className="edgebutton"
-            onClick={()=>deleteEdge(id)}
-          >
-            ×
-          </button>
+        <button
+          className="edgebutton"
+          onClick={() => deleteEdge(id)}
+        >
+          ×
+        </button>
+      </foreignObject>
+      <foreignObject width={300}
+        height={200}
+        x={edgeCenterX + 20}
+        y={edgeCenterY - 20}
+      >
+        <div className={s.test}>{matchEdge?.priority} </div>
 
       </foreignObject>
     </>

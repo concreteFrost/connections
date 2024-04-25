@@ -13,6 +13,7 @@ import blocksWidgetActions from "../actions/blocksWidgetActions";
 import { IBlockData } from "../interfaces/IBlock";
 import edgeActions from "../actions/edgesActions";
 import { IDirective } from "../interfaces/IAlerts";
+import { IEdgeDraggable } from "../../components/Designer/RightPanel/EdgesEditor/EdgesEditor";
 
 export type FlowSlice = {
   flow: {
@@ -103,6 +104,7 @@ export type FlowSlice = {
 
   //Edges Actions
   deleteEdge:(edgeId:string)=>void;
+  reorderEdgesPriority:(draggableList:Array<IEdgeDraggable>)=>void;
 };
 
 const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
@@ -149,6 +151,7 @@ const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
 
   //Edges Actions
   deleteEdge:edgeActions.deleteEdge(get,set),
+  reorderEdgesPriority:edgeActions.reorderEdgesPriority(get,set),
 
   //Flow Actions
   createFlow: flowActions.createFlow(get, set),

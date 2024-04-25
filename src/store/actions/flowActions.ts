@@ -13,8 +13,8 @@ export const createFlow = (get: () => RFState, set: any) => () => {
       flow: initializeFlow(initialNodes, initialEdges, flowId)
     }
   }))
-  setDraftId(get,set)(null);
-  setCanApprove(get,set)(false);
+  setDraftId(get, set)(null);
+  setCanApprove(get, set)(false);
 
 };
 
@@ -25,8 +25,8 @@ export const closeFlow = (get: () => RFState, set: any) => () => {
       flow: initializeFlow(initialNodes, initialEdges)
     }
   }))
-  setDraftId(get,set)(null);
-  setCanApprove(get,set)(false);
+  setDraftId(get, set)(null);
+  setCanApprove(get, set)(false);
 };
 
 export const createFlowFromTemplate = (get: () => RFState, set: any) => async (liveFlowID: string, newDraftName: string) => {
@@ -35,8 +35,8 @@ export const createFlowFromTemplate = (get: () => RFState, set: any) => async (l
     const data = await res.data;
 
     if (data.success) {
-      await setFlow(data.flowConfiguration, set);
-      setCanApprove(get,set)(false);
+      await setFlow(data.flowConfiguration, set,get);
+      setCanApprove(get, set)(false);
     }
 
     return res;
@@ -51,9 +51,9 @@ export const createUpdateDraftFromLiveTemplate = (get: () => RFState, set: any) 
   try {
     const res: any = await createUpdateDraftFromLiveAPI(id);
 
-    if(res.data.success){
-      setFlow(res.data.flowConfiguration,set);
-      setCanApprove(get,set)(false);
+    if (res.data.success) {
+      setFlow(res.data.flowConfiguration, set,get);
+      setCanApprove(get, set)(false);
     }
     return res;
   } catch (e) {
@@ -64,9 +64,9 @@ export const createUpdateDraftFromLiveTemplate = (get: () => RFState, set: any) 
 export const loadFlowFromDraft = (get: () => RFState, set: any) => async (id: string) => {
   try {
     const res: any = await getDraftApi(id);
-    console.log('loaded flow',res.data)
-    setFlow(res.data.flowConfiguration, set);
-    setCanApprove(get,set)(false);
+    console.log('loaded flow', res.data.flowConfiguration.visual)
+    setFlow(res.data.flowConfiguration, set,get);
+    setCanApprove(get, set)(false);
   } catch (e) {
     console.log('error loading flow', e);
   }
@@ -74,6 +74,13 @@ export const loadFlowFromDraft = (get: () => RFState, set: any) => async (id: st
 
 export const saveDraftFlow = (get: () => RFState, set: any) => async (match: any, subfolder: string): Promise<boolean> => {
   const flow = get().flowSlice.flow;
+
+  flow.visual.blocks.forEach((block) => {
+    block.position.x = Math.floor(block.position.x);
+    block.position.y = Math.floor(block.position.y);
+  });
+
+  console.log('saving draft')
   if (match) {
     if (flowVersionToInt(flow.flowVersion) <= flowVersionToInt(match.flowVersion)) {
       const parsedPreviousVersion = flowVersionToInt(match.flowVersion) + 1;
@@ -89,12 +96,15 @@ export const saveDraftFlow = (get: () => RFState, set: any) => async (match: any
     draftConfiguration: flow,
   };
 
+  console.log('payload', draftStructure)
+
   try {
     const res: any = await saveDraftFlowApi(draftStructure);
+    console.log(draftStructure)
     if (res.data.success) {
       updateFlowAfterSaving(set, flow, 'success!!!');
-      setDraftId(get,set)(res.data.draftRecord.draftId)
-      setCanApprove(get,set)(true);
+      setDraftId(get, set)(res.data.draftRecord.draftId)
+      setCanApprove(get, set)(true);
       return true;
     } else {
       updateFlowAfterSaving(set, flow, res.data.message);
@@ -105,7 +115,6 @@ export const saveDraftFlow = (get: () => RFState, set: any) => async (match: any
     updateFlowAfterSaving(set, flow, e);
     return false;
   }
-
 
 };
 
@@ -163,26 +172,28 @@ export const setFlowIsEnabled = (get: () => RFState, set: any) => () => {
 };
 
 //internal functions
-const setDraftId =(get:()=>RFState,set:any)=>(id:string|null)=>{
-  set((state:RFState)=>({
-    flowSlice:{
+const setDraftId = (get: () => RFState, set: any) => (id: string | null) => {
+  set((state: RFState) => ({
+    flowSlice: {
       ...state.flowSlice,
-      draft:{
+      draft: {
         ...state.flowSlice.draft,
-        draftId:id
+        draftId: id
       }
-  }}))
+    }
+  }))
 }
 
-export const setCanApprove =(get:()=>RFState,set:any)=>(canApprove:boolean)=>{
-  set((state:RFState)=>({
-    flowSlice:{
+export const setCanApprove = (get: () => RFState, set: any) => (canApprove: boolean) => {
+  set((state: RFState) => ({
+    flowSlice: {
       ...state.flowSlice,
-      draft:{
+      draft: {
         ...state.flowSlice.draft,
-        canApprove:canApprove
+        canApprove: canApprove
       }
-  }}))
+    }
+  }))
 }
 
 
@@ -197,7 +208,7 @@ const flowActions = {
   setFlowName: setFlowName,
   setFlowVersion: setFlowVersion,
   setFlowIsEnabled: setFlowIsEnabled,
-  setCanApprove:setCanApprove
+  setCanApprove: setCanApprove
 };
 
 export default flowActions;

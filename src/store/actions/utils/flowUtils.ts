@@ -2,7 +2,7 @@ import { RFState } from "../../types/rfState";
 import { IBlockData } from "../../interfaces/IBlock";
 import { IBlockParameters } from "../../interfaces/IBlock";
 import { IVisual } from "../../interfaces/Iflow";
-import { Edge } from "react-flow-renderer";
+import { Edge, addEdge } from "react-flow-renderer";
 import { v4 as uuidv4 } from "uuid";
 import { getAccessToken } from "../storageActions";
 import { getDraftListApi } from "../../../api/draft";
@@ -34,9 +34,9 @@ export function initializeFlow<IFlowData>(
 
 }
 
-export function setFlow(data: any, set: any) {
+export function setFlow(data: any,set: any, get:()=>RFState) {
+  console.log('setting flow', data)
   set((state: RFState) => ({
-    selectedBlockID:[],
     flowSlice: {
       ...state.flowSlice,
       flow: {
@@ -92,12 +92,11 @@ export function setFlow(data: any, set: any) {
             };
           }),
           edges: data.visual.edges.map((e: Edge) => {
-            return {
-              id: e.id,
-              source: e.source,
-              target: e.target,
-              type: "button",
-            };
+           return {id: e.id,
+            source: e.source,
+            target: e.target,
+            type: "button",
+            priority: e.priority}
           }),
         },
         substitutions: data.substitutions.map((sub: any) => {
@@ -114,6 +113,8 @@ export function setFlow(data: any, set: any) {
       },
     },
   }));
+
+  console.log(get().flowSlice.flow.visual.edges)
 }
 
 export function updateFlowAfterSaving(

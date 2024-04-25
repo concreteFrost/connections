@@ -19,8 +19,8 @@ function PropertiesInput(props: PropertiesInputProps) {
   const [selection, setSelection] = useState<ISelection>({ index: 0, value: '' })
 
   function setCurrentParameter(parameterName: string, value: any) {
-    console.log(props)
-    switch (props.blockData.format) {
+    const format = String(props.blockData.format); 
+    switch (format) {
       case "0":
         return state.flowSlice.setStringParameter(parameterName, value);
       case "1":
@@ -65,8 +65,6 @@ function PropertiesInput(props: PropertiesInputProps) {
         return "text";
     }
   }
-  
-
   function onSubstitutionSelect(e: any) {
     setCurrentParameter(props.blockData.name, e);
   }

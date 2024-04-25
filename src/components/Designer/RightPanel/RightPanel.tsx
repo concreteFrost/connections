@@ -1,7 +1,7 @@
 import s from "./RightPanel.module.scss";
 import Properties from "./Properties/Properties";
 import ValueEditor from "./ValueEditor/ValueEditor";
-import DebugConsole from "./DebugConsole/DebugConsole";
+import EdgesEditor from "./EdgesEditor/EdgesEditor";
 import { useState } from "react";
 import { connectionsIcons } from "../../../icons/icons";
 import useStore from "../../../store/store";
@@ -44,7 +44,7 @@ function RightPanel(props:RightPanelProps) {
           <div>
             <Properties></Properties>
             {selectedBlockID? <ValueEditor></ValueEditor> : null}
-            <DebugConsole></DebugConsole> </div> : <div className={s.section_container}>PROPERTIES</div>}
+            <EdgesEditor></EdgesEditor> </div> : <div className={s.section_container}>PROPERTIES</div>}
       </div>
     </div>
   );

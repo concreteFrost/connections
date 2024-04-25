@@ -21,15 +21,13 @@ function InputLabel(props: InputLabelProps) {
   },[props.blockData])
 
   function getParameterValue(value: any) {
-    console.log('getting par')
     _getParameterValue(props.blockData.name, value);
   }
   return (
     <>
       <div className={s.grid_item}>
         <label
-          className="tooltip-item"
-         
+          className="tooltip-item"   
           onMouseEnter={() => setTooltipText(props.blockData.name)}
         >
           {props.blockData.name}
@@ -42,8 +40,11 @@ function InputLabel(props: InputLabelProps) {
           value={props.blockData.value}
           checked={props.blockData.value === "Y" ? true : false}
           onChange={(e: any) => {
+            console.log(props)
             props.setSelectionValue(e)
             props.setCurrentParameter(props.blockData.name, e.target.value);
+           
+        
           }}
           onKeyDown={(e: any) => props.setSelectionIndex(e)}
           onClick={() => {

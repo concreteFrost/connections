@@ -17,14 +17,20 @@ export const getCurrentFlow = (get: () => RFState, set: any) => async (flowId: s
   // }).catch(e => console.log(e))
 
   await getFlowApi(flowId).then((res:any)=>{
-    console.log(res.data)
-    currentFlow = res.data.flowData;
+    
+    if(res.data.success){
+      currentFlow = res.data.flowData;
+    }
+    else{
+      console.log(res.data.message)
+    }
+   
   }).catch(e=>console.log(e));
 
   await getBlockStatisticsAPI(flowId).then((res: any) => {
     _stats = res.data.statistics
 
-  }).catch(e => console.log(e))
+  }).catch(e => console.log("error getting blocks statistics for " + flowId, e))
     .finally(() => {
       set((state: RFState) => ({
         serverSlice: {

@@ -212,21 +212,25 @@ export const setFloatParameter =
 
 export const setBooleanParameter =
   (get: () => RFState, set: any) => (propertyName: string, value: boolean) => {
+    console.log('setting boolean')
     setParameter(get, set)(propertyName, value);
   };
 
 export const setBooleanYNParameter =
   (get: () => RFState, set: any) => (propertyName: string, value: string) => {
+    console.log('setting booleanYN')
     setParameter(get, set)(propertyName, value === "Y" ? "N" : "Y");
   };
 
 export const setDateTimeParameter =
   (get: () => RFState, set: any) => (propertyName: string, value: Date) => {
+    console.log('setting date time')
     setParameter(get, set)(propertyName, value);
   };
 
 export const setBigIntParameter =
   (get: () => RFState, set: any) => (propertyName: string, value: BigInt) => {
+    console.log('setting big int')
     setParameter(get, set)(propertyName, value);
   };
 

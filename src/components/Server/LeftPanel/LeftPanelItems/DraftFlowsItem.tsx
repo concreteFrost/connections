@@ -74,7 +74,7 @@ function DraftFlowsItem(props: FlowsItemProps) {
       (previousObject: any, key: any) => {
         previousObject[key] = draftFlowList[key];
         previousObject[key].isExpanded =
-          folderName === key ? !previousObject[key].isExpanded : false;
+          folderName === key ?? !previousObject[key].isExpanded;
         //close dropdown options if folder name is not eq key
         if (folderName !== key) {
           previousObject[key].forEach((x: any) => {

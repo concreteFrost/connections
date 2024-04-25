@@ -51,7 +51,7 @@ export const getBlocksList = (set: any) => (data: any) => {
         parameters: d.parameters.map((parameter: any) => {
           return {
             name: parameter.name,
-            value: setDefaultValueAndFormat(parameter.dataType)?.value,
+            value: parameter.parameterDefault,
             required: parameter.constraints > 0 ? true : false,
             format: setDefaultValueAndFormat(parameter.dataType)?.format,
           };
@@ -127,8 +127,6 @@ export const addBlock =
 
       },
     }));
-
-    console.log(newNode)
   };
 
 const leftPanelActions = {
