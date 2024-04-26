@@ -1,17 +1,25 @@
 import s from "./SettingsDropdown.module.scss";
 import useStore from "../../../../../store/store";
+import useOutsideMouseClick from "../../../../../hooks/useOutsideMouseClick";
+import {useRef} from "react"
 
-function SettingsDropdown() {
+
+interface SettingsDropdownProps{
+  setSettingsVisible: (isVisible:boolean)=>void;
+  isSettingsVisible: boolean;
+}
+function SettingsDropdown(props: SettingsDropdownProps) {
   const isSnapped = useStore((store) => store.topPanelSlice.settings.snapToGrid);
   const toggleGrid = useStore((store) => store.topPanelSlice.setSnapToGrid);
   const toggleMinimap = useStore((store) => store.topPanelSlice.showMiniMap);
   const sliderVal = useStore((store) => store.topPanelSlice.settings.snapStep);
   const setSliderVal = useStore((store) => store.topPanelSlice.setSnapStep);
   const showMiniMap = useStore((store) => store.topPanelSlice.settings.showMiniMap)
+  const settingsRef:any = useRef();
 
-
+  useOutsideMouseClick(settingsRef,()=>{props.setSettingsVisible(!props.isSettingsVisible)})
   return (
-    <div className={s.wrapper}>
+    <div className={s.wrapper} ref={settingsRef}>
       <div className={s.settings_title}>Grid</div>
       <ul>
         <li className={s.settings_list_item}>

@@ -22,7 +22,8 @@ export const closeFlow = (get: () => RFState, set: any) => () => {
   set((state: RFState) => ({
     flowSlice: {
       ...state.flowSlice,
-      flow: initializeFlow(initialNodes, initialEdges)
+      flow: initializeFlow(initialNodes, initialEdges),
+      
     }
   }))
   setDraftId(get, set)(null);

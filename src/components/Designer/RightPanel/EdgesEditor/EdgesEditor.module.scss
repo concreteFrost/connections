@@ -1,17 +1,52 @@
 @import "/src/style/mixins.scss";
+@import "/src/style/variables.scss";
 
 .section_container {
-    @include section_container;
+  @include section_container;
 
-    .block_wrapper {
-        display: grid;
-        grid-template-columns: 8fr 4fr;
-        padding: 10px;
-        background-color: rgb(233, 229, 229);
-        margin-bottom: 5px;
+  .draggable_container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid rgb(228, 228, 228);
+    background-color: rgb(248, 248, 248);
+    box-shadow: $shadow-inset;
+    padding: 5px;
+  }
+
+  .block_wrapper {
+    display: grid;
+    grid-template-columns: 1fr 7fr 4fr;
+    padding: 10px;
+    background-color: rgb(254, 255, 254);
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid rgb(218, 217, 217);
+    font-size: 0.9rem;
+    gap: 10px;
+    box-shadow: $shadow-node-nav-container;
+   
+    .block_name{
+        overflow-x: hidden;
+        text-overflow:ellipsis;
     }
+    
+
+    .icon_wrapper {
+      display: flex;
+      justify-content: center;
+      padding: 3px 5px;
+      background-color: $bg-top-menu-btn-default;
+      color: white;
+      border-radius: 5px;
+
+      span {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
 }
 
 .section_header {
-    @include section_header;
+  @include section_header;
 }

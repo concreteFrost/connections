@@ -6,6 +6,7 @@ import { Edge, addEdge } from "react-flow-renderer";
 import { v4 as uuidv4 } from "uuid";
 import { getAccessToken } from "../storageActions";
 import { getDraftListApi } from "../../../api/draft";
+import markerEnd from "../../constants/edgeConst";
 
 export function initializeFlow<IFlowData>(
   initialNodes: object,
@@ -17,7 +18,8 @@ export function initializeFlow<IFlowData>(
     created: new Date(),
     createdBy: getAccessToken().userName,
     flowIdentifier: flowId ? flowId : null,
-    flowName: "New Flow" + uuidv4().split("-")[0],
+    // flowName: "New Flow" + uuidv4().split("-")[0],
+    flowName: "New Flow",
     flowConfig: "Debug",
     flowVersion: "1.0.0.0",
     isEnabled: "true",
@@ -96,6 +98,7 @@ export function setFlow(data: any,set: any, get:()=>RFState) {
             source: e.source,
             target: e.target,
             type: "button",
+            markerEnd,
             priority: e.priority}
           }),
         },

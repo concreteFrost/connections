@@ -2,6 +2,7 @@ import { Connection, Edge, addEdge } from 'react-flow-renderer';
 import { EdgeChange, applyEdgeChanges } from 'react-flow-renderer';
 import { RFState } from '../types/rfState';
 import { IEdgeDraggable } from '../../components/Designer/RightPanel/EdgesEditor/EdgesEditor';
+import markerEnd from '../constants/edgeConst';
 
 export const onEdgesConnect = (get: () => RFState, set: any) => (connection: Connection) => {
   const sourceEdges = get().flowSlice.flow.visual.edges;
@@ -20,6 +21,7 @@ export const onEdgesConnect = (get: () => RFState, set: any) => (connection: Con
   const newConnection = {
     ...connection,
     type: 'button',
+    markerEnd,
     priority: matchedEdgesLength.length +1 
   };
 
@@ -36,6 +38,7 @@ export const onEdgesConnect = (get: () => RFState, set: any) => (connection: Con
       }
     }
   }));
+  console.log(get().flowSlice.flow.visual.edges)
 };
 
 export const deleteEdge = (get: () => RFState, set: any) => (edgeId: string) => {

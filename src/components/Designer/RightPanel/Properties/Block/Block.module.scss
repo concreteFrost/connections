@@ -1,16 +1,23 @@
 @import '/src/style/mixins.scss';
+@import '/src/style/variables.scss';
 
 .wrapper {
 
-  max-height: 500px;
-
-  overflow-y: auto;
-  overflow-x: hidden;
-
-
   @include section_container;
 
+  ul{
+    overflow-y: auto;
+    overflow-x: hidden;
+    @media screen and (max-height: $height-lg) {
+      max-height: 300px;
+    }
+
+    @media screen and (max-height: $height-md) {
+      max-height: 200px;
+    }
+  }
   .list_item {
     position: relative;
+    
   }
 }

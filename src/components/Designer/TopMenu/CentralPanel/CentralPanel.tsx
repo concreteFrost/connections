@@ -17,6 +17,8 @@ function CentralPanel() {
   const flowId = useStore((state) => state.flowSlice.flow.flowIdentifier);
   const [isViewSectionVisible,setViewSectionVisible] = useState<boolean>(false);
   const viewRef:any = useRef();
+  const {flowName} = useStore((state)=>state.flowSlice.flow);
+
 
   useEscapeKeyHandler(()=> setViewSectionVisible(false))
   useOutsideMouseClick(viewRef,()=>setViewSectionVisible(false))
@@ -24,7 +26,10 @@ function CentralPanel() {
   return (
     <div className={s.wrapper}>
       <ul className={s.nav_list}>
+     
         <SwitchToServerView ></SwitchToServerView>
+        <div className={s.flow_name}> {flowName}</div>
+       
         <Create ></Create>
         {flowId ? <Save></Save> : null} 
         <Load></Load>

@@ -38,21 +38,21 @@ function ValueEditor() {
   }
 
   // CSS Classes
-  const containerClasses = `${s.section_container} ${isExpanded ? s.expanded : s.collapsed
+  const containerClasses = `${s.text_area_container} ${isExpanded ? s.expanded : s.collapsed
     }`;
 
   return (
-    <section className={containerClasses}>
+    <section >
       <div
         className={s.section_header}
-      // onClick={() => setIsExpanded(!isExpanded)}
+      onClick={() => setIsExpanded(!isExpanded)}
       >
         <span>
           {isExpanded ? connectionsIcons.collapse : connectionsIcons.expand}
         </span>
         VALUE EDITOR
       </div>
-      <div className={s.text_area_container}>
+      <div className={containerClasses}>
         <textarea
           value={valueToEdit}
           onChange={(e) => {

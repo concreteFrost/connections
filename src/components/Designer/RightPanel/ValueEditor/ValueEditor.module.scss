@@ -2,29 +2,6 @@
 
 .section_container {
   @include section_container;
-
-  &.collapsed {
-    position: relative;
-    transform: translate(0, 0);
-  }
-
-  &.expanded {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #e4e4e4;
-    border-radius: 5px;
-    width: 500px;
-    padding-top: 0;
-    z-index: 10000;
-  }
-
-  transition: transform 0.3s ease-in-out;
-
-
 }
 
 .section_header {
@@ -44,7 +21,19 @@
   align-items: center;
   justify-content: center;
 
-  height: 150px;
+  &.collapsed {
+    height:0;
+    textarea{
+      display: none;
+    }
+   
+  }
+
+  &.expanded {
+   height: 200px;
+  }
+
+  transition: height 0.3s ease-in-out;
 
   textarea {
     height: 100%;

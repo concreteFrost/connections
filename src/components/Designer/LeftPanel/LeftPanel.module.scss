@@ -1,6 +1,5 @@
 @import "/src/style/variables.scss";
 @import "/src/style/mixins.scss";
-;
 
 .wrapper {
   z-index: 100;
@@ -24,7 +23,7 @@
   width: 100%;
   position: relative;
   overflow-x: auto;
-  height: 100vh;
+  height: 97vh;
   background-color: $bg-node-nav-container;
   box-shadow: $shadow-node-nav-container;
   transition: width 0.3s ease-out;

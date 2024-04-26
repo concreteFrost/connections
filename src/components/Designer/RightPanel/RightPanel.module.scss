@@ -8,7 +8,8 @@
     position: relative;
     display: flex;
     justify-content: right;
-
+    
+    
     &.opened {
         translate: (0px);
     }
@@ -41,7 +42,8 @@
 
 .right_panel_container {
     width: 100%;
-    height: 100vh;
+    height: 97vh;
+    overflow-y: auto;
     background-color: $bg-node-nav-container;
     box-shadow: $shadow-node-nav-container;
 

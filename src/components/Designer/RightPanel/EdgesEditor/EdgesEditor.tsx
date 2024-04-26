@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import s from "./EdgesEditor.module.scss";
 import useStore from "../../../../store/store";
-import { IBlockData, IBlockParameters } from "../../../../store/interfaces/IBlock";
-import { Edge } from "reactflow";
+import { connectionsIcons } from "../../../../icons/icons";
 
 export interface IEdgeDraggable {
   blockName: string;
@@ -65,9 +64,12 @@ function EdgesEditor() {
 
   return (
     <section className={s.section_container}>
+      {edgesArray.length>1 ?
+      <>
       <div className={s.section_header}>EDGES PRIORITY</div>
+      <div className={s.draggable_container}>
       {/* Render edges array */}
-      {edgesArray.length > 1 ? <DragDropContext onDragEnd={handleDragEnd}>
+        <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="edges">
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
@@ -81,18 +83,21 @@ function EdgesEditor() {
                       style={{ ...provided.draggableProps.style, position: 'static' }}
                     >
                       <div className={s.block_wrapper}>
-                        <div className={s.block_item}>{edgeItem.blockName}</div>
-                        <div className={s.priority}>priority:{edgeItem.priority}</div>
+                        <div className={s.icon_wrapper}>
+                              <span>{connectionsIcons.downUpArrow}</span>
+                        </div>
+                        <div className={s.block_name}>{edgeItem.blockName}</div>
+                        <div className={s.priority}>Priority:{edgeItem.priority}</div>
                       </div>
                     </div>
                   )}
                 </Draggable>
               ))}
-
             </div>
           )}
         </Droppable>
-      </DragDropContext> : null}
+      </DragDropContext> 
+      </div> </> : null}
 
     </section>
   );

@@ -27,7 +27,7 @@ function AlertNotifications(props: { themeColor: IconVariants }) {
     const cahceData = await Promise.all(keys.map(async (key) => {
       const response: any = await cache.match(key);
       const data: any = await response.json();
-      console.log(data)
+     
       if (data.hasOwnProperty("AlertId")) {
         return data;
       }

@@ -2,19 +2,19 @@
 @import "/src/style/mixins.scss";
 
 
-.wrapper{
-    button{
-        @include red-btn;
-        
+  .delete_edge_button_wrapper {
+    button {
+      @include red-btn;
     }
+  }
 
-   
-}
-
-.test{
-   
-    font-size: 1.5rem;
-   
-    color: black;
-    
-}
+  .priority_text {
+    font-size: 1.2rem;
+    color: rgb(255, 255, 255);
+    user-select: none;
+    background-color: $bg-top-menu-btn-default;
+    padding: 3px;
+    border: 1px solid $bg-top-menu-btn-hover;
+    border-radius: 5px;
+    text-align: center;
+  }

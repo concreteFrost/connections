@@ -32,6 +32,10 @@
 @mixin red_btn {
   @include blue_btn();
   background-color: $bg-delete-btn;
+
+  &:hover {
+    background-color: $bg-delete-btn-hover;
+  }
 }
 
 //NAV 

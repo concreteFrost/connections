@@ -1,13 +1,11 @@
-import React, { MouseEvent, useEffect, useState } from 'react';
+import React, { MouseEvent, useEffect, useState } from "react";
 import {
   getSmoothStepPath,
   getEdgeCenter,
   getMarkerEnd,
-} from 'react-flow-renderer';
-import useStore from '../../../store/store';
-import s from "./ButtonEdge.module.scss"
-
-
+} from "react-flow-renderer";
+import useStore from "../../../store/store";
+import s from "./ButtonEdge.module.scss";
 
 const foreignObjectSize = 30;
 const ButtonEdge: React.FC<any> = ({
@@ -19,9 +17,7 @@ const ButtonEdge: React.FC<any> = ({
   sourcePosition,
   targetPosition,
   style = {},
-  arrowHeadType,
-  markerEndId,
-
+  markerEnd,
 }) => {
   const edgePath = getSmoothStepPath({
     sourceX,
@@ -32,17 +28,22 @@ const ButtonEdge: React.FC<any> = ({
     targetPosition,
   });
 
-
   const { deleteEdge } = useStore((store) => store.flowSlice);
   const { edges } = useStore((store) => store.flowSlice.flow.visual);
+  const [isPriorityVisible, setPriorityVisible] = useState<boolean>(false);
   const matchEdge = edges.find((x) => x.id === id);
-  const markerEnd = getMarkerEnd(arrowHeadType, markerEndId);
+
   const [edgeCenterX, edgeCenterY] = getEdgeCenter({
     sourceX,
     sourceY,
     targetX,
     targetY,
   });
+
+  useEffect(() => {
+    const moreThanOneEdge = edges.filter((e) => e.source === matchEdge?.source);
+    setPriorityVisible(moreThanOneEdge.length > 1 ? true : false);
+  }, [edges]);
 
   return (
     <>
@@ -53,27 +54,26 @@ const ButtonEdge: React.FC<any> = ({
         d={edgePath}
         markerEnd={markerEnd}
       />
+      {isPriorityVisible ? (
+        <foreignObject
+          width={35}
+          height={35}
+          x={edgeCenterX - 18}
+          y={edgeCenterY - 50}
+        >
+          <div className={s.priority_text}>{matchEdge?.priority}</div>
+        </foreignObject>
+      ) : null}
       <foreignObject
-        className={s.wrapper}
+        className={s.delete_edge_button_wrapper}
         width={foreignObjectSize}
         height={foreignObjectSize}
         x={edgeCenterX - foreignObjectSize / 2}
         y={edgeCenterY - foreignObjectSize / 2}
       >
-        <button
-          className="edgebutton"
-          onClick={() => deleteEdge(id)}
-        >
+        <button className="edgebutton" onClick={() => deleteEdge(id)}>
           ×
         </button>
-      </foreignObject>
-      <foreignObject width={300}
-        height={200}
-        x={edgeCenterX + 20}
-        y={edgeCenterY - 20}
-      >
-        <div className={s.test}>{matchEdge?.priority} </div>
-
       </foreignObject>
     </>
   );
