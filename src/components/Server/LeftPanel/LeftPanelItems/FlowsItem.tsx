@@ -23,6 +23,8 @@ function FlowsItem(props: FlowsItemProps) {
     getFlowListApi()
       .then((res: any) => {
         setFlowList(res.data);
+        
+        console.log(res.data)
       })
       .catch((e) => console.log(e));
   }, []);

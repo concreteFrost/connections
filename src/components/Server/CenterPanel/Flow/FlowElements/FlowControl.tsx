@@ -16,42 +16,48 @@ function FlowControl(props: FlowControlProps) {
     const [canStartFlow, setCanStartFlow] = useState<boolean>(true);
 
     async function enableFlow() {
-        await enableFlowAPI(currentFlow.flowIdentifier).then((res) => {
-            console.log("enable flow res", res)
+        try {
+            await enableFlowAPI(currentFlow.flowIdentifier);
             toggleFlowControlState(true);
-        }).catch((e) => { console.log(e) })
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     async function disableFlow() {
-        await disableFlowAPI(currentFlow.flowIdentifier).then((res) => {
-            console.log('disable flow res', res)
-            toggleFlowControlState(false)
-        }).catch((e) => {
-            console.log(e)
-        })
+        try {
+            await disableFlowAPI(currentFlow.flowIdentifier);
+            toggleFlowControlState(false);
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     async function startFlow() {
         setCanStartFlow(false);
-        await startFlowAPI(currentFlow.flowIdentifier).then((res) => {
-            console.log(res)
-        }).catch((e) => {
-            console.log(e)
-        })
-
-
+        try {
+            const res: any = await startFlowAPI(currentFlow.flowIdentifier);
+            if (res.data.message.length > 0) {
+                setModalMessage(res.data.message);
+                toggleMessageModal();
+            }
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     async function stopFlow() {
         setCanStartFlow(true);
         try {
-            const res = await stopFlowAPI(currentFlow.flowIdentifier);
-            console.log('result of stoping flow', res)
+            const res: any = await stopFlowAPI(currentFlow.flowIdentifier);
+            if (res.data.message.length > 0) {
+                setModalMessage(res.data.message);
+                toggleMessageModal();
+            }
         } catch (error) {
             console.log('error stopping flow', error);
         }
     }
-
 
     function defineAction(e: any) {
         const action = e.target.value;
@@ -60,9 +66,7 @@ function FlowControl(props: FlowControlProps) {
     return (<div className={props.className.flow_control}>
         <header>Flow Control</header>
         <div className={props.className.start_stop_wrapper}>
-            {currentFlow.isEnabled ? <>
-
-                {canStartFlow ? <button onClick={startFlow}>START</button> : <button onClick={stopFlow}>STOP</button>}    </> : null}
+            <button onClick={startFlow}>START</button>  <button onClick={stopFlow}>STOP</button>
         </div>
         <select onChange={(e) => { defineAction(e) }} value={currentFlow.isEnabled ? 'enabled' : 'disabled'}>
             <option value="disabled" >Disabled</option>

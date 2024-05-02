@@ -95,8 +95,10 @@
       justify-self: center;
       width: 200px;
       margin-bottom: 5px;
+      gap: 5px;
       button{
         @include blue_btn;
+
         width: 100%;
       }
     }

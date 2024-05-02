@@ -10,17 +10,12 @@ export type UserSlice = {
 const userSlice = (get: () => RFState, set: any): UserSlice => ({
     isLoggedIn: false,
     setIsLoggedIn: (loggedIn: boolean) => {
-        console.log(loggedIn)
         set((state: RFState) => ({
-
             userSlice: {
                 ...state.userSlice,
                 isLoggedIn: loggedIn
             }
-
         }))
-
-        console.log(get().userSlice.isLoggedIn)
     }
 
 })

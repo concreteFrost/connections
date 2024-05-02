@@ -35,8 +35,8 @@ function AlertNotifications(props: { themeColor: IconVariants }) {
 
     const notifications = cahceData.filter(notification => notification !== undefined);;
 
-    // setAlertsCount(notifications.length);
-    // setAlertsList(notifications);
+    setAlertsCount(notifications.length);
+    setAlertsList(notifications);
   }
   //   async function clearNotifications() {
   //     await setListVisible(false);
