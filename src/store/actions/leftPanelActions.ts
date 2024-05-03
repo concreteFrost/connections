@@ -1,6 +1,4 @@
-import { v4 as uuidv4 } from "uuid";
 import blockParametersType from "../constants/blockConst";
-import { RFState } from "../types/rfState";
 import { mockedBlocks } from "../../testFlow/mockedBlocks";
 
 function setDefaultValueAndFormat(dataType: number) {
@@ -95,42 +93,9 @@ export const getBlocksList = (set: any) => (data: any) => {
   set({ blockList: updatedNodesList });
 };
 
-export const addBlock =
-  (get: () => RFState, set: any) => (type: any, posX: number, posY: number) => {
-    const id = uuidv4()
-    const newNode = {
-      data: { ...type.data, blockIdentifier: id },
-      type: type.type,
-      visualData: type.visualData,
-      position: { x: posX, y: posY },
-    };
 
-    set((state: RFState) => ({
-      flowSlice: {
-        ...state.flowSlice,
-        flow: {
-          ...state.flowSlice.flow,
-          blockData: [...state.flowSlice.flow.blockData, newNode.data],
-          visual: {
-            ...state.flowSlice.flow.visual,
-            blocks: [
-              ...state.flowSlice.flow.visual.blocks,
-              {
-                id: id,
-                type: newNode.type,
-                data: newNode.visualData,
-                position: newNode.position,
-              },
-            ],
-          },
-        }
-
-      },
-    }));
-  };
 
 const leftPanelActions = {
-  addBlock: addBlock,
   getBlocksList: getBlocksList,
 };
 

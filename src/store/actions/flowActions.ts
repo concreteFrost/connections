@@ -65,7 +65,6 @@ export const createUpdateDraftFromLiveTemplate = (get: () => RFState, set: any) 
 export const loadFlowFromDraft = (get: () => RFState, set: any) => async (id: string) => {
   try {
     const res: any = await getDraftApi(id);
-    console.log('loaded flow', res.data.flowConfiguration.visual)
     setFlow(res.data.flowConfiguration, set,get);
     setCanApprove(get, set)(false);
   } catch (e) {
@@ -81,7 +80,7 @@ export const saveDraftFlow = (get: () => RFState, set: any) => async (match: any
     block.position.y = Math.floor(block.position.y);
   });
 
-  console.log('saving draft')
+
   if (match) {
     if (flowVersionToInt(flow.flowVersion) <= flowVersionToInt(match.flowVersion)) {
       const parsedPreviousVersion = flowVersionToInt(match.flowVersion) + 1;
@@ -97,11 +96,9 @@ export const saveDraftFlow = (get: () => RFState, set: any) => async (match: any
     draftConfiguration: flow,
   };
 
-  console.log('payload', draftStructure)
 
   try {
     const res: any = await saveDraftFlowApi(draftStructure);
-    console.log(draftStructure)
     if (res.data.success) {
       updateFlowAfterSaving(set, flow, 'success!!!');
       setDraftId(get, set)(res.data.draftRecord.draftId)

@@ -14,6 +14,7 @@ import { IBlockData } from "../interfaces/IBlock";
 import edgeActions from "../actions/edgesActions";
 import { IDirective } from "../interfaces/IAlerts";
 import { IEdgeDraggable } from "../../components/Designer/RightPanel/EdgesEditor/EdgesEditor";
+import { INodeType } from "../interfaces/INode";
 
 export type FlowSlice = {
   flow: {
@@ -51,6 +52,8 @@ export type FlowSlice = {
   setBlockDescription: (description: string) => void;
 
   //Block Actions
+  addBlock: (type: INodeType, posX: number, posY: number) => void;
+  createBlockCopy:(posX:number, posy:number)=>void;
   deleteBlock: () => void;
   getBlockProperties: () => void;
   setDirective:(directive:string)=>void;
@@ -124,6 +127,8 @@ const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
   getBlockProperties: baseActtions.getBlockProperties(get, set),
 
   //Block Actions
+  addBlock: blockActions.addBlock(get,set),
+  createBlockCopy:blockActions.createBlockCopy(get,set),
   deleteBlock: blockActions.deleteBlock(get, set),
   setDirective:blockActions.setDirective(get,set),
   setStringParameter: blockActions.setStringParameter(get, set),

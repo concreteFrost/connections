@@ -17,7 +17,7 @@ export const getParameterValue =
   };
 
 export const setParameterValue = (get: () => RFState, set: any) => (propertyName: string, value: string) => {
-  const blockData = get().flowSlice.flow.blockData.find((block: IBlockData) => block.blockIdentifier === getSelectedBlock(get).id) as IBlockData | undefined;
+  const blockData = get().flowSlice.flow.blockData.find((block: IBlockData) => block.blockIdentifier === getSelectedBlock(get().flowSlice).id) as IBlockData | undefined;
 
   if (!blockData) return;
 
@@ -41,7 +41,7 @@ export const setParameterValue = (get: () => RFState, set: any) => (propertyName
       flow: {
         ...state.flowSlice.flow,
         blockData: state.flowSlice.flow.blockData.map((block: IBlockData) =>
-          block.blockIdentifier === getSelectedBlock(get).id ? updatedBlockData : block
+          block.blockIdentifier === getSelectedBlock(get().flowSlice).id ? updatedBlockData : block
         ),
       }
 

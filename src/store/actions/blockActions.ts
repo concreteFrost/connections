@@ -3,14 +3,108 @@ import flowSlice from "../slices/flowSlice";
 import { RFState } from "../types/rfState";
 import { Edge, Node } from "react-flow-renderer";
 import { getSelectedBlock } from "./utils/blockUtils";
+import { v4 as uuidv4 } from "uuid";
+import { INodeType } from "../interfaces/INode";
 
+export const addBlock =
+  (get: () => RFState, set: any) =>
+  (type: INodeType, posX: number, posY: number) => {
+    const id = uuidv4();
+    const newNode = {
+      data: { ...type.data, blockIdentifier: id },
+      type: type.type,
+      visualData: type.visualData,
+      position: { x: posX, y: posY },
+    };
+
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        flow: {
+          ...state.flowSlice.flow,
+          blockData: [...state.flowSlice.flow.blockData, newNode.data],
+          visual: {
+            ...state.flowSlice.flow.visual,
+            blocks: [
+              ...state.flowSlice.flow.visual.blocks,
+              {
+                id: id,
+                type: newNode.type,
+                data: newNode.visualData,
+                position: newNode.position,
+              },
+            ],
+          },
+        },
+      },
+    }));
+  };
+
+const createBlockCopy =
+  (get: () => RFState, set: any) => (posX: number, posY: number) => {
+    let filteredBlocks: Array<IBlockData> =
+      get().flowSlice.flow.blockData.filter(
+        (block: IBlockData) =>
+          block.blockIdentifier === getSelectedBlock(get().flowSlice).id
+      );
+    const filteredVisualBlocks = get().flowSlice.flow.visual.blocks.filter(
+      (x) => x.selected
+    );
+
+    const id = uuidv4();
+    const newBlocksData: Array<IBlockData> = filteredBlocks.map(
+      (x: IBlockData) => {
+        return {
+          ...x,
+          blockIdentifier: id,
+        };
+      }
+    );
+
+    const newBlocksVisuals = filteredVisualBlocks.map((x: Node) => {
+      return {
+        ...x,
+        id: id,
+        selected: false,
+        position: {
+          x: posX,
+          y: posY,
+        },
+      };
+    });
+
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        flow: {
+          ...state.flowSlice.flow,
+          blockData: [...get().flowSlice.flow.blockData, ...newBlocksData],
+          visual: {
+            ...state.flowSlice.flow.visual,
+            blocks: [
+              ...get().flowSlice.flow.visual.blocks,
+              ...newBlocksVisuals,
+            ],
+          },
+        },
+      },
+    }));
+
+    console.log(get().flowSlice.flow);
+  };
 
 const deleteBlock = (get: () => RFState, set: any) => () => {
-
-  const filteredBlocks = get().flowSlice.flow.blockData.filter((block: IBlockData) => block.blockIdentifier !== getSelectedBlock(get).id);
-  const filteredVisualBlocks = get().flowSlice.flow.visual.blocks.filter((block: Node) => block.id !== getSelectedBlock(get).id)
-  const filteredEdges = get().flowSlice.flow.visual.edges.filter((edge: Edge) =>
-    edge.source !== getSelectedBlock(get).id && edge.target !== getSelectedBlock(get).id
+  const filteredBlocks = get().flowSlice.flow.blockData.filter(
+    (block: IBlockData) =>
+      block.blockIdentifier !== getSelectedBlock(get().flowSlice).id
+  );
+  const filteredVisualBlocks = get().flowSlice.flow.visual.blocks.filter(
+    (block: Node) => block.id !== getSelectedBlock(get().flowSlice).id
+  );
+  const filteredEdges = get().flowSlice.flow.visual.edges.filter(
+    (edge: Edge) =>
+      edge.source !== getSelectedBlock(get().flowSlice).id &&
+      edge.target !== getSelectedBlock(get().flowSlice).id
   );
 
   set((state: RFState) => ({
@@ -24,176 +118,192 @@ const deleteBlock = (get: () => RFState, set: any) => () => {
           ...state.flowSlice.flow.visual,
           blocks: filteredVisualBlocks,
           edges: filteredEdges,
-        }
-      }
-    }
-
-  }))
-
-}
-
-const setParameter = (get: () => RFState, set: any) => (propertyName: string, value: any) => {
-  const blockData = get().flowSlice.flow.blockData.find(
-    (block: IBlockData) => block.blockIdentifier === getSelectedBlock(get).id
-  ) as IBlockData | undefined;
-
-  if (blockData) {
-    const parameter: IBlockData[] = blockData.parameters.map((param: any) => {
-      if (param.name === propertyName) {
-        return {
-          ...param,
-          value: value,
-        };
-      }
-      return param;
-    });
-
-    set((state: RFState) => ({
-      flowSlice: {
-        ...state.flowSlice,
-        flow: {
-          ...state.flowSlice.flow,
-          blockData: state.flowSlice.flow.blockData.map((x: any) => {
-            if (x.blockIdentifier === getSelectedBlock(get).id) {
-              return {
-                ...x,
-                parameters: parameter
-              }
-            }
-            return x;
-          })
-        }
-
-      }
-    }));
-
-  }
+        },
+      },
+    },
+  }));
 };
 
-export const setSelectedExtendedParameter = (get: () => RFState, set: any) => (propertyName: string, value: string) => {
-  const blockData = get().flowSlice.flow.blockData.find(
-    (block: IBlockData) => block.blockIdentifier === getSelectedBlock(get).id
-  ) as IBlockData | undefined;
+const setParameter =
+  (get: () => RFState, set: any) => (propertyName: string, value: any) => {
+    const blockData = get().flowSlice.flow.blockData.find(
+      (block: IBlockData) =>
+        block.blockIdentifier === getSelectedBlock(get().flowSlice).id
+    ) as IBlockData | undefined;
 
-  if (blockData) {
-    const parameter = blockData.extendedParameters.map((param: any) => {
-      if (param.name === propertyName) {
-        return {
-          ...param,
-          value: value,
-        };
-      }
-      return param;
-    });
-
-    set((state: RFState) => ({
-      flowSlice: {
-        ...state.flowSlice,
-        flow: {
-          ...state.flowSlice.flow,
-          blockData: state.flowSlice.flow.blockData.map((x: any) => {
-            if (x.blockIdentifier === getSelectedBlock(get).id) {
-              return {
-                ...x,
-                extendedParameters: parameter
-              }
-            }
-            return x;
-          })
+    if (blockData) {
+      const parameter: IBlockData[] = blockData.parameters.map((param: any) => {
+        if (param.name === propertyName) {
+          return {
+            ...param,
+            value: value,
+          };
         }
+        return param;
+      });
 
-      }
-    }));
-  }
-}
-
-export const deleteExtendedParameter = (get: () => RFState, set: any) => (propName: string) => {
-  const blockData = get().flowSlice.flow.blockData.find(
-    (block: any) => block.blockIdentifier === getSelectedBlock(get).id
-  ) as IBlockData | undefined;
-
-  if (blockData) {
-    const filteredParameters = blockData.extendedParameters.filter((param: any) => param.name !== propName)
-
-    set((state: RFState) => ({
-      flowSlice: {
-        ...state.flowSlice,
-        flow: {
-          ...state.flowSlice.flow,
-          blockData: state.flowSlice.flow.blockData.map((x: any) => {
-            if (x.blockIdentifier === getSelectedBlock(get).id) {
-              return {
-                ...x,
-                extendedParameters: filteredParameters
-              }
-            }
-            return x;
-          })
-        },
-
-      }
-    }));
-  }
-
-}
-
-export const addCustomParameter = (get: () => RFState, set: any): ((name: string, value: string) => boolean | undefined) => (name, value) => {
-  const blockData = get().flowSlice.flow.blockData.find(
-    (block: IBlockData) => block.blockIdentifier === getSelectedBlock(get).id
-  ) as IBlockData | undefined;
-
-  if (blockData) {
-    const existingParam = blockData.parameters.find((param: any) => param.name.toLowerCase() === name.toLowerCase());
-    const existingExtendedParam = blockData.extendedParameters.find((param: any) => param.name.toLowerCase() === name.toLowerCase());
-
-    if (!existingParam && !existingExtendedParam) {
-      const updatedExtendedParams = [...blockData.extendedParameters, { name: name, value: value }]
       set((state: RFState) => ({
-        ...state, flowSlice: {
+        flowSlice: {
           ...state.flowSlice,
           flow: {
             ...state.flowSlice.flow,
             blockData: state.flowSlice.flow.blockData.map((x: any) => {
-              if (x.blockIdentifier === getSelectedBlock(get).id) {
+              if (x.blockIdentifier === getSelectedBlock(get().flowSlice).id) {
                 return {
                   ...x,
-                  extendedParameters: updatedExtendedParams
-                }
+                  parameters: parameter,
+                };
               }
               return x;
-            })
-          }
-
-        }
+            }),
+          },
+        },
       }));
-      return true;
     }
-    else {
-      return false;
+  };
+
+export const setSelectedExtendedParameter =
+  (get: () => RFState, set: any) => (propertyName: string, value: string) => {
+    const blockData = get().flowSlice.flow.blockData.find(
+      (block: IBlockData) =>
+        block.blockIdentifier === getSelectedBlock(get().flowSlice).id
+    ) as IBlockData | undefined;
+
+    if (blockData) {
+      const parameter = blockData.extendedParameters.map((param: any) => {
+        if (param.name === propertyName) {
+          return {
+            ...param,
+            value: value,
+          };
+        }
+        return param;
+      });
+
+      set((state: RFState) => ({
+        flowSlice: {
+          ...state.flowSlice,
+          flow: {
+            ...state.flowSlice.flow,
+            blockData: state.flowSlice.flow.blockData.map((x: any) => {
+              if (x.blockIdentifier === getSelectedBlock(get().flowSlice).id) {
+                return {
+                  ...x,
+                  extendedParameters: parameter,
+                };
+              }
+              return x;
+            }),
+          },
+        },
+      }));
     }
-  }
-}
+  };
 
-export const setDirective = (get: () => RFState, set: any) => (diretive: string) => {
+export const deleteExtendedParameter =
+  (get: () => RFState, set: any) => (propName: string) => {
+    const blockData = get().flowSlice.flow.blockData.find(
+      (block: any) =>
+        block.blockIdentifier === getSelectedBlock(get().flowSlice).id
+    ) as IBlockData | undefined;
 
-  set((state: RFState) => ({
-    ...state, flowSlice: {
-      ...state.flowSlice,
-      flow: {
-        ...state.flowSlice.flow,
-        blockData: state.flowSlice.flow.blockData.map((x: any) => {
-          if (x.blockIdentifier === getSelectedBlock(get).id) {
-            return {
-              ...x,
-              ehDirective: diretive
-            }
-          }
-          return x;
-        })
+    if (blockData) {
+      const filteredParameters = blockData.extendedParameters.filter(
+        (param: any) => param.name !== propName
+      );
+
+      set((state: RFState) => ({
+        flowSlice: {
+          ...state.flowSlice,
+          flow: {
+            ...state.flowSlice.flow,
+            blockData: state.flowSlice.flow.blockData.map((x: any) => {
+              if (x.blockIdentifier === getSelectedBlock(get().flowSlice).id) {
+                return {
+                  ...x,
+                  extendedParameters: filteredParameters,
+                };
+              }
+              return x;
+            }),
+          },
+        },
+      }));
+    }
+  };
+
+export const addCustomParameter =
+  (
+    get: () => RFState,
+    set: any
+  ): ((name: string, value: string) => boolean | undefined) =>
+  (name, value) => {
+    const blockData = get().flowSlice.flow.blockData.find(
+      (block: IBlockData) =>
+        block.blockIdentifier === getSelectedBlock(get().flowSlice).id
+    ) as IBlockData | undefined;
+
+    if (blockData) {
+      const existingParam = blockData.parameters.find(
+        (param: any) => param.name.toLowerCase() === name.toLowerCase()
+      );
+      const existingExtendedParam = blockData.extendedParameters.find(
+        (param: any) => param.name.toLowerCase() === name.toLowerCase()
+      );
+
+      if (!existingParam && !existingExtendedParam) {
+        const updatedExtendedParams = [
+          ...blockData.extendedParameters,
+          { name: name, value: value },
+        ];
+        set((state: RFState) => ({
+          ...state,
+          flowSlice: {
+            ...state.flowSlice,
+            flow: {
+              ...state.flowSlice.flow,
+              blockData: state.flowSlice.flow.blockData.map((x: any) => {
+                if (
+                  x.blockIdentifier === getSelectedBlock(get().flowSlice).id
+                ) {
+                  return {
+                    ...x,
+                    extendedParameters: updatedExtendedParams,
+                  };
+                }
+                return x;
+              }),
+            },
+          },
+        }));
+        return true;
+      } else {
+        return false;
       }
     }
-  }))
-}
+  };
+
+export const setDirective =
+  (get: () => RFState, set: any) => (diretive: string) => {
+    set((state: RFState) => ({
+      ...state,
+      flowSlice: {
+        ...state.flowSlice,
+        flow: {
+          ...state.flowSlice.flow,
+          blockData: state.flowSlice.flow.blockData.map((x: any) => {
+            if (x.blockIdentifier === getSelectedBlock(get().flowSlice).id) {
+              return {
+                ...x,
+                ehDirective: diretive,
+              };
+            }
+            return x;
+          }),
+        },
+      },
+    }));
+  };
 
 export const setStringParameter =
   (get: () => RFState, set: any) => (propertyName: string, value: string) => {
@@ -212,25 +322,25 @@ export const setFloatParameter =
 
 export const setBooleanParameter =
   (get: () => RFState, set: any) => (propertyName: string, value: boolean) => {
-    console.log('setting boolean')
+    console.log("setting boolean");
     setParameter(get, set)(propertyName, value);
   };
 
 export const setBooleanYNParameter =
   (get: () => RFState, set: any) => (propertyName: string, value: string) => {
-    console.log('setting booleanYN')
+    console.log("setting booleanYN");
     setParameter(get, set)(propertyName, value === "Y" ? "N" : "Y");
   };
 
 export const setDateTimeParameter =
   (get: () => RFState, set: any) => (propertyName: string, value: Date) => {
-    console.log('setting date time')
+    console.log("setting date time");
     setParameter(get, set)(propertyName, value);
   };
 
 export const setBigIntParameter =
   (get: () => RFState, set: any) => (propertyName: string, value: BigInt) => {
-    console.log('setting big int')
+    console.log("setting big int");
     setParameter(get, set)(propertyName, value);
   };
 
@@ -251,6 +361,8 @@ export const setExecutionParameter =
   };
 
 const blockActions = {
+  addBlock: addBlock,
+  createBlockCopy: createBlockCopy,
   deleteBlock: deleteBlock,
   setStringParameter: setStringParameter,
   setIntegerParameter: setIntegerParameter,
@@ -263,9 +375,7 @@ const blockActions = {
   addCustomParameter: addCustomParameter,
   setSelectedExtendedParameter: setSelectedExtendedParameter,
   deleteExtendedParameter: deleteExtendedParameter,
-  setDirective:setDirective,
+  setDirective: setDirective,
 };
 
 export default blockActions;
-
-

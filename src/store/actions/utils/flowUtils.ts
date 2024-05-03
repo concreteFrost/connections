@@ -117,7 +117,6 @@ export function setFlow(data: any,set: any, get:()=>RFState) {
     },
   }));
 
-  console.log(get().flowSlice.flow.visual.edges)
 }
 
 export function updateFlowAfterSaving(

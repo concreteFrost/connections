@@ -1,5 +1,7 @@
 import { Node } from "react-flow-renderer";
 import { RFState } from "../../types/rfState";
+import { IFlowData } from "../../interfaces/Iflow";
+import { FlowSlice } from "../../slices/flowSlice";
 
 export const blockAlignment = (get: () => RFState, selectedBlocks: Node<any>[], alignment: 'x' | 'y') => {
     const middleBlock = selectedBlocks.reduce((acc, curr) => {
@@ -27,6 +29,6 @@ export const blockAlignment = (get: () => RFState, selectedBlocks: Node<any>[], 
 }
 
 
-export const getSelectedBlock=(get:()=>RFState):Node<any>=>{
-    return get().flowSlice.flow.visual.blocks.find((b:Node<any>)=> b.selected === true)!;
+export const getSelectedBlock=(flowSlice: FlowSlice):Node<any>=>{
+    return flowSlice.flow.visual.blocks.find((b:Node<any>)=> b.selected === true)!;
 }

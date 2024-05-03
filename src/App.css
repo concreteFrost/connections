@@ -16,6 +16,10 @@ textarea,input,select,button{
   }
 }
 
+*{
+  user-select:none;
+}
+
 
 
 .resized_dynamic_menu,.dynamic_menu {

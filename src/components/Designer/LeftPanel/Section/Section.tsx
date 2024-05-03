@@ -3,17 +3,18 @@ import NodeListItem from "../NodeListItem/NodeListItem";
 import { INodeType } from "../../../../store/interfaces/INode";
 import { connectionsIcons } from "../../../../icons/icons";
 import { useState } from "react";
+import useStore from "../../../../store/store";
 
 interface SectionProps {
-  onDragEnd: (e: any, nodeType: INodeType) => void;
   title: string;
-  nodeType: INodeType[];
   nodeGroup: string;
+  leftPanelRef:any,
 }
 
 function Section(props: SectionProps) {
   //returns filtered blocks that has matched type provided in props
-  const filteredData = Object.entries(props.nodeType)
+  const blockList = useStore((state) => state.blockList);
+  const filteredData = Object.entries(blockList)
     .filter(
       ([key, val]: [string, INodeType]) => val.data.baseTypeName === props.nodeGroup
     )
@@ -42,7 +43,7 @@ function Section(props: SectionProps) {
         {filteredData.length > 0
           ? filteredData.map((x: INodeType) => (
               <li className={s.node_list_item} key={filteredData.indexOf(x)}>
-                <NodeListItem onDragEnd={props.onDragEnd} nodeType={x} />
+                <NodeListItem leftPanelRef={props.leftPanelRef} nodeType={x} />
               </li>
             ))
           : null}

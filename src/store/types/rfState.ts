@@ -31,7 +31,6 @@ export type RFState = {
   //Value Editor Actions
 
   getBlocksList: (data: any) => void;
-  addBlock: (type: INodeType, posX: number, posY: number) => void;
   onBlocksChange: OnNodesChange;
   onConnect: OnConnect;
   onEdgesChange: OnEdgesChange;

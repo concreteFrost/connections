@@ -40,11 +40,8 @@ function InputLabel(props: InputLabelProps) {
           value={props.blockData.value}
           checked={props.blockData.value === "Y" ? true : false}
           onChange={(e: any) => {
-            console.log(props)
             props.setSelectionValue(e)
             props.setCurrentParameter(props.blockData.name, e.target.value);
-           
-        
           }}
           onKeyDown={(e: any) => props.setSelectionIndex(e)}
           onClick={() => {

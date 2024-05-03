@@ -28,7 +28,6 @@ const useStore = createWithEqualityFn<RFState>((set, get) => ({
   //Value Editor Actions
   //Node Actions
   getBlocksList: leftPanelActions.getBlocksList(set),
-  addBlock: leftPanelActions.addBlock(get, set),
   onBlocksChange: nodeActions.onBlocksChange(get, set),
 
   //Edge Actions

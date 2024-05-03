@@ -2,13 +2,16 @@ import { INodeType } from "../../../../store/interfaces/INode";
 import s from "./NodeListItem.module.scss";
 import { connectionsIcons } from "../../../../icons/icons";
 import useStore from "../../../../store/store";
+import {canDrop} from "../../../../utils/positionInsideElement";
 
 interface NodeProps {
-  onDragEnd: (e: any, nodeType: INodeType) => void;
-  nodeType: INodeType
+  nodeType: INodeType;
+  leftPanelRef: any;
 }
 
 function NodeListItem(props: NodeProps) {
+  
+  const addBlock = useStore((state) => state.flowSlice.addBlock);
   const setTooltipText = useStore(
     (state) => state.designerVisualElementsSlice.setTooltipText
   );
@@ -27,7 +30,9 @@ function NodeListItem(props: NodeProps) {
       <button
         className={s.node_list_btn}
         onDragEnd={(event) => {
-          props.onDragEnd(event, props.nodeType);
+          if(canDrop(event,props.leftPanelRef)){
+            addBlock(props.nodeType,event.clientX,event.clientY)
+          }
         }}
         draggable
       >
