@@ -33,7 +33,9 @@ export type FlowSlice = {
     substitutions: Array<ISubstitutions>;
     visual: {
       blocks: Node<any>[];
-      edges: Edge<any>[];
+      //NEED TO CHANGE TYPE BACK TO EDGE
+      // edges: Edge<any>[];
+      edges:Array<any>;
     };
   };
 

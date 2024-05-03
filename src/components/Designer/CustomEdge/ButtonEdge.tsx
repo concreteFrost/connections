@@ -60,8 +60,8 @@ const ButtonEdge: React.FC<any> = ({
           height={35}
           x={edgeCenterX - 18}
           y={edgeCenterY - 50}
-        >{}
-          {/* <div className={s.priority_text}>{matchEdge?.priority}</div> */}
+        >
+          <div className={s.priority_text}>{matchEdge?.priority}</div>
         </foreignObject>
       ) : null}
       <foreignObject

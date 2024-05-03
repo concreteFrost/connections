@@ -52,7 +52,8 @@ export const deleteEdge = (get: () => RFState, set: any) => (edgeId: string) => 
   const filteredEdges = edges.filter((edge: Edge) => edge.id !== edgeId);
 
   // Update the priorities of the remaining edges above the deleted edge
-  const updatedEdges = filteredEdges.map((edge: Edge) => {
+  //NEED TO CHANGE TYPE BACK TO EDGE
+  const updatedEdges = filteredEdges.map((edge: any) => {
     if (edge.source === deletedEdge.source && edge.priority! > deletedEdge.priority!) {
       const newPriority = Math.max(edge.priority! - 1, 1); // Ensure priority is not less than 1
       return {
