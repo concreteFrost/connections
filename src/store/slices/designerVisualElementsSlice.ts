@@ -4,9 +4,11 @@ import tooltipActions from "../actions/tooltipActions";
 import { toggleSubstitutionsPanel } from "../actions/substitutionsActions";
 import valueEditorActions from "../actions/valueEditorActions";
 import { getUserSettingsData, initialSettings } from "../actions/storageActions";
-import { Node } from "react-flow-renderer";
 
 export type DesignerVisualElementsSlice = {
+
+    reactFlowInstance:any,
+    reactFlowWrapper:any,
 
     substitutionsPanel: {
         isCollapsed: boolean;
@@ -23,15 +25,18 @@ export type DesignerVisualElementsSlice = {
         text: string;
     };
     view: BackgroundVariant;
+    setInstance:(instance:any)=>void;
+    setFlowWrapper:(wrapper:any)=>void;
     setTooltipText: (text: string) => void;
     toggleSubstitutionsPanel: () => void;
     getParameterValue: (parameterName: string, value: string) => void;
     setParameterValue: (propertyName: string, value: string) => void;
-
 }
 
 const designerVisualElementsSlice = (get: () => RFState, set: any): DesignerVisualElementsSlice =>
 ({
+    reactFlowInstance:null,
+    reactFlowWrapper:null,
     view: getUserSettingsData().designer.canvasView,  
     tooltip: {
         text: ''
@@ -47,6 +52,26 @@ const designerVisualElementsSlice = (get: () => RFState, set: any): DesignerVisu
         substitutionAddError: ''
     },
 
+    // sets instance of the flow on flow init
+    setInstance:(instance:any)=>{
+        set((state:RFState)=>({
+            designerVisualElementsSlice:{
+                ...state.designerVisualElementsSlice,
+                reactFlowInstance: instance
+            }
+        }))
+        console.log('flow init');//
+    },
+    
+    // added ref to get correct coordinates
+    setFlowWrapper:(wrapper:any)=>{
+        set((state:RFState)=>({
+            designerVisualElementsSlice:{
+                ...state.designerVisualElementsSlice,
+                reactFlowWrapper: wrapper
+            }
+        }))
+    },
     setTooltipText: tooltipActions.setTooltipText(get, set),
     toggleSubstitutionsPanel: toggleSubstitutionsPanel(get, set),
     getParameterValue: valueEditorActions.getParameterValue(set),

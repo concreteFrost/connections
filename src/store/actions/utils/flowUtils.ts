@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import { getAccessToken } from "../storageActions";
 import { getDraftListApi } from "../../../api/draft";
 import markerEnd from "../../constants/edgeConst";
+import IConnectionsEdge from "../../interfaces/IConnectionsEdges";
 
 export function initializeFlow<IFlowData>(
   initialNodes: object,
@@ -94,7 +95,7 @@ export function setFlow(data: any,set: any, get:()=>RFState) {
             };
           }),
           //NEED TO CHANGE TYPE BACK TO EDGE
-          edges: data.visual.edges.map((e: any) => {
+          edges: data.visual.edges.map((e: IConnectionsEdge) => {
            return {id: e.id,
             source: e.source,
             target: e.target,

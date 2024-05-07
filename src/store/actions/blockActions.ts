@@ -5,6 +5,7 @@ import { Edge, Node } from "react-flow-renderer";
 import { getSelectedBlock } from "./utils/blockUtils";
 import { v4 as uuidv4 } from "uuid";
 import { INodeType } from "../interfaces/INode";
+import IConnectionsEdge from "../interfaces/IConnectionsEdges";
 
 export const addBlock =
   (get: () => RFState, set: any) =>
@@ -89,8 +90,6 @@ const createBlockCopy =
         },
       },
     }));
-
-    console.log(get().flowSlice.flow);
   };
 
 const deleteBlock = (get: () => RFState, set: any) => () => {
@@ -102,7 +101,7 @@ const deleteBlock = (get: () => RFState, set: any) => () => {
     (block: Node) => block.id !== getSelectedBlock(get().flowSlice).id
   );
   const filteredEdges = get().flowSlice.flow.visual.edges.filter(
-    (edge: Edge) =>
+    (edge: IConnectionsEdge) =>
       edge.source !== getSelectedBlock(get().flowSlice).id &&
       edge.target !== getSelectedBlock(get().flowSlice).id
   );

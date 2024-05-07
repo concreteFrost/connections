@@ -2,7 +2,8 @@ import { INodeType } from "../../../../store/interfaces/INode";
 import s from "./NodeListItem.module.scss";
 import { connectionsIcons } from "../../../../icons/icons";
 import useStore from "../../../../store/store";
-import {canDrop} from "../../../../utils/positionInsideElement";
+import { canDrop, positionInViewport } from "../../../../utils/draggableUtils";
+import { useEffect } from "react";
 
 interface NodeProps {
   nodeType: INodeType;
@@ -10,16 +11,37 @@ interface NodeProps {
 }
 
 function NodeListItem(props: NodeProps) {
-  
+
   const addBlock = useStore((state) => state.flowSlice.addBlock);
+  const {reactFlowInstance,reactFlowWrapper} = useStore((state)=>state.designerVisualElementsSlice);
   const setTooltipText = useStore(
     (state) => state.designerVisualElementsSlice.setTooltipText
   );
-
+  
   //returns the icon if icon names matches with any of nodeIcons in connectionsIcons object
   const matchedIcon = Object.entries(connectionsIcons.nodeIcons).find(
     ([key]) => key === props.nodeType.visualData.icon.toLowerCase()
   )?.[1];
+
+  useEffect(() => {
+    document.addEventListener("dragover", (event) => {
+      event.preventDefault();
+    });
+
+    return () => document.removeEventListener("dragover", (event) => {
+      event.preventDefault()
+    })
+  }, [])
+
+  function onDragEnd(event :any){
+    if (canDrop(event, props.leftPanelRef)) {
+      const pos={
+        x: positionInViewport(event,reactFlowInstance,reactFlowWrapper).x,
+        y: positionInViewport(event,reactFlowInstance,reactFlowWrapper).y
+      }
+      addBlock(props.nodeType,pos.x,pos.y);
+    }
+  }
 
   return (
     <div
@@ -29,11 +51,7 @@ function NodeListItem(props: NodeProps) {
     >
       <button
         className={s.node_list_btn}
-        onDragEnd={(event) => {
-          if(canDrop(event,props.leftPanelRef)){
-            addBlock(props.nodeType,event.clientX,event.clientY)
-          }
-        }}
+        onDragEnd={onDragEnd}
         draggable
       >
         <span className={s.node_list_icon}>

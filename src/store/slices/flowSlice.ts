@@ -15,6 +15,7 @@ import edgeActions from "../actions/edgesActions";
 import { IDirective } from "../interfaces/IAlerts";
 import { IEdgeDraggable } from "../../components/Designer/RightPanel/EdgesEditor/EdgesEditor";
 import { INodeType } from "../interfaces/INode";
+import IConnectionsEdge from "../interfaces/IConnectionsEdges";
 
 export type FlowSlice = {
   flow: {
@@ -35,7 +36,7 @@ export type FlowSlice = {
       blocks: Node<any>[];
       //NEED TO CHANGE TYPE BACK TO EDGE
       // edges: Edge<any>[];
-      edges:Array<any>;
+      edges:Array<IConnectionsEdge>;
     };
   };
 

@@ -6,6 +6,7 @@ import {
 } from "react-flow-renderer";
 import useStore from "../../../store/store";
 import s from "./ButtonEdge.module.scss";
+import IConnectionsEdge from "../../../store/interfaces/IConnectionsEdges";
 
 const foreignObjectSize = 30;
 const ButtonEdge: React.FC<any> = ({
@@ -31,7 +32,7 @@ const ButtonEdge: React.FC<any> = ({
   const { deleteEdge } = useStore((store) => store.flowSlice);
   const { edges } = useStore((store) => store.flowSlice.flow.visual);
   const [isPriorityVisible, setPriorityVisible] = useState<boolean>(false);
-  const matchEdge = edges.find((x) => x.id === id);
+  const matchEdge = edges.find((x : IConnectionsEdge) => x.id === id);
 
   const [edgeCenterX, edgeCenterY] = getEdgeCenter({
     sourceX,
@@ -41,7 +42,7 @@ const ButtonEdge: React.FC<any> = ({
   });
 
   useEffect(() => {
-    const moreThanOneEdge = edges.filter((e) => e.source === matchEdge?.source);
+    const moreThanOneEdge = edges.filter((e : IConnectionsEdge) => e.source === matchEdge?.source);
     setPriorityVisible(moreThanOneEdge.length > 1 ? true : false);
   }, [edges]);
 

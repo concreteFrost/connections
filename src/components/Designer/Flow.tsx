@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent as ReactMouseEvent,useEffect } from "react";
+import React, { useState, MouseEvent as ReactMouseEvent, useEffect, useRef } from "react";
 import ReactFlow, {
   Background,
   BackgroundVariant,
@@ -10,6 +10,8 @@ import useCtrlMouseHold from "../../hooks/useCtrlMouseHold";
 import { getSelectedBlock } from "../../store/actions/utils/blockUtils";
 import { selector } from "../../utils/selector";
 import { nodeTypes, edgeTypes } from "../../store/types/flowElements";
+import { Edge } from "reactflow";
+import { positionInViewport } from "../../utils/draggableUtils";
 
 function Flow(props: any) {
   const { onBlocksChange, onEdgesChange, onConnect } = useStore(
@@ -18,34 +20,34 @@ function Flow(props: any) {
   );
   const flowSlice = useStore((state) => state.flowSlice);
   const bgView = useStore((state) => state.designerVisualElementsSlice.view);
+
+  const { reactFlowInstance, reactFlowWrapper, setInstance, setFlowWrapper } = useStore((state) => state.designerVisualElementsSlice);
   const { snapToGrid, showMiniMap, snapStep } = useStore(
     (state) => state.topPanelSlice.settings
   );
 
   const [isCtrlPressed, setCtrlPressed] = useState(false);
   useCtrlMouseHold(isCtrlPressed, setCtrlPressed);
-  function pasteCopiedBlock(e: any) {
-    if (isCtrlPressed) {
-      const pos = {
-        x: e.clientX,
-        y: e.clientY,
-      };
 
-      if (getSelectedBlock(flowSlice) !== undefined)
-        flowSlice.createBlockCopy(pos.x, pos.y);
+  function pasteCopiedBlock(event: ReactMouseEvent) {
+    var pos = positionInViewport(event, reactFlowInstance, reactFlowWrapper);
+    if (isCtrlPressed) {
+      const selectedBlock = getSelectedBlock(flowSlice);
+      if (selectedBlock) {
+        flowSlice.createBlockCopy(Math.round(pos.x), Math.round(pos.y));
+      }
     }
   }
 
   return (
     <ReactFlowProvider>
-      <div style={{ height: "100vh", overflowY: "hidden" }}>
+      <div style={{ height: "100vh", overflowY: "hidden" }} className="reactflow-wrapper" ref={setFlowWrapper}>
         <ReactFlow
-          
+          onInit={setInstance}
           nodes={flowSlice.flow.visual.blocks}
-          edges={flowSlice.flow.visual.edges}
+          edges={flowSlice.flow.visual.edges as Edge[]}
           onNodesChange={onBlocksChange}
           onEdgesChange={onEdgesChange}
-          onLoad={()=>console.log('s')}
           onConnect={onConnect}
           nodeTypes={nodeTypes}
           edgeTypes={edgeTypes}
@@ -59,9 +61,8 @@ function Flow(props: any) {
           nodesDraggable={!isCtrlPressed}
         >
           <Background
-            color={`rgb(74, 148, 190, ${
-              bgView === BackgroundVariant.Dots ? 1 : 0.5
-            })`}
+            color={`rgb(74, 148, 190, ${bgView === BackgroundVariant.Dots ? 1 : 0.5
+              })`}
             variant={bgView}
           ></Background>
           {/* <MiniMap nodeStrokeColor={"black"} nodeStrokeWidth={10} className={s.minimap} nodeColor={'rgb(74, 120, 190)'} style={{ display: showMinimap ? "block" : "none" }} ></MiniMap> */}

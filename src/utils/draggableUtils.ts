@@ -21,5 +21,18 @@ export const canDrop = (
     return false;
   }
   return true;
-  // addBlock(newNode, clientX, clientY);
 };
+
+export function positionInViewport(event: any, reactFlowInstance:any, reactFlowWrapper:any) {
+  if (!reactFlowInstance || !reactFlowWrapper) return {x:event.clientX, y:event.clientY};
+
+  const reactFlowBounds = reactFlowWrapper.getBoundingClientRect();
+
+  const pos = reactFlowInstance.project({
+    x: event.clientX - reactFlowBounds.left,
+    y: event.clientY - reactFlowBounds.top,
+  });
+
+  return pos;
+
+}
