@@ -1,7 +1,7 @@
 import { useState, useEffect, ChangeEvent } from "react";
 import useStore from "../../../../store/store";
 import s from "./ValueEditor.module.scss";
-import { connectionsIcons } from "../../../../icons/icons";
+import { connectionsIcons } from "../../../../assets/icons/icons";
 import FilteredResults from "../FilteredResults/FilteredResults";
 
 interface ISelection {

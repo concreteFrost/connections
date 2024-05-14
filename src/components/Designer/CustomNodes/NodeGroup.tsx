@@ -1,6 +1,6 @@
 import { NodeProps } from 'react-flow-renderer';
 import s from "./NodeGroup.module.scss";
-import { connectionsIcons } from '../../../icons/icons';
+import { connectionsIcons } from '../../../assets/icons/icons';
 import useStore from '../../../store/store';
 
 
@@ -10,7 +10,6 @@ export default function NodeGroup({ id, data }: NodeProps) {
     const setGroupColor = useStore((state) => state.flowSlice.setGroupColor);
     const setGroupLabel = useStore((state) => state.flowSlice.setGroupLabel);
     const deleteGroupOnButtonClick = useStore((state) => state.flowSlice.deleteGroupOnButtonClick);
-
 
     return (
         <div className={s.wrapper}  >

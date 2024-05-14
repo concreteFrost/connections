@@ -1,10 +1,9 @@
-import Header from "./Header/Header";
-import s from "./Notifications.module.scss";
-import CurrentNotifications from "./CurrentNotifications/CurrentNotifications";
-import NofificationEditor from "./NotificationEditor/NotificationEditor";
-import AddNotificationForm from "./AddNotificationForm/AddNotificationForm";
-import useStore from "../../store/store";
-import { useEffect } from "react";
+import Header from "../components/Notifications/Header/Header";
+import s from "./style/Notifications.module.scss";
+import CurrentNotifications from "../components/Notifications/CurrentNotifications/CurrentNotifications";
+import NofificationEditor from "../components/Notifications/NotificationEditor/NotificationEditor";
+import AddNotificationForm from "../components/Notifications/AddNotificationForm/AddNotificationForm";
+import useStore from "../store/store";
 
 function Nofifications() {
   const currentNote = useStore(

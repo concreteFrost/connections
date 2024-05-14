@@ -1,6 +1,6 @@
 import { clearUserData } from "../../store/actions/storageActions";
 import { useNavigate } from "react-router-dom";
-import { connectionsIcons } from "../../icons/icons";
+import { connectionsIcons } from "../../assets/icons/icons";
 import { useState, useRef, useEffect } from "react";
 import s from "./Profile.module.scss";
 import { getMeAPI } from "../../api/security";

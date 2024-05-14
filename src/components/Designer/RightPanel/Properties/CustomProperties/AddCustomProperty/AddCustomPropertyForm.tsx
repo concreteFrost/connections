@@ -43,7 +43,6 @@ function AddCustomPropertyForm() {
         }
     }
 
-
     function setSelectionValue(e: any) {
         const res = e.target.value.slice(selection.index, e.target.value.length)
         const cleanedRes = res.replace(/\s.*$/, '');

@@ -1,4 +1,4 @@
-import { connectionsIcons } from "../../../../icons/icons";
+import { connectionsIcons } from "../../../../assets/icons/icons";
 import { useEffect, useState } from "react";
 import useStore from "../../../../store/store";
 import { getFlowListApi } from "../../../../api/flow";

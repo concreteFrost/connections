@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import useStore from "../../../../store/store";
 import { getDraftListApi } from "../../../../api/draft";
-import { connectionsIcons } from "../../../../icons/icons";
+import { connectionsIcons } from "../../../../assets/icons/icons";
 import { ILeftPanelSections } from "../LeftPanel";
 import s from "./ListItem.module.scss";
 

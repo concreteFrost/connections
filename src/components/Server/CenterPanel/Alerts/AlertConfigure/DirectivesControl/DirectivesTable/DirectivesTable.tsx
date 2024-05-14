@@ -6,7 +6,7 @@ import {
   IDirectiveConfig,
 } from "../../../../../../../store/interfaces/IAlerts";
 import { IFlowConfig } from "../../../../../../../store/interfaces/Iflow";
-import { connectionsIcons } from "../../../../../../../icons/icons";
+import { connectionsIcons } from "../../../../../../../assets/icons/icons";
 import DirectiveConfigItem from "../AddDirectiveForm/DirectiveConfigItem/DirectiveConfigItem";
 
 const PAGE_SIZE = 6;

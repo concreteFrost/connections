@@ -1,4 +1,4 @@
-import { connectionsIcons } from "../../../../icons/icons";
+import { connectionsIcons } from "../../../../assets/icons/icons";
 import { ILeftPanelSections } from "../LeftPanel";
 import s from "./ListItem.module.scss"
 

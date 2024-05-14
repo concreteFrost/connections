@@ -1,13 +1,13 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import s from "./CenterPanel.module.scss"
-import Flow from './Flow/Flow';
-import Security from './Security/Security';
-import ProtectedRoute from '../../../utils/ProtectedRoute';
-import Servers from './Server/Servers';
-import Settings from './Settings/Settings';
-import Alerts from './Alerts/Alerts';
+import s from "./style/ServerCenterPanel.module.scss"
+import Flow from '../components/Server/CenterPanel/Flow/Flow';
+import Security from '../components/Server/CenterPanel/Security/Security';
+import ProtectedRoute from '../utils/ProtectedRoute';
+import Servers from '../components/Server/CenterPanel/Server/Servers';
+import Settings from '../components/Server/CenterPanel/Settings/Settings';
+import Alerts from '../components/Server/CenterPanel/Alerts/Alerts';
 
-function CenterPanel() {
+function ServerCenterPanel() {
     return (
         <div className={s.wrapper}>
             <Routes>
@@ -20,4 +20,4 @@ function CenterPanel() {
         </div>)
 }
 
-export default CenterPanel;
+export default ServerCenterPanel;

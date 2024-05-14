@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { baseUrl } from '../../store/constants/baseUrl';
+import { baseUrl } from '../store/constants/baseUrl';
 
 function getToken(name: string, pass: string) {
 

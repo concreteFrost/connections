@@ -1,11 +1,11 @@
-import s from "./Login.module.scss"
-import getToken from "../../api/token/getToken";
+import s from "./style/Login.module.scss"
+import getToken from "../api/token";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
-import { setAccessToken } from "../../store/actions/storageActions";
-import ConnectionsLogo from "../../assets/connections_logo";
-import CocoonLogo from "../../assets/cocoon_logo";
-import useStore from "../../store/store";
+import { setAccessToken } from "../store/actions/storageActions";
+import ConnectionsLogo from "../assets/connections_logo";
+import CocoonLogo from "../assets/cocoon_logo";
+import useStore from "../store/store";
 
 function Login() {
 

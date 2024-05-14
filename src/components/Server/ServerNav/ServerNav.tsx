@@ -1,12 +1,12 @@
 import { IconVariants } from "../../../store/enums/profile";
 import Profile from "../../Profile/Profile";
-import s from "./Header.module.scss";
+import s from "./ServerNav.module.scss";
 import { useNavigate } from "react-router";
 import useStore from "../../../store/store";
 import PushNotifications from "../../PushNotifications/PushNotifications";
 import AlertNotifications from "../../AlertsNotifications/AlertNotifications";
 
-function Header() {
+function ServerNav() {
   const navigate = useNavigate();
   const { notificationsList, toggleHaveCheckedNotifications, haveCheckedNotifications } = useStore((state) => state.notificationSlice)
 
@@ -38,4 +38,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default ServerNav;

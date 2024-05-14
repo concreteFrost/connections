@@ -1,6 +1,6 @@
 import { INodeType } from "../../../../store/interfaces/INode";
 import s from "./NodeListItem.module.scss";
-import { connectionsIcons } from "../../../../icons/icons";
+import { connectionsIcons } from "../../../../assets/icons/icons";
 import useStore from "../../../../store/store";
 import { canDrop, positionInViewport } from "../../../../utils/draggableUtils";
 import { useEffect } from "react";
@@ -42,7 +42,7 @@ function NodeListItem(props: NodeProps) {
       addBlock(props.nodeType,pos.x,pos.y);
     }
   }
-
+  
   return (
     <div
       className="tooltip-item"

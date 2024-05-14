@@ -1,5 +1,5 @@
 import s from "./ServerTable.module.scss";
-import { connectionsIcons } from "../../../../../icons/icons";
+import { connectionsIcons } from "../../../../../assets/icons/icons";
 import { getServerStatusAPI } from "../../../../../api/data";
 import { useEffect, useState } from "react";
 import OperationTable from "./Tables/OperationTable";

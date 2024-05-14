@@ -8,13 +8,11 @@
 
 .modal_window {
     @include modal_window;
-
 }
 
 
 .modal_header {
     @include modal_header;
-
 }
 
 
@@ -59,7 +57,7 @@
         gap: 5px;
 
         button {
-         @include blue-btn;
+            @include blue-btn;
         }
     }
 

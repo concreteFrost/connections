@@ -1,8 +1,8 @@
 // BaseNode component
 import s from "./BaseNode.module.scss";
 import useStore from "../../../store/store";
-import { useEffect, useState } from "react";
-import { connectionsIcons } from "../../../icons/icons";
+import { useEffect, useMemo, useState } from "react";
+import { connectionsIcons } from "../../../assets/icons/icons";
 import { Position, Handle } from "react-flow-renderer";
 import { isDarkBackground } from "../../../store/actions/utils/nodeUtils";
 import { Node } from "reactflow";
@@ -18,45 +18,36 @@ interface Block {
 export default function BaseNode(props: any) {
 
   const getParameterValue = useStore((state) => state.designerVisualElementsSlice.getParameterValue);
-  const { deleteBlock, setDirective,getBlockProperties ,flow } = useStore((state) => state.flowSlice);
+  const {deleteBlock, setDirective, getBlockProperties, flow } = useStore((state) => state.flowSlice);
   const [isOutlined, setIsOutlined] = useState(false);
 
   const blockData: Block[] = useStore((state) => state.flowSlice.flow.blockData);
   const blockName = blockData.find((b: any) => b.blockIdentifier === props.id)?.name;
   const blockLabel = blockData.find((b: any) => b.blockIdentifier === props.id)?.blockLabel;
-  
-  const {directives} = useStore((state)=> state.alertSlice);
-  const { toggleConfirmationModal, setConfirmationModalActions } = useStore((state) => state.modalWindowsSlice);
-  const selectedBlock = flow.visual.blocks.find((b: Node<any>) => b.selected);
 
-  useEffect(() => {
-    if (selectedBlock?.id === props.id) {
-      setIsOutlined(true);
-      return
-    }
-    setIsOutlined(false);
+  const { directives } = useStore((state) => state.alertSlice);
+  const { toggleConfirmationModal, setConfirmationModalActions } = useStore((state) => state.modalWindowsSlice);
+
+  const selectedBlockId = useMemo(() => {
+    const selectedBlock = flow.visual.blocks.find((b: Node<any>) => b.selected);
+    return selectedBlock ? selectedBlock.id : null;
   }, [flow.visual.blocks]);
 
-  const getDefaultBlockDirective = ()=>{
-    const dir = flow.blockData.find((block:IBlockData)=>block.blockIdentifier === props.id)?.ehDirective;
+  const matchedIcon = useMemo(() => Object.entries(connectionsIcons.nodeIcons).find(
+    ([key]) => key === props.icon.toLowerCase()
+  )?.[1], [props.icon])
 
+  useEffect(() => {
+    setIsOutlined(selectedBlockId === props.id);
+  }, [selectedBlockId, props.id]);
+
+  const getDefaultBlockDirective = () => {
+    const dir = flow.blockData.find((block: IBlockData) => block.blockIdentifier === props.id)?.ehDirective;
     return dir ? dir : "undefined"
   }
 
-  const nodeBodyClasses = `${s.node_body} ${isDarkBackground(props.data.color) ? s["dark-text"] : s["light-text"]
-    }`;
-  const iconBodyClasses = `${s.node_icon} ${isDarkBackground(props.data.color) ? s["dark-text"] : s["light-text"]
-    }`;
-  const wrapperClasses = `${s.node_wrapper} ${isOutlined ? s["outlined"] : s["standart"]
-    }`;
-
-  const matchedIcon = Object.entries(connectionsIcons.nodeIcons).find(
-    ([key]) => key === props.icon.toLowerCase()
-  )?.[1];
-
-
   return (
-    <div className={wrapperClasses}>
+    <div className={`${s.node_wrapper} ${isOutlined ? s["outlined"] : s["standart"]}`}>
       {isOutlined ? <div className={s.delete_btn_wrapper}><button onClick={() => {
         setConfirmationModalActions(deleteBlock)
         toggleConfirmationModal(true, `You are about to delete ${blockLabel} block. Would you like to proceed?`)
@@ -67,16 +58,18 @@ export default function BaseNode(props: any) {
           getBlockProperties()
         }
         }
-        className={nodeBodyClasses}
+        className={`${s.node_body} ${isDarkBackground(props.data.color) ? s["dark-text"] : s["light-text"]
+          }`}
         style={{ backgroundColor: props.data.color, zIndex: 999999 }}
       >
         <div className={s.node_icon_container}>
-          <div className={iconBodyClasses}>{matchedIcon}</div>
+          <div className={`${s.node_icon} ${isDarkBackground(props.data.color) ? s["dark-text"] : s["light-text"]
+            }`}>{matchedIcon}</div>
         </div>
         <div className={s.node_title}>{blockName}</div>
         <div className={s.node_label}>{blockLabel}</div>
         <div className={s.directions_wrapper}>
-         {getDefaultBlockDirective() !== "undefined" ?  <select value={getDefaultBlockDirective()} onChange={(e) => setDirective(e.target.value)}>
+          {getDefaultBlockDirective() !== "undefined" ? <select value={getDefaultBlockDirective()} onChange={(e) => setDirective(e.target.value)}>
             <option value="null">Select Directive</option>
             {directives.length > 0 ? directives.map((directive: IDirective) => <option key={directive.ehControlId} value={directive.ehControlId}>{directive.name}</option>) : <option value={"null"}>-</option>}
           </select> : null}

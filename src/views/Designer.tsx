@@ -1,14 +1,13 @@
-import TopMenu from "./TopMenu/TopMenu";
-import LeftPanel from "./LeftPanel/LeftPanel";
-import RightPanel from "./RightPanel/RightPanel";
+import DesignerNav from "../components/Designer/TopMenu/DesignerNav";
+import LeftPanel from "../components/Designer/LeftPanel/LeftPanel";
+import RightPanel from "../components/Designer/RightPanel/RightPanel";
 import Flow from "./Flow";
-import useStore from "../../store/store";
+import useStore from "../store/store";
 import { useEffect, useState } from "react";
-import { getBlocks } from "../../api/data";
-import Substitutions from "./Substitutions/Substitutions";
-import BlocksWidget from "./BlocksWidget/BlocksWidget";
-import { getAllselectedBlockIDs } from "../../store/actions/groupActions";
-import { ReactFlowProvider } from "reactflow";
+import { getBlocks } from "../api/data";
+import Substitutions from "../components/Designer/Substitutions/Substitutions";
+import BlocksWidget from "../components/Designer/BlocksWidget/BlocksWidget";
+import { getAllselectedBlockIDs } from "../store/actions/groupActions";
 
 function Designer() {
   const getBlocksList = useStore((store) => store.getBlocksList);
@@ -56,7 +55,7 @@ function Designer() {
   };
   return (
     <div className="App">
-      <TopMenu></TopMenu>
+      <DesignerNav></DesignerNav>
       <div
         className={`${isRightPanelExpanded ? "resized_dynamic_menu" : "dynamic_menu"
           }`}

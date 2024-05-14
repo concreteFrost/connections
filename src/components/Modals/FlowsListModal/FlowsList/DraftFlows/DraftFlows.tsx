@@ -3,7 +3,7 @@ import { getDraftListApi } from "../../../../../api/draft";
 import s from "./DrafFlows.module.scss";
 import { useState, useEffect } from "react";
 import moment from "moment";
-import { connectionsIcons } from "../../../../../icons/icons";
+import { connectionsIcons } from "../../../../../assets/icons/icons";
 import { ILoadedFlow } from "../../../../../store/interfaces/Iflow";
 
 interface ISectionToOpen {

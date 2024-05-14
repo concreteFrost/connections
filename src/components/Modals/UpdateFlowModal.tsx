@@ -3,8 +3,6 @@ import useStore from "../../store/store";
 import { useEffect } from "react";
 import { getDraftListApi } from "../../api/draft";
 import { checkExistingFlowInDataBase } from "../../store/actions/utils/flowUtils";
-import useEscapeKeyHandler from "../../hooks/useEscapeKeyHandler";
-import { toggleApproveFlowModal } from "../../store/actions/modalActions";
 
 export enum UpdateFlowActions {
   Create,
@@ -13,12 +11,6 @@ export enum UpdateFlowActions {
   LoadLive,
   Quit,
   Close,
-}
-
-interface IDraftFlow {
-  draftId: string;
-  subfolder: string;
-  flowName: string;
 }
 
 function UpdateFlowModal() {

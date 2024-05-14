@@ -1,18 +1,15 @@
-import s from "./TopMenu.module.scss";
+import s from "./DesignerNav.module.scss";
 import CentralPanel from "./CentralPanel/CentralPanel";
 import Settings from "./Settings/Settings";
 import useStore from "../../../store/store";
-import UpdateFlowModal, {
-  UpdateFlowActions,
-} from "../../Modals/UpdateFlowModal";
-import { useEffect, useState, useCallback } from "react";
+import UpdateFlowModal from "../../Modals/UpdateFlowModal";
 import FlowsListModal from "../../Modals/FlowsListModal/FlowsListModal";
 import Profile from "../../Profile/Profile";
 import { IconVariants } from "../../../store/enums/profile";
 import PushNotifications from "../../PushNotifications/PushNotifications";
 import AlertNotifications from "../../AlertsNotifications/AlertNotifications";
 
-function TopMenu() {
+function DesignerNav() {
   const loadFlowModal = useStore(
     (state) => state.modalWindowsSlice.loadFlowModal
   );
@@ -36,4 +33,4 @@ function TopMenu() {
   );
 }
 
-export default TopMenu;
+export default DesignerNav;

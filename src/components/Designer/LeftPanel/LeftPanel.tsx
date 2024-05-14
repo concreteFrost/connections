@@ -4,7 +4,7 @@ import { INodeType } from "../../../store/interfaces/INode";
 import { useRef, useState } from "react";
 import Section from "./Section/Section";
 import { nodeGroup } from "../../../store/constants/nodeConst";
-import { connectionsIcons } from "../../../icons/icons";
+import { connectionsIcons } from "../../../assets/icons/icons";
 
 function LeftPanel() {
   const flowIdentifier = useStore(

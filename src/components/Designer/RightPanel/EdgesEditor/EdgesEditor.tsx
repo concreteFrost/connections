@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import s from "./EdgesEditor.module.scss";
 import useStore from "../../../../store/store";
-import { connectionsIcons } from "../../../../icons/icons";
+import { connectionsIcons } from "../../../../assets/icons/icons";
 
 export interface IEdgeDraggable {
   blockName: string;
