@@ -9,7 +9,7 @@ function SwitchToServerView() {
 
   function saveAndLeave() {
     navigate("/dashboard/servers");
-    modalSlice.toggleMessageModal();
+    modalSlice.toggleMessageModal("");
   }
 
   function leaveWithoutSaving() {

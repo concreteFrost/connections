@@ -10,7 +10,7 @@ function CurrentAlertsTable() {
   const navigate = useNavigate();
 
   const [alerts, setAlerts] = useState<Array<IAlert>>();
-  const {setModalMessage,toggleMessageModal} =useStore((state)=>state.modalWindowsSlice);
+  const {toggleMessageModal} =useStore((state)=>state.modalWindowsSlice);
 
   useEffect(() => {
     getAlertsApi(true).then((res: any) => {
@@ -36,8 +36,7 @@ function CurrentAlertsTable() {
       console.log('result of reading alert',res.data)
 
       if(!res.data.success){
-        toggleMessageModal()
-        setModalMessage(res.data.message)
+        toggleMessageModal(res.data.message)
       }
     } catch (error) {
       console.log('error reading the alert',error);

@@ -1,13 +1,14 @@
 import { RFState } from "../types/rfState"
 
 //MODAL WITH MESSAGE
-export const toggleMessageModal = (get: () => RFState, set: any) => () => {
+export const toggleMessageModal = (get: () => RFState, set: any) => (message:string) => {
     set((state: RFState) => ({
         modalWindowsSlice: {
             ...state.modalWindowsSlice,
             messageModal: {
                 ...state.modalWindowsSlice.messageModal,
-                isVisible: !state.modalWindowsSlice.messageModal.isVisible
+                isVisible: !state.modalWindowsSlice.messageModal.isVisible,
+                message: message
             }
         }
     }))

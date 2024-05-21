@@ -5,7 +5,6 @@ import {
   INotification,
   INotificationType,
 } from "../../../store/interfaces/INotification";
-import { v4 as uuid } from "uuid";
 import useStore from "../../../store/store";
 import { IGroup, IUser } from "../../../store/interfaces/ISecurity";
 
@@ -62,11 +61,10 @@ function AddNotificationForm() {
       if (res.data.success) {
         await getNotificationsList();
         // setFormElements(defaultFormState);
-        modalSlice.setModalMessage("success!!!");
+        modalSlice.toggleMessageModal("success!!!");
       } else {
-        modalSlice.setModalMessage(res.data.message);
+        modalSlice.toggleMessageModal(res.data.message);
       }
-      modalSlice.toggleMessageModal();
     } catch (e) {
       console.log("error addin new note");
     }

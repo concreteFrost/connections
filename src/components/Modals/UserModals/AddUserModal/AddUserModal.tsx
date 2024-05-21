@@ -28,7 +28,7 @@ function AddUserModal(props: EditUserModalProps) {
 
     const { addUser, getUserList, groupList, rolesList, generatePassword, getGroupList } = useStore((state) => state.securitySlice);
     const [newUser, setNewUser] = useState<INewUser>(initialUser);
-    const { toggleMessageModal, setModalMessage } = useStore((state) => state.modalWindowsSlice);
+    const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
 
     function setTextProps(propName: keyof INewUser, value: any) {
         if (newUser) {
@@ -78,14 +78,14 @@ function AddUserModal(props: EditUserModalProps) {
         try {
             {
                 const res: any = await addUser(newUser);
-                await toggleMessageModal();
+              
                 if (res.data.success) {
-                    await setModalMessage('success!!!');
+                    await toggleMessageModal("success!!!");
                     await getUserList();
                     await getGroupList()
                     await props.toggleAddUserModal(false)
                 } else {
-                    await setModalMessage(res.data.message);
+                    await toggleMessageModal(res.data.message);
                 }
             }
         } catch (e) {

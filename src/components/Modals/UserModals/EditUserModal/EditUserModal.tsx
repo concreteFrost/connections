@@ -12,7 +12,7 @@ interface EditUserModalProps {
 function EditUserModal(props: EditUserModalProps) {
 
     const { userToEdit, groupList, rolesList, updateUser, getRolesList, generatePassword, resetPassword, getUserList,getGroupList } = useStore((state) => state.securitySlice);
-    const { toggleMessageModal, setModalMessage } = useStore((state) => state.modalWindowsSlice);
+    const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
     const [_userToEdit, setUserToEdit] = useState<IUser | null>(userToEdit);
     const [isResetPasswordActive, setResetPasswordActive] = useState<boolean>(false);
     const [newPassword, setNewPassword] = useState<string>('');
@@ -33,12 +33,11 @@ function EditUserModal(props: EditUserModalProps) {
             try {
                 const res:any = await resetPassword(userToEdit?.userId, newPassword, emailUserPassword);
                 if(!res.data.success){    
-                    setModalMessage(res.data.message);    
+                    toggleMessageModal(res.data.message);    
                 }
                 else{
-                    setModalMessage('success!!!')
+                    toggleMessageModal('success!!!')
                 }
-                toggleMessageModal()
             }
             catch (e) {
                 console.log('error reseting user password', e)
@@ -95,13 +94,12 @@ function EditUserModal(props: EditUserModalProps) {
                 const res: any = await updateUser(_userToEdit);
                 
                 if (res.data.success) {
-                    await setModalMessage('success!!!');
+                    await toggleMessageModal('success!!!');
                     await getUserList();
                     await props.toggleEditUser(false);
                 } else {
-                    await setModalMessage(res.data.message);
+                    await toggleMessageModal(res.data.message);
                 }
-                toggleMessageModal();
             }
         } catch (e) {
             console.error(e);

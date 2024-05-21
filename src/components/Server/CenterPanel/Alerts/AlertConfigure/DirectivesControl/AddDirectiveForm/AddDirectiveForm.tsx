@@ -45,7 +45,7 @@ function AddDirectiveForm(props: DirectiveFormProps) {
   const { addDirective } = useStore((state) => state.alertSlice);
   const [newDirective, setNewDirective] =
     useState<IDirective>(initialDirective);
-  const { setModalMessage, toggleMessageModal } = useStore(
+  const { toggleMessageModal } = useStore(
     (state) => state.modalWindowsSlice
   );
 
@@ -99,30 +99,30 @@ function AddDirectiveForm(props: DirectiveFormProps) {
         const updatedDirectives = prevState.directives.filter(
           (_, index) => index !== configIndex
         );
-  
+
         // updating directive order
         const reorderedDirectives = updatedDirectives.map((directive, index) => ({
           ...directive,
           directiveOrder: index + 1,
         }));
-  
+
         return {
           ...prevState,
           directives: reorderedDirectives,
         };
       });
     } else {
-      setModalMessage("Directive needs to have at least 1 configuration");
-      toggleMessageModal();
+      toggleMessageModal("Directive needs to have at least 1 configuration");
+
     }
   }
-  
+
 
   function addDirectiveConfig() {
     setNewDirective((prevState) => {
       const updatedDirective = {
         ...prevState,
-        directives: [...prevState.directives, {...initialDirectiveConfig, directiveOrder: prevState.directives.length+1}],
+        directives: [...prevState.directives, { ...initialDirectiveConfig, directiveOrder: prevState.directives.length + 1 }],
       };
       return updatedDirective;
     });
@@ -133,23 +133,21 @@ function AddDirectiveForm(props: DirectiveFormProps) {
       const res: any = await addDirective(newDirective);
 
       if (res.data.success === false) {
-        setModalMessage(res.data.message);
-        toggleMessageModal();
+        toggleMessageModal(res.data.message);
+
         return;
       }
 
       const data: IDirective = res.data;
 
-      setModalMessage("success!!!");
-      toggleMessageModal();
+      toggleMessageModal("success!!!");
       props.setAddDirectiveFormVisible(false);
 
       props.setDirectives([...props.directives, data]);
 
       // await props.fetchDirectives();
     } catch (error) {
-      setModalMessage("error while adding new directive");
-      toggleMessageModal();
+      toggleMessageModal("error while adding new directive");
     }
   }
   const handleSubmit = (e: any) => {

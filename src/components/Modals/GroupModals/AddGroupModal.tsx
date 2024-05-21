@@ -22,7 +22,7 @@ function AddGroupModal(props: EditUserModalProps) {
 
     const { userList, createGroup, getGroupList } = useStore((state) => state.securitySlice);
 
-    const { toggleMessageModal, setModalMessage } = useStore((state) => state.modalWindowsSlice);
+    const { toggleMessageModal} = useStore((state) => state.modalWindowsSlice);
     const [newGroup, setNewGroup] = useState<IGroup>(initialGroup);
 
     function setGroupProps(propName: keyof IGroup, value: any) {
@@ -43,8 +43,8 @@ function AddGroupModal(props: EditUserModalProps) {
                 await props.toggleAddGroupModal(false)
             }
             else {
-                toggleMessageModal();
-                setModalMessage(res.data.message)
+                toggleMessageModal(res.data.message);
+                // setModalMessage(res.data.message)
             }
 
 

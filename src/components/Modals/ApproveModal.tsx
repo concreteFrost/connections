@@ -7,7 +7,7 @@ function ApproveModal() {
   const {
     approveFlowModal,
     toggleApproveFlowModal,
-    setModalMessage,
+    // setModalMessage,
     toggleMessageModal,
   } = useStore((state) => state.modalWindowsSlice);
 
@@ -16,8 +16,8 @@ function ApproveModal() {
   const [keepDraft, setKeepDraft] = useState<boolean>(false);
 
   function showMessageOnApproval(message: string) {
-    setModalMessage(message);
-    toggleMessageModal();
+    // setModalMessage(message);
+    toggleMessageModal(message);
     toggleApproveFlowModal(false, "");
   }
 

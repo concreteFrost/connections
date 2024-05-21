@@ -35,13 +35,12 @@ function NotificationEditor() {
       if (currentNotification) {
         const res: any = await updateNotification(currentNotification);
         if (res.data.success) {
-          await modalSlice.setModalMessage("success!!!");
+          await modalSlice.toggleMessageModal("success!!!");
           await getNotificationsList();
         }
         else {
-          await modalSlice.setModalMessage(res.data.message);
+          await modalSlice.toggleMessageModal(res.data.message);
         }
-        await modalSlice.toggleMessageModal();
       }
     } catch (e) {
       console.log('error updating notification', e)

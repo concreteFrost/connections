@@ -35,12 +35,11 @@ export type ModalWindows = {
     },
 
     toggleUpdateFlowModal: (isVisible: boolean) => void;
-    toggleMessageModal: () => void;
+    toggleMessageModal: (message:string) => void;
     toggleApproveFlowModal: (isVisible: boolean, draftIdToApprove: string) => void;
     toggleCreateTemplateFlowModal: (isVisible: boolean, liveFlowID?: string, liveFlowName?: string) => void;
     toggleLoadFlowModal: (isVisible: boolean) => void;
     setApproveFlowModalMessage: (message: string) => void;
-    setModalMessage: (message: string) => void;
     setUpdateFlowSubfolderName: (subfolder: string) => void;
     setUpdateFlowModalSaveChanges: (saveChanges: boolean) => void;
     setUpdateFlowModalActions: (actions: { save: (args?: any) => void, discard: (args: any) => void }) => void;
@@ -86,7 +85,6 @@ const modalWindowsSlice = (get: any, set: any): ModalWindows => ({
 
     toggleUpdateFlowModal: modalActions.toggleUpdateFlowModal(get, set),
     toggleMessageModal: modalActions.toggleMessageModal(get, set),
-    setModalMessage: modalActions.setModalMessage(get, set),
     setUpdateFlowSubfolderName: modalActions.setUpdateFlowSubfolderName(get, set),
     toggleApproveFlowModal: modalActions.toggleApproveFlowModal(get, set),
     toggleCreateTemplateFlowModal: modalActions.toggleCreateTemplateFlowModal(get, set),

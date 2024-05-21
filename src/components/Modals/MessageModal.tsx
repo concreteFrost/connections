@@ -15,7 +15,7 @@ function MessageModal() {
                 </main>
                 <footer className={s.modal_footer}>
                     <div className={s.buttons_wrapper}>
-                        <button onClick={toggleMessageModal}>OK</button>
+                        <button onClick={()=>toggleMessageModal("")}>OK</button>
                     </div>
                 </footer>
             </div>

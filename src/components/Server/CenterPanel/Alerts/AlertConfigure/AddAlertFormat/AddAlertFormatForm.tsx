@@ -27,7 +27,7 @@ interface AlertFormatProps {
 function AddAlertFormatForm(props: AlertFormatProps) {
   const { addAlertFormat } = useStore((state) => state.alertSlice);
   const [newAlertFormat, setNewAlertFormat] = useState<INewAlertFormat>(initialAlertFormat);
-  const { setModalMessage, toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
+  const {toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
 
 
   const editNewAlertValues = (key: keyof INewAlertFormat, value: any) => {
@@ -42,21 +42,20 @@ function AddAlertFormatForm(props: AlertFormatProps) {
       const res: any = await addAlertFormat(newAlertFormat);
       
       if (res.data.success === false) {
-        setModalMessage(res.data.message);
-        toggleMessageModal();
+        
+        toggleMessageModal(res.data.message);
         return;
       }
 
       const data : IAlertFormat = res.data;
 
-      setModalMessage("success!!!");
-      toggleMessageModal();
+      toggleMessageModal("success!!!");
+
       props.setAlertFormatVisible(false);
       props.setAlertFormats([...props.alertFormats, data])
 
     } catch (error) {
-      setModalMessage("error while adding new alert format");
-      toggleMessageModal();
+      toggleMessageModal("error while adding new alert format");
     }
   }
   const handleSubmit = (e: any) => {

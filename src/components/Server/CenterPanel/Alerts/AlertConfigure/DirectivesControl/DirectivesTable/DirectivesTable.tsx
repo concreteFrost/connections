@@ -33,10 +33,8 @@ interface DirectivesTableProps {
   flowList: Array<IFlowConfig>;
 }
 
-
 function DirectivesTable(props: DirectivesTableProps) {
   const {
-    setModalMessage,
     toggleMessageModal,
     setConfirmationModalActions,
     toggleConfirmationModal,
@@ -70,28 +68,24 @@ function DirectivesTable(props: DirectivesTableProps) {
       setDisplayedDirectives(props.directives.slice(startIndex, endIndex));
     }
   }, [props.directives, currentPage]);
-  
 
   async function handleDirectiveUpdate(directive: IDirective) {
     try {
       const res: any = await updateDirective(directive);
-      setModalMessage(res.data.success ? "sucess!!!" : res.data.message);
-      toggleMessageModal();
+      toggleMessageModal(res.data.success ? "sucess!!!" : res.data.message);
 
       if (!res.data.success) {
         await props.fetchDirectives();
       }
     } catch (e) {
-      setModalMessage("Internal Server Error");
-      toggleMessageModal();
+      toggleMessageModal("Internal Server Error");
     }
   }
 
   async function handleDirectiveDelete(ehControlId: number) {
     try {
       const res: any = await deleteDirective(ehControlId);
-      setModalMessage(res.data.success ? "sucess!!!" : res.data.message);
-      toggleMessageModal();
+      toggleMessageModal(res.data.success ? "sucess!!!" : res.data.message);
 
       if (res.data.success) {
         const filteredDirectives = props.directives.filter(
@@ -167,8 +161,8 @@ function DirectivesTable(props: DirectivesTableProps) {
     )!;
 
     if (directiveToUpdate.directives.length <= 1) {
-      setModalMessage("Directive needs to have at least 1 configuration");
-      toggleMessageModal();
+      toggleMessageModal("Directive needs to have at least 1 configuration");
+
       return;
     }
 

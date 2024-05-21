@@ -24,8 +24,8 @@ function LiveFlows() {
         modalSlice.toggleLoadFlowModal(false)    
       }
     } catch (error) {
-      modalSlice.setModalMessage("Something went wrong");
-      modalSlice.toggleMessageModal();
+      // modalSlice.setModalMessage("Something went wrong");
+      modalSlice.toggleMessageModal("Something went wrong");
     }
 
     modalSlice.toggleUpdateFlowModal(false);
@@ -42,8 +42,8 @@ function LiveFlows() {
       }
     } catch (error) {
       
-      modalSlice.setModalMessage("Something went wrong");
-      modalSlice.toggleMessageModal();
+      // modalSlice.setModalMessage("Something went wrong");
+      modalSlice.toggleMessageModal("Something went wrong");
     }
 
     modalSlice.toggleUpdateFlowModal(false);

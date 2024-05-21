@@ -16,7 +16,7 @@ const PAGE_SIZE = 5;
 
 function AlertFormatTable(props: AlertFormatTableProps) {
     const { getAlertFormats, updateAlertFormat, deleteAlertFormat } = useStore((state) => state.alertSlice);
-    const { toggleMessageModal, setModalMessage, toggleConfirmationModal, setConfirmationModalActions } = useStore((state) => state.modalWindowsSlice)
+    const { toggleMessageModal, toggleConfirmationModal, setConfirmationModalActions } = useStore((state) => state.modalWindowsSlice)
     const [displayedAlertFormats, setDisplayedAlertFormats] = useState<Array<IAlertFormat>>([]);
 
     const [currentAlertIndex, setCurrentAlertIndex] = useState<Number>(-1);
@@ -56,8 +56,8 @@ function AlertFormatTable(props: AlertFormatTableProps) {
         try {
             const res: any = await updateAlertFormat(alertFormat);
 
-            setModalMessage(res.data.success ? "success!!!" : res.data.message);
-            toggleMessageModal()
+            toggleMessageModal(res.data.success ? "success!!!" : res.data.message);
+
 
             if (res.data.success) {
                 const alertFormatsData = await getAlertFormats();
@@ -74,8 +74,7 @@ function AlertFormatTable(props: AlertFormatTableProps) {
         try {
             const res: any = await deleteAlertFormat(alertFormatId);
 
-            setModalMessage(res.data.success ? "success!!!" : res.data.message);
-            toggleMessageModal();
+            toggleMessageModal(res.data.success ? "success!!!" : res.data.message);
 
             if (res.data.success) {
                 const filteredAlerts = props.alertFormats.filter((alert: IAlertFormat) => alert.alertFormatId !== alertFormatId);
