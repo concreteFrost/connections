@@ -2,20 +2,25 @@ import useStore from "../../../../../store/store";
 import PropertiesInput from "./PropertiesInput/PropertiesInput";
 import s from "./Block.module.scss";
 import { IBlockData } from "../../../../../store/interfaces/IBlock";
+import { useMemo } from "react";
 
 function Block() {
-  const blockData = useStore<IBlockData | undefined>((state) => state.flowSlice.flow.blockData.find((x: IBlockData) => x.blockIdentifier === state.flowSlice.flow.visual.blocks.find((b)=>b.selected)?.id));
+  const blockData = useStore<IBlockData | undefined>((state) => {
+    const selectedBlockId = state.flowSlice.flow.visual.blocks.find((b) => b.selected)?.id;
+    return state.flowSlice.flow.blockData.find((x: IBlockData) => x.blockIdentifier === selectedBlockId);
+  });
+
+  // Memoize blockData to avoid unnecessary calculations
+  const memoizedBlockData = useMemo(() => blockData, [blockData]);
 
   return (
     <div className={s.wrapper}>
       <h5>BLOCK</h5>
       <ul>
-        {blockData?.parameters && blockData.parameters.length > 0
-          ? Object.entries(blockData.parameters).map(([key, val]: Array<any>) => (
+        {memoizedBlockData?.parameters && memoizedBlockData.parameters.length > 0
+          ? Object.entries(memoizedBlockData.parameters).map(([key, val]: Array<any>) => (
             <li key={key} className={s.list_item}>
-              <PropertiesInput
-                blockData={val}
-              ></PropertiesInput>
+              <PropertiesInput blockData={val} />
             </li>
           ))
           : null}

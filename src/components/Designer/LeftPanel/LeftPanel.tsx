@@ -20,6 +20,7 @@ function LeftPanel() {
     isPanelActive ? s["opened"] : s["closed"]
   }`;
 
+  
   return (
     <div className={wrapperClasses} ref={leftPanelRef}>
       <div className={toggleBtnClasses}>

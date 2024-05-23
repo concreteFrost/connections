@@ -45,9 +45,7 @@ function AddDirectiveForm(props: DirectiveFormProps) {
   const { addDirective } = useStore((state) => state.alertSlice);
   const [newDirective, setNewDirective] =
     useState<IDirective>(initialDirective);
-  const { toggleMessageModal } = useStore(
-    (state) => state.modalWindowsSlice
-  );
+  const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
 
   const editDirective = (key: keyof IDirective, value: any) => {
     setNewDirective((prevState) => ({
@@ -101,10 +99,12 @@ function AddDirectiveForm(props: DirectiveFormProps) {
         );
 
         // updating directive order
-        const reorderedDirectives = updatedDirectives.map((directive, index) => ({
-          ...directive,
-          directiveOrder: index + 1,
-        }));
+        const reorderedDirectives = updatedDirectives.map(
+          (directive, index) => ({
+            ...directive,
+            directiveOrder: index + 1,
+          })
+        );
 
         return {
           ...prevState,
@@ -113,16 +113,20 @@ function AddDirectiveForm(props: DirectiveFormProps) {
       });
     } else {
       toggleMessageModal("Directive needs to have at least 1 configuration");
-
     }
   }
-
 
   function addDirectiveConfig() {
     setNewDirective((prevState) => {
       const updatedDirective = {
         ...prevState,
-        directives: [...prevState.directives, { ...initialDirectiveConfig, directiveOrder: prevState.directives.length + 1 }],
+        directives: [
+          ...prevState.directives,
+          {
+            ...initialDirectiveConfig,
+            directiveOrder: prevState.directives.length + 1,
+          },
+        ],
       };
       return updatedDirective;
     });
@@ -134,7 +138,6 @@ function AddDirectiveForm(props: DirectiveFormProps) {
 
       if (res.data.success === false) {
         toggleMessageModal(res.data.message);
-
         return;
       }
 

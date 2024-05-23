@@ -43,7 +43,6 @@ const ButtonEdge: React.FC<any> = ({
     setPriorityVisible(moreThanOneEdge.length > 1 ? true : false);
   }, [edges]);
 
-
   return (
     <>
       <path

@@ -14,31 +14,30 @@ interface PropertiesInputProps {
 }
 
 function PropertiesInput(props: PropertiesInputProps) {
-  const state = useStore((state) => state);
+  const flowSlice = useStore((state) => state.flowSlice);
 
   const [selection, setSelection] = useState<ISelection>({ index: 0, value: '' })
-
   function setCurrentParameter(parameterName: string, value: any) {
     const format = String(props.blockData.format); 
     switch (format) {
       case "0":
-        return state.flowSlice.setStringParameter(parameterName, value);
+        return flowSlice.setStringParameter(parameterName, value);
       case "1":
-        return state.flowSlice.setIntegerParameter(parameterName, value);
+        return flowSlice.setIntegerParameter(parameterName, value);
       case "2":
-        return state.flowSlice.setFloatParameter(parameterName, value);
+        return flowSlice.setFloatParameter(parameterName, value);
       case "3":
-        return state.flowSlice.setDateTimeParameter(parameterName, value);
+        return flowSlice.setDateTimeParameter(parameterName, value);
       case "4":
-        return state.flowSlice.setBooleanParameter(parameterName, value);
+        return flowSlice.setBooleanParameter(parameterName, value);
       case "5":
-        return state.flowSlice.setBooleanYNParameter(parameterName, value);
+        return flowSlice.setBooleanYNParameter(parameterName, value);
       case "6":
-        return state.flowSlice.setExecutionParameter(parameterName, value);
+        return flowSlice.setExecutionParameter(parameterName, value);
       case "7":
-        return state.flowSlice.setBigIntParameter(parameterName, value);
+        return flowSlice.setBigIntParameter(parameterName, value);
       default:
-        return state.flowSlice.setStringParameter(parameterName, value);
+        return flowSlice.setStringParameter(parameterName, value);
     }
   }
 
