@@ -4,7 +4,7 @@ import {
   OnConnect,
 } from "react-flow-renderer";
 
-import { INodeType } from "../interfaces/INode";
+import { NodeType } from "../interfaces/INode";
 import { TopPanelSlice } from "../slices/topPanelSlice";
 import { ModalWindows } from "../slices/modalWindowsSlice";
 import { FlowSlice } from "../slices/flowSlice";
@@ -17,7 +17,7 @@ import { UserSlice } from "../slices/userSlice";
 
 export type RFState = {
 
-  blockList: INodeType[];
+  blockList: NodeType[];
   flowSlice: FlowSlice,
   topPanelSlice: TopPanelSlice,
   modalWindowsSlice: ModalWindows,

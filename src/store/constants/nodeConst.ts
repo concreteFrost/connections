@@ -1,6 +1,6 @@
-import { INodeGroup } from "../interfaces/INode";
+import { NodeGroup } from "../interfaces/INode";
 
-export const nodeGroup: INodeGroup = {
+export const nodeGroup: NodeGroup = {
     dataGroup: "DataStore",
     externalGroup: "External",
     functionGroup: "Function",

@@ -17,12 +17,12 @@ import {
   updateUserAPI,
 } from "../../api/security";
 import {
-  IUser,
-  IGroup,
-  INewUser,
-  IGroupWithUsers,
+  User,
+  Group,
+  NewUser,
+  GroupWithUsers,
 } from "../interfaces/ISecurity";
-import { ILogObject } from "../interfaces/IServer";
+import { LogObject } from "../interfaces/IServer";
 import { RFState } from "../types/rfState";
 
 // const getUser = (get: () => RFState, set: any) => async (userId: string) => {
@@ -70,7 +70,7 @@ const setAppUserPassword = (get: () => RFState, set: any) => (pass: string) => {
   }));
 };
 
-const getUser = (get: () => RFState, set: any) => (user: IUser) => {
+const getUser = (get: () => RFState, set: any) => (user: User) => {
   set((state: RFState) => ({
     securitySlice: {
       ...state.securitySlice,
@@ -82,7 +82,7 @@ const getUser = (get: () => RFState, set: any) => (user: IUser) => {
 const getUserList = (get: () => RFState, set: any) => async () => {
   try {
     const res: any = await getUserListAPI();
-    const data: Array<IUser> = res.data.users;
+    const data: Array<User> = res.data.users;
 
     set((state: RFState) => ({
       securitySlice: {
@@ -98,7 +98,7 @@ const getUserList = (get: () => RFState, set: any) => async () => {
 const getRoleList = (get: () => RFState, set: any) => async () => {
   try {
     const res: any = await getRoleListAPI();
-    const data: Array<IGroup> = res.data;
+    const data: Array<Group> = res.data;
 
     set((state: RFState) => ({
       securitySlice: {
@@ -112,7 +112,7 @@ const getRoleList = (get: () => RFState, set: any) => async () => {
 };
 
 const updateUser =
-  (get: () => RFState, set: any) => async (userRecord: IUser) => {
+  (get: () => RFState, set: any) => async (userRecord: User) => {
     try {
       const res = await updateUserAPI(userRecord);
       return res;
@@ -122,7 +122,7 @@ const updateUser =
   };
 
 const addUser =
-  (get: () => RFState, set: any) => async (userRecord: INewUser) => {
+  (get: () => RFState, set: any) => async (userRecord: NewUser) => {
     try {
       const res: any = await addUserAPI(userRecord);
       return res;
@@ -169,7 +169,7 @@ const getGroupList = (get: () => RFState, set: any) => async () => {
   try {
     console.log('getting group list')
     const res: any = await getGroupListAPI();
-    const data: Array<IGroup> = res.data.groups;
+    const data: Array<Group> = res.data.groups;
     set((state: RFState) => ({
       securitySlice: {
         ...state.securitySlice,
@@ -185,10 +185,10 @@ const getGroupMembers =
   (get: () => RFState, set: any) => async (groupdId: string) => {
     try {
       const res: any = await getGroupMembersAPI(groupdId);
-      const data: IUser[] = res.data.users;
+      const data: User[] = res.data.users;
 
       const groupToUpdate = get().securitySlice.groupList.find(
-        (group: IGroup) => group.groupId === groupdId
+        (group: Group) => group.groupId === groupdId
       );
 
       if (groupToUpdate) {
@@ -208,7 +208,7 @@ const getGroupMembers =
   };
 
 const addGroup =
-  (get: () => RFState, set: any) => async (groupRecord: IGroup) => {
+  (get: () => RFState, set: any) => async (groupRecord: Group) => {
     try {
       const res: any = await createGroupAPI(groupRecord);
       return res;

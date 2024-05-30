@@ -7,11 +7,11 @@ import TextSearch from "./LogSearchElements/TextSearch";
 import LogTable from "./LogTable/LogTable";
 import { getDataLogsAPI } from "../../../../../api/data";
 import useStore from "../../../../../store/store";
-import { IFlowConfig } from "../../../../../store/interfaces/Iflow";
-import { IBlockLookup } from "../../../../../store/interfaces/IBlock";
-import { ILogSearchQuery } from "../../../../../store/interfaces/IServer";
+import { FlowConfig } from "../../../../../store/interfaces/IFlow";
+import { BlockLookup } from "../../../../../store/interfaces/IBlock";
+import { LogSearchQuery } from "../../../../../store/interfaces/IServer";
 
-const initialLogSearchQuery: ILogSearchQuery = {
+const initialLogSearchQuery: LogSearchQuery = {
   type: undefined,
   status: undefined,
   flowId: undefined,
@@ -22,16 +22,16 @@ const initialLogSearchQuery: ILogSearchQuery = {
 };
 
 function LogSearch(props: { setCurrentView: (view: string) => void }) {
-  const [logSearchQuery, setLogSearchQuery] = useState<ILogSearchQuery>(
+  const [logSearchQuery, setLogSearchQuery] = useState<LogSearchQuery>(
     initialLogSearchQuery
   );
-  const [loadedLiveFlows, setLoadedLiveFlows] = useState<Array<IFlowConfig>>(
+  const [loadedLiveFlows, setLoadedLiveFlows] = useState<Array<FlowConfig>>(
     []
   );
-  const [loadedBlocks, setLoadedBlocks] = useState<Array<IBlockLookup>>([]);
+  const [loadedBlocks, setLoadedBlocks] = useState<Array<BlockLookup>>([]);
   const { setLogList } = useStore((state) => state.serverSlice);
 
-  const updateLogSearchQuery = (key: keyof ILogSearchQuery, value: any) => {
+  const updateLogSearchQuery = (key: keyof LogSearchQuery, value: any) => {
     if (key in initialLogSearchQuery) {
       // Only update if the key exists in the initialLogSearchQuery
       setLogSearchQuery((prevQuery) => ({

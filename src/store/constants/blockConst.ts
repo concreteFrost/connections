@@ -1,6 +1,6 @@
-import { IBlockParameters } from "../interfaces/IBlock";
+import { BlockParameters } from "../interfaces/IBlock";
 
-const blockParametersType: { [key: string]: IBlockParameters } = {
+const blockParametersType: { [key: string]: BlockParameters } = {
     string: {  name:"", value: "", format: "0", constraints:0, placeholder:"string" },
     integer: { name:"", value: 0, format: "1", constraints:0,  },
     float: { name:"", value: 0, format: "2", constraints:0,  },

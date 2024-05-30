@@ -2,16 +2,16 @@ import useStore from "../../../../../../../store/store";
 import { useState, useEffect } from "react";
 import s from "./DirectivesTable.module.scss";
 import {
-  IDirective,
-  IDirectiveConfig,
+  Directive,
+  DirectiveConfig,
 } from "../../../../../../../store/interfaces/IAlerts";
-import { IFlowConfig } from "../../../../../../../store/interfaces/Iflow";
+import { FlowConfig } from "../../../../../../../store/interfaces/IFlow";
 import { connectionsIcons } from "../../../../../../../assets/icons/icons";
 import DirectiveConfigItem from "../AddDirectiveForm/DirectiveConfigItem/DirectiveConfigItem";
 
 const PAGE_SIZE = 6;
 
-const initialDirectiveConfig: IDirectiveConfig = {
+const initialDirectiveConfig: DirectiveConfig = {
   directiveOrder: 1,
   ehControlId: 0,
   ehDirectiveId: 0,
@@ -27,10 +27,10 @@ const initialDirectiveConfig: IDirectiveConfig = {
 };
 
 interface DirectivesTableProps {
-  setDirectives: (directives: Array<IDirective>) => void;
+  setDirectives: (directives: Array<Directive>) => void;
   fetchDirectives: () => void;
-  directives: Array<IDirective>;
-  flowList: Array<IFlowConfig>;
+  directives: Array<Directive>;
+  flowList: Array<FlowConfig>;
 }
 
 function DirectivesTable(props: DirectivesTableProps) {
@@ -48,7 +48,7 @@ function DirectivesTable(props: DirectivesTableProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [displayedDirectives, setDisplayedDirectives] = useState<
-    Array<IDirective>
+    Array<Directive>
   >([]);
 
   useEffect(() => {
@@ -69,7 +69,7 @@ function DirectivesTable(props: DirectivesTableProps) {
     }
   }, [props.directives, currentPage]);
 
-  async function handleDirectiveUpdate(directive: IDirective) {
+  async function handleDirectiveUpdate(directive: Directive) {
     try {
       const res: any = await updateDirective(directive);
       toggleMessageModal(res.data.success ? "sucess!!!" : res.data.message);
@@ -89,7 +89,7 @@ function DirectivesTable(props: DirectivesTableProps) {
 
       if (res.data.success) {
         const filteredDirectives = props.directives.filter(
-          (dir: IDirective) => dir.ehControlId != ehControlId
+          (dir: Directive) => dir.ehControlId !== ehControlId
         );
         props.setDirectives(filteredDirectives);
       }
@@ -98,26 +98,26 @@ function DirectivesTable(props: DirectivesTableProps) {
     }
   }
 
-  function editDirective(id: number, key: keyof IDirective, value: any) {
+  function editDirective(id: number, key: keyof Directive, value: any) {
     if (!props.directives) return;
 
     const updatedDirectives = props.directives.map(
-      (directive: IDirective, index: number) =>
+      (directive: Directive, index: number) =>
         index === id ? { ...directive, [key]: value } : directive
     );
     props.setDirectives(updatedDirectives);
   }
 
   function editDirectiveConfig(
-    directive: IDirective,
+    directive: Directive,
     configIndex: number,
-    key: keyof IDirectiveConfig,
+    key: keyof DirectiveConfig,
     value: any
   ) {
     if (!props.directives) return;
 
-    const directiveToUpdate: IDirective = props.directives.find(
-      (dir: IDirective) => dir.ehControlId === directive.ehControlId
+    const directiveToUpdate: Directive = props.directives.find(
+      (dir: Directive) => dir.ehControlId === directive.ehControlId
     )!;
 
     const updatedConfig = {
@@ -126,7 +126,7 @@ function DirectivesTable(props: DirectivesTableProps) {
     };
     directiveToUpdate.directives[configIndex] = updatedConfig;
 
-    const updatedDirectives = props.directives.map((dir: IDirective) => {
+    const updatedDirectives = props.directives.map((dir: Directive) => {
       if (dir.ehControlId === directiveToUpdate.ehControlId) {
         return directiveToUpdate;
       }
@@ -153,11 +153,11 @@ function DirectivesTable(props: DirectivesTableProps) {
     props.setDirectives(updatedDirectives);
   }
 
-  function deleteDirectiveConfig(directive: IDirective, configIndex: number) {
+  function deleteDirectiveConfig(directive: Directive, configIndex: number) {
     if (!props.directives) return;
 
     const directiveToUpdate = props.directives.find(
-      (dir: IDirective) => dir.ehControlId === directive.ehControlId
+      (dir: Directive) => dir.ehControlId === directive.ehControlId
     )!;
 
     if (directiveToUpdate.directives.length <= 1) {
@@ -173,7 +173,7 @@ function DirectivesTable(props: DirectivesTableProps) {
       directiveToUpdate.directives[i].directiveOrder = i + 1;
     }
 
-    const updatedDirectives = props.directives.map((dir: IDirective) => {
+    const updatedDirectives = props.directives.map((dir: Directive) => {
       if (dir.ehControlId === directiveToUpdate.ehControlId) {
         return directiveToUpdate;
       }
@@ -221,7 +221,7 @@ function DirectivesTable(props: DirectivesTableProps) {
             </thead>
             <tbody>
               {displayedDirectives &&
-                displayedDirectives.map((directive: IDirective, index: any) => (
+                displayedDirectives.map((directive: Directive, index: any) => (
                   <tr
                     key={index}
                     onClick={() => {
@@ -287,7 +287,7 @@ function DirectivesTable(props: DirectivesTableProps) {
                         {directive.directives.length > 0 ? (
                           directive.directives.map(
                             (
-                              config: IDirectiveConfig,
+                              config: DirectiveConfig,
                               config_index: number
                             ) => (
                               <DirectiveConfigItem

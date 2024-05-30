@@ -1,7 +1,7 @@
 import s from "./NotificationEditor.module.scss";
 import useStore from "../../../store/store";
-import { INotificationType } from "../../../store/interfaces/INotification";
-import { IUser, IGroup } from "../../../store/interfaces/ISecurity";
+import { NotificationType } from "../../../store/interfaces/INotification";
+import { User, Group } from "../../../store/interfaces/ISecurity";
 
 function NotificationEditor() {
 
@@ -70,7 +70,7 @@ function NotificationEditor() {
             value={currentNotification?.notificationTypeId}
             onChange={(e) => setCurrentNotificationProps("notificationTypeId", e.target.value)}
           >
-            {notificationsTypes.length > 0 ? notificationsTypes.map((notification: INotificationType) =>
+            {notificationsTypes.length > 0 ? notificationsTypes.map((notification: NotificationType) =>
               <option value={notification.notificationTypeId} key={notification.notificationTypeId}>{notification.name}</option>) : null}
           </select></div>
         </li>
@@ -82,11 +82,11 @@ function NotificationEditor() {
               onChange={(e) => setCurrentNotificationProps("userOrGroupId", e.target.value)}
             >
               <optgroup label="USERS">
-                {userList.length > 0 ? userList.map((user: IUser) =>
+                {userList.length > 0 ? userList.map((user: User) =>
                   <option key={user.userId} value={user.userId}>{user.userName}</option>) : null}
               </optgroup>
               <optgroup label="GROUPS">
-                {groupList.length > 0 ? groupList.map((group: IGroup) =>
+                {groupList.length > 0 ? groupList.map((group: Group) =>
                   <option key={group.groupId} value={group.groupId}>{group.name}</option>) : null}
               </optgroup>
             </select></div>

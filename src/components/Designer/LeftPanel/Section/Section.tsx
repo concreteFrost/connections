@@ -1,6 +1,6 @@
 import s from "./Section.module.scss";
 import NodeListItem from "../NodeListItem/NodeListItem";
-import { INodeType } from "../../../../store/interfaces/INode";
+import { NodeType } from "../../../../store/interfaces/INode";
 import { connectionsIcons } from "../../../../assets/icons/icons";
 import { useState } from "react";
 import useStore from "../../../../store/store";
@@ -16,9 +16,9 @@ function Section(props: SectionProps) {
   const blockList = useStore((state) => state.blockList);
   const filteredData = Object.entries(blockList)
     .filter(
-      ([key, val]: [string, INodeType]) => val.data.baseTypeName === props.nodeGroup
+      ([key, val]: [string, NodeType]) => val.data.baseTypeName === props.nodeGroup
     )
-    .map(([key, val]:[string,INodeType]) => {
+    .map(([key, val]:[string,NodeType]) => {
       return val;
     });
 
@@ -41,7 +41,7 @@ function Section(props: SectionProps) {
 
       <ul className={sectionContainerClasses}>
         {filteredData.length > 0
-          ? filteredData.map((x: INodeType) => (
+          ? filteredData.map((x: NodeType) => (
               <li className={s.node_list_item} key={filteredData.indexOf(x)}>
                 <NodeListItem leftPanelRef={props.leftPanelRef} nodeType={x} />
               </li>

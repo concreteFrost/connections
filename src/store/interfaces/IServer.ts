@@ -1,4 +1,4 @@
-export interface ILogSearchQuery {
+export interface LogSearchQuery {
     type: number | undefined;
     status: number | undefined;
     flowId: string | undefined;
@@ -8,7 +8,7 @@ export interface ILogSearchQuery {
     searchText: string | undefined;
 }
 
-export interface ILogObject {
+export interface LogObject {
     timeStamp: string;          // formatted as 'YYYY-MM-DD HH:mm.SSS'
     logType: string;
     processId: string;

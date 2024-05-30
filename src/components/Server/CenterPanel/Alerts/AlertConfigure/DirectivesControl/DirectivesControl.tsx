@@ -2,16 +2,16 @@ import { useState, useEffect } from "react";
 import AddDirectiveForm from "./AddDirectiveForm/AddDirectiveForm";
 import DirectivesTable from "./DirectivesTable/DirectivesTable";
 import useStore from "../../../../../../store/store";
-import { IDirective } from "../../../../../../store/interfaces/IAlerts";
-import { IFlowConfig } from "../../../../../../store/interfaces/Iflow";
+import { Directive } from "../../../../../../store/interfaces/IAlerts";
+import { FlowConfig } from "../../../../../../store/interfaces/IFlow";
 import { getFlowListApi } from "../../../../../../api/flow";
 import s from "./DirectivesControl.module.scss"
 
 function DirectivesControl() {
   const [isAddDirectiveVisible, setAddDirectiveVisible] = useState<boolean>(false);
   const { getDirectives } = useStore((state) => state.alertSlice);
-  const [directives, setDirectives] = useState<Array<IDirective>>([]);
-  const [flowList, setFlowList] = useState<Array<IFlowConfig>>([])
+  const [directives, setDirectives] = useState<Array<Directive>>([]);
+  const [flowList, setFlowList] = useState<Array<FlowConfig>>([])
 
   async function fetchFlowList() {
     try {
@@ -24,7 +24,7 @@ function DirectivesControl() {
 
   async function fetchDirectives() {
     try {
-      const res: IDirective[] = await getDirectives();
+      const res: Directive[] = await getDirectives();
       
       setDirectives(res);
       return res;

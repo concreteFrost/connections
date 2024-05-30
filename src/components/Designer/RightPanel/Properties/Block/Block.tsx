@@ -1,13 +1,13 @@
 import useStore from "../../../../../store/store";
 import PropertiesInput from "./PropertiesInput/PropertiesInput";
 import s from "./Block.module.scss";
-import { IBlockData } from "../../../../../store/interfaces/IBlock";
+import { BlockData } from "../../../../../store/interfaces/IBlock";
 import { useMemo } from "react";
 
 function Block() {
-  const blockData = useStore<IBlockData | undefined>((state) => {
+  const blockData = useStore<BlockData | undefined>((state) => {
     const selectedBlockId = state.flowSlice.flow.visual.blocks.find((b) => b.selected)?.id;
-    return state.flowSlice.flow.blockData.find((x: IBlockData) => x.blockIdentifier === selectedBlockId);
+    return state.flowSlice.flow.blockData.find((x: BlockData) => x.blockIdentifier === selectedBlockId);
   });
 
   // Memoize blockData to avoid unnecessary calculations

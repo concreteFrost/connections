@@ -1,5 +1,3 @@
-import { getUserSettingsData, initialSettings } from "../actions/storageActions";
-import topMenuActions from "../actions/topViewActions";
 import { RFState } from "../types/rfState";
 
 export type UserSlice = {

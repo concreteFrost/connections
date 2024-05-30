@@ -1,9 +1,9 @@
 import s from "./GroupsTable.module.scss";
 import useStore from "../../../../../store/store";
 import {
-  IGroup,
-  IGroupWithUsers,
-  IUser,
+  Group,
+  GroupWithUsers,
+  User,
 } from "../../../../../store/interfaces/ISecurity";
 import { useEffect, useState } from "react";
 import moment from "moment";
@@ -16,7 +16,7 @@ function GroupsTable() {
   );
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
   const [isEditModalActive, setEditModalActive] = useState<boolean>(false);
-  const [groupToEdit, setGroupToEdit] = useState<IGroupWithUsers>();
+  const [groupToEdit, setGroupToEdit] = useState<GroupWithUsers>();
   const {toggleConfirmationModal,setConfirmationModalActions} = useStore((state)=>state.modalWindowsSlice);
 
   function toggleActiveModal(isActive: boolean) {
@@ -40,7 +40,7 @@ function GroupsTable() {
 
   async function fetchGroupMembers() {
     try {
-      await groupList.forEach(async (group: IGroup) => {
+      await groupList.forEach(async (group: Group) => {
         const res: any = await getGroupMembers(group.groupId);
       });
     } catch (e) {}
@@ -66,7 +66,7 @@ function GroupsTable() {
           </thead>
           <tbody>
             {groupList.length > 0
-              ? groupList.map((group: IGroupWithUsers) => (
+              ? groupList.map((group: GroupWithUsers) => (
                   <tr key={group.groupId}>
                     <td colSpan={1}> {group.name}</td>
                     <td colSpan={1}>
@@ -77,7 +77,7 @@ function GroupsTable() {
                     <td colSpan={1} className={s.group_members}>
                       <ul>
                         {group.groupMembers && group.groupMembers.length > 0
-                          ? group.groupMembers.map((user: IUser) => (
+                          ? group.groupMembers.map((user: User) => (
                               <li key={user.userId}>{user.userName}</li>
                             ))
                           : "-"}

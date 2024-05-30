@@ -1,23 +1,23 @@
 import notificationsActions from "../actions/notificationsActions";
-import { INotification, INotificationType, ISubscription } from "../interfaces/INotification";
+import { Notification, NotificationType, Subscription } from "../interfaces/INotification";
 import { RFState } from "../types/rfState"
 
 export type NotificationSlice = {
-    notificationsList: Array<INotification>,
-    notificationsTypes: Array<INotificationType>,
-    currentNotification: INotification | null,
+    notificationsList: Array<Notification>,
+    notificationsTypes: Array<NotificationType>,
+    currentNotification: Notification | null,
     haveCheckedNotifications: boolean,
     getNotificationsList: (userId?: string, groupId?: string) => void;
     getNotificationsTypes: () => void;
-    setCurrentNotification: (notification: INotification | null) => void;
+    setCurrentNotification: (notification: Notification | null) => void;
     deleteNotification: (notificationId: number) => void;
     setCurrentNotificationProps: (propName: any, value: any) => void;
-    updateNotification: (notification: INotification) => void;
+    updateNotification: (notification: Notification) => void;
     testClientCallback: (yourCallbackUrl: string, user: string, pass: string, anyText: string) => void;
-    addNewNotifications:(notificationRecord:INotification)=>void;
+    addNewNotifications:(notificationRecord:Notification)=>void;
     registerClientNotification:(notificationId:number,callbackURI:string,userName:string,password:string)=>void;
     toggleHaveCheckedNotifications:(haveChecked:boolean)=>void;
-    enableClientNotification:(subscription:ISubscription)=>void;
+    enableClientNotification:(subscription:Subscription)=>void;
 }
 
 const notificationSlice = (get: () => RFState, set: any): NotificationSlice => ({

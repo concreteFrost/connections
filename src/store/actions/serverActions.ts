@@ -1,9 +1,8 @@
 import { getBlockStatisticsAPI, getFlowApi } from "../../api/flow";
-import { createUpdateDraftFromLiveAPI, getDraftApi } from "../../api/draft"
 import { RFState } from "../types/rfState";
-import { ILogObject } from "../interfaces/IServer";
-import { IFlowConfig } from "../interfaces/Iflow";
-import { IBlockLookup } from "../interfaces/IBlock";
+import { LogObject } from "../interfaces/IServer";
+import { FlowConfig } from "../interfaces/IFlow";
+import { BlockLookup } from "../interfaces/IBlock";
 import moment from "moment";
 
 export const getCurrentFlow = (get: () => RFState, set: any) => async (flowId: string) => {
@@ -65,15 +64,15 @@ export const toggleFlowControlState = (get: () => RFState, set: any) => (isEnabl
 }
 
 //#region LOG SEARCH
-const setLogList = (get: () => RFState, set: any) => (data: Array<Object>, flowList: Array<IFlowConfig>, blockList: Array<IBlockLookup>) => {
+const setLogList = (get: () => RFState, set: any) => (data: Array<Object>, flowList: Array<FlowConfig>, blockList: Array<BlockLookup>) => {
 
-  const convertedArray: Array<ILogObject> = [];
+  const convertedArray: Array<LogObject> = [];
 
   data.forEach((log: any) => {
 
     const trimmedObject: string[] = log.split('|').map((item: any) => item.trim());
 
-    const obj: ILogObject = {
+    const obj: LogObject = {
       timeStamp: moment(trimmedObject[0]).format('YYYY-MM-DD HH:mm.SSS'),
       logType: trimmedObject[1],
       processId: trimmedObject[2],
@@ -89,15 +88,15 @@ const setLogList = (get: () => RFState, set: any) => (data: Array<Object>, flowL
 
   });
 
-  convertedArray.forEach((listItem: ILogObject) => {
-    const flow = flowList.find((flow: IFlowConfig) => listItem.flowId.toLowerCase() === flow.flowId);
+  convertedArray.forEach((listItem: LogObject) => {
+    const flow = flowList.find((flow: FlowConfig) => listItem.flowId.toLowerCase() === flow.flowId);
 
     if (flow) {
       listItem.flowId = flow.name;
 
     }
 
-    const block = blockList.find((block: IBlockLookup) => listItem.blockId.toLowerCase() === block.blockId);
+    const block = blockList.find((block: BlockLookup) => listItem.blockId.toLowerCase() === block.blockId);
     if (block) {
       listItem.blockId = block.name;
 

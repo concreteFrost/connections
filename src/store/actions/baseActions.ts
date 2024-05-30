@@ -1,6 +1,6 @@
 
-import { IBlockData } from "../interfaces/IBlock";
-import { IVisual } from "../interfaces/Iflow";
+import { BlockData } from "../interfaces/IBlock";
+import { Visual } from "../interfaces/IFlow";
 import { RFState } from "../types/rfState";
 import { getSelectedBlock } from "./utils/blockUtils";
 
@@ -63,7 +63,7 @@ export const setBlockDescription = (set: any, get: () => RFState) => (descriptio
 
 export const setBlockColor = (set: any, get: () => RFState) => (color: string) => {
 
-  const nodeVisuals: any = get().flowSlice.flow.visual.blocks.map((x: IVisual) => {
+  const nodeVisuals: any = get().flowSlice.flow.visual.blocks.map((x: Visual) => {
     if (x.id === getSelectedBlock(get().flowSlice).id) {
       return {
         ...x,

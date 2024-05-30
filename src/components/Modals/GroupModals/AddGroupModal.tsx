@@ -1,14 +1,14 @@
 import s from "./AddGroupModal.module.scss";
 import useStore from "../../../store/store";
 import { useEffect, useState } from "react";
-import { IGroup, IUser } from "../../../store/interfaces/ISecurity";
+import { Group, User } from "../../../store/interfaces/ISecurity";
 
 interface EditUserModalProps {
     isVisible: boolean,
     toggleAddGroupModal: (isVisible: boolean) => void;
 }
 
-const initialGroup: IGroup = {
+const initialGroup: Group = {
     groupId: '',
     name: 'New Group',
     description: '',
@@ -23,9 +23,9 @@ function AddGroupModal(props: EditUserModalProps) {
     const { userList, createGroup, getGroupList } = useStore((state) => state.securitySlice);
 
     const { toggleMessageModal} = useStore((state) => state.modalWindowsSlice);
-    const [newGroup, setNewGroup] = useState<IGroup>(initialGroup);
+    const [newGroup, setNewGroup] = useState<Group>(initialGroup);
 
-    function setGroupProps(propName: keyof IGroup, value: any) {
+    function setGroupProps(propName: keyof Group, value: any) {
         setNewGroup(
             {
                 ...newGroup,
@@ -82,7 +82,7 @@ function AddGroupModal(props: EditUserModalProps) {
                                 <label htmlFor="owner">Owner:</label>
                                 <select name="owner" value={newGroup.owner} onChange={(e: any) => setGroupProps('owner', e.target.value)}>
                                     <option value={'null'}>---Select---</option>
-                                    {userList.length > 0 ? userList.map((user: IUser) =>
+                                    {userList.length > 0 ? userList.map((user: User) =>
                                         <option key={user.userId} value={user.userId}>{user.userName}</option>
                                     ) : null}
                                 </select>

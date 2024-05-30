@@ -1,7 +1,7 @@
 import axios from "axios";
 import { baseUrl } from "../store/constants/baseUrl";
 import { getAccessToken } from "../store/actions/storageActions";
-import { INotification, ISubscription } from "../store/interfaces/INotification";
+import { Notification, Subscription } from "../store/interfaces/INotification";
 
 export function getNotificationTypesAPI() {
     return new Promise((resolve, reject) => {
@@ -35,7 +35,7 @@ export function getNotificationsAPI(userId?: string, userGroup?: string) {
     });
 }
 
-export function newNotificationAPI(notificationRecord: INotification) {
+export function newNotificationAPI(notificationRecord: Notification) {
     console.log(notificationRecord)
     return new Promise((resolve, reject) => {
         axios({
@@ -77,7 +77,7 @@ export function removeNotificationAPI(notificationID: number) {
     });
 }
 
-export function updateNotificationAPI(notificationRecord: INotification) {
+export function updateNotificationAPI(notificationRecord: Notification) {
     return new Promise((resolve, reject) => {
         axios({
             method: "post",
@@ -96,7 +96,7 @@ export function updateNotificationAPI(notificationRecord: INotification) {
     });
 }
 
-export function enableClientNotificationsAPI(subscribtion: ISubscription) {
+export function enableClientNotificationsAPI(subscribtion: Subscription) {
     return new Promise((resolve, reject) => {
         axios({
             method: "post",

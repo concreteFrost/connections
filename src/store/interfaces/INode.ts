@@ -1,5 +1,5 @@
 
-export interface INodeGroup {
+export interface NodeGroup {
     dataGroup: string;
     externalGroup: string;
     functionGroup: string;
@@ -7,7 +7,7 @@ export interface INodeGroup {
     outputGroup: string;
   }
 
-export  interface INodeType {
+export  interface NodeType {
     type: string,
     visualData: {
         color: string,

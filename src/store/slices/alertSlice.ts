@@ -1,22 +1,22 @@
 import alertActions from "../actions/alertActions";
-import { IDirective, IAlertFormat, INewAlertFormat} from "../interfaces/IAlerts";
-import { ISubscription } from "../interfaces/INotification";
+import { Directive, AlertFormat, NewAlertFormat} from "../interfaces/IAlerts";
+import { Subscription } from "../interfaces/INotification";
 import { RFState } from "../types/rfState"
 export type AlertSlice = {
 
-    directives:IDirective[],
-    getDirectives: () => Promise<IDirective[]>;
+    directives:Directive[],
+    getDirectives: () => Promise<Directive[]>;
     getDirectivesGlobal: ()=>void;
-    updateDirective:(directive: IDirective)=>void;
+    updateDirective:(directive: Directive)=>void;
     deleteDirective:(ehControlId:number)=>void;
-    addDirective:(newDirective:IDirective)=>void;
+    addDirective:(newDirective:Directive)=>void;
 
-    getAlertFormats:()=>Promise<IAlertFormat[]>;
-    updateAlertFormat:(alertFromat:IAlertFormat)=>void;
+    getAlertFormats:()=>Promise<AlertFormat[]>;
+    updateAlertFormat:(alertFromat:AlertFormat)=>void;
     deleteAlertFormat:(alertFormatId:number)=>void;
-    addAlertFormat:(newAlertFormat:INewAlertFormat)=>void;
+    addAlertFormat:(newAlertFormat:NewAlertFormat)=>void;
 
-    enablieClientAlerts:(subscription:ISubscription)=>void;
+    enablieClientAlerts:(subscription:Subscription)=>void;
 }
 
 const alertSlice = (get: () => RFState, set: any): AlertSlice => ({

@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import s from "./AlertFormatTable.module.scss";
 import useStore from "../../../../../../../store/store";
 import moment from "moment";
-import { IAlertFormat } from "../../../../../../../store/interfaces/IAlerts";
-import { IGroup, IUser } from "../../../../../../../store/interfaces/ISecurity";
+import { AlertFormat } from "../../../../../../../store/interfaces/IAlerts";
+import { Group, User } from "../../../../../../../store/interfaces/ISecurity";
 
 interface AlertFormatTableProps {
-    alertFormats: IAlertFormat[],
-    setAlertFormats: (alertFormats: IAlertFormat[]) => void;
-    groupList: Array<IGroup>;
-    userList: Array<IUser>;
+    alertFormats: AlertFormat[],
+    setAlertFormats: (alertFormats: AlertFormat[]) => void;
+    groupList: Array<Group>;
+    userList: Array<User>;
 }
 
 const PAGE_SIZE = 5;
@@ -17,7 +17,7 @@ const PAGE_SIZE = 5;
 function AlertFormatTable(props: AlertFormatTableProps) {
     const { getAlertFormats, updateAlertFormat, deleteAlertFormat } = useStore((state) => state.alertSlice);
     const { toggleMessageModal, toggleConfirmationModal, setConfirmationModalActions } = useStore((state) => state.modalWindowsSlice)
-    const [displayedAlertFormats, setDisplayedAlertFormats] = useState<Array<IAlertFormat>>([]);
+    const [displayedAlertFormats, setDisplayedAlertFormats] = useState<Array<AlertFormat>>([]);
 
     const [currentAlertIndex, setCurrentAlertIndex] = useState<Number>(-1);
 
@@ -25,7 +25,7 @@ function AlertFormatTable(props: AlertFormatTableProps) {
     const [totalPages, setTotalPages] = useState(1);
 
     const updateAlertFormatData = (id: number, key: string, value: any) => {
-        const updatedAlertFormats = props.alertFormats.map((alertFormat: IAlertFormat) =>
+        const updatedAlertFormats = props.alertFormats.map((alertFormat: AlertFormat) =>
             alertFormat.alertFormatId === id ? { ...alertFormat, [key]: value } : alertFormat
         );
 
@@ -52,7 +52,7 @@ function AlertFormatTable(props: AlertFormatTableProps) {
         setCurrentAlertIndex(index);
     }
 
-    async function handleAlertFormatUpdate(alertFormat: IAlertFormat) {
+    async function handleAlertFormatUpdate(alertFormat: AlertFormat) {
         try {
             const res: any = await updateAlertFormat(alertFormat);
 
@@ -77,7 +77,7 @@ function AlertFormatTable(props: AlertFormatTableProps) {
             toggleMessageModal(res.data.success ? "success!!!" : res.data.message);
 
             if (res.data.success) {
-                const filteredAlerts = props.alertFormats.filter((alert: IAlertFormat) => alert.alertFormatId !== alertFormatId);
+                const filteredAlerts = props.alertFormats.filter((alert: AlertFormat) => alert.alertFormatId !== alertFormatId);
                 props.setAlertFormats(filteredAlerts);
             }
 
@@ -103,7 +103,7 @@ function AlertFormatTable(props: AlertFormatTableProps) {
                             </tr>
                         </thead>
                         <tbody>
-                            {displayedAlertFormats.map((alertFormat: IAlertFormat) => (
+                            {displayedAlertFormats.map((alertFormat: AlertFormat) => (
                                 <tr key={alertFormat.alertFormatId} onClick={() => checkCurrentAlertsIndex(alertFormat.alertFormatId)}>
                                     <td colSpan={2}>
                                         <input

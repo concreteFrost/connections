@@ -1,22 +1,22 @@
 import React from "react";
-import { IFlowConfig } from "../../../../../../../../store/interfaces/Iflow";
+import { FlowConfig } from "../../../../../../../../store/interfaces/IFlow";
 import {
-  IDirective,
-  IDirectiveConfig,
+  Directive,
+  DirectiveConfig,
 } from "../../../../../../../../store/interfaces/IAlerts";
 
 interface DirectiveConfigItemProps {
-  directive: IDirective;
-  config: IDirectiveConfig;
+  directive: Directive;
+  config: DirectiveConfig;
   config_index: number;
   editDirectiveConfig: (
-    directive:IDirective,
+    directive:Directive,
     config_index: number,
-    key: keyof IDirectiveConfig,
+    key: keyof DirectiveConfig,
     value: any
   ) => void;
-  deleteDirectiveConfig: (directive:IDirective,config_index: number) => void;
-  flowList: Array<IFlowConfig>;
+  deleteDirectiveConfig: (directive:Directive,config_index: number) => void;
+  flowList: Array<FlowConfig>;
   s: any;
 }
 
@@ -152,7 +152,7 @@ const DirectiveConfigItem: React.FC<DirectiveConfigItemProps> = ({
         >
           <option value={0}>null</option>
           {flowList && flowList.length > 0 ? (
-            flowList.map((flow: IFlowConfig, index: number) => (
+            flowList.map((flow: FlowConfig, index: number) => (
               <option key={index} value={flow.flowId}>
                 {flow.name}
               </option>

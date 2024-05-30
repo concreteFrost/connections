@@ -5,7 +5,7 @@ import {
   startFlowAPI,
   stopFlowAPI,
 } from "../../../../../api/flow";
-import { IFlowData } from "../../../../../store/interfaces/Iflow";
+import { FlowData } from "../../../../../store/interfaces/IFlow";
 import useStore from "../../../../../store/store";
 
 interface FlowControlProps {
@@ -15,7 +15,7 @@ interface FlowControlProps {
 function FlowControl(props: FlowControlProps) {
   const currentFlow = useStore(
     (state) => state.serverSlice.currentFlow
-  ) as IFlowData;
+  ) as FlowData;
   const toggleFlowControlState = useStore(
     (state) => state.serverSlice.toggleFlowControlState
   );

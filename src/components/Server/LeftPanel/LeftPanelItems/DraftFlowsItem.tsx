@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState} from "react";
 import useStore from "../../../../store/store";
 import { getDraftListApi } from "../../../../api/draft";
 import { connectionsIcons } from "../../../../assets/icons/icons";

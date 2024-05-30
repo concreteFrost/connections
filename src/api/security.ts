@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { getAccessToken } from "../store/actions/storageActions";
 import { baseUrl } from "../store/constants/baseUrl";
-import { INewUser, IUser, IGroup } from "../store/interfaces/ISecurity";
+import { NewUser, User, Group } from "../store/interfaces/ISecurity";
 
 //GET
 export function getMeAPI() {
@@ -123,7 +123,7 @@ export function getVapidKeysAPI() {
 }
 
 //POST
-export function addUserAPI(userRecord: INewUser) {
+export function addUserAPI(userRecord: NewUser) {
   return new Promise((resolve, reject) => {
     axios(baseUrl + "/Security/AddUser", {
       method: "post",
@@ -140,7 +140,7 @@ export function addUserAPI(userRecord: INewUser) {
   });
 }
 
-export function updateUserAPI(userRecord: IUser) {
+export function updateUserAPI(userRecord: User) {
   return new Promise((resolve, reject) => {
     axios(baseUrl + "/Security/UpdateUser", {
       method: "post",
@@ -176,7 +176,7 @@ export function removeUserAPI(userId: string) {
   });
 }
 
-export function createGroupAPI(groupRecord: IGroup) {
+export function createGroupAPI(groupRecord: Group) {
   return new Promise((resolve, reject) => {
     axios(baseUrl + "/Security/CreateGroup", {
       method: "post",

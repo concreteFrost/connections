@@ -1,4 +1,4 @@
-export interface IBlockData {
+export interface BlockData {
   name: any;
   blockIdentifier: string;
   blockVersion: string;
@@ -12,7 +12,7 @@ export interface IBlockData {
   extendedParameters: any[];
 }
 
-export interface IBlockDataExtended extends IBlockData {
+export interface BlockDataExtended extends BlockData {
   stats: {
     errors: number;
     fatalErrors: number;
@@ -21,12 +21,12 @@ export interface IBlockDataExtended extends IBlockData {
   }
 }
 
-export interface IBlockLookup{
+export interface BlockLookup{
   blockId:string,
   name:string
 }
 
-export interface IBlockParameters {
+export interface BlockParameters {
   name: any;
   value: any;
   required?: any;

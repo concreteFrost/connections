@@ -1,4 +1,4 @@
-export interface IAlert {
+export interface Alert {
     alertId: number;
     alertFormatId: number;
     priority: number;
@@ -11,7 +11,7 @@ export interface IAlert {
     statusUser: number;
 }
 
-export interface IAlertFormat {
+export interface AlertFormat {
     alertFormatId: number;
     name: string;
     description: string;
@@ -23,7 +23,7 @@ export interface IAlertFormat {
     lastAmended: Date;
 }
 
-export interface INewAlertFormat{
+export interface NewAlertFormat{
     name: string;
     description: string;
     userOrGroupId: string;
@@ -31,7 +31,7 @@ export interface INewAlertFormat{
     isActive: boolean;
 }
 
-export interface IDirectiveConfig {
+export interface DirectiveConfig {
     directiveOrder:number;
     optionId: number;
     inputValue: number;
@@ -46,12 +46,12 @@ export interface IDirectiveConfig {
     ehControlId:number;
 }
 
-export interface IDirective {
+export interface Directive {
     ehControlId: number;
     name: string;
     description: string;
     category:number;
     dateCreated: any;
     lastAmended: any;
-    directives: IDirectiveConfig[];
+    directives: DirectiveConfig[];
 }

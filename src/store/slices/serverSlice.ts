@@ -1,19 +1,19 @@
 import { RFState } from "../types/rfState"
-import { IFlowConfig, IFlowData } from "../interfaces/Iflow";
+import { FlowConfig, FlowData } from "../interfaces/IFlow";
 import serverActions from "../actions/serverActions";
-import { ILogObject } from "../interfaces/IServer";
-import { IBlockLookup } from "../interfaces/IBlock";
+import { LogObject } from "../interfaces/IServer";
+import { BlockLookup } from "../interfaces/IBlock";
 
 export type ServerSlice = {
 
-    currentFlow: IFlowData | object;
+    currentFlow: FlowData | object;
     logSearch:{
-        logList: Array<ILogObject>
+        logList: Array<LogObject>
     }
     //Server Actions
     getCurrentFlow: (flowId: string) => void;
     toggleFlowControlState: (isEnabled: boolean) => void;
-    setLogList:(list: Array<ILogObject>, flowList: Array<IFlowConfig>, blockList: Array<IBlockLookup>)=>void;
+    setLogList:(list: Array<LogObject>, flowList: Array<FlowConfig>, blockList: Array<BlockLookup>)=>void;
 
 }
 

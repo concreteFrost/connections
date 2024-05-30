@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { IBlockParameters } from "../../../../../../../store/interfaces/IBlock";
+import { BlockParameters } from "../../../../../../../store/interfaces/IBlock";
 import useStore from "../../../../../../../store/store";
 import s from "./InputLabel.module.scss";
 
 interface InputLabelProps {
-  blockData: IBlockParameters;
+  blockData: BlockParameters;
 
   defineInputType: () => string;
   setCurrentParameter: (parameterName: string, value: any) => void;

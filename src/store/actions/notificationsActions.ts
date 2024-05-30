@@ -1,11 +1,11 @@
 import { enableClientNotificationsAPI, getNotificationTypesAPI, getNotificationsAPI, newNotificationAPI, registerClientNotificationAPI, removeNotificationAPI, testClientCallbackAPI, updateNotificationAPI } from "../../api/notification";
-import { INotification, INotificationType, ISubscription } from "../interfaces/INotification";
+import { Notification, NotificationType, Subscription } from "../interfaces/INotification";
 import { RFState } from "../types/rfState";
 
 const getNotificationList = (get: () => RFState, set: any) => async (userId?: string, userGroup?: string) => {
     try {
         const res: any = await getNotificationsAPI(userId, userGroup);
-        const data: Array<INotification> = res.data.notifications.map((notification: INotification) => { return { ...notification, isSelected: false } });
+        const data: Array<Notification> = res.data.notifications.map((notification: Notification) => { return { ...notification, isSelected: false } });
         set((state: RFState) => ({
             notificationSlice: {
                 ...state.notificationSlice,
@@ -30,7 +30,7 @@ const toggleHaveCheckedNotifications=(get:()=>RFState,set:any) =>(haveCheckedNot
 const getNotificationTypes = (get: () => RFState, set: any) => async () => {
     try {
         const res: any = await getNotificationTypesAPI();
-        const data: Array<INotificationType> = res.data;
+        const data: Array<NotificationType> = res.data;
         set((state: RFState) => ({
             notificationSlice: {
                 ...state.notificationSlice,
@@ -44,7 +44,7 @@ const getNotificationTypes = (get: () => RFState, set: any) => async () => {
     }
 }
 
-const setCurrentNotification = (get: () => RFState, set: any) => (notification: INotification | null) => {
+const setCurrentNotification = (get: () => RFState, set: any) => (notification: Notification | null) => {
     set((state: RFState) => ({
         notificationSlice: {
             ...state.notificationSlice,
@@ -76,7 +76,7 @@ const deleteNotification = (get: () => RFState, set: any) => async (notification
     }
 }
 
-const addNewNotifications =  (get: () => RFState, set: any) => async (notificationRecord: INotification)=>{
+const addNewNotifications =  (get: () => RFState, set: any) => async (notificationRecord: Notification)=>{
     try{
         const res : any = await newNotificationAPI(notificationRecord);
         return res;
@@ -86,7 +86,7 @@ const addNewNotifications =  (get: () => RFState, set: any) => async (notificati
     }
 }
 
-const updateNotification = (get: () => RFState, set: any) => async (notification: INotification) => {
+const updateNotification = (get: () => RFState, set: any) => async (notification: Notification) => {
     try {
         const res: any = await updateNotificationAPI(notification);
         return res;
@@ -115,8 +115,7 @@ const toggleSelectNotification = (get: () => RFState, set: any) => async (notifi
     }))
 }
 
-const enableClientNotifications = (get: () => RFState, set: any) => async (subscription:ISubscription) => {
-    console.log('notifications payload', subscription)
+const enableClientNotifications = (get: () => RFState, set: any) => async (subscription:Subscription) => {
     try{
         const res : any = await enableClientNotificationsAPI(subscription);
     }

@@ -1,6 +1,6 @@
 import s from "./AddUserModal.module.scss";
 import useStore from "../../../../store/store";
-import { IGroup, IRole, INewUser } from "../../../../store/interfaces/ISecurity";
+import { Group, Role, NewUser } from "../../../../store/interfaces/ISecurity";
 import { useState } from "react";
 
 
@@ -9,7 +9,7 @@ interface EditUserModalProps {
     toggleAddUserModal: (isVisible: boolean) => void;
 }
 
-const initialUser: INewUser = {
+const initialUser: NewUser = {
     userName: '',
     password: '',
     userLogin: '',
@@ -27,16 +27,16 @@ const initialUser: INewUser = {
 function AddUserModal(props: EditUserModalProps) {
 
     const { addUser, getUserList, groupList, rolesList, generatePassword, getGroupList } = useStore((state) => state.securitySlice);
-    const [newUser, setNewUser] = useState<INewUser>(initialUser);
+    const [newUser, setNewUser] = useState<NewUser>(initialUser);
     const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
 
-    function setTextProps(propName: keyof INewUser, value: any) {
+    function setTextProps(propName: keyof NewUser, value: any) {
         if (newUser) {
             setNewUser({ ...newUser, [propName]: value })
         }
 
     }
-    function setUserGroups(group: IGroup) {
+    function setUserGroups(group: Group) {
         if (newUser) {
             const updatedGroups = (newUser.addToGroups ?? []).some(existingGroup => existingGroup === group.groupId)
                 ? (newUser.addToGroups ?? []).filter(existingGroup => existingGroup !== group.groupId)
@@ -49,7 +49,7 @@ function AddUserModal(props: EditUserModalProps) {
         }
     }
 
-    function setUserRoles(role: IRole) {
+    function setUserRoles(role: Role) {
         if (newUser) {
             const updatedRoles = (newUser.userRoleIds ?? []).some(existingRole => existingRole === role.roleId)
                 ? (newUser.userRoleIds ?? []).filter(existingRole => existingRole !== role.roleId)
@@ -147,7 +147,7 @@ function AddUserModal(props: EditUserModalProps) {
                                 <label htmlFor="belongsToGroups">Belongs To Groups:</label>
                                 <div className={s.group_wrapper}>
                                     {groupList.length > 0 ? (
-                                        groupList.map((group: IGroup) => (
+                                        groupList.map((group: Group) => (
                                             <div key={group.groupId} className={s.group_wrapper_item}>
                                                 <label>{group.name}</label>
                                                 <input
@@ -170,7 +170,7 @@ function AddUserModal(props: EditUserModalProps) {
                                 <label htmlFor="userRoles">User Roles:</label>
                                 <div className={s.group_wrapper}>
                                     {rolesList.length > 0 ? (
-                                        rolesList.map((role: IRole) => (
+                                        rolesList.map((role: Role) => (
                                             <div key={role.roleId} className={s.group_wrapper_item}>
                                                 <label>{role.roleName}</label>
                                                 <input

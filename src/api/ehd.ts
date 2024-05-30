@@ -1,19 +1,13 @@
 import axios from "axios";
 import { baseUrl } from "../store/constants/baseUrl";
 import { getAccessToken } from "../store/actions/storageActions";
-import { IAlertFormat, IDirective, INewAlertFormat} from "../store/interfaces/IAlerts";
-import { ISubscription } from "../store/interfaces/INotification";
+import { AlertFormat, Directive, NewAlertFormat} from "../store/interfaces/IAlerts";
+import { Subscription } from "../store/interfaces/INotification";
 
 // Function to generate headers with authorization token
 function generateJSONHeaders() {
     return {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + getAccessToken().token,
-    };
-}
-
-function generateHeaders(){
-    return {
         Authorization: "Bearer " + getAccessToken().token,
     };
 }
@@ -32,7 +26,7 @@ export function getAlertFormatsApi() {
 }
 
 //POST
-export function addDirectiveApi(directive: IDirective) {
+export function addDirectiveApi(directive: Directive) {
 
     const {category,ehControlId,...rest} = directive
     return axios.post(baseUrl + "/Ehd/AddDirective", rest, {
@@ -40,7 +34,7 @@ export function addDirectiveApi(directive: IDirective) {
     });
 }
 
-export function updateDirectiveApi(directive: IDirective) {
+export function updateDirectiveApi(directive: Directive) {
     return axios.post(baseUrl + "/Ehd/UpdateDirective", directive, {
         headers: generateJSONHeaders()
     });
@@ -52,13 +46,13 @@ export function removeDirectiveApi(ehControlId: number) {
     });
 }
 
-export function addAlertFormatApi(alertFormat: INewAlertFormat) {
+export function addAlertFormatApi(alertFormat: NewAlertFormat) {
     return axios.post(baseUrl + "/Ehd/AddAlertFormat", alertFormat, {
         headers: generateJSONHeaders()
     });
 }
 
-export function updateAlertFormatApi(alertFormat: IAlertFormat) {
+export function updateAlertFormatApi(alertFormat: AlertFormat) {
     return axios.post(baseUrl + "/Ehd/UpdateAlertFormat", alertFormat, {
         headers: generateJSONHeaders()
     });
@@ -70,7 +64,7 @@ export function removeAlertFormatApi(alertFormatId: number) {
     });
 }
 
-export function enabliClientAlertsApi(subscription: ISubscription) {
+export function enabliClientAlertsApi(subscription: Subscription) {
     return axios.post(baseUrl + "/Ehd/EnableClientAlerts", subscription, {
         headers: generateJSONHeaders()
     });

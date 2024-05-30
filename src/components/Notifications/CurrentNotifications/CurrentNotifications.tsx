@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import s from "./CurrentNotifications.module.scss";
 import useStore from "../../../store/store";
-import { INotification } from "../../../store/interfaces/INotification";
+import { Notification } from "../../../store/interfaces/INotification";
 
 function CurrentNotifications() {
   const {
@@ -13,7 +13,7 @@ function CurrentNotifications() {
   } = useStore((state) => state.notificationSlice);
 
   const [selectedNotifications, setSelectedNotifications] = useState<
-    Array<INotification>
+    Array<Notification>
   >([]);
   const [isAllSelected, setIsAllSelected] = useState<boolean>(false);
   const { setConfirmationModalActions, toggleConfirmationModal } = useStore(
@@ -41,7 +41,7 @@ function CurrentNotifications() {
     fetchData();
   }, []);
 
-  const toggleAddNotification = (newNotification: INotification) => {
+  const toggleAddNotification = (newNotification: Notification) => {
     setSelectedNotifications((prevNotifications) => {
       const notificationExists = prevNotifications.some(
         (notification) =>
@@ -72,7 +72,7 @@ function CurrentNotifications() {
   async function performDeleteSelected() {
     try {
       await Promise.all(
-        selectedNotifications.map(async (note: INotification) => {
+        selectedNotifications.map(async (note: Notification) => {
           if (note.notificationId === currentNotification?.notificationId) {
             setCurrentNotification(null);
           }
@@ -102,7 +102,7 @@ function CurrentNotifications() {
       </section>
       <ul>
         {notificationsList.length > 0
-          ? notificationsList.map((notification: INotification) => (
+          ? notificationsList.map((notification: Notification) => (
               <li key={notification.notificationId}>
                 <div>{notification.name}</div>
                 <div className={s.notification_actions}>

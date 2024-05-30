@@ -3,17 +3,18 @@ import s from "./AlertFormat.module.scss";
 import AddAlertFormatForm from "../AddAlertFormat/AddAlertFormatForm";
 import { useEffect, useState } from "react";
 import useStore from "../../../../../../store/store";
-import { IAlertFormat } from "../../../../../../store/interfaces/IAlerts";
+import { AlertFormat} from "../../../../../../store/interfaces/IAlerts";
 
-function AlertFormat() {
-
+function AlertFormatControl() {
 
   const [isAddAlertFormatVisible, setAddAlertFormatVisible] = useState<boolean>(false);
   const { getUserList, getGroupList, userList, groupList } = useStore((state) => state.securitySlice);
   const { getAlertFormats } = useStore((state) => state.alertSlice);
-  const [alertFormats, setAlertFormats] = useState<Array<IAlertFormat>>([]);
+  const [alertFormats, setAlertFormats] = useState<Array<AlertFormat>>([]);
 
   useEffect(() => {
+
+    console.log('fetching data in alert format control')
     const fetchData = async () => {
       try {
         await getUserList();
@@ -26,7 +27,7 @@ function AlertFormat() {
     };
 
     fetchData();
-  }, []);
+  }, [getUserList,getGroupList,getAlertFormats]); //remove this deps if will cause infinite loop
 
 
   return (<section className={s.wrapper}>
@@ -47,4 +48,4 @@ function AlertFormat() {
   </section>)
 }
 
-export default AlertFormat;
+export default AlertFormatControl;

@@ -14,6 +14,7 @@ import ApproveModal from "./components/Modals/ApproveModal";
 import Notifications from "./views/Noticifations"
 import { useEffect } from "react";
 import { getUserSettingsData } from "./store/actions/storageActions";
+import FlowServerStatus from "./components/FlowServerStatus/FlowServerStatus";
 
 function App() {
   const tooltipText = useStore((store) => store.designerVisualElementsSlice.tooltip.text);
@@ -31,6 +32,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <PushTest></PushTest>
+      <FlowServerStatus></FlowServerStatus>
       <ApproveModal></ApproveModal>
       <ConfirmationModal></ConfirmationModal>
       <MessageModal></MessageModal>

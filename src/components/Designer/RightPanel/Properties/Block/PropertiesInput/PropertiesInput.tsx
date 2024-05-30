@@ -1,6 +1,6 @@
 import useStore from "../../../../../../store/store";
 import { useState, useEffect } from "react";
-import { IBlockParameters } from "../../../../../../store/interfaces/IBlock";
+import { BlockParameters } from "../../../../../../store/interfaces/IBlock";
 import FilteredResults from "../../../FilteredResults/FilteredResults";
 import InputLabel from "./InputLabel/InputLabel";
 
@@ -10,7 +10,7 @@ interface ISelection {
 }
 
 interface PropertiesInputProps {
-  blockData: IBlockParameters;
+  blockData: BlockParameters;
 }
 
 function PropertiesInput(props: PropertiesInputProps) {

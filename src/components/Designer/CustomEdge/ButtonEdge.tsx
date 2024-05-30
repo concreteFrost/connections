@@ -6,7 +6,7 @@ import {
 } from "react-flow-renderer";
 import useStore from "../../../store/store";
 import s from "./ButtonEdge.module.scss";
-import IConnectionsEdge from "../../../store/interfaces/IConnectionsEdges";
+import ConnectionsEdge from "../../../store/interfaces/IConnectionsEdges";
 
 const foreignObjectSize = 30;
 const ButtonEdge: React.FC<any> = ({
@@ -36,10 +36,10 @@ const ButtonEdge: React.FC<any> = ({
     return getEdgeCenter({ sourceX, sourceY, targetX, targetY });
   }, [sourceX, sourceY, targetX, targetY]);
 
-  const matchEdge = useMemo(() => edges.find((x: IConnectionsEdge) => x.id === id), [edges]);
+  const matchEdge = useMemo(() => edges.find((x: ConnectionsEdge) => x.id === id), [edges]);
 
   useEffect(() => {
-    const moreThanOneEdge = edges.filter((e: IConnectionsEdge) => e.source === matchEdge?.source);
+    const moreThanOneEdge = edges.filter((e: ConnectionsEdge) => e.source === matchEdge?.source);
     setPriorityVisible(moreThanOneEdge.length > 1 ? true : false);
   }, [edges]);
 

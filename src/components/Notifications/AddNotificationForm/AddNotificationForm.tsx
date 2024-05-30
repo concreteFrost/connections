@@ -2,11 +2,11 @@
 import s from "./AddNotificationForm.module.scss";
 import { useState, useEffect } from "react";
 import {
-  INotification,
-  INotificationType,
+  Notification,
+  NotificationType,
 } from "../../../store/interfaces/INotification";
 import useStore from "../../../store/store";
-import { IGroup, IUser } from "../../../store/interfaces/ISecurity";
+import { Group, User } from "../../../store/interfaces/ISecurity";
 
 
 const defaultFormState = {
@@ -36,7 +36,7 @@ function AddNotificationForm() {
 
   const [isFormActive, setIsFormActive] = useState<boolean>(false);
   const [formElements, setFormElements] =
-    useState<INotification>(defaultFormState);
+    useState<Notification>(defaultFormState);
 
   async function fetchData() {
     try {
@@ -153,7 +153,7 @@ function AddNotificationForm() {
                 <option value={-1}>Select Type</option>
                 {notificationsTypes.length > 0
                   ? notificationsTypes.map(
-                      (notification: INotificationType) => (
+                      (notification: NotificationType) => (
                         <option
                           value={notification.notificationTypeId}
                           key={notification.notificationTypeId}
@@ -180,7 +180,7 @@ function AddNotificationForm() {
                 <option value={-1}>Select User/Group</option>
                 <optgroup label="USERS">
                   {userList.length > 0
-                    ? userList.map((user: IUser) => (
+                    ? userList.map((user: User) => (
                         <option key={user.userId} value={user.userId}>
                           {user.userName}
                         </option>
@@ -189,7 +189,7 @@ function AddNotificationForm() {
                 </optgroup>
                 <optgroup label="GROUPS">
                   {groupList.length > 0
-                    ? groupList.map((group: IGroup) => (
+                    ? groupList.map((group: Group) => (
                         <option key={group.groupId} value={group.groupId}>
                           {group.name}
                         </option>

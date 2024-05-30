@@ -4,6 +4,8 @@ import initialEdges from "../edges";
 import { setFlow, parseFloatVersion, flowVersionToInt, updateFlowAfterSaving, initializeFlow } from "./utils/flowUtils";
 import { v4 as uuidv4 } from "uuid";
 import { deleteDraftFlowAPI, getDraftApi, saveDraftFlowApi, createDraftFromLiveTemplateAPI, createUpdateDraftFromLiveAPI } from "../../api/draft";
+import { Subscription } from "../interfaces/INotification";
+import { enableClientFlowStatusAPI, getFlowListStatusAPI } from "../../api/data";
 
 export const createFlow = (get: () => RFState, set: any) => () => {
   const flowId = uuidv4();
@@ -194,6 +196,25 @@ export const setCanApprove = (get: () => RFState, set: any) => (canApprove: bool
   }))
 }
 
+const getFlowListStatus = () => async () => {
+  try {
+      const res = await getFlowListStatusAPI();
+      return res;
+  } catch (error) {
+      console.log("error getting flow list status", error);
+  }
+}
+
+
+const enableClientFlowStatus = () => async (subscription:Subscription) => {
+  try {
+      const res = await enableClientFlowStatusAPI(subscription)
+      console.log('client flow status register result',res)
+  } catch (error) {
+      console.log("error registering client flow status callback", error);
+  }
+}
+
 
 const flowActions = {
   createFlow: createFlow,
@@ -206,7 +227,9 @@ const flowActions = {
   setFlowName: setFlowName,
   setFlowVersion: setFlowVersion,
   setFlowIsEnabled: setFlowIsEnabled,
-  setCanApprove: setCanApprove
+  setCanApprove: setCanApprove,
+  getFlowListStatus: getFlowListStatus,
+  enableClientFlowStatus:enableClientFlowStatus
 };
 
 export default flowActions;

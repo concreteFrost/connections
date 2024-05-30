@@ -1,6 +1,6 @@
-import { IBlockData } from "./IBlock";
+import { BlockData } from "./IBlock";
 
-export interface IFlowData {
+export interface FlowData {
     created: string;
     createdBy: string;
     flowIdentifier: string;
@@ -10,15 +10,15 @@ export interface IFlowData {
     lastAmended: string;
     lastAmendedBy: string;
     startBlock: string;
-    substitutions: Array<ISubstitutions>; // Replace 'any' with the appropriate type
-    blockData: Array<IBlockData>;
+    substitutions: Array<Substitutions>; // Replace 'any' with the appropriate type
+    blockData: Array<BlockData>;
     visual: {
         blocks: any;
         edges: any;
     };
 }
 
-export interface IFlowConfig {
+export interface FlowConfig {
     config: string;
     createdBy: string;
     dateCreated: string;
@@ -34,7 +34,7 @@ export interface IFlowConfig {
     version: string;
   }
 
-  export interface ILoadedFlow {
+  export interface LoadedFlow {
     flowId: string;
     draftId: string;
     flowName: string;
@@ -44,18 +44,18 @@ export interface IFlowConfig {
   }
   
 
-export interface IVisual {
+export interface Visual {
     id: string;
     data: { color: string, icon: string };
     position: { x: number, y: number };
 }
 
-export interface ISubstitutions {
+export interface Substitutions {
     subKey: string;
-    subConfigs: Array<ISubConfigs>
+    subConfigs: Array<SubConfigs>
 }
 
-export interface ISubConfigs {
+export interface SubConfigs {
     configName: string;
     configValue: string
 }

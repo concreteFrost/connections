@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { NodeProps, NodeRemoveChange } from "react-flow-renderer";
-import { IVisual } from "../interfaces/Iflow";
+import { Visual } from "../interfaces/IFlow";
 import { RFState } from "../types/rfState";
 
 export const getAllselectedBlockIDs = (nodes: any) => {
@@ -16,7 +16,7 @@ export const addGroup = (get: () => RFState, set: any) => () => {
     let minX = Infinity;
     let maxY = -Infinity;
     let minY = Infinity;
-    selectedBlockIDs.forEach((node: IVisual) => {
+    selectedBlockIDs.forEach((node: Visual) => {
       maxX = Math.max(maxX, node.position.x);
       minX = Math.min(minX, node.position.x);
       maxY = Math.max(maxY, node.position.y);

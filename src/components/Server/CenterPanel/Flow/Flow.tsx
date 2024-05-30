@@ -1,5 +1,5 @@
-import { IBlockData, IBlockDataExtended } from "../../../../store/interfaces/IBlock";
-import { IFlowData } from "../../../../store/interfaces/Iflow";
+import { BlockData, BlockDataExtended } from "../../../../store/interfaces/IBlock";
+import { FlowData } from "../../../../store/interfaces/IFlow";
 import useStore from "../../../../store/store";
 import s from "./Flow.module.scss";
 import BlockTable from "./FlowElements/BlockTable";
@@ -8,7 +8,7 @@ import FlowControl from "./FlowElements/FlowControl";
 import StaticProperties from "./FlowElements/StaticProperties";
 
 function Flow() {
-  const currentFlow = useStore((state) => state.serverSlice.currentFlow) as IFlowData;
+  const currentFlow = useStore((state) => state.serverSlice.currentFlow) as FlowData;
 
   return (
     <div className={s.wrapper}>
@@ -27,7 +27,7 @@ function Flow() {
       ></StaticProperties> 
       <ChangeLog className={s}></ChangeLog> 
       <FlowControl className={s}></FlowControl></> : null}
-      <BlockTable className={s} blockData={currentFlow.blockData as IBlockDataExtended[]}></BlockTable>
+      <BlockTable className={s} blockData={currentFlow.blockData as BlockDataExtended[]}></BlockTable>
     </div>
   );
 }

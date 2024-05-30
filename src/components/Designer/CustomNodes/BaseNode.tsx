@@ -6,9 +6,8 @@ import { connectionsIcons } from "../../../assets/icons/icons";
 import { Position, Handle } from "react-flow-renderer";
 import { isDarkBackground } from "../../../store/actions/utils/nodeUtils";
 import { Node } from "reactflow";
-import { getDirectivesApi } from "../../../api/ehd";
-import { IDirective } from "../../../store/interfaces/IAlerts";
-import { IBlockData, IBlockParameters } from "../../../store/interfaces/IBlock";
+import { Directive } from "../../../store/interfaces/IAlerts";
+import { BlockData } from "../../../store/interfaces/IBlock";
 
 interface Block {
   blockLabel: string;
@@ -42,7 +41,7 @@ export default function BaseNode(props: any) {
   }, [selectedBlockId, props.id]);
 
   const getDefaultBlockDirective = () => {
-    const dir = flow.blockData.find((block: IBlockData) => block.blockIdentifier === props.id)?.ehDirective;
+    const dir = flow.blockData.find((block: BlockData) => block.blockIdentifier === props.id)?.ehDirective;
     return dir ? dir : "undefined"
   }
 
@@ -71,7 +70,7 @@ export default function BaseNode(props: any) {
         <div className={s.directions_wrapper}>
           {getDefaultBlockDirective() !== "undefined" ? <select value={getDefaultBlockDirective()} onChange={(e) => setDirective(e.target.value)}>
             <option value="null">Select Directive</option>
-            {directives.length > 0 ? directives.map((directive: IDirective) => <option key={directive.ehControlId} value={directive.ehControlId}>{directive.name}</option>) : <option value={"null"}>-</option>}
+            {directives.length > 0 ? directives.map((directive: Directive) => <option key={directive.ehControlId} value={directive.ehControlId}>{directive.name}</option>) : <option value={"null"}>-</option>}
           </select> : null}
         </div>
         <Handle

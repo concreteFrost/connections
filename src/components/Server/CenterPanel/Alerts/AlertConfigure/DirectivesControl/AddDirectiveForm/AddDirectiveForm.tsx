@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useStore from "../../../../../../../store/store";
-import { IFlowConfig } from "../../../../../../../store/interfaces/Iflow";
+import { FlowConfig } from "../../../../../../../store/interfaces/IFlow";
 import s from "./AddDirectiveForm.module.scss";
 import {
-  IDirective,
-  IDirectiveConfig,
+  Directive,
+  DirectiveConfig,
 } from "../../../../../../../store/interfaces/IAlerts";
 import DirectiveConfigItem from "./DirectiveConfigItem/DirectiveConfigItem";
 import moment from "moment";
 
-const initialDirectiveConfig: IDirectiveConfig = {
+const initialDirectiveConfig: DirectiveConfig = {
   directiveOrder: 1,
   ehControlId: 0,
   ehDirectiveId: 0,
@@ -24,7 +24,7 @@ const initialDirectiveConfig: IDirectiveConfig = {
   clearCounter: false,
 };
 
-const initialDirective: IDirective = {
+const initialDirective: Directive = {
   name: "New Directive",
   description: "",
   category: 0,
@@ -36,18 +36,18 @@ const initialDirective: IDirective = {
 
 interface DirectiveFormProps {
   setAddDirectiveFormVisible: (isVisible: boolean) => void;
-  setDirectives: (directives: Array<IDirective>) => void;
-  directives: IDirective[];
-  flowList: Array<IFlowConfig>;
+  setDirectives: (directives: Array<Directive>) => void;
+  directives: Directive[];
+  flowList: Array<FlowConfig>;
 }
 
 function AddDirectiveForm(props: DirectiveFormProps) {
   const { addDirective } = useStore((state) => state.alertSlice);
   const [newDirective, setNewDirective] =
-    useState<IDirective>(initialDirective);
+    useState<Directive>(initialDirective);
   const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
 
-  const editDirective = (key: keyof IDirective, value: any) => {
+  const editDirective = (key: keyof Directive, value: any) => {
     setNewDirective((prevState) => ({
       ...prevState,
       [key]: value,
@@ -55,9 +55,9 @@ function AddDirectiveForm(props: DirectiveFormProps) {
   };
 
   const editDirectiveConfig = (
-    directive: IDirective,
+    directive: Directive,
     configIndex: number,
-    key: keyof IDirectiveConfig,
+    key: keyof DirectiveConfig,
     value: any
   ) => {
     setNewDirective((prevState) => {
@@ -91,21 +91,19 @@ function AddDirectiveForm(props: DirectiveFormProps) {
     });
   };
 
-  function deleteDirectiveConfig(directive: IDirective, configIndex: number) {
+  function deleteDirectiveConfig(directive: Directive, configIndex: number) {
     if (directive.directives.length > 1) {
       setNewDirective((prevState) => {
         const updatedDirectives = prevState.directives.filter(
           (_, index) => index !== configIndex
         );
-
+  
         // updating directive order
-        const reorderedDirectives = updatedDirectives.map(
-          (directive, index) => ({
-            ...directive,
-            directiveOrder: index + 1,
-          })
-        );
-
+        const reorderedDirectives = updatedDirectives.map((directive, index) => ({
+          ...directive,
+          directiveOrder: index + 1,
+        }));
+  
         return {
           ...prevState,
           directives: reorderedDirectives,
@@ -115,18 +113,13 @@ function AddDirectiveForm(props: DirectiveFormProps) {
       toggleMessageModal("Directive needs to have at least 1 configuration");
     }
   }
+  
 
   function addDirectiveConfig() {
     setNewDirective((prevState) => {
       const updatedDirective = {
         ...prevState,
-        directives: [
-          ...prevState.directives,
-          {
-            ...initialDirectiveConfig,
-            directiveOrder: prevState.directives.length + 1,
-          },
-        ],
+        directives: [...prevState.directives, {...initialDirectiveConfig, directiveOrder: prevState.directives.length+1}],
       };
       return updatedDirective;
     });
@@ -141,7 +134,7 @@ function AddDirectiveForm(props: DirectiveFormProps) {
         return;
       }
 
-      const data: IDirective = res.data;
+      const data: Directive = res.data;
 
       toggleMessageModal("success!!!");
       props.setAddDirectiveFormVisible(false);

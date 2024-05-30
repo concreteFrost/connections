@@ -1,6 +1,5 @@
 import s from "./LeftPanel.module.scss";
 import useStore from "../../../store/store";
-import { INodeType } from "../../../store/interfaces/INode";
 import { useRef, useState } from "react";
 import Section from "./Section/Section";
 import { nodeGroup } from "../../../store/constants/nodeConst";

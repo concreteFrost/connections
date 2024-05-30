@@ -3,7 +3,7 @@ import { EdgeChange, applyEdgeChanges } from 'react-flow-renderer';
 import { RFState } from '../types/rfState';
 import { IEdgeDraggable } from '../../components/Designer/RightPanel/EdgesEditor/EdgesEditor';
 import markerEnd from '../constants/edgeConst';
-import IConnectionsEdge from '../interfaces/IConnectionsEdges';
+import ConnectionsEdge from '../interfaces/IConnectionsEdges';
 
 export const onEdgesConnect = (get: () => RFState, set: any) => (connection: Connection) => {
   const sourceEdges = get().flowSlice.flow.visual.edges;
@@ -46,11 +46,11 @@ export const deleteEdge = (get: () => RFState, set: any) => (edgeId: string) => 
   const edges = get().flowSlice.flow.visual.edges;
 
   // Find the edge to be deleted
-  const deletedEdge = edges.find((edge: IConnectionsEdge) => edge.id === edgeId);
+  const deletedEdge = edges.find((edge: ConnectionsEdge) => edge.id === edgeId);
   if (!deletedEdge) return; // Edge not found, no action needed
 
   // Filter out the edge to be deleted
-  const filteredEdges = edges.filter((edge: IConnectionsEdge) => edge.id !== edgeId);
+  const filteredEdges = edges.filter((edge: ConnectionsEdge) => edge.id !== edgeId);
 
   // Update the priorities of the remaining edges above the deleted edge
   //NEED TO CHANGE TYPE BACK TO EDGE

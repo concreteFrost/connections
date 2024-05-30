@@ -1,8 +1,8 @@
 import { RFState } from "../types/rfState";
 import { Node, Edge } from "react-flow-renderer";
 import { blockAlignment } from "./utils/blockUtils";
-import { IBlockData } from "../interfaces/IBlock";
-import IConnectionsEdge from "../interfaces/IConnectionsEdges";
+import { BlockData } from "../interfaces/IBlock";
+import ConnectionsEdge from "../interfaces/IConnectionsEdges";
 
 const setSelectedBlocksColors=(get:()=>RFState,set:any)=> (color: string) => {
     const selectedBlocks: Node<any>[] =
@@ -54,8 +54,8 @@ const deleteMultipleBlocks = (get:()=>RFState,set:any)=>() => {
     if(selectedBlocks.length>0){
       
        const filteredVisualBlocks : Node<any>[] = get().flowSlice.flow.visual.blocks.filter((block:Node)=> !selectedBlocks.some((block2:Node)=> block.id === block2.id));
-       const filteredBlocksData: IBlockData[] = get().flowSlice.flow.blockData.filter((block:IBlockData)=> !selectedBlocks.some((block2:Node)=>block.blockIdentifier === block2.id));
-       const filteredEdgesData: IConnectionsEdge[] = get().flowSlice.flow.visual.edges.filter((edge:IConnectionsEdge)=> !selectedBlocks.some((block:Node)=>  edge.source === block.id || edge.target === block.id));
+       const filteredBlocksData: BlockData[] = get().flowSlice.flow.blockData.filter((block:BlockData)=> !selectedBlocks.some((block2:Node)=>block.blockIdentifier === block2.id));
+       const filteredEdgesData: ConnectionsEdge[] = get().flowSlice.flow.visual.edges.filter((edge:ConnectionsEdge)=> !selectedBlocks.some((block:Node)=>  edge.source === block.id || edge.target === block.id));
 
        set((state: RFState) => ({
         selectedBlockID: [],

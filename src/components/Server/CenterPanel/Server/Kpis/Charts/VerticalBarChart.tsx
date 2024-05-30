@@ -9,7 +9,6 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import s from "./Charts.module.scss";
-import { faker } from "@faker-js/faker";
 import { ChartsState } from "../Kpis";
 import { verticalData, verticalLabels } from "../fakeData";
 

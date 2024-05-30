@@ -1,4 +1,4 @@
-export interface IUser {
+export interface User {
     belongsToGroups: any[];
     dateCreated: string;
     emailAddress: string;
@@ -16,7 +16,7 @@ export interface IUser {
     userRoles: any[];
 }
 
-export interface INewUser {
+export interface NewUser {
     userLogin: string;
     password: string;
     userName: string;
@@ -32,7 +32,7 @@ export interface INewUser {
 }
 
 
-export interface IGroup {
+export interface Group {
     groupId: string;
     name: string;
     description: string;
@@ -43,11 +43,11 @@ export interface IGroup {
 
 }
 
-export interface IGroupWithUsers extends IGroup {
-    groupMembers: Array<IUser>
+export interface GroupWithUsers extends Group {
+    groupMembers: Array<User>
 }
 
-export interface IRole {
+export interface Role {
     roleDescription: string;
     roleId: string;
     roleName: string;

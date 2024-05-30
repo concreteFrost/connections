@@ -1,8 +1,8 @@
-import { IBlockDataExtended } from "../../../../../store/interfaces/IBlock";
+import { BlockDataExtended } from "../../../../../store/interfaces/IBlock";
 
 interface BlockTableProps {
   className: any;
-  blockData: IBlockDataExtended[];
+  blockData: BlockDataExtended[];
 }
 
 function BlockTable(props: BlockTableProps) {
@@ -21,7 +21,7 @@ function BlockTable(props: BlockTableProps) {
           </tr>
         </thead>
         <tbody>
-          {props.blockData && props.blockData.length > 0 ? props.blockData.map((block: IBlockDataExtended) => {
+          {props.blockData && props.blockData.length > 0 ? props.blockData.map((block: BlockDataExtended) => {
             return (<tr key={block.blockIdentifier}>
               <td>{block.name}</td>
               <td>{block.typeName}</td>

@@ -2,9 +2,9 @@ import s from "./UsersTable.module.scss";
 import useStore from "../../../../../store/store";
 import { useState } from "react";
 import {
-  IGroup,
-  IRole,
-  IUser,
+  Group,
+  Role,
+  User,
 } from "../../../../../store/interfaces/ISecurity";
 import moment from "moment";
 import EditUserModal from "../../../../Modals/UserModals/EditUserModal/EditUserModal";
@@ -58,7 +58,7 @@ function UsersTable() {
           </thead>
           <tbody>
             {userList.length > 0
-              ? userList.map((user: IUser) => (
+              ? userList.map((user: User) => (
                   <tr key={user.userId}>
                     <td colSpan={2}> {user.userName}</td>
                     <td colSpan={1}>
@@ -79,7 +79,7 @@ function UsersTable() {
                     <td colSpan={2}>
                       <ul>
                         {user.userRoles && user.userRoles.length > 0
-                          ? user.userRoles.map((role: IRole) => (
+                          ? user.userRoles.map((role: Role) => (
                               <li key={role.roleId}>{role.roleName}</li>
                             ))
                           : "-"}
@@ -88,7 +88,7 @@ function UsersTable() {
                     <td colSpan={2}>
                       <ul>
                         {user.belongsToGroups && user.belongsToGroups.length > 0
-                          ? user.belongsToGroups.map((group: IGroup) => (
+                          ? user.belongsToGroups.map((group: Group) => (
                               <li key={group.groupId}>{group.name}</li>
                             ))
                           : "-"}

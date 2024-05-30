@@ -3,7 +3,6 @@ import useStore from "../../../../store/store";
 import { useEffect } from "react";
 import UsersTable from "./UsersTable/UsersTable";
 import GroupsTable from "./GroupsTable/GroupsTable";
-import { IGroup } from "../../../../store/interfaces/ISecurity";
 
 function Security() {
 

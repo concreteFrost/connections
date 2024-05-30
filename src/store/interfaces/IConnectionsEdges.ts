@@ -1,7 +1,7 @@
 import { Edge, EdgeMarkerType } from "reactflow";
 import { CSSProperties } from "react";
 
-export default interface IConnectionsEdge<T = any> {
+export default interface ConnectionsEdge<T = any> {
     id: string;
     type?: string;
     source: string;

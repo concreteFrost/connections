@@ -1,21 +1,21 @@
 import s from "./EditGroupModal.module.scss";
 import useStore from "../../../store/store";
 import { useEffect, useState } from "react";
-import { IGroup, IGroupWithUsers, IUser } from "../../../store/interfaces/ISecurity";
+import { Group, GroupWithUsers, User } from "../../../store/interfaces/ISecurity";
 
 interface EditGroupModalProps {
     isVisible: boolean,
     toggleAddGroupModal: (isVisible: boolean) => void;
-    groupToEdit: IGroupWithUsers | undefined;
+    groupToEdit: GroupWithUsers | undefined;
 }
 
 function EditGroupModal(props: EditGroupModalProps) {
 
     const { userList, addGroupMember, removeGroupMember, getGroupList, getUserList } = useStore((state) => state.securitySlice);
-    const [availableMembers, setAvailableMembers] = useState<Array<IUser>>();
-    const [currentMembers, setCurrentMembers] = useState<Array<IUser>>();
+    const [availableMembers, setAvailableMembers] = useState<Array<User>>();
+    const [currentMembers, setCurrentMembers] = useState<Array<User>>();
 
-    async function removeFromGroup(user: IUser, groupId: string) {
+    async function removeFromGroup(user: User, groupId: string) {
         try {
             const res: any = await removeGroupMember(user.userId, groupId)
 
@@ -31,7 +31,7 @@ function EditGroupModal(props: EditGroupModalProps) {
         }
     }
 
-    async function addToGroup(user: IUser, groupId: string) {
+    async function addToGroup(user: User, groupId: string) {
         try {
             const res: any = await addGroupMember(user.userId, groupId)
             if (res.data.success) {
@@ -47,25 +47,25 @@ function EditGroupModal(props: EditGroupModalProps) {
     }
 
     function removeFromCurrentUsers(userId: string) {
-        setCurrentMembers((prevCurrentMembers: any) => prevCurrentMembers.filter((user: IUser) => user.userId !== userId));
+        setCurrentMembers((prevCurrentMembers: any) => prevCurrentMembers.filter((user: User) => user.userId !== userId));
     }
 
-    function addToCurrentUsers(newUser: IUser) {
+    function addToCurrentUsers(newUser: User) {
         setCurrentMembers((previousUsers: any) => [...previousUsers, newUser])
     }
 
     function removeFromAvailableUsers(userId: string) {
-        setAvailableMembers((prevCurrentMembers: any) => prevCurrentMembers.filter((user: IUser) => user.userId !== userId));
+        setAvailableMembers((prevCurrentMembers: any) => prevCurrentMembers.filter((user: User) => user.userId !== userId));
     }
 
-    function addToAvailableUsers(newUser: IUser) {
+    function addToAvailableUsers(newUser: User) {
         setAvailableMembers((previousUsers: any) => [...previousUsers, newUser])
     }
 
-    const filteredList = (listToFilter: Array<IUser>, listToCheck: Array<IUser>) => {
+    const filteredList = (listToFilter: Array<User>, listToCheck: Array<User>) => {
         console.log('filtering')
-        return listToFilter.filter((availableUser: IUser) =>
-            !listToCheck?.some((currentUser: IUser) => currentUser.userId === availableUser.userId)
+        return listToFilter.filter((availableUser: User) =>
+            !listToCheck?.some((currentUser: User) => currentUser.userId === availableUser.userId)
         );
 
     }
@@ -92,7 +92,7 @@ function EditGroupModal(props: EditGroupModalProps) {
                                 <label htmlFor="currentMembers">Current Members:</label>
                                 <ul>
                                     {currentMembers && currentMembers.length > 0 ?
-                                        currentMembers.map((user: IUser) => <li key={user.userId}>
+                                        currentMembers.map((user: User) => <li key={user.userId}>
                                             <div className={s.list_item_wrapper}>
                                                 <p>{user.userName}</p>
                                                 <button className={s.delete_from_group_btn} onClick={() => {
@@ -108,7 +108,7 @@ function EditGroupModal(props: EditGroupModalProps) {
                                 <label htmlFor="availableMembers">Available Members:</label>
                                 <ul>
                                     {availableMembers && availableMembers.length > 0 ?
-                                        availableMembers.map((user: IUser) => <li key={user.userId}>
+                                        availableMembers.map((user: User) => <li key={user.userId}>
                                             <div className={s.list_item_wrapper}>
                                                 <p>{user.userName}</p>
                                                 <button className={s.add_to_group_btn} onClick={() => {

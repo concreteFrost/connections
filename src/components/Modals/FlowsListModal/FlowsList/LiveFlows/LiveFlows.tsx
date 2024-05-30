@@ -4,12 +4,12 @@ import { getFlowListApi } from "../../../../../api/flow";
 import useStore from "../../../../../store/store";
 import CreateTemplateFlowModal from "../../../CreateTemplateFlowModal";
 import moment from "moment";
-import { IFlowConfig } from "../../../../../store/interfaces/Iflow";
+import { FlowConfig } from "../../../../../store/interfaces/IFlow";
 
 
 function LiveFlows() {
 
-  const [loadedLiveFlows, setLoadedLiveFlows] = useState<Array<IFlowConfig>>([]);
+  const [loadedLiveFlows, setLoadedLiveFlows] = useState<Array<FlowConfig>>([]);
   const toggleCreateTemplateFlowModal = useStore((state) => state.modalWindowsSlice.toggleCreateTemplateFlowModal);
   const setTooltipText = useStore((state) => state.designerVisualElementsSlice.setTooltipText)
 
@@ -74,7 +74,7 @@ function LiveFlows() {
             </tr>
           </thead>
           <tbody>
-            {loadedLiveFlows.length > 0 ? loadedLiveFlows.map((loadedFlow: IFlowConfig) => <tr key={loadedFlow.flowId}>
+            {loadedLiveFlows.length > 0 ? loadedLiveFlows.map((loadedFlow: FlowConfig) => <tr key={loadedFlow.flowId}>
               <td className={s.flow_name}>{loadedFlow.name}</td>
               <td>{loadedFlow.createdBy}</td>
               <td>{moment(loadedFlow.dateCreated).calendar()}</td>

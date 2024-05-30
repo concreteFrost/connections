@@ -1,12 +1,10 @@
 import { useState } from "react";
 import useStore from "../../../../../../store/store";
-import { IFlowConfig } from "../../../../../../store/interfaces/Iflow";
 import s from "./AddAlertFormatForm.module.scss"
-import { IAlertFormat, INewAlertFormat } from "../../../../../../store/interfaces/IAlerts";
-import moment from "moment";
-import { IGroup, IUser } from "../../../../../../store/interfaces/ISecurity";
+import { AlertFormat, NewAlertFormat } from "../../../../../../store/interfaces/IAlerts";
+import { Group, User } from "../../../../../../store/interfaces/ISecurity";
 
-const initialAlertFormat: INewAlertFormat = {
+const initialAlertFormat: NewAlertFormat = {
   name: "New Alert Format",
   description: "",
   notifyByValue: 1,
@@ -17,20 +15,20 @@ const initialAlertFormat: INewAlertFormat = {
 
 interface AlertFormatProps {
   setAlertFormatVisible: (isVisible: boolean) => void;
-  userList: IUser[],
-  groupList: IGroup[],
-  alertFormats: IAlertFormat[],
-  setAlertFormats: (alertFormats: IAlertFormat[]) => void;
+  userList: User[],
+  groupList: Group[],
+  alertFormats: AlertFormat[],
+  setAlertFormats: (alertFormats: AlertFormat[]) => void;
 }
 
 
 function AddAlertFormatForm(props: AlertFormatProps) {
   const { addAlertFormat } = useStore((state) => state.alertSlice);
-  const [newAlertFormat, setNewAlertFormat] = useState<INewAlertFormat>(initialAlertFormat);
+  const [newAlertFormat, setNewAlertFormat] = useState<NewAlertFormat>(initialAlertFormat);
   const {toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
 
 
-  const editNewAlertValues = (key: keyof INewAlertFormat, value: any) => {
+  const editNewAlertValues = (key: keyof NewAlertFormat, value: any) => {
     setNewAlertFormat(prevState => ({
       ...prevState,
       [key]: value
@@ -47,7 +45,7 @@ function AddAlertFormatForm(props: AlertFormatProps) {
         return;
       }
 
-      const data : IAlertFormat = res.data;
+      const data : AlertFormat = res.data;
 
       toggleMessageModal("success!!!");
 

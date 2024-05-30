@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import s from "./FilteredResults.module.scss";
 import useStore from "../../../../store/store";
-import { ISubstitutions } from "../../../../store/interfaces/Iflow";
+import { Substitutions } from "../../../../store/interfaces/IFlow";
 
 interface ISelection {
   index: number;
@@ -16,7 +16,7 @@ interface FilteredResultsProps {
 
 function FilteredResults(props: FilteredResultsProps) {
   const [filteredSubstitutions, setFilteredSubstitutions] = useState<
-    ISubstitutions[]
+    Substitutions[]
   >([]);
   const substitutions = useStore((state) => state.flowSlice.flow.substitutions);
 
@@ -50,7 +50,7 @@ function FilteredResults(props: FilteredResultsProps) {
 
     const searchTerm = inputValue.substring(1).toLowerCase();
 
-    const res = substitutions.filter((sub: ISubstitutions) => {
+    const res = substitutions.filter((sub: Substitutions) => {
       const substitution = sub.subKey.toLowerCase();
       return substitution.startsWith(searchTerm);
     });

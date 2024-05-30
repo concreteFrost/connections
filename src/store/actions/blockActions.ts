@@ -1,15 +1,15 @@
-import { IBlockData, IBlockParameters } from "../interfaces/IBlock";
+import { BlockData, BlockParameters } from "../interfaces/IBlock";
 import flowSlice from "../slices/flowSlice";
 import { RFState } from "../types/rfState";
 import { Edge, Node } from "react-flow-renderer";
 import { getSelectedBlock } from "./utils/blockUtils";
 import { v4 as uuidv4 } from "uuid";
-import { INodeType } from "../interfaces/INode";
-import IConnectionsEdge from "../interfaces/IConnectionsEdges";
+import { NodeType } from "../interfaces/INode";
+import ConnectionsEdge from "../interfaces/IConnectionsEdges";
 
 export const addBlock =
   (get: () => RFState, set: any) =>
-  (type: INodeType, posX: number, posY: number) => {
+  (type: NodeType, posX: number, posY: number) => {
     const id = uuidv4();
     const newNode = {
       data: { ...type.data, blockIdentifier: id },
@@ -43,9 +43,9 @@ export const addBlock =
 
 const createBlockCopy =
   (get: () => RFState, set: any) => (posX: number, posY: number) => {
-    let filteredBlocks: Array<IBlockData> =
+    let filteredBlocks: Array<BlockData> =
       get().flowSlice.flow.blockData.filter(
-        (block: IBlockData) =>
+        (block: BlockData) =>
           block.blockIdentifier === getSelectedBlock(get().flowSlice).id
       );
     const filteredVisualBlocks = get().flowSlice.flow.visual.blocks.filter(
@@ -53,8 +53,8 @@ const createBlockCopy =
     );
 
     const id = uuidv4();
-    const newBlocksData: Array<IBlockData> = filteredBlocks.map(
-      (x: IBlockData) => {
+    const newBlocksData: Array<BlockData> = filteredBlocks.map(
+      (x: BlockData) => {
         return {
           ...x,
           blockIdentifier: id,
@@ -94,14 +94,14 @@ const createBlockCopy =
 
 const deleteBlock = (get: () => RFState, set: any) => () => {
   const filteredBlocks = get().flowSlice.flow.blockData.filter(
-    (block: IBlockData) =>
+    (block: BlockData) =>
       block.blockIdentifier !== getSelectedBlock(get().flowSlice).id
   );
   const filteredVisualBlocks = get().flowSlice.flow.visual.blocks.filter(
     (block: Node) => block.id !== getSelectedBlock(get().flowSlice).id
   );
   const filteredEdges = get().flowSlice.flow.visual.edges.filter(
-    (edge: IConnectionsEdge) =>
+    (edge: ConnectionsEdge) =>
       edge.source !== getSelectedBlock(get().flowSlice).id &&
       edge.target !== getSelectedBlock(get().flowSlice).id
   );
@@ -126,12 +126,12 @@ const deleteBlock = (get: () => RFState, set: any) => () => {
 const setParameter =
   (get: () => RFState, set: any) => (propertyName: string, value: any) => {
     const blockData = get().flowSlice.flow.blockData.find(
-      (block: IBlockData) =>
+      (block: BlockData) =>
         block.blockIdentifier === getSelectedBlock(get().flowSlice).id
-    ) as IBlockData | undefined;
+    ) as BlockData | undefined;
 
     if (blockData) {
-      const parameter: IBlockData[] = blockData.parameters.map((param: any) => {
+      const parameter: BlockData[] = blockData.parameters.map((param: any) => {
         if (param.name === propertyName) {
           return {
             ...param,
@@ -164,9 +164,9 @@ const setParameter =
 export const setSelectedExtendedParameter =
   (get: () => RFState, set: any) => (propertyName: string, value: string) => {
     const blockData = get().flowSlice.flow.blockData.find(
-      (block: IBlockData) =>
+      (block: BlockData) =>
         block.blockIdentifier === getSelectedBlock(get().flowSlice).id
-    ) as IBlockData | undefined;
+    ) as BlockData | undefined;
 
     if (blockData) {
       const parameter = blockData.extendedParameters.map((param: any) => {
@@ -204,7 +204,7 @@ export const deleteExtendedParameter =
     const blockData = get().flowSlice.flow.blockData.find(
       (block: any) =>
         block.blockIdentifier === getSelectedBlock(get().flowSlice).id
-    ) as IBlockData | undefined;
+    ) as BlockData | undefined;
 
     if (blockData) {
       const filteredParameters = blockData.extendedParameters.filter(
@@ -238,9 +238,9 @@ export const addCustomParameter =
   ): ((name: string, value: string) => boolean | undefined) =>
   (name, value) => {
     const blockData = get().flowSlice.flow.blockData.find(
-      (block: IBlockData) =>
+      (block: BlockData) =>
         block.blockIdentifier === getSelectedBlock(get().flowSlice).id
-    ) as IBlockData | undefined;
+    ) as BlockData | undefined;
 
     if (blockData) {
       const existingParam = blockData.parameters.find(

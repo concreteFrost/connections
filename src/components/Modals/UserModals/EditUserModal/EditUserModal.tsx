@@ -1,6 +1,6 @@
 import s from "./EditUserModal.module.scss";
 import useStore from "../../../../store/store";
-import { IGroup, IRole, IUser } from "../../../../store/interfaces/ISecurity";
+import { Group, Role, User } from "../../../../store/interfaces/ISecurity";
 import { useState, useEffect } from 'react';
 import useEscapeKeyHandler from "../../../../hooks/useEscapeKeyHandler";
 
@@ -13,7 +13,7 @@ function EditUserModal(props: EditUserModalProps) {
 
     const { userToEdit, groupList, rolesList, updateUser, getRolesList, generatePassword, resetPassword, getUserList,getGroupList } = useStore((state) => state.securitySlice);
     const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
-    const [_userToEdit, setUserToEdit] = useState<IUser | null>(userToEdit);
+    const [_userToEdit, setUserToEdit] = useState<User | null>(userToEdit);
     const [isResetPasswordActive, setResetPasswordActive] = useState<boolean>(false);
     const [newPassword, setNewPassword] = useState<string>('');
     const [emailUserPassword, setEmailUserPassword] = useState<boolean>(false);
@@ -54,13 +54,13 @@ function EditUserModal(props: EditUserModalProps) {
         }
     }
 
-    function setTextProps(propName: keyof IUser, value: any) {
+    function setTextProps(propName: keyof User, value: any) {
         if (_userToEdit) {
             setUserToEdit({ ..._userToEdit, [propName]: value })
         }
 
     }
-    function setUserGroups(group: IGroup) {
+    function setUserGroups(group: Group) {
         if (_userToEdit) {
             const updatedGroups = (_userToEdit.belongsToGroups ?? []).some(existingGroup => existingGroup.groupId === group.groupId)
                 ? (_userToEdit.belongsToGroups ?? []).filter(existingGroup => existingGroup.groupId !== group.groupId)
@@ -73,7 +73,7 @@ function EditUserModal(props: EditUserModalProps) {
         }
     }
 
-    function setUserRoles(role: IRole) {
+    function setUserRoles(role: Role) {
         if (_userToEdit) {
             console.log(role)
             const updatedRoles = (_userToEdit.userRoles ?? []).some(existingRole => existingRole.roleId === role.roleId)
@@ -183,14 +183,14 @@ function EditUserModal(props: EditUserModalProps) {
                                 <label htmlFor="belongsToGroups">Belongs To Groups:</label>
                                 <div className={s.group_wrapper}>
                                     {groupList.length > 0 ? (
-                                        groupList.map((group: IGroup) => (
+                                        groupList.map((group: Group) => (
                                             <div key={group.groupId} className={s.group_wrapper_item}>
                                                 <label>{group.name}</label>
                                                 <input
                                                     type="checkbox"
                                                     checked={
                                                         _userToEdit.belongsToGroups?.some(
-                                                            (userGroup: IGroup) => userGroup.groupId === group.groupId
+                                                            (userGroup: Group) => userGroup.groupId === group.groupId
                                                         )
                                                     }
                                                     onChange={() => setUserGroups(group)}
@@ -205,14 +205,14 @@ function EditUserModal(props: EditUserModalProps) {
                                 <label htmlFor="userRoles">User Roles:</label>
                                 <div className={s.group_wrapper}>
                                     {rolesList.length > 0 ? (
-                                        rolesList.map((role: IRole) => (
+                                        rolesList.map((role: Role) => (
                                             <div key={role.roleId} className={s.group_wrapper_item}>
                                                 <label>{role.roleName}</label>
                                                 <input
                                                     type="checkbox"
                                                     checked={
                                                         _userToEdit.userRoles?.some(
-                                                            (userRole: IRole) => userRole.roleId === role.roleId
+                                                            (userRole: Role) => userRole.roleId === role.roleId
                                                         )
                                                     }
                                                     onChange={() => setUserRoles(role)}

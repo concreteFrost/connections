@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import s from "./CurrentAlertsTable.module.scss";
 import { useNavigate } from "react-router";
 import { getAlertsApi, alertMarkAsReadApi, alertRemoveApi } from "../../../../../api/ehd";
-import { IAlert } from "../../../../../store/interfaces/IAlerts";
+import { Alert } from "../../../../../store/interfaces/IAlerts";
 import useStore from "../../../../../store/store";
 
 function CurrentAlertsTable() {
 
   const navigate = useNavigate();
 
-  const [alerts, setAlerts] = useState<Array<IAlert>>();
+  const [alerts, setAlerts] = useState<Array<Alert>>();
   const {toggleMessageModal} =useStore((state)=>state.modalWindowsSlice);
 
   useEffect(() => {
@@ -66,7 +66,7 @@ function CurrentAlertsTable() {
             </tr>
           </thead>
           <tbody>
-            {alerts && alerts?.length > 0 ? alerts?.map((element: IAlert) => <tr key={alerts.indexOf(element)}>
+            {alerts && alerts?.length > 0 ? alerts?.map((element: Alert) => <tr key={alerts.indexOf(element)}>
               <td colSpan={4}>{element.messageText}</td>
               <td><div className={s.actions_btn_wrapper}>
                 <button className={s.read_btn} onClick={()=>handleMarkAsRead(element.alertId)}>READ</button>

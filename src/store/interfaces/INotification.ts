@@ -1,4 +1,4 @@
-export interface INotification {
+export interface Notification {
     notificationId: number;
     name: string;
     description: string;
@@ -12,13 +12,13 @@ export interface INotification {
 
 }
 
-export interface INotificationType {
+export interface NotificationType {
     defaultText: string,
     name: string,
     notificationTypeId: string
 }
 
-export interface ISubscription {
+export interface Subscription {
     endpoint: string,
 
     auth: string,

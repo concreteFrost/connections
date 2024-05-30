@@ -1,20 +1,19 @@
 import { RFState } from "../../types/rfState";
-import { IBlockData } from "../../interfaces/IBlock";
-import { IBlockParameters } from "../../interfaces/IBlock";
-import { IVisual } from "../../interfaces/Iflow";
-import { Edge, addEdge } from "react-flow-renderer";
+import { BlockData } from "../../interfaces/IBlock";
+import { BlockParameters } from "../../interfaces/IBlock";
+import { Visual } from "../../interfaces/IFlow";
 import { v4 as uuidv4 } from "uuid";
 import { getAccessToken } from "../storageActions";
 import { getDraftListApi } from "../../../api/draft";
 import markerEnd from "../../constants/edgeConst";
-import IConnectionsEdge from "../../interfaces/IConnectionsEdges";
+import ConnectionsEdge from "../../interfaces/IConnectionsEdges";
 
 export function initializeFlow<IFlowData>(
   initialNodes: object,
   initialEdges: object,
   flowId?: string
 ) {
-  return <IFlowData>{
+  return {
     blockData: [],
     created: new Date(),
     createdBy: getAccessToken().userName,
@@ -33,12 +32,11 @@ export function initializeFlow<IFlowData>(
       blocks: initialNodes,
       edges: initialEdges,
     },
-  };
+  } as IFlowData;
 
 }
 
 export function setFlow(data: any,set: any, get:()=>RFState) {
-  console.log('setting flow', data)
   set((state: RFState) => ({
     flowSlice: {
       ...state.flowSlice,
@@ -55,7 +53,7 @@ export function setFlow(data: any,set: any, get:()=>RFState) {
         lastAmendedBy: data.lastAmendedBy,
         startBlock: data.startBlock,
         serverIdentifier: data.serverIdentifier,
-        blockData: data.blockData.map((b: IBlockData) => {
+        blockData: data.blockData.map((b: BlockData) => {
           return {
             name: b.name,
             blockIdentifier: b.blockIdentifier,
@@ -66,7 +64,7 @@ export function setFlow(data: any,set: any, get:()=>RFState) {
             typeName: b.typeName,
             baseTypeName: b.baseTypeName,
             ehDirective: b.ehDirective,
-            parameters: b.parameters.map((p: IBlockParameters) => {
+            parameters: b.parameters.map((p: BlockParameters) => {
               return {
                 name: p.name,
                 value: p.value,
@@ -75,7 +73,7 @@ export function setFlow(data: any,set: any, get:()=>RFState) {
               };
             }),
             extendedParameters: b.extendedParameters.map(
-              (p: IBlockParameters) => {
+              (p: BlockParameters) => {
                 return {
                   name: p.name,
                   value: p.value,
@@ -86,7 +84,7 @@ export function setFlow(data: any,set: any, get:()=>RFState) {
         }),
         visual: {
           ...state.flowSlice.flow.visual,
-          blocks: data.visual.blocks.map((b: IVisual) => {
+          blocks: data.visual.blocks.map((b: Visual) => {
             return {
               id: b.id,
               type: "pointer",
@@ -95,7 +93,7 @@ export function setFlow(data: any,set: any, get:()=>RFState) {
             };
           }),
           //NEED TO CHANGE TYPE BACK TO EDGE
-          edges: data.visual.edges.map((e: IConnectionsEdge) => {
+          edges: data.visual.edges.map((e: ConnectionsEdge) => {
            return {id: e.id,
             source: e.source,
             target: e.target,

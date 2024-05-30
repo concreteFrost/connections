@@ -79,3 +79,7 @@ export const setDesignerSettings=(key: keyof userSetting['designer'], value:any)
         localStorage.setItem(connectionsSettingsPrefix, JSON.stringify(parsedSetting));
     }
 }
+
+export const setFlowStatusStorage=(data:any)=>{
+  localStorage.setItem(connectionsPrefix + "status",JSON.stringify(data))
+}

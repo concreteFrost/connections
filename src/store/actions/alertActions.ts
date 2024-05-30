@@ -1,10 +1,10 @@
 import { addAlertFormatApi, removeAlertFormatApi, removeDirectiveApi, updateAlertFormatApi, updateDirectiveApi, addDirectiveApi, getAlertFormatsApi, getDirectivesApi, enabliClientAlertsApi } from "../../api/ehd";
-import { IAlertFormat, IDirective,INewAlertFormat } from "../interfaces/IAlerts";
-import { ISubscription } from "../interfaces/INotification";
+import { AlertFormat, Directive,NewAlertFormat } from "../interfaces/IAlerts";
+import { Subscription } from "../interfaces/INotification";
 import { RFState } from "../types/rfState";
 
 //for local state
-const getDirectives = () => async (): Promise<IDirective[]> => {
+const getDirectives = () => async (): Promise<Directive[]> => {
     try {
         const res: any = await getDirectivesApi();
         return res.data;
@@ -18,11 +18,11 @@ const getDirectives = () => async (): Promise<IDirective[]> => {
 const getDirectivesGlobal=(get:()=>RFState,set:any)=>async()=>{
     try {
         const res: any = await getDirectivesApi();
-        const data : IDirective[] = res.data;
+        const data : Directive[] = res.data;
         set((state:RFState)=>({
             alertSlice:{
                 ...state.alertSlice,
-                directives: data.filter((dir:IDirective)=> dir.category === 1)
+                directives: data.filter((dir:Directive)=> dir.category === 1)
             }
         }))
     } catch (error) {
@@ -32,7 +32,7 @@ const getDirectivesGlobal=(get:()=>RFState,set:any)=>async()=>{
     
 }
 
-const updateDirective = () => async (directive: IDirective) => {
+const updateDirective = () => async (directive: Directive) => {
     try {
         console.log(directive)
         const res = await updateDirectiveApi(directive);
@@ -54,7 +54,7 @@ const deleteDirective = () => async (ehControlId: number) => {
     }
 }
 
-const addDirective = () => async (newDirective: IDirective) => {
+const addDirective = () => async (newDirective: Directive) => {
     try {
         console.log(newDirective)
         const res = await addDirectiveApi(newDirective)
@@ -64,7 +64,7 @@ const addDirective = () => async (newDirective: IDirective) => {
     }
 }
 
-const getAlertFormats = () => async (): Promise<IAlertFormat[]> => {
+const getAlertFormats = () => async (): Promise<AlertFormat[]> => {
     try {
         const res: any = await getAlertFormatsApi();
         return res.data;
@@ -74,7 +74,7 @@ const getAlertFormats = () => async (): Promise<IAlertFormat[]> => {
     }
 }
 
-const updateAlertFormat = () => async (alertFormat: IAlertFormat) => {
+const updateAlertFormat = () => async (alertFormat: AlertFormat) => {
     try {
         const res = await updateAlertFormatApi(alertFormat);
         return res;
@@ -94,7 +94,7 @@ const deleteAlertFormat = () => async (alertFormatId: number) => {
     }
 }
 
-const addAlertFormat = () => async (newAlertFormat: INewAlertFormat) => {
+const addAlertFormat = () => async (newAlertFormat: NewAlertFormat) => {
     try {
         const res = await addAlertFormatApi(newAlertFormat)
         return res;
@@ -103,10 +103,10 @@ const addAlertFormat = () => async (newAlertFormat: INewAlertFormat) => {
     }
 }
 
-const enableClientAlerts = () => async (subscription: ISubscription) => {
-    console.log('alerts payload', subscription)
+const enableClientAlerts = () => async (subscription: Subscription) => {
     try {
         const res = await enabliClientAlertsApi(subscription);
+        return res;
     } catch (error) { console.log('subscription',subscription)
         console.log("error registering alerts callback", error);
     }

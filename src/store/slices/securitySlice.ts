@@ -1,22 +1,22 @@
 
 import securityActions from "../actions/securityActions";
-import { IGroup, IGroupWithUsers, INewUser, IRole, IUser } from "../interfaces/ISecurity";
+import { Group, GroupWithUsers, NewUser, Role, User } from "../interfaces/ISecurity";
 import { RFState } from "../types/rfState"
 
 export type SecuritySlice = {
-    appUser: IUser | null,
+    appUser: User | null,
     appUserPassword: string | undefined,
-    userToEdit: IUser | null,
-    userList: Array<IUser>,
-    groupList: Array<IGroupWithUsers>,
-    rolesList: Array<IRole>,
+    userToEdit: User | null,
+    userList: Array<User>,
+    groupList: Array<GroupWithUsers>,
+    rolesList: Array<Role>,
 
     //user actions
     getMe:()=>void;
-    getUser: (user: IUser) => void;
+    getUser: (user: User) => void;
     getUserList: () => void;
-    updateUser: (userRecord: IUser) => void;
-    addUser: (userRecord: INewUser) => void;
+    updateUser: (userRecord: User) => void;
+    addUser: (userRecord: NewUser) => void;
     deleteUser: (userId: string) => void;
     generatePassword: (passwordType: number, length: number) => void;
     getRolesList: () => void;
@@ -25,7 +25,7 @@ export type SecuritySlice = {
     //group actions
     getGroupList: () => void;
     getGroupMembers: (groupdId: string) => void;
-    createGroup: (groupRecord: IGroup) => void;
+    createGroup: (groupRecord: Group) => void;
     deleteGroup: (groupId: string) => void;
     addGroupMember: (userId: string, groupId: string) => void;
     removeGroupMember: (userId: string, groupId: string) => void

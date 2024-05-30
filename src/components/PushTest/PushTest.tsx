@@ -1,25 +1,30 @@
 import { useEffect } from "react";
 import useStore from "../../store/store";
-import { getAccessToken } from "../../store/actions/storageActions";
-import { ISubscription } from "../../store/interfaces/INotification";
+import { Subscription } from "../../store/interfaces/INotification";
 
 export function PushTest() {
   const { getVapidKeys } = useStore((state) => state.securitySlice);
-  const { enableClientNotification } = useStore((state) => state.notificationSlice);
-  const {enablieClientAlerts} = useStore((state)=>state.alertSlice);
-  const {isLoggedIn} = useStore((state)=>state.userSlice);
+  const { enableClientNotification } = useStore(
+    (state) => state.notificationSlice
+  );
+  const { enablieClientAlerts } = useStore((state) => state.alertSlice);
+  const { enableClientFlowStatus } = useStore((state) => state.flowSlice);
+  const { isLoggedIn } = useStore((state) => state.userSlice);
 
-  const registerServiceWorker = async (vapidKeys: any): Promise<ISubscription | null> => {
+  const registerServiceWorker = async (
+    vapidKeys: any
+  ): Promise<Subscription | null> => {
     try {
       if ("serviceWorker" in navigator) {
-        const sw = await navigator.serviceWorker.register("/sw.js")
+        await navigator.serviceWorker.register("/sw.js");
         // console.log('Service worker registered', sw)
         const registration = await navigator.serviceWorker.ready;
         // Check for existing subscription
-        const existingSubscription = await registration.pushManager.getSubscription();
+        const existingSubscription =
+          await registration.pushManager.getSubscription();
 
         if (existingSubscription) {
-          console.log('already subscribed');
+          console.log("already subscribed");
           return null;
         }
         // Subscribe with the new applicationServerKey
@@ -28,11 +33,12 @@ export function PushTest() {
           applicationServerKey: vapidKeys.publicKey,
         });
 
-        const parsedSubscription: ISubscription = JSON.parse(JSON.stringify(newSubscription, null, 2));
+        const parsedSubscription: Subscription = JSON.parse(
+          JSON.stringify(newSubscription, null, 2)
+        );
 
         return parsedSubscription;
-      }
-      else {
+      } else {
         console.error("Service Worker not supported");
         return null;
       }
@@ -46,19 +52,19 @@ export function PushTest() {
     try {
       const res: any = await getVapidKeys();
       const vapidKeys: any = res.data;
-      
+
       const subscription: any | null = await registerServiceWorker(vapidKeys);
-    
+
       if (subscription) {
-      
-        console.log('enabling notifications and alerts');
-        const formatedSubscription : ISubscription= {
+        console.log("enabling notifications and alerts");
+        const formatedSubscription: Subscription = {
           endpoint: subscription.endpoint,
           p256dh: subscription.keys.p256dh,
-          auth: subscription.keys.auth
-        }
+          auth: subscription.keys.auth,
+        };
         await enableClientNotification(formatedSubscription);
         await enablieClientAlerts(formatedSubscription);
+        await enableClientFlowStatus(formatedSubscription);
       }
     } catch (e) {
       console.log("Error getting vapid keys", e);
@@ -66,7 +72,6 @@ export function PushTest() {
   };
 
   useEffect(() => {
-
     const fetchData = async () => {
       try {
         if (isLoggedIn) {

@@ -1,10 +1,10 @@
 import useStore from "../../../../../../store/store";
-import { IBlockData } from "../../../../../../store/interfaces/IBlock";
+import { BlockData } from "../../../../../../store/interfaces/IBlock";
 import s from "./CustomPropertiesList.module.scss"
 import CustomPropertiesListItem from "./CustomPropertiesListItem/CustomPropertiesListItem";
 
 function CustomPropertiesList() {
-    const blockData = useStore<IBlockData | undefined>((state) => state.flowSlice.flow.blockData.find((x: IBlockData) => x.blockIdentifier === state.flowSlice.flow.visual.blocks.find((b)=>b.selected)?.id));
+    const blockData = useStore<BlockData | undefined>((state) => state.flowSlice.flow.blockData.find((x: BlockData) => x.blockIdentifier === state.flowSlice.flow.visual.blocks.find((b)=>b.selected)?.id));
 
     return (
         <div className={s.wrapper}>

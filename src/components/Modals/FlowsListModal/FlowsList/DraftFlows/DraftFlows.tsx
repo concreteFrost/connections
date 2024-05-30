@@ -4,7 +4,7 @@ import s from "./DrafFlows.module.scss";
 import { useState, useEffect } from "react";
 import moment from "moment";
 import { connectionsIcons } from "../../../../../assets/icons/icons";
-import { ILoadedFlow } from "../../../../../store/interfaces/Iflow";
+import { LoadedFlow } from "../../../../../store/interfaces/IFlow";
 
 interface ISectionToOpen {
   folders: boolean;
@@ -96,7 +96,7 @@ function DraftFlows() {
             </thead>
             <tbody>
               {loadedFlowFolders[currentDraftFolder]?.map(
-                (flow: ILoadedFlow) => (
+                (flow: LoadedFlow) => (
                   <tr key={flow.draftId}>
                     <td
                       className={s.flow_name}

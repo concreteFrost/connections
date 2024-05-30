@@ -1,6 +1,6 @@
 import { RFState } from "../types/rfState";
-import { Node, Edge } from "react-flow-renderer";
-import { ISubstitutions } from "../interfaces/Iflow";
+import { Node } from "react-flow-renderer";
+import { Substitutions } from "../interfaces/IFlow";
 import { initializeFlow } from "../actions/utils/flowUtils";
 import initialNodes from "../nodes";
 import initialEdges from "../edges";
@@ -10,16 +10,17 @@ import blockActions from "../actions/blockActions";
 import groupActions from "../actions/groupActions";
 import substitutionsActions from "../actions/substitutionsActions";
 import blocksWidgetActions from "../actions/blocksWidgetActions";
-import { IBlockData } from "../interfaces/IBlock";
+import { BlockData } from "../interfaces/IBlock";
 import edgeActions from "../actions/edgesActions";
-import { IDirective } from "../interfaces/IAlerts";
+import { Directive } from "../interfaces/IAlerts";
 import { IEdgeDraggable } from "../../components/Designer/RightPanel/EdgesEditor/EdgesEditor";
-import { INodeType } from "../interfaces/INode";
-import IConnectionsEdge from "../interfaces/IConnectionsEdges";
+import { NodeType } from "../interfaces/INode";
+import ConnectionsEdge from "../interfaces/IConnectionsEdges";
+import { Subscription } from "../interfaces/INotification";
 
 export type FlowSlice = {
   flow: {
-    blockData: Array<IBlockData>;
+    blockData: Array<BlockData>;
     created: Date;
     createdBy: string;
     flowIdentifier: string;
@@ -31,12 +32,12 @@ export type FlowSlice = {
     lastAmendedBy: string;
     serverIdentifier: string;
     startBlock: string;
-    substitutions: Array<ISubstitutions>;
+    substitutions: Array<Substitutions>;
     visual: {
       blocks: Node<any>[];
       //NEED TO CHANGE TYPE BACK TO EDGE
       // edges: Edge<any>[];
-      edges:Array<IConnectionsEdge>;
+      edges:Array<ConnectionsEdge>;
     };
   };
 
@@ -47,7 +48,7 @@ export type FlowSlice = {
  
 
   //directives 
-  directivesList: IDirective[],
+  directivesList: Directive[],
 
   //Base Actions
   setBlockName: (text: string) => void;
@@ -55,7 +56,7 @@ export type FlowSlice = {
   setBlockDescription: (description: string) => void;
 
   //Block Actions
-  addBlock: (type: INodeType, posX: number, posY: number) => void;
+  addBlock: (type: NodeType, posX: number, posY: number) => void;
   createBlockCopy:(posX:number, posy:number)=>void;
   deleteBlock: () => void;
   getBlockProperties: () => void;
@@ -99,6 +100,7 @@ export type FlowSlice = {
   closeFlow: () => void;
   createFlowFromTemplate: (liveFlowID: string, newDraftName: string) => void;
   createUpdateDraftFromLiveTemplate: (id: string) => void;
+  getFlowListStatus:()=>void;
 
   //Draft Actions
   setCanApprove:(canApprove:boolean)=>void;
@@ -111,6 +113,9 @@ export type FlowSlice = {
   //Edges Actions
   deleteEdge:(edgeId:string)=>void;
   reorderEdgesPriority:(draggableList:Array<IEdgeDraggable>)=>void;
+
+  //Callback Register
+  enableClientFlowStatus:(subscription:Subscription)=>void;
 };
 
 const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
@@ -174,6 +179,7 @@ const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
   setFlowName: flowActions.setFlowName(get, set),
   setFlowVersion: flowActions.setFlowVersion(get, set),
   setFlowIsEnabled: flowActions.setFlowIsEnabled(get, set),
+  getFlowListStatus:flowActions.getFlowListStatus(),
 
   //Draft Actions
   setCanApprove:flowActions.setCanApprove(get,set),
@@ -186,7 +192,10 @@ const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
   //Multple Selected Blocks Actions
   setSelectedBlocksColors:blocksWidgetActions.setSelectedBlocksColors(get,set),
   allignSelectedBlocks:blocksWidgetActions.allignSelectedBlocks(get,set),
-  deleteMultupleBlocks:blocksWidgetActions.deleteMultipleBlocks(get,set)
+  deleteMultupleBlocks:blocksWidgetActions.deleteMultipleBlocks(get,set),
+
+  //Callback Actions
+  enableClientFlowStatus:flowActions.enableClientFlowStatus()
 
 });
 
