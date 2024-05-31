@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { NodeProps, NodeRemoveChange } from "react-flow-renderer";
-import { Visual } from "../interfaces/IFlow";
+import { Visual } from "../interfaces/Iflow";
 import { RFState } from "../types/rfState";
 
 export const getAllselectedBlockIDs = (nodes: any) => {

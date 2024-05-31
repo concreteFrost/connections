@@ -5,7 +5,7 @@ import {
   startFlowAPI,
   stopFlowAPI,
 } from "../../../../../api/flow";
-import { FlowData } from "../../../../../store/interfaces/IFlow";
+import { FlowData } from "../../../../../store/interfaces/Iflow";
 import useStore from "../../../../../store/store";
 
 interface FlowControlProps {

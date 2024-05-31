@@ -5,7 +5,7 @@ import {
   Directive,
   DirectiveConfig,
 } from "../../../../../../../store/interfaces/IAlerts";
-import { FlowConfig } from "../../../../../../../store/interfaces/IFlow";
+import { FlowConfig } from "../../../../../../../store/interfaces/Iflow";
 import { connectionsIcons } from "../../../../../../../assets/icons/icons";
 import DirectiveConfigItem from "../AddDirectiveForm/DirectiveConfigItem/DirectiveConfigItem";
 

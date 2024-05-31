@@ -1,5 +1,5 @@
 import { RFState } from "../types/rfState"
-import { FlowConfig, FlowData } from "../interfaces/IFlow";
+import { FlowConfig, FlowData } from "../interfaces/Iflow";
 import serverActions from "../actions/serverActions";
 import { LogObject } from "../interfaces/IServer";
 import { BlockLookup } from "../interfaces/IBlock";

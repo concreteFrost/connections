@@ -1,5 +1,5 @@
 import { BlockData, BlockDataExtended } from "../../../../store/interfaces/IBlock";
-import { FlowData } from "../../../../store/interfaces/IFlow";
+import { FlowData } from "../../../../store/interfaces/Iflow";
 import useStore from "../../../../store/store";
 import s from "./Flow.module.scss";
 import BlockTable from "./FlowElements/BlockTable";

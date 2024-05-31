@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import s from "./FilteredResults.module.scss";
 import useStore from "../../../../store/store";
-import { Substitutions } from "../../../../store/interfaces/IFlow";
+import { Substitutions } from "../../../../store/interfaces/Iflow";
 
 interface ISelection {
   index: number;

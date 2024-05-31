@@ -2,7 +2,7 @@ import s from "./FlowBlock.module.scss"
 import { getFlowListApi } from "../../../../../../api/flow";
 import { getBlockLookupListAPI } from "../../../../../../api/data";
 import { useEffect } from "react";
-import { FlowConfig } from "../../../../../../store/interfaces/IFlow";
+import { FlowConfig } from "../../../../../../store/interfaces/Iflow";
 import { BlockLookup } from "../../../../../../store/interfaces/IBlock";
 
 interface FlowBlockProps {

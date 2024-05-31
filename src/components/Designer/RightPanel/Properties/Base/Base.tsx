@@ -1,7 +1,7 @@
 import useStore from "../../../../../store/store";
 import s from "./Base.module.scss";
 import { BlockData } from "../../../../../store/interfaces/IBlock";
-import { Visual } from "../../../../../store/interfaces/IFlow";
+import { Visual } from "../../../../../store/interfaces/Iflow";
 import { getSelectedBlock } from "../../../../../store/actions/utils/blockUtils";
 
 function Base() {

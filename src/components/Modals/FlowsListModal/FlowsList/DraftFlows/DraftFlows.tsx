@@ -4,7 +4,7 @@ import s from "./DrafFlows.module.scss";
 import { useState, useEffect } from "react";
 import moment from "moment";
 import { connectionsIcons } from "../../../../../assets/icons/icons";
-import { LoadedFlow } from "../../../../../store/interfaces/IFlow";
+import { LoadedFlow } from "../../../../../store/interfaces/Iflow";
 
 interface ISectionToOpen {
   folders: boolean;

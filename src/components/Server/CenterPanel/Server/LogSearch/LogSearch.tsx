@@ -7,7 +7,7 @@ import TextSearch from "./LogSearchElements/TextSearch";
 import LogTable from "./LogTable/LogTable";
 import { getDataLogsAPI } from "../../../../../api/data";
 import useStore from "../../../../../store/store";
-import { FlowConfig } from "../../../../../store/interfaces/IFlow";
+import { FlowConfig } from "../../../../../store/interfaces/Iflow";
 import { BlockLookup } from "../../../../../store/interfaces/IBlock";
 import { LogSearchQuery } from "../../../../../store/interfaces/IServer";
 

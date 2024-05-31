@@ -1,6 +1,6 @@
 import { RFState } from "../types/rfState";
 import { Node } from "react-flow-renderer";
-import { Substitutions } from "../interfaces/IFlow";
+import { Substitutions } from "../interfaces/Iflow";
 import { initializeFlow } from "../actions/utils/flowUtils";
 import initialNodes from "../nodes";
 import initialEdges from "../edges";

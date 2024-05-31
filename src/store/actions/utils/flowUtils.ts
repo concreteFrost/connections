@@ -1,7 +1,7 @@
 import { RFState } from "../../types/rfState";
 import { BlockData } from "../../interfaces/IBlock";
 import { BlockParameters } from "../../interfaces/IBlock";
-import { Visual } from "../../interfaces/IFlow";
+import { Visual } from "../../interfaces/Iflow";
 import { v4 as uuidv4 } from "uuid";
 import { getAccessToken } from "../storageActions";
 import { getDraftListApi } from "../../../api/draft";

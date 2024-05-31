@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useStore from "../../../../../../../store/store";
-import { FlowConfig } from "../../../../../../../store/interfaces/IFlow";
+import { FlowConfig } from "../../../../../../../store/interfaces/Iflow";
 import s from "./AddDirectiveForm.module.scss";
 import {
   Directive,

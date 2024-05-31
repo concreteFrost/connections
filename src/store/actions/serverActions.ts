@@ -1,7 +1,7 @@
 import { getBlockStatisticsAPI, getFlowApi } from "../../api/flow";
 import { RFState } from "../types/rfState";
 import { LogObject } from "../interfaces/IServer";
-import { FlowConfig } from "../interfaces/IFlow";
+import { FlowConfig } from "../interfaces/Iflow";
 import { BlockLookup } from "../interfaces/IBlock";
 import moment from "moment";
 

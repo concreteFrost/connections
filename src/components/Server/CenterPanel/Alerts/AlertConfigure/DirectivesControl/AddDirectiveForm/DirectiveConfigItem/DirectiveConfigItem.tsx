@@ -1,5 +1,5 @@
 import React from "react";
-import { FlowConfig } from "../../../../../../../../store/interfaces/IFlow";
+import { FlowConfig } from "../../../../../../../../store/interfaces/Iflow";
 import {
   Directive,
   DirectiveConfig,

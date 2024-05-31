@@ -4,7 +4,7 @@ import { getFlowListApi } from "../../../../../api/flow";
 import useStore from "../../../../../store/store";
 import CreateTemplateFlowModal from "../../../CreateTemplateFlowModal";
 import moment from "moment";
-import { FlowConfig } from "../../../../../store/interfaces/IFlow";
+import { FlowConfig } from "../../../../../store/interfaces/Iflow";
 
 
 function LiveFlows() {
