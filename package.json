@@ -4,6 +4,7 @@
   "private": true,
   "homepage": ".",
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@types/faker": "^6.6.9",
     "@types/jest": "^29.5.11",
     "assert": "^2.1.0",
