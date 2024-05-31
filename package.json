@@ -63,8 +63,6 @@
     "extends": [
       "react-app",
       "react-app/jest",
-      "@babel/plugin-transform-private-property-in-object",
-      "next/core-web-vitals"
     ]
   },
   "browserslist": {
@@ -80,7 +78,6 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@faker-js/faker": "^8.4.0",
     "@testing-library/jest-dom": "^6.1.5",
     "@testing-library/react": "^14.1.2",
