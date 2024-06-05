@@ -3,7 +3,7 @@ import { RFState } from "../types/rfState";
 import tooltipActions from "../actions/tooltipActions";
 import { toggleSubstitutionsPanel } from "../actions/substitutionsActions";
 import valueEditorActions from "../actions/valueEditorActions";
-import { getUserSettingsData, initialSettings } from "../actions/storageActions";
+import { getUserSettingsData} from "../actions/storageActions";
 
 export type DesignerVisualElementsSlice = {
 

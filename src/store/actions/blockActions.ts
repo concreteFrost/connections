@@ -1,7 +1,6 @@
-import { BlockData, BlockParameters } from "../interfaces/IBlock";
-import flowSlice from "../slices/flowSlice";
+import { BlockData} from "../interfaces/IBlock";
 import { RFState } from "../types/rfState";
-import { Edge, Node } from "react-flow-renderer";
+import { Node } from "react-flow-renderer";
 import { getSelectedBlock } from "./utils/blockUtils";
 import { v4 as uuidv4 } from "uuid";
 import { NodeType } from "../interfaces/INode";

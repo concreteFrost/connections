@@ -131,7 +131,7 @@ export function enableClientFlowStatusAPI(
   });
 }
 
-export function disableClientFlowStatus(): Promise<any> {
+export function disableClientFlowStatusAPI(): Promise<any> {
   const headers = {
     "Content-Type": "application/json",
     Authorization: "Bearer " + getAccessToken().token,

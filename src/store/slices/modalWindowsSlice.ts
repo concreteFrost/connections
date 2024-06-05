@@ -1,5 +1,4 @@
 import { modalActions } from "../actions/modalActions";
-import { RFState } from "../types/rfState";
 
 export type ModalWindows = {
     updateFlowModal: {

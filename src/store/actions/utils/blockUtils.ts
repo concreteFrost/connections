@@ -1,6 +1,5 @@
 import { Node } from "react-flow-renderer";
 import { RFState } from "../../types/rfState";
-import { FlowData } from "../../interfaces/Iflow";
 import { FlowSlice } from "../../slices/flowSlice";
 
 export const blockAlignment = (get: () => RFState, selectedBlocks: Node<any>[], alignment: 'x' | 'y') => {

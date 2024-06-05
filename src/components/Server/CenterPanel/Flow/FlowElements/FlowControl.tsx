@@ -5,28 +5,21 @@ import {
   startFlowAPI,
   stopFlowAPI,
 } from "../../../../../api/flow";
-import { FlowData } from "../../../../../store/interfaces/Iflow";
 import useStore from "../../../../../store/store";
+import { useParams } from "react-router";
 
 interface FlowControlProps {
   className: any;
+  status: number;
 }
 
 function FlowControl(props: FlowControlProps) {
-  const currentFlow = useStore(
-    (state) => state.serverSlice.currentFlow
-  ) as FlowData;
-  const toggleFlowControlState = useStore(
-    (state) => state.serverSlice.toggleFlowControlState
-  );
   const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
-
-  const [canStartFlow, setCanStartFlow] = useState<boolean>(true);
+  const { id }: any = useParams();
 
   async function enableFlow() {
     try {
-      await enableFlowAPI(currentFlow.flowIdentifier);
-      toggleFlowControlState(true);
+      await enableFlowAPI(id);
     } catch (e) {
       console.log(e);
     }
@@ -34,17 +27,15 @@ function FlowControl(props: FlowControlProps) {
 
   async function disableFlow() {
     try {
-      await disableFlowAPI(currentFlow.flowIdentifier);
-      toggleFlowControlState(false);
+      await disableFlowAPI(id);
     } catch (e) {
       console.log(e);
     }
   }
 
   async function startFlow() {
-    setCanStartFlow(false);
     try {
-      const res: any = await startFlowAPI(currentFlow.flowIdentifier);
+      const res: any = await startFlowAPI(id);
       if (res.data.message.length > 0) {
         toggleMessageModal(res.data.message);
       }
@@ -54,9 +45,8 @@ function FlowControl(props: FlowControlProps) {
   }
 
   async function stopFlow() {
-    setCanStartFlow(true);
     try {
-      const res: any = await stopFlowAPI(currentFlow.flowIdentifier);
+      const res: any = await stopFlowAPI(id);
       if (res.data.message.length > 0) {
         toggleMessageModal(res.data.message);
       }
@@ -67,23 +57,28 @@ function FlowControl(props: FlowControlProps) {
 
   function defineAction(e: any) {
     const action = e.target.value;
-    action === "enabled" ? enableFlow() : disableFlow();
+    action === "1" ? enableFlow() : disableFlow();
   }
   return (
     <div className={props.className.flow_control}>
       <header>Flow Control</header>
       <div className={props.className.start_stop_wrapper}>
-        <button onClick={startFlow}>START</button>{" "}
-        <button onClick={stopFlow}>STOP</button>
+        {props.status !==0 ? (
+          <>
+            {" "}
+            <button onClick={startFlow}>START</button>{" "}
+            <button onClick={stopFlow}>STOP</button>{" "}
+          </>
+        ) : null}
       </div>
       <select
         onChange={(e) => {
           defineAction(e);
         }}
-        value={currentFlow.isEnabled ? "enabled" : "disabled"}
+        value={props.status === 0 ? "0" : "1"}
       >
-        <option value="disabled">Disabled</option>
-        <option value="enabled">Enabled</option>
+        <option value="0">Disabled</option>
+        <option value="1">Enabled</option>
       </select>
     </div>
   );

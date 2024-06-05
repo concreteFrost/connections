@@ -1,33 +1,58 @@
-import { BlockData, BlockDataExtended } from "../../../../store/interfaces/IBlock";
-import { FlowData } from "../../../../store/interfaces/Iflow";
-import useStore from "../../../../store/store";
 import s from "./Flow.module.scss";
 import BlockTable from "./FlowElements/BlockTable";
 import ChangeLog from "./FlowElements/ChangeLog";
 import FlowControl from "./FlowElements/FlowControl";
 import StaticProperties from "./FlowElements/StaticProperties";
+import { useState, useEffect } from "react";
+import { FlowStatus } from "../../../../store/interfaces/IStatistics";
+import { useParams } from "react-router";
+import useStore from "../../../../store/store";
 
 function Flow() {
-  const currentFlow = useStore((state) => state.serverSlice.currentFlow) as FlowData;
+  const { id }: any = useParams();
+  const [blockData, setBlockData] = useState<any>();
+  const [staticProps, setStaticProps] = useState<any>();
+  const { statistics } = useStore((state) => state.statisticsSlice);
+
+  const getFlowData = () => {
+    const stats: FlowStatus[] | null = statistics;
+    if (stats) {
+      const matchFlow = stats.find((x: FlowStatus) => x.flowId === id);
+      if (matchFlow) {
+        setBlockData(matchFlow.statistics);
+        const { statistics, ...data } = matchFlow;
+        setStaticProps(data);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getFlowData(); 
+  }, [id, statistics]);
 
   return (
     <div className={s.wrapper}>
-      {currentFlow.flowIdentifier ? <><StaticProperties
-        className={s}
-        staticProperties={{
-          flowName: currentFlow.flowName,
-          flowIdentifier: currentFlow.flowIdentifier,
-          flowVersion: currentFlow.flowVersion,
-          startBlock: currentFlow.startBlock,
-          lastAmended: currentFlow.lastAmended,
-          lastAmendedBy: currentFlow.lastAmendedBy,
-          created: currentFlow.created,
-          createdBy: currentFlow.createdBy,
-        }}
-      ></StaticProperties> 
-      <ChangeLog className={s}></ChangeLog> 
-      <FlowControl className={s}></FlowControl></> : null}
-      <BlockTable className={s} blockData={currentFlow.blockData as BlockDataExtended[]}></BlockTable>
+      {staticProps ? (
+        <>
+          <StaticProperties
+            className={s}
+            staticProperties={{
+              flowName: staticProps.name,
+              flowIdentifier: staticProps.flowId,
+              flowVersion: staticProps.version,
+              startBlock: staticProps.startBlock,
+              lastAmended: staticProps.lastUpdated,
+              lastAmendedBy: staticProps.lastUpdateBy,
+              created: staticProps.dateCreated,
+              createdBy: staticProps.createdBy,
+              status: staticProps.status,
+            }}
+          />
+          <ChangeLog className={s} />
+          <FlowControl className={s} status={staticProps.status} />
+        </>
+      ) : null}
+      <BlockTable className={s} blockData={blockData} />
     </div>
   );
 }

@@ -119,6 +119,24 @@ export function enableClientNotificationsAPI(subscribtion: Subscription) {
     });
 }
 
+export function disableClientNotificationsAPI() {
+    return new Promise((resolve, reject) => {
+        axios({
+            method: "post",
+            url: baseUrl + "/Notification/DisableClientNotifications",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + getAccessToken().token,
+            },
+           
+        })
+            .then((res) => {
+                resolve(res);
+            })
+            .catch((e) => reject(e));
+    });
+}
+
 export function registerClientNotificationAPI(notificationId: number, callbackURI: string, userName: string, password: string) {
     return new Promise((resolve, reject) => {
         axios({

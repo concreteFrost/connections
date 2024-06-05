@@ -1,7 +1,7 @@
 import { clearUserData } from "../../store/actions/storageActions";
 import { useNavigate } from "react-router-dom";
 import { connectionsIcons } from "../../assets/icons/icons";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import s from "./Profile.module.scss";
 import { getMeAPI } from "../../api/security";
 import EditUserModal from "../Modals/UserModals/EditUserModal/EditUserModal";
@@ -21,6 +21,8 @@ function Profile(props: ProfileProps) {
     useState<boolean>(false);
   const [isEditUserVisible, setEditUserVisible] = useState<boolean>(false);
   const { setIsLoggedIn } = useStore((state) => state.userSlice);
+  const {disableClientFlowStatus} = useStore((state)=>state.flowSlice);
+  const {disableClientNotifications} = useStore((state)=>state.notificationSlice);
   const modalRef = useRef<HTMLDivElement>(null);
 
   const { userToEdit, getUser } = useStore((state) => state.securitySlice);
@@ -36,8 +38,11 @@ function Profile(props: ProfileProps) {
 
   async function logout() {
     // Clear user data and navigate to the login page
+    await disableClientFlowStatus();
+    await disableClientNotifications();
     setIsLoggedIn(false);
     await clearUserData();
+  
     await navigate("/login");
   }
 

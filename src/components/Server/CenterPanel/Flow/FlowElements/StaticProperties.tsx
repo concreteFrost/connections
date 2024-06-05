@@ -7,6 +7,7 @@ interface IStaticProperties{
   lastAmendedBy: string;
   created:string;
   createdBy:string;
+  status:number;
 }
 
 interface StaticPropertiesProps{
@@ -15,6 +16,17 @@ interface StaticPropertiesProps{
 }
 
 function StaticProperties(props: StaticPropertiesProps){
+
+    function convertFlowStatus(status:number){
+      switch(status){
+        case 0: return "disabled";
+        case 1: return "stopped";
+        case 2: return "running";
+        case 3: return "paused";
+        case 4: return "paused by user";
+      }
+    }
+
     return(  <div className={props.className.static_properties}>
         <header>Static Properties</header>
         <form>
@@ -34,6 +46,10 @@ function StaticProperties(props: StaticPropertiesProps){
             <label>Version</label>
             <input type="text" readOnly disabled value={props.staticProperties.flowVersion ?? ""} />
           </section>
+          <section >
+            <label>Status</label>
+            <input type="text" readOnly disabled value={convertFlowStatus(props.staticProperties.status)} />  
+          </section>
           <section className={props.className.grid_3_cols}>
             <label>Created</label>
             <input type="text" readOnly disabled value={props.staticProperties.created ?? ""} />
@@ -44,6 +60,7 @@ function StaticProperties(props: StaticPropertiesProps){
             <input type="text" readOnly disabled value={props.staticProperties.lastAmended ?? ""} />
             <input type="text" readOnly disabled value={props.staticProperties.lastAmendedBy ?? ""} />
           </section>
+        
         </form>
       </div>)
 }

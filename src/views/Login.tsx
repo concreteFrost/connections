@@ -18,7 +18,7 @@ function Login() {
     async function checkSubscription() {
         try {
             if ("serviceWorker" in navigator) {
-                const sw = await navigator.serviceWorker.register("/sw.js")
+                await navigator.serviceWorker.register("/sw.js")
                 // console.log('Service worker registered', sw)
                 const registration = await navigator.serviceWorker.ready;
                 // Check for existing subscription

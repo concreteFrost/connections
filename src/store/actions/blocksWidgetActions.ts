@@ -1,5 +1,5 @@
 import { RFState } from "../types/rfState";
-import { Node, Edge } from "react-flow-renderer";
+import { Node} from "react-flow-renderer";
 import { blockAlignment } from "./utils/blockUtils";
 import { BlockData } from "../interfaces/IBlock";
 import ConnectionsEdge from "../interfaces/IConnectionsEdges";

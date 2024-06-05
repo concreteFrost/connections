@@ -116,6 +116,7 @@ export type FlowSlice = {
 
   //Callback Register
   enableClientFlowStatus:(subscription:Subscription)=>void;
+  disableClientFlowStatus:()=>void;
 };
 
 const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
@@ -195,7 +196,8 @@ const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
   deleteMultupleBlocks:blocksWidgetActions.deleteMultipleBlocks(get,set),
 
   //Callback Actions
-  enableClientFlowStatus:flowActions.enableClientFlowStatus()
+  enableClientFlowStatus:flowActions.enableClientFlowStatus(),
+  disableClientFlowStatus:flowActions.disableClientFlowStatus()
 
 });
 

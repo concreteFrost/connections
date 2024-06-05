@@ -3,7 +3,6 @@ import { connectionsIcons } from "../../assets/icons/icons";
 import s from "./PushNotifications.module.scss";
 import moment from "moment";
 import { IconVariants } from "../../store/enums/profile";
-import useStore from "../../store/store";
 
 interface IPushNotification {
   Message: string;

@@ -1,8 +1,9 @@
-import { BlockDataExtended } from "../../../../../store/interfaces/IBlock";
+import { useEffect } from "react";
+
 
 interface BlockTableProps {
   className: any;
-  blockData: BlockDataExtended[];
+  blockData: any;
 }
 
 function BlockTable(props: BlockTableProps) {
@@ -21,18 +22,18 @@ function BlockTable(props: BlockTableProps) {
           </tr>
         </thead>
         <tbody>
-          {props.blockData && props.blockData.length > 0 ? props.blockData.map((block: BlockDataExtended) => {
-            return (<tr key={block.blockIdentifier}>
+          {props.blockData && props.blockData.length > 0 ? props.blockData.map((block: any) => {
+            return (<tr key={block.blockId}>
               <td>{block.name}</td>
-              <td>{block.typeName}</td>
+              <td>{block.type}</td>
               <td><input
                 type="checkbox"
-                checked={block.stats.isEnabled || false}
+                checked={block.isEnabled || false}
                 disabled
               /></td>
-              <td>{block.stats.errors ?? 0}</td>
-              <td>{block.stats.fatalErrors ?? 0}</td>
-              <td>{block.stats.warnings ?? 0}</td>
+              <td>{block.errors ?? 0}</td>
+              <td>{block.fatalErrors ?? 0}</td>
+              <td>{block.warnings ?? 0}</td>
             </tr>)
 
           }) : <tr><td colSpan={6}>no blocks available to view</td></tr>}

@@ -1,9 +1,11 @@
 import { connectionsIcons } from "../../../../assets/icons/icons";
 import { useEffect, useState } from "react";
 import useStore from "../../../../store/store";
-import { getFlowListApi } from "../../../../api/flow";
 import { ILeftPanelSections } from "../LeftPanel";
-import s from "./ListItem.module.scss"
+import s from "./ListItem.module.scss";
+import { Link } from "react-router-dom";
+import { FlowStatus } from "../../../../store/interfaces/IStatistics";
+import { useParams } from "react-router-dom";
 
 interface FlowsItemProps {
   toggleSection: (section: string) => void;
@@ -12,20 +14,17 @@ interface FlowsItemProps {
 }
 
 function FlowsItem(props: FlowsItemProps) {
-  const [flowList, setFlowList] = useState([]);
-  const getCurrentFlow = useStore((state) => state.serverSlice.getCurrentFlow);
-  const currentFlow = useStore<any>((state) => state.serverSlice.currentFlow);
+  const [flowList, setFlowList] = useState<Array<FlowStatus>>([]);
   const createUpdateDraftFromLiveTemplate = useStore(
     (state) => state.flowSlice.createUpdateDraftFromLiveTemplate
   );
+  const { statistics } = useStore((state) => state.statisticsSlice);
+  const { id } = useParams();
+  console.log(id);
 
   useEffect(() => {
-    getFlowListApi()
-      .then((res: any) => {
-        setFlowList(res.data);
-      })
-      .catch((e) => console.log(e));
-  }, []);
+    if (statistics) setFlowList(statistics);
+  }, [statistics]);
 
   return (
     <div className={s.section}>
@@ -47,33 +46,28 @@ function FlowsItem(props: FlowsItemProps) {
         <ul>
           {flowList.length > 0
             ? flowList.map((flow: any) => (
-              <li
-                key={flow.flowId}
-                className={`${s.flow_list_item}  ${currentFlow.flowIdentifier === flow.flowId
-                    ? s["selected"]
-                    : null
-                  }`}
-              >
-                <div className={s.flow_list_title_wrapper}
-                  onClick={async () => {
-                    await getCurrentFlow(flow.flowId);
-                    props.navigate("flows");
-                  }}
-                >
-                  {flow.name}
-                </div>
-                <div className={s.flow_list_btn_wrapper}>
-                  <button
-                    onClick={() => {
-                      createUpdateDraftFromLiveTemplate(flow.flowId);
-                      props.navigate("/designer");
-                    }}
+                <li key={flow.flowId} className={s.flow_list_item}>
+                  <Link 
+                    to={`flows/${flow.flowId}`}
+                    // className={`${s.flow_list_item}  ${currentFlow.flowIdentifier === flow.flowId
+                    //     ? s["selected"]
+                    //     : null
+                    //   }`}
                   >
-                    EDIT
-                  </button>
-                </div>
-              </li>
-            ))
+                    <div className={s.flow_list_title_wrapper}>{flow.name}</div>
+                  </Link>
+                  <div className={s.flow_list_btn_wrapper}>
+                    <button
+                      onClick={() => {
+                        createUpdateDraftFromLiveTemplate(flow.flowId);
+                        props.navigate("/designer");
+                      }}
+                    >
+                      EDIT
+                    </button>
+                  </div>
+                </li>
+              ))
             : null}
         </ul>
       )}

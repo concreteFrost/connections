@@ -5,63 +5,6 @@ import { FlowConfig } from "../interfaces/Iflow";
 import { BlockLookup } from "../interfaces/IBlock";
 import moment from "moment";
 
-export const getCurrentFlow = (get: () => RFState, set: any) => async (flowId: string) => {
-  let currentFlow = {
-    blockData: []
-  }
-  let _stats = [{}]
-
-  // await createUpdateDraftFromLiveAPI(flowId).then((res: any) => {
-  //   currentFlow = res.data.flowConfiguration
-  // }).catch(e => console.log(e))
-
-  await getFlowApi(flowId).then((res:any)=>{
-    
-    if(res.data.success){
-      currentFlow = res.data.flowData;
-    }
-    else{
-      console.log(res.data.message)
-    }
-   
-  }).catch(e=>console.log(e));
-
-  await getBlockStatisticsAPI(flowId).then((res: any) => {
-    _stats = res.data.statistics
-
-  }).catch(e => console.log("error getting blocks statistics for " + flowId, e))
-    .finally(() => {
-      set((state: RFState) => ({
-        serverSlice: {
-          ...state.serverSlice,
-          currentFlow: {
-            ...currentFlow, blockData: currentFlow.blockData.map((block: any) => {
-              const matchingStat = _stats.find((stat: any) => stat.blockId === block.blockIdentifier);
-              return {
-                ...block,
-
-                stats: matchingStat ?? {}
-              }
-            })
-          }
-        }
-      })
-      )
-    })
-};
-
-export const toggleFlowControlState = (get: () => RFState, set: any) => (isEnabled: boolean) => {
-  set((state: RFState) => ({
-    serverSlice: {
-      ...state.serverSlice,
-      currentFlow: {
-        ...state.serverSlice.currentFlow,
-        isEnabled: isEnabled
-      }
-    }
-
-  }))
-}
 
 //#region LOG SEARCH
 const setLogList = (get: () => RFState, set: any) => (data: Array<Object>, flowList: Array<FlowConfig>, blockList: Array<BlockLookup>) => {
@@ -137,10 +80,7 @@ const setLogList = (get: () => RFState, set: any) => (data: Array<Object>, flowL
 
 }
 
-
 const serverActions = {
-  getCurrentFlow: getCurrentFlow,
-  toggleFlowControlState: toggleFlowControlState,
   setLogList: setLogList
 
 }

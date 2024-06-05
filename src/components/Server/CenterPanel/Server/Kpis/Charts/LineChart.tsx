@@ -11,7 +11,6 @@ import {
 import { Line } from "react-chartjs-2";
 import s from "./Charts.module.scss";
 import { ChartsState } from "../Kpis";
-import LineForm from "../Forms/LineForm";
 
 import { lineChart, lineChartLabels } from "../fakeData";
 

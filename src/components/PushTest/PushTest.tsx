@@ -62,9 +62,10 @@ export function PushTest() {
           p256dh: subscription.keys.p256dh,
           auth: subscription.keys.auth,
         };
+        await enableClientFlowStatus(formatedSubscription);
         await enableClientNotification(formatedSubscription);
         await enablieClientAlerts(formatedSubscription);
-        await enableClientFlowStatus(formatedSubscription);
+     
       }
     } catch (e) {
       console.log("Error getting vapid keys", e);

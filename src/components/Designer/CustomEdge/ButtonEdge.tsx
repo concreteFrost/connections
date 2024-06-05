@@ -1,8 +1,7 @@
-import React, { MouseEvent, useEffect, useState, useMemo } from "react";
+import React, {useEffect, useState, useMemo } from "react";
 import {
   getSmoothStepPath,
   getEdgeCenter,
-  getMarkerEnd,
 } from "react-flow-renderer";
 import useStore from "../../../store/store";
 import s from "./ButtonEdge.module.scss";

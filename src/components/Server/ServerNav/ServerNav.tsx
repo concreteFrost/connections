@@ -8,7 +8,7 @@ import AlertNotifications from "../../AlertsNotifications/AlertNotifications";
 
 function ServerNav() {
   const navigate = useNavigate();
-  const { notificationsList, toggleHaveCheckedNotifications, haveCheckedNotifications } = useStore((state) => state.notificationSlice)
+  const {toggleHaveCheckedNotifications} = useStore((state) => state.notificationSlice)
 
   const handleNotificationsClick = () => {
     toggleHaveCheckedNotifications(true);

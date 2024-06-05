@@ -1,4 +1,4 @@
-import { getUserSettingsData, initialSettings } from "../actions/storageActions";
+import { getUserSettingsData } from "../actions/storageActions";
 import topMenuActions from "../actions/topViewActions";
 import { RFState } from "../types/rfState";
 

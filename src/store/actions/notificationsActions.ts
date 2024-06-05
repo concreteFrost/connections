@@ -1,4 +1,4 @@
-import { enableClientNotificationsAPI, getNotificationTypesAPI, getNotificationsAPI, newNotificationAPI, registerClientNotificationAPI, removeNotificationAPI, testClientCallbackAPI, updateNotificationAPI } from "../../api/notification";
+import { disableClientNotificationsAPI, enableClientNotificationsAPI, getNotificationTypesAPI, getNotificationsAPI, newNotificationAPI, registerClientNotificationAPI, removeNotificationAPI, testClientCallbackAPI, updateNotificationAPI } from "../../api/notification";
 import { Notification, NotificationType, Subscription } from "../interfaces/INotification";
 import { RFState } from "../types/rfState";
 
@@ -117,7 +117,18 @@ const toggleSelectNotification = (get: () => RFState, set: any) => async (notifi
 
 const enableClientNotifications = (get: () => RFState, set: any) => async (subscription:Subscription) => {
     try{
-        const res : any = await enableClientNotificationsAPI(subscription);
+        await enableClientNotificationsAPI(subscription);
+    }
+    catch(e){
+        console.log('error enabling client notifications',e)
+    }
+}
+
+const disableClientNotifications = (get: () => RFState, set: any) => async () => {
+    try{
+       const res =  await disableClientNotificationsAPI();
+       console.log("result of disabling client notifications",res);
+    
     }
     catch(e){
         console.log('error enabling client notifications',e)
@@ -157,6 +168,7 @@ const notificationsActions = {
     testClientCallback: testClientCallback,
     registerClientNotification:registerClientNotification,
     enableClientNotifications:enableClientNotifications,
+    disableClientNotifications:disableClientNotifications
 }
 
 export default notificationsActions

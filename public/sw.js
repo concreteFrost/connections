@@ -1,12 +1,17 @@
-self.addEventListener('push', function (event) {
+self.addEventListener("push", function (event) {
   const eventData = event.data.json();
 
-  if (eventData.length > 0) {
-    console.log("new event data", eventData)
+  if (eventData.hasOwnProperty("FlowId")) {
+    const key = new Date().toISOString();
+    const response = new Response(JSON.stringify(eventData));
+    event.waitUntil(caches.open("status").then((cache) => cache.put(key,response)));
+  }
 
-    const notifications = eventData.filter((data) => data.hasOwnProperty("NotificationId"));
+  if (eventData.length > 0) {
+    const notifications = eventData.filter((data) =>
+      data.hasOwnProperty("NotificationId")
+    );
     const alerts = eventData.filter((data) => data.hasOwnProperty("AlertId"));
-    const status = eventData.filter((data)=> data.hasOwnProperty("FlowId"));
 
     if (notifications.length > 0) {
       event.waitUntil(pushToCache("notifications", notifications));
@@ -16,12 +21,10 @@ self.addEventListener('push', function (event) {
       event.waitUntil(pushToCache("alerts", alerts));
     }
 
-    if(status.length > 0){
-      event.waitUntil(pushToCache("status",status));
-    }
-
     event.waitUntil(
-      self.registration.showNotification('Connections', { body: `You have ${eventData.length} notifications` })
+      self.registration.showNotification("Connections", {
+        body: `You have ${eventData.length} notifications`,
+      })
     );
   }
 });

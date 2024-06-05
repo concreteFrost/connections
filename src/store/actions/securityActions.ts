@@ -7,7 +7,6 @@ import {
   getGroupMembersAPI,
   getMeAPI,
   getRoleListAPI,
-  getUserAPI,
   getUserListAPI,
   getVapidKeysAPI,
   removeGroupAPI,
@@ -20,9 +19,7 @@ import {
   User,
   Group,
   NewUser,
-  GroupWithUsers,
 } from "../interfaces/ISecurity";
-import { LogObject } from "../interfaces/IServer";
 import { RFState } from "../types/rfState";
 
 // const getUser = (get: () => RFState, set: any) => async (userId: string) => {

@@ -5,7 +5,7 @@ import { setFlow, parseFloatVersion, flowVersionToInt, updateFlowAfterSaving, in
 import { v4 as uuidv4 } from "uuid";
 import { deleteDraftFlowAPI, getDraftApi, saveDraftFlowApi, createDraftFromLiveTemplateAPI, createUpdateDraftFromLiveAPI } from "../../api/draft";
 import { Subscription } from "../interfaces/INotification";
-import { enableClientFlowStatusAPI, getFlowListStatusAPI } from "../../api/data";
+import { disableClientFlowStatusAPI, enableClientFlowStatusAPI, getFlowListStatusAPI } from "../../api/data";
 
 export const createFlow = (get: () => RFState, set: any) => () => {
   const flowId = uuidv4();
@@ -215,6 +215,15 @@ const enableClientFlowStatus = () => async (subscription:Subscription) => {
   }
 }
 
+const disableClientFlowStatus = () => async () => {
+  try {
+      const res = await disableClientFlowStatusAPI();
+      console.log('client flow status disable result',res)
+  } catch (error) {
+      console.log("error registering client flow status callback", error);
+  }
+}
+
 
 const flowActions = {
   createFlow: createFlow,
@@ -229,7 +238,8 @@ const flowActions = {
   setFlowIsEnabled: setFlowIsEnabled,
   setCanApprove: setCanApprove,
   getFlowListStatus: getFlowListStatus,
-  enableClientFlowStatus:enableClientFlowStatus
+  enableClientFlowStatus:enableClientFlowStatus,
+  disableClientFlowStatus:disableClientFlowStatus
 };
 
 export default flowActions;

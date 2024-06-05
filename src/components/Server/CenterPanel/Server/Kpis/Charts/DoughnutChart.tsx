@@ -2,7 +2,6 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import s from "./Charts.module.scss";
 import { ChartsState } from "../Kpis";
-import LineForm from "../Forms/LineForm";
 import { doughnutChart, doughnutLabels } from "../fakeData";
 
 ChartJS.register(ArcElement, Tooltip, Legend);

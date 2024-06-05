@@ -18,6 +18,7 @@ export type NotificationSlice = {
     registerClientNotification:(notificationId:number,callbackURI:string,userName:string,password:string)=>void;
     toggleHaveCheckedNotifications:(haveChecked:boolean)=>void;
     enableClientNotification:(subscription:Subscription)=>void;
+    disableClientNotifications:()=>void;
 }
 
 const notificationSlice = (get: () => RFState, set: any): NotificationSlice => ({
@@ -36,6 +37,7 @@ const notificationSlice = (get: () => RFState, set: any): NotificationSlice => (
     registerClientNotification: notificationsActions.registerClientNotification(get,set),
     toggleHaveCheckedNotifications:notificationsActions.toggleHaveCheckedNotifications(get,set),
     enableClientNotification:notificationsActions.enableClientNotifications(get,set),
+    disableClientNotifications:notificationsActions.disableClientNotifications(get,set)
 })
 
 export default notificationSlice;

@@ -1,4 +1,3 @@
-import moment from "moment";
 
 interface IFlows {
     disabledFlowCount: number;

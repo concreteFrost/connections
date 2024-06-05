@@ -27,7 +27,11 @@
 
   li {
     @include server_flow_list;
+
+    padding-left: 0;
     cursor: pointer;
+
+   
   }
 
   h5 {
@@ -37,6 +41,12 @@
   .flow_list_item {
     @include server_flow_list_item;
     position: relative;
+
+    a {
+      text-decoration: none;
+      color: black;
+      
+    }
   }
 
   .flow_list_title_wrapper {
