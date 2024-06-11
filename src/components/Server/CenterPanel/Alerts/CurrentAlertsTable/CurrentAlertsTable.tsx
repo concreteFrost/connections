@@ -1,62 +1,99 @@
 import { useEffect, useState } from "react";
 import s from "./CurrentAlertsTable.module.scss";
 import { useNavigate } from "react-router";
-import { getAlertsApi, alertMarkAsReadApi, alertRemoveApi } from "../../../../../api/ehd";
+import {
+  getAlertsApi,
+  alertMarkAsReadApi,
+  alertRemoveApi,
+} from "../../../../../api/ehd";
 import { Alert } from "../../../../../store/interfaces/IAlerts";
 import useStore from "../../../../../store/store";
+import { response } from "express";
 
 function CurrentAlertsTable() {
-
   const navigate = useNavigate();
 
   const [alerts, setAlerts] = useState<Array<Alert>>();
-  const {toggleMessageModal} =useStore((state)=>state.modalWindowsSlice);
+  const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
 
   useEffect(() => {
     getAlertsApi(true).then((res: any) => {
       setAlerts(res.data);
-    })
-  },[])
+    });
+  }, []);
 
-  async function removeAlertFromCache() {
-   
-    caches.keys().then(cacheNames=>{
-      return Promise.all(cacheNames.map((cache)=>{
-          if(cache === "alert"){
-            // return caches.delete(cache)
-          }
-      }))
-    })
-}
+  async function removeAlertFromCache(alertId: number) {
+    const cache = await caches.open("alerts");
+    const requests = await cache.keys();
 
-  async function handleMarkAsRead(alertId : number){
-    console.log('alert id :', alertId)
-    try {
-      const res : any = await alertMarkAsReadApi(alertId)
-      console.log('result of reading alert',res.data)
+    for (const request of requests) {
+      const response = await cache.match(request);
+      if (!response) continue;
 
-      if(!res.data.success){
-        toggleMessageModal(res.data.message)
+      const alert = await response.json();
+      if (alert.AlertId === alertId) {
+        await cache.delete(request);
+        console.log(`Alert with AlertId ${alertId} deleted from cache`);
+        return;
       }
-    } catch (error) {
-      console.log('error reading the alert',error);
     }
   }
 
-  async function handleAlertDelete(alertId : number){
-    console.log('alert id :', alertId)
+  async function handleMarkAsRead(alertId: number) {
     try {
-      const res : any = await alertRemoveApi(alertId)
-      console.log('result of reading alert',res.data)
+      const res: any = await alertMarkAsReadApi(alertId);
+
+      if (!res.data.success) {
+        toggleMessageModal(res.data.message);
+        return;
+      }
+
+      const filteredAlerts = alerts?.filter(
+        (alert: Alert) => alert.alertId !== alertId
+      );
+
+      if (filteredAlerts) {
+        setAlerts(filteredAlerts);
+        removeAlertFromCache(alertId);
+      }
     } catch (error) {
-      console.log('error reading the alert',error);
+      console.log("error reading the alert", error);
+    }
+  }
+
+  async function handleAlertDelete(alertId: number) {
+    try {
+      const res: any = await alertRemoveApi(alertId);
+
+      if (!res.data.success) {
+        toggleMessageModal(res.data.message);
+        return;
+      }
+
+      const filteredAlerts = alerts?.filter(
+        (alert: Alert) => alert.alertId !== alertId
+      );
+
+      if (filteredAlerts) {
+        setAlerts(filteredAlerts);
+        removeAlertFromCache(alertId);
+      }
+    } catch (error) {
+      console.log("error reading the alert", error);
     }
   }
 
   return (
     <section className={s.wrapper}>
       <h3>Current Alerts</h3>
-      <header><button className={s.configure_btn} onClick={() => navigate('configure')}>CONFIGURE</button></header>
+      <header>
+        <button
+          className={s.configure_btn}
+          onClick={() => navigate("configure")}
+        >
+          CONFIGURE
+        </button>
+      </header>
       <main>
         <table>
           <thead>
@@ -66,18 +103,35 @@ function CurrentAlertsTable() {
             </tr>
           </thead>
           <tbody>
-            {alerts && alerts?.length > 0 ? alerts?.map((element: Alert) => <tr key={alerts.indexOf(element)}>
-              <td colSpan={4}>{element.messageText}</td>
-              <td><div className={s.actions_btn_wrapper}>
-                <button className={s.read_btn} onClick={()=>handleMarkAsRead(element.alertId)}>READ</button>
-                <button className={s.delete_btn} onClick={()=>handleAlertDelete(element.alertId)}>DELETE</button></div></td>
-            </tr>) :
+            {alerts && alerts?.length > 0 ? (
+              alerts?.map((element: Alert) => (
+                <tr key={alerts.indexOf(element)}>
+                  <td colSpan={4}>{element.messageText}</td>
+                  <td>
+                    <div className={s.actions_btn_wrapper}>
+                      <button
+                        className={s.read_btn}
+                        onClick={() => handleMarkAsRead(element.alertId)}
+                      >
+                        READ
+                      </button>
+                      <button
+                        className={s.delete_btn}
+                        onClick={() => handleAlertDelete(element.alertId)}
+                      >
+                        DELETE
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))
+            ) : (
               <tr>
                 <td colSpan={4}>-</td>
-                
+
                 <td></td>
               </tr>
-            }
+            )}
           </tbody>
         </table>
       </main>

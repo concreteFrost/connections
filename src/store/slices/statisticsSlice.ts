@@ -28,7 +28,6 @@ const statisticsSlice = (get: () => RFState, set: any): StatusSlice => ({
         statistics: stats,
       },
     }));
-    console.log(get().statisticsSlice.statistics);
   },
   setFlowStatus(flowId: string, newStatus: number) {
     const updatedFlows = get().statisticsSlice.statistics?.map(

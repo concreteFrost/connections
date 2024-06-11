@@ -1,6 +1,7 @@
 import axios from "axios";
 import { baseUrl } from "../store/constants/baseUrl";
 import { getAccessToken } from "../store/actions/storageActions";
+import { Registration } from "../store/interfaces/IServer";
 
 export function startServerAPI() {
     return new Promise((resolve, reject) => {
@@ -75,3 +76,20 @@ export function updateSettingAPI(id:number,value:string) {
             .catch((e) => reject(e))
     })
 }
+
+export function keepAliveAPI(registration:Registration) {
+    
+    return new Promise((resolve, reject) => {
+        axios({
+            method: "POST",
+            url: baseUrl + "/Server/KeepAlive",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + getAccessToken().token
+            },
+            data:registration
+        }).then((res) => resolve(res))
+            .catch((e) => reject(e))
+    })
+}
+

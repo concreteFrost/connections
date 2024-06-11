@@ -1,5 +1,4 @@
 import { BackgroundVariant } from "react-flow-renderer";
-import { FlowStatus } from "../interfaces/IStatistics";
 
 const connectionsPrefix = "iCon_";
 const connectionsSettingsPrefix = "_iConSettings";
@@ -81,14 +80,3 @@ export const setDesignerSettings=(key: keyof userSetting['designer'], value:any)
     }
 }
 
-export const setFlowStatusStorage=(data:any)=>{
-  localStorage.setItem(connectionsPrefix + "status",JSON.stringify(data))
-}
-
-export const getFlowStatusStorage = (): FlowStatus[] | null => {
-  const item = localStorage.getItem(connectionsPrefix + "status");
-  if (item) {
-    return JSON.parse(item) as FlowStatus[];
-  }
-  return null;
-}

@@ -127,7 +127,6 @@ const enableClientNotifications = (get: () => RFState, set: any) => async (subsc
 const disableClientNotifications = (get: () => RFState, set: any) => async () => {
     try{
        const res =  await disableClientNotificationsAPI();
-       console.log("result of disabling client notifications",res);
     
     }
     catch(e){

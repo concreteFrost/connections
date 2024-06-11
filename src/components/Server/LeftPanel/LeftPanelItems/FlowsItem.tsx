@@ -20,7 +20,6 @@ function FlowsItem(props: FlowsItemProps) {
   );
   const { statistics } = useStore((state) => state.statisticsSlice);
   const { id } = useParams();
-  console.log(id);
 
   useEffect(() => {
     if (statistics) setFlowList(statistics);

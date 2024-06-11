@@ -209,7 +209,6 @@ const getFlowListStatus = () => async () => {
 const enableClientFlowStatus = () => async (subscription:Subscription) => {
   try {
       const res = await enableClientFlowStatusAPI(subscription)
-      console.log('client flow status register result',res)
   } catch (error) {
       console.log("error registering client flow status callback", error);
   }
@@ -218,7 +217,6 @@ const enableClientFlowStatus = () => async (subscription:Subscription) => {
 const disableClientFlowStatus = () => async () => {
   try {
       const res = await disableClientFlowStatusAPI();
-      console.log('client flow status disable result',res)
   } catch (error) {
       console.log("error registering client flow status callback", error);
   }

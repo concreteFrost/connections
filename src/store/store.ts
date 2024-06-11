@@ -11,7 +11,6 @@ import leftPanelActions from "./actions/leftPanelActions";
 import notificationSlice from "./slices/notificationSlice";
 import securitySlice from "./slices/securitySlice";
 import alertSlice from "./slices/alertSlice";
-import userSlice from "./slices/userSlice";
 import statisticsSlice from "./slices/statisticsSlice";
 
 const useStore = createWithEqualityFn<RFState>((set, get) => ({
@@ -25,7 +24,6 @@ const useStore = createWithEqualityFn<RFState>((set, get) => ({
   notificationSlice: notificationSlice(get, set),
   securitySlice: securitySlice(get, set),
   alertSlice:alertSlice(get,set),
-  userSlice:userSlice(get,set),
   statisticsSlice:statisticsSlice(get,set),
 
   //Value Editor Actions

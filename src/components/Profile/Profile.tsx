@@ -20,7 +20,6 @@ function Profile(props: ProfileProps) {
   const [isProfileModalVisible, setProfileModalVisible] =
     useState<boolean>(false);
   const [isEditUserVisible, setEditUserVisible] = useState<boolean>(false);
-  const { setIsLoggedIn } = useStore((state) => state.userSlice);
   const {disableClientFlowStatus} = useStore((state)=>state.flowSlice);
   const {disableClientNotifications} = useStore((state)=>state.notificationSlice);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -40,9 +39,7 @@ function Profile(props: ProfileProps) {
     // Clear user data and navigate to the login page
     await disableClientFlowStatus();
     await disableClientNotifications();
-    setIsLoggedIn(false);
     await clearUserData();
-  
     await navigate("/login");
   }
 

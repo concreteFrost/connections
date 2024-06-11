@@ -9,7 +9,6 @@ export function PushTest() {
   );
   const { enablieClientAlerts } = useStore((state) => state.alertSlice);
   const { enableClientFlowStatus } = useStore((state) => state.flowSlice);
-  const { isLoggedIn } = useStore((state) => state.userSlice);
 
   const registerServiceWorker = async (
     vapidKeys: any
@@ -56,16 +55,18 @@ export function PushTest() {
       const subscription: any | null = await registerServiceWorker(vapidKeys);
 
       if (subscription) {
-        console.log("enabling notifications and alerts");
         const formatedSubscription: Subscription = {
           endpoint: subscription.endpoint,
           p256dh: subscription.keys.p256dh,
           auth: subscription.keys.auth,
         };
-        await enableClientFlowStatus(formatedSubscription);
+
         await enableClientNotification(formatedSubscription);
+        // await handleKeepAlive(formatedSubscription.auth,1);
         await enablieClientAlerts(formatedSubscription);
-     
+        // await handleKeepAlive(formatedSubscription.auth,2)
+        await enableClientFlowStatus(formatedSubscription);
+        // await handleKeepAlive(formatedSubscription.auth,3)
       }
     } catch (e) {
       console.log("Error getting vapid keys", e);
@@ -75,16 +76,14 @@ export function PushTest() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (isLoggedIn) {
-          await handleNotificationsRegistration();
-        }
+        await handleNotificationsRegistration();
       } catch (error) {
         console.error("Error in useEffect:", error);
       }
     };
 
     fetchData();
-  }, [isLoggedIn]);
+  }, []);
 
   // No JSX to render
   return null;

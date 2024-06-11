@@ -3,6 +3,7 @@ import { connectionsIcons } from "../../assets/icons/icons";
 import s from "./PushNotifications.module.scss";
 import moment from "moment";
 import { IconVariants } from "../../store/enums/profile";
+import { handleHandShake } from "../../utils/handleHandshake";
 
 interface IPushNotification {
   Message: string;
@@ -22,7 +23,7 @@ function PushNotifications(props: { themeColor  : IconVariants}) {
     const cache = await caches.open('notifications');
     const keys = await cache.keys();
 
-    const cahceData = await Promise.all(keys.map(async (key) => {
+    const cacheData = await Promise.all(keys.map(async (key) => {
       const response: any = await cache.match(key);
       const data: any = await response.json();
       if(data.hasOwnProperty("NotificationId")){
@@ -30,10 +31,12 @@ function PushNotifications(props: { themeColor  : IconVariants}) {
       }
     }));
 
-    const notifications = cahceData.filter(notification => notification !== undefined);;
-
-    setNotificationsCount(notifications.length);
-    setNotificationsList(notifications);
+    if(cacheData.length>0){
+      handleHandShake();
+      setNotificationsCount(cacheData.length);
+      setNotificationsList(cacheData);
+    }
+   
   }
   async function clearNotifications() {
     await setListVisible(false);

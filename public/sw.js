@@ -7,6 +7,13 @@ self.addEventListener("push", function (event) {
     event.waitUntil(caches.open("status").then((cache) => cache.put(key,response)));
   }
 
+  if (eventData.hasOwnProperty("RegistrationId")) {
+    const key = new Date().toISOString();
+    const response = new Response(JSON.stringify(eventData));
+    event.waitUntil(caches.open("registration").then((cache) => cache.put(key,response)));
+  }
+
+
   if (eventData.length > 0) {
     const notifications = eventData.filter((data) =>
       data.hasOwnProperty("NotificationId")

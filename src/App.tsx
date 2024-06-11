@@ -12,18 +12,25 @@ import ConfirmationModal from "./components/Modals/ConfirmationModal";
 import PushTest from "./components/PushTest/PushTest";
 import ApproveModal from "./components/Modals/ApproveModal";
 import Notifications from "./views/Noticifations"
-import { useEffect } from "react";
-import { getUserSettingsData } from "./store/actions/storageActions";
+import { useEffect, useState } from "react";
+import { getAccessToken, getUserSettingsData } from "./store/actions/storageActions";
 import FlowServerStatus from "./components/FlowServerStatus/FlowServerStatus";
 
 function App() {
   const tooltipText = useStore((store) => store.designerVisualElementsSlice.tooltip.text);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
-  useEffect(() => { getUserSettingsData() }, [])
+  useEffect(() => {
+    
+    if(getAccessToken().is_logged_in){
+      getUserSettingsData();
+      setIsLoggedIn(true);
+    }
+   }, [])
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login />}></Route>
+        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />}></Route>
         <Route path="/dashboard/*" element={<ProtectedRoute><Server></Server></ProtectedRoute>} />
         <Route path="/designer" element={<ProtectedRoute>
           <Designer></Designer>
@@ -31,11 +38,15 @@ function App() {
         <Route path="/alerts" element={<ProtectedRoute><Notifications></Notifications></ProtectedRoute>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      {isLoggedIn? <>  
       <PushTest></PushTest>
       <FlowServerStatus></FlowServerStatus>
       <ApproveModal></ApproveModal>
       <ConfirmationModal></ConfirmationModal>
-      <MessageModal></MessageModal>
+     </> 
+      : null}
+    
+    <MessageModal></MessageModal>
       <Tooltip anchorSelect=".tooltip-item" place="right" style={{ zIndex: 9999 }}>
         {tooltipText}
       </Tooltip>

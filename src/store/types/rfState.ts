@@ -13,7 +13,6 @@ import { ServerSlice } from "../slices/serverSlice";
 import { NotificationSlice } from "../slices/notificationSlice";
 import { SecuritySlice } from "../slices/securitySlice";
 import { AlertSlice } from "../slices/alertSlice";
-import { UserSlice } from "../slices/userSlice";
 import { StatusSlice } from "../slices/statisticsSlice";
 
 export type RFState = {
@@ -27,7 +26,6 @@ export type RFState = {
   notificationSlice: NotificationSlice,
   securitySlice: SecuritySlice,
   alertSlice: AlertSlice,
-  userSlice:UserSlice,
   statisticsSlice:StatusSlice
 
   //Value Editor Actions

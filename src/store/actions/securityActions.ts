@@ -164,7 +164,6 @@ const resetPassword =
 //#region
 const getGroupList = (get: () => RFState, set: any) => async () => {
   try {
-    console.log('getting group list')
     const res: any = await getGroupListAPI();
     const data: Array<Group> = res.data.groups;
     set((state: RFState) => ({

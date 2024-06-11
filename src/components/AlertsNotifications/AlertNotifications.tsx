@@ -4,6 +4,7 @@ import s from "./AlertNotifications.module.scss";
 import moment from "moment";
 import { IconVariants } from "../../store/enums/profile";
 import { useNavigate } from "react-router";
+import { handleHandShake } from "../../utils/handleHandshake";
 
 interface IPushAlert {
   Message: string;
@@ -12,9 +13,7 @@ interface IPushAlert {
 
 function AlertNotifications(props: { themeColor: IconVariants }) {
   const [alertsCount, setAlertsCount] = useState<number>(0);
-  const [alertsList, setAlertsList] = useState<Array<IPushAlert>>([
-    { Message: "test", LoggedTime: "12345" },
-  ]);
+  const [alertsList, setAlertsList] = useState<Array<IPushAlert>>();
   const [isListVisible, setListVisible] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -37,21 +36,22 @@ function AlertNotifications(props: { themeColor: IconVariants }) {
       })
     );
 
-    const notifications = cahceData.filter(
-      (notification) => notification !== undefined
-    );
-
-    setAlertsCount(notifications.length);
-    setAlertsList(notifications);
+    if (cahceData.length > 0) {
+      handleHandShake();
+      setAlertsCount(cahceData.length);
+      setAlertsList(cahceData);
+    }
   }
-  async function clearNotifications() {
-    caches.keys().then(cacheNames=>{
-      return Promise.all(cacheNames.map((cache)=>{
-          if(cache === "alerts"){
-            return caches.delete(cache)
+  async function clearAlertsFromCache() {
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cache) => {
+          if (cache === "alerts") {
+            return caches.delete(cache);
           }
-      }))
-    })
+        })
+      );
+    });
     await setListVisible(false);
     await setAlertsCount(0);
     await setAlertsList([]);
@@ -75,16 +75,10 @@ function AlertNotifications(props: { themeColor: IconVariants }) {
   }, [isListVisible]);
 
   useEffect(() => {
-    getAlertsFromCache();
-  }, []);
-
-  // Запуск таймера для периодического обновления данных
-  useEffect(() => {
     const refreshTimer = setInterval(() => {
       getAlertsFromCache();
     }, refreshInterval);
 
-    // Очистка таймера при размонтировании компонента
     return () => {
       clearInterval(refreshTimer);
     };
@@ -131,7 +125,7 @@ function AlertNotifications(props: { themeColor: IconVariants }) {
               </li>
             ))}
           </ul>
-          <button className={s.clear_btn} onClick={clearNotifications}>
+          <button className={s.clear_btn} onClick={clearAlertsFromCache}>
             CLEAR
           </button>
         </div>

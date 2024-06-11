@@ -19,3 +19,8 @@ export interface LogObject {
     duration: string;           // formatted as 'mm:ss.SSS'
     additionalText: string;
 }
+
+export interface Registration{
+    registrationId:string,
+    registration:number
+}
