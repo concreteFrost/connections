@@ -59,7 +59,7 @@ function FlowsItem(props: FlowsItemProps) {
                     <button
                       onClick={() => {
                         createUpdateDraftFromLiveTemplate(flow.flowId);
-                        props.navigate("/designer");
+                        props.navigate("/dashboard/designer");
                       }}
                     >
                       EDIT

@@ -146,7 +146,7 @@ function DraftFlowsItem(props: FlowsItemProps) {
                           <button
                             onClick={() => {
                               loadFlowFromDraft(flow.draftId);
-                              props.navigate("/designer");
+                              props.navigate("/dashboard/designer");
                             }}
                           >
                             LOAD

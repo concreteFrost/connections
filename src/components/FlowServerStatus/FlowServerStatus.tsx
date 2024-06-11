@@ -80,6 +80,7 @@ function FlowServerStatus() {
   };
 
   useEffect(() => {
+    console.log('fetching flow list')
     fetchFlowListStatus();
   }, []);
 

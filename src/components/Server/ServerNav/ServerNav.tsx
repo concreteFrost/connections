@@ -12,14 +12,14 @@ function ServerNav() {
 
   const handleNotificationsClick = () => {
     toggleHaveCheckedNotifications(true);
-    navigate("/alerts");
+    navigate("/dashboard/alerts");
   };
 
   return (
     <div className={s.wrapper}>
       <div className={s.nav_btns_wrapper}>
         <div className={s.designer_button}>
-          <button onClick={() => navigate("/designer")}>DESIGNER</button>
+          <button onClick={() => navigate("/dashboard/designer")}>DESIGNER</button>
         </div>
         <div className={s.notifications_button}>
           <button onClick={handleNotificationsClick}>NOTIFICATIONS</button>

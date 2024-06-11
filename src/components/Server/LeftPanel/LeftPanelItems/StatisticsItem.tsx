@@ -27,7 +27,7 @@ function StatisticsItem(props: StatisticsItemProps) {
         </div>
         {props.currentSection.statistics && (
             <ul>
-                <li onClick={() => props.navigate("/dashboard/statistics")}>test</li>
+                <li onClick={() => props.navigate("statistics")}>test</li>
             </ul>
         )}
     </div>)

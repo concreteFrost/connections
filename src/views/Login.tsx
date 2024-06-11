@@ -7,11 +7,7 @@ import ConnectionsLogo from "../assets/connections_logo";
 import CocoonLogo from "../assets/cocoon_logo";
 import useStore from "../store/store";
 
-interface LoginInterface{
-    setIsLoggedIn:(isLoggedIn:boolean)=> void;
-}
-
-function Login(props:LoginInterface) {
+function Login() {
 
     const [userName, setUserName] = useState<string>(localStorage.getItem('iCon_username') ?? '');
     const { setAppUserPassword, appUserPassword } = useStore((state) => state.securitySlice);
@@ -46,8 +42,7 @@ function Login(props:LoginInterface) {
         if (appUserPassword && userName)
             getToken(userName, appUserPassword).then((res: any) => {
                 setAccessToken(res.data, userName);
-                props.setIsLoggedIn(true);
-                navigate('/dashboard')
+                navigate('/dashboard/server')
             }).catch(e => console.log(e))
     }
 

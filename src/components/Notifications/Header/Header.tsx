@@ -13,12 +13,12 @@ function Header() {
       <div className={s.nav_btns_wrapper}>
         <div className={s.server_button}>
           <button onClick={() => {
-            navigate('/server')
+            navigate('/dashboard/server')
           }}>SERVER</button>
         </div>
         <div className={s.designer_button}>
           <button onClick={() => {
-            navigate('/designer')
+            navigate('/dashboard/designer')
           }}>DESIGNER</button>
         </div>
       </div>

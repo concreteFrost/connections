@@ -8,7 +8,7 @@ function SwitchToServerView() {
   const flowSlice = useStore((state) => state.flowSlice);
 
   function saveAndLeave() {
-    navigate("/dashboard/servers");
+    navigate("/dashboard/server");
     modalSlice.toggleMessageModal("");
   }
 
@@ -16,7 +16,7 @@ function SwitchToServerView() {
     modalSlice.toggleUpdateFlowModal(false);
     modalSlice.toggleLoadFlowModal(false);
     flowSlice.closeFlow();
-    navigate("/dashboard/servers");
+    navigate("/dashboard/server");
   }
 
   return (
@@ -32,7 +32,7 @@ function SwitchToServerView() {
               });
             } else {
               flowSlice.closeFlow();
-              navigate("/dashboard/servers");
+              navigate("/dashboard/server");
             }
           }}
         >

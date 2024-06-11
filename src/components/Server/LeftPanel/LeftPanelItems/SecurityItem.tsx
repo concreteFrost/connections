@@ -14,7 +14,7 @@ function SecurityItem(props: SettingsItemProps) {
             <span className={s.header_icon}>
                 {connectionsIcons.serverMenuIcons.security}
             </span>
-            <h5 className={s.section_title} onClick={() => props.navigate("/dashboard/security")}>SECURITY</h5>
+            <h5 className={s.section_title} onClick={() => props.navigate("security")}>SECURITY</h5>
 
         </div>
     </div>)
