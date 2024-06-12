@@ -1,6 +1,6 @@
 import s from "./CustomPropertiesListItem.module.scss";
-import useStore from "../../../../../../../store/store";
-import FilteredResults from "../../../../FilteredResults/FilteredResults";
+import useStore from "store/store";
+import FilteredResults from "components/Designer/RightPanel/FilteredResults/FilteredResults";
 import { useState } from "react";
 
 interface CustomPropertiesListItemProps {

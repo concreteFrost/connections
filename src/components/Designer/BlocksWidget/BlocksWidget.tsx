@@ -1,6 +1,6 @@
 import s from "./BlocksWidget.module.scss";
 import { useState } from "react";
-import useStore from "../../../store/store";
+import useStore from "store/store";
 
 function BlocksWidget() {
   const [expanded, setExpanded] = useState<boolean>(false);

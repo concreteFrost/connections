@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import s from "./LogTable.module.scss";
-import useStore from "../../../../../../store/store";
+import useStore from "store/store";
 import { useTable, useSortBy, usePagination } from "react-table";
 
 function LogTable() {

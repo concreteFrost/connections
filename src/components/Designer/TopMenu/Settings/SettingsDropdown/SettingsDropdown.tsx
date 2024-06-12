@@ -1,6 +1,6 @@
 import s from "./SettingsDropdown.module.scss";
-import useStore from "../../../../../store/store";
-import useOutsideMouseClick from "../../../../../hooks/useOutsideMouseClick";
+import useStore from "store/store";
+import useOutsideMouseClick from "hooks/useOutsideMouseClick";
 import {useRef} from "react"
 
 

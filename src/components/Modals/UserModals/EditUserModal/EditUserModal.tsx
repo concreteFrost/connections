@@ -1,8 +1,8 @@
 import s from "./EditUserModal.module.scss";
-import useStore from "../../../../store/store";
-import { Group, Role, User } from "../../../../store/interfaces/ISecurity";
+import useStore from "store/store";
+import { Group, Role, User } from "store/interfaces/ISecurity";
 import { useState, useEffect } from 'react';
-import useEscapeKeyHandler from "../../../../hooks/useEscapeKeyHandler";
+import useEscapeKeyHandler from "hooks/useEscapeKeyHandler";
 
 interface EditUserModalProps {
     isVisible: boolean,

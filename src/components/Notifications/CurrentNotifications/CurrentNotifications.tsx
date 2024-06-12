@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import s from "./CurrentNotifications.module.scss";
-import useStore from "../../../store/store";
-import { Notification } from "../../../store/interfaces/INotification";
+import useStore from "store/store";
+import { Notification } from "store/interfaces/INotification";
 
 function CurrentNotifications() {
   const {

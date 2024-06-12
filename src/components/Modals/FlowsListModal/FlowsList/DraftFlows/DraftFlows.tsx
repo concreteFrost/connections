@@ -1,10 +1,10 @@
-import useStore from "../../../../../store/store";
-import { getDraftListApi } from "../../../../../api/draft";
+import useStore from "store/store";
+import { getDraftListApi } from "api/draft";
 import s from "./DrafFlows.module.scss";
 import { useState, useEffect } from "react";
 import moment from "moment";
-import { connectionsIcons } from "../../../../../assets/icons/icons";
-import { LoadedFlow } from "../../../../../store/interfaces/Iflow";
+import { connectionsIcons } from "assets/icons/icons";
+import { LoadedFlow } from "store/interfaces/Iflow";
 
 interface ISectionToOpen {
   folders: boolean;

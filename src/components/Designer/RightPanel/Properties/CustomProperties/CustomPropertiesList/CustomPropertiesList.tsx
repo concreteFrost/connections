@@ -1,5 +1,5 @@
-import useStore from "../../../../../../store/store";
-import { BlockData } from "../../../../../../store/interfaces/IBlock";
+import useStore from "store/store";
+import { BlockData } from "store/interfaces/IBlock";
 import s from "./CustomPropertiesList.module.scss"
 import CustomPropertiesListItem from "./CustomPropertiesListItem/CustomPropertiesListItem";
 

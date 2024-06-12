@@ -1,7 +1,7 @@
-import { NodeType } from "../../../../store/interfaces/INode";
+import { NodeType } from "store/interfaces/INode";
 import s from "./NodeListItem.module.scss";
 import { connectionsIcons } from "../../../../assets/icons/icons";
-import useStore from "../../../../store/store";
+import useStore from "store/store";
 import { canDrop, positionInViewport } from "../../../../utils/draggableUtils";
 import { useEffect } from "react";
 

@@ -1,9 +1,9 @@
 import s from "./Section.module.scss";
 import NodeListItem from "../NodeListItem/NodeListItem";
-import { NodeType } from "../../../../store/interfaces/INode";
+import { NodeType } from "store/interfaces/INode";
 import { connectionsIcons } from "../../../../assets/icons/icons";
 import { useState } from "react";
-import useStore from "../../../../store/store";
+import useStore from "store/store";
 
 interface SectionProps {
   title: string;

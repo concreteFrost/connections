@@ -4,8 +4,8 @@ import {
   enableFlowAPI,
   startFlowAPI,
   stopFlowAPI,
-} from "../../../../../api/flow";
-import useStore from "../../../../../store/store";
+} from "api/flow";
+import useStore from "store/store";
 import { useParams } from "react-router";
 
 interface FlowControlProps {

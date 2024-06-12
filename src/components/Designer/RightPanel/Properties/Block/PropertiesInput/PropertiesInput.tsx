@@ -1,7 +1,7 @@
-import useStore from "../../../../../../store/store";
+import useStore from "store/store";
 import { useState, useEffect } from "react";
-import { BlockParameters } from "../../../../../../store/interfaces/IBlock";
-import FilteredResults from "../../../FilteredResults/FilteredResults";
+import { BlockParameters } from "store/interfaces/IBlock";
+import FilteredResults from "components/Designer/RightPanel/FilteredResults/FilteredResults";
 import InputLabel from "./InputLabel/InputLabel";
 
 interface ISelection {

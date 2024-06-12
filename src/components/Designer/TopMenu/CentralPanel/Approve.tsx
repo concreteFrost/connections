@@ -1,4 +1,4 @@
-import useStore from "../../../../store/store";
+import useStore from "store/store";
 
 function Approve() {
   const { draft } = useStore((state) => state.flowSlice);

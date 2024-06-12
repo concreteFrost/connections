@@ -1,11 +1,11 @@
-import useStore from "../../../../../../../store/store";
+import useStore from "store/store";
 import { useState, useEffect } from "react";
 import s from "./DirectivesTable.module.scss";
 import {
   Directive,
   DirectiveConfig,
-} from "../../../../../../../store/interfaces/IAlerts";
-import { FlowConfig } from "../../../../../../../store/interfaces/Iflow";
+} from "store/interfaces/IAlerts";
+import { FlowConfig } from "store/interfaces/Iflow";
 import { connectionsIcons } from "../../../../../../../assets/icons/icons";
 import DirectiveConfigItem from "../AddDirectiveForm/DirectiveConfigItem/DirectiveConfigItem";
 

@@ -1,6 +1,6 @@
 import s from "./Substitutions.module.scss";
 import { connectionsIcons } from "../../../assets/icons/icons";
-import useStore from "../../../store/store";
+import useStore from "store/store";
 import SubstitutionsTable from "./SubstitutionsTable/SubstitutionsTable";
 import { useState } from "react";
 

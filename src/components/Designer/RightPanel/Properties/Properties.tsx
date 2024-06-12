@@ -2,7 +2,7 @@ import s from "./Properties.module.scss";
 import Base from "./Base/Base";
 import Block from "./Block/Block";
 import FlowProperties from "./FlowProperties/FlowProperties";
-import useStore from "../../../../store/store";
+import useStore from "store/store";
 import CustomProperties from "./CustomProperties/CustomProperties";
 
 

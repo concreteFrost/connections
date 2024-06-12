@@ -1,7 +1,7 @@
 import s from "./FlowsListModal.module.scss";
 import DraftFlows from "./FlowsList/DraftFlows/DraftFlows";
 import LiveFlows from "./FlowsList/LiveFlows/LiveFlows";
-import useStore from "../../../store/store";
+import useStore from "store/store";
 
 interface ILoadedFlow {
   flowId: string;

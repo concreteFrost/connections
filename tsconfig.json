@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext","ES2015"],
+    "lib": ["dom", "dom.iterable", "esnext", "ES2015"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -15,7 +15,16 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "baseUrl": "./src",
+    "paths": {
+      "store": ["store/*","store/"],
+      "components":["components/*","components/"],
+      "assets":["assets/"],
+      "utils":["utils/"],
+      "hooks":["hooks/"],
+      "api":["api/*","api/"]
+    }
   },
-  "include": ["src","src/*.js", "public/sw.js"],
-  "exclude": ["node-modules"]
+  "include": ["src", "src/*.js", "public/sw.js"],
+  "exclude": ["node_modules"]
 }

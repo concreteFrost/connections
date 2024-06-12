@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import s from "./AlertFormatTable.module.scss";
-import useStore from "../../../../../../../store/store";
+import useStore from "store/store";
 import moment from "moment";
-import { AlertFormat } from "../../../../../../../store/interfaces/IAlerts";
-import { Group, User } from "../../../../../../../store/interfaces/ISecurity";
+import { AlertFormat } from "store/interfaces/IAlerts";
+import { Group, User } from "store/interfaces/ISecurity";
 
 interface AlertFormatTableProps {
     alertFormats: AlertFormat[],

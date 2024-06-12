@@ -1,5 +1,5 @@
 import s from "./CentralPanel.module.scss";
-import useStore from "../../../../store/store";
+import useStore from "store/store";
 
 function Save() {
   const modalSlice = useStore((state) => state.modalWindowsSlice);

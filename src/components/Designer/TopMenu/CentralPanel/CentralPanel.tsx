@@ -1,16 +1,15 @@
 import View from "./View/View";
 import s from "./CentralPanel.module.scss";
-import { UpdateFlowActions } from "../../../Modals/UpdateFlowModal";
 import Create from "./Create";
 import Save from "./Save";
 import Load from "./Load";
 import Close from "./Close";
 import Approve from "./Approve";
 import SwitchToServerView from "./SwitchToServerView";
-import useStore from "../../../../store/store";
+import useStore from "store/store";
 import { useRef, useState } from "react";
-import useEscapeKeyHandler from "../../../../hooks/useEscapeKeyHandler";
-import useOutsideMouseClick from "../../../../hooks/useOutsideMouseClick";
+import useEscapeKeyHandler from "hooks/useEscapeKeyHandler";
+import useOutsideMouseClick from "hooks/useOutsideMouseClick";
 
 function CentralPanel() {
 

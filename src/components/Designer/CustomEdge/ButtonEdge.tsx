@@ -3,9 +3,9 @@ import {
   getSmoothStepPath,
   getEdgeCenter,
 } from "react-flow-renderer";
-import useStore from "../../../store/store";
+import useStore from "store/store";
 import s from "./ButtonEdge.module.scss";
-import ConnectionsEdge from "../../../store/interfaces/IConnectionsEdges";
+import ConnectionsEdge from "store/interfaces/IConnectionsEdges";
 
 const foreignObjectSize = 30;
 const ButtonEdge: React.FC<any> = ({

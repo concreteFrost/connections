@@ -4,9 +4,9 @@ import ChangeLog from "./FlowElements/ChangeLog";
 import FlowControl from "./FlowElements/FlowControl";
 import StaticProperties from "./FlowElements/StaticProperties";
 import { useState, useEffect } from "react";
-import { FlowStatus } from "../../../../store/interfaces/IStatistics";
+import { FlowStatus } from "store/interfaces/IStatistics";
 import { useParams } from "react-router";
-import useStore from "../../../../store/store";
+import useStore from "store/store";
 
 function Flow() {
   const { id }: any = useParams();

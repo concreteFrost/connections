@@ -1,5 +1,5 @@
 import s from "./Security.module.scss"
-import useStore from "../../../../store/store";
+import useStore from "store/store";
 import { useEffect } from "react";
 import UsersTable from "./UsersTable/UsersTable";
 import GroupsTable from "./GroupsTable/GroupsTable";

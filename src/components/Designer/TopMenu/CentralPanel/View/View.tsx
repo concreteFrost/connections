@@ -1,6 +1,6 @@
 import s from "./View.module.scss";
-import { connectionsIcons } from "../../../../../assets/icons/icons";
-import useStore from "../../../../../store/store";
+import { connectionsIcons } from "assets/icons/icons";
+import useStore from "store/store";
 import { BackgroundVariant } from "react-flow-renderer";
 
 function View() {

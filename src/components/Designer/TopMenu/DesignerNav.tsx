@@ -1,11 +1,11 @@
 import s from "./DesignerNav.module.scss";
 import CentralPanel from "./CentralPanel/CentralPanel";
 import Settings from "./Settings/Settings";
-import useStore from "../../../store/store";
+import useStore from "store/store";
 import UpdateFlowModal from "../../Modals/UpdateFlowModal";
 import FlowsListModal from "../../Modals/FlowsListModal/FlowsListModal";
 import Profile from "../../Profile/Profile";
-import { IconVariants } from "../../../store/enums/profile";
+import { IconVariants } from "store/enums/profile";
 import PushNotifications from "../../PushNotifications/PushNotifications";
 import AlertNotifications from "../../AlertsNotifications/AlertNotifications";
 

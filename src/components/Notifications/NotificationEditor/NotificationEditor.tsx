@@ -1,7 +1,7 @@
 import s from "./NotificationEditor.module.scss";
-import useStore from "../../../store/store";
-import { NotificationType } from "../../../store/interfaces/INotification";
-import { User, Group } from "../../../store/interfaces/ISecurity";
+import useStore from "store/store";
+import { NotificationType } from "store/interfaces/INotification";
+import { User, Group } from "store/interfaces/ISecurity";
 
 function NotificationEditor() {
 

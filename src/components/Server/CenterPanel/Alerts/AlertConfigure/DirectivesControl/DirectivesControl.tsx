@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import AddDirectiveForm from "./AddDirectiveForm/AddDirectiveForm";
 import DirectivesTable from "./DirectivesTable/DirectivesTable";
-import useStore from "../../../../../../store/store";
-import { Directive } from "../../../../../../store/interfaces/IAlerts";
-import { FlowConfig } from "../../../../../../store/interfaces/Iflow";
+import useStore from "store/store";
+import { Directive } from "store/interfaces/IAlerts";
+import { FlowConfig } from "store/interfaces/Iflow";
 import { getFlowListApi } from "../../../../../../api/flow";
 import s from "./DirectivesControl.module.scss"
 

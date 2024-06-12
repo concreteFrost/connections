@@ -5,13 +5,13 @@ import ReactFlow, {
   ReactFlowProvider,
 } from "react-flow-renderer";
 import { shallow } from "zustand/shallow";
-import useStore from "../store/store";
+import useStore from "store/store";
 import useCtrlMouseHold from "../hooks/useCtrlMouseHold";
-import { getSelectedBlock } from "../store/actions/utils/blockUtils";
-import { selector } from "../utils/selector";
-import { nodeTypes, edgeTypes } from "../store/types/flowElements";
+import { getSelectedBlock } from "store/actions/utils/blockUtils";
+import { selector } from "utils/selector";
+import { nodeTypes, edgeTypes } from "store/types/flowElements";
 import { Edge } from "reactflow";
-import { positionInViewport } from "../utils/draggableUtils";
+import { positionInViewport } from "utils/draggableUtils";
 
 function Flow(props: any) {
   const { onBlocksChange, onEdgesChange, onConnect } = useStore(

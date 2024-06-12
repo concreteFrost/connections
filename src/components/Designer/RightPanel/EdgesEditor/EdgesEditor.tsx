@@ -1,8 +1,8 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import s from "./EdgesEditor.module.scss";
-import useStore from "../../../../store/store";
-import { connectionsIcons } from "../../../../assets/icons/icons";
+import useStore from "store/store";
+import { connectionsIcons } from "assets/icons/icons";
 import React from "react";
 
 export interface IEdgeDraggable {

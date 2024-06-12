@@ -1,9 +1,9 @@
 import React from "react";
-import { FlowConfig } from "../../../../../../../../store/interfaces/Iflow";
+import { FlowConfig } from "store/interfaces/Iflow";
 import {
   Directive,
   DirectiveConfig,
-} from "../../../../../../../../store/interfaces/IAlerts";
+} from "store/interfaces/IAlerts";
 
 interface DirectiveConfigItemProps {
   directive: Directive;

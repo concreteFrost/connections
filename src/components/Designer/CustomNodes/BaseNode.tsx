@@ -1,13 +1,13 @@
 // BaseNode component
 import s from "./BaseNode.module.scss";
-import useStore from "../../../store/store";
+import useStore from "store/store";
 import { useEffect, useMemo, useState } from "react";
 import { connectionsIcons } from "../../../assets/icons/icons";
 import { Position, Handle } from "react-flow-renderer";
-import { isDarkBackground } from "../../../store/actions/utils/nodeUtils";
+import { isDarkBackground } from "store/actions/utils/nodeUtils";
 import { Node } from "reactflow";
-import { Directive } from "../../../store/interfaces/IAlerts";
-import { BlockData } from "../../../store/interfaces/IBlock";
+import { Directive } from "store/interfaces/IAlerts";
+import { BlockData } from "store/interfaces/IBlock";
 
 interface Block {
   blockLabel: string;

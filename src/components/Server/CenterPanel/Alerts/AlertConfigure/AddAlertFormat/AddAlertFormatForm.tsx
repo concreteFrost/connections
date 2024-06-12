@@ -1,8 +1,8 @@
 import { useState } from "react";
-import useStore from "../../../../../../store/store";
+import useStore from "store/store";
 import s from "./AddAlertFormatForm.module.scss"
-import { AlertFormat, NewAlertFormat } from "../../../../../../store/interfaces/IAlerts";
-import { Group, User } from "../../../../../../store/interfaces/ISecurity";
+import { AlertFormat, NewAlertFormat } from "store/interfaces/IAlerts";
+import { Group, User } from "store/interfaces/ISecurity";
 
 const initialAlertFormat: NewAlertFormat = {
   name: "New Alert Format",

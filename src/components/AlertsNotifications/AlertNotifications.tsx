@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef } from "react";
-import { connectionsIcons } from "../../assets/icons/icons";
+import { connectionsIcons } from "assets/icons/icons";
 import s from "./AlertNotifications.module.scss";
 import moment from "moment";
-import { IconVariants } from "../../store/enums/profile";
+import { IconVariants } from "store/enums/profile";
 import { useNavigate } from "react-router";
-import { handleHandShake } from "../../utils/handleHandshake";
+import { handleHandShake } from "utils/handleHandshake";
 
 interface IPushAlert {
   Message: string;

@@ -2,8 +2,8 @@ import AlertFormatTable from "./AlertFormatTable/AlertFormatTable";
 import s from "./AlertFormat.module.scss";
 import AddAlertFormatForm from "../AddAlertFormat/AddAlertFormatForm";
 import { useEffect, useState } from "react";
-import useStore from "../../../../../../store/store";
-import { AlertFormat} from "../../../../../../store/interfaces/IAlerts";
+import useStore from "store/store";
+import { AlertFormat} from "store/interfaces/IAlerts";
 
 function AlertFormatControl() {
 

@@ -1,5 +1,5 @@
 import s from "./FlowProperties.module.scss";
-import useStore from "../../../../../store/store";
+import useStore from "store/store";
 
 function FlowProperties() {
   const flow = useStore((state) => state.flowSlice.flow);

@@ -1,4 +1,4 @@
-import useStore from "../../../../store/store";
+import useStore from "store/store";
 import s from "./CentralPanel.module.scss";
 import { useNavigate } from "react-router";
 

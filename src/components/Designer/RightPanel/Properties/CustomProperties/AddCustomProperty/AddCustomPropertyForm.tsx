@@ -1,7 +1,7 @@
 import s from "./AddCustomProperty.module.scss";
-import useStore from "../../../../../../store/store";
+import useStore from "store/store";
 import { useState } from "react";
-import FilteredResults from "../../../FilteredResults/FilteredResults";
+import FilteredResults from "components/Designer/RightPanel/FilteredResults/FilteredResults";
 
 interface ISelection {
     index: number,

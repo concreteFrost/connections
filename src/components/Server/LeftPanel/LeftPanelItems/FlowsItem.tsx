@@ -1,10 +1,10 @@
-import { connectionsIcons } from "../../../../assets/icons/icons";
+import { connectionsIcons } from "assets/icons/icons";
 import { useEffect, useState } from "react";
-import useStore from "../../../../store/store";
+import useStore from "store/store";
 import { ILeftPanelSections } from "../LeftPanel";
 import s from "./ListItem.module.scss";
 import { Link } from "react-router-dom";
-import { FlowStatus } from "../../../../store/interfaces/IStatistics";
+import { FlowStatus } from "store/interfaces/IStatistics";
 import { useParams } from "react-router-dom";
 
 interface FlowsItemProps {

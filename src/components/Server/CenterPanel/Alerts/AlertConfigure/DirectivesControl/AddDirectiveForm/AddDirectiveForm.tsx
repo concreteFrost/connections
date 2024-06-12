@@ -1,11 +1,11 @@
 import { useState } from "react";
-import useStore from "../../../../../../../store/store";
-import { FlowConfig } from "../../../../../../../store/interfaces/Iflow";
+import useStore from "store/store";
+import { FlowConfig } from "store/interfaces/Iflow";
 import s from "./AddDirectiveForm.module.scss";
 import {
   Directive,
   DirectiveConfig,
-} from "../../../../../../../store/interfaces/IAlerts";
+} from "store/interfaces/IAlerts";
 import DirectiveConfigItem from "./DirectiveConfigItem/DirectiveConfigItem";
 import moment from "moment";
 

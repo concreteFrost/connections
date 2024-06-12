@@ -1,10 +1,10 @@
-import { IconVariants } from "../../../store/enums/profile";
-import Profile from "../../Profile/Profile";
+import { IconVariants } from "store/enums/profile";
+import Profile from "components/Profile/Profile";
 import s from "./ServerNav.module.scss";
 import { useNavigate } from "react-router";
-import useStore from "../../../store/store";
-import PushNotifications from "../../PushNotifications/PushNotifications";
-import AlertNotifications from "../../AlertsNotifications/AlertNotifications";
+import useStore from "store/store"
+import PushNotifications from "components/PushNotifications/PushNotifications";
+import AlertNotifications from "components/AlertsNotifications/AlertNotifications";
 
 function ServerNav() {
   const navigate = useNavigate();

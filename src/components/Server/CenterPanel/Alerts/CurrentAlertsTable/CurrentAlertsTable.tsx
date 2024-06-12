@@ -5,9 +5,9 @@ import {
   getAlertsApi,
   alertMarkAsReadApi,
   alertRemoveApi,
-} from "../../../../../api/ehd";
-import { Alert } from "../../../../../store/interfaces/IAlerts";
-import useStore from "../../../../../store/store";
+} from "api/ehd";
+import { Alert } from "store/interfaces/IAlerts";
+import useStore from "store/store";
 import { response } from "express";
 
 function CurrentAlertsTable() {

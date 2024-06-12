@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { BlockParameters } from "../../../../../../../store/interfaces/IBlock";
-import useStore from "../../../../../../../store/store";
+import { BlockParameters } from "store/interfaces/IBlock";
+import useStore from "store/store";
 import s from "./InputLabel.module.scss";
 
 interface InputLabelProps {

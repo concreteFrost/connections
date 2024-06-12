@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import {
   Notification,
   NotificationType,
-} from "../../../store/interfaces/INotification";
-import useStore from "../../../store/store";
-import { Group, User } from "../../../store/interfaces/ISecurity";
+} from "store/interfaces/INotification";
+import useStore from "store/store";
+import { Group, User } from "store/interfaces/ISecurity";
 
 
 const defaultFormState = {

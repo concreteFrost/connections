@@ -1,6 +1,6 @@
 import s from "./ServerTable.module.scss";
-import { connectionsIcons } from "../../../../../assets/icons/icons";
-import { getServerStatusAPI } from "../../../../../api/data";
+import { connectionsIcons } from "assets/icons/icons";
+import { getServerStatusAPI } from "api/data";
 import { useEffect, useState } from "react";
 import OperationTable from "./Tables/OperationTable";
 import FlowsTable from "./Tables/FlowsTable";
@@ -12,8 +12,8 @@ import {
   killServerAPI,
   startServerAPI,
   stopServerAPI,
-} from "../../../../../api/server";
-import useStore from "../../../../../store/store";
+} from "api/server";
+import useStore from "store/store";
 
 interface ITableData {
   alertsRaised: number;

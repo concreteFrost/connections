@@ -1,5 +1,5 @@
-import { Substitutions } from "../../../../store/interfaces/Iflow";
-import useStore from "../../../../store/store";
+import { Substitutions } from "store/interfaces/Iflow";
+import useStore from "store/store";
 import s from "./SubstitutionsTable.module.scss"
 
 function SubstitutionsTable() {
