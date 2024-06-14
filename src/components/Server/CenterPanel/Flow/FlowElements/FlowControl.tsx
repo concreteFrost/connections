@@ -15,11 +15,13 @@ interface FlowControlProps {
 
 function FlowControl(props: FlowControlProps) {
   const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
+  const {setIsLoading} = useStore((state)=>state.loaderSlice);
   const { id }: any = useParams();
 
   async function enableFlow() {
     try {
       await enableFlowAPI(id);
+      setIsLoading(true);
     } catch (e) {
       console.log(e);
     }
@@ -28,6 +30,7 @@ function FlowControl(props: FlowControlProps) {
   async function disableFlow() {
     try {
       await disableFlowAPI(id);
+      setIsLoading(true);
     } catch (e) {
       console.log(e);
     }
@@ -35,9 +38,12 @@ function FlowControl(props: FlowControlProps) {
 
   async function startFlow() {
     try {
+      
       const res: any = await startFlowAPI(id);
+      setIsLoading(true);
       if (res.data.message.length > 0) {
         toggleMessageModal(res.data.message);
+        setIsLoading(false);
       }
     } catch (e) {
       console.log(e);
@@ -47,8 +53,10 @@ function FlowControl(props: FlowControlProps) {
   async function stopFlow() {
     try {
       const res: any = await stopFlowAPI(id);
+      setIsLoading(true);
       if (res.data.message.length > 0) {
         toggleMessageModal(res.data.message);
+        setIsLoading(false);
       }
     } catch (error) {
       console.log("error stopping flow", error);

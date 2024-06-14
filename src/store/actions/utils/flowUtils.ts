@@ -92,7 +92,7 @@ export function setFlow(data: any,set: any, get:()=>RFState) {
               position: b.position,
             };
           }),
-          //NEED TO CHANGE TYPE BACK TO EDGE
+         
           edges: data.visual.edges.map((e: ConnectionsEdge) => {
            return {id: e.id,
             source: e.source,

@@ -19,7 +19,7 @@ function FlowsItem(props: FlowsItemProps) {
     (state) => state.flowSlice.createUpdateDraftFromLiveTemplate
   );
   const { statistics } = useStore((state) => state.statisticsSlice);
-  const { id } = useParams();
+  const { "*": path } = useParams();
 
   useEffect(() => {
     if (statistics) setFlowList(statistics);
@@ -45,13 +45,10 @@ function FlowsItem(props: FlowsItemProps) {
         <ul>
           {flowList.length > 0
             ? flowList.map((flow: any) => (
-                <li key={flow.flowId} className={s.flow_list_item}>
+                <li key={flow.flowId}     className={`${s.flow_list_item}  ${path?.split("/")[1] === flow.flowId ? s["selected"]: null}`}>
                   <Link 
                     to={`flows/${flow.flowId}`}
-                    // className={`${s.flow_list_item}  ${currentFlow.flowIdentifier === flow.flowId
-                    //     ? s["selected"]
-                    //     : null
-                    //   }`}
+                
                   >
                     <div className={s.flow_list_title_wrapper}>{flow.name}</div>
                   </Link>
@@ -62,7 +59,7 @@ function FlowsItem(props: FlowsItemProps) {
                         props.navigate("/dashboard/designer");
                       }}
                     >
-                      EDIT
+                      {connectionsIcons.upload}
                     </button>
                   </div>
                 </li>

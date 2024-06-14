@@ -12,6 +12,7 @@ import notificationSlice from "./slices/notificationSlice";
 import securitySlice from "./slices/securitySlice";
 import alertSlice from "./slices/alertSlice";
 import statisticsSlice from "./slices/statisticsSlice";
+import loaderSlice from "./slices/loaderSlice";
 
 const useStore = createWithEqualityFn<RFState>((set, get) => ({
 
@@ -25,6 +26,7 @@ const useStore = createWithEqualityFn<RFState>((set, get) => ({
   securitySlice: securitySlice(get, set),
   alertSlice:alertSlice(get,set),
   statisticsSlice:statisticsSlice(get,set),
+  loaderSlice:loaderSlice(get,set),
 
   //Value Editor Actions
   //Node Actions

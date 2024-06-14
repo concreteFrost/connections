@@ -10,6 +10,8 @@
 
 .node_list_btn {
     @include left_panel_btn($bg-node-nav-btn);
+    width: 100%;
+
 }
 
 .node_list_icon {

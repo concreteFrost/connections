@@ -217,6 +217,7 @@ const enableClientFlowStatus = () => async (subscription:Subscription) => {
 const disableClientFlowStatus = () => async () => {
   try {
       const res = await disableClientFlowStatusAPI();
+      console.log("result of unsubscribing from flow status callback",res)
   } catch (error) {
       console.log("error registering client flow status callback", error);
   }

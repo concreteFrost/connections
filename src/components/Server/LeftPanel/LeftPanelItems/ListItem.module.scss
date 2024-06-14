@@ -30,8 +30,6 @@
 
     padding-left: 0;
     cursor: pointer;
-
-   
   }
 
   h5 {
@@ -45,7 +43,11 @@
     a {
       text-decoration: none;
       color: black;
-      
+    }
+
+    &.selected {
+      background-color: rgb(194, 194, 194);
+      width: 100%;
     }
   }
 
@@ -64,17 +66,11 @@
   }
 
   .flow_list_dropdown_actions {
+    display: flex;
     position: absolute;
     right: 5px;
-    top: 5px;
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    border: 1px solid $color-list-border-darker;
-    border-radius: 5px;
-    padding: 10px;
-    z-index: 9999;
-
+    gap: 2px;
+    
     .delete_btn,
     button {
       @include blue-btn;

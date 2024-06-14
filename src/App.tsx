@@ -10,6 +10,7 @@ import { Tooltip } from "react-tooltip";
 import useStore from "./store/store";
 
 import { Dashboard } from "./views/DashBoard";
+import Spinner from "components/Spinner/Spinner";
 
 function App() {
   const tooltipText = useStore((store) => store.designerVisualElementsSlice.tooltip.text);
@@ -21,15 +22,19 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <>
+     
       <ApproveModal />
       <ConfirmationModal />
       <MessageModal />
+
       <Tooltip anchorSelect=".tooltip-item" place="right" style={{ zIndex: 9999 }}>
         {tooltipText}
       </Tooltip>
+      <Spinner></Spinner>
       </>
     
     </Router>
+  
   );
 }
 

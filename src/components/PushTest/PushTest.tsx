@@ -56,6 +56,7 @@ export function PushTest() {
 
       if (subscription) {
         console.log('enabling notifications')
+        console.log(subscription)
         const formatedSubscription: Subscription = {
           endpoint: subscription.endpoint,
           p256dh: subscription.keys.p256dh,

@@ -1,5 +1,6 @@
 self.addEventListener("push", function (event) {
   const eventData = event.data.json();
+  console.log('event data',eventData)
 
   if (eventData.hasOwnProperty("FlowId")) {
     const key = new Date().toISOString();
