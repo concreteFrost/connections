@@ -17,6 +17,7 @@ export type AlertSlice = {
     addAlertFormat:(newAlertFormat:NewAlertFormat)=>void;
 
     enablieClientAlerts:(subscription:Subscription)=>void;
+    disableClientAlerts:()=>void;
 }
 
 const alertSlice = (get: () => RFState, set: any): AlertSlice => ({
@@ -32,7 +33,8 @@ const alertSlice = (get: () => RFState, set: any): AlertSlice => ({
     deleteAlertFormat:alertActions.deleteAlertFormat(),
     addAlertFormat:alertActions.addAlertFormat(),
 
-    enablieClientAlerts:alertActions.enableClientAlerts()
+    enablieClientAlerts:alertActions.enableClientAlerts(),
+    disableClientAlerts:alertActions.disableClientAlerts()
 })
 
 export default alertSlice;

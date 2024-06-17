@@ -22,6 +22,7 @@ function Profile(props: ProfileProps) {
   const [isEditUserVisible, setEditUserVisible] = useState<boolean>(false);
   const {disableClientFlowStatus} = useStore((state)=>state.flowSlice);
   const {disableClientNotifications} = useStore((state)=>state.notificationSlice);
+  const {disableClientAlerts} = useStore((state)=>state.alertSlice);
   const modalRef = useRef<HTMLDivElement>(null);
 
   const { userToEdit, getUser } = useStore((state) => state.securitySlice);
@@ -37,8 +38,10 @@ function Profile(props: ProfileProps) {
 
   async function logout() {
     // Clear user data and navigate to the login page
+    await disableClientAlerts();
     await disableClientFlowStatus();
     await disableClientNotifications();
+
     await clearUserData();
     await navigate("/login");
   }

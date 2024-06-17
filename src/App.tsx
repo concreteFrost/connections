@@ -8,12 +8,13 @@ import MessageModal from "./components/Modals/MessageModal";
 import ApproveModal from "./components/Modals/ApproveModal";
 import { Tooltip } from "react-tooltip";
 import useStore from "./store/store";
-
+import useBroadcastChannel from "components/BroadcastChannel/useBroadcastChannel";
 import { Dashboard } from "./views/DashBoard";
 import Spinner from "components/Spinner/Spinner";
 
 function App() {
   const tooltipText = useStore((store) => store.designerVisualElementsSlice.tooltip.text);
+  const isOtherTabOpen = useBroadcastChannel('app_channel');
   return (
     <Router>
       <Routes>
@@ -21,8 +22,7 @@ function App() {
         <Route path="/dashboard/*" element={<ProtectedRoute><Dashboard></Dashboard></ProtectedRoute>}/>
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <>
-     
+      <> 
       <ApproveModal />
       <ConfirmationModal />
       <MessageModal />

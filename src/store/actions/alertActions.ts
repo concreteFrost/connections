@@ -1,4 +1,4 @@
-import { addAlertFormatApi, removeAlertFormatApi, removeDirectiveApi, updateAlertFormatApi, updateDirectiveApi, addDirectiveApi, getAlertFormatsApi, getDirectivesApi, enabliClientAlertsApi } from "../../api/ehd";
+import { addAlertFormatApi, removeAlertFormatApi, removeDirectiveApi, updateAlertFormatApi, updateDirectiveApi, addDirectiveApi, getAlertFormatsApi, getDirectivesApi, enabliClientAlertsApi, disableClientAlertsApi } from "../../api/ehd";
 import { AlertFormat, Directive,NewAlertFormat } from "../interfaces/IAlerts";
 import { Subscription } from "../interfaces/INotification";
 import { RFState } from "../types/rfState";
@@ -113,6 +113,16 @@ const enableClientAlerts = () => async (subscription: Subscription) => {
 }
 
 
+const disableClientAlerts = () => async () => {
+    try {
+        const res = await disableClientAlertsApi();
+        return res;
+    } catch (error) {
+        console.log("error disabling alerts callback", error);
+    }
+}
+
+
 
 const alertActions = {
     getDirectives: getDirectives,
@@ -124,7 +134,8 @@ const alertActions = {
     updateAlertFormat:updateAlertFormat,
     deleteAlertFormat:deleteAlertFormat,
     addAlertFormat:addAlertFormat,
-    enableClientAlerts:enableClientAlerts
+    enableClientAlerts:enableClientAlerts,
+    disableClientAlerts:disableClientAlerts
 }
 
 export default alertActions;

@@ -70,6 +70,24 @@ export function enabliClientAlertsApi(subscription: Subscription) {
     });
 }
 
+export function disableClientAlertsApi() {
+    return new Promise((resolve, reject) => {
+        axios({
+            method: "post",
+            url: baseUrl + "/Ehd/DisableClientAlerts",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + getAccessToken().token,
+            },   
+        })
+            .then((res) => {
+                resolve(res);
+            })
+            .catch((e) => reject(e));
+    });
+}
+
+
 export function getAlertsApi(unreadOnly: boolean) {
     return axios.post(baseUrl + "/Ehd/GetAlerts", unreadOnly, {
         headers: generateJSONHeaders()
