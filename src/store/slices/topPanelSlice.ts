@@ -20,7 +20,7 @@ const topPanelSlice = (get: ()=>RFState, set: any): TopPanelSlice => ({
     settings: {
         snapToGrid: getUserSettingsData().designer.isGridSnapped ? true : false,
         snapStep: [Number(getUserSettingsData().designer.gridStep),Number(getUserSettingsData().designer.gridStep)],
-        showMiniMap: true
+        showMiniMap: getUserSettingsData().designer.showMiniMap ? true : false
     },
 
     setBgView: topMenuActions.setBgView(set),

@@ -2,6 +2,7 @@ import {
   OnNodesChange,
   OnEdgesChange,
   OnConnect,
+  NodeChange,
 } from "react-flow-renderer";
 
 import { NodeType } from "../interfaces/INode";
@@ -33,7 +34,7 @@ export type RFState = {
   //Value Editor Actions
 
   getBlocksList: (data: any) => void;
-  onBlocksChange: OnNodesChange;
+  onBlocksChange: any;
   onConnect: OnConnect;
   onEdgesChange: OnEdgesChange;
 };

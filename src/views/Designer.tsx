@@ -8,6 +8,7 @@ import { getBlocks } from "../api/data";
 import Substitutions from "../components/Designer/Substitutions/Substitutions";
 import BlocksWidget from "../components/Designer/BlocksWidget/BlocksWidget";
 import { getAllselectedBlockIDs } from "../store/actions/groupActions";
+import { ReactFlowProvider } from "react-flow-renderer";
 
 function Designer() {
   const getBlocksList = useStore((store) => store.getBlocksList);
@@ -27,11 +28,10 @@ function Designer() {
   const fetchDirectives = async () => {
     try {
       await getDirectivesGlobal();
-    }
-    catch (e) {
+    } catch (e) {
       console.log("error getting directivea");
     }
-  }
+  };
 
   useEffect(() => {
     getBlocks()
@@ -53,26 +53,31 @@ function Designer() {
     }
     hideAllTopDropdowns();
   };
+
   return (
-    <div className="App">
-      <DesignerNav></DesignerNav>
-      <div
-        className={`${isRightPanelExpanded ? "resized_dynamic_menu" : "dynamic_menu"
+    <ReactFlowProvider>
+      <div className="App">
+        <DesignerNav></DesignerNav>
+        <div
+          className={`${
+            isRightPanelExpanded ? "resized_dynamic_menu" : "dynamic_menu"
           }`}
-      >
-        <LeftPanel></LeftPanel>
-        {flow.flowIdentifier ? <Substitutions></Substitutions> : <div></div>}
-        <RightPanel
-          isRightPanelResized={isRightPanelExpanded}
-          setRightPanelResized={setRightPanelExpanded}
-        ></RightPanel>
+        >
+          <LeftPanel></LeftPanel>
+          {flow.flowIdentifier ? <Substitutions></Substitutions> : <div></div>}
+          <RightPanel
+            isRightPanelResized={isRightPanelExpanded}
+            setRightPanelResized={setRightPanelExpanded}
+          ></RightPanel>
+        </div>
+
+        <Flow resetSelectedBlockId={resetSelectedBlockId}></Flow>
+
+        {getAllselectedBlockIDs(flow.visual.blocks) ? (
+          <BlocksWidget></BlocksWidget>
+        ) : null}
       </div>
-
-      <Flow resetSelectedBlockId={resetSelectedBlockId}></Flow>
-
-      {getAllselectedBlockIDs(flow.visual.blocks) ? <BlocksWidget></BlocksWidget> : null}
-
-    </div>
+    </ReactFlowProvider>
   );
 }
 

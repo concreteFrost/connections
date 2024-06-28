@@ -11,7 +11,8 @@ export  interface NodeType {
     type: string,
     visualData: {
         color: string,
-        icon: string
+        icon: string,
+
     }
     data: {
         //Api parameters

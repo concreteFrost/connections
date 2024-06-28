@@ -39,11 +39,11 @@ module.exports = {
       '.json'
     ],
   },
-  plugins: [
-    new NodePolyfillPlugin(),
-    new TsconfigPathsPlugin({
-      configFile: './tsconfig.json',
-      extensions: ['.ts', '.js']
-    })
-  ],
+  // plugins: [
+  //   new NodePolyfillPlugin(),
+  //   new TsconfigPathsPlugin({
+  //     configFile: './tsconfig.json',
+  //     extensions: ['.ts', '.js']
+  //   })
+  // ],
 };

@@ -16,7 +16,8 @@ export const addBlock =
       visualData: type.visualData,
       position: { x: posX, y: posY },
     };
-
+ 
+    console.log(newNode)
     set((state: RFState) => ({
       flowSlice: {
         ...state.flowSlice,

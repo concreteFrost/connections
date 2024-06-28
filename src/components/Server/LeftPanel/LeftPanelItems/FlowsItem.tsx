@@ -45,11 +45,13 @@ function FlowsItem(props: FlowsItemProps) {
         <ul>
           {flowList.length > 0
             ? flowList.map((flow: any) => (
-                <li key={flow.flowId}     className={`${s.flow_list_item}  ${path?.split("/")[1] === flow.flowId ? s["selected"]: null}`}>
-                  <Link 
-                    to={`flows/${flow.flowId}`}
-                
-                  >
+                <li
+                  key={flow.flowId}
+                  className={`${s.flow_list_item}  ${
+                    path?.split("/")[1] === flow.flowId ? s["selected"] : null
+                  }`}
+                >
+                  <Link to={`flows/${flow.flowId}`}>
                     <div className={s.flow_list_title_wrapper}>{flow.name}</div>
                   </Link>
                   <div className={s.flow_list_btn_wrapper}>

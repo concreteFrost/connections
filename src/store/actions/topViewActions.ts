@@ -6,11 +6,11 @@ export const setBgView = (set: any) => (view: BackgroundVariant) => {
   set((state: RFState) => ({
     designerVisualElementsSlice: {
       ...state.designerVisualElementsSlice,
-      view: view
-    }
-  }))
+      view: view,
+    },
+  }));
 
-  setDesignerSettings("canvasView",view);
+  setDesignerSettings("canvasView", view);
 };
 
 export const hideAllTopMenus = (get: () => RFState, set: any) => () => {
@@ -23,31 +23,30 @@ export const hideAllTopMenus = (get: () => RFState, set: any) => () => {
   set((state: RFState) => ({
     topPanelSlice: {
       ...state.topPanelSlice,
-      dropdowns: { ...dropdowns }
-    }
+      dropdowns: { ...dropdowns },
+    },
   }));
 };
 
-export const toggleDropdown = (get: () => RFState, set: any) => (activeDropdownId: string) => {
-  const { dropdowns }: any = get().topPanelSlice;
+export const toggleDropdown =
+  (get: () => RFState, set: any) => (activeDropdownId: string) => {
+    const { dropdowns }: any = get().topPanelSlice;
 
-  for (const key in dropdowns) {
-    dropdowns[key].isVisible = key === activeDropdownId ? !dropdowns[key].isVisible : false;
-  }
-
-  set((state: RFState) => ({
-    topPanelSlice: {
-      ...state.topPanelSlice,
-      dropdowns: { ...dropdowns }
+    for (const key in dropdowns) {
+      dropdowns[key].isVisible =
+        key === activeDropdownId ? !dropdowns[key].isVisible : false;
     }
-  }));
 
-
-};
+    set((state: RFState) => ({
+      topPanelSlice: {
+        ...state.topPanelSlice,
+        dropdowns: { ...dropdowns },
+      },
+    }));
+  };
 
 export const setSnapToGrid = (get: () => RFState, set: any) => () => {
-
-  const isSnapped = get().topPanelSlice.settings.snapToGrid; 
+  const isSnapped = get().topPanelSlice.settings.snapToGrid;
   set((state: RFState) => ({
     topPanelSlice: {
       ...state.topPanelSlice,
@@ -55,37 +54,40 @@ export const setSnapToGrid = (get: () => RFState, set: any) => () => {
         ...state.topPanelSlice.settings,
         snapToGrid: !isSnapped,
       },
-    },    
+    },
   }));
-  setDesignerSettings("isGridSnapped",!isSnapped)
-
+  setDesignerSettings("isGridSnapped", !isSnapped);
 };
 
-export const setSnapStep = (get: () => RFState, set: any) => (step: number[]) => {
+export const setSnapStep =
+  (get: () => RFState, set: any) => (step: number[]) => {
+    set((state: RFState) => ({
+      topPanelSlice: {
+        ...state.topPanelSlice,
+        settings: {
+          ...state.topPanelSlice.settings,
+          snapStep: step,
+        },
+      },
+    }));
+
+    setDesignerSettings("gridStep", step[0]);
+  };
+
+export const toggleMiniMap = (get: () => RFState, set: any) => () => {
+  const show = !get().topPanelSlice.settings.showMiniMap;
   set((state: RFState) => ({
     topPanelSlice: {
       ...state.topPanelSlice,
       settings: {
         ...state.topPanelSlice.settings,
-        snapStep: step,
+        showMiniMap: show,
       },
     },
   }));
 
-  setDesignerSettings("gridStep",step[0]);
-}
-
-export const toggleMiniMap = (get: () => RFState, set: any) => () => {
-  set((state: RFState) => ({
-    topPanelSlice: {
-      ...state.topPanelSlice,
-      settings: {
-        ...state.topPanelSlice.settings,
-        showMiniMap: !state.topPanelSlice.settings.showMiniMap
-      }
-    }
-  }))
-}
+  setDesignerSettings("showMiniMap", show);
+};
 
 const topMenuActions = {
   setBgView: setBgView,
@@ -97,6 +99,3 @@ const topMenuActions = {
 };
 
 export default topMenuActions;
-
-
-

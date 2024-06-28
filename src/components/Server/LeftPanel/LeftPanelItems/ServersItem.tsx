@@ -27,7 +27,7 @@ function ServersItem(props: ServersItemProps) {
       </div>
       {props.currentSection.servers && (
         <ul>
-          <li onClick={() => props.navigate("servers")}>localhost</li>
+          <li onClick={() => props.navigate("servers")}> <div className={s.flow_list_title_wrapper}>localhost</div></li>
         </ul>
       )}
     </div>
