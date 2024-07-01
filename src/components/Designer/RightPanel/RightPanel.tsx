@@ -66,8 +66,9 @@ function RightPanel(props: RightPanelProps) {
             showMiniMap ? s["opened"] : s["closed"]
           }`}
         >
-          <MiniMap 
+          <MiniMap
             className={s.minimap}
+            
             nodeColor={"rgb(74, 120, 190)"}
             maskColor="rgb(74, 115, 150,20%)"
           ></MiniMap>

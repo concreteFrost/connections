@@ -42,7 +42,7 @@ function Substitutions() {
             </form>
 
             <ul>
-              <li>Save</li>
+              {/* <li>Save</li> */}
             </ul>
           </div>
           <div className={s.body}>

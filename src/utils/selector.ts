@@ -1,4 +1,3 @@
-import { useNodesState } from "react-flow-renderer";
 import { RFState } from "store/types/rfState";
 
 export const selector = (state: RFState) => ({

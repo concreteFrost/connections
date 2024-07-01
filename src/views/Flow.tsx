@@ -2,9 +2,7 @@ import { useState, useCallback, MouseEvent as ReactMouseEvent } from "react";
 import ReactFlow, {
   Background,
   BackgroundVariant,
-  ReactFlowProvider,
   applyNodeChanges,
-  useNodesState
 } from "react-flow-renderer";
 import { shallow } from "zustand/shallow";
 import useStore from "store/store";
@@ -14,22 +12,29 @@ import { selector } from "utils/selector";
 import { nodeTypes, edgeTypes } from "store/types/flowElements";
 import { Edge } from "reactflow";
 import { positionInViewport } from "utils/draggableUtils";
-import { Node } from "reactflow";
 
 function Flow(props: any) {
-  const {onBlocksChange, onEdgesChange, onConnect } = useStore(selector, shallow);
+  const { onBlocksChange, onEdgesChange, onConnect } = useStore(
+    selector,
+    shallow
+  );
   const flowSlice = useStore((state) => state.flowSlice);
   const bgView = useStore((state) => state.designerVisualElementsSlice.view);
 
-  const onNodesChange = useCallback((changes: any) => {
-   
-    const updatedBlocks = applyNodeChanges(changes, flowSlice.flow.visual.blocks);
-    onBlocksChange(updatedBlocks);
-  }, [flowSlice.flow.visual.blocks]);
+  const onNodesChange = useCallback(
+    (changes: any) => {
+      const updatedBlocks = applyNodeChanges(
+        changes,
+        flowSlice.flow.visual.blocks
+      );
+      onBlocksChange(updatedBlocks);
+    },
+    [flowSlice.flow.visual.blocks]
+  );
 
   const { reactFlowInstance, reactFlowWrapper, setInstance, setFlowWrapper } =
     useStore((state) => state.designerVisualElementsSlice);
-  const { snapToGrid, showMiniMap, snapStep } = useStore(
+  const { snapToGrid, snapStep } = useStore(
     (state) => state.topPanelSlice.settings
   );
 
@@ -47,40 +52,37 @@ function Flow(props: any) {
   }
 
   return (
-    <ReactFlowProvider>
-      <div
-        style={{ height: "100vh", overflowY: "hidden" }}
-        className="reactflow-wrapper"
-        ref={setFlowWrapper}
+    <div
+      style={{ height: "100vh", overflowY: "hidden" }}
+      className="reactflow-wrapper"
+      ref={setFlowWrapper}
+    >
+      <ReactFlow
+        onInit={setInstance}
+        nodes={flowSlice.flow.visual.blocks}
+        edges={flowSlice.flow.visual.edges as Edge[]}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onConnect={onConnect}
+        nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
+        onClick={props.resetSelectedBlockId}
+        snapToGrid={snapToGrid}
+        snapGrid={[snapStep[0], snapStep[1]]}
+        deleteKeyCode={null}
+        onMouseUp={(e: any) => {
+          pasteCopiedBlock(e);
+        }}
+        nodesDraggable={!isCtrlPressed}
       >
-        <ReactFlow
-          onInit={setInstance}
-          nodes={flowSlice.flow.visual.blocks}
-          edges={flowSlice.flow.visual.edges as Edge[]}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
-          nodeTypes={nodeTypes}
-          edgeTypes={edgeTypes}
-          onClick={props.resetSelectedBlockId}
-          snapToGrid={snapToGrid}
-          snapGrid={[snapStep[0], snapStep[1]]}
-          deleteKeyCode={null}
-          onMouseUp={(e: any) => {
-            pasteCopiedBlock(e);
-          }}
-          nodesDraggable={!isCtrlPressed}
-        >
-          <Background
-            color={`rgb(74, 148, 190, ${
-              bgView === BackgroundVariant.Dots ? 1 : 0.5
-            })`}
-            variant={bgView}
-          ></Background>
-          {/* <MiniMap nodeStrokeColor={"black"} nodeStrokeWidth={10} className={s.minimap} nodeColor={'rgb(74, 120, 190)'} style={{ display: showMinimap ? "block" : "none" }} ></MiniMap> */}
-        </ReactFlow>
-      </div>
-    </ReactFlowProvider>
+        <Background
+          color={`rgb(74, 148, 190, ${
+            bgView === BackgroundVariant.Dots ? 1 : 0.5
+          })`}
+          variant={bgView}
+        ></Background>
+      </ReactFlow>
+    </div>
   );
 }
 
