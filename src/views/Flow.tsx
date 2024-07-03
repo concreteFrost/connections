@@ -32,7 +32,6 @@ function Flow(props: any) {
     [flowSlice.flow.visual.blocks]
   );
 
-
   const { reactFlowInstance, reactFlowWrapper, setInstance, setFlowWrapper } =useStore((state) => state.designerVisualElementsSlice);
   const { snapToGrid, snapStep } = useStore((state) => state.topPanelSlice.settings);
 
