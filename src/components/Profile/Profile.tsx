@@ -68,7 +68,7 @@ function Profile(props: ProfileProps) {
         <div className={s.profile_wrapper} ref={modalRef}>
           {/*ACCOUNT INFO */}
           <section className={s.account_info_wrapper}>
-            <header>Account Info</header>
+            <header>ACCOUNT</header>
             <p className={s.edit_btn} onClick={() => {setEditUserVisible(true);
             setProfileModalVisible(false)}}>
               edit
