@@ -14,8 +14,8 @@ import Spinner from "components/Spinner/Spinner";
 
 function App() {
   const tooltipText = useStore((store) => store.designerVisualElementsSlice.tooltip.text);
-  
-  useBroadcastChannel('app_channel');
+
+  useBroadcastChannel('app_channel'); // prevents from opening the app in the 2nd tab of the same browser
   return (
     <Router>
       <Routes>
