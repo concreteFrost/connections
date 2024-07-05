@@ -2,6 +2,9 @@ import { getUserSettingsData } from "store/actions/storageActions";
 import topMenuActions from "store/actions/topViewActions";
 import { RFState } from "store/types/rfState";
 
+const userSettingsData = getUserSettingsData();
+const designerSettings = userSettingsData && userSettingsData.designer;
+
 export type TopPanelSlice = {
     settings: {
         snapToGrid: boolean;
@@ -18,10 +21,10 @@ export type TopPanelSlice = {
 
 const topPanelSlice = (get: ()=>RFState, set: any): TopPanelSlice => ({
     settings: {
-        snapToGrid: getUserSettingsData().designer.isGridSnapped ? true : false,
-        snapStep: [Number(getUserSettingsData().designer.gridStep),Number(getUserSettingsData().designer.gridStep)],
-        showMiniMap: getUserSettingsData().designer.showMiniMap ? true : false
-    },
+        snapToGrid: designerSettings && designerSettings.isGridSnapped ? true : false,
+        snapStep: [Number(designerSettings?.gridStep), Number(designerSettings?.gridStep)],
+        showMiniMap: designerSettings && designerSettings.showMiniMap ? true : false
+      },
 
     setBgView: topMenuActions.setBgView(set),
     hideAllTopMenus: topMenuActions.hideAllTopMenus(get, set),

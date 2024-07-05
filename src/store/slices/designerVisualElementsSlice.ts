@@ -33,11 +33,15 @@ export type DesignerVisualElementsSlice = {
     setParameterValue: (propertyName: string, value: string) => void;
 }
 
+const userSettingsData = getUserSettingsData();
+const designerSettings = userSettingsData?.designer;
+
 const designerVisualElementsSlice = (get: () => RFState, set: any): DesignerVisualElementsSlice =>
 ({
+    
     reactFlowInstance:null,
     reactFlowWrapper:null,
-    view: getUserSettingsData().designer.canvasView,  
+    view: designerSettings?.canvasView,  
     tooltip: {
         text: ''
     },

@@ -52,6 +52,7 @@ function Profile(props: ProfileProps) {
   return (
     <div className={s.wrapper}>
       <span
+        data-testid="profile-icon"
         className={`${s.icon}  ${
           props.themeColor === IconVariants.Dark ? s["dark"] : s["light"]
         }`}
