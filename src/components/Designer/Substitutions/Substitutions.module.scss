@@ -38,7 +38,7 @@
 }
 
 .header {
-  @include section_header;
+  @include section_header_container;
   padding-bottom: 0;
   margin-bottom: 10px;
   padding-top: 0;

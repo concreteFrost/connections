@@ -18,7 +18,6 @@ function CentralPanel() {
   const viewRef:any = useRef();
   const {flowName} = useStore((state)=>state.flowSlice.flow);
 
-
   useEscapeKeyHandler(()=> setViewSectionVisible(false))
   useOutsideMouseClick(viewRef,()=>setViewSectionVisible(false))
   
@@ -49,85 +48,3 @@ function CentralPanel() {
 
 export default CentralPanel;
 
-
-//   {/*SERVER */}
-//   <li>
-//   <div className={s.server_button}>
-//     <button onClick={switchToTheServer}>SERVER</button>
-//   </div>
-// </li>
-// {/*CREATE */}
-// <li
-//   className={s.nav_list_item}
-//   onClick={handleCreateFlow}
-// >
-//   Create
-// </li>
-// {/*LOAD */}
-// <li
-//   className={s.nav_list_item}
-//   onClick={openFlowModal}
-// >
-//   Load
-// </li>
-// {/*SAVE */}
-// {flowIdentifier ? <li
-//   className={s.nav_list_item}
-//   onClick={handleSaveFlow}
-// >
-//   Save
-// </li> : null}
-// {/*CLOSE*/}
-// {flowIdentifier ? <li
-//   className={s.nav_list_item}
-//   onClick={handleCloseFlow}
-// >
-//   Close
-// </li> : null}
-
-
-// const toggleLoadFlowModal = useStore((state) => state.modalWindowsSlice.toggleLoadFlowModal);
-//   const { closeFlow, createFlow } = useStore((state) => state.flowSlice);
-
-//   const flowIdentifier = useStore((state) => state.flowSlice.flow.flowIdentifier);
-//   const navigate = useNavigate();
-
-//   function switchToTheServer() {
-//     if (flowIdentifier) {
-//       props.toggleUpdateFlowModal(true)
-//       props.setCurrentActions(UpdateFlowActions.Quit)
-//     }
-//     else {
-//       navigate('/dashboard/server')
-//     }
-//   }
-
-//   function openFlowModal() {
-//     toggleLoadFlowModal(true);
-//   }
-
-//   function handleCloseFlow() {
-//     if (flowIdentifier) {
-//       props.toggleUpdateFlowModal(true);
-//       props.setCurrentActions(UpdateFlowActions.Close);
-
-//     }
-//     else {
-//       closeFlow();
-//     }
-//   }
-
-//   function handleCreateFlow() {
-//     if (flowIdentifier) {
-//       props.toggleUpdateFlowModal(true);
-//       props.setCurrentActions(UpdateFlowActions.Create)
-//     }
-//     else {
-//       createFlow();
-//     }
-//   }
-
-//   function handleSaveFlow() {
-//     props.toggleUpdateFlowModal(true);
-//     props.setCurrentActions(UpdateFlowActions.SaveDraft)
-//   }

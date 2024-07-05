@@ -112,6 +112,7 @@ function DraftFlows() {
                       <button className={`${s.action_confirm_btn} tooltip-item`}
                         onMouseEnter={() => setTooltipText('Retrieves a draft flow configuration from the server')}
                         onClick={() => {
+                          setTooltipText("")
                           if (flowSlice.flow.flowIdentifier) {
                             modalSlice.toggleUpdateFlowModal(true)
                             modalSlice.setUpdateFlowModalActions({ save: () => saveAndLoadDraft(flow.draftId), discard: () => loadDraftWithoutSaving(flow.draftId) })

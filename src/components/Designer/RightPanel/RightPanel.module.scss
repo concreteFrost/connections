@@ -44,7 +44,7 @@
   box-shadow: $shadow-node-nav-container;
 
   .section_container {
-    @include section_header;
+    @include section_header_container;
   }
 
   .minimap_wrapper {

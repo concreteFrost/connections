@@ -115,7 +115,7 @@ function AlertNotifications(props: { themeColor: IconVariants }) {
                   <div
                     className={s.view}
                     onClick={() => {
-                      navigate("/dashboard/alerts/");
+                      navigate("/dashboard/server/alerts/");
                       setListVisible(false);
                     }}
                   >

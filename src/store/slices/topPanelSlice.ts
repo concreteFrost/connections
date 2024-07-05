@@ -1,6 +1,6 @@
-import { getUserSettingsData } from "../actions/storageActions";
-import topMenuActions from "../actions/topViewActions";
-import { RFState } from "../types/rfState";
+import { getUserSettingsData } from "store/actions/storageActions";
+import topMenuActions from "store/actions/topViewActions";
+import { RFState } from "store/types/rfState";
 
 export type TopPanelSlice = {
     settings: {

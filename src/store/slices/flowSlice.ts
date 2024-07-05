@@ -1,22 +1,23 @@
 import { RFState } from "../types/rfState";
 import { Node } from "react-flow-renderer";
-import { Substitutions } from "../interfaces/Iflow";
-import { initializeFlow } from "../actions/utils/flowUtils";
 import initialNodes from "../nodes";
 import initialEdges from "../edges";
-import flowActions from "../actions/flowActions";
-import baseActtions from "../actions/baseActions";
-import blockActions from "../actions/blockActions";
-import groupActions from "../actions/groupActions";
-import substitutionsActions from "../actions/substitutionsActions";
-import blocksWidgetActions from "../actions/blocksWidgetActions";
-import { BlockData } from "../interfaces/IBlock";
-import edgeActions from "../actions/edgesActions";
-import { Directive } from "../interfaces/IAlerts";
-import { IEdgeDraggable } from "../../components/Designer/RightPanel/EdgesEditor/EdgesEditor";
-import { NodeType } from "../interfaces/INode";
-import ConnectionsEdge from "../interfaces/IConnectionsEdges";
-import { Subscription } from "../interfaces/INotification";
+import { initializeFlow } from "store/actions/utils/flowUtils";
+import flowActions from "store/actions/flowActions";
+import baseActtions from "store/actions/baseActions";
+import blockActions from "store/actions/blockActions";
+import groupActions from "store/actions/groupActions";
+import edgeActions from "store/actions/edgesActions";
+import substitutionsActions from "store/actions/substitutionsActions";
+import blocksWidgetActions from "store/actions/blocksWidgetActions";
+import blockParametersActions from "store/actions/blockParametersActions";
+import { Substitutions } from "interfaces/Iflow";
+import { BlockData } from "interfaces/IBlock";
+import { Directive } from "interfaces/IAlerts";
+import { IEdgeDraggable } from "components/Designer/RightPanel/EdgesEditor/EdgesEditor";
+import { NodeType } from "interfaces/INode";
+import ConnectionsEdge from "interfaces/IConnectionsEdges";
+import { Subscription } from "interfaces/INotification";
 
 export type FlowSlice = {
   flow: {
@@ -59,6 +60,7 @@ export type FlowSlice = {
   addBlock: (type: NodeType, posX: number, posY: number) => void;
   createBlockCopy:(posX:number, posy:number)=>void;
   deleteBlock: () => void;
+  resetSelectedBlocks:()=>void;
   getBlockProperties: () => void;
   setDirective:(directive:string)=>void;
   setStringParameter: (parameterName: string, value: string) => void;
@@ -69,6 +71,7 @@ export type FlowSlice = {
   setDateTimeParameter: (parameterName: string, value: Date) => void;
   setExecutionParameter: (parameterName: string, value: string) => void;
   setBigIntParameter: (parameterName: string, value: BigInt) => void;
+
 
   //Multiple Selected Blocks Actions
   setSelectedBlocksColors: (color: string) => void;
@@ -139,22 +142,23 @@ const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
   addBlock: blockActions.addBlock(get,set),
   createBlockCopy:blockActions.createBlockCopy(get,set),
   deleteBlock: blockActions.deleteBlock(get, set),
+  resetSelectedBlocks:blockActions.resetSelectedBlocks(get,set),
   setDirective:blockActions.setDirective(get,set),
-  setStringParameter: blockActions.setStringParameter(get, set),
-  setIntegerParameter: blockActions.setIntegerParameter(get, set),
-  setFloatParameter: blockActions.setFloatParameter(get, set),
-  setBooleanParameter: blockActions.setBooleanParameter(get, set),
-  setBooleanYNParameter: blockActions.setBooleanYNParameter(get, set),
-  setDateTimeParameter: blockActions.setDateTimeParameter(get, set),
-  setExecutionParameter: blockActions.setExecutionParameter(get, set),
-  setBigIntParameter: blockActions.setBigIntParameter(get, set),
-  addCustomParameter: blockActions.addCustomParameter(get, set),
-  setSelectedExtendedParameter: blockActions.setSelectedExtendedParameter(
+  setStringParameter: blockParametersActions.setStringParameter(get, set),
+  setIntegerParameter: blockParametersActions.setIntegerParameter(get, set),
+  setFloatParameter: blockParametersActions.setFloatParameter(get, set),
+  setBooleanParameter: blockParametersActions.setBooleanParameter(get, set),
+  setBooleanYNParameter: blockParametersActions.setBooleanYNParameter(get, set),
+  setDateTimeParameter: blockParametersActions.setDateTimeParameter(get, set),
+  setExecutionParameter: blockParametersActions.setExecutionParameter(get, set),
+  setBigIntParameter: blockParametersActions.setBigIntParameter(get, set),
+  addCustomParameter: blockParametersActions.addCustomParameter(get, set),
+  setSelectedExtendedParameter: blockParametersActions.setSelectedExtendedParameter(
     get,
     set
   ),
-  deleteExtendedParameter: blockActions.deleteExtendedParameter(get, set),
-
+  deleteExtendedParameter: blockParametersActions.deleteExtendedParameter(get, set),
+  
   //Group Actions
   addBlockGroup: groupActions.addGroup(get, set),
   showGroupModal: groupActions.showGroupModal(set),

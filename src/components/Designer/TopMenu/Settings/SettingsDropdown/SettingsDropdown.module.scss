@@ -2,7 +2,7 @@
 @import "/src/style/variables.scss";
 
 .wrapper {
-  @include dropdown_menu;
+  @include dropdown_menu_wrapper;
   right: 5px;
 
   .settings_title {

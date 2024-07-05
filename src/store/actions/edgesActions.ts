@@ -39,7 +39,6 @@ export const onEdgesConnect = (get: () => RFState, set: any) => (connection: Con
       }
     }
   }));
-  console.log(get().flowSlice.flow.visual.edges)
 };
 
 export const deleteEdge = (get: () => RFState, set: any) => (edgeId: string) => {

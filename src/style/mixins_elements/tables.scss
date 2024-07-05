@@ -1,0 +1,117 @@
+//TABLES
+
+//LOADED FLOWS
+
+@mixin loaded_flows_table {
+  width: 100%;
+  margin-bottom: 20px;
+  table-layout: table;
+  thead {
+    font-style: italic;
+
+    th {
+      font-size: 0.9rem;
+      font-weight: $font-weight-bold;
+    }
+
+    margin-bottom: 20px;
+  }
+
+  tbody {
+    background-color: rgb(247, 247, 247);
+
+    td {
+      height: 30px;
+      padding: 5px;
+      font-size: 0.9rem;
+    }
+
+    .flow_name {
+      color: $color-node-nav-icon;
+      font-weight: $font-weight-bolder;
+    }
+
+    .actions_wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+// User And Group Table
+
+@mixin user_group_table_body {
+  tr {
+    td {
+      text-overflow: ellipsis;
+    }
+
+    .group_members {
+      font-size: 0.9rem;
+    }
+
+    ul {
+      padding: 0;
+
+      li {
+        list-style: none;
+      }
+    }
+  }
+}
+
+@mixin user_group_table_actions_column {
+  display: flex;
+  justify-content: center;
+
+  button {
+    @include blue_btn;
+    margin-left: 5px;
+  }
+
+  .delete_btn {
+    background-color: $bg-delete-btn;
+  }
+}
+
+
+@mixin server_table {
+  width: 100%;
+  border-collapse: collapse;
+
+  @media screen and (max-width: $breakpoint-md) {
+    font-size: 0.8rem;
+    word-break: break-all;
+  }
+
+  thead {
+    position: sticky;
+    top: 0;
+    background-color: #f1f1f1;
+    z-index: 1;
+
+    tr {
+      text-align: center;
+      background-color: $bg-node-nav-btn;
+
+      height: 40px;
+
+      th {
+        color: $color-font-main;
+        font-weight: $font-weight-bold;
+        font-style: italic;
+      }
+    }
+  }
+
+  tbody {
+    td {
+      border: 1px solid rgb(235, 235, 235);
+      width: 50%;
+      padding: 10px;
+      background-color: rgb(255, 255, 255);
+      color: gray;
+    }
+  }
+}

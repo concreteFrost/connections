@@ -1,4 +1,4 @@
 export enum IconVariants{
-    Light,
-    Dark
+    Light=1,
+    Dark=2
 }

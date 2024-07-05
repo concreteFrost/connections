@@ -12,7 +12,7 @@ function ServerNav() {
 
   const handleNotificationsClick = () => {
     toggleHaveCheckedNotifications(true);
-    navigate("/dashboard/alerts");
+    navigate("/dashboard/notifications");
   };
 
   return (

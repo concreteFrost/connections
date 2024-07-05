@@ -1,12 +1,22 @@
 import s from "./BlocksWidget.module.scss";
 import { useState } from "react";
 import useStore from "store/store";
+import { getAllselectedBlockIDs } from "store/actions/groupActions";
+import useEscapeKeyHandler from "hooks/useEscapeKeyHandler";
 
 function BlocksWidget() {
   const [expanded, setExpanded] = useState<boolean>(false);
-  const { setSelectedBlocksColors ,allignSelectedBlocks,deleteMultupleBlocks } = useStore((state) => state.flowSlice);
-  return (
-    <div className={s.wrapper}>
+  const flow  = useStore((store) => store.flowSlice.flow);
+  const {resetSelectedBlocks} = useStore((state)=>state.flowSlice);
+  const {
+    setSelectedBlocksColors,
+    allignSelectedBlocks,
+    deleteMultupleBlocks,
+  } = useStore((state) => state.flowSlice);
+
+  useEscapeKeyHandler(()=>  resetSelectedBlocks())
+  return (<>
+      {getAllselectedBlockIDs(flow.visual.blocks) ? <div className={s.wrapper}>
       <div className={s.body}>
         <div className={s.header}>QUICK EDIT</div>
         <div className={s.expand_modal}>
@@ -20,15 +30,21 @@ function BlocksWidget() {
               <div className={s.input_wrapper}>
                 <input
                   type="color"
-                  onChange={(e: any) => setSelectedBlocksColors(e.target.value)}
+                  onChange={(e: any) =>
+                    setSelectedBlocksColors(e.target.value)
+                  }
                 />
               </div>
             </section>
             <section>
               <header>Allignment</header>
               <div className={s.btn_wrapper}>
-                <button onClick={()=>allignSelectedBlocks("x")}>Horizontal</button>
-                <button onClick={()=>allignSelectedBlocks("y")}>Vertical</button>
+                <button onClick={() => allignSelectedBlocks("x")}>
+                  Horizontal
+                </button>
+                <button onClick={() => allignSelectedBlocks("y")}>
+                  Vertical
+                </button>
               </div>
             </section>
 
@@ -42,7 +58,9 @@ function BlocksWidget() {
           </div>
         ) : null}
       </div>
-    </div>
+    </div> : null}
+     </>
+
   );
 }
 

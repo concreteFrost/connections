@@ -1,0 +1,18 @@
+@mixin dropdown_menu_section_title {
+    text-align: center;
+    padding: 5px;
+    border-bottom: 1px solid rgb(230, 230, 230);
+    background-color: rgb(245, 245, 245);
+  }
+
+  @mixin error_message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffcccc;
+    padding: 10px 20px;
+    border: 1px solid #ff0000;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }

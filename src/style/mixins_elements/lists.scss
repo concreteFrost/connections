@@ -1,0 +1,64 @@
+//SERVER FLOW LIST
+
+@mixin server_flow_list {
+    list-style: none;
+    background-color: $bg-node-nav-btn;
+    padding: 10px 0px 10px 20px;
+    border-bottom: 1px solid rgb(204, 204, 204);
+  }
+  
+  @mixin server_flow_list_item {
+    display: grid;
+    grid-template-columns: 10fr 2fr;
+    height: 40px;
+    align-items: center;
+    padding: 0;
+  
+    &.selected {
+      background-color: rgb(179, 179, 179);
+    }
+  
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  @mixin server_flow_list_btn_wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+  
+    button {
+      margin-right: 5px;
+      background-color: $bg-top-menu-btn-default;
+      color: white;
+      padding: 7px;
+      border: none;
+      z-index: 1000;
+    }
+  }
+
+  @mixin notifications_list{
+    position: absolute;
+    top: 50px;
+    right: 75px;
+    border: 1px solid $color-list-border-darker;
+    border-radius: 5px;
+    background-color: white;
+    padding: 20px;
+    width: 400px;
+
+    ul {
+      padding: 0;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    li {
+      list-style: none;
+      border-bottom: 1px solid $color-list-border-darker;
+      display: grid;
+      grid-template-columns: 8fr 4fr;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+    }
+  }
+  

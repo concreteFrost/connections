@@ -64,11 +64,8 @@ export function PushTest() {
         };
 
         await enableClientNotification(formatedSubscription);
-        // await handleKeepAlive(formatedSubscription.auth,1);
         await enablieClientAlerts(formatedSubscription);
-        // await handleKeepAlive(formatedSubscription.auth,2)
         await enableClientFlowStatus(formatedSubscription);
-        // await handleKeepAlive(formatedSubscription.auth,3)
       }
     } catch (e) {
       console.log("Error getting vapid keys", e);
@@ -80,7 +77,7 @@ export function PushTest() {
       try {
         await handleNotificationsRegistration();
       } catch (error) {
-        console.error("Error in useEffect:", error);
+        console.error("error in handling notifications registration:", error);
       }
     };
     fetchData();

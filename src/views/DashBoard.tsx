@@ -6,7 +6,7 @@ import NotFound from "./NotFound";
 import PushTest from "../components/PushTest/PushTest";
 import Notifications from "../views/Noticifations";
 import FlowServerStatus from "../components/FlowServerStatus/FlowServerStatus";
-import { getUserSettingsData } from "../store/actions/storageActions";
+import { getUserSettingsData } from "store/actions/storageActions";
 
 const DashboardLayout = React.memo(() => {
   return (
@@ -28,7 +28,7 @@ function Dashboard() {
       <Route element={<DashboardLayout />}>
         <Route path="server/*" element={<Server />} />
         <Route path="designer" element={<Designer />} />
-        <Route path="alerts" element={<Notifications />} />
+        <Route path="notifications" element={<Notifications />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>

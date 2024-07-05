@@ -38,7 +38,7 @@ function UpdateFlowModal() {
         (flow: any) => flow.flowName === flowSlice.flow.flowName
       )?.subFolder;
       setSubfolderName(matchSubfolderName ? matchSubfolderName : "drafts");
-    });
+    }).catch((e)=>console.log(e))
   }
 
   async function tryToSaveFlow() {

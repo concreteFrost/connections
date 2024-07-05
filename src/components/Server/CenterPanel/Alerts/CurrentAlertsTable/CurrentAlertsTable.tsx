@@ -19,7 +19,7 @@ function CurrentAlertsTable() {
   useEffect(() => {
     getAlertsApi(true).then((res: any) => {
       setAlerts(res.data);
-    });
+    }).catch((e)=>console.log(e))
   }, []);
 
   async function removeAlertFromCache(alertId: number) {

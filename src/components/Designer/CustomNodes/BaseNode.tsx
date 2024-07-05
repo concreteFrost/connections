@@ -1,4 +1,3 @@
-// BaseNode component
 import s from "./BaseNode.module.scss";
 import useStore from "store/store";
 import { useEffect, useMemo, useState, useCallback } from "react";
@@ -17,32 +16,28 @@ interface BlockVisual{
 }
 
 const BaseNode = (props: NodeProps) => {
-  const { deleteBlock, setDirective, getBlockProperties, flow } = useStore(
+  const { deleteBlock, setDirective, getBlockProperties,getParameterValue,toggleConfirmationModal, setConfirmationModalActions, flow, directives, blockData } = useStore(
     (state) => ({
       deleteBlock: state.flowSlice.deleteBlock,
       setDirective: state.flowSlice.setDirective,
       getBlockProperties: state.flowSlice.getBlockProperties,
+      getParameterValue: state.designerVisualElementsSlice.getParameterValue,
+      toggleConfirmationModal:state.modalWindowsSlice.toggleConfirmationModal,
+      setConfirmationModalActions:state.modalWindowsSlice.setConfirmationModalActions,
       flow: state.flowSlice.flow,
+      directives: state.alertSlice.directives,
+      blockData: state.flowSlice.flow.blockData
+
     }),
     shallow
   );
 
-  const getParameterValue = useStore(
-    (state) => state.designerVisualElementsSlice.getParameterValue,
-    shallow
-  );
+  const block = blockData.find(b => b.blockIdentifier === props.id);
+  const blockName = block?.name;
+  const blockLabel = block?.blockLabel;
 
   const [isOutlined, setIsOutlined] = useState(false);
 
-  const blockData: BlockData[] = useStore((state) => state.flowSlice.flow.blockData, shallow);
-  const blockName = blockData.find((b: any) => b.blockIdentifier === props.id)?.name;
-  const blockLabel = blockData.find((b: any) => b.blockIdentifier === props.id)?.blockLabel;
-
-  const { directives } = useStore((state) => state.alertSlice, shallow);
-  const { toggleConfirmationModal, setConfirmationModalActions } = useStore(
-    (state) => state.modalWindowsSlice,
-    shallow
-  );
 
   const selectedBlockId = useMemo(() => {
     const selectedBlock = flow.visual.blocks.find((b: Node<any>) => b.selected);
@@ -106,7 +101,7 @@ const BaseNode = (props: NodeProps) => {
           <div className={`${s.node_icon} ${isDarkBackground(props.data.color) ? s["dark-text"] : s["light-text"]}`}>{matchedIcon}</div>
         </div>
         <div className={s.node_title}>{blockName}</div>
-        <div className={s.node_label}>{blockLabel}</div>
+        <div className={s.node_label}>{blockLabel}</div> 
         <div className={s.directions_wrapper}>
           {getDefaultBlockDirective() !== "undefined" ? (
             <select

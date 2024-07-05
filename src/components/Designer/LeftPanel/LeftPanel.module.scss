@@ -30,7 +30,7 @@
 }
 
 .header {
-  @include section_header;
+  @include section_header_container;
 }
 
 .node_list_wrapper {

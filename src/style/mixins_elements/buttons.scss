@@ -1,0 +1,60 @@
+@mixin blue_btn {
+  background-color: $bg-top-menu-btn-default;
+  padding: 5px 10px;
+  border: 0;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $bg-top-menu-btn-hover;
+  }
+
+  transition: background-color 0.2s ease-in-out;
+}
+
+@mixin red_btn {
+  @include blue_btn();
+  background-color: $bg-delete-btn;
+
+  &:hover {
+    background-color: $bg-delete-btn-hover;
+  }
+}
+
+@mixin server_header_btn {
+  background-color: white;
+  border: 0;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-weight: $font-weight-bold;
+  color: $color-font-main;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(148, 200, 230);
+  }
+
+  transition: background-color 0.2s ease-in-out;
+}
+
+//Left Panel
+@mixin left_panel_btn($bg) {
+  width: 100%;
+  height: 40px;
+  border: 0;
+  background-color: $bg;
+  color: $color-node-nav-btn;
+
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgb(219, 219, 219);
+  text-align: left;
+  padding-left: 60px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken($color: $bg, $amount: 10%);
+  }
+
+  transition: background-color 0.3s ease;
+}

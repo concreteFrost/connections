@@ -14,7 +14,8 @@ import Spinner from "components/Spinner/Spinner";
 
 function App() {
   const tooltipText = useStore((store) => store.designerVisualElementsSlice.tooltip.text);
-  const isOtherTabOpen = useBroadcastChannel('app_channel');
+  
+  useBroadcastChannel('app_channel');
   return (
     <Router>
       <Routes>
@@ -27,7 +28,7 @@ function App() {
       <ConfirmationModal />
       <MessageModal />
 
-      <Tooltip anchorSelect=".tooltip-item" place="right" style={{ zIndex: 9999 }}>
+      <Tooltip anchorSelect=".tooltip-item" place="right"  style={{ zIndex: 9999 }}>
         {tooltipText}
       </Tooltip>
       <Spinner></Spinner>

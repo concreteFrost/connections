@@ -1,0 +1,43 @@
+@mixin modal_container {
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+  }
+  
+  @mixin modal_window {
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    color: rgb(0, 0, 0);
+    z-index: 9999;
+    border-radius: 16px;
+    box-shadow: $shadow-node-nav-container;
+    overflow: wrap;
+    min-width: 400px;
+    min-height: 100px;
+    color: $color-font-main;
+  }
+  
+  @mixin modal_header {
+    text-align: center;
+    font-weight: $font-weight-bolder;
+    margin-bottom: 20px;
+  }
+  
+  @mixin modal_body {
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+  }
+  
+  @mixin modal_form {
+    display: grid;
+    gap: 20px;
+    align-items: start;
+  }

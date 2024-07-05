@@ -1,10 +1,8 @@
 import {
   FlowStatus,
-  BlockStatistic,
   FlowStatusCapital,
-  BlockStatisticCapital,
-} from "../interfaces/IStatistics";
-import { RFState } from "../types/rfState";
+} from "store/interfaces/IStatistics";
+import { RFState } from "store/types/rfState";
 
 export type StatusSlice = {
   statistics: FlowStatus[];

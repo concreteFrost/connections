@@ -2,40 +2,6 @@
 @import '../../style/variables.scss';
 
 
-// $gradient-color-1: #cabd97;
-// $gradient-color-2: #a1c9d3;
-// $animation-duration: 7s;
-
-// @keyframes gradientAnimation {
-//     0% {
-//         background-position: 0% 50%;
-//     }
-
-//     50% {
-//         background-position: 100% 50%;
-//     }
-
-//     100% {
-//         background-position: 0% 50%;
-//     }
-// }
-
-// @keyframes headerFontAnimation {
-//     0% {
-//         color: white;
-//     }
-
-//     50% {
-//         color: #353535;
-
-//     }
-
-//     100% {
-//         color: white;
-//     }
-// }
-
-
 .wrapper {
     position: absolute;
     width: 100%;
@@ -48,11 +14,6 @@
     display: grid;
     grid-template-rows: 3fr 8fr 1fr;
     justify-content: center;
-
-
-    // background: linear-gradient(to right, $gradient-color-1, $gradient-color-2);
-    // background-size: 200% 200%;
-    // animation: gradientAnimation $animation-duration infinite;
 
     .logo_wrapper {
         display: flex;
@@ -78,7 +39,7 @@
             background-image: linear-gradient(white, rgb(179, 209, 170));
             padding: 20px 40px 100px 40px;
             position: relative;
-            ;
+            
             font-weight: $font-weight-regular;
             font-variation-settings: 'slnt';
             border-radius: 5px;
@@ -106,6 +67,10 @@
                 font-size: 1.3rem;
                 font-weight: bolder;
                 color: #363636;
+            }
+
+            .error_message{
+                color: red;
             }
 
             .btn_wrapper {

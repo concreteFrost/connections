@@ -1,4 +1,4 @@
-import { RFState } from "../types/rfState"
+import { RFState } from "store/types/rfState"
 
 
 export type LoaderSlice = {

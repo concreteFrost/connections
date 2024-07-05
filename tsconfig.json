@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext", "ES2015"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -15,14 +19,18 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "./src",
-    "paths": {
-      "store": ["store/*","store/"],
-      "components":["components/*","components/"],
-      "assets":["assets/"],
-      "utils":["utils/"],
-      "hooks":["hooks/"],
-      "api":["api/*","api/"]
+    "baseUrl":"./src",
+    "types": ["@testing-library/jest-dom","node"],
+   "paths": {
+      "store/*": ["store/*"],
+      "components/*": ["components/*"],
+      "assets/*": ["assets/*"],
+      "utils/*": ["utils/*"],
+      "hooks/*": ["hooks/*"],
+      "api/*": ["api/*"],
+      "style/*": ["style/*"],
+      "interfaces/*": ["store/interfaces/*"],
+      "actions/*":["store/actions/*"]
     }
   },
   "include": ["src", "src/*.js", "public/sw.js"],

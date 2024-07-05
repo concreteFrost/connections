@@ -1,6 +1,6 @@
-import notificationsActions from "../actions/notificationsActions";
-import { Notification, NotificationType, Subscription } from "../interfaces/INotification";
-import { RFState } from "../types/rfState"
+import notificationsActions from "store/actions/notificationsActions";
+import { Notification, NotificationType, Subscription } from "store/interfaces/INotification";
+import { RFState } from "store/types/rfState"
 
 export type NotificationSlice = {
     notificationsList: Array<Notification>,

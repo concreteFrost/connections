@@ -1,4 +1,4 @@
-import { modalActions } from "../actions/modalActions";
+import { modalActions } from "store/actions/modalActions";
 
 export type ModalWindows = {
     updateFlowModal: {

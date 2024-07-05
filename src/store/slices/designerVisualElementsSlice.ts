@@ -1,9 +1,9 @@
 import { BackgroundVariant } from "react-flow-renderer";
-import { RFState } from "../types/rfState";
-import tooltipActions from "../actions/tooltipActions";
-import { toggleSubstitutionsPanel } from "../actions/substitutionsActions";
-import valueEditorActions from "../actions/valueEditorActions";
-import { getUserSettingsData} from "../actions/storageActions";
+import { RFState } from "store/types/rfState";
+import tooltipActions from "store/actions/tooltipActions";
+import { toggleSubstitutionsPanel } from "store/actions/substitutionsActions";
+import valueEditorActions from "store/actions/valueEditorActions";
+import { getUserSettingsData} from "store/actions/storageActions";
 
 export type DesignerVisualElementsSlice = {
 

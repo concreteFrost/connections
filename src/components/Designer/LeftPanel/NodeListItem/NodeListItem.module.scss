@@ -15,9 +15,5 @@
 }
 
 .node_list_icon {
-    margin-right: 20px;
-    color: $color-node-nav-icon;
-    font-size: large;
-    position: absolute;
-    left: 20px;
+   @include node_list_icon;
 }

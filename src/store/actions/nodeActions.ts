@@ -1,8 +1,7 @@
-import { Node, NodeChange, applyNodeChanges } from "react-flow-renderer";
+import { Node, applyNodeChanges } from "react-flow-renderer";
 import { RFState } from "../types/rfState";
 
-export const onBlocksChange = (get: () => RFState, set: any) => (blocks:Node<any>[]) => {
-
+export const onBlocksChange = (get: () => RFState, set: any) => (blocks: Node<any>[]) => {
     set((state: RFState) => ({
       flowSlice: {
         ...state.flowSlice,
@@ -10,12 +9,13 @@ export const onBlocksChange = (get: () => RFState, set: any) => (blocks:Node<any
           ...state.flowSlice.flow,
           visual: {
             ...state.flowSlice.flow.visual,
-            blocks: blocks,
+            blocks,
           },
         },
       },
     }));
-  };
+  }
+
 
 const nodeActions = {
   onBlocksChange,

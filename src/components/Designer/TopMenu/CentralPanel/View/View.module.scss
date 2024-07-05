@@ -3,7 +3,7 @@
 ;
 
 .wrapper {
-    @include dropdown_menu;
+    @include dropdown_menu_wrapper;
     width: 100px;
 
     li {

@@ -1,7 +1,7 @@
-import alertActions from "../actions/alertActions";
-import { Directive, AlertFormat, NewAlertFormat} from "../interfaces/IAlerts";
-import { Subscription } from "../interfaces/INotification";
-import { RFState } from "../types/rfState"
+import alertActions from "store/actions/alertActions";
+import { Directive, AlertFormat, NewAlertFormat} from "store/interfaces/IAlerts";
+import { Subscription } from "store/interfaces/INotification";
+import { RFState } from "store/types/rfState"
 export type AlertSlice = {
 
     directives:Directive[],

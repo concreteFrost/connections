@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { getBlocks } from "../api/data";
 import Substitutions from "../components/Designer/Substitutions/Substitutions";
 import BlocksWidget from "../components/Designer/BlocksWidget/BlocksWidget";
-import { getAllselectedBlockIDs } from "../store/actions/groupActions";
 import { ReactFlowProvider } from "react-flow-renderer";
 
 function Designer() {
@@ -56,27 +55,22 @@ function Designer() {
 
   return (
     <ReactFlowProvider>
-      <div className="App">
-        <DesignerNav></DesignerNav>
-        <div
-          className={`${
-            isRightPanelExpanded ? "resized_dynamic_menu" : "dynamic_menu"
-          }`}
-        >
-          <LeftPanel></LeftPanel>
-          {flow.flowIdentifier ? <Substitutions></Substitutions> : <div></div>}
-          <RightPanel
-            isRightPanelResized={isRightPanelExpanded}
-            setRightPanelResized={setRightPanelExpanded}
-          ></RightPanel>
-        </div>
-
-        <Flow resetSelectedBlockId={resetSelectedBlockId}></Flow>
-
-        {getAllselectedBlockIDs(flow.visual.blocks) ? (
-          <BlocksWidget></BlocksWidget>
-        ) : null}
+      <DesignerNav></DesignerNav>
+      <div
+        className={`${
+          isRightPanelExpanded ? "resized_dynamic_menu" : "dynamic_menu"
+        }`}
+      >
+        <LeftPanel></LeftPanel>
+        {flow.flowIdentifier ? <Substitutions></Substitutions> : <div></div>}
+        <RightPanel
+          isRightPanelResized={isRightPanelExpanded}
+          setRightPanelResized={setRightPanelExpanded}
+        ></RightPanel>
       </div>
+
+      <Flow resetSelectedBlockId={resetSelectedBlockId}></Flow>
+      <BlocksWidget></BlocksWidget>
     </ReactFlowProvider>
   );
 }

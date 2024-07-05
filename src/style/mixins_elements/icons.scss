@@ -1,0 +1,39 @@
+@mixin dropdown_menu_icon {
+  display: flex;
+  justify-content: center;
+  color: $color-node-nav-icon;
+}
+
+@mixin notification_icon {
+  color: white;
+  cursor: pointer;
+  font-size: 1em;
+  padding-top: 10px;
+
+  &.light {
+    color: white;
+  }
+
+  &.dark {
+    color: $color-node-nav-icon;
+  }
+}
+
+@mixin red_badge_icon {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 5px;
+  font-size: 10px;
+}
+
+@mixin node_list_icon {
+  margin-right: 20px;
+  color: $color-node-nav-icon;
+  font-size: large;
+  position: absolute;
+  left: 20px;
+}
