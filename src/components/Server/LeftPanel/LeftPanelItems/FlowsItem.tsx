@@ -25,6 +25,8 @@ function FlowsItem(props: FlowsItemProps) {
     if (statistics) setFlowList(statistics);
   }, [statistics]);
 
+  if (flowList.length<=0) return null; //avoid rendering if list is empty
+
   return (
     <div className={s.section}>
       <div
@@ -43,30 +45,29 @@ function FlowsItem(props: FlowsItemProps) {
       </div>
       {props.currentSection.flows && (
         <ul>
-          {flowList.length > 0
-            ? flowList.map((flow: any) => (
-                <li
-                  key={flow.flowId}
-                  className={`${s.flow_list_item}  ${
-                    path?.split("/")[1] === flow.flowId ? s["selected"] : null
-                  }`}
+          {flowList.map((flow: FlowStatus) => (
+            <li
+              key={flow.flowId}
+              className={`${s.flow_list_item}  ${
+                path?.split("/")[1] === flow.flowId ? s["selected"] : null
+              }`}
+            >
+              <Link to={`flows/${flow.flowId}`}>
+                <div className={s.flow_list_title_wrapper}>{flow.name}</div>
+              </Link>
+              <div className={s.flow_list_btn_wrapper}>
+                <button 
+                  data-testid="flow-list-btn"
+                  onClick={() => {
+                    createUpdateDraftFromLiveTemplate(flow.flowId);
+                    props.navigate("/dashboard/designer");
+                  }}
                 >
-                  <Link to={`flows/${flow.flowId}`}>
-                    <div className={s.flow_list_title_wrapper}>{flow.name}</div>
-                  </Link>
-                  <div className={s.flow_list_btn_wrapper}>
-                    <button
-                      onClick={() => {
-                        createUpdateDraftFromLiveTemplate(flow.flowId);
-                        props.navigate("/dashboard/designer");
-                      }}
-                    >
-                      {connectionsIcons.upload}
-                    </button>
-                  </div>
-                </li>
-              ))
-            : null}
+                  {connectionsIcons.upload}
+                </button>
+              </div>
+            </li>
+          ))}
         </ul>
       )}
     </div>

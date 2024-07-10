@@ -34,12 +34,13 @@ function Base() {
         <li>
           <div className={s.grid_item}>
             {" "}
-            <label>BLOCK NAME</label>
+            <label htmlFor="block_name">BLOCK NAME</label>
           </div>
           <div className={s.grid_item}>
             {" "}
             <input
               type="text"
+              id="block_name"
               placeholder="Block Name"
               value={currentBlock?.blockLabel}
               onChange={(e: any) => _setBlockName(e)}
@@ -48,10 +49,12 @@ function Base() {
         </li>
         <li>
           <div className={s.grid_item}>
-            <label>COLOR</label>
+            <label htmlFor="block_color">COLOR</label>
           </div>
           <div className={s.grid_item}>
             <input
+              id="block_color"
+              data-testid="test_block_color_change"
               type="color"
               value={currentBlockVisual?.data.color}
               onChange={(e: any) => _setBlockColor(e)}
@@ -60,11 +63,12 @@ function Base() {
         </li>
         <li>
           <div className={s.grid_item}>
-            <label>DESCRIPTION</label>
+            <label htmlFor="block_description">DESCRIPTION</label>
           </div>
           <div className={s.grid_item}>
             <input
               type="text"
+              id="block_description"
               placeholder="Description"
               value={currentBlock?.description}
               onChange={(e: any) => _setBlockDescription(e)}

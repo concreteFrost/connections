@@ -19,11 +19,10 @@ function LeftPanel() {
     isPanelActive ? s["opened"] : s["closed"]
   }`;
 
-  
   return (
-    <div className={wrapperClasses} ref={leftPanelRef}>
+    <div className={wrapperClasses} ref={leftPanelRef} data-testid="designer_left_panel_wrapper">
       <div className={toggleBtnClasses}>
-        <button onClick={()=>setIsPanelActive(!isPanelActive)}>
+        <button data-testid="close_designer_left_panel_btn" onClick={()=>setIsPanelActive(!isPanelActive)}>
           {isPanelActive
             ? connectionsIcons.leftCaret
             : connectionsIcons.rightCaret}

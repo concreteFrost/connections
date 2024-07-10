@@ -17,7 +17,6 @@ function CustomPropertiesListItem(props: CustomPropertiesListItemProps) {
     const deleteExtendedParameter = useStore((state) => state.flowSlice.deleteExtendedParameter);
     const setParameter = useStore((state) => state.flowSlice.setSelectedExtendedParameter);
 
-
     const [selection, setSelection] = useState<ISelection>({ index: 0, value: '' })
 
     const setSelectionIndex = (e: any) => {

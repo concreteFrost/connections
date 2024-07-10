@@ -25,6 +25,7 @@ function DraftFlowsItem(props: FlowsItemProps) {
         const res: any = await getDraftListApi();
         if (res.data.hasOwnProperty("draftFlows")) {
           const data: any = await res.data.draftFlows;
+          console.log(res.data)
           sortDraftsByFolder(data);
           setListLoaded(true);
         }
@@ -82,6 +83,7 @@ function DraftFlowsItem(props: FlowsItemProps) {
     <div className={s.section}>
       <div
         className={s.section_header}
+        data-testid = "draft-flow-header"
         onClick={async () => {
           await fetchDraftFlowList();
           props.toggleSection("drafts");
@@ -97,6 +99,7 @@ function DraftFlowsItem(props: FlowsItemProps) {
             : connectionsIcons.arrowUp}
         </span>
       </div>
+
       {props.currentSection.drafts ?? Object.keys(draftFlowList).length > 0
         ? Object.keys(draftFlowList).map((folderName: any) => (
             <div key={folderName} className={s.draft_list_item_wrapper}>

@@ -35,6 +35,8 @@ function Flow(props: any) {
   const { reactFlowInstance, reactFlowWrapper, setInstance, setFlowWrapper } =useStore((state) => state.designerVisualElementsSlice);
   const { snapToGrid, snapStep } = useStore((state) => state.topPanelSlice.settings);
 
+  console.log(flowSlice.flow)
+
   return (
     <div
       style={{ height: "100vh", overflowY: "hidden" }}
