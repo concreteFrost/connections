@@ -14,6 +14,7 @@ export default {
     '^assets/(.*)$': '<rootDir>/src/assets/$1',
     '^utils/(.*)$': '<rootDir>/src/utils/$1',
     '^__mocks__/(.*)$': '<rootDir>/src/__mocks__/$1',
+    '^api/(.*)$': '<rootDir>/src/api/$1',
     '\\.(css|scss)$': 'identity-obj-proxy'
   },
   transformIgnorePatterns: ["node_modules/(?!troublesome-dependency/.*)"],

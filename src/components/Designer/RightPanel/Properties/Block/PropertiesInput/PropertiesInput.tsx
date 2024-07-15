@@ -9,7 +9,7 @@ interface ISelection {
   value: string
 }
 
-interface PropertiesInputProps {
+export interface PropertiesInputProps {
   blockData: BlockParameters;
 }
 

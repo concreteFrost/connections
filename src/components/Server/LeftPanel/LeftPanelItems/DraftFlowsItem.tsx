@@ -104,6 +104,7 @@ function DraftFlowsItem(props: FlowsItemProps) {
         ? Object.keys(draftFlowList).map((folderName: any) => (
             <div key={folderName} className={s.draft_list_item_wrapper}>
               <div
+                data-testid={`test_${folderName}`}
                 className={s.folder_name}
                 onClick={() => toggleFolderToOpen(folderName)}
               >

@@ -8,7 +8,7 @@ export interface BlockData {
   typeName: string;
   baseTypeName: string;
   ehDirective:string;
-  parameters: any[];
+  parameters: BlockParameters[],
   extendedParameters: any[];
 }
 

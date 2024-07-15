@@ -3,7 +3,7 @@ import { BlockParameters } from "store/interfaces/IBlock";
 import useStore from "store/store";
 import s from "./InputLabel.module.scss";
 
-interface InputLabelProps {
+export interface InputLabelProps {
   blockData: BlockParameters;
 
   defineInputType: () => string;
@@ -35,6 +35,7 @@ function InputLabel(props: InputLabelProps) {
       </div>
       <div className={s.grid_item}>
         <input
+          data-testid = "test_properties_input"
           type={props.defineInputType()}
           required={props.blockData.constraints > 0 ? true : false}
           value={props.blockData.value}

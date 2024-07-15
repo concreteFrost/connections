@@ -1,5 +1,3 @@
-import { FlowData } from "store/interfaces/Iflow";
-
 const mockFlowStructure: any = {
   blockData: [
     {
