@@ -1,11 +1,7 @@
 import s from "./UsersTable.module.scss";
 import useStore from "store/store";
 import { useState } from "react";
-import {
-  Group,
-  Role,
-  User,
-} from "store/interfaces/ISecurity";
+import { Group, Role, User } from "store/interfaces/ISecurity";
 import moment from "moment";
 import EditUserModal from "components/Modals/UserModals/EditUserModal/EditUserModal";
 import AddUserModal from "components/Modals/UserModals/AddUserModal/AddUserModal";

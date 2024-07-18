@@ -74,6 +74,7 @@ const getUser = (get: () => RFState, set: any) => (user: User) => {
       userToEdit: user,
     },
   }));
+
 };
 
 const getUserList = (get: () => RFState, set: any) => async () => {

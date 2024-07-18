@@ -1,248 +1,352 @@
 import s from "./EditUserModal.module.scss";
 import useStore from "store/store";
 import { Group, Role, User } from "store/interfaces/ISecurity";
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import useEscapeKeyHandler from "hooks/useEscapeKeyHandler";
+import { getGroupListAPI, getRoleListAPI } from "api/security";
 
 interface EditUserModalProps {
-    isVisible: boolean,
-    toggleEditUser: (isVisible: boolean) => void;
+  isVisible: boolean;
+  toggleEditUser: (isVisible: boolean) => void;
 }
 
 function EditUserModal(props: EditUserModalProps) {
+  const {
+    userToEdit,
+    updateUser,
+    generatePassword,
+    resetPassword,
+    getUserList, // to update data in UsersTable and GroupsTable
+    getGroupList,
+  } = useStore((state) => state.securitySlice);
+  const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
+  const [_userToEdit, setUserToEdit] = useState<User | null>(userToEdit);
+  const [isResetPasswordActive, setResetPasswordActive] =
+    useState<boolean>(false);
+  const [newPassword, setNewPassword] = useState<string>("");
+  const [emailUserPassword, setEmailUserPassword] = useState<boolean>(false);
 
-    const { userToEdit, groupList, rolesList, updateUser, getRolesList, generatePassword, resetPassword, getUserList,getGroupList } = useStore((state) => state.securitySlice);
-    const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
-    const [_userToEdit, setUserToEdit] = useState<User | null>(userToEdit);
-    const [isResetPasswordActive, setResetPasswordActive] = useState<boolean>(false);
-    const [newPassword, setNewPassword] = useState<string>('');
-    const [emailUserPassword, setEmailUserPassword] = useState<boolean>(false);
+  const [groupList, setGroupList] = useState<Array<Group>>([]);
+  const [rolesList, setRolesList] = useState<Array<Role>>([]);
 
-    async function fetchRolesAndGroups() {
-        try {
-            await getRolesList();
-            await getGroupList();
-        }
-        catch (e) {
-            console.log('error fetching groups', e)
-        }
+  async function _getRolesList() {
+    try {
+      const res: any = await getRoleListAPI();
+      if(res.data.length>0){
+        setRolesList(res.data)
+      }
+    } catch (error) {
+        console.log('error getting roles in edit user modal')
     }
+  }
 
-    async function performResetPassword() {
-        if (userToEdit)
-            try {
-                const res:any = await resetPassword(userToEdit?.userId, newPassword, emailUserPassword);
-                if(!res.data.success){    
-                    toggleMessageModal(res.data.message);    
-                }
-                else{
-                    toggleMessageModal('success!!!')
-                }
-            }
-            catch (e) {
-                console.log('error reseting user password', e)
-            }
+  //isolating from BLL to avoid extra renders in UsersTable and GroupsTable
+  async function _getGroupsList() {
+    try {
+      const res: any = await getGroupListAPI();
+      if (res.data.success) {
+        setGroupList(res.data.groups);
+      }
+    } catch (error) {
+        console.log('error getting groups in edit user modal')
     }
+  }
 
-    async function performPasswordGeneration() {
-        try {
-            const res: any = await generatePassword(1, 12);
-            setNewPassword(res)
-        }
-        catch (e) {
-            console.log('error generating password', e);
-        }
+  async function fetchRolesAndGroups() {
+    try {
+        await _getRolesList();
+        await _getGroupsList();
+    } catch (e) {
+      console.log("error fetching groups", e);
     }
+  }
 
-    function setTextProps(propName: keyof User, value: any) {
-        if (_userToEdit) {
-            setUserToEdit({ ..._userToEdit, [propName]: value })
+  async function performResetPassword() {
+    if (userToEdit)
+      try {
+        const res: any = await resetPassword(
+          userToEdit?.userId,
+          newPassword,
+          emailUserPassword
+        );
+        if (!res.data.success) {
+          toggleMessageModal(res.data.message);
+        } else {
+          toggleMessageModal("success!!!");
         }
+      } catch (e) {
+        console.log("error reseting user password", e);
+      }
+  }
 
+  async function performPasswordGeneration() {
+    try {
+      const res: any = await generatePassword(1, 12);
+      setNewPassword(res);
+    } catch (e) {
+      console.log("error generating password", e);
     }
-    function setUserGroups(group: Group) {
-        if (_userToEdit) {
-            const updatedGroups = (_userToEdit.belongsToGroups ?? []).some(existingGroup => existingGroup.groupId === group.groupId)
-                ? (_userToEdit.belongsToGroups ?? []).filter(existingGroup => existingGroup.groupId !== group.groupId)
-                : [...(_userToEdit.belongsToGroups ?? []), group];
+  }
 
-            setUserToEdit({
-                ..._userToEdit,
-                belongsToGroups: updatedGroups,
-            });
-        }
+  function setTextProps(propName: keyof User, value: any) {
+    if (_userToEdit) {
+      setUserToEdit({ ..._userToEdit, [propName]: value });
     }
+  }
+  function setUserGroups(group: Group) {
+    if (_userToEdit) {
+      const updatedGroups = (_userToEdit.belongsToGroups ?? []).some(
+        (existingGroup) => existingGroup.groupId === group.groupId
+      )
+        ? (_userToEdit.belongsToGroups ?? []).filter(
+            (existingGroup) => existingGroup.groupId !== group.groupId
+          )
+        : [...(_userToEdit.belongsToGroups ?? []), group];
 
-    function setUserRoles(role: Role) {
-        if (_userToEdit) {
-            console.log(role)
-            const updatedRoles = (_userToEdit.userRoles ?? []).some(existingRole => existingRole.roleId === role.roleId)
-                ? (_userToEdit.userRoles ?? []).filter(existingRole => existingRole.roleId !== role.roleId)
-                : [...(_userToEdit.userRoles ?? []), role];
-
-            setUserToEdit({
-                ..._userToEdit,
-                userRoles: updatedRoles,
-            });
-        }
+      setUserToEdit({
+        ..._userToEdit,
+        belongsToGroups: updatedGroups,
+      });
     }
+  }
 
-    async function submitForm(e: React.FormEvent) {
-        e.preventDefault();
-        try {
-            if (_userToEdit) {
-                const res: any = await updateUser(_userToEdit);
-                
-                if (res.data.success) {
-                    await toggleMessageModal('success!!!');
-                    await getUserList();
-                    await props.toggleEditUser(false);
-                } else {
-                    await toggleMessageModal(res.data.message);
-                }
-            }
-        } catch (e) {
-            console.error(e);
-        }
+  function setUserRoles(role: Role) {
+    if (_userToEdit) {
+      console.log(role);
+      const updatedRoles = (_userToEdit.userRoles ?? []).some(
+        (existingRole) => existingRole.roleId === role.roleId
+      )
+        ? (_userToEdit.userRoles ?? []).filter(
+            (existingRole) => existingRole.roleId !== role.roleId
+          )
+        : [...(_userToEdit.userRoles ?? []), role];
+
+      setUserToEdit({
+        ..._userToEdit,
+        userRoles: updatedRoles,
+      });
     }
+  }
 
-    useEffect(() => {
-        if(props.isVisible){
-            setUserToEdit(userToEdit)
-            fetchRolesAndGroups();
+  async function submitForm(e: React.FormEvent) {
+    e.preventDefault();
+    try {
+      if (_userToEdit) {
+        const res: any = await updateUser(_userToEdit);
+
+        if (res.data.success) {
+          await toggleMessageModal("success!!!");
+          await getUserList();
+          await getGroupList();
+          await props.toggleEditUser(false);
+        } else {
+          await toggleMessageModal(res.data.message);
         }
-       
-    }, [props.isVisible])
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
-    useEscapeKeyHandler(()=>props.toggleEditUser(false));
+  useEffect(() => {
+    if (props.isVisible) {
+      setUserToEdit(userToEdit);
+      fetchRolesAndGroups();
+    }
+  }, [props.isVisible]);
 
-    return (<>
-        {props.isVisible && _userToEdit ? <div className={s.container}>
-            <div className={s.modal_window}>
-                <header className={s.modal_header}>EDIT</header>
-                <main className={s.modal_body}>
-                    <form onSubmit={submitForm} className={s.form}>
-                        <section className={s.text_values_wrapper}>
-                            <div className={s.text_values_item}>
-                                {/*USER NAME */}
-                                <label htmlFor="userName">User Name:</label>
-                                <input type="text" id="userName" name="userName" value={_userToEdit.userName}
-                                    onChange={(e) => setTextProps('userName', e.target.value)}
-                                    required />
-                                {/*EMAIL */}
-                                <label htmlFor="emailAddress">Email Address:</label>
-                                <input type="text" id="emailAddress" name="emailAddress" value={_userToEdit.emailAddress}
-                                    onChange={(e) => setTextProps('emailAddress', e.target.value)}
-                                />
-                            </div>
+  useEscapeKeyHandler(() => props.toggleEditUser(false));
 
-                            <div className={s.text_values_item}>
-                                {/*PHONE */}
-                                <label htmlFor="phone">Phone:</label>
-                                <input type="text" id="phone" name="phone" value={_userToEdit.phone}
-                                    onChange={(e) => setTextProps('phone', e.target.value)}
-                                />
-                                {/*LEVEL */}
-                                <label htmlFor="userLevel">User Level:</label>
-                                <input type="number" id="userLevel" name="userLevel" value={_userToEdit.userLevel}
-                                    onChange={(e) => setTextProps('userLevel', e.target.value)}
-                                    required />
+  return (
+    <>
+      {props.isVisible && _userToEdit ? (
+        <div className={s.container}>
+          <div className={s.modal_window}>
+            <header className={s.modal_header}>EDIT</header>
+            <main className={s.modal_body}>
+              <form onSubmit={submitForm} className={s.form}>
+                <section className={s.text_values_wrapper}>
+                  <div className={s.text_values_item}>
+                    {/*USER NAME */}
+                    <label htmlFor="userName">User Name:</label>
+                    <input
+                      type="text"
+                      id="userName"
+                      name="userName"
+                      value={_userToEdit.userName}
+                      onChange={(e) => setTextProps("userName", e.target.value)}
+                      required
+                    />
+                    {/*EMAIL */}
+                    <label htmlFor="emailAddress">Email Address:</label>
+                    <input
+                      type="text"
+                      id="emailAddress"
+                      name="emailAddress"
+                      value={_userToEdit.emailAddress}
+                      onChange={(e) =>
+                        setTextProps("emailAddress", e.target.value)
+                      }
+                    />
+                  </div>
 
-                            </div>
-                        </section>
+                  <div className={s.text_values_item}>
+                    {/*PHONE */}
+                    <label htmlFor="phone">Phone:</label>
+                    <input
+                      type="text"
+                      id="phone"
+                      name="phone"
+                      value={_userToEdit.phone}
+                      onChange={(e) => setTextProps("phone", e.target.value)}
+                    />
+                    {/*LEVEL */}
+                    <label htmlFor="userLevel">User Level:</label>
+                    <input
+                      type="number"
+                      id="userLevel"
+                      name="userLevel"
+                      value={_userToEdit.userLevel}
+                      onChange={(e) =>
+                        setTextProps("userLevel", e.target.value)
+                      }
+                      required
+                    />
+                  </div>
+                </section>
 
-                        <section className={s.reset_password_wrapper}>
-                            <div className={s.reset_password_item}>
-                                <button type="button" className={s.reset_password_btn} onClick={() => setResetPasswordActive(!isResetPasswordActive)}>RESET PASSWORD</button>
-                            </div>
-                            {/*RESET PASSWORD */}
-                            {isResetPasswordActive ?
-                                <><div className={s.reset_password_item}>
-
-                                    <label htmlFor="newPassword">New Password:</label>
-                                    <input type="text" id="newPassword" name="newPassword" value={newPassword}
-                                        onChange={(e: any) => setNewPassword(e.target.value)}
-                                    />
-                                    <div className={s.generate_password_btn}><button type="button" onClick={performPasswordGeneration} >GENERATE</button></div>
-                                </div>
-                                    <div className={s.reset_password_footer}>
-                                        <div>
-                                            <label htmlFor="newPassword">Email user:</label>
-                                            <input type="checkbox" checked={emailUserPassword} onChange={(e: any) => setEmailUserPassword(!emailUserPassword)} />
-                                        </div>
-
-                                        <button type="button" onClick={performResetPassword}>Reset</button>
-                                    </div>
-                                </> : null
+                <section className={s.reset_password_wrapper}>
+                  <div className={s.reset_password_item}>
+                    <button
+                      type="button"
+                      className={s.reset_password_btn}
+                      onClick={() =>
+                        setResetPasswordActive(!isResetPasswordActive)
+                      }
+                    >
+                      RESET PASSWORD
+                    </button>
+                  </div>
+                  {/*RESET PASSWORD */}
+                  {isResetPasswordActive ? (
+                    <>
+                      <div className={s.reset_password_item}>
+                        <label htmlFor="newPassword">New Password:</label>
+                        <input
+                          type="text"
+                          id="newPassword"
+                          name="newPassword"
+                          value={newPassword}
+                          onChange={(e: any) => setNewPassword(e.target.value)}
+                        />
+                        <div className={s.generate_password_btn}>
+                          <button
+                            type="button"
+                            onClick={performPasswordGeneration}
+                          >
+                            GENERATE
+                          </button>
+                        </div>
+                      </div>
+                      <div className={s.reset_password_footer}>
+                        <div>
+                          <label htmlFor="newPassword">Email user:</label>
+                          <input
+                            type="checkbox"
+                            checked={emailUserPassword}
+                            onChange={(e: any) =>
+                              setEmailUserPassword(!emailUserPassword)
                             }
-                        </section>
+                          />
+                        </div>
 
-                        <section className={s.dropdown_wrapper}>
-                            <div className={s.dropdown_item}>
-                                {/* GROUPS */}
-                                <label htmlFor="belongsToGroups">Belongs To Groups:</label>
-                                <div className={s.group_wrapper}>
-                                    {groupList.length > 0 ? (
-                                        groupList.map((group: Group) => (
-                                            <div key={group.groupId} className={s.group_wrapper_item}>
-                                                <label>{group.name}</label>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={
-                                                        _userToEdit.belongsToGroups?.some(
-                                                            (userGroup: Group) => userGroup.groupId === group.groupId
-                                                        )
-                                                    }
-                                                    onChange={() => setUserGroups(group)}
-                                                />
-                                            </div>
-                                        ))
-                                    ) : null}
-                                </div>
+                        <button type="button" onClick={performResetPassword}>
+                          Reset
+                        </button>
+                      </div>
+                    </>
+                  ) : null}
+                </section>
+
+                <section className={s.dropdown_wrapper}>
+                  <div className={s.dropdown_item}>
+                    {/* GROUPS */}
+                    <label htmlFor="belongsToGroups">Belongs To Groups:</label>
+                    <div className={s.group_wrapper}>
+                      {groupList.length > 0
+                        ? groupList.map((group: Group) => (
+                            <div
+                              key={group.groupId}
+                              className={s.group_wrapper_item}
+                            >
+                              <label>{group.name}</label>
+                              <input
+                                type="checkbox"
+                                checked={_userToEdit.belongsToGroups?.some(
+                                  (userGroup: Group) =>
+                                    userGroup.groupId === group.groupId
+                                )}
+                                onChange={() => setUserGroups(group)}
+                              />
                             </div>
-                            <div className={s.dropdown_item}>
-                                {/* ROLES */}
-                                <label htmlFor="userRoles">User Roles:</label>
-                                <div className={s.group_wrapper}>
-                                    {rolesList.length > 0 ? (
-                                        rolesList.map((role: Role) => (
-                                            <div key={role.roleId} className={s.group_wrapper_item}>
-                                                <label>{role.roleName}</label>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={
-                                                        _userToEdit.userRoles?.some(
-                                                            (userRole: Role) => userRole.roleId === role.roleId
-                                                        )
-                                                    }
-                                                    onChange={() => setUserRoles(role)}
-                                                />
-                                            </div>
-                                        ))
-                                    ) : null}
-                                </div>
+                          ))
+                        : null}
+                    </div>
+                  </div>
+                  <div className={s.dropdown_item}>
+                    {/* ROLES */}
+                    <label htmlFor="userRoles">User Roles:</label>
+                    <div className={s.group_wrapper}>
+                      {rolesList.length > 0
+                        ? rolesList.map((role: Role) => (
+                            <div
+                              key={role.roleId}
+                              className={s.group_wrapper_item}
+                            >
+                              <label>{role.roleName}</label>
+                              <input
+                                type="checkbox"
+                                checked={_userToEdit.userRoles?.some(
+                                  (userRole: Role) =>
+                                    userRole.roleId === role.roleId
+                                )}
+                                onChange={() => setUserRoles(role)}
+                              />
                             </div>
-                        </section>
+                          ))
+                        : null}
+                    </div>
+                  </div>
+                </section>
 
-                        <section className={s.checkboxes_wrapper}>
-                            <div className={s.checkboxes_item}>
-                                {/*IS ACTIVE */}
-                                <label htmlFor="isActive">Is Active:</label>
-                                <input type="checkbox" id="isActive" name="isActive" checked={_userToEdit.isActive}
-                                    onChange={(e: any) => setTextProps('isActive', !_userToEdit.isActive)} />
-                            </div>
-                        </section>
-                        <section className={s.form_btns_wrapper}>
-                            <button>UPDATE</button>
-                            <button onClick={() => props.toggleEditUser(false)}>CANCEL</button>
-                        </section>
-                    </form>
-                </main>
-
-            </div>
-        </div> : null}
-    </>)
-
+                <section className={s.checkboxes_wrapper}>
+                  <div className={s.checkboxes_item}>
+                    {/*IS ACTIVE */}
+                    <label htmlFor="isActive">Is Active:</label>
+                    <input
+                      type="checkbox"
+                      id="isActive"
+                      name="isActive"
+                      checked={_userToEdit.isActive}
+                      onChange={(e: any) =>
+                        setTextProps("isActive", !_userToEdit.isActive)
+                      }
+                    />
+                  </div>
+                </section>
+                <section className={s.form_btns_wrapper}>
+                  <button>UPDATE</button>
+                  <button onClick={() => props.toggleEditUser(false)}>
+                    CANCEL
+                  </button>
+                </section>
+              </form>
+            </main>
+          </div>
+        </div>
+      ) : null}
+    </>
+  );
 }
 
 export default EditUserModal;

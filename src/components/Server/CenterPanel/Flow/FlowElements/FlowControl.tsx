@@ -8,7 +8,7 @@ import {
 import useStore from "store/store";
 import { useParams } from "react-router";
 
-interface FlowControlProps {
+export interface FlowControlProps {
   className: any;
   status: number;
 }
@@ -80,6 +80,7 @@ function FlowControl(props: FlowControlProps) {
         ) : null}
       </div>
       <select
+        data-testid="test_select_change_flow_status"
         onChange={(e) => {
           defineAction(e);
         }}

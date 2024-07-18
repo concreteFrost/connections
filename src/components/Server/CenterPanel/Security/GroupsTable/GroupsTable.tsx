@@ -1,23 +1,22 @@
 import s from "./GroupsTable.module.scss";
 import useStore from "store/store";
-import {
-  Group,
-  GroupWithUsers,
-  User,
-} from "store/interfaces/ISecurity";
-import { useEffect, useState } from "react";
+import { Group, GroupWithUsers, User } from "store/interfaces/ISecurity";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import AddGroupModal from "../../../../Modals/GroupModals/AddGroupModal";
 import EditGroupModal from "../../../../Modals/GroupModals/EditGroupModal";
 
 function GroupsTable() {
-  const { groupList, deleteGroup, getGroupList, getGroupMembers } = useStore(
+  const { userList, groupList, deleteGroup, getGroupList, getGroupMembers } = useStore(
     (state) => state.securitySlice
   );
+
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
   const [isEditModalActive, setEditModalActive] = useState<boolean>(false);
   const [groupToEdit, setGroupToEdit] = useState<GroupWithUsers>();
-  const {toggleConfirmationModal,setConfirmationModalActions} = useStore((state)=>state.modalWindowsSlice);
+  const { toggleConfirmationModal, setConfirmationModalActions } = useStore(
+    (state) => state.modalWindowsSlice
+  );
 
   function toggleActiveModal(isActive: boolean) {
     setIsModalActive(isActive);
@@ -48,7 +47,9 @@ function GroupsTable() {
 
   useEffect(() => {
     fetchGroupMembers();
+    console.log("fetching groups");
   }, [groupList]);
+
   return (
     <section className={s.wrapper}>
       <h3>Groups</h3>
@@ -131,4 +132,4 @@ function GroupsTable() {
   );
 }
 
-export default GroupsTable;
+export default React.memo(GroupsTable);
