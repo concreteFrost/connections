@@ -61,7 +61,7 @@ export type FlowSlice = {
   createBlockCopy:(posX:number, posy:number)=>void;
   deleteBlock: () => void;
   resetSelectedBlocks:()=>void;
-  getBlockProperties: () => void;
+  // getBlockProperties: () => void;
   setDirective:(directive:string)=>void;
   setStringParameter: (parameterName: string, value: string) => void;
   setIntegerParameter: (parameterName: string, value: number) => void;
@@ -133,10 +133,10 @@ const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
   directivesList:[],
 
   //Base Actions
-  setBlockName: baseActtions.setBlockName(set, get),
-  setBlockDescription: baseActtions.setBlockDescription(set, get),
-  setBlockColor: baseActtions.setBlockColor(set, get),
-  getBlockProperties: baseActtions.getBlockProperties(get, set),
+  setBlockName: baseActtions.setBlockName(get,set),
+  setBlockDescription: baseActtions.setBlockDescription(get,set),
+  setBlockColor: baseActtions.setBlockColor(get,set),
+  // getBlockProperties: baseActtions.getBlockProperties(get, set),
 
   //Block Actions
   addBlock: blockActions.addBlock(get,set),

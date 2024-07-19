@@ -16,11 +16,11 @@ interface BlockVisual{
 }
 
 const BaseNode = (props: NodeProps) => {
-  const { deleteBlock, setDirective, getBlockProperties,getParameterValue,toggleConfirmationModal, setConfirmationModalActions, flow, directives, blockData } = useStore(
+  const { deleteBlock, setDirective,getParameterValue,toggleConfirmationModal, setConfirmationModalActions, flow, directives, blockData } = useStore(
     (state) => ({
       deleteBlock: state.flowSlice.deleteBlock,
       setDirective: state.flowSlice.setDirective,
-      getBlockProperties: state.flowSlice.getBlockProperties,
+      // getBlockProperties: state.flowSlice.getBlockProperties,
       getParameterValue: state.designerVisualElementsSlice.getParameterValue,
       toggleConfirmationModal:state.modalWindowsSlice.toggleConfirmationModal,
       setConfirmationModalActions:state.modalWindowsSlice.setConfirmationModalActions,
@@ -76,8 +76,7 @@ const BaseNode = (props: NodeProps) => {
 
   const handleNodeClick = useCallback(() => {
     getParameterValue("", "");
-    getBlockProperties();
-  }, [getParameterValue, getBlockProperties]);
+  }, [getParameterValue]);
 
   return (
     <div

@@ -93,6 +93,7 @@ function UsersTable() {
                     <td colSpan={1}>
                       <div className={s.table_actions}>
                         <button
+                        data-testid={`test_${user.userName}_btn`}
                           onClick={async () => {
                             await getUser(user);
                             await toggleEditUser(true);
@@ -123,7 +124,9 @@ function UsersTable() {
         </table>
       </div>
       <div className={s.add_user_wrapper}>
-        <button onClick={() => toggleAddUserModal(true)}>ADD USER</button>
+        <button 
+        data-testid="test_add_user_btn"
+        onClick={() => toggleAddUserModal(true)}>ADD USER</button>
       </div>
       <EditUserModal
         isVisible={isModalVisible}

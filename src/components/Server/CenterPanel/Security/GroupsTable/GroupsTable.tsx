@@ -26,6 +26,8 @@ function GroupsTable() {
     setEditModalActive(isActive);
   }
 
+  console.log(groupList)
+
   async function performGroupDelete(groupId: string) {
     try {
       const res: any = await deleteGroup(groupId);
@@ -87,6 +89,7 @@ function GroupsTable() {
                     <td colSpan={1}>
                       <div className={s.table_actions}>
                         <button
+                        data-testid= {`test_${group.name}_btn`}
                           onClick={() => {
                             setGroupToEdit(group);
                             toggleEditGroupModal(true);
@@ -95,6 +98,7 @@ function GroupsTable() {
                           EDIT
                         </button>
                         <button
+                        data-testid={`test_delete_${group.name}_btn`}
                           className={s.delete_btn}
                           onClick={() => {
                             toggleConfirmationModal(
@@ -117,7 +121,9 @@ function GroupsTable() {
         </table>
       </div>
       <div className={s.add_group_wrapper}>
-        <button onClick={() => toggleActiveModal(true)}>ADD GROUP</button>
+        <button 
+        data-testid="test_add_group_btn"
+        onClick={() => toggleActiveModal(true)}>ADD GROUP</button>
       </div>
       <AddGroupModal
         isVisible={isModalActive}

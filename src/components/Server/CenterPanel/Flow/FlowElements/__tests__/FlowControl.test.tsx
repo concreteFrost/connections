@@ -10,8 +10,6 @@ import useStore from "store/store";
 import { RFState } from "store/types/rfState";
 import mockFlowStructure from "__mocks__/mockFlow";
 import axios from "axios";
-import userEvent from "@testing-library/user-event";
-import { baseUrl } from "store/constants/baseUrl";
 
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;

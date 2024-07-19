@@ -4,18 +4,11 @@ import {
   screen,
   waitFor,
   act,
-  fireEvent,
 } from "@testing-library/react";
 import useStore from "store/store";
 import { RFState } from "store/types/rfState";
-import mockFlowStructure from "__mocks__/mockFlow";
-import axios from "axios";
 import userEvent from "@testing-library/user-event";
-import { baseUrl } from "store/constants/baseUrl";
 import { mockedUsers } from "__mocks__/mockUsersList";
-
-jest.mock("axios");
-const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("UserTable component", () => {
   beforeEach(() => {
@@ -34,10 +27,42 @@ describe("UserTable component", () => {
   it("renders users list", () => {
     render(<UsersTable />);
 
-    expect(screen.getByText('Ilia Morozov')).toBeInTheDocument();
+    expect(screen.getByText("Ilia Morozov")).toBeInTheDocument();
   });
 
-  it("calling user list once per render",()=>{
-    
-  })
+  it("renders EDIT USER modal window on EDIT btn click", async () => {
+    render(<UsersTable />);
+
+    const editBtn = screen.queryByTestId(
+      "test_Ilia Morozov_btn"
+    ) as HTMLButtonElement;
+
+    expect(editBtn).toBeInTheDocument();
+
+    await act(async () => {
+      userEvent.click(editBtn);
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText("RESET PASSWORD")).toBeInTheDocument();
+    });
+  });
+
+  it("renders Add User modal window on ADD USER btn click", async () => {
+    render(<UsersTable />);
+
+    const addUserBtn = screen.queryByTestId(
+      "test_add_user_btn"
+    ) as HTMLButtonElement;
+
+    expect(addUserBtn).toBeInTheDocument();
+
+    await act(async () => {
+      userEvent.click(addUserBtn);
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText("GENERATE")).toBeInTheDocument();
+    });
+  });
 });
