@@ -3,6 +3,7 @@ import useStore from "store/store";
 import s from "./AddAlertFormatForm.module.scss"
 import { AlertFormat, NewAlertFormat } from "store/interfaces/IAlerts";
 import { Group, User } from "store/interfaces/ISecurity";
+import { addAlertFormatApi } from "api/ehd";
 
 const initialAlertFormat: NewAlertFormat = {
   name: "New Alert Format",
@@ -23,7 +24,7 @@ interface AlertFormatProps {
 
 
 function AddAlertFormatForm(props: AlertFormatProps) {
-  const { addAlertFormat } = useStore((state) => state.alertSlice);
+  // const { addAlertFormat } = useStore((state) => state.alertSlice);
   const [newAlertFormat, setNewAlertFormat] = useState<NewAlertFormat>(initialAlertFormat);
   const {toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
 
@@ -37,7 +38,7 @@ function AddAlertFormatForm(props: AlertFormatProps) {
 
   async function handleAddAlertFormat() {
     try {
-      const res: any = await addAlertFormat(newAlertFormat);
+      const res: any = await addAlertFormatApi(newAlertFormat);
       
       if (res.data.success === false) {
         

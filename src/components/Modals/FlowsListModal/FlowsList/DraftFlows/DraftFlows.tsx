@@ -1,5 +1,5 @@
 import useStore from "store/store";
-import { getDraftListApi } from "api/draft";
+import { deleteDraftFlowAPI, getDraftListApi } from "api/draft";
 import s from "./DrafFlows.module.scss";
 import { useState, useEffect } from "react";
 import moment from "moment";
@@ -13,7 +13,6 @@ interface ISectionToOpen {
 
 function DraftFlows() {
 
-  const deleteDraftFlow = useStore((state) => state.flowSlice.deleteDraftFlow);
   const [loadedFlowFolders, setLoadedFlowFolders] = useState<any>([]);
   const [currentDraftFolder, setCurrentDraftFolder] = useState<string>("");
   const [draftSectionToOpen, setDraftSectionToOpen] = useState<ISectionToOpen>({
@@ -53,7 +52,7 @@ function DraftFlows() {
 
   async function deleteDraftAndUpdate(draftId: string) {
     try {
-      await deleteDraftFlow(draftId);
+      await deleteDraftFlowAPI(draftId);
       await loadDraftFlowList();
     }
     catch (e) {
@@ -78,8 +77,8 @@ function DraftFlows() {
             >
               <span>{connectionsIcons.folder}</span> {key}
             </li>
-          ))
-          : <li className={s.empty_draft_list}>Nothing to show...</li>}
+          )) : null }
+        
       </ul>
       {/*FLOWS TABLE */}
       <div className={s.table_wrapper}>

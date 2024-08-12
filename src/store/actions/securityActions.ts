@@ -1,48 +1,15 @@
 import {
-  addGroupMemberAPI,
-  addUserAPI,
-  createGroupAPI,
-  generatePasswordAPI,
   getGroupListAPI,
   getGroupMembersAPI,
   getMeAPI,
   getRoleListAPI,
   getUserListAPI,
-  getVapidKeysAPI,
-  removeGroupAPI,
-  removeGroupMemberAPI,
-  removeUserAPI,
-  resetPasswordAPI,
-  updateUserAPI,
 } from "../../api/security";
-import {
-  User,
-  Group,
-  NewUser,
-} from "../interfaces/ISecurity";
+import { User, Group} from "../interfaces/ISecurity";
 import { RFState } from "../types/rfState";
-
-// const getUser = (get: () => RFState, set: any) => async (userId: string) => {
-//     try {
-//         console.log(userId)
-//         const res: any = await getUserAPI(userId);
-//         const data: Array<IUser> = res.data.userRecord;
-//         console.log(data)
-//         set((state: RFState) => ({
-//             securitySlice: {
-//                 ...state.securitySlice, userToEdit: data
-//             }
-//         }))
-
-//     }
-//     catch (e) {
-//         console.log('error getting user list')
-//     }
-// }
 
 //USER ACTIONS
 //#region
-
 const getMe = (get: () => RFState, set: any) => async () => {
   try {
     const res: any = await getMeAPI();
@@ -74,7 +41,6 @@ const getUser = (get: () => RFState, set: any) => (user: User) => {
       userToEdit: user,
     },
   }));
-
 };
 
 const getUserList = (get: () => RFState, set: any) => async () => {
@@ -109,56 +75,6 @@ const getRoleList = (get: () => RFState, set: any) => async () => {
   }
 };
 
-const updateUser =
-  (get: () => RFState, set: any) => async (userRecord: User) => {
-    try {
-      const res = await updateUserAPI(userRecord);
-      return res;
-    } catch (e) {
-      console.log("error updating user");
-    }
-  };
-
-const addUser =
-  (get: () => RFState, set: any) => async (userRecord: NewUser) => {
-    try {
-      const res: any = await addUserAPI(userRecord);
-      return res;
-    } catch (e) {
-      console.log("error adding user", e);
-    }
-  };
-
-const deleteUser = (get: () => RFState, set: any) => async (userId: string) => {
-  try {
-    const res: any = await removeUserAPI(userId);
-    return res;
-  } catch (e) {
-    console.log("error deleting user", e);
-  }
-};
-
-const generatePassword =
-  (get: () => RFState, set: any) => async (genType: number, length: number) => {
-    try {
-      const res: any = await generatePasswordAPI(genType, length);
-
-      return res.data.message;
-    } catch (e) {
-      console.log("error generating password", e);
-    }
-  };
-
-const resetPassword =
-  (get: () => RFState, set: any) =>
-  async (userId: string, newPasword: string, emailUser: boolean) => {
-    try {
-      const res: any = await resetPasswordAPI(userId, newPasword, emailUser);
-      return res;
-    } catch (e) {
-      console.log("error reseting user password", e);
-    }
-  };
 //#endregion
 
 //GROUP ACTIONS
@@ -204,62 +120,7 @@ const getGroupMembers =
     }
   };
 
-const addGroup =
-  (get: () => RFState, set: any) => async (groupRecord: Group) => {
-    try {
-      const res: any = await createGroupAPI(groupRecord);
-      return res;
-    } catch (e) {
-      console.log("error creating group");
-    }
-  };
-
-const deleteGroup =
-  (get: () => RFState, set: any) => async (groupId: string) => {
-    try {
-      const res: any = await removeGroupAPI(groupId);
-      return res;
-    } catch (e) {
-      console.log("error deleting group");
-    }
-  };
-
-const addGroupMember =
-  (get: () => RFState, set: any) => async (userId: string, groupId: string) => {
-    try {
-      const res: any = await addGroupMemberAPI(userId, groupId);
-      console.log("adding group member", res);
-      return res;
-    } catch (e) {
-      console.log("error adding group member");
-    }
-  };
-
-const removeGroupMember =
-  (get: () => RFState, set: any) => async (userId: string, groupId: string) => {
-    try {
-      const res: any = await removeGroupMemberAPI(userId, groupId);
-      console.log(res);
-      return res;
-    } catch (e) {
-      console.log("error removing group member");
-    }
-  };
 //#endregion
-
-//#region NOTIFICATIONS
-const getVapidKeys=(get: () => RFState, set: any) => async()=>{
-  try{
-    const res : any = await getVapidKeysAPI();
-    return res;
-  }
-  catch(e){
-    console.log('error getting vapid keys',e)
-  }
-}
-//#endregion
-
-
 
 const securityActions = {
   setAppUserPassword: setAppUserPassword,
@@ -267,18 +128,9 @@ const securityActions = {
   getUser: getUser,
   getUserList: getUserList,
   getRoleList: getRoleList,
-  updateUser: updateUser,
-  addUser: addUser,
-  deleteUser: deleteUser,
-  generatePassword: generatePassword,
-  resetPassword: resetPassword,
   getGroupList: getGroupList,
   getGroupMembers: getGroupMembers,
-  addGroup: addGroup,
-  deleteGroup: deleteGroup,
-  addGroupMember: addGroupMember,
-  removeGroupMember: removeGroupMember,
-  getVapidKeys:getVapidKeys,
+
 };
 
 export default securityActions;

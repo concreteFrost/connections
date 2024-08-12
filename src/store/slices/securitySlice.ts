@@ -15,22 +15,11 @@ export type SecuritySlice = {
     getMe:()=>void;
     getUser: (user: User) => void;
     getUserList: () => void;
-    updateUser: (userRecord: User) => void;
-    addUser: (userRecord: NewUser) => void;
-    deleteUser: (userId: string) => void;
-    generatePassword: (passwordType: number, length: number) => void;
     getRolesList: () => void;
-    resetPassword: (userId: string, newPasword: string, emailUser: boolean) => void;
     setAppUserPassword:(pass:string)=>void;
     //group actions
     getGroupList: () => void;
     getGroupMembers: (groupdId: string) => void;
-    createGroup: (groupRecord: Group) => void;
-    deleteGroup: (groupId: string) => void;
-    addGroupMember: (userId: string, groupId: string) => void;
-    removeGroupMember: (userId: string, groupId: string) => void
-    //notifications
-    getVapidKeys:()=>void;
 
 }
 
@@ -46,18 +35,9 @@ const securitySlice = (get: () => RFState, set: any): SecuritySlice => ({
     getUser: securityActions.getUser(get, set),
     getUserList: securityActions.getUserList(get, set),
     getRolesList: securityActions.getRoleList(get, set),
-    updateUser: securityActions.updateUser(get, set),
-    addUser: securityActions.addUser(get, set),
-    deleteUser: securityActions.deleteUser(get, set),
-    generatePassword: securityActions.generatePassword(get, set),
-    resetPassword: securityActions.resetPassword(get, set),
     getGroupMembers: securityActions.getGroupMembers(get, set),
     getGroupList: securityActions.getGroupList(get, set),
-    createGroup: securityActions.addGroup(get, set),
-    deleteGroup: securityActions.deleteGroup(get, set),
-    addGroupMember: securityActions.addGroupMember(get, set),
-    removeGroupMember: securityActions.removeGroupMember(get, set),
-    getVapidKeys: securityActions.getVapidKeys(get,set),
+    
 })
 
 export default securitySlice;

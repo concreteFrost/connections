@@ -2,6 +2,7 @@ import s from "./AddGroupModal.module.scss";
 import useStore from "store/store";
 import { useEffect, useState } from "react";
 import { Group, User } from "store/interfaces/ISecurity";
+import { createGroupAPI } from "api/security";
 
 interface EditUserModalProps {
     isVisible: boolean,
@@ -20,7 +21,7 @@ const initialGroup: Group = {
 
 function AddGroupModal(props: EditUserModalProps) {
 
-    const { userList, createGroup, getGroupList } = useStore((state) => state.securitySlice);
+    const { userList, getGroupList } = useStore((state) => state.securitySlice);
 
     const { toggleMessageModal} = useStore((state) => state.modalWindowsSlice);
     const [newGroup, setNewGroup] = useState<Group>(initialGroup);
@@ -36,7 +37,7 @@ function AddGroupModal(props: EditUserModalProps) {
     async function submitForm(e: React.FormEvent) {
         e.preventDefault();
         try {
-            const res: any = await createGroup(newGroup);
+            const res: any = await createGroupAPI(newGroup);
             await console.log(res)
             if (res.data.success) {
                 await getGroupList()

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useStore from "store/store";
-import { getDraftListApi } from "../../../../api/draft";
+import { deleteDraftFlowAPI, getDraftListApi } from "../../../../api/draft";
 import { connectionsIcons } from "../../../../assets/icons/icons";
 import { ILeftPanelSections } from "../LeftPanel";
 import s from "./ListItem.module.scss";
@@ -13,7 +13,7 @@ interface FlowsItemProps {
 
 function DraftFlowsItem(props: FlowsItemProps) {
   const [draftFlowList, setDraftFlowList] = useState<Array<any>>([]);
-  const { loadFlowFromDraft, deleteDraftFlow } = useStore(
+  const { loadFlowFromDraft } = useStore(
     (state) => state.flowSlice
   );
 
@@ -25,7 +25,7 @@ function DraftFlowsItem(props: FlowsItemProps) {
         const res: any = await getDraftListApi();
         if (res.data.hasOwnProperty("draftFlows")) {
           const data: any = await res.data.draftFlows;
-          console.log(res.data)
+
           sortDraftsByFolder(data);
           setListLoaded(true);
         }
@@ -53,7 +53,7 @@ function DraftFlowsItem(props: FlowsItemProps) {
 
   async function performDraftDeletion(flowId: string, folderName: any) {
     try {
-      const res: any = await deleteDraftFlow(flowId);
+      const res: any = await deleteDraftFlowAPI(flowId);
       if (res.data.success) {
         const filtered = draftFlowList[folderName].filter(
           (flow: any) => flow.draftId !== flowId

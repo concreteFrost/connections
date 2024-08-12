@@ -2,9 +2,10 @@ import { useEffect } from "react";
 import useStore from "store/store";
 import { NewStatisticMessage } from "store/interfaces/IStatistics";
 import { handleHandShake } from "utils/handleHandshake";
+import { getFlowListStatusAPI } from "api/data";
 
 function FlowServerStatus() {
-  const { getFlowListStatus } = useStore((state) => state.flowSlice);
+  // const { getFlowListStatus } = useStore((state) => state.flowSlice);
   const {setIsLoading} = useStore((state)=>state.loaderSlice);
   const {
     setStatistics,
@@ -73,7 +74,7 @@ function FlowServerStatus() {
 
   const fetchFlowListStatus = async () => {
     try {
-      const res: any = await getFlowListStatus();
+      const res: any = await getFlowListStatusAPI();
       setStatistics(res.data);
     } catch (error) {
       console.log("error getting flow list status");

@@ -5,9 +5,10 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import AddGroupModal from "../../../../Modals/GroupModals/AddGroupModal";
 import EditGroupModal from "../../../../Modals/GroupModals/EditGroupModal";
+import { removeGroupAPI } from "api/security";
 
 function GroupsTable() {
-  const { userList, groupList, deleteGroup, getGroupList, getGroupMembers } = useStore(
+  const { userList, groupList, getGroupList, getGroupMembers } = useStore(
     (state) => state.securitySlice
   );
 
@@ -26,11 +27,9 @@ function GroupsTable() {
     setEditModalActive(isActive);
   }
 
-  console.log(groupList)
-
   async function performGroupDelete(groupId: string) {
     try {
-      const res: any = await deleteGroup(groupId);
+      const res: any = await removeGroupAPI(groupId);
       if (res.data.success) {
         await getGroupList();
       }
@@ -49,7 +48,6 @@ function GroupsTable() {
 
   useEffect(() => {
     fetchGroupMembers();
-    console.log("fetching groups");
   }, [groupList]);
 
   return (

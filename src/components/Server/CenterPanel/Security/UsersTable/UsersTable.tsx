@@ -5,9 +5,10 @@ import { Group, Role, User } from "store/interfaces/ISecurity";
 import moment from "moment";
 import EditUserModal from "components/Modals/UserModals/EditUserModal/EditUserModal";
 import AddUserModal from "components/Modals/UserModals/AddUserModal/AddUserModal";
+import { removeUserAPI } from "api/security";
 
 function UsersTable() {
-  const { userList, getUser, deleteUser, getUserList, getGroupList } = useStore(
+  const { userList, getUser, getUserList, getGroupList } = useStore(
     (state) => state.securitySlice
   );
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
@@ -27,7 +28,7 @@ function UsersTable() {
 
   async function performUserDelete(userId: string) {
     try {
-      const res: any = await deleteUser(userId);
+      const res: any = await removeUserAPI(userId);
       if (res.data.success) {
         await getUserList();
         await getGroupList();

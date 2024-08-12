@@ -32,6 +32,6 @@ export interface BlockParameters {
   required?: any;
   format?: any;
   placeholder?: string | Date | number;
-  constraints: number;
+  constraints?: number;
 }
 

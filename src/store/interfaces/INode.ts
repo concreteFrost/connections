@@ -1,3 +1,4 @@
+import { BlockParameters } from "./IBlock";
 
 export interface NodeGroup {
     dataGroup: string;
@@ -24,13 +25,13 @@ export  interface NodeType {
         typeName: string;
         baseTypeName: string;
         category: string;
-        parameters: [];
+        parameters: Array<BlockParameters>;
         extendedParameters:[];
         ehDirective:string;
         //Custom parameters
-        color: string;
-        icon: any;
-        children? : any;
+        // color: string;
+        // icon: any;
+        // children? : any;
 
     };
 }

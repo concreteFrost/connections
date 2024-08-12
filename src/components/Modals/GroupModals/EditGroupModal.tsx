@@ -2,6 +2,7 @@ import s from "./EditGroupModal.module.scss";
 import useStore from "store/store";
 import { useEffect, useState } from "react";
 import { Group, GroupWithUsers, User } from "store/interfaces/ISecurity";
+import { addGroupMemberAPI, removeGroupMemberAPI } from "api/security";
 
 interface EditGroupModalProps {
     isVisible: boolean,
@@ -11,13 +12,13 @@ interface EditGroupModalProps {
 
 function EditGroupModal(props: EditGroupModalProps) {
 
-    const { userList, addGroupMember, removeGroupMember, getGroupList, getUserList } = useStore((state) => state.securitySlice);
+    const { userList, getGroupList, getUserList } = useStore((state) => state.securitySlice);
     const [availableMembers, setAvailableMembers] = useState<Array<User>>();
     const [currentMembers, setCurrentMembers] = useState<Array<User>>();
 
     async function removeFromGroup(user: User, groupId: string) {
         try {
-            const res: any = await removeGroupMember(user.userId, groupId)
+            const res: any = await removeGroupMemberAPI(user.userId, groupId)
 
             if (res.data.success) {
                 removeFromCurrentUsers(user.userId);
@@ -33,7 +34,7 @@ function EditGroupModal(props: EditGroupModalProps) {
 
     async function addToGroup(user: User, groupId: string) {
         try {
-            const res: any = await addGroupMember(user.userId, groupId)
+            const res: any = await addGroupMemberAPI(user.userId, groupId)
             if (res.data.success) {
                 removeFromAvailableUsers(user.userId);
                 addToCurrentUsers(user);

@@ -8,6 +8,7 @@ import {
 } from "store/interfaces/IAlerts";
 import DirectiveConfigItem from "./DirectiveConfigItem/DirectiveConfigItem";
 import moment from "moment";
+import { addDirectiveApi } from "api/ehd";
 
 const initialDirectiveConfig: DirectiveConfig = {
   directiveOrder: 1,
@@ -42,7 +43,7 @@ interface DirectiveFormProps {
 }
 
 function AddDirectiveForm(props: DirectiveFormProps) {
-  const { addDirective } = useStore((state) => state.alertSlice);
+  // const { addDirective } = useStore((state) => state.alertSlice);
   const [newDirective, setNewDirective] =
     useState<Directive>(initialDirective);
   const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
@@ -127,7 +128,7 @@ function AddDirectiveForm(props: DirectiveFormProps) {
 
   async function handleAddDirective() {
     try {
-      const res: any = await addDirective(newDirective);
+      const res: any = await addDirectiveApi(newDirective);
 
       if (res.data.success === false) {
         toggleMessageModal(res.data.message);

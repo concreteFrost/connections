@@ -6,10 +6,11 @@ import { Directive } from "store/interfaces/IAlerts";
 import { FlowConfig } from "store/interfaces/Iflow";
 import { getFlowListApi } from "../../../../../../api/flow";
 import s from "./DirectivesControl.module.scss"
+import { getDirectivesApi } from "api/ehd";
 
 function DirectivesControl() {
   const [isAddDirectiveVisible, setAddDirectiveVisible] = useState<boolean>(false);
-  const { getDirectives } = useStore((state) => state.alertSlice);
+  // const { getDirectives } = useStore((state) => state.alertSlice);
   const [directives, setDirectives] = useState<Array<Directive>>([]);
   const [flowList, setFlowList] = useState<Array<FlowConfig>>([])
 
@@ -24,9 +25,9 @@ function DirectivesControl() {
 
   async function fetchDirectives() {
     try {
-      const res: Directive[] = await getDirectives();
+      const res: any = await getDirectivesApi();
       
-      setDirectives(res);
+      setDirectives(res.data);
       return res;
     } catch (e) {
       console.log('error getting directives');

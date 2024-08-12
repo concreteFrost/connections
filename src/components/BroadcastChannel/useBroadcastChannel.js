@@ -4,9 +4,6 @@ const useBroadcastChannel = (channelName) => {
   useEffect(() => {
     const channel = new BroadcastChannel(channelName);
 
-    // Флаг для определения, является ли текущий таб первичным
-    let isPrimary = true;
-
     // Отправляем сообщение при загрузке страницы
     channel.postMessage("check_status");
 
@@ -16,8 +13,6 @@ const useBroadcastChannel = (channelName) => {
         // Если получаем сообщение "check_status", значит, другой таб хочет проверить статус
         channel.postMessage("app_opened");
       } else if (event.data === "app_opened") {
-        // Если получаем сообщение "app_opened", значит, мы не первичный таб
-        isPrimary = false;
         alert("App is already opened in another tab. This tab will now be closed.");
         window.location.href = 'about:blank';
       }

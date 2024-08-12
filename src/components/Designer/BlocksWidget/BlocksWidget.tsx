@@ -1,7 +1,7 @@
 import s from "./BlocksWidget.module.scss";
 import { useState } from "react";
 import useStore from "store/store";
-import { getAllselectedBlockIDs } from "store/actions/groupActions";
+import { getAllselectedBlockIDs } from "store/actions/designerActions/groupActions";
 import useEscapeKeyHandler from "hooks/useEscapeKeyHandler";
 
 function BlocksWidget() {

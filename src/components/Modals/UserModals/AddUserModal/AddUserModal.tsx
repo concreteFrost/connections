@@ -2,6 +2,7 @@ import s from "./AddUserModal.module.scss";
 import useStore from "store/store";
 import { Group, Role, NewUser } from "store/interfaces/ISecurity";
 import { useState } from "react";
+import { addUserAPI, generatePasswordAPI } from "api/security";
 
 
 interface EditUserModalProps {
@@ -26,7 +27,7 @@ const initialUser: NewUser = {
 
 function AddUserModal(props: EditUserModalProps) {
 
-    const { addUser, getUserList, groupList, rolesList, generatePassword, getGroupList } = useStore((state) => state.securitySlice);
+    const { getUserList, groupList, rolesList, getGroupList } = useStore((state) => state.securitySlice);
     const [newUser, setNewUser] = useState<NewUser>(initialUser);
     const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
 
@@ -64,7 +65,7 @@ function AddUserModal(props: EditUserModalProps) {
 
     async function performPasswordGeneration() {
         try {
-            const res: any = await generatePassword(1, 12);
+            const res: any = await generatePasswordAPI(1, 12);
             setTextProps('password', res)
         }
         catch (e) {
@@ -77,7 +78,7 @@ function AddUserModal(props: EditUserModalProps) {
         e.preventDefault();
         try {
             {
-                const res: any = await addUser(newUser);
+                const res: any = await addUserAPI(newUser);
               
                 if (res.data.success) {
                     await toggleMessageModal("success!!!");

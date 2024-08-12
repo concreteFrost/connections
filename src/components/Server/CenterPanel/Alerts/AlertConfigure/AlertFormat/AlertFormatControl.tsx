@@ -4,12 +4,13 @@ import AddAlertFormatForm from "../AddAlertFormat/AddAlertFormatForm";
 import { useEffect, useState } from "react";
 import useStore from "store/store";
 import { AlertFormat} from "store/interfaces/IAlerts";
+import { getAlertFormatsApi } from "api/ehd";
 
 function AlertFormatControl() {
 
   const [isAddAlertFormatVisible, setAddAlertFormatVisible] = useState<boolean>(false);
   const { getUserList, getGroupList, userList, groupList } = useStore((state) => state.securitySlice);
-  const { getAlertFormats } = useStore((state) => state.alertSlice);
+  // const { getAlertFormats } = useStore((state) => state.alertSlice);
   const [alertFormats, setAlertFormats] = useState<Array<AlertFormat>>([]);
 
   useEffect(() => {
@@ -19,15 +20,15 @@ function AlertFormatControl() {
       try {
         await getUserList();
         await getGroupList();
-        const alertFormatsData = await getAlertFormats();
-        setAlertFormats(alertFormatsData);
+        const alertFormatsData : any = await getAlertFormatsApi();
+        setAlertFormats(alertFormatsData.data);
       } catch (error) {
         console.log('Error fetching data:', error);
       }
     };
 
     fetchData();
-  }, [getUserList,getGroupList,getAlertFormats]); //remove this deps if will cause infinite loop
+  }, [getUserList,getGroupList]); //remove this deps if will cause infinite loop
 
 
   return (<section className={s.wrapper}>

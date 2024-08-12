@@ -1,5 +1,5 @@
 import { getUserSettingsData } from "store/actions/storageActions";
-import topMenuActions from "store/actions/topViewActions";
+import topMenuActions from "store/actions/designerActions/topViewActions";
 import { RFState } from "store/types/rfState";
 
 const userSettingsData = getUserSettingsData();

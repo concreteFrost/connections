@@ -10,7 +10,7 @@ import BlocksWidget from "../components/Designer/BlocksWidget/BlocksWidget";
 import { ReactFlowProvider } from "react-flow-renderer";
 
 function Designer() {
-  const getBlocksList = useStore((store) => store.getBlocksList);
+  const getBlocksList = useStore((store) => store.flowSlice.getBlockList);
   const { getDirectivesGlobal } = useStore((store) => store.alertSlice);
   const { flow } = useStore((store) => store.flowSlice);
 

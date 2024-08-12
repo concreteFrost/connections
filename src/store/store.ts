@@ -5,9 +5,6 @@ import modalWindowsSlice from "./slices/modalWindowsSlice";
 import flowSlice from "./slices/flowSlice";
 import designerVisualElementsSlice from "./slices/designerVisualElementsSlice";
 import serverSlice from "./slices/serverSlice";
-import edgeActions from "./actions/edgesActions";
-import nodeActions from "./actions/nodeActions";
-import leftPanelActions from "./actions/leftPanelActions";
 import notificationSlice from "./slices/notificationSlice";
 import securitySlice from "./slices/securitySlice";
 import alertSlice from "./slices/alertSlice";
@@ -16,7 +13,6 @@ import loaderSlice from "./slices/loaderSlice";
 
 const useStore = createWithEqualityFn<RFState>((set, get) => ({
 
-  blockList: [],
   flowSlice: flowSlice(get, set),
   topPanelSlice: topPanelSlice(get, set),
   modalWindowsSlice: modalWindowsSlice(get, set),
@@ -28,15 +24,6 @@ const useStore = createWithEqualityFn<RFState>((set, get) => ({
   statisticsSlice:statisticsSlice(get,set),
   loaderSlice:loaderSlice(get,set),
 
-  //Value Editor Actions
-  //Node Actions
-  getBlocksList: leftPanelActions.getBlocksList(set),
-  onBlocksChange: nodeActions.onBlocksChange(get, set),
-
-  //Edge Actions
-  onEdgesChange: edgeActions.onEdgesChange(get, set),
-  // onEdgeRemove: edgeActions.onEdgeRemove(get,set),
-  onConnect: edgeActions.onEdgesConnect(get, set),
 }))
 
 export default useStore;

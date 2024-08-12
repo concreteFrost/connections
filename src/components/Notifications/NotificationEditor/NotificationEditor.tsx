@@ -2,16 +2,17 @@ import s from "./NotificationEditor.module.scss";
 import useStore from "store/store";
 import { NotificationType } from "store/interfaces/INotification";
 import { User, Group } from "store/interfaces/ISecurity";
+import { removeNotificationAPI, updateNotificationAPI } from "api/notification";
 
 function NotificationEditor() {
 
   const { currentNotification,
     notificationsTypes,
     setCurrentNotificationProps,
-    deleteNotification,
+    // deleteNotification,
     setCurrentNotification,
     getNotificationsList,
-    updateNotification,
+    // updateNotification,
   } = useStore((state) => state.notificationSlice);
   const { userList, groupList } = useStore((state) => state.securitySlice);
   const modalSlice = useStore((state) => state.modalWindowsSlice);
@@ -20,7 +21,7 @@ function NotificationEditor() {
   async function performDeletion() {
     try {
       if (currentNotification?.notificationId) {
-        await deleteNotification(currentNotification?.notificationId)
+        await  removeNotificationAPI(currentNotification?.notificationId)
         await setCurrentNotification(null);
         await getNotificationsList()
       }
@@ -33,7 +34,7 @@ function NotificationEditor() {
   async function performUpdate() {
     try {
       if (currentNotification) {
-        const res: any = await updateNotification(currentNotification);
+        const res: any = await updateNotificationAPI(currentNotification);
         if (res.data.success) {
           await modalSlice.toggleMessageModal("success!!!");
           await getNotificationsList();

@@ -1,15 +1,10 @@
 import axios, { AxiosResponse } from "axios";
-import { getAccessToken } from "../store/actions/storageActions";
+import { headers } from "./utils/headers";
 import { baseUrl } from "../store/constants/baseUrl";
 import { LogSearchQuery } from "../store/interfaces/IServer";
 import { Subscription } from "../store/interfaces/INotification";
 
 export function getBlocks(): Promise<any> {
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + getAccessToken().token,
-  };
-
   return new Promise<any>((resolve, reject) => {
     axios
       .get(baseUrl + "/data/blocklist", { headers })
@@ -23,11 +18,6 @@ export function getBlocks(): Promise<any> {
 }
 
 export function getBlockLookupListAPI(): Promise<any> {
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + getAccessToken().token,
-  };
-
   return new Promise<any>((resolve, reject) => {
     axios
       .get(baseUrl + "/data/blockLookupList", { headers })
@@ -41,11 +31,6 @@ export function getBlockLookupListAPI(): Promise<any> {
 }
 
 export function getServerStatusAPI(): Promise<any> {
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + getAccessToken().token,
-  };
-
   return new Promise<any>((resolve, reject) => {
     axios
       .get(baseUrl + "/data/serverstatus", { headers })
@@ -59,11 +44,6 @@ export function getServerStatusAPI(): Promise<any> {
 }
 
 export function getDataLogsAPI(query: LogSearchQuery): Promise<any> {
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + getAccessToken().token,
-  };
-
   function getEndOfDay(dateString: any) {
     // Parse the input string to create a Date object
     const date = new Date(dateString);
@@ -87,8 +67,6 @@ export function getDataLogsAPI(query: LogSearchQuery): Promise<any> {
     searchText: query.searchText ? query.searchText : null,
   };
 
-  console.log(newQuery);
-
   return new Promise<any>((resolve, reject) => {
     axios(baseUrl + "/data/logs", {
       method: "PUT",
@@ -107,11 +85,6 @@ export function getDataLogsAPI(query: LogSearchQuery): Promise<any> {
 export function enableClientFlowStatusAPI(
   subscription: Subscription
 ): Promise<any> {
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + getAccessToken().token,
-  };
-
   return new Promise<any>((resolve, reject) => {
     axios(baseUrl + "/data/enableClientFlowStatus", {
       headers,
@@ -132,11 +105,6 @@ export function enableClientFlowStatusAPI(
 }
 
 export function disableClientFlowStatusAPI(): Promise<any> {
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + getAccessToken().token,
-  };
-
   return new Promise<any>((resolve, reject) => {
     axios(baseUrl + "/data/disableClientFlowStatus", {
       headers,
@@ -152,11 +120,6 @@ export function disableClientFlowStatusAPI(): Promise<any> {
 }
 
 export function getFlowListStatusAPI(): Promise<any> {
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + getAccessToken().token,
-  };
-
   return new Promise<any>((resolve, reject) => {
     axios
       .get(baseUrl + "/data/flowListStatus", { headers })
@@ -168,4 +131,3 @@ export function getFlowListStatusAPI(): Promise<any> {
       });
   });
 }
-

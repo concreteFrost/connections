@@ -13,7 +13,7 @@ interface SectionProps {
 
 function Section(props: SectionProps) {
   //returns filtered blocks that has matched type provided in props
-  const blockList = useStore((state) => state.blockList);
+  const blockList = useStore((state) => state.flowSlice.blockList);
   const filteredData = Object.entries(blockList)
     .filter(
       ([key, val]: [string, NodeType]) => val.data.baseTypeName === props.nodeGroup

@@ -7,6 +7,7 @@ import {
 } from "store/interfaces/INotification";
 import useStore from "store/store";
 import { Group, User } from "store/interfaces/ISecurity";
+import { newNotificationAPI } from "api/notification";
 
 
 const defaultFormState = {
@@ -27,7 +28,7 @@ function AddNotificationForm() {
     notificationsTypes,
     getNotificationsList,
     getNotificationsTypes,
-    addNewNotifications,
+    // addNewNotifications,
   } = useStore((state) => state.notificationSlice);
   const { userList, groupList, getUserList, getGroupList } = useStore(
     (state) => state.securitySlice
@@ -56,7 +57,7 @@ function AddNotificationForm() {
     e.preventDefault();
 
     try {
-      const res: any = await addNewNotifications(formElements);
+      const res: any = await newNotificationAPI(formElements);
 
       if (res.data.success) {
         await getNotificationsList();
@@ -180,7 +181,7 @@ function AddNotificationForm() {
                 <option value={-1}>Select User/Group</option>
                 <optgroup label="USERS">
                   {userList.length > 0
-                    ? userList.map((user: User) => (
+                  ? userList.map((user: User) => (
                         <option key={user.userId} value={user.userId}>
                           {user.userName}
                         </option>

@@ -1,5 +1,6 @@
 import { RFState } from "../types/rfState"
 
+
 //MODAL WITH MESSAGE
 export const toggleMessageModal = (get: () => RFState, set: any) => (message:string) => {
     set((state: RFState) => ({

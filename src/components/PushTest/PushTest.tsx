@@ -1,14 +1,11 @@
 import { useEffect } from "react";
-import useStore from "../../store/store";
 import { Subscription } from "../../store/interfaces/INotification";
+import { enableClientNotificationsAPI } from "api/notification";
+import { getVapidKeysAPI } from "api/security";
+import { enableClientFlowStatusAPI } from "api/data";
+import { enabliClientAlertsApi } from "api/ehd";
 
 export function PushTest() {
-  const { getVapidKeys } = useStore((state) => state.securitySlice);
-  const { enableClientNotification } = useStore(
-    (state) => state.notificationSlice
-  );
-  const { enablieClientAlerts } = useStore((state) => state.alertSlice);
-  const { enableClientFlowStatus } = useStore((state) => state.flowSlice);
 
   const registerServiceWorker = async (
     vapidKeys: any
@@ -49,7 +46,7 @@ export function PushTest() {
 
   const handleNotificationsRegistration = async () => {
     try {
-      const res: any = await getVapidKeys();
+      const res: any = await getVapidKeysAPI();
       const vapidKeys: any = res.data;
 
       const subscription: any | null = await registerServiceWorker(vapidKeys);
@@ -63,9 +60,9 @@ export function PushTest() {
           auth: subscription.keys.auth,
         };
 
-        await enableClientNotification(formatedSubscription);
-        await enablieClientAlerts(formatedSubscription);
-        await enableClientFlowStatus(formatedSubscription);
+        await enableClientNotificationsAPI(formatedSubscription);
+        await enabliClientAlertsApi(formatedSubscription);
+        await enableClientFlowStatusAPI(formatedSubscription);
       }
     } catch (e) {
       console.log("Error getting vapid keys", e);

@@ -1,11 +1,4 @@
-import {
-  OnNodesChange,
-  OnEdgesChange,
-  OnConnect,
-  NodeChange,
-} from "react-flow-renderer";
 
-import { NodeType } from "../interfaces/INode";
 import { TopPanelSlice } from "../slices/topPanelSlice";
 import { ModalWindows } from "../slices/modalWindowsSlice";
 import { FlowSlice } from "../slices/flowSlice";
@@ -19,7 +12,6 @@ import { LoaderSlice } from "../slices/loaderSlice";
 
 export type RFState = {
 
-  blockList: NodeType[];
   flowSlice: FlowSlice,
   topPanelSlice: TopPanelSlice,
   modalWindowsSlice: ModalWindows,
@@ -31,10 +23,4 @@ export type RFState = {
   statisticsSlice:StatusSlice,
   loaderSlice:LoaderSlice
 
-  //Value Editor Actions
-
-  getBlocksList: (data: any) => void;
-  onBlocksChange: any;
-  onConnect: OnConnect;
-  onEdgesChange: OnEdgesChange;
 };

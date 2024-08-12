@@ -3,7 +3,7 @@ import useStore from "store/store";
 import { Group, Role, User } from "store/interfaces/ISecurity";
 import { useState, useEffect } from "react";
 import useEscapeKeyHandler from "hooks/useEscapeKeyHandler";
-import { getGroupListAPI, getRoleListAPI } from "api/security";
+import { generatePasswordAPI, getGroupListAPI, getRoleListAPI, resetPasswordAPI, updateUserAPI } from "api/security";
 
 interface EditUserModalProps {
   isVisible: boolean;
@@ -13,9 +13,6 @@ interface EditUserModalProps {
 function EditUserModal(props: EditUserModalProps) {
   const {
     userToEdit,
-    updateUser,
-    generatePassword,
-    resetPassword,
     getUserList, // to update data in UsersTable and GroupsTable
     getGroupList,
   } = useStore((state) => state.securitySlice);
@@ -64,7 +61,7 @@ function EditUserModal(props: EditUserModalProps) {
   async function performResetPassword() {
     if (userToEdit)
       try {
-        const res: any = await resetPassword(
+        const res: any = await resetPasswordAPI(
           userToEdit?.userId,
           newPassword,
           emailUserPassword
@@ -81,8 +78,8 @@ function EditUserModal(props: EditUserModalProps) {
 
   async function performPasswordGeneration() {
     try {
-      const res: any = await generatePassword(1, 12);
-      setNewPassword(res);
+      const res: any = await generatePasswordAPI(1, 12);
+      setNewPassword(res.data.message);
     } catch (e) {
       console.log("error generating password", e);
     }
@@ -132,7 +129,7 @@ function EditUserModal(props: EditUserModalProps) {
     e.preventDefault();
     try {
       if (_userToEdit) {
-        const res: any = await updateUser(_userToEdit);
+        const res: any = await updateUserAPI(_userToEdit);
 
         if (res.data.success) {
           await toggleMessageModal("success!!!");

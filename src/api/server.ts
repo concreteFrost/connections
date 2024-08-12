@@ -1,17 +1,14 @@
 import axios from "axios";
 import { baseUrl } from "../store/constants/baseUrl";
-import { getAccessToken } from "../store/actions/storageActions";
 import { Registration } from "../store/interfaces/IServer";
+import { headers } from "./utils/headers";
 
 export function startServerAPI() {
     return new Promise((resolve, reject) => {
         axios({
             method: "POST",
             url: baseUrl + "/Server/Start",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + getAccessToken().token
-            }
+            headers:headers
         }).then((res) => resolve(res))
             .catch((e) => reject(e))
     })
@@ -22,10 +19,7 @@ export function stopServerAPI() {
         axios({
             method: "POST",
             url: baseUrl + "/Server/Stop",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + getAccessToken().token
-            }
+            headers:headers
         }).then((res) => resolve(res))
             .catch((e) => reject(e))
     })
@@ -36,10 +30,7 @@ export function killServerAPI() {
         axios({
             method: "POST",
             url: baseUrl + "/Server/Kill",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + getAccessToken().token
-            }
+            headers:headers
         }).then((res) => resolve(res))
             .catch((e) => reject(e))
     })
@@ -50,10 +41,7 @@ export function getSettingsAPI() {
         axios({
             method: "GET",
             url: baseUrl + "/Server/GetSettings",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + getAccessToken().token
-            }
+            headers:headers
         }).then((res) => resolve(res))
             .catch((e) => reject(e))
     })
@@ -64,10 +52,7 @@ export function updateSettingAPI(id:number,value:string) {
         axios({
             method: "POST",
             url: baseUrl + "/Server/UpdateSetting",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + getAccessToken().token
-            },
+            headers:headers,
             data:{
                 id:id,
                 newValue:value
@@ -83,10 +68,7 @@ export function keepAliveAPI(registration:Registration) {
         axios({
             method: "POST",
             url: baseUrl + "/Server/KeepAlive",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + getAccessToken().token
-            },
+            headers:headers,
             data:registration
         }).then((res) => resolve(res))
             .catch((e) => reject(e))

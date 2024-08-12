@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import s from "./CurrentNotifications.module.scss";
 import useStore from "store/store";
 import { Notification } from "store/interfaces/INotification";
+import { removeNotificationAPI } from "api/notification";
 
 function CurrentNotifications() {
   const {
@@ -9,7 +10,7 @@ function CurrentNotifications() {
     notificationsList,
     getNotificationsList,
     setCurrentNotification,
-    deleteNotification,
+    // deleteNotification,
   } = useStore((state) => state.notificationSlice);
 
   const [selectedNotifications, setSelectedNotifications] = useState<
@@ -30,7 +31,7 @@ function CurrentNotifications() {
 
   async function performSingleDeletion(notificationId: number) {
     try {
-      await deleteNotification(notificationId);
+      await removeNotificationAPI(notificationId);
       await getNotificationsList();
     } catch (e) {
       console.log("error deleting notification", e);
@@ -76,7 +77,7 @@ function CurrentNotifications() {
           if (note.notificationId === currentNotification?.notificationId) {
             setCurrentNotification(null);
           }
-          await deleteNotification(note.notificationId);
+          await removeNotificationAPI(note.notificationId);
         })
       );
 

@@ -9,6 +9,9 @@ import useStore from "../../store/store";
 import { IconVariants } from "../../store/enums/profile";
 import useEscapeKeyHandler from "../../hooks/useEscapeKeyHandler";
 import useOutsideMouseClick from "../../hooks/useOutsideMouseClick";
+import { disableClientNotificationsAPI } from "api/notification";
+import { disableClientFlowStatusAPI } from "api/data";
+import { disableClientAlertsApi } from "api/ehd";
 
 interface ProfileProps {
   themeColor: IconVariants;
@@ -20,9 +23,6 @@ function Profile(props: ProfileProps) {
   const [isProfileModalVisible, setProfileModalVisible] =
     useState<boolean>(false);
   const [isEditUserVisible, setEditUserVisible] = useState<boolean>(false);
-  const {disableClientFlowStatus} = useStore((state)=>state.flowSlice);
-  const {disableClientNotifications} = useStore((state)=>state.notificationSlice);
-  const {disableClientAlerts} = useStore((state)=>state.alertSlice);
   const modalRef = useRef<HTMLDivElement>(null);
 
   const { userToEdit, getUser } = useStore((state) => state.securitySlice);
@@ -38,9 +38,9 @@ function Profile(props: ProfileProps) {
 
   async function logout() {
     // Clear user data and navigate to the login page
-    await disableClientAlerts();
-    await disableClientFlowStatus();
-    await disableClientNotifications();
+    await disableClientAlertsApi();
+    await disableClientFlowStatusAPI();
+    await disableClientNotificationsAPI();
 
     await clearUserData();
     await navigate("/login");

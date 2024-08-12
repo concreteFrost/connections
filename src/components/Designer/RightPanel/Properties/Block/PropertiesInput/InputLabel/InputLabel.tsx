@@ -37,7 +37,7 @@ function InputLabel(props: InputLabelProps) {
         <input
           data-testid = "test_properties_input"
           type={props.defineInputType()}
-          required={props.blockData.constraints > 0 ? true : false}
+          required={props.blockData.constraints && props.blockData.constraints > 0 ? true : false}
           value={props.blockData.value}
           checked={props.blockData.value === "Y" ? true : false}
           onChange={(e: any) => {

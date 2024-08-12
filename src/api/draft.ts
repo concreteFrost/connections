@@ -1,21 +1,16 @@
 import axios from "axios";
 import { baseUrl } from "../store/constants/baseUrl";
-import { getAccessToken } from "../store/actions/storageActions";
+import { headers } from "./utils/headers";
 
 export function saveDraftFlowApi(data: any) {
   return new Promise((resolve, reject) => {
     axios({
       method: "post",
       url: baseUrl + "/Draft/Save",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + getAccessToken().token,
-      },
+      headers: headers,
       data: data,
     })
-      .then((res) => {
-        resolve(res);
-      })
+      .then((res) => resolve(res))
       .catch((e) => reject(e));
   });
 }
@@ -24,12 +19,9 @@ export function getDraftListApi() {
   return new Promise((resolve, reject) => {
     axios
       .get(baseUrl + "/Draft/List", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + getAccessToken().token,
-        },
+        headers: headers,
       })
-      .then((res) => {resolve(res)})
+      .then((res) => resolve(res))
       .catch((e) => reject(e));
   });
 }
@@ -41,10 +33,7 @@ export function getDraftApi(id: any) {
         params: {
           draftId: id, // Correctly passing id as a query parameter
         },
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + getAccessToken().token,
-        },
+        headers: headers,
       })
       .then((res) => resolve(res))
       .catch((e) => reject(e));
@@ -56,17 +45,12 @@ export function deleteDraftFlowAPI(data: any) {
     axios({
       method: "post",
       url: baseUrl + "/Draft/Delete",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + getAccessToken().token,
-      },
+      headers: headers,
       params: {
-        draftId: data
-      }
+        draftId: data,
+      },
     })
-      .then((res) => {
-        resolve(res);
-      })
+      .then((res) => resolve(res))
       .catch((e) => reject(e));
   });
 }
@@ -76,34 +60,29 @@ export function approveAndReleaseAPI(draftId: string, keepDraft: boolean) {
     axios({
       method: "post",
       url: baseUrl + "/Draft/ApproveAndRelease",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + getAccessToken().token,
-      },
+      headers: headers,
       params: {
         draftId: draftId,
-        keepDraft: keepDraft
-      }
+        keepDraft: keepDraft,
+      },
     })
-      .then((res) => {
-        resolve(res);
-      })
+      .then((res) => resolve(res))
       .catch((e) => reject(e));
   });
 }
 
-export function createDraftFromLiveTemplateAPI(liveFlowID: string, newDraftName: string) {
+export function createDraftFromLiveTemplateAPI(
+  liveFlowID: string,
+  newDraftName: string
+) {
   return new Promise((resolve, reject) => {
     axios
       .get(baseUrl + "/Draft/CreateNewDraftFromLiveTemplate", {
         params: {
           originalFlowReference: liveFlowID,
-          newFlowName: newDraftName
+          newFlowName: newDraftName,
         },
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + getAccessToken().token,
-        },
+        headers: headers,
       })
       .then((res) => resolve(res))
       .catch((e) => reject(e));
@@ -117,15 +96,9 @@ export function createUpdateDraftFromLiveAPI(liveFlowID: string) {
         params: {
           flowReference: liveFlowID,
         },
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + getAccessToken().token,
-        },
+        headers: headers,
       })
-      .then((res) => {
-        resolve(res); })
+      .then((res) => resolve(res))
       .catch((e) => reject(e));
   });
 }
-
-

@@ -8,6 +8,7 @@ import {
 import { FlowConfig } from "store/interfaces/Iflow";
 import { connectionsIcons } from "../../../../../../../assets/icons/icons";
 import DirectiveConfigItem from "../AddDirectiveForm/DirectiveConfigItem/DirectiveConfigItem";
+import { removeDirectiveApi, updateDirectiveApi } from "api/ehd";
 
 const PAGE_SIZE = 6;
 
@@ -39,9 +40,9 @@ function DirectivesTable(props: DirectivesTableProps) {
     setConfirmationModalActions,
     toggleConfirmationModal,
   } = useStore((state) => state.modalWindowsSlice);
-  const { updateDirective, deleteDirective } = useStore(
-    (state) => state.alertSlice
-  );
+  // const { updateDirective, deleteDirective } = useStore(
+  //   (state) => state.alertSlice
+  // );
   const [currentDirectiveIndex, setCurrentDirectiveIndex] =
     useState<Number>(-1);
 
@@ -71,7 +72,7 @@ function DirectivesTable(props: DirectivesTableProps) {
 
   async function handleDirectiveUpdate(directive: Directive) {
     try {
-      const res: any = await updateDirective(directive);
+      const res: any = await updateDirectiveApi(directive);
       toggleMessageModal(res.data.success ? "sucess!!!" : res.data.message);
 
       if (!res.data.success) {
@@ -84,7 +85,7 @@ function DirectivesTable(props: DirectivesTableProps) {
 
   async function handleDirectiveDelete(ehControlId: number) {
     try {
-      const res: any = await deleteDirective(ehControlId);
+      const res: any = await removeDirectiveApi(ehControlId);
       toggleMessageModal(res.data.success ? "sucess!!!" : res.data.message);
 
       if (res.data.success) {

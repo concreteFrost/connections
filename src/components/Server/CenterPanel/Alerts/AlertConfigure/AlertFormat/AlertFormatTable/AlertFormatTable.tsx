@@ -4,6 +4,7 @@ import useStore from "store/store";
 import moment from "moment";
 import { AlertFormat } from "store/interfaces/IAlerts";
 import { Group, User } from "store/interfaces/ISecurity";
+import { getAlertFormatsApi, removeAlertFormatApi, updateAlertFormatApi } from "api/ehd";
 
 interface AlertFormatTableProps {
     alertFormats: AlertFormat[],
@@ -15,7 +16,7 @@ interface AlertFormatTableProps {
 const PAGE_SIZE = 5;
 
 function AlertFormatTable(props: AlertFormatTableProps) {
-    const { getAlertFormats, updateAlertFormat, deleteAlertFormat } = useStore((state) => state.alertSlice);
+    // const { getAlertFormats, updateAlertFormat, deleteAlertFormat } = useStore((state) => state.alertSlice);
     const { toggleMessageModal, toggleConfirmationModal, setConfirmationModalActions } = useStore((state) => state.modalWindowsSlice)
     const [displayedAlertFormats, setDisplayedAlertFormats] = useState<Array<AlertFormat>>([]);
 
@@ -54,14 +55,14 @@ function AlertFormatTable(props: AlertFormatTableProps) {
 
     async function handleAlertFormatUpdate(alertFormat: AlertFormat) {
         try {
-            const res: any = await updateAlertFormat(alertFormat);
+            const res: any = await updateAlertFormatApi(alertFormat);
 
             toggleMessageModal(res.data.success ? "success!!!" : res.data.message);
 
 
             if (res.data.success) {
-                const alertFormatsData = await getAlertFormats();
-                props.setAlertFormats(alertFormatsData);
+                const alertFormatsData : any = await getAlertFormatsApi();
+                props.setAlertFormats(alertFormatsData.data);
             }
 
 
@@ -72,7 +73,7 @@ function AlertFormatTable(props: AlertFormatTableProps) {
 
     async function handleAlertFormatDelete(alertFormatId: number) {
         try {
-            const res: any = await deleteAlertFormat(alertFormatId);
+            const res: any = await removeAlertFormatApi(alertFormatId);
 
             toggleMessageModal(res.data.success ? "success!!!" : res.data.message);
 

@@ -20,8 +20,6 @@ function Security() {
         }
     }
 
-    console.log('render security')
-
     useEffect(() => {
         fetchUsersAndGroups();
     }, [])
