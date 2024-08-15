@@ -79,8 +79,7 @@ const deleteCurrentUser =  (get: () => RFState, set: any)=>()=>{
   set((state:RFState)=>({
     securitySlice: {
       ...state.securitySlice,
-      userToEdit:null,
-      appUser:null
+      userToEdit:null
     },
   }))
 

@@ -9,7 +9,7 @@ import useStore from "../store/store";
 
 function Login() {
   const [userName, setUserName] = useState<string>(
-    localStorage.getItem("iCon_username") ?? "cadmin"
+    localStorage.getItem("iCon_username") ?? ""
   );
   const { setAppUserPassword, appUserPassword } = useStore(
     (state) => state.securitySlice
@@ -42,16 +42,21 @@ function Login() {
     checkSubscription();
   }, []);
 
-  function submit(e: any) {
+  async function submit(e: any) {
     e.preventDefault();
     if (appUserPassword && userName)
-      getToken(userName, appUserPassword)
-        .then((res: any) => {
-          console.log(res)
-          setAccessToken(res.data, userName);
-          navigate("/dashboard/server");
-        })
-        .catch((e) => handleSetErrorMessage("something went wrong..."));
+
+    try{
+      const res :any = await getToken(userName, appUserPassword)
+      console.log(res.data)
+      await setAccessToken(res.data,userName);
+      window.location.href = '/dashboard/server'
+      
+
+    }
+    catch(e){
+      handleSetErrorMessage("something went wrong...")
+    }
   }
 
   function handleSetErrorMessage(msg: string) {

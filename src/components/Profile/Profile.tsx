@@ -25,11 +25,12 @@ function Profile(props: ProfileProps) {
   const [isEditUserVisible, setEditUserVisible] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const { userToEdit, getUser, deleteCurrentUser } = useStore((state) => state.securitySlice);
+  const { userToEdit, getUser} = useStore((state) => state.securitySlice);
 
   async function getMe() {
     try {
       const res: any = await getMeAPI();
+      console.log(res.data.userRecord)
       await getUser(res.data.userRecord);
     } catch (e) {
       console.log("error getting me", e);
@@ -47,8 +48,8 @@ function Profile(props: ProfileProps) {
       console.log("unable to disable client notifications since the user is not logged in");
     } finally {
       await clearUserData();
-      await deleteCurrentUser();
       await navigate("/login");
+    
     }
   }
 

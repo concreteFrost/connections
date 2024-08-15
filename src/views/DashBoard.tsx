@@ -20,6 +20,7 @@ const DashboardLayout = React.memo(() => {
 
 function Dashboard() {
   useEffect(() => {
+    console.log('getting user settings')
     getUserSettingsData();
   }, []);
 
