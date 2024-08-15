@@ -25,7 +25,7 @@ function Profile(props: ProfileProps) {
   const [isEditUserVisible, setEditUserVisible] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const { userToEdit, getUser } = useStore((state) => state.securitySlice);
+  const { userToEdit, getUser, deleteCurrentUser } = useStore((state) => state.securitySlice);
 
   async function getMe() {
     try {
@@ -38,15 +38,21 @@ function Profile(props: ProfileProps) {
 
   async function logout() {
     // Clear user data and navigate to the login page
-    await disableClientAlertsApi();
-    await disableClientFlowStatusAPI();
-    await disableClientNotificationsAPI();
 
-    await clearUserData();
-    await navigate("/login");
+    try {
+      await disableClientAlertsApi();
+      await disableClientFlowStatusAPI();
+      await disableClientNotificationsAPI();
+    } catch (e) {
+      console.log("unable to disable client notifications since the user is not logged in");
+    } finally {
+      await clearUserData();
+      await deleteCurrentUser();
+      await navigate("/login");
+    }
   }
 
-  useOutsideMouseClick(modalRef,()=> setProfileModalVisible(false));
+  useOutsideMouseClick(modalRef, () => setProfileModalVisible(false));
   useEscapeKeyHandler(() => setProfileModalVisible(false));
 
   return (
@@ -58,7 +64,7 @@ function Profile(props: ProfileProps) {
         }`}
         onClick={() => {
           getMe();
-          setProfileModalVisible(!isProfileModalVisible)
+          setProfileModalVisible(!isProfileModalVisible);
         }}
       >
         {connectionsIcons.profile}
@@ -69,8 +75,13 @@ function Profile(props: ProfileProps) {
           {/*ACCOUNT INFO */}
           <section className={s.account_info_wrapper}>
             <header>ACCOUNT</header>
-            <p className={s.edit_btn} onClick={() => {setEditUserVisible(true);
-            setProfileModalVisible(false)}}>
+            <p
+              className={s.edit_btn}
+              onClick={() => {
+                setEditUserVisible(true);
+                setProfileModalVisible(false);
+              }}
+            >
               edit
             </p>
             <main>
@@ -90,7 +101,7 @@ function Profile(props: ProfileProps) {
             <button
               className={s.close_btn}
               onClick={() => {
-                setProfileModalVisible(false)
+                setProfileModalVisible(false);
               }}
             >
               CLOSE

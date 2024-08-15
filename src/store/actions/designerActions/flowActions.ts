@@ -206,7 +206,6 @@ const flowActions = {
   closeFlow: closeFlow,
   loadFlowFromDraft: loadFlowFromDraft,
   saveDraftFlow: saveDraftFlow,
- 
   setFlowName: setFlowName,
   setFlowVersion: setFlowVersion,
   setFlowIsEnabled: setFlowIsEnabled,

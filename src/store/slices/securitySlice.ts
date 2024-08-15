@@ -20,12 +20,13 @@ export type SecuritySlice = {
     //group actions
     getGroupList: () => void;
     getGroupMembers: (groupdId: string) => void;
+    deleteCurrentUser:()=>void;
 
 }
 
 const securitySlice = (get: () => RFState, set: any): SecuritySlice => ({
     appUser:null,
-    appUserPassword:'cre4min9Tuff',
+    appUserPassword:'testing',
     userToEdit: null,
     userList: [],
     groupList: [],
@@ -37,7 +38,7 @@ const securitySlice = (get: () => RFState, set: any): SecuritySlice => ({
     getRolesList: securityActions.getRoleList(get, set),
     getGroupMembers: securityActions.getGroupMembers(get, set),
     getGroupList: securityActions.getGroupList(get, set),
-    
+    deleteCurrentUser:securityActions.deleteCurrentUser(get,set)
 })
 
 export default securitySlice;

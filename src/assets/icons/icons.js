@@ -1,4 +1,3 @@
-import React from "react";
 import {
   BsMailbox,
   BsFileBinary,
@@ -65,15 +64,16 @@ export const connectionsIcons = {
     file_system: <BsFiles></BsFiles>,
     ftp: 'ftp',
     odbc: <BsDatabase></BsDatabase>,
-    restservice: 'R',
+    restservice: 'r',
     sql: <BsFiletypeSql />,
     ssc_webservice: <BsGlobe></BsGlobe>,
     webservice: <FaGlobe></FaGlobe>,
-    sap: "S",
-    uipath: "U",
-    azure_resources: "A",
-    access_procure_wizard: "AW",
-    access_epos: "AE",
+    sap: "s",
+    uipath: "u",
+    azure_resources: "a",
+    access_procure_wizard: "aw",
+    access_epos: "ae",
+    grc_webservice:"grc",
     //function
     archive: <BsArchive></BsArchive>,
     delay: <BsClock></BsClock>,

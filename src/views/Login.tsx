@@ -9,7 +9,7 @@ import useStore from "../store/store";
 
 function Login() {
   const [userName, setUserName] = useState<string>(
-    localStorage.getItem("iCon_username") ?? ""
+    localStorage.getItem("iCon_username") ?? "cadmin"
   );
   const { setAppUserPassword, appUserPassword } = useStore(
     (state) => state.securitySlice

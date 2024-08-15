@@ -60,6 +60,8 @@ function DraftFlows() {
     }
   }
 
+  if(loadedFlowFolders.length<=0) return null;
+
   return (
     <div className={s.wrapper}>
       {/*FOLDERS */}

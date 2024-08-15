@@ -25,7 +25,7 @@ function FlowsItem(props: FlowsItemProps) {
     if (statistics) setFlowList(statistics);
   }, [statistics]);
 
-  if (flowList.length<=0) return null; //avoid rendering if list is empty
+  // if (flowList.length<=0) return null; //avoid rendering if list is empty
 
   return (
     <div className={s.section}>

@@ -23,48 +23,56 @@ export const mockBlock: NodeType = {
         value: "",
         required: true,
         format: "0",
+        description:""
       },
       {
         name: "FILE_MATCH",
         value: "",
         required: true,
         format: "0",
+        description:""
       },
       {
         name: "ENABLED",
         value: "Y",
         required: true,
         format: "5",
+        description:""
       },
       {
         name: "EXECUTION_INSTRUCTIONS",
         value: "N",
         required: true,
         format: "6",
+        description:""
       },
       {
         name: "TRACKING_ENABLED",
         value: "N",
         required: false,
         format: "5",
+        description:""
       },
       {
         name: "TRACK_ID",
         value: "",
         required: false,
         format: "7",
+        description:""
       },
       {
         name: "TRACKING_DATA",
         value: "",
         required: false,
         format: "0",
+        description:""
       },
       {
         name: "XML_BASE",
         value: "",
         required: false,
         format: "0",
+        description:""
       },
     ],
     extendedParameters: [],
@@ -94,54 +102,63 @@ export const mockBlocks : any = [
         value: "",
         required: true,
         format: "0",
+        description:""
       },
       {
         name: "SAP_PORT",
         value: 0,
         required: false,
         format: "1",
+        description:""
       },
       {
         name: "SAP_USERNAME",
         value: "",
         required: true,
         format: "0",
+        description:""
       },
       {
         name: "SAP_PASSWORD",
         value: "",
         required: true,
         format: "0",
+        description:""
       },
       {
         name: "SAP_CONNECTION_TYPE",
         value: "",
         required: true,
         format: "0",
+        description:""
       },
       {
         name: "SAP_OBJECT",
         value: "",
         required: false,
         format: "0",
+        description:""
       },
       {
         name: "SAP_DESTINATION",
         value: "",
         required: false,
         format: "0",
+        description:""
       },
       {
         name: "SAP_TIMEOUT",
         value: 0,
         required: false,
         format: "1",
+        description:""
       },
       {
         name: "ENABLED",
         value: "N",
         required: true,
         format: "5",
+        description:""
       },
     ],
   },
@@ -163,24 +180,28 @@ export const mockBlocks : any = [
         value: "",
         required: true,
         format: "0",
+        description:""
       },
       {
         name: "UIPATH_ORCHESTRATOR_URL",
         value: "",
         required: true,
         format: "0",
+        description:""
       },
       {
         name: "UIPATH_PROJECT_ID",
         value: "",
         required: false,
         format: "0",
+        description:""
       },
       {
         name: "ENABLED",
         value: "N",
         required: true,
         format: "5",
+        description:""
       },
     ],
   },
@@ -202,24 +223,28 @@ export const mockBlocks : any = [
         value: "",
         required: true,
         format: "0",
+        description:""
       },
       {
         name: "AZURE_RESOURCE_NAME",
         value: "",
         required: true,
         format: "0",
+        description:""
       },
       {
         name: "AZURE_OPERATION",
         value: "",
         required: true,
         format: "0",
+        description:""
       },
       {
         name: "ENABLED",
         value: "N",
         required: true,
         format: "5",
+        description:""
       },
     ],
   },
@@ -241,24 +266,28 @@ export const mockBlocks : any = [
         value: "",
         required: true,
         format: "0",
+        description:""
       },
       {
         name: "AZURE_RESOURCE_NAME",
         value: "",
         required: true,
         format: "0",
+        description:""
       },
       {
         name: "AZURE_OPERATION",
         value: "",
         required: true,
         format: "0",
+        description:""
       },
       {
         name: "ENABLED",
         value: "N",
         required: true,
         format: "5",
+        description:""
       },
     ],
   },
@@ -280,24 +309,28 @@ export const mockBlocks : any = [
         value: "",
         required: true,
         format: "0",
+        description:""
       },
       {
         name: "AZURE_RESOURCE_NAME",
         value: "",
         required: true,
         format: "0",
+        description:""
       },
       {
         name: "AZURE_OPERATION",
         value: "",
         required: true,
         format: "0",
+        description:""
       },
       {
         name: "ENABLED",
         value: "N",
         required: true,
         format: "5",
+        description:""
       },
     ],
   },

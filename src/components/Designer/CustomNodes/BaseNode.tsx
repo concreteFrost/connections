@@ -10,17 +10,12 @@ import { BlockData } from "store/interfaces/IBlock";
 import { shallow } from "zustand/shallow";
 import React from "react";
 
-interface BlockVisual{
-  blockName:string,
-  blockLabel:string
-}
 
 const BaseNode = (props: NodeProps) => {
   const { deleteBlock, setDirective,getParameterValue,toggleConfirmationModal, setConfirmationModalActions, flow, directives, blockData } = useStore(
     (state) => ({
       deleteBlock: state.flowSlice.deleteBlock,
       setDirective: state.flowSlice.setDirective,
-      // getBlockProperties: state.flowSlice.getBlockProperties,
       getParameterValue: state.designerVisualElementsSlice.getParameterValue,
       toggleConfirmationModal:state.modalWindowsSlice.toggleConfirmationModal,
       setConfirmationModalActions:state.modalWindowsSlice.setConfirmationModalActions,
@@ -37,7 +32,6 @@ const BaseNode = (props: NodeProps) => {
   const blockLabel = block?.blockLabel;
 
   const [isOutlined, setIsOutlined] = useState(false);
-
 
   const selectedBlockId = useMemo(() => {
     const selectedBlock = flow.visual.blocks.find((b: Node<any>) => b.selected);

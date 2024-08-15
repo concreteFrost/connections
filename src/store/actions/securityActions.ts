@@ -75,6 +75,18 @@ const getRoleList = (get: () => RFState, set: any) => async () => {
   }
 };
 
+const deleteCurrentUser =  (get: () => RFState, set: any)=>()=>{
+  set((state:RFState)=>({
+    securitySlice: {
+      ...state.securitySlice,
+      userToEdit:null,
+      appUser:null
+    },
+  }))
+
+  console.log(get().securitySlice)
+}
+
 //#endregion
 
 //GROUP ACTIONS
@@ -130,6 +142,7 @@ const securityActions = {
   getRoleList: getRoleList,
   getGroupList: getGroupList,
   getGroupMembers: getGroupMembers,
+  deleteCurrentUser:deleteCurrentUser
 
 };
 

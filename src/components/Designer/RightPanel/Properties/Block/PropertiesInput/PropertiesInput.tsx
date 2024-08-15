@@ -1,12 +1,12 @@
 import useStore from "store/store";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { BlockParameters } from "store/interfaces/IBlock";
 import FilteredResults from "components/Designer/RightPanel/FilteredResults/FilteredResults";
 import InputLabel from "./InputLabel/InputLabel";
 
 interface ISelection {
-  index: number,
-  value: string
+  index: number;
+  value: string;
 }
 
 export interface PropertiesInputProps {
@@ -16,9 +16,13 @@ export interface PropertiesInputProps {
 function PropertiesInput(props: PropertiesInputProps) {
   const flowSlice = useStore((state) => state.flowSlice);
 
-  const [selection, setSelection] = useState<ISelection>({ index: 0, value: '' })
+  const [selection, setSelection] = useState<ISelection>({
+    index: 0,
+    value: "",
+  });
+
   function setCurrentParameter(parameterName: string, value: any) {
-    const format = String(props.blockData.format); 
+    const format = String(props.blockData.format);
     switch (format) {
       case "0":
         return flowSlice.setStringParameter(parameterName, value);
@@ -36,6 +40,8 @@ function PropertiesInput(props: PropertiesInputProps) {
         return flowSlice.setExecutionParameter(parameterName, value);
       case "7":
         return flowSlice.setBigIntParameter(parameterName, value);
+      case "8":
+        return flowSlice.setStringParameter(parameterName, value);
       default:
         return flowSlice.setStringParameter(parameterName, value);
     }
@@ -60,6 +66,8 @@ function PropertiesInput(props: PropertiesInputProps) {
         return "text";
       case "7":
         return "number";
+      case "8":
+        return "text";
       default:
         return "text";
     }
@@ -70,15 +78,14 @@ function PropertiesInput(props: PropertiesInputProps) {
 
   const setSelectionIndex = (e: any) => {
     if (e.key === "{") {
-      setSelection({ ...selection, index: e.target.selectionStart })
+      setSelection({ ...selection, index: e.target.selectionStart });
     }
-
-  }
+  };
 
   function setSelectionValue(e: any) {
-    const res = e.target.value.slice(selection.index, e.target.value.length)
-    const cleanedRes = res.replace(/\s.*$/, '');
-    setSelection({ ...selection, value: cleanedRes })
+    const res = e.target.value.slice(selection.index, e.target.value.length);
+    const cleanedRes = res.replace(/\s.*$/, "");
+    setSelection({ ...selection, value: cleanedRes });
   }
 
   return (
