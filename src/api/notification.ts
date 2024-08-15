@@ -1,14 +1,15 @@
 import axios from "axios";
 import { baseUrl } from "../store/constants/baseUrl";
-import { getAccessToken } from "../store/actions/storageActions";
 import { Notification, Subscription } from "../store/interfaces/INotification";
-import { headers } from "./utils/headers";
 
 export function getNotificationTypesAPI() {
   return new Promise((resolve, reject) => {
     axios
       .get(baseUrl + "/Notification/GetTypes", {
-        headers: headers,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+        },
       })
       .then((res) => resolve(res))
       .catch((e) => reject(e));
@@ -19,7 +20,10 @@ export function getNotificationsAPI(userId?: string, userGroup?: string) {
   return new Promise((resolve, reject) => {
     axios
       .get(baseUrl + "/Notification/List", {
-        headers: headers,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+        },
       })
       .then((res) => resolve(res))
       .catch((e) => reject(e));
@@ -32,7 +36,10 @@ export function newNotificationAPI(notificationRecord: Notification) {
     axios({
       method: "post",
       url: baseUrl + "/Notification/NewNotification",
-      headers: headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
       data: notificationRecord,
     })
       .then((res) => resolve(res))
@@ -45,7 +52,10 @@ export function removeNotificationAPI(notificationID: number) {
     axios({
       method: "post",
       url: baseUrl + "/Notification/RemoveNotification",
-      headers: headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
       params: {
         notificationId: notificationID,
       },
@@ -60,7 +70,10 @@ export function updateNotificationAPI(notificationRecord: Notification) {
     axios({
       method: "post",
       url: baseUrl + "/Notification/UpdateNotification",
-      headers: headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
       data: notificationRecord,
     })
       .then((res) => resolve(res))
@@ -73,7 +86,10 @@ export function enableClientNotificationsAPI(subscribtion: Subscription) {
     axios({
       method: "post",
       url: baseUrl + "/Notification/EnableClientNotifications",
-      headers: headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
       data: {
         endpoint: subscribtion.endpoint,
         auth: subscribtion.auth,
@@ -90,7 +106,10 @@ export function disableClientNotificationsAPI() {
     axios({
       method: "post",
       url: baseUrl + "/Notification/DisableClientNotifications",
-      headers: headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
     })
       .then((res) => resolve(res))
       .catch((e) => reject(e));
@@ -107,7 +126,10 @@ export function registerClientNotificationAPI(
     axios({
       method: "post",
       url: baseUrl + "/Notification/RegisterClientNotification",
-      headers: headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
       params: {
         notificationId: notificationId,
         callbackURI: callbackURI,
@@ -141,7 +163,10 @@ export function testClientCallbackAPI(
     axios({
       method: "post",
       url: baseUrl + "/Notification/TestClientCallback",
-      headers: headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
       params: {
         yourCallbackUrl: yourCallbackUrl,
         user: user,

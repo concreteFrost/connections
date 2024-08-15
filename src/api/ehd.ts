@@ -7,18 +7,23 @@ import {
   NewAlertFormat,
 } from "../store/interfaces/IAlerts";
 import { Subscription } from "../store/interfaces/INotification";
-import { headers } from "./utils/headers";
 
 //GET
 export function getDirectivesApi() {
   return axios.get(baseUrl + "/Ehd/GetDirectives", {
-    headers: headers,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+    },
   });
 }
 
 export function getAlertFormatsApi() {
   return axios.get(baseUrl + "/Ehd/GetAlertFormats", {
-    headers: headers,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+    },
   });
 }
 
@@ -26,43 +31,64 @@ export function getAlertFormatsApi() {
 export function addDirectiveApi(directive: Directive) {
   const { category, ehControlId, ...rest } = directive;
   return axios.post(baseUrl + "/Ehd/AddDirective", rest, {
-    headers: headers,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+    },
   });
 }
 
 export function updateDirectiveApi(directive: Directive) {
   return axios.post(baseUrl + "/Ehd/UpdateDirective", directive, {
-    headers: headers,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+    },
   });
 }
 
 export function removeDirectiveApi(ehControlId: number) {
   return axios.post(baseUrl + "/Ehd/RemoveDirective", ehControlId, {
-    headers: headers,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+    },
   });
 }
 
 export function addAlertFormatApi(alertFormat: NewAlertFormat) {
   return axios.post(baseUrl + "/Ehd/AddAlertFormat", alertFormat, {
-    headers: headers,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+    },
   });
 }
 
 export function updateAlertFormatApi(alertFormat: AlertFormat) {
   return axios.post(baseUrl + "/Ehd/UpdateAlertFormat", alertFormat, {
-    headers: headers,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+    },
   });
 }
 
 export function removeAlertFormatApi(alertFormatId: number) {
   return axios.post(baseUrl + "/Ehd/RemoveAlertFormat", alertFormatId, {
-    headers: headers,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+    },
   });
 }
 
 export function enabliClientAlertsApi(subscription: Subscription) {
   return axios.post(baseUrl + "/Ehd/EnableClientAlerts", subscription, {
-    headers: headers,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+    },
   });
 }
 
@@ -85,18 +111,27 @@ export function disableClientAlertsApi() {
 
 export function getAlertsApi(unreadOnly: boolean) {
   return axios.post(baseUrl + "/Ehd/GetAlerts", unreadOnly, {
-    headers: headers,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+    },
   });
 }
 
 export function alertMarkAsReadApi(alertId: number) {
   return axios.post(baseUrl + "/Ehd/AlertMarkAsRead", alertId, {
-    headers: headers,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+    },
   });
 }
 
 export function alertRemoveApi(alertId: number) {
   return axios.post(baseUrl + "/Ehd/AlertRemove", alertId, {
-    headers: headers,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+    },
   });
 }

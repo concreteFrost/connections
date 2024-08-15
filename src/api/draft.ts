@@ -1,13 +1,15 @@
 import axios from "axios";
 import { baseUrl } from "../store/constants/baseUrl";
-import { headers } from "./utils/headers";
 
 export function saveDraftFlowApi(data: any) {
   return new Promise((resolve, reject) => {
     axios({
       method: "post",
       url: baseUrl + "/Draft/Save",
-      headers: headers,
+       headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
       data: data,
     })
       .then((res) => resolve(res))
@@ -19,7 +21,10 @@ export function getDraftListApi() {
   return new Promise((resolve, reject) => {
     axios
       .get(baseUrl + "/Draft/List", {
-        headers: headers,
+         headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
       })
       .then((res) => resolve(res))
       .catch((e) => reject(e));
@@ -33,7 +38,10 @@ export function getDraftApi(id: any) {
         params: {
           draftId: id, // Correctly passing id as a query parameter
         },
-        headers: headers,
+         headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
       })
       .then((res) => resolve(res))
       .catch((e) => reject(e));
@@ -45,7 +53,10 @@ export function deleteDraftFlowAPI(data: any) {
     axios({
       method: "post",
       url: baseUrl + "/Draft/Delete",
-      headers: headers,
+       headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
       params: {
         draftId: data,
       },
@@ -60,7 +71,10 @@ export function approveAndReleaseAPI(draftId: string, keepDraft: boolean) {
     axios({
       method: "post",
       url: baseUrl + "/Draft/ApproveAndRelease",
-      headers: headers,
+       headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
       params: {
         draftId: draftId,
         keepDraft: keepDraft,
@@ -82,7 +96,10 @@ export function createDraftFromLiveTemplateAPI(
           originalFlowReference: liveFlowID,
           newFlowName: newDraftName,
         },
-        headers: headers,
+         headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
       })
       .then((res) => resolve(res))
       .catch((e) => reject(e));
@@ -96,7 +113,10 @@ export function createUpdateDraftFromLiveAPI(liveFlowID: string) {
         params: {
           flowReference: liveFlowID,
         },
-        headers: headers,
+         headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
       })
       .then((res) => resolve(res))
       .catch((e) => reject(e));

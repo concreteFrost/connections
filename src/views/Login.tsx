@@ -48,9 +48,9 @@ function Login() {
 
     try{
       const res :any = await getToken(userName, appUserPassword)
-      console.log(res.data)
+      
       await setAccessToken(res.data,userName);
-      window.location.href = '/dashboard/server'
+      await navigate("/dashboard/server");
       
 
     }

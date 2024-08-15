@@ -1,13 +1,16 @@
 import axios from "axios";
 import { baseUrl } from "../store/constants/baseUrl";
-import { headers } from "./utils/headers";
+
 
 export function saveFlowApi(data: any) {
   return new Promise((resolve, reject) => {
     axios({
       method: "post",
       url: baseUrl + "/Flow/UploadNew",
-      headers: headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
       data: data,
     })
       .then((res) => resolve(res))
@@ -19,7 +22,10 @@ export function getFlowListApi() {
   return new Promise((resolve, reject) => {
     axios
       .get(baseUrl + "/Data/FlowList", {
-        headers: headers,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+        },
       })
       .then((res) => resolve(res))
       .catch((e) => reject(e));
@@ -33,7 +39,10 @@ export function getFlowApi(id: any) {
         params: {
           flowReference: id, // Correctly passing id as a query parameter
         },
-        headers: headers,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+        },
       })
       .then((res) => resolve(res))
       .catch((e) => reject(e));
@@ -47,7 +56,10 @@ export function getBlockStatisticsAPI(id: string) {
         params: {
           flowIdentifier: id, // Correctly passing id as a query parameter
         },
-        headers: headers,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+        },
       })
       .then((res) => resolve(res))
       .catch((e) => reject(e));
@@ -61,7 +73,10 @@ export function enableFlowAPI(id: string) {
       params: {
         flowReference: id,
       },
-      headers: headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
     })
       .then((res) => resolve(res))
       .catch((e) => reject(e));
@@ -75,7 +90,10 @@ export function disableFlowAPI(id: string) {
       params: {
         flowReference: id,
       },
-      headers: headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
     })
       .then((res) => resolve(res))
       .catch((e) => reject(e));
@@ -89,7 +107,10 @@ export function startFlowAPI(id: string) {
       params: {
         flowReference: id,
       },
-      headers: headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
     })
       .then((res) => resolve(res))
       .catch((e) => reject(e));
@@ -103,7 +124,10 @@ export function stopFlowAPI(id: string) {
       params: {
         flowReference: id,
       },
-      headers: headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
     })
       .then((res) => resolve(res))
       .catch((e) => reject(e));

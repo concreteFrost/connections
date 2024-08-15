@@ -39,7 +39,6 @@ function Profile(props: ProfileProps) {
 
   async function logout() {
     // Clear user data and navigate to the login page
-
     try {
       await disableClientAlertsApi();
       await disableClientFlowStatusAPI();
