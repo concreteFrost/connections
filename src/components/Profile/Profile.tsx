@@ -26,6 +26,9 @@ function Profile(props: ProfileProps) {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const { userToEdit, getUser } = useStore((state) => state.securitySlice);
+  const {securitySlice} = useStore((state)=>state)
+
+  console.log(securitySlice)
 
   async function getMe() {
     try {
@@ -44,6 +47,8 @@ function Profile(props: ProfileProps) {
 
     await clearUserData();
     await navigate("/login");
+    console.log(securitySlice)
+
   }
 
   useOutsideMouseClick(modalRef,()=> setProfileModalVisible(false));
