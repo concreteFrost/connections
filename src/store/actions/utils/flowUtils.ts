@@ -70,8 +70,8 @@ export function setFlow(data: any,set: any, get:()=>RFState) {
                 value: p.value,
                 required: p.required,
                 format: p.format,
-                constraints: p.constraints,
-                placeholder: p.placeholder
+                // constraints: p.constraints,
+                // placeholder: p.placeholder
               };
             }),
             extendedParameters: b.extendedParameters.map(

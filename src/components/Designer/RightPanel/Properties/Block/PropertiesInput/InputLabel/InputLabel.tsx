@@ -13,35 +13,44 @@ export interface InputLabelProps {
 }
 
 function InputLabel(props: InputLabelProps) {
-  const _getParameterValue = useStore((state) => state.designerVisualElementsSlice.getParameterValue);
-  const setTooltipText = useStore((state) => state.designerVisualElementsSlice.setTooltipText);
+  const _getParameterValue = useStore(
+    (state) => state.designerVisualElementsSlice.getParameterValue
+  );
+  const setTooltipText = useStore(
+    (state) => state.designerVisualElementsSlice.setTooltipText
+  );
 
-  useEffect(()=>{
+  useEffect(() => {
     getParameterValue(props.blockData.value);
-  },[props.blockData])
+  }, [props.blockData]);
 
   function getParameterValue(value: any) {
     _getParameterValue(props.blockData.name, value);
   }
+
   return (
     <>
       <div className={s.grid_item}>
         <label
-          className="tooltip-item"   
-          onMouseEnter={() => setTooltipText(props.blockData.name)}
+          className="tooltip-item"
+          onMouseEnter={() =>
+            setTooltipText(
+              `${props.blockData.name}: ${props.blockData.description}`
+            )
+          }
         >
           {props.blockData.name}
         </label>
       </div>
       <div className={s.grid_item}>
         <input
-          data-testid = "test_properties_input"
+          data-testid="test_properties_input"
           type={props.defineInputType()}
-          required={props.blockData.constraints && props.blockData.constraints > 0 ? true : false}
+          required={props.blockData.required}
           value={props.blockData.value}
           checked={props.blockData.value === "Y" ? true : false}
           onChange={(e: any) => {
-            props.setSelectionValue(e)
+            props.setSelectionValue(e);
             props.setCurrentParameter(props.blockData.name, e.target.value);
           }}
           onKeyDown={(e: any) => props.setSelectionIndex(e)}
@@ -50,7 +59,6 @@ function InputLabel(props: InputLabelProps) {
           }}
         />
       </div>
-
     </>
   );
 }
