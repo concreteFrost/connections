@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from "axios";
-import { headers } from "./utils/headers";
 import { baseUrl } from "../store/constants/baseUrl";
 import { LogSearchQuery } from "../store/interfaces/IServer";
 import { Subscription } from "../store/interfaces/INotification";
@@ -7,7 +6,12 @@ import { Subscription } from "../store/interfaces/INotification";
 export function getBlocks(): Promise<any> {
   return new Promise<any>((resolve, reject) => {
     axios
-      .get(baseUrl + "/data/blocklist", { headers })
+      .get(baseUrl + "/data/blocklist", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+        },
+      })
       .then((res: AxiosResponse<any>) => {
         resolve(res.data);
       })
@@ -20,7 +24,12 @@ export function getBlocks(): Promise<any> {
 export function getBlockLookupListAPI(): Promise<any> {
   return new Promise<any>((resolve, reject) => {
     axios
-      .get(baseUrl + "/data/blockLookupList", { headers })
+      .get(baseUrl + "/data/blockLookupList", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+        },
+      })
       .then((res: AxiosResponse<any>) => {
         resolve(res);
       })
@@ -33,7 +42,12 @@ export function getBlockLookupListAPI(): Promise<any> {
 export function getServerStatusAPI(): Promise<any> {
   return new Promise<any>((resolve, reject) => {
     axios
-      .get(baseUrl + "/data/serverstatus", { headers })
+      .get(baseUrl + "/data/serverstatus", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+        },
+      })
       .then((res: AxiosResponse<any>) => {
         resolve(res.data);
       })
@@ -70,7 +84,10 @@ export function getDataLogsAPI(query: LogSearchQuery): Promise<any> {
   return new Promise<any>((resolve, reject) => {
     axios(baseUrl + "/data/logs", {
       method: "PUT",
-      headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
       data: newQuery,
     })
       .then((res: AxiosResponse<any>) => {
@@ -87,7 +104,10 @@ export function enableClientFlowStatusAPI(
 ): Promise<any> {
   return new Promise<any>((resolve, reject) => {
     axios(baseUrl + "/data/enableClientFlowStatus", {
-      headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
       method: "POST",
       data: {
         endpoint: subscription.endpoint,
@@ -107,7 +127,10 @@ export function enableClientFlowStatusAPI(
 export function disableClientFlowStatusAPI(): Promise<any> {
   return new Promise<any>((resolve, reject) => {
     axios(baseUrl + "/data/disableClientFlowStatus", {
-      headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
       method: "POST",
     })
       .then((res: AxiosResponse<any>) => {
@@ -122,7 +145,12 @@ export function disableClientFlowStatusAPI(): Promise<any> {
 export function getFlowListStatusAPI(): Promise<any> {
   return new Promise<any>((resolve, reject) => {
     axios
-      .get(baseUrl + "/data/flowListStatus", { headers })
+      .get(baseUrl + "/data/flowListStatus", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+        },
+      })
       .then((res: AxiosResponse<any>) => {
         resolve(res);
       })
