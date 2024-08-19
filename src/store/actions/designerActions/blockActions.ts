@@ -172,6 +172,7 @@ export const setBlockName = (get: () => RFState,set: any) => (text: string) => {
     if (x.blockIdentifier === getSelectedBlock(get().flowSlice).id) {
       return {
         ...x,
+        name: text,
         blockLabel: text
       }
     } return x
