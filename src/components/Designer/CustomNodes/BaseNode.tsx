@@ -33,7 +33,7 @@ const BaseNode = (props: NodeProps) => {
   );
 
   const block = blockData.find(b => b.blockIdentifier === props.id);
-  const blockName = block?.name;
+  const blockName = block?.blockType;
   const blockLabel = block?.blockLabel;
 
   const [isOutlined, setIsOutlined] = useState(false);
