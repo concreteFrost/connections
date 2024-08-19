@@ -62,12 +62,14 @@ function InputLabel(props: InputLabelProps) {
         ) : (
           <select value={props.blockData.value} onChange={(e)=>props.setCurrentParameter(props.blockData.name, e.target.value)}>
             <option value="">Select the endpoint</option>
+            <option value="INCB">Create Incident From Metric Breach</option>
             <option value="INGI">Get Incident By Id</option>
             <option value="CTIS">Get Control Summary By Id</option>
             <option value="MTGI">Get Metric By Id</option>
+            <option value="INCP">Incident Post</option>
             <option value="CTLC">Link Control</option>
             <option value="MTUM">Update Metric</option>
-            <option value="INCB">Create Incident From Metric Breach</option>
+            <option value="GRCCALLREF">UI Description</option>
           </select>
         )}
       </div>
