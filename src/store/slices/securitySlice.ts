@@ -1,6 +1,6 @@
 
 import securityActions from "store/actions/securityActions";
-import { Group, GroupWithUsers, NewUser, Role, User } from "store/interfaces/ISecurity";
+import {GroupWithUsers, Role, User } from "store/interfaces/ISecurity";
 import { RFState } from "store/types/rfState"
 
 export type SecuritySlice = {

@@ -1,7 +1,7 @@
 import useStore from "store/store";
 
 function Approve() {
-  const { draft } = useStore((state) => state.flowSlice);
+  const { draft} = useStore((state) => state.flowSlice);
   const {setApproveFlowModalMessage, toggleApproveFlowModal } = useStore((state) => state.modalWindowsSlice);
   function handleToggleApproveModal(){
     toggleApproveFlowModal(true,draft.draftId!);

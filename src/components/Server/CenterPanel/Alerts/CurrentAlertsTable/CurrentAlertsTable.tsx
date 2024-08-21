@@ -1,25 +1,35 @@
 import { useEffect, useState } from "react";
 import s from "./CurrentAlertsTable.module.scss";
 import { useNavigate } from "react-router";
-import {
-  getAlertsApi,
-  alertMarkAsReadApi,
-  alertRemoveApi,
-} from "api/ehd";
+import { getAlertsApi, alertMarkAsReadApi, alertRemoveApi } from "api/ehd";
 import { Alert } from "store/interfaces/IAlerts";
 import useStore from "store/store";
-import { response } from "express";
+import UnreadAlerts from "./UnreadAlerts/UnreadAlerts";
+import ReadAlerts from "./ReadAlerts/ReadAlerts";
 
 function CurrentAlertsTable() {
   const navigate = useNavigate();
 
-  const [alerts, setAlerts] = useState<Array<Alert>>();
+  const [alerts, setAlerts] = useState<Array<Alert>>([]);
+  const [readAlerts, setReadAlerts] = useState<Array<Alert>>([]);
   const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
 
+  const handleGetAlerts = async () => {
+    await getAlertsApi(true)
+      .then((res: any) => {
+        setAlerts(res.data);
+      })
+      .catch((e) => console.log(e));
+
+    await getAlertsApi(false)
+      .then((res: any) => {
+        setReadAlerts(res.data);
+      })
+      .catch((e) => console.log(e));
+  };
+
   useEffect(() => {
-    getAlertsApi(true).then((res: any) => {
-      setAlerts(res.data);
-    }).catch((e)=>console.log(e))
+    handleGetAlerts();
   }, []);
 
   async function removeAlertFromCache(alertId: number) {
@@ -48,14 +58,15 @@ function CurrentAlertsTable() {
         return;
       }
 
+      const addToReadAlers = alerts.find(
+        (alert: Alert) => alert.alertId === alertId
+      )!;
       const filteredAlerts = alerts?.filter(
         (alert: Alert) => alert.alertId !== alertId
       );
-
-      if (filteredAlerts) {
-        setAlerts(filteredAlerts);
-        removeAlertFromCache(alertId);
-      }
+      setReadAlerts([...readAlerts, addToReadAlers]);
+      setAlerts(filteredAlerts);
+      removeAlertFromCache(alertId);
     } catch (error) {
       console.log("error reading the alert", error);
     }
@@ -70,14 +81,17 @@ function CurrentAlertsTable() {
         return;
       }
 
-      const filteredAlerts = alerts?.filter(
+      const filteredAlerts = alerts.filter(
         (alert: Alert) => alert.alertId !== alertId
       );
 
-      if (filteredAlerts) {
-        setAlerts(filteredAlerts);
-        removeAlertFromCache(alertId);
-      }
+      const filteredReadAlerts = readAlerts.filter(
+        (alert: Alert) => alert.alertId !== alertId
+      );
+
+      setAlerts(filteredAlerts);
+      setReadAlerts(filteredReadAlerts);
+      removeAlertFromCache(alertId);
     } catch (error) {
       console.log("error reading the alert", error);
     }
@@ -94,47 +108,17 @@ function CurrentAlertsTable() {
           CONFIGURE
         </button>
       </header>
-      <main>
-        <table>
-          <thead>
-            <tr>
-              <th colSpan={4}>Message</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {alerts && alerts?.length > 0 ? (
-              alerts?.map((element: Alert) => (
-                <tr key={alerts.indexOf(element)}>
-                  <td colSpan={4}>{element.messageText}</td>
-                  <td>
-                    <div className={s.actions_btn_wrapper}>
-                      <button
-                        className={s.read_btn}
-                        onClick={() => handleMarkAsRead(element.alertId)}
-                      >
-                        READ
-                      </button>
-                      <button
-                        className={s.delete_btn}
-                        onClick={() => handleAlertDelete(element.alertId)}
-                      >
-                        DELETE
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={4}>-</td>
-
-                <td></td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </main>
+      <UnreadAlerts
+        alerts={alerts}
+        handleAlertDelete={handleAlertDelete}
+        handleMarkAsRead={handleMarkAsRead}
+        s={s}
+      ></UnreadAlerts>
+      <ReadAlerts
+        alerts={readAlerts}
+        handleAlertDelete={handleAlertDelete}
+        s={s}
+      />
     </section>
   );
 }
