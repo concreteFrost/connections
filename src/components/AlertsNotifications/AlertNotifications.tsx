@@ -5,8 +5,6 @@ import moment from "moment";
 import { IconVariants } from "store/enums/profile";
 import { useNavigate } from "react-router";
 import { handleHandShake } from "utils/handleHandshake";
-import { getAlertsApi } from "api/ehd";
-import { Alert } from "store/interfaces/IAlerts";
 import { clearFromCache } from "utils/clearCache";
 
 interface IPushAlert {
@@ -43,6 +41,7 @@ function AlertNotifications(props: { themeColor: IconVariants }) {
       handleHandShake();
       // try {
       //   const res : any = await getAlertsApi(true);
+
       //   setAlertsCount(res.data.length);
       //   setAlertsList(res.data);
       // } catch (error) {
@@ -52,15 +51,14 @@ function AlertNotifications(props: { themeColor: IconVariants }) {
       setAlertsList(cahceData);
     }
   }
-
-  async function handleClearCache() {
+  async function clearAlertsFromCache() {
     try {
       await clearFromCache("alerts");
       await setListVisible(false);
       await setAlertsCount(0);
       await setAlertsList([]);
     } catch (e) {
-      console.log("error clearing cache");
+      console.log("error deleting alerts from cache");
     }
   }
 
@@ -132,7 +130,7 @@ function AlertNotifications(props: { themeColor: IconVariants }) {
               </li>
             ))}
           </ul>
-          <button className={s.clear_btn} onClick={handleClearCache}>
+          <button className={s.clear_btn} onClick={clearAlertsFromCache}>
             CLEAR
           </button>
         </div>
