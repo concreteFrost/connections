@@ -5,6 +5,7 @@ import moment from "moment";
 import { IconVariants } from "store/enums/profile";
 import { useNavigate } from "react-router";
 import { handleHandShake } from "utils/handleHandshake";
+import { getAlertsApi } from "api/ehd";
 
 interface IPushAlert {
   Message: string;
@@ -38,8 +39,16 @@ function AlertNotifications(props: { themeColor: IconVariants }) {
 
     if (cahceData.length > 0) {
       handleHandShake();
-      setAlertsCount(cahceData.length);
-      setAlertsList(cahceData);
+      try {
+        const res : any = await getAlertsApi(true);
+
+        setAlertsCount(res.data.length);
+        setAlertsList(res.data);
+      } catch (error) {
+        console.log('error getting alerts')
+      }
+      // setAlertsCount(cahceData.length);
+      // setAlertsList(cahceData);
     }
   }
   async function clearAlertsFromCache() {
@@ -83,6 +92,7 @@ function AlertNotifications(props: { themeColor: IconVariants }) {
       clearInterval(refreshTimer);
     };
   }, [refreshInterval]);
+
 
   return (
     <div className={s.wrapper}>

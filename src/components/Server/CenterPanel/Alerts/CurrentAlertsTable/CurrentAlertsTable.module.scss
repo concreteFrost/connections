@@ -1,43 +1,43 @@
 @import "/src/style/variables.scss";
 @import "/src/style/mixins.scss";
 
-.wrapper{
+.wrapper {
 
     padding: 20px;
 
-    h3{
+    h3 {
         color: $color-font-main;
         margin-bottom: 10px;
     }
 
-    .configure_btn{
+    .configure_btn {
         @include blue_btn;
         margin-bottom: 10px;
     }
-    table{  
+
+    table {
         @include server_table;
         table-layout: fixed;
 
-        .actions_btn_wrapper{
+        .actions_btn_wrapper {
             display: flex;
             flex-direction: column;
- 
-           button{
-            @include blue_btn;
-            width: 100px;
-            margin: auto;
-            margin-top: 3px;
-           
-           }
-
-           .read_btn{
-            background-color: $bg-warning-btn;
-           }
-
-           .delete_btn{
-            background-color: $bg-delete-btn;
-           }
-         
         }
+    }
+
+    button {
+        @include blue_btn;
+        width: 100px;
+        margin: auto;
+        margin-top: 3px;
+
+    }
+
+    .read_btn {
+        background-color: $bg-warning-btn;
+    }
+
+    .delete_btn {
+        background-color: $bg-delete-btn;
     }
 }
