@@ -5,7 +5,7 @@ import moment from "moment";
 import { IconVariants } from "store/enums/profile";
 import { useNavigate } from "react-router";
 import { handleHandShake } from "utils/handleHandshake";
-import { getAlertsApi } from "api/ehd";
+import { clearFromCache } from "utils/clearCache";
 
 interface IPushAlert {
   Message: string;
@@ -39,31 +39,27 @@ function AlertNotifications(props: { themeColor: IconVariants }) {
 
     if (cahceData.length > 0) {
       handleHandShake();
-      try {
-        const res : any = await getAlertsApi(true);
+      // try {
+      //   const res : any = await getAlertsApi(true);
 
-        setAlertsCount(res.data.length);
-        setAlertsList(res.data);
-      } catch (error) {
-        console.log('error getting alerts')
-      }
-      // setAlertsCount(cahceData.length);
-      // setAlertsList(cahceData);
+      //   setAlertsCount(res.data.length);
+      //   setAlertsList(res.data);
+      // } catch (error) {
+      //   console.log('error getting alerts')
+      // }
+      setAlertsCount(cahceData.length);
+      setAlertsList(cahceData);
     }
   }
   async function clearAlertsFromCache() {
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cache) => {
-          if (cache === "alerts") {
-            return caches.delete(cache);
-          }
-        })
-      );
-    });
-    await setListVisible(false);
-    await setAlertsCount(0);
-    await setAlertsList([]);
+    try {
+      await clearFromCache("alerts");
+      await setListVisible(false);
+      await setAlertsCount(0);
+      await setAlertsList([]);
+    } catch (e) {
+      console.log("error deleting alerts from cache");
+    }
   }
 
   function handleOutsideClick(e: MouseEvent) {
@@ -92,7 +88,6 @@ function AlertNotifications(props: { themeColor: IconVariants }) {
       clearInterval(refreshTimer);
     };
   }, [refreshInterval]);
-
 
   return (
     <div className={s.wrapper}>
