@@ -56,7 +56,7 @@ function AlertNotifications(props: { themeColor: IconVariants }) {
     try {
       await clearFromCache("alerts");
       await setListVisible(false);
-      await setAlerts([]);
+   
     } catch (e) {
       console.log("error deleting alerts from cache");
     }
