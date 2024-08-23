@@ -10,12 +10,11 @@ import ReadAlerts from "./ReadAlerts/ReadAlerts";
 function CurrentAlertsTable() {
   const navigate = useNavigate();
 
-  const {alerts,setAlerts} = useStore((state)=> state.alertSlice);
+  const { alerts, setAlerts } = useStore((state) => state.alertSlice);
   const [readAlerts, setReadAlerts] = useState<Array<Alert>>([]);
   const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
 
   const handleGetAlerts = async () => {
- 
     await getAlertsApi(false)
       .then((res: any) => {
         setReadAlerts(res.data);
