@@ -44,11 +44,10 @@ function Profile(props: ProfileProps) {
       await disableClientFlowStatusAPI();
       await disableClientNotificationsAPI();
     } catch (e) {
-      console.log("unable to disable client notifications since the user is not logged in");
+      console.log("access token is incorrect");
     } finally {
       await clearUserData();
       await navigate("/login");
-    
     }
   }
 

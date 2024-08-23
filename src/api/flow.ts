@@ -6,7 +6,7 @@ export function saveFlowApi(data: any): Promise<AxiosResponse> {
     axios({
       method: "post",
       url: baseUrl + "/Flow/UploadNew",
-      headers: {
+       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
       },
@@ -21,10 +21,10 @@ export function getFlowListApi(): Promise<AxiosResponse> {
   return new Promise((resolve, reject) => {
     axios
       .get(baseUrl + "/Data/FlowList", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
-        },
+         headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
       })
       .then((res) => resolve(res))
       .catch((e) => reject(e));
@@ -38,10 +38,10 @@ export function getFlowApi(id: any): Promise<AxiosResponse> {
         params: {
           flowReference: id, // Correctly passing id as a query parameter
         },
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
-        },
+         headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
       })
       .then((res) => resolve(res))
       .catch((e) => reject(e));
@@ -55,10 +55,10 @@ export function getBlockStatisticsAPI(id: string): Promise<AxiosResponse> {
         params: {
           flowIdentifier: id, // Correctly passing id as a query parameter
         },
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
-        },
+         headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
       })
       .then((res) => resolve(res))
       .catch((e) => reject(e));
@@ -72,7 +72,7 @@ export function enableFlowAPI(id: string): Promise<AxiosResponse> {
       params: {
         flowReference: id,
       },
-      headers: {
+       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
       },
@@ -89,7 +89,7 @@ export function disableFlowAPI(id: string): Promise<AxiosResponse> {
       params: {
         flowReference: id,
       },
-      headers: {
+       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
       },
@@ -106,7 +106,41 @@ export function startFlowAPI(id: string): Promise<AxiosResponse> {
       params: {
         flowReference: id,
       },
-      headers: {
+       headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
+    })
+      .then((res) => resolve(res))
+      .catch((e) => reject(e));
+  });
+}
+
+export function restartFlowAPI(id: string) {
+  return new Promise((resolve, reject) => {
+    axios(baseUrl + "/Flow/Restart", {
+      method: "POST",
+      params: {
+        flowReference: id,
+      },
+       headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
+    })
+      .then((res) => resolve(res))
+      .catch((e) => reject(e));
+  });
+}
+
+export function terminateFlowAPI(id: string) {
+  return new Promise((resolve, reject) => {
+    axios(baseUrl + "/Flow/Terminate", {
+      method: "POST",
+      params: {
+        flowReference: id,
+      },
+       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
       },
@@ -123,7 +157,7 @@ export function stopFlowAPI(id: string): Promise<AxiosResponse> {
       params: {
         flowReference: id,
       },
-      headers: {
+       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
       },

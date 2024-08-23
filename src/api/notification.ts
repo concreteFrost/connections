@@ -6,10 +6,10 @@ export function getNotificationTypesAPI() {
   return new Promise((resolve, reject) => {
     axios
       .get(baseUrl + "/Notification/GetTypes", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
-        },
+         headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
       })
       .then((res) => resolve(res))
       .catch((e) => reject(e));
@@ -20,10 +20,10 @@ export function getNotificationsAPI(userId?: string, userGroup?: string) {
   return new Promise((resolve, reject) => {
     axios
       .get(baseUrl + "/Notification/List", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
-        },
+         headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
       })
       .then((res) => resolve(res))
       .catch((e) => reject(e));
@@ -36,7 +36,7 @@ export function newNotificationAPI(notificationRecord: Notification) {
     axios({
       method: "post",
       url: baseUrl + "/Notification/NewNotification",
-      headers: {
+       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
       },
@@ -52,7 +52,7 @@ export function removeNotificationAPI(notificationID: number) {
     axios({
       method: "post",
       url: baseUrl + "/Notification/RemoveNotification",
-      headers: {
+       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
       },
@@ -70,7 +70,7 @@ export function updateNotificationAPI(notificationRecord: Notification) {
     axios({
       method: "post",
       url: baseUrl + "/Notification/UpdateNotification",
-      headers: {
+       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
       },
@@ -86,7 +86,7 @@ export function enableClientNotificationsAPI(subscribtion: Subscription) {
     axios({
       method: "post",
       url: baseUrl + "/Notification/EnableClientNotifications",
-      headers: {
+       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
       },
@@ -106,7 +106,7 @@ export function disableClientNotificationsAPI() {
     axios({
       method: "post",
       url: baseUrl + "/Notification/DisableClientNotifications",
-      headers: {
+       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
       },
@@ -126,7 +126,7 @@ export function registerClientNotificationAPI(
     axios({
       method: "post",
       url: baseUrl + "/Notification/RegisterClientNotification",
-      headers: {
+       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
       },
@@ -163,7 +163,7 @@ export function testClientCallbackAPI(
     axios({
       method: "post",
       url: baseUrl + "/Notification/TestClientCallback",
-      headers: {
+       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
       },

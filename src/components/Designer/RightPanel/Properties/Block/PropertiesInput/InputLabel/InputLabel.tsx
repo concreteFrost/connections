@@ -19,19 +19,34 @@ function InputLabel(props: InputLabelProps) {
   const setTooltipText = useStore(
     (state) => state.designerVisualElementsSlice.setTooltipText
   );
+  const _getParameterValue = useStore(
+    (state) => state.designerVisualElementsSlice.getParameterValue
+  );
+  const setTooltipText = useStore(
+    (state) => state.designerVisualElementsSlice.setTooltipText
+  );
 
   useEffect(() => {
+  useEffect(() => {
     getParameterValue(props.blockData.value);
+  }, [props.blockData]);
   }, [props.blockData]);
 
   function getParameterValue(value: any) {
     _getParameterValue(props.blockData.name, value);
   }
 
+
   return (
     <>
       <div className={s.grid_item}>
         <label
+          className="tooltip-item"
+          onMouseEnter={() =>
+            setTooltipText(
+              `${props.blockData.name}: ${props.blockData.description}`
+            )
+          }
           className="tooltip-item"
           onMouseEnter={() =>
             setTooltipText(

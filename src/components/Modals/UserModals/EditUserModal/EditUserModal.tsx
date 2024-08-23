@@ -79,7 +79,7 @@ function EditUserModal(props: EditUserModalProps) {
   async function performPasswordGeneration() {
     try {
       const res: any = await generatePasswordAPI(1, 12);
-      console.log(res.data)
+      console.log(res.data.message)
       setNewPassword(res.data.message);
     } catch (e) {
       console.log("error generating password", e);

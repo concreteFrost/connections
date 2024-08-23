@@ -15,8 +15,8 @@ interface FlowsItemProps {
 
 function FlowsItem(props: FlowsItemProps) {
   const [flowList, setFlowList] = useState<Array<FlowStatus>>([]);
-  const createUpdateDraftFromLiveTemplate = useStore(
-    (state) => state.flowSlice.createUpdateDraftFromLiveTemplate
+  const {createUpdateDraftFromLiveTemplate,createFlowFromTemplate } = useStore(
+    (state) => state.flowSlice
   );
   const { statistics } = useStore((state) => state.statisticsSlice);
   const { "*": path } = useParams();
@@ -59,7 +59,7 @@ function FlowsItem(props: FlowsItemProps) {
                 <button 
                   data-testid="flow-list-btn"
                   onClick={() => {
-                    createUpdateDraftFromLiveTemplate(flow.flowId);
+                    createFlowFromTemplate(flow.flowId, flow.name + " copy")
                     props.navigate("/dashboard/designer");
                   }}
                 >
