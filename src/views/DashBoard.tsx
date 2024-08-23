@@ -7,6 +7,7 @@ import PushTest from "../components/PushTest/PushTest";
 import Notifications from "../views/Noticifations";
 import FlowServerStatus from "../components/FlowServerStatus/FlowServerStatus";
 import { getUserSettingsData } from "store/actions/storageActions";
+import CurrentAlertsModal from "components/Modals/CurrentAlertsModal";
 
 const DashboardLayout = React.memo(() => {
   return (
@@ -14,6 +15,7 @@ const DashboardLayout = React.memo(() => {
       <PushTest />
       <FlowServerStatus />
       <Outlet /> {/* This will render the nested routes */}
+      <CurrentAlertsModal></CurrentAlertsModal>
     </>
   );
 });
