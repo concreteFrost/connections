@@ -117,6 +117,40 @@ export function startFlowAPI(id: string) {
   });
 }
 
+export function restartFlowAPI(id: string) {
+  return new Promise((resolve, reject) => {
+    axios(baseUrl + "/Flow/Restart", {
+      method: "POST",
+      params: {
+        flowReference: id,
+      },
+       headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
+    })
+      .then((res) => resolve(res))
+      .catch((e) => reject(e));
+  });
+}
+
+export function terminateFlowAPI(id: string) {
+  return new Promise((resolve, reject) => {
+    axios(baseUrl + "/Flow/Terminate", {
+      method: "POST",
+      params: {
+        flowReference: id,
+      },
+       headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
+    })
+      .then((res) => resolve(res))
+      .catch((e) => reject(e));
+  });
+}
+
 export function stopFlowAPI(id: string) {
   return new Promise((resolve, reject) => {
     axios(baseUrl + "/Flow/Stop", {

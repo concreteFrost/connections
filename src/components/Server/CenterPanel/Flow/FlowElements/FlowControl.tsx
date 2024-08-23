@@ -2,8 +2,10 @@ import { useState } from "react";
 import {
   disableFlowAPI,
   enableFlowAPI,
+  restartFlowAPI,
   startFlowAPI,
   stopFlowAPI,
+  terminateFlowAPI,
 } from "api/flow";
 import useStore from "store/store";
 import { useParams } from "react-router";
@@ -15,7 +17,7 @@ export interface FlowControlProps {
 
 function FlowControl(props: FlowControlProps) {
   const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
-  const {setIsLoading} = useStore((state)=>state.loaderSlice);
+  const { setIsLoading } = useStore((state) => state.loaderSlice);
   const { id }: any = useParams();
 
   async function enableFlow() {
@@ -38,7 +40,6 @@ function FlowControl(props: FlowControlProps) {
 
   async function startFlow() {
     try {
-      
       const res: any = await startFlowAPI(id);
       setIsLoading(true);
       if (res.data.message.length > 0) {
@@ -63,15 +64,53 @@ function FlowControl(props: FlowControlProps) {
     }
   }
 
+  async function restartFlow() {
+    try {
+      const res: any = await restartFlowAPI(id);
+      setIsLoading(true);
+      if (res.data.message.length > 0) {
+        toggleMessageModal(res.data.message);
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.log("error stopping flow", error);
+    }
+  }
+
+  async function terminateFlow() {
+    try {
+      const res: any = await terminateFlowAPI(id);
+      setIsLoading(true);
+      if (res.data.message.length > 0) {
+        toggleMessageModal(res.data.message);
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.log("error stopping flow", error);
+    }
+  }
+
   function defineAction(e: any) {
     const action = e.target.value;
-    action === "1" ? enableFlow() : disableFlow();
+    switch (action) {
+      case "0":
+        disableFlow();
+        break;
+      case "1":
+        enableFlow();
+        break;
+      case "2":
+        restartFlow();
+        break;
+      case "3":
+        terminateFlow();
+    }
   }
   return (
     <div className={props.className.flow_control}>
       <header>Flow Control</header>
       <div className={props.className.start_stop_wrapper}>
-        {props.status !==0 ? (
+        {props.status !== 0 ? (
           <>
             {" "}
             <button onClick={startFlow}>START</button>{" "}
@@ -88,6 +127,8 @@ function FlowControl(props: FlowControlProps) {
       >
         <option value="0">Disabled</option>
         <option value="1">Enabled</option>
+        <option value="2">Restart</option>
+        <option value="3">Terminate</option>
       </select>
     </div>
   );

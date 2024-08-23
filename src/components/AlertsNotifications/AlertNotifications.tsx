@@ -6,6 +6,9 @@ import { IconVariants } from "store/enums/profile";
 import { useNavigate } from "react-router";
 import { handleHandShake } from "utils/handleHandshake";
 import { clearFromCache } from "utils/clearCache";
+import { getAlertsApi } from "api/ehd";
+import useStore from "store/store";
+import { Alert } from "store/interfaces/IAlerts";
 
 interface IPushAlert {
   Message: string;
@@ -13,8 +16,7 @@ interface IPushAlert {
 }
 
 function AlertNotifications(props: { themeColor: IconVariants }) {
-  const [alertsCount, setAlertsCount] = useState<number>(0);
-  const [alertsList, setAlertsList] = useState<Array<IPushAlert>>();
+  const {alerts,setAlerts} = useStore((state)=>state.alertSlice);
   const [isListVisible, setListVisible] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -39,24 +41,22 @@ function AlertNotifications(props: { themeColor: IconVariants }) {
 
     if (cahceData.length > 0) {
       handleHandShake();
-      // try {
-      //   const res : any = await getAlertsApi(true);
-
-      //   setAlertsCount(res.data.length);
-      //   setAlertsList(res.data);
-      // } catch (error) {
-      //   console.log('error getting alerts')
-      // }
-      setAlertsCount(cahceData.length);
-      setAlertsList(cahceData);
+      try {
+        const res : any = await getAlertsApi(true);
+        setAlerts(res.data);
+        clearAlertsFromCache();
+      } catch (error) {
+        console.log('error getting alerts')
+      }
+      // setAlertsCount(cahceData.length);
+      // setAlerts(cahceData);
     }
   }
   async function clearAlertsFromCache() {
     try {
       await clearFromCache("alerts");
       await setListVisible(false);
-      await setAlertsCount(0);
-      await setAlertsList([]);
+      await setAlerts([]);
     } catch (e) {
       console.log("error deleting alerts from cache");
     }
@@ -100,22 +100,22 @@ function AlertNotifications(props: { themeColor: IconVariants }) {
         >
           {connectionsIcons.serverMenuIcons.alert}
         </span>
-        {alertsCount > 0 ? (
-          <span className={s.badge}>{alertsCount}</span>
+        {alerts.length > 0 ? (
+          <span className={s.badge}>{alerts.length}</span>
         ) : null}
       </div>
-      {isListVisible && alertsList && alertsList.length > 0 ? (
+      {isListVisible && alerts.length > 0 ? (
         <div className={s.notifications_list} ref={modalRef}>
           <ul>
-            {alertsList?.map((pushAlert: IPushAlert) => (
-              <li key={alertsList.indexOf(pushAlert)}>
+            {alerts?.map((pushAlert: Alert) => (
+              <li key={alerts.indexOf(pushAlert)}>
                 <div className={s.left_column}>
                   {" "}
-                  <div className={s.message}>{pushAlert.Message}</div>
+                  <div className={s.message}>{pushAlert.messageText}</div>
                 </div>
                 <div className={s.right_column}>
                   <div className={s.date}>
-                    {moment(pushAlert.LoggedTime).format("lll")}
+                    {moment(pushAlert.logged).format("lll")}
                   </div>
                   <div
                     className={s.view}
