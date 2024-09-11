@@ -48,7 +48,8 @@ import {
   BsArrowsExpandVertical,
   BsIncognito,
   BsArrowDownUp,
-  BsUpload
+  BsUpload,
+  BsCode
 } from "react-icons/bs";
 
 import { RiAlertLine} from "react-icons/ri";
@@ -133,7 +134,8 @@ export const connectionsIcons = {
   bell: <BsBellFill></BsBellFill>,
   resize: <BsArrowsExpandVertical></BsArrowsExpandVertical>,
   pen: <FaPen></FaPen>,
-  upload:<BsUpload></BsUpload>
+  upload:<BsUpload></BsUpload>,
+  code: <BsCode></BsCode>
 
 
 }

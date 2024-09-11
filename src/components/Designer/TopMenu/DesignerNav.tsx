@@ -8,6 +8,7 @@ import Profile from "../../Profile/Profile";
 import { IconVariants } from "store/enums/profile";
 import PushNotifications from "../../PushNotifications/PushNotifications";
 import AlertNotifications from "../../AlertsNotifications/AlertNotifications";
+import MonacoEditor from "components/MonacoEditor/MonacoEditor";
 
 function DesignerNav() {
   const loadFlowModal = useStore(
@@ -20,6 +21,7 @@ function DesignerNav() {
         {loadFlowModal.isVisible ? <FlowsListModal></FlowsListModal> : null}
         <CentralPanel></CentralPanel>
         <div className={s.settings_wrapper}>
+          <MonacoEditor themeColor={IconVariants.Dark}></MonacoEditor>
           <PushNotifications themeColor={IconVariants.Dark}></PushNotifications>
           <AlertNotifications
             themeColor={IconVariants.Dark}

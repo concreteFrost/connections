@@ -9,8 +9,9 @@ function Server() {
       <ServerNav></ServerNav>
       <div className={s.content}>
         <LeftPanel></LeftPanel>
-        <ServerCenterPanel></ServerCenterPanel>  
+        <ServerCenterPanel></ServerCenterPanel>
       </div>
+     
     </div>
   );
 }

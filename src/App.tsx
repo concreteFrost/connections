@@ -11,6 +11,7 @@ import useStore from "./store/store";
 import useBroadcastChannel from "components/BroadcastChannel/useBroadcastChannel";
 import { Dashboard } from "./views/DashBoard";
 import Spinner from "components/Spinner/Spinner";
+import MonacoEditor from "components/MonacoEditor/MonacoEditor";
 
 function App() {
   const tooltipText = useStore(
@@ -36,7 +37,6 @@ function App() {
         <ApproveModal />
         <ConfirmationModal />
         <MessageModal />
-
         <Tooltip
           anchorSelect=".tooltip-item"
           place="right"
