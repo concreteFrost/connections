@@ -59,8 +59,6 @@ function UpdateFlowModal() {
     
       if (saveDraftFlow) {
         await actions.save();
-        // await flowSlice.clearFlowTabs();
-        // await flowSlice.addFlowToTabs(flowSlice.flow);
       }
       
     } catch (error) {
