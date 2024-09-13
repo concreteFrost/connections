@@ -37,6 +37,8 @@ const setParameter =
           },
         },
       }));
+
+      console.log(get().flowSlice.flow.blockData)
     }
   };
 

@@ -1,0 +1,175 @@
+{
+    "csharp": [
+      {
+        "label": "Console.WriteLine",
+        "kind": "Function",
+        "documentation": "Writes the specified data to the standard output",
+        "insertText": "Console.WriteLine($1);",
+        "insertTextRules": "InsertAsSnippet",
+        "range": {}
+      },
+      {
+        "label": "public",
+        "kind": "Keyword",
+        "documentation": "Declares a public method or variable",
+        "insertText": "public ",
+        "insertTextRules": "InsertAsSnippet",
+        "range": {}
+      },
+      {
+        "label": "private",
+        "kind": "Keyword",
+        "documentation": "Declares a private method or variable",
+        "insertText": "private ",
+        "insertTextRules": "InsertAsSnippet",
+        "range": {}
+      },
+      {
+        "label": "protected",
+        "kind": "Keyword",
+        "documentation": "Declares a protected method or variable",
+        "insertText": "protected ",
+        "insertTextRules": "InsertAsSnippet",
+        "range": {}
+      },
+      {
+        "label": "class",
+        "kind": "Keyword",
+        "documentation": "Declares a class",
+        "insertText": "class ${1:ClassName}\n{\n\t$0\n}",
+        "insertTextRules": "InsertAsSnippet",
+        "range": {}
+      },
+      {
+        "label": "for",
+        "kind": "Snippet",
+        "documentation": "A for loop snippet",
+        "insertText": "for (int ${1:i} = 0; ${1:i} < ${2:length}; ${1:i}++) {\n\t$0\n}",
+        "insertTextRules": "InsertAsSnippet",
+        "range": {}
+      },
+      {
+        "label": "foreach",
+        "kind": "Snippet",
+        "documentation": "A foreach loop snippet",
+        "insertText": "foreach (${1:var} ${2:item} in ${3:collection}) {\n\t$0\n}",
+        "insertTextRules": "InsertAsSnippet",
+        "range": {}
+      },
+      {
+        "label": "if",
+        "kind": "Snippet",
+        "documentation": "If statement snippet",
+        "insertText": "if (${1:condition}) {\n\t$0\n}",
+        "insertTextRules": "InsertAsSnippet",
+        "range": {}
+      },
+      {
+        "label": "try-catch",
+        "kind": "Snippet",
+        "documentation": "Try-catch block snippet",
+        "insertText": "try {\n\t$1\n} catch (${2:Exception} ex) {\n\t$0\n}",
+        "insertTextRules": "InsertAsSnippet",
+        "range": {}
+      },
+      {
+        "label": "switch",
+        "kind": "Snippet",
+        "documentation": "Switch statement snippet",
+        "insertText": "switch (${1:expression}) {\n\tcase ${2:case1}:\n\t\t$3\n\t\tbreak;\n\tcase ${4:case2}:\n\t\t$5\n\t\tbreak;\n\tdefault:\n\t\t$0\n}",
+        "insertTextRules": "InsertAsSnippet",
+        "range": {}
+      },
+      {
+        "label": "method",
+        "kind": "Snippet",
+        "documentation": "Method declaration snippet",
+        "insertText": "${1:public} ${2:void} ${3:MethodName}(${4:params}) {\n\t$0\n}",
+        "insertTextRules": "InsertAsSnippet",
+        "range": {}
+      }
+    ],
+    "xml": [
+      {
+        "label": "<note>",
+        "kind": "Snippet",
+        "documentation": "Basic note element",
+        "insertText": "<note>\n\t<to>$1</to>\n\t<from>$2</from>\n\t<heading>$3</heading>\n\t<body>$4</body>\n</note>",
+        "insertTextRules": "InsertAsSnippet",
+        "range": {}
+      },
+      {
+        "label": "<book>",
+        "kind": "Snippet",
+        "documentation": "Book element",
+        "insertText": "<book>\n\t<title>$1</title>\n\t<author>$2</author>\n\t<year>$3</year>\n</book>",
+        "insertTextRules": "InsertAsSnippet",
+        "range": {}
+      },
+      {
+        "label": "<employee>",
+        "kind": "Snippet",
+        "documentation": "Employee element",
+        "insertText": "<employee>\n\t<id>$1</id>\n\t<name>$2</name>\n\t<department>$3</department>\n\t<position>$4</position>\n</employee>",
+        "insertTextRules": "InsertAsSnippet",
+        "range": {}
+      },
+      {
+        "label": "version",
+        "kind": "Keyword",
+        "documentation": "XML version attribute",
+        "insertText": "version=\"1.0\"",
+        "insertTextRules": "InsertAsSnippet",
+        "range": {}
+      },
+      {
+        "label": "encoding",
+        "kind": "Keyword",
+        "documentation": "Encoding attribute for XML declaration",
+        "insertText": "encoding=\"UTF-8\"",
+        "insertTextRules": "InsertAsSnippet",
+        "range": {}
+      },
+      {
+        "label": "xmlns",
+        "kind": "Keyword",
+        "documentation": "XML namespace attribute",
+        "insertText": "xmlns:$1=\"$2\"",
+        "insertTextRules": "InsertAsSnippet",
+        "range": {}
+      },
+      {
+        "label": "<!-- comment -->",
+        "kind": "Snippet",
+        "documentation": "Comment in XML",
+        "insertText": "<!-- $1 -->",
+        "insertTextRules": "InsertAsSnippet",
+        "range": {}
+      },
+      {
+        "label": "<root>",
+        "kind": "Snippet",
+        "documentation": "Root element",
+        "insertText": "<root>\n\t$1\n</root>",
+        "insertTextRules": "InsertAsSnippet",
+        "range": {}
+      },
+      {
+        "label": "<item>",
+        "kind": "Snippet",
+        "documentation": "Item element",
+        "insertText": "<item>\n\t<name>$1</name>\n\t<value>$2</value>\n</item>",
+        "insertTextRules": "InsertAsSnippet",
+        "range": {}
+      },
+      {
+        "label": "<list>",
+        "kind": "Snippet",
+        "documentation": "List element",
+        "insertText": "<list>\n\t<item>$1</item>\n</list>",
+        "insertTextRules": "InsertAsSnippet",
+        "range": {}
+      }
+    ]
+  }
+  

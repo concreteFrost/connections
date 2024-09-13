@@ -52,8 +52,7 @@ export function PushTest() {
       const subscription: any | null = await registerServiceWorker(vapidKeys);
 
       if (subscription) {
-        console.log('enabling notifications')
-        console.log(subscription)
+        // console.log('enabling notifications')
         const formatedSubscription: Subscription = {
           endpoint: subscription.endpoint,
           p256dh: subscription.keys.p256dh,

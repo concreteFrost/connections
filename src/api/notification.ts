@@ -1,6 +1,5 @@
 import axios from "axios";
 import { baseUrl } from "../store/constants/baseUrl";
-import { getAccessToken } from "../store/actions/storageActions";
 import { Notification, Subscription } from "../store/interfaces/INotification";
 
 export function getNotificationTypesAPI() {

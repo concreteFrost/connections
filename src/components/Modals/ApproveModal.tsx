@@ -11,7 +11,7 @@ function ApproveModal() {
     toggleMessageModal,
   } = useStore((state) => state.modalWindowsSlice);
 
-  const {setCanApprove} = useStore((state)=>state.flowSlice)
+  const {setCanApprove, setFlowIsEnabled} = useStore((state)=>state.flowSlice)
 
   const [keepDraft, setKeepDraft] = useState<boolean>(false);
 
@@ -23,6 +23,7 @@ function ApproveModal() {
 
   async function tryToApproveDraftFlow() {
     try {
+      setFlowIsEnabled()
       const res: any = await getDraftApi(approveFlowModal.draftIdToApprove);
       if (res.data.success) {
         if (res.data.flowConfiguration.isEnabled) {

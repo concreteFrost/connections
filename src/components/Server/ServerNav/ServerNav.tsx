@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import useStore from "store/store"
 import PushNotifications from "components/PushNotifications/PushNotifications";
 import AlertNotifications from "components/AlertsNotifications/AlertNotifications";
+import MonacoEditor from "components/MonacoEditor/MonacoEditor";
 
 function ServerNav() {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ function ServerNav() {
       <header className={s.title}>CONNECTIONS SERVER DASHBOARD</header>
 
       <div className={s.nav_right_btns_wrapper}>
+        <MonacoEditor themeColor={IconVariants.Light}></MonacoEditor>
         <PushNotifications themeColor={IconVariants.Light}></PushNotifications>
         <AlertNotifications themeColor={IconVariants.Light}></AlertNotifications>
         <Profile themeColor={IconVariants.Light}></Profile>

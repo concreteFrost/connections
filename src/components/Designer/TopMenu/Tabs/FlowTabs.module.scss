@@ -1,0 +1,44 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+.tabs {
+    display: flex;
+
+    padding-left: 10px;
+    
+    li {
+      list-style: none;
+
+      border: 1px solid $color-list-label;
+      border-radius: 5px;
+      padding: 3px 10px;
+      width: 100px;
+      display: grid;
+      grid-template-columns: 70px px;
+      position: relative;
+        
+      .tab_name{
+        color: $bg-top-menu-btn-active;
+        max-width: 70px;
+        height: 20px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+      .close_tab_btn{
+        position: absolute;
+        right: 0;
+
+
+        button{
+        
+          @include red_btn;
+          text-align: center;
+         
+         
+          font-size: 0.8rem;
+        }
+       
+      }
+    }
+  }

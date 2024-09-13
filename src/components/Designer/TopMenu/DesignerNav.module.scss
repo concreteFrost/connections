@@ -1,33 +1,61 @@
 @import "/src/style/variables.scss";
 @import "/src/style/mixins.scss";
 
+.container {
+  background-color: $bg-node-nav-container;
+  z-index: 1000;
 
-.wrapper {
-    background-color: $bg-node-nav-container;
-    z-index: 1000;
-    padding: 0;
-    height: 40px;
-    border-bottom: 1px solid rgb(241, 241, 241);
-    position: fixed;
+  border-bottom: 1px solid rgb(241, 241, 241);
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  display: grid;
+  grid-template-columns: 12fr;
+  grid-template-rows: 15px;
+  height: 60px;
+
+  .grid {
     display: grid;
     grid-template-columns: 4fr 4fr 4fr;
-    align-items: center;
-    align-content: center;
-    top: 0;
-    left: 0;
-    right: 0;
-
-    .settings_wrapper {
-        display: flex;
-        align-items: center;
-        justify-self: end;
-        justify-content: space-between;
-        
-        align-self: flex-end; /* Use align-self to align the container to the end */
-    }
-    
-    @media print {
-        display: none;
+    padding-top: 5px;
+    button {
+      @include blue-btn;
     }
 
+    .left {
+      li {
+        list-style: none;
+      }
+      button {
+        margin-left: 10px;
+      }
+    }
+
+    .central {
+      display: flex;
+      justify-content: center;
+
+      li {
+        list-style: none;
+
+        margin-right: 30px;
+        padding: 0;
+        cursor: pointer;
+      }
+    }
+
+    .right {
+      display: flex;
+      justify-self: end;
+      justify-content: space-between;
+    }
+  }
+
+
+  @media print {
+    display: none;
+  }
 }

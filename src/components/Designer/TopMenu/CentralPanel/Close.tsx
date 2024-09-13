@@ -1,4 +1,4 @@
-import s from "./CentralPanel.module.scss";
+
 import useStore from "store/store";
 
 function Close() {
@@ -16,7 +16,7 @@ function Close() {
 
   return (
     <li
-      className={s.nav_list_item}
+      
       onClick={() => {
         if (flowSlice.flow.flowIdentifier) {
           modalSlice.toggleUpdateFlowModal(true);

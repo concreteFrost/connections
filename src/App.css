@@ -25,7 +25,7 @@ textarea,input,select,button{
 .resized_dynamic_menu,.dynamic_menu {
   position: absolute;
   overflow: hidden;
-  top: 40px;
+  top: 60px;
   left: 0;
   right: 0;
   bottom: 0;

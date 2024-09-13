@@ -4,7 +4,7 @@ import ServerTable from "./ServerTable/ServerTable";
 import Kpis from "./Kpis/Kpis";
 
 function Servers() {
-  const [currentView, setCurrentView] = useState<string>("kpis");
+  const [currentView, setCurrentView] = useState<string>("table");
 
   return (
     <>

@@ -8,7 +8,7 @@ import useStore from "store/store";
 interface SectionProps {
   title: string;
   nodeGroup: string;
-  leftPanelRef:any,
+  leftPanelRef: any;
 }
 
 function Section(props: SectionProps) {
@@ -16,11 +16,13 @@ function Section(props: SectionProps) {
   const blockList = useStore((state) => state.flowSlice.blockList);
   const filteredData = Object.entries(blockList)
     .filter(
-      ([key, val]: [string, NodeType]) => val.data.baseTypeName === props.nodeGroup
+      ([key, val]: [string, NodeType]) =>
+        val.data.baseTypeName === props.nodeGroup
     )
-    .map(([key, val]:[string,NodeType]) => {
+    .map(([key, val]: [string, NodeType]) => {
       return val;
-    });
+    })
+    .sort((a, b) => a.data.name.localeCompare(b.data.name));
 
   const [isSectionOpened, setIsSectionOpened] = useState(true);
 

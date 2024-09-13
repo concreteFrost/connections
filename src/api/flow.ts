@@ -1,8 +1,7 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { baseUrl } from "../store/constants/baseUrl";
 
-
-export function saveFlowApi(data: any) {
+export function saveFlowApi(data: any): Promise<AxiosResponse> {
   return new Promise((resolve, reject) => {
     axios({
       method: "post",
@@ -18,7 +17,7 @@ export function saveFlowApi(data: any) {
   });
 }
 
-export function getFlowListApi() {
+export function getFlowListApi(): Promise<AxiosResponse> {
   return new Promise((resolve, reject) => {
     axios
       .get(baseUrl + "/Data/FlowList", {
@@ -32,7 +31,7 @@ export function getFlowListApi() {
   });
 }
 
-export function getFlowApi(id: any) {
+export function getFlowApi(id: any): Promise<AxiosResponse> {
   return new Promise((resolve, reject) => {
     axios
       .get(baseUrl + "/Flow/Get", {
@@ -49,7 +48,7 @@ export function getFlowApi(id: any) {
   });
 }
 
-export function getBlockStatisticsAPI(id: string) {
+export function getBlockStatisticsAPI(id: string): Promise<AxiosResponse> {
   return new Promise((resolve, reject) => {
     axios
       .get(baseUrl + "/Flow/BlockStatistics", {
@@ -66,7 +65,7 @@ export function getBlockStatisticsAPI(id: string) {
   });
 }
 
-export function enableFlowAPI(id: string) {
+export function enableFlowAPI(id: string): Promise<AxiosResponse> {
   return new Promise((resolve, reject) => {
     axios(baseUrl + "/Flow/Enable", {
       method: "POST",
@@ -83,7 +82,7 @@ export function enableFlowAPI(id: string) {
   });
 }
 
-export function disableFlowAPI(id: string) {
+export function disableFlowAPI(id: string): Promise<AxiosResponse> {
   return new Promise((resolve, reject) => {
     axios(baseUrl + "/Flow/Disable", {
       method: "POST",
@@ -100,7 +99,7 @@ export function disableFlowAPI(id: string) {
   });
 }
 
-export function startFlowAPI(id: string) {
+export function startFlowAPI(id: string): Promise<AxiosResponse> {
   return new Promise((resolve, reject) => {
     axios(baseUrl + "/Flow/Start", {
       method: "POST",
@@ -151,7 +150,7 @@ export function terminateFlowAPI(id: string) {
   });
 }
 
-export function stopFlowAPI(id: string) {
+export function stopFlowAPI(id: string): Promise<AxiosResponse> {
   return new Promise((resolve, reject) => {
     axios(baseUrl + "/Flow/Stop", {
       method: "POST",

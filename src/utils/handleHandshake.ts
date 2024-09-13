@@ -21,7 +21,6 @@ export async function handleHandShake() {
       registration: registrationCacheData[0].Registration,
     };
 
-    console.log("payload", test);
     await handleKeepAlive(test);
     await Promise.all(keys.map((key) => cache.delete(key)));
   }

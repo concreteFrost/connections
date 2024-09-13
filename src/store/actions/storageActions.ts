@@ -5,21 +5,21 @@ const connectionsSettingsPrefix = "_iConSettings";
 
 type userSetting = {
   designer: {
-    isGridSnapped: boolean|null;
-    gridStep: string|null;
+    isGridSnapped: boolean | null;
+    gridStep: string | null;
     canvasView: BackgroundVariant;
     showMiniMap: boolean;
   };
 };
 
-export const initialSettings :userSetting ={
-    designer:{
-        isGridSnapped: false,
-        gridStep:"5",
-        canvasView: BackgroundVariant.Dots,
-        showMiniMap:false,
-    }
-}
+export const initialSettings: userSetting = {
+  designer: {
+    isGridSnapped: false,
+    gridStep: "5",
+    canvasView: BackgroundVariant.Dots,
+    showMiniMap: false,
+  },
+};
 
 type sessionType = {
   token: string | null;
@@ -48,7 +48,6 @@ export const getAccessToken = () => {
     is_logged_in: localStorage.getItem(connectionsPrefix + "is_logged_in"),
     userName: localStorage.getItem(connectionsPrefix + "userName"),
   };
-
   return session;
 };
 
@@ -61,24 +60,34 @@ export const clearUserData = () => {
 };
 
 export const getUserSettingsData = () => {
-    let settings : userSetting;
+  let settings: userSetting;
 
-    if(!localStorage.getItem(connectionsSettingsPrefix)){
-        localStorage.setItem(connectionsSettingsPrefix,JSON.stringify({
-            ...initialSettings
-        }))
-    }
-    settings = JSON.parse(localStorage.getItem(connectionsSettingsPrefix) || "{}");
+  if (!localStorage.getItem(connectionsSettingsPrefix)) {
+    localStorage.setItem(
+      connectionsSettingsPrefix,
+      JSON.stringify({
+        ...initialSettings,
+      })
+    );
+  }
+  settings = JSON.parse(
+    localStorage.getItem(connectionsSettingsPrefix) || "{}"
+  );
 
-    return settings;
+  return settings;
 };
 
-export const setDesignerSettings=(key: keyof userSetting['designer'], value:any)=>{
-    if(localStorage.getItem(connectionsSettingsPrefix)){
-        const userSettings =localStorage.getItem(connectionsSettingsPrefix);
-        const parsedSetting = JSON.parse(userSettings || "{}" );
-        parsedSetting.designer[key] =value;
-        localStorage.setItem(connectionsSettingsPrefix, JSON.stringify(parsedSetting));
-    }
-}
-
+export const setDesignerSettings = (
+  key: keyof userSetting["designer"],
+  value: any
+) => {
+  if (localStorage.getItem(connectionsSettingsPrefix)) {
+    const userSettings = localStorage.getItem(connectionsSettingsPrefix);
+    const parsedSetting = JSON.parse(userSettings || "{}");
+    parsedSetting.designer[key] = value;
+    localStorage.setItem(
+      connectionsSettingsPrefix,
+      JSON.stringify(parsedSetting)
+    );
+  }
+};

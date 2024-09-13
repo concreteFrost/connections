@@ -15,19 +15,28 @@ import {
   createDraftFromLiveTemplateAPI,
   createUpdateDraftFromLiveAPI,
 } from "../../../api/draft";
+import { FlowStructure } from "store/interfaces/Iflow";
 
+export const createFlow =
+  (get: () => RFState, set: any) => (): FlowStructure => {
+    const flowId = uuidv4();
+    const newFlow: FlowStructure = initializeFlow(
+      initialNodes,
+      initialEdges,
+      flowId
+    );
 
-export const createFlow = (get: () => RFState, set: any) => () => {
-  const flowId = uuidv4();
-  set((state: RFState) => ({
-    flowSlice: {
-      ...state.flowSlice,
-      flow: initializeFlow(initialNodes, initialEdges, flowId),
-    },
-  }));
-  setDraftId(get, set)(null);
-  setCanApprove(get, set)(false);
-};
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        flow: newFlow,
+      },
+    }));
+    setDraftId(get, set)(null);
+    setCanApprove(get, set)(false);
+
+    return newFlow;
+  };
 
 export const closeFlow = (get: () => RFState, set: any) => () => {
   set((state: RFState) => ({
@@ -82,6 +91,7 @@ export const loadFlowFromDraft =
       const res: any = await getDraftApi(id);
       setFlow(res.data.flowConfiguration, set, get);
       setCanApprove(get, set)(false);
+      return res;
     } catch (e) {
       console.log("error loading flow", e);
     }
@@ -206,7 +216,6 @@ const flowActions = {
   closeFlow: closeFlow,
   loadFlowFromDraft: loadFlowFromDraft,
   saveDraftFlow: saveDraftFlow,
- 
   setFlowName: setFlowName,
   setFlowVersion: setFlowVersion,
   setFlowIsEnabled: setFlowIsEnabled,

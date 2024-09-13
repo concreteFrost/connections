@@ -26,6 +26,12 @@ function UpdateFlowModal() {
     (state) => state.modalWindowsSlice.updateFlowModal.actions
   );
 
+  
+  useEffect(() => {
+    compareSubfolderName();
+  }, [modalSlice.updateFlowModal.isVisible]);
+
+
   //sets subfolder name value if match
   async function compareSubfolderName() {
     await getDraftListApi().then((res: any) => {
@@ -50,18 +56,20 @@ function UpdateFlowModal() {
       );
       await modalSlice.toggleUpdateFlowModal(false);
       await modalSlice.toggleLoadFlowModal(false);
-
+    
       if (saveDraftFlow) {
         await actions.save();
       }
+      
     } catch (error) {
       return false;
     }
   }
 
-  useEffect(() => {
-    compareSubfolderName();
-  }, [modalSlice.updateFlowModal.isVisible]);
+  function declineFlowSaving(){
+    actions.discard();
+    modalSlice.toggleUpdateFlowModal(false);
+  }
 
   function cancelSaving() {
     modalSlice.toggleUpdateFlowModal(false);
@@ -88,7 +96,7 @@ function UpdateFlowModal() {
               </div>
               <div className={s.buttons_wrapper}>
                 <button onClick={tryToSaveFlow}>YES</button>
-                <button onClick={actions.discard}>NO</button>
+                <button onClick={declineFlowSaving}>NO</button>
                 <button onClick={cancelSaving}>CANCEL</button>
               </div>
             </footer>

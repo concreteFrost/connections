@@ -168,7 +168,7 @@ const setDirective = (get: () => RFState, set: any) => (diretive: string) => {
 //#region BASE ACTIONS
 
 export const setBlockName = (get: () => RFState,set: any) => (text: string) => {
-  const nodeData: any = get().flowSlice.flow.blockData.map((x: any) => {
+  const nodeData: any = get().flowSlice.flow.blockData.map((x: BlockData) => {
     if (x.blockIdentifier === getSelectedBlock(get().flowSlice).id) {
       return {
         ...x,

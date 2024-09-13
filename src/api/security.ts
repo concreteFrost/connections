@@ -1,5 +1,4 @@
 import axios from "axios";
-import { getAccessToken } from "../store/actions/storageActions";
 import { baseUrl } from "../store/constants/baseUrl";
 import { NewUser, User, Group } from "../store/interfaces/ISecurity";
 

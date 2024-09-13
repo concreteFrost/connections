@@ -1,6 +1,6 @@
 
 import securityActions from "store/actions/securityActions";
-import { Group, GroupWithUsers, NewUser, Role, User } from "store/interfaces/ISecurity";
+import {GroupWithUsers, Role, User } from "store/interfaces/ISecurity";
 import { RFState } from "store/types/rfState"
 
 export type SecuritySlice = {
@@ -20,6 +20,7 @@ export type SecuritySlice = {
     //group actions
     getGroupList: () => void;
     getGroupMembers: (groupdId: string) => void;
+    deleteCurrentUser:()=>void;
 
 }
 
@@ -37,7 +38,7 @@ const securitySlice = (get: () => RFState, set: any): SecuritySlice => ({
     getRolesList: securityActions.getRoleList(get, set),
     getGroupMembers: securityActions.getGroupMembers(get, set),
     getGroupList: securityActions.getGroupList(get, set),
-    
+    deleteCurrentUser:securityActions.deleteCurrentUser(get,set)
 })
 
 export default securitySlice;
