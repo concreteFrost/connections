@@ -74,7 +74,6 @@ export const connectionsIcons = {
     azure_resources: "a",
     access_procure_wizard: "aw",
     access_epos: "ae",
-    grc_webservice:"grc",
     //function
     archive: <BsArchive></BsArchive>,
     delay: <BsClock></BsClock>,
