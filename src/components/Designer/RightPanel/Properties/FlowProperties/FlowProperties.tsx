@@ -3,9 +3,12 @@ import useStore from "store/store";
 
 function FlowProperties() {
   const flow = useStore((state) => state.flowSlice.flow);
-  const setFlowName = useStore((state) => state.flowSlice.setFlowName);
-  const setFlowIsEnabled = useStore((state) => state.flowSlice.setFlowIsEnabled);
-  const setFlowVersion = useStore((state) => state.flowSlice.setFlowVersion);
+  const {setFlowName,setFlowIsEnabled,setFlowVersion, setFlowNameInTabs} = useStore((state) => state.flowSlice);
+ 
+  function handleSetFlowName(e:any){
+    setFlowName(e.target.value)
+    setFlowNameInTabs(e.target.value)
+  }
   return (
     <div className={s.wrapper}>
       <h5>FLOW</h5>
@@ -18,7 +21,7 @@ function FlowProperties() {
               type="text"
               placeholder="New Flow"
               value={flow.flowName}
-              onChange={(e: any) => setFlowName(e.target.value)}
+              onChange={handleSetFlowName}
             />
           </div>
         </li>

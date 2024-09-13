@@ -7,6 +7,7 @@ import { getAccessToken } from "../storageActions";
 import { getDraftListApi } from "../../../api/draft";
 import markerEnd from "../../constants/edgeConst";
 import ConnectionsEdge from "../../interfaces/IConnectionsEdges";
+import moment from "moment";
 
 export function initializeFlow<IFlowData>(
   initialNodes: object,
@@ -19,7 +20,7 @@ export function initializeFlow<IFlowData>(
     createdBy: getAccessToken().userName,
     flowIdentifier: flowId ? flowId : null,
     // flowName: "New Flow" + uuidv4().split("-")[0],
-    flowName: "New Flow",
+    flowName: flowId,
     flowConfig: "Debug",
     flowVersion: "1.0.0.0",
     isEnabled: "true",

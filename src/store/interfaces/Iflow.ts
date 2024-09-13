@@ -1,4 +1,28 @@
 import { BlockData } from "./IBlock";
+import { Node } from "reactflow";
+import ConnectionsEdge from "./IConnectionsEdges";
+
+export interface FlowStructure{
+    blockData: Array<BlockData>;
+    created: Date;
+    createdBy: string;
+    flowIdentifier: string;
+    flowName: string;
+    flowVersion: string;
+    flowConfig: string;
+    isEnabled: string;
+    lastAmended: Date;
+    lastAmendedBy: string;
+    serverIdentifier: string;
+    startBlock: string;
+    substitutions: Array<Substitutions>;
+    visual: {
+      blocks: Node<any>[];
+      //NEED TO CHANGE TYPE BACK TO EDGE
+      // edges: Edge<any>[];
+      edges: Array<ConnectionsEdge>;
+    };
+}
 
 export interface FlowData {
     created: string;

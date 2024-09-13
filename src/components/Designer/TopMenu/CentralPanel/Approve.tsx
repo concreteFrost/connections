@@ -8,7 +8,7 @@ function Approve() {
     setApproveFlowModalMessage("")
   }
   
-  return <>{draft.draftId !== null && draft.canApprove ? <button onClick={handleToggleApproveModal}>APPROVE</button> : null}</>;
+  return <li>{draft.draftId !== null && draft.canApprove ? <button onClick={handleToggleApproveModal}>APPROVE</button> : null}</li>;
 }
 
 export default Approve;

@@ -1,4 +1,4 @@
-import s from "./CentralPanel.module.scss";
+import { FlowStructure } from "store/interfaces/Iflow";
 import useStore from "store/store";
 
 function Create() {
@@ -6,28 +6,34 @@ function Create() {
   const flowSlice = useStore((state) => state.flowSlice);
 
   function createAndSave() {
-    flowSlice.createFlow();
+    flowSlice.takeFlowSnapshot(flowSlice.flow);
+
+    const newFlow: FlowStructure = flowSlice.createFlow();
+    flowSlice.addFlowToTabs(newFlow);
   }
 
   function createWithoutSaving() {
-    flowSlice.createFlow();
+    const newFlow: FlowStructure = flowSlice.createFlow();
+    flowSlice.addFlowToTabs(newFlow);
     modalSlice.toggleUpdateFlowModal(false);
     modalSlice.toggleLoadFlowModal(false);
   }
 
   return (
     <li
-      className={s.nav_list_item}
       onClick={() => {
-        if (flowSlice.flow.flowIdentifier) {
-          modalSlice.toggleUpdateFlowModal(true);
-          modalSlice.setUpdateFlowModalActions({
-            save: createAndSave,
-            discard: createWithoutSaving,
-          });
-        } else {
-          flowSlice.createFlow();
-        }
+        // if (flowSlice.flow.flowIdentifier) {
+        //   modalSlice.toggleUpdateFlowModal(true);
+        //   modalSlice.setUpdateFlowModalActions({
+        //     save: createAndSave,
+        //     discard: createWithoutSaving,
+        //   });
+        // } else {
+        //   flowSlice.createFlow();
+        // }
+
+        if (flowSlice.allFlows?.length === 0) createWithoutSaving();
+        else createAndSave();
       }}
     >
       Create

@@ -1,4 +1,4 @@
-import s from "./CentralPanel.module.scss";
+
 import useStore from "store/store";;
 
 function Load() {
@@ -6,7 +6,6 @@ function Load() {
 
   return (
     <li
-      className={s.nav_list_item}
       onClick={() => {
         modalSlice.toggleLoadFlowModal(true);
       }}

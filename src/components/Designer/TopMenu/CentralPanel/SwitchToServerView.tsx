@@ -9,36 +9,20 @@ function SwitchToServerView() {
 
   function saveAndLeave() {
     navigate("/dashboard/server");
-    modalSlice.toggleMessageModal("");
+    // modalSlice.toggleMessageModal("");
+    flowSlice.takeFlowSnapshot(flowSlice.flow)
   }
 
-  function leaveWithoutSaving() {
-    modalSlice.toggleUpdateFlowModal(false);
-    modalSlice.toggleLoadFlowModal(false);
-    flowSlice.closeFlow();
-    navigate("/dashboard/server");
-  }
+  // function leaveWithoutSaving() {
+  //   modalSlice.toggleUpdateFlowModal(false);
+  //   modalSlice.toggleLoadFlowModal(false);
+  //   flowSlice.closeFlow();
+  //   navigate("/dashboard/server");
+  // }
 
   return (
     <li>
-      <div className={s.server_button}>
-        <button
-          onClick={() => {
-            if (flowSlice.flow.flowIdentifier) {
-              modalSlice.toggleUpdateFlowModal(true);
-              modalSlice.setUpdateFlowModalActions({
-                save: saveAndLeave,
-                discard: leaveWithoutSaving,
-              });
-            } else {
-              flowSlice.closeFlow();
-              navigate("/dashboard/server");
-            }
-          }}
-        >
-          SERVER
-        </button>
-      </div>
+      <button onClick={() => {saveAndLeave()}}>SERVER</button>
     </li>
   );
 }

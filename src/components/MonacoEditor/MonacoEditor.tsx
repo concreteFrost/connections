@@ -16,7 +16,7 @@ interface MonacoEditorProps {
 
 function MonacoEditor(props: MonacoEditorProps) {
   const [settings, setSettings] = useState<EditorSettings>(editorOptions[0]);
-  const [isEditorVisible, setIsEditorVisible] = useState<boolean>(true);
+  const [isEditorVisible, setIsEditorVisible] = useState<boolean>(false);
   const editorRef = useRef<any>(null);
 
   function setEditorLanguage(e: React.ChangeEvent<HTMLSelectElement>) {

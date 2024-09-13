@@ -3,47 +3,26 @@ import { Node } from "react-flow-renderer";
 import initialNodes from "../nodes";
 import initialEdges from "../edges";
 import { initializeFlow } from "store/actions/utils/flowUtils";
-import flowActions from "store/actions/designerActions/flowActions";
+import flowActions, { closeFlow } from "store/actions/designerActions/flowActions";
 import blockActions from "store/actions/designerActions/blockActions";
 import groupActions from "store/actions/designerActions/groupActions";
 import edgeActions from "store/actions/designerActions/edgesActions";
 import substitutionsActions from "store/actions/designerActions/substitutionsActions";
 import blocksWidgetActions from "store/actions/designerActions/blocksWidgetActions";
 import blockParametersActions from "store/actions/designerActions/blockParametersActions";
-import { Substitutions } from "interfaces/Iflow";
-import { BlockData } from "interfaces/IBlock";
+import { FlowStructure } from "interfaces/Iflow";
 import { Directive } from "interfaces/IAlerts";
 import { IEdgeDraggable } from "components/Designer/RightPanel/EdgesEditor/EdgesEditor";
 import { NodeType } from "interfaces/INode";
-import ConnectionsEdge from "interfaces/IConnectionsEdges";
 import leftPanelActions from "store/actions/designerActions/leftPanelActions";
 import nodeActions from "store/actions/designerActions/nodeActions";
-import { Connection,EdgeChange } from "reactflow";
+import { Connection, EdgeChange } from "reactflow";
+import { clearFlow } from "__mocks__/utils/mockFlowUtils";
 
 export type FlowSlice = {
   blockList: NodeType[];
-  flow: {
-    blockData: Array<BlockData>;
-    created: Date;
-    createdBy: string;
-    flowIdentifier: string;
-    flowName: string;
-    flowVersion: string;
-    flowConfig: string;
-    isEnabled: string;
-    lastAmended: Date;
-    lastAmendedBy: string;
-    serverIdentifier: string;
-    startBlock: string;
-    substitutions: Array<Substitutions>;
-    visual: {
-      blocks: Node<any>[];
-      //NEED TO CHANGE TYPE BACK TO EDGE
-      // edges: Edge<any>[];
-      edges: Array<ConnectionsEdge>;
-    };
-  };
-
+  allFlows: FlowStructure[];
+  flow: FlowStructure;
   draft: {
     draftId: string | null;
     canApprove: boolean;
@@ -51,6 +30,14 @@ export type FlowSlice = {
 
   //directives
   directivesList: Directive[];
+
+  //tabs acttions
+  addFlowToTabs: (flow: FlowStructure) => void;
+  setFlowNameInTabs: (value: string) => void;
+  takeFlowSnapshot: (flowId: FlowStructure) => void;
+  getFlowFromSnapshot: (flow: FlowStructure) => void;
+  clearFlowTabs: () => void;
+  removeFromTab: (flowId: string) => void;
 
   //Base Actions
   setBlockName: (text: string) => void;
@@ -62,8 +49,8 @@ export type FlowSlice = {
   createBlockCopy: (posX: number, posy: number) => void;
   deleteBlock: () => void;
   resetSelectedBlocks: () => void;
-  getBlockList: (data:any)=>void;
-  onBlockChange:(blocks: Node<any>[])=>void;
+  getBlockList: (data: any) => void;
+  onBlockChange: (blocks: Node<any>[]) => void;
   // getBlockProperties: () => void;
   setDirective: (directive: string) => void;
   setStringParameter: (parameterName: string, value: string) => void;
@@ -99,7 +86,7 @@ export type FlowSlice = {
   setFlowName: (name: string) => void;
   setFlowVersion: (version: string) => void;
   setFlowIsEnabled: () => void;
-  createFlow: (flowId?: string) => void;
+  createFlow: (flowId?: string) => FlowStructure;
   closeFlow: () => void;
   createFlowFromTemplate: (liveFlowID: string, newDraftName: string) => void;
   createUpdateDraftFromLiveTemplate: (id: string) => void;
@@ -113,14 +100,15 @@ export type FlowSlice = {
   deleteSubstitution: (key: string) => void;
 
   //Edges Actions
-  onEdgesConnect:(connection: Connection)=>void;
-  onChange:(changes: EdgeChange[])=>void;
+  onEdgesConnect: (connection: Connection) => void;
+  onChange: (changes: EdgeChange[]) => void;
   deleteEdge: (edgeId: string) => void;
   reorderEdgesPriority: (draggableList: Array<IEdgeDraggable>) => void;
 };
 
 const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
   blockList: [],
+  allFlows: [],
   flow: initializeFlow(initialNodes, initialEdges),
 
   draft: {
@@ -129,6 +117,87 @@ const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
   },
 
   directivesList: [],
+
+  //tabs actions
+  addFlowToTabs: (newFlow: FlowStructure) => {
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        allFlows: [...state.flowSlice.allFlows, get().flowSlice.flow],
+      },
+    }));
+    console.log(get().flowSlice);
+  },
+
+  setFlowNameInTabs: (value: string) => {
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        allFlows: state.flowSlice.allFlows.map((x: FlowStructure) => {
+          if (x.flowIdentifier === get().flowSlice.flow.flowIdentifier) {
+            return {
+              ...x,
+              flowName: value.length > 0 ? value : x.flowIdentifier,
+            };
+          } else {
+            return x;
+          }
+        }),
+      },
+    }));
+  },
+
+  takeFlowSnapshot: (currentFlow: FlowStructure) => {
+    const updatedFlows: Array<FlowStructure> = get().flowSlice.allFlows.map(
+      (flow: FlowStructure) => {
+        if (flow.flowIdentifier === currentFlow.flowIdentifier) {
+          return currentFlow;
+        } else return flow;
+      }
+    );
+
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        allFlows: updatedFlows,
+      },
+    }));
+  },
+
+  getFlowFromSnapshot: (flowStructure: FlowStructure) => {
+    const flowToGet = get().flowSlice.allFlows.find(
+      (flow: FlowStructure) =>
+        flow.flowIdentifier === flowStructure.flowIdentifier
+    );
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        flow: flowToGet,
+      },
+    }));
+  },
+
+  clearFlowTabs: () => {
+    set((state: RFState) => ({
+      flowSlice: {
+        ...get().flowSlice,
+        allFlows: [],
+      },
+    }));
+  },
+
+  removeFromTab: (flowId: string) => {
+    const updatedFlows = get().flowSlice.allFlows.filter(
+      (flow: FlowStructure) => flow.flowIdentifier !== flowId
+    );
+
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        allFlows: updatedFlows,
+      },
+    }));
+  },
 
   //Base Actions
   setBlockName: blockActions.setBlockName(get, set),
@@ -158,7 +227,7 @@ const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
     get,
     set
   ),
-  onBlockChange:nodeActions.onBlocksChange(get,set),
+  onBlockChange: nodeActions.onBlocksChange(get, set),
 
   //Group Actions
   addBlockGroup: groupActions.addGroup(get, set),
@@ -171,10 +240,11 @@ const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
   //Edges Actions
   deleteEdge: edgeActions.deleteEdge(get, set),
   reorderEdgesPriority: edgeActions.reorderEdgesPriority(get, set),
-  onEdgesConnect:edgeActions.onEdgesConnect(get,set),
-  onChange:edgeActions.onEdgesChange(get,set),
+  onEdgesConnect: edgeActions.onEdgesConnect(get, set),
+  onChange: edgeActions.onEdgesChange(get, set),
 
   //Flow Actions
+
   createFlow: flowActions.createFlow(get, set),
   createFlowFromTemplate: flowActions.createFlowFromTemplate(get, set),
   createUpdateDraftFromLiveTemplate:

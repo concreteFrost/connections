@@ -48,9 +48,6 @@ export const getAccessToken = () => {
     is_logged_in: localStorage.getItem(connectionsPrefix + "is_logged_in"),
     userName: localStorage.getItem(connectionsPrefix + "userName"),
   };
-
-  console.log(session.userName)
-
   return session;
 };
 

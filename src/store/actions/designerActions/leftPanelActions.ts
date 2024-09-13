@@ -52,7 +52,6 @@ export const getBlocksList = (set: any) => (data: any) => {
     }
   }))
 
-  console.log(updatedNodesList)
 };
 
 const leftPanelActions = {

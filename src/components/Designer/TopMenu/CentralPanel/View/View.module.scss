@@ -4,10 +4,10 @@
 
 .wrapper {
     @include dropdown_menu_wrapper;
-    width: 100px;
+    width: 200px;
 
     li {
-        padding-left: 10px;
+        padding-left: 20px;
     }
 
     .settings_icon {

@@ -1,4 +1,3 @@
-import s from "./CentralPanel.module.scss";
 import useStore from "store/store";
 
 function Save() {
@@ -10,7 +9,6 @@ function Save() {
 
   return (
     <li
-      className={s.nav_list_item}
       onClick={() => {
         modalSlice.toggleUpdateFlowModal(true);
         modalSlice.setUpdateFlowModalActions({

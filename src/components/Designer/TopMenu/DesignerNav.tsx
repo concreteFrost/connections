@@ -1,5 +1,4 @@
 import s from "./DesignerNav.module.scss";
-import CentralPanel from "./CentralPanel/CentralPanel";
 import Settings from "./Settings/Settings";
 import useStore from "store/store";
 import UpdateFlowModal from "../../Modals/UpdateFlowModal";
@@ -9,18 +8,33 @@ import { IconVariants } from "store/enums/profile";
 import PushNotifications from "../../PushNotifications/PushNotifications";
 import AlertNotifications from "../../AlertsNotifications/AlertNotifications";
 import MonacoEditor from "components/MonacoEditor/MonacoEditor";
+import SwitchToServerView from "./CentralPanel/SwitchToServerView";
+import Create from "./CentralPanel/Create";
+import Save from "./CentralPanel/Save";
+import Load from "./CentralPanel/Load";
+import Close from "./CentralPanel/Close";
+import View from "./CentralPanel/View/View";
+import Approve from "./CentralPanel/Approve";
+import FlowTabs from "./Tabs/FlowTabs";
 
 function DesignerNav() {
-  const loadFlowModal = useStore(
-    (state) => state.modalWindowsSlice.loadFlowModal
-  );
+  const flowId = useStore((state) => state.flowSlice.flow.flowIdentifier);
 
   return (
     <div className={s.container}>
-      <div className={s.wrapper}>
-        {loadFlowModal.isVisible ? <FlowsListModal></FlowsListModal> : null}
-        <CentralPanel></CentralPanel>
-        <div className={s.settings_wrapper}>
+      <div className={s.grid}>
+        <section className={s.left}>
+          <SwitchToServerView></SwitchToServerView>
+        </section>
+        <section className={s.central}>
+          <Create></Create>
+          {flowId ? <Save></Save> : null}
+          <Load></Load>
+          {/* {flowId ? <Close></Close> : null} */}
+          <View></View>
+          <Approve></Approve>
+        </section>
+        <section className={s.right}>
           <MonacoEditor themeColor={IconVariants.Dark}></MonacoEditor>
           <PushNotifications themeColor={IconVariants.Dark}></PushNotifications>
           <AlertNotifications
@@ -28,8 +42,11 @@ function DesignerNav() {
           ></AlertNotifications>
           <Settings></Settings>
           <Profile themeColor={IconVariants.Dark}></Profile>
-        </div>
+        </section>
       </div>
+      <FlowTabs></FlowTabs>
+
+      <FlowsListModal></FlowsListModal>
       <UpdateFlowModal />
     </div>
   );
