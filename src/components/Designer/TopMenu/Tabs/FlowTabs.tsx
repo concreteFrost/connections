@@ -22,18 +22,18 @@ function FlowTabs() {
     getFlowFromSnapshot(flowToGet);
   }
 
-  function handleTabClosure(flowId:string){
-    removeFromTab(flowId);
-    const availableFlowIndex = allFlows.length -1;
-
-    if(availableFlowIndex !==0){
-      getFlowFromSnapshot(allFlows[allFlows.length-1]);
+  function handleTabClosure(flowId: string) {
+    removeFromTab(flowId); 
+    const updatedFlows = useStore.getState().flowSlice.allFlows; // Get updated allFlows after removal
+    const availableFlowIndex = updatedFlows.length - 1; // Check length of the updated array
+  
+    if (availableFlowIndex >= 0) {
+      getFlowFromSnapshot(updatedFlows[availableFlowIndex]);
+    } else {
+      closeFlow(); // No flows remaining, so close the flow
     }
-    else{
-      closeFlow();
-    }
-   
   }
+  
 
   function closeUpdateFlowModal(flowId: string) {
     toggleUpdateFlowModal(true);
