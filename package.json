@@ -56,7 +56,8 @@
     "start-server": "node ./src/push.js",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "test": "jest --config jest.config.ts"
+    "test": "jest --config jest.config.ts",
+    "lint": "eslint . --ext .ts,.tsx"
   },
   "eslintConfig": {
     "extends": [
