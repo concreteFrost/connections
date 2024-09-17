@@ -2,43 +2,47 @@
 @import "/src/style/mixins.scss";
 
 .tabs {
-    display: flex;
+  display: flex;
 
-    padding-left: 10px;
+  padding-left: 10px;
+
+  .tab_wrapper {
+    list-style: none;
+
+    border: 1px solid rgb(231, 231, 231);
+    border-radius: 5px;
+    padding: 3px 10px;
+    width: 120px;
+    display: grid;
+    grid-template-columns: 100px 20px;
+    align-items: center;
+    position: relative;
     
-    li {
-      list-style: none;
+    &.active{
+      background-color: rgb(167, 166, 166);
+      color: rgb(255, 255, 255);
+       border-bottom-left-radius: 0;
+       border-bottom-right-radius: 0;
+    }
 
-      border: 1px solid $color-list-label;
-      border-radius: 5px;
-      padding: 3px 10px;
-      width: 100px;
-      display: grid;
-      grid-template-columns: 70px px;
-      position: relative;
-        
-      .tab_name{
-        color: $bg-top-menu-btn-active;
-        max-width: 70px;
-        height: 20px;
-        text-overflow: ellipsis;
-        overflow: hidden;
-      }
+    transition: color 0.2s ease-in;
+    transition: background-color 0.2s ease-in;
 
-      .close_tab_btn{
-        position: absolute;
-        right: 0;
+    .tab_name {
+      max-width: 80px;
+      height: 20px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+     
+    }
 
+    .close_tab_btn {
 
-        button{
-        
-          @include red_btn;
-          text-align: center;
-         
-         
-          font-size: 0.8rem;
-        }
+      button {
+        @include red_btn;
+          font-size: 0.6rem;
        
       }
     }
   }
+}

@@ -43,12 +43,13 @@ function FlowTabs() {
   return (
     <ul className={s.tabs}>
       {allFlows.length > 0
-        ? allFlows.map((flow) => (
-            <li key={flow.flowIdentifier} >
-              <div className={s.tab_name} onClick={() => handleTabClick(flow)}>{flow.flowName}</div>
+        ? allFlows.map((_flow) => (
+            <li key={_flow.flowIdentifier} className={`${s.tab_wrapper} ${_flow.flowIdentifier 
+              === flow.flowIdentifier ? s['active']  : s['']}`} >
+              <div className={s.tab_name} onClick={() => handleTabClick(_flow)}>{_flow.flowName}</div>
               <div className={s.close_tab_btn}>
                 <button
-                  onClick={() => closeUpdateFlowModal(flow.flowIdentifier)}
+                  onClick={() => closeUpdateFlowModal(_flow.flowIdentifier)}
                 >
                   x
                 </button>
