@@ -1,4 +1,4 @@
-import { useState, useCallback, MouseEvent as ReactMouseEvent } from "react";
+import { useCallback, MouseEvent as ReactMouseEvent } from "react";
 import ReactFlow, {
   Background,
   BackgroundVariant,
@@ -6,12 +6,10 @@ import ReactFlow, {
 } from "react-flow-renderer";
 import { shallow } from "zustand/shallow";
 import useStore from "store/store";
-import useCtrlMouseHold from "../hooks/useCtrlMouseHold";
-import { getSelectedBlock } from "store/actions/utils/blockUtils";
+
 import { selector } from "utils/selector";
 import { nodeTypes, edgeTypes } from "store/types/flowElements";
 import { Edge } from "reactflow";
-import { positionInViewport } from "utils/draggableUtils";
 
 function Flow(props: any) {
   const { onBlocksChange, onEdgesChange, onConnect } = useStore(
@@ -32,8 +30,11 @@ function Flow(props: any) {
     [flowSlice.flow.visual.blocks]
   );
 
-  const { reactFlowInstance, reactFlowWrapper, setInstance, setFlowWrapper } =useStore((state) => state.designerVisualElementsSlice);
-  const { snapToGrid, snapStep } = useStore((state) => state.topPanelSlice.settings);
+  const { reactFlowInstance, reactFlowWrapper, setInstance, setFlowWrapper } =
+    useStore((state) => state.designerVisualElementsSlice);
+  const { snapToGrid, snapStep } = useStore(
+    (state) => state.topPanelSlice.settings
+  );
 
   return (
     <div
@@ -74,7 +75,7 @@ function Flow(props: any) {
 export default Flow;
 
 //COPY/PASTE BLOCK ON HOLD CTRL BTN
-//EXPERIMENTAL FEATURE 
+//EXPERIMENTAL FEATURE
 // const [isCtrlPressed, setCtrlPressed] = useState(false);
 // useCtrlMouseHold(isCtrlPressed, setCtrlPressed);
 
