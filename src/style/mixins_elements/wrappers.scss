@@ -82,8 +82,7 @@
 
 @mixin nav_right_section {
   display: flex;
-  height: 100%;
-  align-items: center;
+
   justify-self: right;
   justify-items: flex-start;
   z-index: 1000;
