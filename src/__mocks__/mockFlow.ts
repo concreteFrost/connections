@@ -272,7 +272,7 @@ const mockFlowStructure: any = {
         },
         width: 170,
         height: 70,
-        selected:false,
+        selected: false,
       },
       {
         id: "739e0e2e-1b1c-4806-a41a-d22cb31e87d7",
@@ -287,7 +287,7 @@ const mockFlowStructure: any = {
         },
         width: 170,
         height: 70,
-        selected:false,
+        selected: false,
       },
     ],
     edges: [],

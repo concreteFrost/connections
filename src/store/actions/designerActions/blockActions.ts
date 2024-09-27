@@ -33,8 +33,8 @@ const addBlock =
                 type: newNode.type,
                 data: newNode.visualData,
                 position: newNode.position,
-                width:170,
-                height:70
+                width: 170,
+                height: 70,
               },
             ],
           },
@@ -167,74 +167,82 @@ const setDirective = (get: () => RFState, set: any) => (diretive: string) => {
 
 //#region BASE ACTIONS
 
-export const setBlockName = (get: () => RFState,set: any) => (text: string) => {
-  const nodeData: any = get().flowSlice.flow.blockData.map((x: BlockData) => {
-    if (x.blockIdentifier === getSelectedBlock(get().flowSlice).id) {
-      return {
-        ...x,
-        name: text,
-        blockLabel: text
+export const setBlockName =
+  (get: () => RFState, set: any) => (text: string) => {
+    const nodeData: any = get().flowSlice.flow.blockData.map((x: BlockData) => {
+      if (x.blockIdentifier === getSelectedBlock(get().flowSlice).id) {
+        console.log(getSelectedBlock(get().flowSlice).id);
+        return {
+          ...x,
+          name: text,
+          blockLabel: text,
+        };
       }
-    } return x
-  })
+      return x;
+    });
 
-  set((state: RFState) => ({
-    flowSlice: {
-      ...state.flowSlice,
-      flow: {
-        ...state.flowSlice.flow,
-        blockData: nodeData,
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        flow: {
+          ...state.flowSlice.flow,
+          blockData: nodeData,
+        },
+      },
+    }));
+  };
+
+export const setBlockDescription =
+  (get: () => RFState, set: any) => (description: string) => {
+    const nodeData: any = get().flowSlice.flow.blockData.map((x: any) => {
+      if (x.blockIdentifier === getSelectedBlock(get().flowSlice).id) {
+        return {
+          ...x,
+          description: description,
+        };
       }
-    },
-  }));
-};
+      return x;
+    });
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        flow: {
+          ...state.flowSlice.flow,
+          blockData: nodeData,
+        },
+      },
+    }));
+  };
 
-export const setBlockDescription = (get: () => RFState,set: any) => (description: string) => {
-  const nodeData: any = get().flowSlice.flow.blockData.map((x: any) => {
-    if (x.blockIdentifier === getSelectedBlock(get().flowSlice).id) {
-      return {
-        ...x,
-        description: description
-      }
-    } return x
-  })
-  set((state: RFState) => ({
-
-    flowSlice: {
-      ...state.flowSlice,
-      flow: {
-        ...state.flowSlice.flow,
-        blockData: nodeData
-      }
-    },
-  }));
-};
-
-export const setBlockColor = (get: () => RFState,set: any) => (color: string) => {
-
-  const nodeVisuals: any = get().flowSlice.flow.visual.blocks.map((x: Visual) => {
-    if (x.id === getSelectedBlock(get().flowSlice).id) {
-      return {
-        ...x,
-        data: {
-          ...x.data, color: color
+export const setBlockColor =
+  (get: () => RFState, set: any) => (color: string) => {
+    const nodeVisuals: any = get().flowSlice.flow.visual.blocks.map(
+      (x: Visual) => {
+        if (x.id === getSelectedBlock(get().flowSlice).id) {
+          return {
+            ...x,
+            data: {
+              ...x.data,
+              color: color,
+            },
+          };
         }
+        return x;
       }
-    } return x
-  })
-  set((state: RFState) => ({
-    flowSlice: {
-      ...state.flowSlice,
-      flow: {
-        ...state.flowSlice.flow,
-        visual: {
-          ...state.flowSlice.flow.visual,
-          blocks: nodeVisuals
-        }
-      }
-    },
-  }));
-};
+    );
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        flow: {
+          ...state.flowSlice.flow,
+          visual: {
+            ...state.flowSlice.flow.visual,
+            blocks: nodeVisuals,
+          },
+        },
+      },
+    }));
+  };
 
 //#endregion
 
@@ -244,10 +252,9 @@ const blockActions = {
   deleteBlock: deleteBlock,
   resetSelectedBlocks: resetSelectedBlocks,
   setDirective: setDirective,
-  setBlockName:setBlockName,
-  setBlockColor:setBlockColor,
-  setBlockDescription:setBlockDescription
- 
+  setBlockName: setBlockName,
+  setBlockColor: setBlockColor,
+  setBlockDescription: setBlockDescription,
 };
 
 export default blockActions;

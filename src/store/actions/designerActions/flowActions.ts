@@ -50,48 +50,22 @@ export const closeFlow = (get: () => RFState, set: any) => () => {
 };
 
 export const createFlowFromTemplate =
-  (get: () => RFState, set: any) =>
-  async (liveFlowID: string, newDraftName: string) => {
-    try {
-      const res: any = await createDraftFromLiveTemplateAPI(
-        liveFlowID,
-        newDraftName
-      );
-      const data = await res.data;
-
-      if (data.success) {
-        await setFlow(data.flowConfiguration, set, get);
-        setCanApprove(get, set)(false);
-      }
-
-      return res;
-    } catch (e) {
-      console.log("error creating flow from template", e);
-    }
+  (get: () => RFState, set: any) => (flowConfiguration: any) => {
+    setFlow(flowConfiguration, set, get);
+    setCanApprove(get, set)(false);
   };
 
 export const createUpdateDraftFromLiveTemplate =
-  (get: () => RFState, set: any) => async (id: string) => {
-    try {
-      const res: any = await createUpdateDraftFromLiveAPI(id);
-
-      if (res.data.success) {
-        setFlow(res.data.flowConfiguration, set, get);
-        setCanApprove(get, set)(false);
-      }
-      return res;
-    } catch (e) {
-      console.log("error creating update draft from live template", e);
-    }
+  (get: () => RFState, set: any) => async (flowConfiguration: any) => {
+    setFlow(flowConfiguration, set, get);
+    setCanApprove(get, set)(false);
   };
 
 export const loadFlowFromDraft =
-  (get: () => RFState, set: any) => async (id: string) => {
+  (get: () => RFState, set: any) => async (flowConfiguration: any) => {
     try {
-      const res: any = await getDraftApi(id);
-      setFlow(res.data.flowConfiguration, set, get);
+      setFlow(flowConfiguration, set, get);
       setCanApprove(get, set)(false);
-      return res;
     } catch (e) {
       console.log("error loading flow", e);
     }

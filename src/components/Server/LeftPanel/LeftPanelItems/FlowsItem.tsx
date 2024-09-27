@@ -15,9 +15,6 @@ interface FlowsItemProps {
 
 function FlowsItem(props: FlowsItemProps) {
   const [flowList, setFlowList] = useState<Array<FlowStatus>>([]);
-  const {createUpdateDraftFromLiveTemplate,createFlowFromTemplate } = useStore(
-    (state) => state.flowSlice
-  );
   const { statistics } = useStore((state) => state.statisticsSlice);
   const { "*": path } = useParams();
 
@@ -25,7 +22,7 @@ function FlowsItem(props: FlowsItemProps) {
     if (statistics) setFlowList(statistics);
   }, [statistics]);
 
-  // if (flowList.length<=0) return null; //avoid rendering if list is empty
+  if (flowList.length <= 0) return null; //avoid rendering if list is empty
 
   return (
     <div className={s.section}>
@@ -43,7 +40,7 @@ function FlowsItem(props: FlowsItemProps) {
             : connectionsIcons.arrowUp}
         </span>
       </div>
-      {props.currentSection.flows && (
+      {props.currentSection.flows ? (
         <ul>
           {flowList.map((flow: FlowStatus) => (
             <li
@@ -56,7 +53,7 @@ function FlowsItem(props: FlowsItemProps) {
                 <div className={s.flow_list_title_wrapper}>{flow.name}</div>
               </Link>
               <div className={s.flow_list_btn_wrapper}>
-                <button 
+                {/* <button 
                   data-testid="flow-list-btn"
                   onClick={() => {
                     createFlowFromTemplate(flow.flowId, flow.name + " copy")
@@ -64,12 +61,12 @@ function FlowsItem(props: FlowsItemProps) {
                   }}
                 >
                   {connectionsIcons.upload}
-                </button>
+                </button> */}
               </div>
             </li>
           ))}
         </ul>
-      )}
+      ) : null}
     </div>
   );
 }

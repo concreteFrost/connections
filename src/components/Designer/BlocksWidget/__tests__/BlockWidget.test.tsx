@@ -12,11 +12,21 @@ import { RFState } from "store/types/rfState";
 import mockFlowStructure from "__mocks__/mockFlow";
 import React from "react";
 
+const updatedMockStructure = {
+  ...mockFlowStructure,
+  visual: {
+    ...mockFlowStructure.visual,
+    blocks: mockFlowStructure.visual.blocks.map((block: any) => {
+      return { ...block, selected: true };
+    }),
+  },
+};
+
 function initTestFlow() {
   useStore.setState((state: RFState) => ({
     flowSlice: {
       ...state.flowSlice,
-      flow: mockFlowStructure,
+      flow: updatedMockStructure,
     },
   }));
 }

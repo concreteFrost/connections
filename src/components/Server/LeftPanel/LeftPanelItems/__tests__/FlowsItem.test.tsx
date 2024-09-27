@@ -59,40 +59,36 @@ describe("FlowsItem Component", () => {
     expect(screen.getByText(/test flow/)).toBeInTheDocument();
   });
 
-  it("skips list render if no data was received",()=>{
-
+  it("skips list render if no data was received", async () => {
     //its important to set store before component was rendered
     useStore.setState((state: RFState) => ({
       statisticsSlice: {
         ...state.statisticsSlice,
-        statistics: [
-          
-        ],
+        statistics: [],
       },
     }));
 
-    render(
+    await render(
       <BrowserRouter>
         <FlowsItem {...props} />
       </BrowserRouter>
     );
 
-    expect(screen.queryByRole('list')).toBeNull();
-  
-  })
-
-  it("calling createUpdateDraftFromLiveTemplate() ",() => {
-    render(
-      <BrowserRouter>
-        <FlowsItem {...props} />
-      </BrowserRouter>
-    );
-
-    const button = screen.getByTestId("flow-list-btn");
-
-    fireEvent.click(button);
-
-    //check if createUpdateDraftFromLiveTemplate have been called
-    waitFor(() => expect(useStore.setState).toHaveBeenCalledTimes(1));
+    expect(screen.queryByRole("list")).toBeNull();
   });
+
+  // it("calling createUpdateDraftFromLiveTemplate() ",() => {
+  //   render(
+  //     <BrowserRouter>
+  //       <FlowsItem {...props} />
+  //     </BrowserRouter>
+  //   );
+
+  //   const button = screen.getByTestId("flow-list-btn");
+
+  //   fireEvent.click(button);
+
+  //   //check if createUpdateDraftFromLiveTemplate have been called
+  //   waitFor(() => expect(useStore.setState).toHaveBeenCalledTimes(1));
+  // });
 });

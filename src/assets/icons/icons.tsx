@@ -49,23 +49,28 @@ import {
   BsIncognito,
   BsArrowDownUp,
   BsUpload,
-  BsCode
+  BsCode,
 } from "react-icons/bs";
 
-import { RiAlertLine} from "react-icons/ri";
-import { FaGlobe, FaFileExport, FaCodeBranch, FaChevronDown, FaChevronUp,FaPen } from "react-icons/fa";
+import { RiAlertLine } from "react-icons/ri";
+import {
+  FaGlobe,
+  FaFileExport,
+  FaCodeBranch,
+  FaChevronDown,
+  FaChevronUp,
+  FaPen,
+} from "react-icons/fa";
 
-export const connectionsIcons = {
+export const connectionsIcons: any = {
   nodeIcons: {
-    //data store
-    send: <BsMailbox />,
-    //external
+    send: <BsMailbox></BsMailbox>,
     db2: <BsHddFill></BsHddFill>,
     fileservice: <BsFileBinary></BsFileBinary>,
     file_system: <BsFiles></BsFiles>,
-    ftp: 'ftp',
+    ftp: "ftp",
     odbc: <BsDatabase></BsDatabase>,
-    restservice: 'r',
+    restservice: "r",
     sql: <BsFiletypeSql />,
     ssc_webservice: <BsGlobe></BsGlobe>,
     webservice: <FaGlobe></FaGlobe>,
@@ -74,7 +79,7 @@ export const connectionsIcons = {
     azure_resources: "a",
     access_procure_wizard: "aw",
     access_epos: "ae",
-    grc_webservice:"grc",
+    grc_webservice: "grc",
     //function
     archive: <BsArchive></BsArchive>,
     delay: <BsClock></BsClock>,
@@ -85,7 +90,7 @@ export const connectionsIcons = {
     logicops: <BsDiagram2></BsDiagram2>,
     parametizer: <BsSliders2></BsSliders2>,
     scheduletrigger: <BsCardChecklist></BsCardChecklist>,
-    script: <FaCodeBranch ></FaCodeBranch>,
+    script: <FaCodeBranch></FaCodeBranch>,
     xmlsplitter: <BsFiletypeXml></BsFiletypeXml>,
     transformer: <BsBoxes></BsBoxes>,
     validator: <BsListCheck></BsListCheck>,
@@ -97,20 +102,20 @@ export const connectionsIcons = {
     //output
     email: <BsEnvelopeAt></BsEnvelopeAt>,
     output_flatfile: <FaFileExport></FaFileExport>,
-    output_xml: <BsFiletypeXml></BsFiletypeXml>
+    output_xml: <BsFiletypeXml></BsFiletypeXml>,
   },
   serverMenuIcons: {
     server: <BsServer></BsServer>,
     flows: <BsDiagram2Fill></BsDiagram2Fill>,
     stats: <BsGraphDown></BsGraphDown>,
     settings: <BsGear></BsGear>,
-    security:<BsIncognito></BsIncognito>,
-    alert:<RiAlertLine></RiAlertLine>
+    security: <BsIncognito></BsIncognito>,
+    alert: <RiAlertLine></RiAlertLine>,
   },
   serverButtonsIcons: {
     play: <BsPlayFill></BsPlayFill>,
     stop: <BsStopFill></BsStopFill>,
-    kill: <BsExclamationTriangleFill></BsExclamationTriangleFill>
+    kill: <BsExclamationTriangleFill></BsExclamationTriangleFill>,
   },
   profile: <BsPerson></BsPerson>,
   leftCaret: <BsCaretLeft></BsCaretLeft>,
@@ -134,8 +139,6 @@ export const connectionsIcons = {
   bell: <BsBellFill></BsBellFill>,
   resize: <BsArrowsExpandVertical></BsArrowsExpandVertical>,
   pen: <FaPen></FaPen>,
-  upload:<BsUpload></BsUpload>,
-  code: <BsCode></BsCode>
-
-
-}
+  upload: <BsUpload></BsUpload>,
+  code: <BsCode></BsCode>,
+};

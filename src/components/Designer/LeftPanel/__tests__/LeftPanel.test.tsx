@@ -6,7 +6,6 @@ import {
   act,
   fireEvent,
 } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import useStore from "store/store";
 import { RFState } from "store/types/rfState";
 import mockFlowStructure from "__mocks__/mockFlow";

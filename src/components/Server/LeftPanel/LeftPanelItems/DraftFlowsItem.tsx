@@ -13,9 +13,7 @@ interface FlowsItemProps {
 
 function DraftFlowsItem(props: FlowsItemProps) {
   const [draftFlowList, setDraftFlowList] = useState<Array<any>>([]);
-  const { loadFlowFromDraft } = useStore(
-    (state) => state.flowSlice
-  );
+  const { loadFlowFromDraft } = useStore((state) => state.flowSlice);
 
   const [isListLoaded, setListLoaded] = useState<boolean>(false);
 
@@ -83,7 +81,7 @@ function DraftFlowsItem(props: FlowsItemProps) {
     <div className={s.section}>
       <div
         className={s.section_header}
-        data-testid = "draft-flow-header"
+        data-testid="draft-flow-header"
         onClick={async () => {
           await fetchDraftFlowList();
           props.toggleSection("drafts");

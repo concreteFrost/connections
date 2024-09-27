@@ -68,7 +68,6 @@ function RightPanel(props: RightPanelProps) {
         >
           <MiniMap
             className={s.minimap}
-            
             nodeColor={"rgb(74, 120, 190)"}
             maskColor="rgb(74, 115, 150,20%)"
           ></MiniMap>

@@ -5,7 +5,7 @@ import {
   getRoleListAPI,
   getUserListAPI,
 } from "../../api/security";
-import { User, Group} from "../interfaces/ISecurity";
+import { User, Group } from "../interfaces/ISecurity";
 import { RFState } from "../types/rfState";
 
 //USER ACTIONS
@@ -75,16 +75,16 @@ const getRoleList = (get: () => RFState, set: any) => async () => {
   }
 };
 
-const deleteCurrentUser =  (get: () => RFState, set: any)=>()=>{
-  set((state:RFState)=>({
+const deleteCurrentUser = (get: () => RFState, set: any) => () => {
+  set((state: RFState) => ({
     securitySlice: {
       ...state.securitySlice,
-      userToEdit:null
+      userToEdit: null,
     },
-  }))
+  }));
 
-  console.log(get().securitySlice)
-}
+  console.log(get().securitySlice);
+};
 
 //#endregion
 
@@ -127,7 +127,7 @@ const getGroupMembers =
         }));
       }
     } catch (e) {
-      console.log("error getting user list");
+      await console.log("error getting user list");
     }
   };
 
@@ -141,8 +141,7 @@ const securityActions = {
   getRoleList: getRoleList,
   getGroupList: getGroupList,
   getGroupMembers: getGroupMembers,
-  deleteCurrentUser:deleteCurrentUser
-
+  deleteCurrentUser: deleteCurrentUser,
 };
 
 export default securityActions;
