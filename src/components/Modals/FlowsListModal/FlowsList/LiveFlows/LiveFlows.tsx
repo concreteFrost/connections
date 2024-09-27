@@ -5,59 +5,47 @@ import useStore from "store/store";
 import CreateTemplateFlowModal from "components/Modals/CreateTemplateFlowModal";
 import moment from "moment";
 import { FlowConfig } from "store/interfaces/Iflow";
-
+import { createUpdateDraftFromLiveAPI } from "api/draft";
 
 function LiveFlows() {
-
   const [loadedLiveFlows, setLoadedLiveFlows] = useState<Array<FlowConfig>>([]);
-  const toggleCreateTemplateFlowModal = useStore((state) => state.modalWindowsSlice.toggleCreateTemplateFlowModal);
-  const setTooltipText = useStore((state) => state.designerVisualElementsSlice.setTooltipText)
+  const setTooltipText = useStore(
+    (state) => state.designerVisualElementsSlice.setTooltipText
+  );
+  const { createUpdateDraftFromLiveTemplate, addFlowToTabs } = useStore(
+    (state) => state.flowSlice
+  );
+  const {
+    toggleLoadFlowModal,
+    toggleMessageModal,
+    toggleCreateTemplateFlowModal,
+  } = useStore((state) => state.modalWindowsSlice);
 
-  const flowSlice = useStore((state) => state.flowSlice);
-  const modalSlice = useStore((state) => state.modalWindowsSlice);
-
-  const saveAndLoadLive = async (flowIdToLoad: string) => {
+  async function handleCreateUpdate(loadedFlow: FlowConfig) {
     try {
-      const res:any =await flowSlice.createUpdateDraftFromLiveTemplate(flowIdToLoad);
-
-      if(res.data.success){
-        modalSlice.toggleLoadFlowModal(false)    
+      const res: any = await createUpdateDraftFromLiveAPI(loadedFlow.flowId);
+      if (res.data.success) {
+        createUpdateDraftFromLiveTemplate(res.data.flowConfiguration);
+        addFlowToTabs(res.data.flowConfiguration);
+        toggleLoadFlowModal(false);
       }
     } catch (error) {
-      // modalSlice.setModalMessage("Something went wrong");
-      modalSlice.toggleMessageModal("Something went wrong");
+      toggleMessageModal("something went wrong");
     }
-
-    modalSlice.toggleUpdateFlowModal(false);
-    
-  };
-
-  const loadLiveWithoutSaving = async (flowIdToLoad: string) => {
-
-    try {
-      const res:any=await flowSlice.createUpdateDraftFromLiveTemplate(flowIdToLoad);
-
-      if(res.data.success){
-        modalSlice.toggleLoadFlowModal(false)
-      }
-    } catch (error) {
-      
-      // modalSlice.setModalMessage("Something went wrong");
-      modalSlice.toggleMessageModal("Something went wrong");
-    }
-
-    modalSlice.toggleUpdateFlowModal(false);
-
-  };
+  }
 
   useEffect(() => {
-    getFlowListApi().then((res: any) => {
-      const data = res.data;
-      setLoadedLiveFlows(res.data)
-    }).catch((e) => {
-      console.log('error loading live flows', e)
-    })
-  }, [])
+    const fetchFlowList = async () => {
+      try {
+        const res: any = await getFlowListApi();
+        setLoadedLiveFlows(res.data);
+      } catch (error) {
+        console.log("error loading live flows", error);
+      }
+    };
+
+    fetchFlowList();
+  }, []);
 
   return (
     <div className={s.wrapper}>
@@ -74,46 +62,55 @@ function LiveFlows() {
             </tr>
           </thead>
           <tbody>
-            {loadedLiveFlows.length > 0 ? loadedLiveFlows.map((loadedFlow: FlowConfig) => <tr key={loadedFlow.flowId}>
-              <td className={s.flow_name}>{loadedFlow.name}</td>
-              <td>{loadedFlow.createdBy}</td>
-              <td>{moment(loadedFlow.dateCreated).calendar()}</td>
-              <td>{loadedFlow.version}</td>
-              <td>
-                <div className={s.actions_wrapper}>
-                  <button className={`${s.action_confirm_btn} tooltip-item`}
-                    onMouseEnter={() => setTooltipText('Returns a new draft structure based on a live server flow configuration')}
-                    onClick={() => {
-                      setTooltipText("")
-                      toggleCreateTemplateFlowModal(true, loadedFlow.flowId, loadedFlow.name)}}
-                  >Template</button>
-                  {/*LOAD */}
-                  <button className={`${s.action_confirm_btn} tooltip-item`}
-                    onMouseEnter={() => setTooltipText('Returns a draft copy structure from a live server flow configuration for updating purposes')}
-                    onClick={() => {
-                      setTooltipText("")
-                      if (flowSlice.flow.flowIdentifier) {
-                        modalSlice.toggleUpdateFlowModal(true);
-                        modalSlice.setUpdateFlowModalActions({ save: () => saveAndLoadLive(loadedFlow.flowId), discard: () => loadLiveWithoutSaving(loadedFlow.flowId) })
-                      }
-                      else {
-                        flowSlice.createUpdateDraftFromLiveTemplate(loadedFlow.flowId);
-                        modalSlice.toggleLoadFlowModal(false)
-                      }
-
-                    }}
-                  >Update</button>
-                </div>
-              </td>
-            </tr>
-            ) : null}
+            {loadedLiveFlows.length > 0
+              ? loadedLiveFlows.map((loadedFlow: FlowConfig) => (
+                  <tr key={loadedFlow.flowId}>
+                    <td className={s.flow_name}>{loadedFlow.name}</td>
+                    <td>{loadedFlow.createdBy}</td>
+                    <td>{moment(loadedFlow.dateCreated).calendar()}</td>
+                    <td>{loadedFlow.version}</td>
+                    <td>
+                      <div className={s.actions_wrapper}>
+                        <button
+                          className={`${s.action_confirm_btn} tooltip-item`}
+                          onMouseEnter={() =>
+                            setTooltipText(
+                              "Returns a new draft structure based on a live server flow configuration"
+                            )
+                          }
+                          onClick={() => {
+                            toggleCreateTemplateFlowModal(
+                              true,
+                              loadedFlow.flowId,
+                              loadedFlow.name
+                            );
+                          }}
+                        >
+                          Template
+                        </button>
+                        {/*LOAD */}
+                        <button
+                          className={`${s.action_confirm_btn} tooltip-item`}
+                          onMouseEnter={() =>
+                            setTooltipText(
+                              "Returns a draft copy structure from a live server flow configuration for updating purposes"
+                            )
+                          }
+                          onClick={() => handleCreateUpdate(loadedFlow)}
+                        >
+                          Update
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              : null}
           </tbody>
         </table>
       </div>
 
       <CreateTemplateFlowModal></CreateTemplateFlowModal>
     </div>
-
   );
 }
 

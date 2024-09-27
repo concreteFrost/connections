@@ -17,12 +17,12 @@
     grid-template-columns: 100px 20px;
     align-items: center;
     position: relative;
-    
-    &.active{
+
+    &.active {
       background-color: rgb(167, 166, 166);
       color: rgb(255, 255, 255);
-       border-bottom-left-radius: 0;
-       border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
     }
 
     transition: color 0.2s ease-in;
@@ -33,15 +33,12 @@
       height: 20px;
       text-overflow: ellipsis;
       overflow: hidden;
-     
     }
 
     .close_tab_btn {
-
       button {
         @include red_btn;
-          font-size: 0.6rem;
-       
+        font-size: 0.6rem;
       }
     }
   }

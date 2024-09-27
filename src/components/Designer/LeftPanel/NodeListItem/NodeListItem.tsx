@@ -12,20 +12,24 @@ interface NodeProps {
 
 function NodeListItem(props: NodeProps) {
   const addBlock = useStore((state) => state.flowSlice.addBlock);
-  const { reactFlowInstance, reactFlowWrapper } = useStore((state) => state.designerVisualElementsSlice);
-  const {setTooltipText} = useStore((state) => state.designerVisualElementsSlice);
+  const { reactFlowInstance, reactFlowWrapper } = useStore(
+    (state) => state.designerVisualElementsSlice
+  );
+  const { setTooltipText } = useStore(
+    (state) => state.designerVisualElementsSlice
+  );
 
   // Returns the icon if icon names match with any of nodeIcons in connectionsIcons object
-  const matchedIcon = Object.entries(connectionsIcons.nodeIcons).find(
+  const matchedIcon: any = Object.entries(connectionsIcons.nodeIcons).find(
     ([key]) => key === props.nodeType.visualData.icon.toLowerCase()
   )?.[1];
 
   useEffect(() => {
-    const handleDragOver = (event:any) => {
+    const handleDragOver = (event: any) => {
       event.preventDefault();
     };
 
-    const handleDrop = (event:any ) => {
+    const handleDrop = (event: any) => {
       event.preventDefault();
     };
 
@@ -38,7 +42,7 @@ function NodeListItem(props: NodeProps) {
     };
   }, []);
 
-  function onDragEnd(event:any) {
+  function onDragEnd(event: any) {
     if (canDrop(event, props.leftPanelRef)) {
       const pos = {
         x: positionInViewport(event, reactFlowInstance, reactFlowWrapper).x,
@@ -48,7 +52,7 @@ function NodeListItem(props: NodeProps) {
     }
   }
 
-  function onDragStart(event:any) {
+  function onDragStart(event: any) {
     event.dataTransfer.effectAllowed = "move";
     event.dataTransfer.setData("text/plain", JSON.stringify(props.nodeType)); // Firefox requires data to be set
   }

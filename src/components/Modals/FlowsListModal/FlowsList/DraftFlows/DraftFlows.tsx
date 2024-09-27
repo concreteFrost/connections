@@ -1,67 +1,38 @@
-import useStore from "store/store";
-import { deleteDraftFlowAPI, getDraftListApi } from "api/draft";
+import { getDraftListApi } from "api/draft";
 import s from "./DrafFlows.module.scss";
 import { useState, useEffect } from "react";
-import moment from "moment";
 import { connectionsIcons } from "assets/icons/icons";
-import { LoadedFlow } from "store/interfaces/Iflow";
+import { AxiosResponse } from "axios";
+import { DraftFlowsTable } from "./DraftFlowsTable/DraftFlowsTable";
 
 interface ISectionToOpen {
   folders: boolean;
   flows: boolean;
 }
 
+const initialSectionState: ISectionToOpen = {
+  folders: true,
+  flows: false,
+};
+
 function DraftFlows() {
   const [loadedFlowFolders, setLoadedFlowFolders] = useState<any>([]);
   const [currentDraftFolder, setCurrentDraftFolder] = useState<string>("");
-  const [draftSectionToOpen, setDraftSectionToOpen] = useState<ISectionToOpen>({
-    folders: true,
-    flows: false,
-  });
-  const modalSlice = useStore((state) => state.modalWindowsSlice);
-  const flowSlice = useStore((state) => state.flowSlice);
-  const setTooltipText = useStore(
-    (state) => state.designerVisualElementsSlice.setTooltipText
-  );
-  const { toggleConfirmationModal, setConfirmationModalActions } = useStore(
-    (state) => state.modalWindowsSlice
-  );
+  const [draftSectionToOpen, setDraftSectionToOpen] =
+    useState<ISectionToOpen>(initialSectionState);
 
-  function loadDraftFlowList() {
-    getDraftListApi()
-      .then((res: any) => {
-        setLoadedFlowFolders(res.data.draftFlows);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  async function loadDraftFlowList() {
+    try {
+      const res: AxiosResponse = await getDraftListApi();
+      if (res.status === 200) setLoadedFlowFolders(res.data.draftFlows);
+    } catch (error) {
+      console.log("error getting draft flows list");
+    }
   }
 
   useEffect(() => {
     loadDraftFlowList();
   }, []);
-
-  const handleLoadDraft = async (flowIdToLoad: string) => {
-    try {
-      const res:any = await  flowSlice.loadFlowFromDraft(flowIdToLoad);
-      flowSlice.clearFlowTabs();
-      flowSlice.addFlowToTabs(res.data.flowConfiguration);
-    } catch (e) {
-      console.log("error loading draft");
-    } finally {
-      modalSlice.toggleUpdateFlowModal(false);
-      modalSlice.toggleLoadFlowModal(false);  
-    }
-  };
-
-  async function deleteDraftAndUpdate(draftId: string) {
-    try {
-      await deleteDraftFlowAPI(draftId);
-      await loadDraftFlowList();
-    } catch (e) {
-      console.log(e);
-    }
-  }
 
   return (
     <div className={s.wrapper}>
@@ -86,72 +57,11 @@ function DraftFlows() {
       {/*FLOWS TABLE */}
       <div className={s.table_wrapper}>
         {draftSectionToOpen.flows === true ? (
-          <table>
-            <thead>
-              <tr>
-                <th colSpan={2}>Name</th>
-                <th>Author</th>
-                <th>Created</th>
-                <th>Version</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {loadedFlowFolders[currentDraftFolder]?.map(
-                (flow: LoadedFlow) => (
-                  <tr key={flow.draftId}>
-                    <td className={s.flow_name} colSpan={2}>
-                      {flow.flowName}
-                    </td>
-                    <td>{flow.createdBy}</td>
-                    <td>{moment(flow.createdOn).calendar()}</td>
-                    <td>{flow.flowVersion}</td>
-                    <td className={s.actions_wrapper}>
-                      {/*LOAD */}
-                      <button
-                        className={`${s.action_confirm_btn} tooltip-item`}
-                        onMouseEnter={() =>
-                          setTooltipText(
-                            "Retrieves a draft flow configuration from the server"
-                          )
-                        }
-                        onClick={() => {
-                          setTooltipText("");
-                          if (flowSlice.flow.flowIdentifier) {
-                            modalSlice.toggleUpdateFlowModal(true);
-                            modalSlice.setUpdateFlowModalActions({
-                              save: () => handleLoadDraft(flow.draftId),
-                              discard: () => handleLoadDraft(flow.draftId),
-                            });
-                          } else {
-                            handleLoadDraft(flow.draftId)
-                            modalSlice.toggleLoadFlowModal(false);
-                          }
-                        }}
-                      >
-                        Load
-                      </button>
-                      {/*DELETE */}
-                      <button
-                        className={s.action_delete_btn}
-                        onClick={() => {
-                          toggleConfirmationModal(
-                            true,
-                            `Would you like to delete ${flow.flowName}?`
-                          );
-                          setConfirmationModalActions(() =>
-                            deleteDraftAndUpdate(flow.draftId)
-                          );
-                        }}
-                      >
-                        X
-                      </button>
-                    </td>
-                  </tr>
-                )
-              )}
-            </tbody>
-          </table>
+          <DraftFlowsTable
+            loadDraftFlowList={loadDraftFlowList}
+            loadedFlowFolders={loadedFlowFolders}
+            currentDraftFolder={currentDraftFolder}
+          />
         ) : null}
       </div>
       {/*BACK BTN */}
@@ -166,8 +76,5 @@ function DraftFlows() {
     </div>
   );
 }
-
-// TEMPLATE : CREATE TEMPLATE FROM EXISTING LIVE FLOW
-// UPDATE: UPDATE EXISTING LIVE FLOW
 
 export default DraftFlows;

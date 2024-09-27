@@ -1,6 +1,6 @@
 import { connectionsIcons } from "../../../../assets/icons/icons";
 import { ILeftPanelSections } from "../LeftPanel";
-import s from "./ListItem.module.scss"
+import s from "./ListItem.module.scss";
 
 interface ServersItemProps {
   currentSection: ILeftPanelSections;
@@ -27,7 +27,10 @@ function ServersItem(props: ServersItemProps) {
       </div>
       {props.currentSection.servers && (
         <ul>
-          <li onClick={() => props.navigate("servers")}> <div className={s.flow_list_title_wrapper}>localhost</div></li>
+          <li onClick={() => props.navigate("servers")}>
+            {" "}
+            <div className={s.flow_list_title_wrapper}>localhost</div>
+          </li>
         </ul>
       )}
     </div>

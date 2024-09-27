@@ -10,24 +10,32 @@ import { BlockData } from "store/interfaces/IBlock";
 import { shallow } from "zustand/shallow";
 import React from "react";
 
-
 const BaseNode = (props: NodeProps) => {
-  const { deleteBlock, setDirective,getParameterValue,toggleConfirmationModal, setConfirmationModalActions, flow, directives, blockData } = useStore(
+  const {
+    deleteBlock,
+    setDirective,
+    getParameterValue,
+    toggleConfirmationModal,
+    setConfirmationModalActions,
+    flow,
+    directives,
+    blockData,
+  } = useStore(
     (state) => ({
       deleteBlock: state.flowSlice.deleteBlock,
       setDirective: state.flowSlice.setDirective,
       getParameterValue: state.designerVisualElementsSlice.getParameterValue,
-      toggleConfirmationModal:state.modalWindowsSlice.toggleConfirmationModal,
-      setConfirmationModalActions:state.modalWindowsSlice.setConfirmationModalActions,
+      toggleConfirmationModal: state.modalWindowsSlice.toggleConfirmationModal,
+      setConfirmationModalActions:
+        state.modalWindowsSlice.setConfirmationModalActions,
       flow: state.flowSlice.flow,
       directives: state.alertSlice.directives,
-      blockData: state.flowSlice.flow.blockData
-
+      blockData: state.flowSlice.flow.blockData,
     }),
     shallow
   );
 
-  const block = blockData.find(b => b.blockIdentifier === props.id);
+  const block = blockData.find((b) => b.blockIdentifier === props.id);
   const blockName = block?.blockType;
   const blockLabel = block?.blockLabel;
 
@@ -38,7 +46,7 @@ const BaseNode = (props: NodeProps) => {
     return selectedBlock ? selectedBlock.id : null;
   }, [flow.visual.blocks]);
 
-  const matchedIcon = useMemo(() => {
+  const matchedIcon: any = useMemo(() => {
     return Object.entries(connectionsIcons.nodeIcons).find(
       ([key]) => key === props.data.icon.toLowerCase()
     )?.[1];
@@ -91,10 +99,18 @@ const BaseNode = (props: NodeProps) => {
         style={{ backgroundColor: props.data.color, zIndex: 999999 }}
       >
         <div className={s.node_icon_container}>
-          <div className={`${s.node_icon} ${isDarkBackground(props.data.color) ? s["dark-text"] : s["light-text"]}`}>{matchedIcon}</div>
+          <div
+            className={`${s.node_icon} ${
+              isDarkBackground(props.data.color)
+                ? s["dark-text"]
+                : s["light-text"]
+            }`}
+          >
+            {matchedIcon}
+          </div>
         </div>
         <div className={s.node_title}>{blockName}</div>
-        <div className={s.node_label}>{blockLabel}</div> 
+        <div className={s.node_label}>{blockLabel}</div>
         <div className={s.directions_wrapper}>
           {getDefaultBlockDirective() !== "undefined" ? (
             <select

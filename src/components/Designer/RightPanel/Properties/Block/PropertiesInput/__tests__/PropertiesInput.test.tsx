@@ -1,28 +1,39 @@
 import PropertiesInput, { PropertiesInputProps } from "../PropertiesInput";
-import {
-  render,
-  screen,
-  waitFor,
-  act,
-  fireEvent,
-} from "@testing-library/react";
+import { render, screen, act, fireEvent } from "@testing-library/react";
 import useStore from "store/store";
 import { RFState } from "store/types/rfState";
 import mockFlowStructure from "__mocks__/mockFlow";
+
+const selectedBlock = {
+  ...mockFlowStructure.visual.blocks[0],
+  id: "new",
+  selected: true,
+};
+
+const updatedMockStructure = {
+  ...mockFlowStructure,
+  visual: {
+    ...mockFlowStructure.visual,
+    blocks: [...mockFlowStructure.visual.blocks, selectedBlock], // Spread the array, not the object
+  },
+};
 
 let props: PropertiesInputProps;
 const setStringParameter = jest.spyOn(
   useStore.getState().flowSlice,
   "setStringParameter"
 );
-const setBigIntParameter = jest.spyOn(useStore.getState().flowSlice,"setBigIntParameter");
+const setBigIntParameter = jest.spyOn(
+  useStore.getState().flowSlice,
+  "setBigIntParameter"
+);
 
 describe("Properties Input component", () => {
   beforeEach(() => {
     useStore.setState((state: RFState) => ({
       flowSlice: {
         ...state.flowSlice,
-        flow: mockFlowStructure,
+        flow: updatedMockStructure,
       },
     }));
 
@@ -64,10 +75,9 @@ describe("Properties Input component", () => {
 
     expect(setStringParameter).toHaveBeenCalled();
     expect(setStringParameter).toHaveBeenCalledTimes(1);
-    
   });
 
-  it("not calling other functions",async()=>{
+  it("not calling other functions", async () => {
     render(<PropertiesInput {...props} />);
 
     const input = screen.getByTestId(
@@ -79,5 +89,5 @@ describe("Properties Input component", () => {
     });
 
     expect(setBigIntParameter).not.toHaveBeenCalled();
-  })
+  });
 });

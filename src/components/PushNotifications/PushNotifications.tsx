@@ -10,9 +10,10 @@ interface IPushNotification {
   LoggedTime: string;
 }
 
-function PushNotifications(props: { themeColor  : IconVariants}) {
+function PushNotifications(props: { themeColor: IconVariants }) {
   const [notificationsCount, setNotificationsCount] = useState<number>(0);
-  const [notificationsList, setNotificationsList] = useState<Array<IPushNotification>>();
+  const [notificationsList, setNotificationsList] =
+    useState<Array<IPushNotification>>();
   const [isListVisible, setListVisible] = useState<boolean>(false);
 
   const modalRef = useRef<HTMLDivElement>(null);
@@ -20,38 +21,40 @@ function PushNotifications(props: { themeColor  : IconVariants}) {
   const refreshInterval = 2000; // Обновление каждую минуту (в миллисекундах)
 
   async function getNotifications() {
-    const cache = await caches.open('notifications');
+    const cache = await caches.open("notifications");
     const keys = await cache.keys();
 
-    const cacheData = await Promise.all(keys.map(async (key) => {
-      const response: any = await cache.match(key);
-      const data: any = await response.json();
-      if(data.hasOwnProperty("NotificationId")){
-        return data;
-      }
-    }));
+    const cacheData = await Promise.all(
+      keys.map(async (key) => {
+        const response: any = await cache.match(key);
+        const data: any = await response.json();
+        if (data.hasOwnProperty("NotificationId")) {
+          return data;
+        }
+      })
+    );
 
-    if(cacheData.length>0){
+    if (cacheData.length > 0) {
       handleHandShake();
       setNotificationsCount(cacheData.length);
       setNotificationsList(cacheData);
     }
-   
   }
   async function clearNotifications() {
     await setListVisible(false);
     await setNotificationsCount(0);
     await setNotificationsList([]);
 
-    caches.keys().then(cacheNames=>{
-      return Promise.all(cacheNames.map((cache)=>{
-          if(cache === "notifications"){
-            return caches.delete(cache)
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cache) => {
+          if (cache === "notifications") {
+            return caches.delete(cache);
           }
-      }))
-    })
-}
-
+        })
+      );
+    });
+  }
 
   function handleOutsideClick(e: MouseEvent) {
     if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
@@ -72,7 +75,7 @@ function PushNotifications(props: { themeColor  : IconVariants}) {
 
   useEffect(() => {
     getNotifications();
-  }, []); 
+  }, []);
 
   // Запуск таймера для периодического обновления данных
   useEffect(() => {
@@ -89,10 +92,17 @@ function PushNotifications(props: { themeColor  : IconVariants}) {
   return (
     <div className={s.wrapper}>
       <div className={s.icon_wrapper}>
-      <span className={`${s.icon}  ${props.themeColor === IconVariants.Dark ? s['dark'] : s['light']}` }  onClick={() => setListVisible(!isListVisible)}>
-        {connectionsIcons.bell}
-      </span>
-      {notificationsCount > 0 ? <span className={s.badge}>{notificationsCount}</span> : null}
+        <span
+          className={`${s.icon}  ${
+            props.themeColor === IconVariants.Dark ? s["dark"] : s["light"]
+          }`}
+          onClick={() => setListVisible(!isListVisible)}
+        >
+          {connectionsIcons.bell}
+        </span>
+        {notificationsCount > 0 ? (
+          <span className={s.badge}>{notificationsCount}</span>
+        ) : null}
       </div>
       {isListVisible && notificationsList && notificationsList.length > 0 ? (
         <div className={s.notifications_list} ref={modalRef}>
@@ -100,11 +110,15 @@ function PushNotifications(props: { themeColor  : IconVariants}) {
             {notificationsList?.map((pushNotification: IPushNotification) => (
               <li key={notificationsList.indexOf(pushNotification)}>
                 <div className={s.message}>{pushNotification.Message}</div>
-                <div className={s.date}>{moment(pushNotification.LoggedTime).format("lll")}</div>
+                <div className={s.date}>
+                  {moment(pushNotification.LoggedTime).format("lll")}
+                </div>
               </li>
             ))}
           </ul>
-          <button className={s.clear_btn} onClick={clearNotifications}>CLEAR</button>
+          <button className={s.clear_btn} onClick={clearNotifications}>
+            CLEAR
+          </button>
         </div>
       ) : null}
     </div>

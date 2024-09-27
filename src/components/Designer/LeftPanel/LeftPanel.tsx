@@ -11,7 +11,7 @@ function LeftPanel() {
   );
   const leftPanelRef = useRef<HTMLDivElement>(null); //used to identify the borders of the left panel element
   const [isPanelActive, setIsPanelActive] = useState(true);
-  
+
   const wrapperClasses = `${s.wrapper} ${
     isPanelActive ? s["opened"] : s["closed"]
   }`;
@@ -20,9 +20,16 @@ function LeftPanel() {
   }`;
 
   return (
-    <div className={wrapperClasses} ref={leftPanelRef} data-testid="designer_left_panel_wrapper">
+    <div
+      className={wrapperClasses}
+      ref={leftPanelRef}
+      data-testid="designer_left_panel_wrapper"
+    >
       <div className={toggleBtnClasses}>
-        <button data-testid="close_designer_left_panel_btn" onClick={()=>setIsPanelActive(!isPanelActive)}>
+        <button
+          data-testid="close_designer_left_panel_btn"
+          onClick={() => setIsPanelActive(!isPanelActive)}
+        >
           {isPanelActive
             ? connectionsIcons.leftCaret
             : connectionsIcons.rightCaret}

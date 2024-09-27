@@ -2,106 +2,97 @@
 @import "/src/style/mixins.scss";
 
 .wrapper {
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    margin-right: 20px;
-    height: 100%;
-    position: relative;
-    
-    .icon { 
-        &.light{
-            color: white;
-        }
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin-right: 20px;
+  height: 100%;
+  position: relative;
 
-        &.dark{
-            color: $color-node-nav-icon
-        }
-        cursor: pointer;
-        font-size: 2em;
-        
+  .icon {
+    &.light {
+      color: white;
     }
 
-    .profile_wrapper {
-        z-index: 1000;
+    &.dark {
+      color: $color-node-nav-icon;
+    }
+    cursor: pointer;
+    font-size: 2em;
+  }
+
+  .profile_wrapper {
+    z-index: 1000;
+    position: absolute;
+    background-color: white;
+    top: 50px;
+    border: 1px solid $color-list-border-darker;
+    padding: 10px;
+    width: 300px;
+
+    header {
+      text-align: center;
+      font-weight: $font-weight-bolder;
+      margin-bottom: 20px;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .account_info_wrapper {
+      position: relative;
+
+      .edit_btn {
         position: absolute;
-        background-color: white;
-        top: 50px;
-        border: 1px solid $color-list-border-darker;
-        padding: 10px;
-        width: 300px;
+        top: -15px;
+        right: 0;
+        color: $color-list-label;
+        cursor: pointer;
+      }
 
-
-        header {
-            text-align: center;
-            font-weight: $font-weight-bolder;
-            margin-bottom: 20px;
-        }
-
-
-        main {
-            display: flex;
-            flex-direction: column;
-
-        }
-
-        .account_info_wrapper {
-            position: relative;
-
-            .edit_btn {
-                position: absolute;
-                top: -15px;
-                right: 0;
-                color: $color-list-label;
-                cursor: pointer;
-            }
-
-            .account_info_item {
-                display: flex;
-                margin-bottom: 10px;
-
-
-                label,
-                p {
-                    display: inline-block;
-                    margin-top: 0;
-                    margin-bottom: 0;
-                }
-
-                p {
-                    margin-left: 10px;
-                }
-
-            }
-
-            button {
-                @include blue_btn;
-                background-color: white;
-                color: $color-list-label;
-
-                &:hover {
-                    background-color: white;
-                    color: black;
-                }
-            }
-        }
-
-    }
-
-    .btn_wrapper {
+      .account_info_item {
         display: flex;
-        gap: 10px;
+        margin-bottom: 10px;
 
-        button {
-            @include blue_btn;
-            margin-top: 10px;
-            width: 100%;
+        label,
+        p {
+          display: inline-block;
+          margin-top: 0;
+          margin-bottom: 0;
         }
 
-        .close_btn {
-            background-color: $color-list-label;
+        p {
+          margin-left: 10px;
         }
+      }
+
+      button {
+        @include blue_btn;
+        background-color: white;
+        color: $color-list-label;
+
+        &:hover {
+          background-color: white;
+          color: black;
+        }
+      }
+    }
+  }
+
+  .btn_wrapper {
+    display: flex;
+    gap: 10px;
+
+    button {
+      @include blue_btn;
+      margin-top: 10px;
+      width: 100%;
     }
 
-
+    .close_btn {
+      background-color: $color-list-label;
+    }
+  }
 }

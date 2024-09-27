@@ -1,10 +1,7 @@
 import useStore from "store/store";
 import { useState, useEffect } from "react";
 import s from "./DirectivesTable.module.scss";
-import {
-  Directive,
-  DirectiveConfig,
-} from "store/interfaces/IAlerts";
+import { Directive, DirectiveConfig } from "store/interfaces/IAlerts";
 import { FlowConfig } from "store/interfaces/Iflow";
 import { connectionsIcons } from "../../../../../../../assets/icons/icons";
 import DirectiveConfigItem from "../AddDirectiveForm/DirectiveConfigItem/DirectiveConfigItem";
@@ -287,10 +284,7 @@ function DirectivesTable(props: DirectivesTableProps) {
                       <ul>
                         {directive.directives.length > 0 ? (
                           directive.directives.map(
-                            (
-                              config: DirectiveConfig,
-                              config_index: number
-                            ) => (
+                            (config: DirectiveConfig, config_index: number) => (
                               <DirectiveConfigItem
                                 key={config_index}
                                 directive={directive}

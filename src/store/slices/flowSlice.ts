@@ -3,7 +3,7 @@ import { Node } from "react-flow-renderer";
 import initialNodes from "../nodes";
 import initialEdges from "../edges";
 import { initializeFlow } from "store/actions/utils/flowUtils";
-import flowActions, { closeFlow } from "store/actions/designerActions/flowActions";
+import flowActions from "store/actions/designerActions/flowActions";
 import blockActions from "store/actions/designerActions/blockActions";
 import groupActions from "store/actions/designerActions/groupActions";
 import edgeActions from "store/actions/designerActions/edgesActions";
@@ -17,7 +17,7 @@ import { NodeType } from "interfaces/INode";
 import leftPanelActions from "store/actions/designerActions/leftPanelActions";
 import nodeActions from "store/actions/designerActions/nodeActions";
 import { Connection, EdgeChange } from "reactflow";
-import { clearFlow } from "__mocks__/utils/mockFlowUtils";
+import tabsActions from "store/actions/designerActions/tabsActions";
 
 export type FlowSlice = {
   blockList: NodeType[];
@@ -88,8 +88,8 @@ export type FlowSlice = {
   setFlowIsEnabled: () => void;
   createFlow: (flowId?: string) => FlowStructure;
   closeFlow: () => void;
-  createFlowFromTemplate: (liveFlowID: string, newDraftName: string) => void;
-  createUpdateDraftFromLiveTemplate: (id: string) => void;
+  createFlowFromTemplate: (flowConfiguration: any) => void;
+  createUpdateDraftFromLiveTemplate: (flowConfiguration: any) => void;
 
   //Draft Actions
   setCanApprove: (canApprove: boolean) => void;
@@ -119,85 +119,12 @@ const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
   directivesList: [],
 
   //tabs actions
-  addFlowToTabs: (newFlow: FlowStructure) => {
-    set((state: RFState) => ({
-      flowSlice: {
-        ...state.flowSlice,
-        allFlows: [...state.flowSlice.allFlows, get().flowSlice.flow],
-      },
-    }));
-    console.log(get().flowSlice);
-  },
-
-  setFlowNameInTabs: (value: string) => {
-    set((state: RFState) => ({
-      flowSlice: {
-        ...state.flowSlice,
-        allFlows: state.flowSlice.allFlows.map((x: FlowStructure) => {
-          if (x.flowIdentifier === get().flowSlice.flow.flowIdentifier) {
-            return {
-              ...x,
-              flowName: value.length > 0 ? value : x.flowIdentifier,
-            };
-          } else {
-            return x;
-          }
-        }),
-      },
-    }));
-  },
-
-  takeFlowSnapshot: (currentFlow: FlowStructure) => {
-    const updatedFlows: Array<FlowStructure> = get().flowSlice.allFlows.map(
-      (flow: FlowStructure) => {
-        if (flow.flowIdentifier === currentFlow.flowIdentifier) {
-          return currentFlow;
-        } else return flow;
-      }
-    );
-
-    set((state: RFState) => ({
-      flowSlice: {
-        ...state.flowSlice,
-        allFlows: updatedFlows,
-      },
-    }));
-  },
-
-  getFlowFromSnapshot: (flowStructure: FlowStructure) => {
-    const flowToGet = get().flowSlice.allFlows.find(
-      (flow: FlowStructure) =>
-        flow.flowIdentifier === flowStructure.flowIdentifier
-    );
-    set((state: RFState) => ({
-      flowSlice: {
-        ...state.flowSlice,
-        flow: flowToGet,
-      },
-    }));
-  },
-
-  clearFlowTabs: () => {
-    set((state: RFState) => ({
-      flowSlice: {
-        ...get().flowSlice,
-        allFlows: [],
-      },
-    }));
-  },
-
-  removeFromTab: (flowId: string) => {
-    const updatedFlows = get().flowSlice.allFlows.filter(
-      (flow: FlowStructure) => flow.flowIdentifier !== flowId
-    );
-
-    set((state: RFState) => ({
-      flowSlice: {
-        ...state.flowSlice,
-        allFlows: updatedFlows,
-      },
-    }));
-  },
+  addFlowToTabs: tabsActions.addFlowToTabs(get, set),
+  setFlowNameInTabs: tabsActions.setFlowNameInTabs(get, set),
+  takeFlowSnapshot: tabsActions.takeFlowSnapshot(get, set),
+  getFlowFromSnapshot: tabsActions.getFlowFromSnapshot(get, set),
+  clearFlowTabs: tabsActions.clearFlowTabs(get, set),
+  removeFromTab: tabsActions.removeFromTab(get, set),
 
   //Base Actions
   setBlockName: blockActions.setBlockName(get, set),
