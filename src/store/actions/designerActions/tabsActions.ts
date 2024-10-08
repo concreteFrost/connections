@@ -9,7 +9,6 @@ const addFlowToTabs =
         allFlows: [...state.flowSlice.allFlows, get().flowSlice.flow],
       },
     }));
-    console.log(get().flowSlice);
   };
 
 const setFlowNameInTabs = (get: () => RFState, set: any) => (value: string) => {

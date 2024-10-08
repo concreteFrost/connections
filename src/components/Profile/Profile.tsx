@@ -30,7 +30,6 @@ function Profile(props: ProfileProps) {
   async function getMe() {
     try {
       const res: any = await getMeAPI();
-      console.log(res.data.userRecord);
       await getUser(res.data.userRecord);
     } catch (e) {
       console.log("error getting me", e);
