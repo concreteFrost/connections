@@ -1,8 +1,8 @@
 import { NodeType } from "store/interfaces/INode";
 import s from "./NodeListItem.module.scss";
-import { connectionsIcons } from "../../../../assets/icons/icons";
+import { connectionsIcons } from "assets/icons/icons";
 import useStore from "store/store";
-import { canDrop, positionInViewport } from "../../../../utils/draggableUtils";
+import { canDrop, positionInViewport } from "utils/draggableUtils";
 import { useEffect } from "react";
 
 interface NodeProps {
@@ -69,10 +69,11 @@ function NodeListItem(props: NodeProps) {
         onDragStart={onDragStart}
         draggable
       >
+        <span> {props.nodeType.data.name}</span>
+
         <span className={s.node_list_icon}>
           {matchedIcon ? matchedIcon : "*"}
         </span>
-        {props.nodeType.data.name}
       </button>
     </div>
   );

@@ -1,7 +1,7 @@
 import s from "./Section.module.scss";
 import NodeListItem from "../NodeListItem/NodeListItem";
 import { NodeType } from "store/interfaces/INode";
-import { connectionsIcons } from "../../../../assets/icons/icons";
+import { connectionsIcons } from "assets/icons/icons";
 import { useState } from "react";
 import useStore from "store/store";
 
