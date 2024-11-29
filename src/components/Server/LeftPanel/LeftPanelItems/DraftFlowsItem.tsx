@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
-import useStore from "store/store";
+import { useState } from "react";
 import { deleteDraftFlowAPI, getDraftListApi } from "../../../../api/draft";
 import { connectionsIcons } from "../../../../assets/icons/icons";
 import { ILeftPanelSections } from "../LeftPanel";
+import { LoadedFlow } from "store/interfaces/Iflow";
+import { useLoadDraft } from "utils/drafts/useLoadDraft";
 import s from "./ListItem.module.scss";
+import { useNavigate } from "react-router";
 
 interface FlowsItemProps {
   toggleSection: (section: string) => void;
@@ -13,9 +15,8 @@ interface FlowsItemProps {
 
 function DraftFlowsItem(props: FlowsItemProps) {
   const [draftFlowList, setDraftFlowList] = useState<Array<any>>([]);
-  const { loadFlowFromDraft } = useStore((state) => state.flowSlice);
-
   const [isListLoaded, setListLoaded] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   async function fetchDraftFlowList() {
     if (!isListLoaded) {
@@ -23,7 +24,6 @@ function DraftFlowsItem(props: FlowsItemProps) {
         const res: any = await getDraftListApi();
         if (res.data.hasOwnProperty("draftFlows")) {
           const data: any = await res.data.draftFlows;
-
           sortDraftsByFolder(data);
           setListLoaded(true);
         }
@@ -77,6 +77,21 @@ function DraftFlowsItem(props: FlowsItemProps) {
     });
   }
 
+  const { handleLoadDraft } = useLoadDraft();
+
+  const foo = async (flow: string) => {
+    try {
+      const res = await handleLoadDraft(flow);
+      if (res === true) {
+        navigate("/dashboard/designer");
+      }
+
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div className={s.section}>
       <div
@@ -115,7 +130,7 @@ function DraftFlowsItem(props: FlowsItemProps) {
               </div>
               {draftFlowList[folderName].isExpanded ? (
                 <ul>
-                  {draftFlowList[folderName].map((flow: any) => (
+                  {draftFlowList[folderName].map((flow: LoadedFlow) => (
                     <li key={flow.draftId} className={s.flow_list_item}>
                       <div className={s.flow_list_title_wrapper}>
                         {flow.flowName}
@@ -123,12 +138,7 @@ function DraftFlowsItem(props: FlowsItemProps) {
                       <div className={s.flow_list_btn_wrapper}></div>
 
                       <div className={s.flow_list_dropdown_actions}>
-                        <button
-                          onClick={() => {
-                            loadFlowFromDraft(flow.draftId);
-                            props.navigate("/dashboard/designer");
-                          }}
-                        >
+                        <button onClick={() => foo(flow.draftId)}>
                           {connectionsIcons.upload}
                         </button>
                         <button

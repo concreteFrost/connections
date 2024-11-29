@@ -82,9 +82,9 @@
 
 @mixin nav_right_section {
   display: flex;
-
-  justify-self: right;
-  justify-items: flex-start;
+  justify-self: end;
+  align-items: flex-start;
+  justify-content: space-between;
   z-index: 1000;
 }
 

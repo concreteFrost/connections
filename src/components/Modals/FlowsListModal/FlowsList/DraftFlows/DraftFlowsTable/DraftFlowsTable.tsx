@@ -1,11 +1,10 @@
 // @flow
 import { LoadedFlow } from "store/interfaces/Iflow";
 import useStore from "store/store";
-import { deleteDraftFlowAPI, getDraftApi } from "api/draft";
+import { deleteDraftFlowAPI } from "api/draft";
 import moment from "moment";
-import { AxiosResponse } from "axios";
-import { FlowStructure } from "store/interfaces/Iflow";
 import s from "../DrafFlows.module.scss";
+import { useLoadDraft } from "utils/drafts/useLoadDraft";
 
 type Props = {
   loadedFlowFolders: any;
@@ -21,40 +20,11 @@ export function DraftFlowsTable({
     (state) => state.designerVisualElementsSlice
   );
 
-  const modalSlice = useStore((state) => state.modalWindowsSlice);
-  const { loadFlowFromDraft, addFlowToTabs, allFlows } = useStore(
-    (state) => state.flowSlice
+  const { toggleConfirmationModal, setConfirmationModalActions } = useStore(
+    (state) => state.modalWindowsSlice
   );
 
-  const {
-    toggleConfirmationModal,
-    setConfirmationModalActions,
-    toggleMessageModal,
-  } = useStore((state) => state.modalWindowsSlice);
-
-  const handleLoadDraft = async (flowIdToLoad: string) => {
-    try {
-      const res: AxiosResponse = await getDraftApi(flowIdToLoad);
-
-      const match = allFlows.find(
-        (flow: FlowStructure) =>
-          flow.flowIdentifier === res.data.flowConfiguration.flowIdentifier
-      );
-
-      if (match) {
-        toggleMessageModal("this flow is already opened");
-        return;
-      }
-      loadFlowFromDraft(res.data.flowConfiguration);
-      addFlowToTabs(res.data.flowConfiguration);
-    } catch (e) {
-      console.log("error loading draft");
-    } finally {
-      modalSlice.toggleUpdateFlowModal(false);
-      modalSlice.toggleLoadFlowModal(false);
-    }
-  };
-
+  const { handleLoadDraft } = useLoadDraft();
   async function deleteDraftAndUpdate(draftId: string) {
     try {
       await deleteDraftFlowAPI(draftId);

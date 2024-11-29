@@ -48,12 +48,9 @@
     }
 
     .right {
-      display: flex;
-      justify-self: end;
-      justify-content: space-between;
+      @include nav_right_section;
     }
   }
-
 
   @media print {
     display: none;

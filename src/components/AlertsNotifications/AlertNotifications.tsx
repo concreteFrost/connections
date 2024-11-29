@@ -16,7 +16,7 @@ interface IPushAlert {
 }
 
 function AlertNotifications(props: { themeColor: IconVariants }) {
-  const {alerts,setAlerts} = useStore((state)=>state.alertSlice);
+  const { alerts, setAlerts } = useStore((state) => state.alertSlice);
   const [isListVisible, setListVisible] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -42,11 +42,11 @@ function AlertNotifications(props: { themeColor: IconVariants }) {
     if (cahceData.length > 0) {
       handleHandShake();
       try {
-        const res : any = await getAlertsApi(true);
+        const res: any = await getAlertsApi(true);
         setAlerts(res.data);
         clearAlertsFromCache();
       } catch (error) {
-        console.log('error getting alerts')
+        console.log("error getting alerts");
       }
       // setAlertsCount(cahceData.length);
       // setAlerts(cahceData);
@@ -56,7 +56,6 @@ function AlertNotifications(props: { themeColor: IconVariants }) {
     try {
       await clearFromCache("alerts");
       await setListVisible(false);
-   
     } catch (e) {
       console.log("error deleting alerts from cache");
     }
@@ -130,9 +129,9 @@ function AlertNotifications(props: { themeColor: IconVariants }) {
               </li>
             ))}
           </ul>
-          <button className={s.clear_btn} onClick={clearAlertsFromCache}>
+          {/* <button className={s.clear_btn} onClick={clearAlertsFromCache}>
             CLEAR
-          </button>
+          </button> */}
         </div>
       ) : null}
     </div>
