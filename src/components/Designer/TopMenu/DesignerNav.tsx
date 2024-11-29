@@ -12,7 +12,6 @@ import SwitchToServerView from "./CentralPanel/SwitchToServerView";
 import Create from "./CentralPanel/Create";
 import Save from "./CentralPanel/Save";
 import Load from "./CentralPanel/Load";
-import Close from "./CentralPanel/Close";
 import View from "./CentralPanel/View/View";
 import Approve from "./CentralPanel/Approve";
 import FlowTabs from "./Tabs/FlowTabs";
