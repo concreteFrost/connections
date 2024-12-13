@@ -3,6 +3,7 @@
 
 .wrapper {
   @include nav_wrapper;
+  box-shadow: $shadow-server-top-nav;
   z-index: 9999;
   header {
     font-size: 1rem;
@@ -10,7 +11,7 @@
     margin-left: auto;
     margin-right: auto;
 
-    @media screen and (max-width:$breakpoint-lg) {
+    @media screen and (max-width: $breakpoint-lg) {
       font-size: 1rem;
     }
   }
@@ -23,20 +24,14 @@
 
     .designer_button,
     .server_button {
-      color: white;
-
       button {
-        @include server_header_btn;
+        @include white_btn;
         margin-left: 20px;
       }
     }
-
   }
 
   .settings_container {
     @include nav_right_section;
   }
-
-
-
 }

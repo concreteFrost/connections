@@ -1,0 +1,39 @@
+.panels_container {
+  position: fixed; /* Makes the grid fixed to the viewport */
+  bottom: 0;
+  top: 75px;
+  left: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto auto; /* Left panel, main area, right panel */
+  grid-template-rows: auto 1fr auto auto; /* Top area, main content, bottom area */
+  z-index: 1000;
+
+  .left_panel_wrapper {
+    grid-column: 1; /* Left column */
+    grid-row: 2; /* Middle row */
+
+    align-self: end; /* Align to the bottom */
+  }
+
+  .right_panel_wrapper {
+    grid-column: 3; /* Right column */
+    grid-row: 2; /* Middle row */
+
+    align-self: end; /* Align to the bottom */
+  }
+
+  .subs_panel_wrapper {
+    grid-column: 2; /* Center column */
+    grid-row: 3; /* Bottom row */
+    justify-self: center; /* Center horizontally */
+    align-self: flex-end; /* Align to the bottom */
+    width: 700px;
+  }
+
+  .flow_wrapper {
+    grid-column: 4;
+    grid-row: 4;
+    width: 300px;
+  }
+}

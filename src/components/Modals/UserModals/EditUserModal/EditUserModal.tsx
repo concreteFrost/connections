@@ -3,7 +3,13 @@ import useStore from "store/store";
 import { Group, Role, User } from "store/interfaces/ISecurity";
 import { useState, useEffect } from "react";
 import useEscapeKeyHandler from "hooks/useEscapeKeyHandler";
-import { generatePasswordAPI, getGroupListAPI, getRoleListAPI, resetPasswordAPI, updateUserAPI } from "api/security";
+import {
+  generatePasswordAPI,
+  getGroupListAPI,
+  getRoleListAPI,
+  resetPasswordAPI,
+  updateUserAPI,
+} from "api/security";
 
 interface EditUserModalProps {
   isVisible: boolean;
@@ -29,11 +35,11 @@ function EditUserModal(props: EditUserModalProps) {
   async function _getRolesList() {
     try {
       const res: any = await getRoleListAPI();
-      if(res.data.length>0){
-        setRolesList(res.data)
+      if (res.data.length > 0) {
+        setRolesList(res.data);
       }
     } catch (error) {
-        console.log('error getting roles in edit user modal')
+      console.log("error getting roles in edit user modal");
     }
   }
 
@@ -45,14 +51,14 @@ function EditUserModal(props: EditUserModalProps) {
         setGroupList(res.data.groups);
       }
     } catch (error) {
-        console.log('error getting groups in edit user modal')
+      console.log("error getting groups in edit user modal");
     }
   }
 
   async function fetchRolesAndGroups() {
     try {
-        await _getRolesList();
-        await _getGroupsList();
+      await _getRolesList();
+      await _getGroupsList();
     } catch (e) {
       console.log("error fetching groups", e);
     }
@@ -79,7 +85,7 @@ function EditUserModal(props: EditUserModalProps) {
   async function performPasswordGeneration() {
     try {
       const res: any = await generatePasswordAPI(1, 12);
-      console.log(res.data.message)
+      console.log(res.data.message);
       setNewPassword(res.data.message);
     } catch (e) {
       console.log("error generating password", e);
@@ -333,8 +339,12 @@ function EditUserModal(props: EditUserModalProps) {
                   </div>
                 </section>
                 <section className={s.form_btns_wrapper}>
-                  <button>UPDATE</button>
-                  <button onClick={() => props.toggleEditUser(false)}>
+                  <button className={s.update_btn}>UPDATE</button>
+                  <button
+                    type="button"
+                    className={s.cancel_btn}
+                    onClick={() => props.toggleEditUser(false)}
+                  >
                     CANCEL
                   </button>
                 </section>

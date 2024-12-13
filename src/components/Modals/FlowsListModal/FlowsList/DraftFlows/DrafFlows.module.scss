@@ -38,7 +38,7 @@
     }
 
     .empty_draft_list {
-      cursor:auto ;
+      cursor: auto;
       color: $color-list-label;
       font-weight: 400;
       text-align: center;
@@ -47,30 +47,21 @@
   }
 
   .footer_btn {
-    background-color: $bg-top-menu-btn-default;
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
+    @include blue_btn;
   }
 
   .action_delete_btn,
   .action_confirm_btn {
-    border: 0;
-    padding: 5px;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
     margin-left: 3px;
-    font-size: 0.7rem;
   }
 
   .action_delete_btn {
-    background-color: $bg-delete-btn;
+    @include red_btn;
+    font-size: 0.6rem;
   }
 
   .action_confirm_btn {
-    background-color: $bg-top-menu-btn-default;
+    @include blue_btn;
+    font-size: 0.6rem;
   }
 }

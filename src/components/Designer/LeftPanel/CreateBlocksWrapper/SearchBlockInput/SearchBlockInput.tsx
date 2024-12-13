@@ -4,6 +4,7 @@ import useStore from "store/store";
 import { RFState } from "store/types/rfState";
 import { NodeType } from "store/interfaces/INode";
 import NodeListItem from "../NodeListItem/NodeListItem";
+import useEscapeKeyHandler from "hooks/useEscapeKeyHandler";
 
 interface SearchBlockProps {
   leftPanelRef: RefObject<HTMLDivElement>;
@@ -24,14 +25,16 @@ export default function SearchBlock({ leftPanelRef }: SearchBlockProps) {
       : null
   );
 
+  useEscapeKeyHandler(() => setFilter(""));
+
   return (
     <div className={s.wrapper}>
-      <div>Block Search</div>
+      {/* <div>Block Search</div> */}
       <input
         type="text"
         value={filter}
         onChange={performBlockSearch}
-        placeholder="Block Name"
+        placeholder="Search blocks"
       />
       <div className={s.results}>
         {filteredList.map((block, index) => (

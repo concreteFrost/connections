@@ -18,6 +18,7 @@ import FlowTabs from "./Tabs/FlowTabs";
 
 function DesignerNav() {
   const flowId = useStore((state) => state.flowSlice.flow.flowIdentifier);
+  const { allFlows } = useStore((state) => state.flowSlice);
 
   return (
     <div className={s.container}>
@@ -44,7 +45,6 @@ function DesignerNav() {
         </section>
       </div>
       <FlowTabs></FlowTabs>
-
       <FlowsListModal></FlowsListModal>
       <UpdateFlowModal />
     </div>

@@ -5,7 +5,6 @@
   height: 81vh;
 
   border: 1px solid rgb(231, 231, 231);
-  ;
   position: relative;
 
   .panel_header {
@@ -23,8 +22,7 @@
     justify-content: center;
 
     button {
-      @include blue_btn;
-      background-color: $bg-delete-btn;
+      @include red_btn;
     }
   }
 
@@ -72,8 +70,7 @@
       }
 
       .delete_btn {
-        @include blue_btn;
-        background-color: $bg-delete-btn;
+        @include red_btn;
       }
     }
   }

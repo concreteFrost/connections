@@ -2,7 +2,7 @@
 @import "/src/style/variables.scss";
 
 .wrapper {
-  height: 100%;
   border: 1px solid rgb(231, 231, 231);
 
+  box-shadow: $shadow-server-sidebar;
 }

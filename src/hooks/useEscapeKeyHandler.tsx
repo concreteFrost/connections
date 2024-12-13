@@ -1,10 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 
 const useEscapeKeyHandler = (callback: () => void) => {
+  // Memoize the callback to ensure a stable reference
+  const stableCallback = useCallback(callback, []);
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        callback();
+        stableCallback();
       }
     };
 
@@ -13,7 +16,7 @@ const useEscapeKeyHandler = (callback: () => void) => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [callback]);
+  }, [stableCallback]);
 };
 
 export default useEscapeKeyHandler;

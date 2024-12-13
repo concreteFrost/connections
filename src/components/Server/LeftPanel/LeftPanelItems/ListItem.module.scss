@@ -5,6 +5,11 @@
   position: relative;
   overflow-x: auto;
   background-color: $bg-node-nav-container;
+  box-shadow: rgba(226, 226, 226, 0.3) 0px 7px 13px 7px inset;
+
+  &:hover {
+    background-color: darken($color: $bg-node-nav-container, $amount: 5f);
+  }
 
   &.opened {
     width: 100%;
@@ -17,6 +22,7 @@
   }
 
   transition: width 0.3s ease-out;
+  transition: background-color 0.3s ease-in-out;
 
   ul {
     margin: 0;
@@ -70,7 +76,7 @@
     position: absolute;
     right: 5px;
     gap: 2px;
-    
+
     .delete_btn,
     button {
       @include blue-btn;
@@ -79,7 +85,7 @@
     }
 
     .delete_btn {
-      background-color: $bg-delete-btn;
+      @include red_btn;
     }
   }
 
@@ -103,7 +109,6 @@
   .section_header {
     display: flex;
     align-items: center;
-    
 
     .section_title {
       color: $color-node-nav-container-header;
@@ -113,6 +118,8 @@
 
     .header_icon {
       padding-left: 10px;
+      color: $color-font-main;
+      font-size: 1.3rem;
     }
 
     .arrow_icon {

@@ -2,42 +2,47 @@
 @import "/src/style/mixins.scss";
 
 .wrapper {
+  padding: 20px;
 
-    padding: 20px;
+  h3 {
+    color: $color-font-main;
+    margin-bottom: 10px;
+  }
 
-    h3 {
-        color: $color-font-main;
-        margin-bottom: 10px;
+  .configure_btn {
+    @include blue_btn;
+    margin-bottom: 10px;
+  }
+
+  table {
+    @include server_table;
+    table-layout: fixed;
+    margin-bottom: 20px;
+
+    tbody {
+      font-size: 0.8rem;
     }
 
-    .configure_btn {
-        @include blue_btn;
-        margin-bottom: 10px;
+    .actions_btn_wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      justify-self: center;
     }
+  }
 
-    table {
-        @include server_table;
-        table-layout: fixed;
+  .toggle_read_btn {
+    @include blue_btn;
+    width: 100px;
+    margin: auto;
+    margin-top: 3px;
+  }
 
-        .actions_btn_wrapper {
-            display: flex;
-            flex-direction: column;
-        }
-    }
+  .read_btn {
+    @include yellow_btn;
+  }
 
-    button {
-        @include blue_btn;
-        width: 100px;
-        margin: auto;
-        margin-top: 3px;
-
-    }
-
-    .read_btn {
-        background-color: $bg-warning-btn;
-    }
-
-    .delete_btn {
-        background-color: $bg-delete-btn;
-    }
+  .delete_btn {
+    @include red_btn;
+  }
 }

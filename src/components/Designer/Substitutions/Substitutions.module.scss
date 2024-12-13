@@ -8,7 +8,7 @@
 
 .content {
   position: absolute;
-  bottom: 0;
+  bottom: 50px;
   z-index: 100;
 
   border: 1px solid rgb(239, 239, 239);
@@ -55,6 +55,7 @@
 
   ul {
     display: flex;
+
     padding-left: 10px;
     margin: 0;
 
@@ -65,21 +66,14 @@
   }
 
   input {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    border-radius: 5px;
     height: 18px;
     border: 1px solid rgb(182, 182, 182);
     outline: none;
   }
 
   button {
-    background-color: $bg-top-menu-btn-default;
-    color: white;
-    border: 0;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-    cursor: pointer;
-    height: 22px;
+    @include blue_btn;
   }
 
   span {

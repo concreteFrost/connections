@@ -15,8 +15,7 @@ export interface ILeftPanelSections {
   statistics: boolean;
   settings: boolean;
   security: boolean;
-  alerts:boolean;
-
+  alerts: boolean;
 }
 function LeftPanel() {
   const [sectionToOpen, setSectionToOpen] = useState<ILeftPanelSections>({
@@ -26,7 +25,7 @@ function LeftPanel() {
     statistics: false,
     settings: false,
     security: false,
-    alerts:false
+    alerts: false,
   });
 
   const navigate = useNavigate();
@@ -40,12 +39,36 @@ function LeftPanel() {
 
   return (
     <div className={s.wrapper}>
-        <ServersItem currentSection={sectionToOpen} toggleSection={toggleSection} navigate={navigate}></ServersItem>
-        <FlowsItem currentSection={sectionToOpen} toggleSection={toggleSection} navigate={navigate}></FlowsItem>
-        <DraftFlowsItem currentSection={sectionToOpen} toggleSection={toggleSection} navigate={navigate}></DraftFlowsItem>
-        <AlertsItem currentSection={sectionToOpen}  toggleSection={toggleSection} navigate={navigate}></AlertsItem>
-        <SecurityItem currentSection={sectionToOpen} toggleSection={toggleSection} navigate={navigate}></SecurityItem>
-        <SettingsItem currentSection={sectionToOpen}  toggleSection={toggleSection} navigate={navigate}></SettingsItem>
+      <ServersItem
+        currentSection={sectionToOpen}
+        toggleSection={toggleSection}
+        navigate={navigate}
+      ></ServersItem>
+      <FlowsItem
+        currentSection={sectionToOpen}
+        toggleSection={toggleSection}
+        navigate={navigate}
+      ></FlowsItem>
+      <DraftFlowsItem
+        currentSection={sectionToOpen}
+        toggleSection={toggleSection}
+        navigate={navigate}
+      ></DraftFlowsItem>
+      <AlertsItem
+        currentSection={sectionToOpen}
+        toggleSection={toggleSection}
+        navigate={navigate}
+      ></AlertsItem>
+      <SecurityItem
+        currentSection={sectionToOpen}
+        toggleSection={toggleSection}
+        navigate={navigate}
+      ></SecurityItem>
+      <SettingsItem
+        currentSection={sectionToOpen}
+        toggleSection={toggleSection}
+        navigate={navigate}
+      ></SettingsItem>
     </div>
   );
 }

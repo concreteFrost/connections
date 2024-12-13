@@ -2,7 +2,6 @@
 @import "/src/style/mixins.scss";
 
 .wrapper {
-
   header {
     font-weight: bold;
     text-align: center;
@@ -23,9 +22,7 @@
         z-index: 1;
       }
     }
-
   }
-
 
   li {
     list-style: none;
@@ -58,14 +55,16 @@
     border-radius: 5px;
     cursor: pointer;
     margin-left: 3px;
-    font-size: .7rem;
+    font-size: 0.7rem;
   }
 
   .action_delete_btn {
-    background-color: $bg-delete-btn;
+    @include red_btn;
+    font-size: 0.6rem;
   }
 
   .action_confirm_btn {
-    background-color: $bg-top-menu-btn-default;
+    @include blue_btn;
+    font-size: 0.6rem;
   }
 }
