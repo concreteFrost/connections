@@ -1,14 +1,9 @@
-
 import s from "./AddNotificationForm.module.scss";
 import { useState, useEffect } from "react";
-import {
-  Notification,
-  NotificationType,
-} from "store/interfaces/INotification";
+import { Notification, NotificationType } from "store/interfaces/INotification";
 import useStore from "store/store";
 import { Group, User } from "store/interfaces/ISecurity";
 import { newNotificationAPI } from "api/notification";
-
 
 const defaultFormState = {
   notificationId: 0,
@@ -35,7 +30,7 @@ function AddNotificationForm() {
   );
   const modalSlice = useStore((state) => state.modalWindowsSlice);
 
-  const [isFormActive, setIsFormActive] = useState<boolean>(false);
+  const [isFormActive, setFormActive] = useState<boolean>(false);
   const [formElements, setFormElements] =
     useState<Notification>(defaultFormState);
 
@@ -71,6 +66,10 @@ function AddNotificationForm() {
     }
   }
 
+  function handleSetFormActive() {
+    setFormActive(!isFormActive);
+  }
+
   const formWrapperClasses = `${s.form_wrapper} ${
     isFormActive ? s["opened"] : s["closed"]
   }`;
@@ -78,13 +77,9 @@ function AddNotificationForm() {
   return (
     <div className={s.wrapper}>
       <div className={s.toggle_btn_wrapper}>
-        {!isFormActive ? (
-          <button onClick={() => setIsFormActive(true)}>
-            NEW NOTIFICATION
-          </button>
-        ) : (
-          <button onClick={() => setIsFormActive(false)}>CLOSE</button>
-        )}
+        <button onClick={() => handleSetFormActive()}>
+          {isFormActive ? "CLOSE" : "ADD"}
+        </button>
       </div>
 
       <div className={formWrapperClasses}>
@@ -153,16 +148,14 @@ function AddNotificationForm() {
               >
                 <option value={-1}>Select Type</option>
                 {notificationsTypes.length > 0
-                  ? notificationsTypes.map(
-                      (notification: NotificationType) => (
-                        <option
-                          value={notification.notificationTypeId}
-                          key={notification.notificationTypeId}
-                        >
-                          {notification.name}
-                        </option>
-                      )
-                    )
+                  ? notificationsTypes.map((notification: NotificationType) => (
+                      <option
+                        value={notification.notificationTypeId}
+                        key={notification.notificationTypeId}
+                      >
+                        {notification.name}
+                      </option>
+                    ))
                   : null}
               </select>
             </section>
@@ -181,7 +174,7 @@ function AddNotificationForm() {
                 <option value={-1}>Select User/Group</option>
                 <optgroup label="USERS">
                   {userList.length > 0
-                  ? userList.map((user: User) => (
+                    ? userList.map((user: User) => (
                         <option key={user.userId} value={user.userId}>
                           {user.userName}
                         </option>

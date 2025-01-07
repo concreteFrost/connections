@@ -2,12 +2,15 @@
   background-color: $bg-top-menu-btn-default;
   padding: 5px 10px;
   border: 0;
-  border-radius: 5px;
-  color: white;
+  border-radius: 6px;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
   cursor: pointer;
-
+  box-shadow: rgba(59, 59, 59, 0.2) 0px -2px 0px inset;
+  text-transform: uppercase;
   &:hover {
     background-color: $bg-top-menu-btn-hover;
+    box-shadow: none;
   }
 
   transition: background-color 0.2s ease-in-out;
@@ -19,6 +22,34 @@
 
   &:hover {
     background-color: $bg-delete-btn-hover;
+  }
+}
+
+@mixin yellow_btn {
+  @include blue_btn();
+  background-color: $bg-warning-btn;
+
+  &:hover {
+    background-color: $bg-warning-btn-hover;
+  }
+}
+
+@mixin grey_btn {
+  @include blue_btn();
+  background-color: $bg-cancel-btn;
+
+  &:hover {
+    background-color: $bg-cancel-btn-hover;
+  }
+}
+
+@mixin white_btn {
+  @include blue_btn();
+  background-color: white;
+  color: $color-font-main;
+
+  &:hover {
+    background-color: rgb(207, 207, 207);
   }
 }
 

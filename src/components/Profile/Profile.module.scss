@@ -92,7 +92,7 @@
     }
 
     .close_btn {
-      background-color: $color-list-label;
+      @include grey_btn;
     }
   }
 }

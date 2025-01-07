@@ -42,6 +42,10 @@ function MonacoEditor(props: MonacoEditorProps) {
           className={`${s.icon} ${
             props.themeColor === IconVariants.Dark ? s["dark"] : s["light"]
           }`}
+          style={{
+            fontSize: "1.5rem",
+            marginTop: "5px",
+          }}
           onClick={() => setIsEditorVisible(!isEditorVisible)}
         >
           {connectionsIcons.code}

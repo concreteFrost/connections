@@ -127,7 +127,7 @@ const getGroupMembers =
         }));
       }
     } catch (e) {
-      await console.log("error getting user list");
+      console.log("error getting user list");
     }
   };
 

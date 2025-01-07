@@ -3,26 +3,58 @@
 
 .tabs {
   display: flex;
+  align-items: center;
+  align-content: center;
+  margin-top: 2px;
+  height: 28px;
+  overflow: hidden; // Prevent default scrollbar from affecting layout
+  position: absolute;
+  top: 49px;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  border-bottom: 1px solid rgb(226, 226, 226);
 
-  padding-left: 10px;
+  .tabs_scrollable {
+    // Custom scrollbar styles
+    &::-webkit-scrollbar {
+      height: 8px; // Control the height of the scrollbar
+      position: absolute; // Make scrollbar absolute
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgb(197, 197, 197); // Thumb color
+      border-radius: 4px; // Rounded edges
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgb(231, 231, 231); // Track color
+    }
+  }
+  ul {
+    display: flex;
+    padding-left: 0;
+  }
 
   .tab_wrapper {
     list-style: none;
-
     border: 1px solid rgb(231, 231, 231);
     border-radius: 5px;
-    padding: 3px 10px;
+    padding: 2px 10px;
+
     width: 120px;
+    background-color: white;
+
     display: grid;
     grid-template-columns: 100px 20px;
     align-items: center;
     position: relative;
-    
-    &.active{
-      background-color: rgb(167, 166, 166);
+
+    &.active {
+      background-color: $bg-cancel-btn;
       color: rgb(255, 255, 255);
-       border-bottom-left-radius: 0;
-       border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border: 1px solid rgb(197, 197, 197);
     }
 
     transition: color 0.2s ease-in;
@@ -33,15 +65,12 @@
       height: 20px;
       text-overflow: ellipsis;
       overflow: hidden;
-     
     }
 
     .close_tab_btn {
-
       button {
         @include red_btn;
-          font-size: 0.6rem;
-       
+        font-size: 0.6rem;
       }
     }
   }

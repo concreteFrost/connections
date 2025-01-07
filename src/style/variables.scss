@@ -4,13 +4,16 @@
 $bg-node-nav-container: rgb(255, 255, 255);
 
 //buttons bg colors
-$bg-node-nav-btn : rgb(236, 236, 236);
+$bg-node-nav-btn: rgb(236, 236, 236);
 $bg-top-menu-btn-default: rgb(74, 148, 190);
 $bg-top-menu-btn-hover: rgb(55, 109, 139);
 $bg-top-menu-btn-active: rgb(39, 74, 94);
-$bg-delete-btn: rgb(230, 56, 56);
+$bg-delete-btn: rgb(231, 72, 72);
 $bg-delete-btn-hover: rgb(170, 43, 43);
-$bg-warning-btn:rgb(235, 199, 0);
+$bg-warning-btn: rgb(231, 197, 3);
+$bg-warning-btn-hover: rgb(209, 178, 1);
+$bg-cancel-btn: rgb(159, 178, 189);
+$bg-cancel-btn-hover: rgb(114, 114, 114);
 
 //--COLORS--
 $color-list-label: #727272;
@@ -27,10 +30,18 @@ $color-node-nav-icon-light: "white";
 $color-warning-message: rgb(173, 126, 38);
 
 //--SHADOWS--
-$shadow-node-nav-container: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-$shadow-top-menu-btn: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+
+$shadow-designer-top-nav: rgba(160, 160, 160, 0.35) 0px 25px 36px -25px inset;
+$shadow-server-sidebar: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+  rgba(0, 0, 0, 0.3) 0px 7px 13px -3px;
+$shadow-server-top-nav: rgba(95, 95, 95, 0.35) 0px 25px 36px -10px inset;
+$shadow-node-nav-container: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+  rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+$shadow-top-menu-btn: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+  rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 $shadow-node-nav-btn: none;
-$shadow-inset: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+$shadow-inset: rgb(204, 219, 232) 3px 3px 6px 0px inset,
+  rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
 
 //--FONTS--
 // $font-node-nav-list: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -38,9 +49,9 @@ $shadow-inset: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5
 // $font-node-nav-header: 'Inter';
 
 //--FONT WEIGHTS
-$font-weight-regular : 300;
-$font-weight-bold : 400;
-$font-weight-bolder : 500;
+$font-weight-regular: 300;
+$font-weight-bold: 400;
+$font-weight-bolder: 500;
 
 //--BREAKPOINTS--
 $breakpoint-xs: 576px;
@@ -48,6 +59,5 @@ $breakpoint-sm: 768px;
 $breakpoint-md: 992px;
 $breakpoint-lg: 1200px;
 
-
-$height-md: 950px; 
+$height-md: 950px;
 $height-lg: 1080px;

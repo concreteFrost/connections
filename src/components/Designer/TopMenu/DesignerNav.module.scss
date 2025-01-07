@@ -4,28 +4,28 @@
 .container {
   background-color: $bg-node-nav-container;
   z-index: 1000;
-
-  border-bottom: 1px solid rgb(241, 241, 241);
+  border-bottom: 1px solid rgb(226, 226, 226);
   position: fixed;
-
+  box-shadow: $shadow-designer-top-nav;
   top: 0;
   left: 0;
   right: 0;
-
   display: grid;
   grid-template-columns: 12fr;
-  grid-template-rows: 15px;
-  height: 60px;
-
+  grid-template-rows: 40px 20px;
+  height: 50px;
   .grid {
     display: grid;
     grid-template-columns: 4fr 4fr 4fr;
     padding-top: 5px;
+    height: 30px;
     button {
       @include blue-btn;
     }
 
     .left {
+      display: flex;
+      align-items: center;
       li {
         list-style: none;
       }
@@ -36,24 +36,28 @@
 
     .central {
       display: flex;
+      gap: 7px;
       justify-content: center;
+      align-items: center;
 
-      li {
-        list-style: none;
+      .central_nav_btn {
+        @include blue-btn;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        font-size: 0.8rem;
 
-        margin-right: 30px;
-        padding: 0;
-        cursor: pointer;
+        // color: white;
+        // background-color: rgb(82, 159, 204);
+        // cursor: pointer;
       }
     }
 
     .right {
-      display: flex;
-      justify-self: end;
-      justify-content: space-between;
+      @include nav_right_section;
     }
   }
-
 
   @media print {
     display: none;

@@ -1,4 +1,5 @@
 import s from "./View.module.scss";
+import button_style from "../../DesignerNav.module.scss";
 import { connectionsIcons } from "assets/icons/icons";
 import useStore from "store/store";
 import { BackgroundVariant } from "react-flow-renderer";
@@ -20,7 +21,7 @@ function View() {
   useOutsideMouseClick(viewRef, () => setViewSectionVisible(false));
 
   return (
-    <li  ref={viewRef}>
+    <li ref={viewRef} className={button_style.central_nav_btn}>
       <div onClick={() => setViewSectionVisible(!isViewSectionVisible)}>
         View
       </div>
@@ -34,9 +35,7 @@ function View() {
               }}
             >
               dots{" "}
-              <div className={s.settings_icon}>
-                {connectionsIcons.dotsView}
-              </div>
+              <div className={s.settings_icon}>{connectionsIcons.dotsView}</div>
             </li>
             <li
               onClick={() => {
@@ -44,9 +43,7 @@ function View() {
               }}
             >
               lines{" "}
-              <div className={s.settings_icon}>
-                {connectionsIcons.lineView}
-              </div>
+              <div className={s.settings_icon}>{connectionsIcons.lineView}</div>
             </li>
           </ul>
         </div>

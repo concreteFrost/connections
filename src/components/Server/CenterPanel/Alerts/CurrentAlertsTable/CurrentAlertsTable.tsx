@@ -10,7 +10,9 @@ import ReadAlerts from "./ReadAlerts/ReadAlerts";
 function CurrentAlertsTable() {
   const navigate = useNavigate();
 
-  const { alerts, setAlerts } = useStore((state) => state.alertSlice);
+  const { alerts: unreadAlerts, setAlerts: setUnreadAlerts } = useStore(
+    (state) => state.alertSlice
+  );
   const [readAlerts, setReadAlerts] = useState<Array<Alert>>([]);
   const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
 
@@ -52,14 +54,14 @@ function CurrentAlertsTable() {
         return;
       }
 
-      const addToReadAlers = alerts.find(
+      const addToReadAlers = unreadAlerts.find(
         (alert: Alert) => alert.alertId === alertId
       )!;
-      const filteredAlerts = alerts?.filter(
+      const filteredAlerts = unreadAlerts?.filter(
         (alert: Alert) => alert.alertId !== alertId
       );
       setReadAlerts([...readAlerts, addToReadAlers]);
-      setAlerts(filteredAlerts);
+      setUnreadAlerts(filteredAlerts);
       removeAlertFromCache(alertId);
     } catch (error) {
       console.log("error reading the alert", error);
@@ -75,7 +77,7 @@ function CurrentAlertsTable() {
         return;
       }
 
-      const filteredAlerts = alerts.filter(
+      const filteredAlerts = unreadAlerts.filter(
         (alert: Alert) => alert.alertId !== alertId
       );
 
@@ -83,7 +85,7 @@ function CurrentAlertsTable() {
         (alert: Alert) => alert.alertId !== alertId
       );
 
-      setAlerts(filteredAlerts);
+      setUnreadAlerts(filteredAlerts);
       setReadAlerts(filteredReadAlerts);
       removeAlertFromCache(alertId);
     } catch (error) {
@@ -103,7 +105,7 @@ function CurrentAlertsTable() {
         </button>
       </header>
       <UnreadAlerts
-        alerts={alerts}
+        alerts={unreadAlerts}
         handleAlertDelete={handleAlertDelete}
         handleMarkAsRead={handleMarkAsRead}
         s={s}

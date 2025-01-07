@@ -1,5 +1,5 @@
 import useStore from "store/store";
-import s from "./CentralPanel.module.scss";
+
 import { useNavigate } from "react-router";
 
 function SwitchToServerView() {
@@ -10,7 +10,7 @@ function SwitchToServerView() {
   function saveAndLeave() {
     navigate("/dashboard/server");
     // modalSlice.toggleMessageModal("");
-    flowSlice.takeFlowSnapshot(flowSlice.flow)
+    flowSlice.takeFlowSnapshot(flowSlice.flow);
   }
 
   // function leaveWithoutSaving() {
@@ -22,7 +22,13 @@ function SwitchToServerView() {
 
   return (
     <li>
-      <button onClick={() => {saveAndLeave()}}>SERVER</button>
+      <button
+        onClick={() => {
+          saveAndLeave();
+        }}
+      >
+        SERVER
+      </button>
     </li>
   );
 }

@@ -1,20 +1,20 @@
 @import "/src/style/variables.scss";
 @import "/src/style/mixins.scss";
-;
-
 .wrapper {
-    @include dropdown_menu_wrapper;
-    width: 200px;
+  @include dropdown_menu_wrapper;
+  width: 200px;
 
-    li {
-        padding-left: 20px;
-    }
+  z-index: 1000;
 
-    .settings_icon {
-        @include dropdown_menu_icon;
-    }
+  li {
+    padding-left: 20px;
+  }
 
-    .settings_title {
-        @include dropdown_menu_section_title;
-    }
+  .settings_icon {
+    @include dropdown_menu_icon;
+  }
+
+  .settings_title {
+    @include dropdown_menu_section_title;
+  }
 }

@@ -31,10 +31,13 @@ function Section(props: SectionProps) {
   }`;
 
   return (
-    <section>
-      <div className={s.section_header}>
+    <section className={s.section_wrapper}>
+      <div
+        className={s.section_header}
+        onClick={() => setIsSectionOpened(!isSectionOpened)}
+      >
         <h5>{props.title}</h5>
-        <span onClick={() => setIsSectionOpened(!isSectionOpened)}>
+        <span>
           {isSectionOpened
             ? connectionsIcons.arrowDown
             : connectionsIcons.arrowUp}

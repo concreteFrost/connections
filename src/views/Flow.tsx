@@ -6,7 +6,6 @@ import ReactFlow, {
 } from "react-flow-renderer";
 import { shallow } from "zustand/shallow";
 import useStore from "store/store";
-
 import { selector } from "utils/selector";
 import { nodeTypes, edgeTypes } from "store/types/flowElements";
 import { Edge } from "reactflow";

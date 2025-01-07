@@ -1,61 +1,65 @@
 @import "/src/style/variables.scss";
 @import "/src/style/mixins.scss";
-;
-
 .node_list_container {
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  max-height: 1000px;
+
+  &.opened {
     max-height: 1000px;
+    animation: dropdownOpen 0.5s ease-in-out;
+  }
 
-    &.opened {
-        max-height: 1000px;
-        animation: dropdownOpen 0.5s ease-in-out;
-
-    }
-
-    &.closed {
-        max-height: 0;
-        animation: dropdownClose 0.5s ease-in-out;
-
-    }
+  &.closed {
+    max-height: 0;
+    animation: dropdownClose 0.1s ease-in-out;
+  }
 }
 
 @keyframes dropdownOpen {
-    from {
-        max-height: 0;
-    }
+  from {
+    max-height: 0;
+  }
 
-    to {
-        max-height: 1000px;
-
-    }
+  to {
+    max-height: 1000px;
+  }
 }
 
 @keyframes dropdownClose {
-    from {
-        max-height: 1000px;
+  from {
+    max-height: 1000px;
+  }
 
-    }
-
-    to {
-        max-height: 0;
-    }
+  to {
+    max-height: 0;
+  }
 }
 
 .node_list_item {
-    list-style: none;
-    position: relative;
+  list-style: none;
+  position: relative;
 }
 
-.section_header {
-    position: relative;
+.section_wrapper {
+  box-shadow: rgba(226, 226, 226, 0.3) 0px 7px 13px 7px inset;
 
+  &:hover {
+    background-color: darken($color: $bg-node-nav-container, $amount: 5f);
+  }
+
+  transition: background-color 0.3s ease-in-out;
+
+  .section_header {
+    position: relative;
+    display: flex;
     span {
-        position: absolute;
-        top: 0;
-        right: 10px;
-        cursor: pointer;
-        color: $color-node-nav-container-header ;
+      position: absolute;
+      top: 20px;
+      right: 10px;
+      cursor: pointer;
+      color: $color-node-nav-container-header;
     }
+  }
 }

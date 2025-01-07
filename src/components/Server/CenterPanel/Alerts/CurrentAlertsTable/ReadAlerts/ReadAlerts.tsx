@@ -14,7 +14,10 @@ function ReadAlerts({ alerts, handleAlertDelete, s }: ReadAlertsProps) {
     <>
       <main>
         <header>Read</header>
-        <button onClick={() => setListVisible(!isListVisible)}>
+        <button
+          className={s.toggle_read_btn}
+          onClick={() => setListVisible(!isListVisible)}
+        >
           {isListVisible ? "Hide" : "Show"}
         </button>
         {isListVisible ? (

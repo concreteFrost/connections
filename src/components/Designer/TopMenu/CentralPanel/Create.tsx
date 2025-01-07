@@ -1,4 +1,5 @@
 import { FlowStructure } from "store/interfaces/Iflow";
+import s from "../DesignerNav.module.scss";
 import useStore from "store/store";
 
 function Create() {
@@ -21,6 +22,7 @@ function Create() {
 
   return (
     <li
+      className={s.central_nav_btn}
       onClick={() => {
         // if (flowSlice.flow.flowIdentifier) {
         //   modalSlice.toggleUpdateFlowModal(true);

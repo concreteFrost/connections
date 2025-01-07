@@ -9,8 +9,6 @@
     padding: 0;
   }
 
-  ;
-
   .list_item {
     list-style: none;
     display: grid;
@@ -47,8 +45,6 @@
 
       transition: background-color 0.2s ease-in-out;
     }
-
-
   }
 
   .message_wrapper {
@@ -72,8 +68,6 @@
       font-weight: $font-weight-bolder;
       margin-bottom: 10px;
     }
-
-
   }
 
   .editor_footer {
@@ -84,12 +78,11 @@
 
     button {
       @include blue_btn;
-      font-size: 1.1rem;
-      margin-left: 5px;
+      margin-right: 7px;
     }
 
     .delete_notification_btn {
-      background-color: $bg-delete-btn;
+      @include red_btn;
     }
   }
 }

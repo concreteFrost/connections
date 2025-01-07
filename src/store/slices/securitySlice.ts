@@ -26,7 +26,7 @@ export type SecuritySlice = {
 
 const securitySlice = (get: () => RFState, set: any): SecuritySlice => ({
     appUser:null,
-    appUserPassword:'testing',
+    appUserPassword:'cre4min9Tuff',
     userToEdit: null,
     userList: [],
     groupList: [],

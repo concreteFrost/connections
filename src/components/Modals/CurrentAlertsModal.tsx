@@ -31,7 +31,11 @@ function CurrentAlertsModal() {
       {isVisible ? (
         <div className={s.container}>
           <div className={s.modal_window}>
-            <header className={s.modal_header}></header>
+            <header className={s.modal_header}>
+              <span className={s.close_btn_wrapper}>
+                <button onClick={() => setIsVisible(false)}>x</button>
+              </span>
+            </header>
             <main className={s.modal_body}>
               You have {alerts.length} unreaded alerts
             </main>

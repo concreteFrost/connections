@@ -3,7 +3,7 @@
 
 .wrapper {
   @include nav_wrapper;
-
+  box-shadow: $shadow-server-top-nav;
   .title {
     font-size: 1rem;
     color: white;
@@ -23,10 +23,8 @@
 
     .notifications_button,
     .designer_button {
-      color: white;
-      position: relative;
       button {
-        @include server_header_btn;
+        @include white_btn;
         margin-left: 20px;
       }
     }
