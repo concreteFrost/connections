@@ -16,7 +16,9 @@ interface IPushAlert {
 }
 
 function AlertNotifications(props: { themeColor: IconVariants }) {
-  const { alerts, setAlerts } = useStore((state) => state.alertSlice);
+  const { unreadAlerts: alerts, setUnreadAlerts: setAlerts } = useStore(
+    (state) => state.alertSlice
+  );
   const [isListVisible, setListVisible] = useState<boolean>(false);
   const navigate = useNavigate();
 

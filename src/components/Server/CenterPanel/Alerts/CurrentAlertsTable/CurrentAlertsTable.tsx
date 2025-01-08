@@ -6,44 +6,31 @@ import { Alert } from "store/interfaces/IAlerts";
 import useStore from "store/store";
 import UnreadAlerts from "./UnreadAlerts/UnreadAlerts";
 import ReadAlerts from "./ReadAlerts/ReadAlerts";
+import { removeAlertFromCache, getReadAlerts } from "utils/alerts/alertUtils";
 
 function CurrentAlertsTable() {
   const navigate = useNavigate();
 
-  const { alerts: unreadAlerts, setAlerts: setUnreadAlerts } = useStore(
+  const { unreadAlerts, setUnreadAlerts } = useStore(
     (state) => state.alertSlice
   );
   const [readAlerts, setReadAlerts] = useState<Array<Alert>>([]);
   const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
 
-  const handleGetAlerts = async () => {
-    await getAlertsApi(false)
-      .then((res: any) => {
-        setReadAlerts(res.data);
-      })
-      .catch((e) => console.log(e));
-  };
-
   useEffect(() => {
+    const handleGetAlerts = async () => {
+      try {
+        const res = await getReadAlerts(unreadAlerts);
+        if (res !== undefined) {
+          setReadAlerts(res);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
     handleGetAlerts();
   }, []);
-
-  async function removeAlertFromCache(alertId: number) {
-    const cache = await caches.open("alerts");
-    const requests = await cache.keys();
-
-    for (const request of requests) {
-      const response = await cache.match(request);
-      if (!response) continue;
-
-      const alert = await response.json();
-      if (alert.AlertId === alertId) {
-        await cache.delete(request);
-        console.log(`Alert with AlertId ${alertId} deleted from cache`);
-        return;
-      }
-    }
-  }
 
   async function handleMarkAsRead(alertId: number) {
     try {
@@ -68,6 +55,23 @@ function CurrentAlertsTable() {
     }
   }
 
+  async function handleDeleteUnreadAlert(alertId: number) {
+    try {
+      const res: any = await alertRemoveApi(alertId);
+
+      if (!res.data.success) {
+        toggleMessageModal(res.data.message);
+        return;
+      }
+
+      const filtered = unreadAlerts.filter((a: Alert) => a.alertId != alertId);
+      removeAlertFromCache(alertId);
+      setUnreadAlerts(filtered);
+    } catch (error) {
+      console.log("error reading the alert", error);
+    }
+  }
+
   async function handleAlertDelete(alertId: number) {
     try {
       const res: any = await alertRemoveApi(alertId);
@@ -77,17 +81,8 @@ function CurrentAlertsTable() {
         return;
       }
 
-      const filteredAlerts = unreadAlerts.filter(
-        (alert: Alert) => alert.alertId !== alertId
-      );
-
-      const filteredReadAlerts = readAlerts.filter(
-        (alert: Alert) => alert.alertId !== alertId
-      );
-
-      setUnreadAlerts(filteredAlerts);
-      setReadAlerts(filteredReadAlerts);
-      removeAlertFromCache(alertId);
+      const filtered = readAlerts.filter((a: Alert) => a.alertId != alertId);
+      setReadAlerts(filtered);
     } catch (error) {
       console.log("error reading the alert", error);
     }
@@ -106,7 +101,7 @@ function CurrentAlertsTable() {
       </header>
       <UnreadAlerts
         alerts={unreadAlerts}
-        handleAlertDelete={handleAlertDelete}
+        handleAlertDelete={handleDeleteUnreadAlert}
         handleMarkAsRead={handleMarkAsRead}
         s={s}
       ></UnreadAlerts>
