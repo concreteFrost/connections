@@ -5,7 +5,9 @@ import { getAlertsApi } from "api/ehd";
 import { useNavigate } from "react-router";
 
 function CurrentAlertsModal() {
-  const { alerts, setAlerts } = useStore((state) => state.alertSlice);
+  const { unreadAlerts, setUnreadAlerts } = useStore(
+    (state) => state.alertSlice
+  );
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -14,7 +16,7 @@ function CurrentAlertsModal() {
       const res: any = await getAlertsApi(true);
 
       if (res.data.length > 0) {
-        setAlerts(res.data);
+        setUnreadAlerts(res.data);
         setIsVisible(true);
       }
     } catch (error) {
@@ -37,7 +39,7 @@ function CurrentAlertsModal() {
               </span>
             </header>
             <main className={s.modal_body}>
-              You have {alerts.length} unreaded alerts
+              You have {unreadAlerts.length} unreaded alerts
             </main>
             <footer className={s.modal_footer}>
               <div className={s.buttons_wrapper}>
