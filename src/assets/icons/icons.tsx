@@ -60,6 +60,7 @@ import {
   FaChevronDown,
   FaChevronUp,
   FaPen,
+  FaChartBar,
 } from "react-icons/fa";
 
 export const connectionsIcons: any = {
@@ -105,6 +106,7 @@ export const connectionsIcons: any = {
     output_xml: <BsFiletypeXml></BsFiletypeXml>,
   },
   serverMenuIcons: {
+    metrics: "M",
     server: <BsServer></BsServer>,
     flows: <BsDiagram2Fill></BsDiagram2Fill>,
     stats: <BsGraphDown></BsGraphDown>,

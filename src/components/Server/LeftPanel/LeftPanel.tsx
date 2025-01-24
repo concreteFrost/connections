@@ -7,9 +7,12 @@ import SettingsItem from "./LeftPanelItems/SettingsItem";
 import DraftFlowsItem from "./LeftPanelItems/DraftFlowsItem";
 import SecurityItem from "./LeftPanelItems/SecurityItem";
 import AlertsItem from "./LeftPanelItems/AlertsItem";
+import MetricsItem from "./LeftPanelItems/MetricsItem";
+import LogSearchItem from "./LeftPanelItems/LogSearchItem";
 
 export interface ILeftPanelSections {
   servers: boolean;
+  metrics: boolean;
   flows: boolean;
   drafts: boolean;
   statistics: boolean;
@@ -20,6 +23,7 @@ export interface ILeftPanelSections {
 function LeftPanel() {
   const [sectionToOpen, setSectionToOpen] = useState<ILeftPanelSections>({
     servers: false,
+    metrics: false,
     flows: false,
     drafts: false,
     statistics: false,
@@ -44,6 +48,16 @@ function LeftPanel() {
         toggleSection={toggleSection}
         navigate={navigate}
       ></ServersItem>
+      <MetricsItem
+        currentSection={sectionToOpen}
+        toggleSection={toggleSection}
+        navigate={navigate}
+      ></MetricsItem>
+      <LogSearchItem
+        currentSection={sectionToOpen}
+        toggleSection={toggleSection}
+        navigate={navigate}
+      ></LogSearchItem>
       <FlowsItem
         currentSection={sectionToOpen}
         toggleSection={toggleSection}

@@ -8,11 +8,7 @@ import BlocksTable from "./Tables/BlocksTable";
 import MonitorsTable from "./Tables/MonitorsTable";
 import SchedulesTable from "./Tables/ISchedulesTable";
 import MetricsTable from "./Tables/MetricsTable";
-import {
-  killServerAPI,
-  startServerAPI,
-  stopServerAPI,
-} from "api/server";
+import { killServerAPI, startServerAPI, stopServerAPI } from "api/server";
 import useStore from "store/store";
 
 interface ITableData {
@@ -61,7 +57,7 @@ const data: ITableData = {
   warningCount: 0,
 };
 
-function ServerTable(props:{setCurrentView:(view:string)=>void}) {
+function ServerTable() {
   const [tableData, setTableData] = useState<ITableData>(data);
   const [serverStatus, setServerStatus] = useState<string>("");
   const { setTooltipText } = useStore(
@@ -141,10 +137,7 @@ function ServerTable(props:{setCurrentView:(view:string)=>void}) {
   return (
     <div className={s.wrapper}>
       <div className={s.header}>
-        <div className={s.log_search_btn_wrapper}>
-          <button onClick={()=>props.setCurrentView('search')}>LOG SEARCH</button>
-          <button onClick={()=>props.setCurrentView('kpis')}>KPIS</button>
-        </div>
+        <div className={s.log_search_btn_wrapper}></div>
         <div className={s.header_buttons}>
           <button
             className={`${s.play} tooltip-item`}

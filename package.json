@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@monaco-editor/react": "^4.6.0",
+    "@types/react-csv": "^1.1.10",
     "assert": "^2.1.0",
     "axios": "^1.4.0",
     "chart.js": "^4.4.1",
@@ -22,6 +23,7 @@
     "push": "^0.0.1",
     "react-beautiful-dnd": "^13.1.1",
     "react-chartjs-2": "^5.2.0",
+    "react-csv": "^2.2.2",
     "react-flow-renderer": "^10.3.17",
     "react-icons": "^4.9.0",
     "react-loader-spinner": "^6.1.6",

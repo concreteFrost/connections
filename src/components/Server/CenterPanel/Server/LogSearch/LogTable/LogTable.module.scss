@@ -1,38 +1,40 @@
 @import "/src/style/variables.scss";
 @import "/src/style/mixins.scss";
 
-.wrapper{
+.wrapper {
+  .table_wrapper {
+    max-height: 800px;
+    overflow-y: auto;
+    margin-bottom: 20px;
 
-    .table_wrapper{
-        max-height: 800px;
-        overflow-y: auto;
-        margin-bottom: 20px;
+    table {
+      @include server_table;
+      table-layout: fixed;
 
-        table{
-            @include server_table;
-            table-layout: fixed;
-    
-            tr{
-      
-                th,td{
-                    font-size: 0.8rem;
-                }
-            }
-            
+      tr {
+        th,
+        td {
+          font-size: 0.8rem;
         }
+      }
     }
+  }
 
-    .table_footer_wrapper{
-        display: flex;
-        justify-content: center;
+  .table_footer_wrapper {
+    display: flex;
+    justify-content: center;
 
-        button{
-            @include blue_btn;
-        }
-        span{
-            margin-left: 10px;
-            margin-right: 10px;
-        }
+    button {
+      @include blue_btn;
     }
-   
+    span {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+
+  .csv_button {
+    @include blue_btn;
+    text-decoration: none;
+  }
 }

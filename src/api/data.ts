@@ -81,6 +81,8 @@ export function getDataLogsAPI(query: LogSearchQuery): Promise<any> {
     searchText: query.searchText ? query.searchText : null,
   };
 
+  console.log(newQuery);
+
   return new Promise<any>((resolve, reject) => {
     axios(baseUrl + "/data/logs", {
       method: "PUT",

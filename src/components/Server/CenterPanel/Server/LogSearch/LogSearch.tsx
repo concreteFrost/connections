@@ -18,16 +18,14 @@ const initialLogSearchQuery: LogSearchQuery = {
   blockId: undefined,
   timeFrom: "",
   timeTo: "",
-  searchText: undefined,
+  searchText: "",
 };
 
-function LogSearch(props: { setCurrentView: (view: string) => void }) {
+function LogSearch() {
   const [logSearchQuery, setLogSearchQuery] = useState<LogSearchQuery>(
     initialLogSearchQuery
   );
-  const [loadedLiveFlows, setLoadedLiveFlows] = useState<Array<FlowConfig>>(
-    []
-  );
+  const [loadedLiveFlows, setLoadedLiveFlows] = useState<Array<FlowConfig>>([]);
   const [loadedBlocks, setLoadedBlocks] = useState<Array<BlockLookup>>([]);
   const { setLogList } = useStore((state) => state.serverSlice);
 
@@ -55,10 +53,10 @@ function LogSearch(props: { setCurrentView: (view: string) => void }) {
 
   return (
     <div className={s.wrapper}>
-      <div className={s.header}>
+      {/* <div className={s.header}>
         <button onClick={() => props.setCurrentView("table")}>SERVER</button>
         <button onClick={()=>props.setCurrentView('kpis')}>SEARCH</button>
-      </div>
+      </div> */}
       <div className={s.log_grid}>
         <DateRange
           setTimeFrom={(
