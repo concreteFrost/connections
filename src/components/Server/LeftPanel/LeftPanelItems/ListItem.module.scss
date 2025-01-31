@@ -42,70 +42,6 @@
     cursor: pointer;
   }
 
-  .flow_list_item {
-    @include server_flow_list_item;
-    position: relative;
-
-    a {
-      text-decoration: none;
-      color: black;
-    }
-
-    &.selected {
-      background-color: rgb(194, 194, 194);
-      width: 100%;
-    }
-  }
-
-  .flow_list_title_wrapper {
-    height: 100%;
-    padding-left: 10px;
-    display: flex;
-    align-items: center;
-  }
-
-  .flow_list_btn_wrapper {
-    @include server_flow_list_btn_wrapper;
-    button {
-      @include blue-btn;
-    }
-  }
-
-  .flow_list_dropdown_actions {
-    display: flex;
-    position: absolute;
-    right: 5px;
-    gap: 2px;
-
-    .delete_btn,
-    button {
-      @include blue-btn;
-      font-size: 0.7rem;
-      margin-bottom: 2px;
-    }
-
-    .delete_btn {
-      @include red_btn;
-    }
-  }
-
-  .draft_list_item_wrapper {
-    .folder_name {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-left: 10px;
-      height: 40px;
-      color: $color-node-nav-container-header;
-      cursor: pointer;
-      span {
-        margin-right: 10px;
-      }
-    }
-
-    border-bottom: 1px solid rgb(204, 204, 204);
-  }
-
   .section_header {
     display: flex;
     align-items: center;
@@ -129,5 +65,81 @@
       cursor: pointer;
       color: $color-node-nav-container-header;
     }
+  }
+}
+
+.flow_list_item {
+  @include server_flow_list_item;
+  height: 25px;
+  position: relative;
+
+  .flow_name {
+    padding-left: 20px;
+
+    @media screen and (max-width: $breakpoint-md) {
+      max-width: 80px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  &.selected {
+    background-color: rgb(194, 194, 194);
+    width: 100%;
+  }
+}
+
+.flow_list_btn_wrapper {
+  @include server_flow_list_btn_wrapper;
+  button {
+    @include blue-btn;
+  }
+}
+
+.flow_list_dropdown_actions {
+  display: flex;
+  position: absolute;
+  right: 5px;
+  gap: 2px;
+
+  .delete_btn,
+  button {
+    @include blue-btn;
+    font-size: 0.7rem;
+    margin-bottom: 2px;
+  }
+
+  .delete_btn {
+    @include red_btn;
+  }
+}
+
+.draft_list_item_wrapper {
+  border-bottom: 1px solid rgb(204, 204, 204);
+}
+
+.folder_name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 10px;
+  height: 40px;
+  color: $color-node-nav-container-header;
+  cursor: pointer;
+  span {
+    margin-right: 10px;
+  }
+
+  .flow_list_title_wrapper {
+    height: 100%;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
   }
 }

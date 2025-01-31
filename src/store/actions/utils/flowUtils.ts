@@ -34,10 +34,10 @@ export function initializeFlow<IFlowData>(
       edges: initialEdges,
     },
   } as IFlowData;
-
 }
 
-export function setFlow(data: any,set: any, get:()=>RFState) {
+export function setFlow(data: any, set: any, get: () => RFState) {
+  console.log(data);
   set((state: RFState) => ({
     flowSlice: {
       ...state.flowSlice,
@@ -71,6 +71,7 @@ export function setFlow(data: any,set: any, get:()=>RFState) {
                 value: p.value,
                 required: p.required,
                 format: p.format,
+                description: p.description,
                 // constraints: p.constraints,
                 // placeholder: p.placeholder
               };
@@ -95,14 +96,16 @@ export function setFlow(data: any,set: any, get:()=>RFState) {
               position: b.position,
             };
           }),
-         
+
           edges: data.visual.edges.map((e: ConnectionsEdge) => {
-           return {id: e.id,
-            source: e.source,
-            target: e.target,
-            type: "button",
-            markerEnd,
-            priority: e.priority}
+            return {
+              id: e.id,
+              source: e.source,
+              target: e.target,
+              type: "button",
+              markerEnd,
+              priority: e.priority,
+            };
           }),
         },
         substitutions: data.substitutions.map((sub: any) => {
@@ -119,7 +122,6 @@ export function setFlow(data: any,set: any, get:()=>RFState) {
       },
     },
   }));
-
 }
 
 export function updateFlowAfterSaving(
@@ -144,7 +146,6 @@ export function updateFlowAfterSaving(
       },
     },
   }));
-
 }
 
 export function parseFloatVersion(flowVersion: number) {

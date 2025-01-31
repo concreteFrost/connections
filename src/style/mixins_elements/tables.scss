@@ -45,6 +45,7 @@
   tr {
     td {
       text-overflow: ellipsis;
+      overflow: hidden;
     }
 
     .group_members {
@@ -56,6 +57,7 @@
 
       li {
         list-style: none;
+        word-break: keep-all;
       }
     }
   }
@@ -63,10 +65,15 @@
 
 @mixin user_group_table_actions_column {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  justify-items: center;
+  align-items: center;
+  gap: 5px;
 
   button {
     @include blue_btn;
+    width: 60px;
     margin-left: 5px;
   }
 
@@ -74,7 +81,6 @@
     background-color: $bg-delete-btn;
   }
 }
-
 
 @mixin server_table {
   width: 100%;

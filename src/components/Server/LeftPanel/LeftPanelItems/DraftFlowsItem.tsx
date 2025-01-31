@@ -132,9 +132,7 @@ function DraftFlowsItem(props: FlowsItemProps) {
                 <ul>
                   {draftFlowList[folderName].map((flow: LoadedFlow) => (
                     <li key={flow.draftId} className={s.flow_list_item}>
-                      <div className={s.flow_list_title_wrapper}>
-                        {flow.flowName}
-                      </div>
+                      <span className={s.flow_name}>{flow.flowName}</span>
                       <div className={s.flow_list_btn_wrapper}></div>
 
                       <div className={s.flow_list_dropdown_actions}>

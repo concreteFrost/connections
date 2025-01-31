@@ -50,19 +50,8 @@ function FlowsItem(props: FlowsItemProps) {
               }`}
             >
               <Link to={`flows/${flow.flowId}`}>
-                <div className={s.flow_list_title_wrapper}>{flow.name}</div>
+                <span className={s.flow_name}>{flow.name}</span>
               </Link>
-              <div className={s.flow_list_btn_wrapper}>
-                {/* <button 
-                  data-testid="flow-list-btn"
-                  onClick={() => {
-                    createFlowFromTemplate(flow.flowId, flow.name + " copy")
-                    props.navigate("/dashboard/designer");
-                  }}
-                >
-                  {connectionsIcons.upload}
-                </button> */}
-              </div>
             </li>
           ))}
         </ul>
