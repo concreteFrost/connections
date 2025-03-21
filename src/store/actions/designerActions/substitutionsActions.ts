@@ -1,6 +1,6 @@
 import { RFState } from "../../types/rfState";
-import { Substitutions } from "../../interfaces/Iflow";
-import { BlockData } from "../../interfaces/IBlock";
+import { Substitutions } from "interfaces/Iflow";
+import { BlockData } from "interfaces/IBlock";
 
 export const addSubstitutionKey =
   (get: () => RFState, set: any) => (key: string) => {
@@ -109,7 +109,7 @@ export const addConfig =
         flowSlice: {
           ...state.flowSlice,
           flow: {
-          ...state.flowSlice.flow,
+            ...state.flowSlice.flow,
             substitutions: updatedSubstitutions,
           },
         },

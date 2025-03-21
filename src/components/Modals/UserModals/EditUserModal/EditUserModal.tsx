@@ -32,7 +32,7 @@ function EditUserModal(props: EditUserModalProps) {
   const [groupList, setGroupList] = useState<Array<Group>>([]);
   const [rolesList, setRolesList] = useState<Array<Role>>([]);
 
-  async function _getRolesList() {
+  async function handleGetRolesList() {
     try {
       const res: any = await getRoleListAPI();
       if (res.data.length > 0) {
@@ -44,7 +44,7 @@ function EditUserModal(props: EditUserModalProps) {
   }
 
   //isolating from BLL to avoid extra renders in UsersTable and GroupsTable
-  async function _getGroupsList() {
+  async function handleGetGroupsList() {
     try {
       const res: any = await getGroupListAPI();
       if (res.data.success) {
@@ -57,8 +57,8 @@ function EditUserModal(props: EditUserModalProps) {
 
   async function fetchRolesAndGroups() {
     try {
-      await _getRolesList();
-      await _getGroupsList();
+      await handleGetRolesList();
+      await handleGetGroupsList();
     } catch (e) {
       console.log("error fetching groups", e);
     }

@@ -4,8 +4,8 @@ import {
   getMeAPI,
   getRoleListAPI,
   getUserListAPI,
-} from "../../api/security";
-import { User, Group } from "../interfaces/ISecurity";
+} from "api/security";
+import { User, Group } from "interfaces/ISecurity";
 import { RFState } from "../types/rfState";
 
 //USER ACTIONS

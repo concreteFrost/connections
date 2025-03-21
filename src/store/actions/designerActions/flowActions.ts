@@ -9,12 +9,7 @@ import {
   initializeFlow,
 } from "../utils/flowUtils";
 import { v4 as uuidv4 } from "uuid";
-import {
-  getDraftApi,
-  saveDraftFlowApi,
-  createDraftFromLiveTemplateAPI,
-  createUpdateDraftFromLiveAPI,
-} from "../../../api/draft";
+import { saveDraftFlowApi } from "api/draft";
 import { FlowStructure } from "store/interfaces/Iflow";
 
 export const createFlow =

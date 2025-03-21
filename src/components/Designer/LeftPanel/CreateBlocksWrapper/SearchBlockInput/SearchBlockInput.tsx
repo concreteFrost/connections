@@ -36,15 +36,17 @@ export default function SearchBlock({ leftPanelRef }: SearchBlockProps) {
         onChange={performBlockSearch}
         placeholder="Search blocks"
       />
-      <div className={s.results}>
-        {filteredList.map((block, index) => (
-          <NodeListItem
-            key={index}
-            nodeType={block}
-            leftPanelRef={leftPanelRef}
-          ></NodeListItem>
-        ))}
-      </div>
+      {filteredList.length > 0 && (
+        <div className={s.results}>
+          {filteredList.map((block, index) => (
+            <NodeListItem
+              key={index}
+              nodeType={block}
+              leftPanelRef={leftPanelRef}
+            ></NodeListItem>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

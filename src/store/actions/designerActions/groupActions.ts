@@ -1,10 +1,10 @@
 import { v4 as uuidv4 } from "uuid";
 import { NodeProps, NodeRemoveChange } from "react-flow-renderer";
-import { Visual } from "../../interfaces/Iflow";
+import { Visual } from "interfaces/Iflow";
 import { RFState } from "../../types/rfState";
 
 export const getAllselectedBlockIDs = (nodes: any) => {
-  return nodes.filter((node : any) => node.selected === true).length > 1;
+  return nodes.filter((node: any) => node.selected === true).length > 1;
 };
 
 export const addGroup = (get: () => RFState, set: any) => () => {
@@ -55,11 +55,11 @@ export const addGroup = (get: () => RFState, set: any) => () => {
             ...state.flowSlice.flow.visual,
             blocks: [...state.flowSlice.flow.visual.blocks, newGroupNode],
           },
-        }
+        },
       },
     }));
 
-    console.log('group added', get().flowSlice)
+    console.log("group added", get().flowSlice);
   }
 };
 
@@ -101,12 +101,12 @@ export const deleteGroupOnButtonClick =
           ...state.flowSlice.flow,
           visual: {
             ...state.flowSlice.flow.visual,
-            blocks: state.flowSlice.flow.visual.blocks.filter((node: any) => node.id !== groupToDelete),
-          }
-        }
-
-      }
-
+            blocks: state.flowSlice.flow.visual.blocks.filter(
+              (node: any) => node.id !== groupToDelete
+            ),
+          },
+        },
+      },
     }));
   };
 
@@ -129,7 +129,6 @@ const updateNode = (set: any) => (groupId: string, updateFn: any) => {
           }),
         },
       },
-
     },
   }));
 };
@@ -176,7 +175,6 @@ export const changeGroupColor =
             }),
           },
         },
-
       },
     }));
   };
@@ -203,8 +201,7 @@ export const hideAllGroupModals = (set: any) => () => {
             return node;
           }),
         },
-      }
-
+      },
     },
   }));
 };

@@ -1,7 +1,5 @@
-import {
-  getDirectivesApi,
-} from "../../api/ehd";
-import {Directive} from "../interfaces/IAlerts";
+import { getDirectivesApi } from "api/ehd";
+import { Directive } from "interfaces/IAlerts";
 import { RFState } from "../types/rfState";
 
 //for global state
@@ -19,7 +17,6 @@ const getDirectivesGlobal = (get: () => RFState, set: any) => async () => {
     console.log("error getting directives");
   }
 };
-
 
 const alertActions = {
   getDirectivesGlobal: getDirectivesGlobal,

@@ -1,11 +1,5 @@
-import {
-  getNotificationTypesAPI,
-  getNotificationsAPI,
-} from "../../api/notification";
-import {
-  Notification,
-  NotificationType,
-} from "../interfaces/INotification";
+import { getNotificationTypesAPI, getNotificationsAPI } from "api/notification";
+import { Notification, NotificationType } from "interfaces/INotification";
 import { RFState } from "../types/rfState";
 
 const getNotificationList =
@@ -108,4 +102,3 @@ const notificationsActions = {
 };
 
 export default notificationsActions;
-

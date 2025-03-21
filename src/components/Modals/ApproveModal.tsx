@@ -1,7 +1,7 @@
 import s from "./ModalWindow.module.scss";
-import useStore from "../../store/store";
+import useStore from "store/store";
 import { useState } from "react";
-import { approveAndReleaseAPI, getDraftApi } from "../../api/draft";
+import { approveAndReleaseAPI, getDraftApi } from "api/draft";
 
 function ApproveModal() {
   const {
@@ -11,7 +11,9 @@ function ApproveModal() {
     toggleMessageModal,
   } = useStore((state) => state.modalWindowsSlice);
 
-  const {setCanApprove, setFlowIsEnabled} = useStore((state)=>state.flowSlice)
+  const { setCanApprove, setFlowIsEnabled } = useStore(
+    (state) => state.flowSlice
+  );
 
   const [keepDraft, setKeepDraft] = useState<boolean>(false);
 
@@ -23,7 +25,7 @@ function ApproveModal() {
 
   async function tryToApproveDraftFlow() {
     try {
-      setFlowIsEnabled()
+      setFlowIsEnabled();
       const res: any = await getDraftApi(approveFlowModal.draftIdToApprove);
       if (res.data.success) {
         if (res.data.flowConfiguration.isEnabled) {
@@ -37,14 +39,15 @@ function ApproveModal() {
     }
 
     async function approveDraftFlow() {
-
       const res: any = await approveAndReleaseAPI(
         approveFlowModal.draftIdToApprove,
         keepDraft
       );
       try {
-        showMessageOnApproval(res.data.success? "success!!!" : res.data.message) 
-        setCanApprove(false)
+        showMessageOnApproval(
+          res.data.success ? "success!!!" : res.data.message
+        );
+        setCanApprove(false);
       } catch (error) {
         showMessageOnApproval("something went wrong");
       }

@@ -1,4 +1,4 @@
-import { BlockData } from "../../interfaces/IBlock";
+import { BlockData } from "interfaces/IBlock";
 import { RFState } from "../../types/rfState";
 import { getSelectedBlock } from "../utils/blockUtils";
 

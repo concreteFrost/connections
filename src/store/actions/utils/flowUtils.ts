@@ -1,13 +1,12 @@
 import { RFState } from "../../types/rfState";
-import { BlockData } from "../../interfaces/IBlock";
-import { BlockParameters } from "../../interfaces/IBlock";
-import { Visual } from "../../interfaces/Iflow";
+import { BlockData } from "interfaces/IBlock";
+import { BlockParameters } from "interfaces/IBlock";
+import { Visual } from "interfaces/Iflow";
 import { v4 as uuidv4 } from "uuid";
-import { getAccessToken } from "../storageActions";
-import { getDraftListApi } from "../../../api/draft";
+import { getAccessToken } from "store/actions/storageActions";
+import { getDraftListApi } from "api/draft";
 import markerEnd from "../../constants/edgeConst";
-import ConnectionsEdge from "../../interfaces/IConnectionsEdges";
-import moment from "moment";
+import ConnectionsEdge from "interfaces/IConnectionsEdges";
 
 export function initializeFlow<IFlowData>(
   initialNodes: object,

@@ -22,6 +22,7 @@
     "baseUrl":"./src",
     "types": ["@testing-library/jest-dom","node"],
    "paths": {
+      "src":["/*"],
       "store/*": ["store/*"],
       "components/*": ["components/*"],
       "assets/*": ["assets/*"],
@@ -30,7 +31,8 @@
       "api/*": ["api/*"],
       "style/*": ["style/*"],
       "interfaces/*": ["store/interfaces/*"],
-      "actions/*":["store/actions/*"]
+      "actions/*":["store/actions/*"],
+      "types/*":["types/*"]
     }
   },
   "include": ["src", "src/*.js", "public/sw.js"],

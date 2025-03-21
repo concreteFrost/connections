@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import s from "./FilteredResults.module.scss";
 import useStore from "store/store";
 import { Substitutions } from "store/interfaces/Iflow";
+import useOutsideMouseClick from "hooks/useOutsideMouseClick";
 
 interface ISelection {
   index: number;
@@ -19,21 +20,8 @@ function FilteredResults(props: FilteredResultsProps) {
     Substitutions[]
   >([]);
   const substitutions = useStore((state) => state.flowSlice.flow.substitutions);
-
-  //hides the suggestion list if clicked outside the element
-  function handleClickOutside(event: any) {
-    const suggestionList = document.querySelector(".suggestion-list-wrapper");
-    if (suggestionList && !suggestionList.contains(event.target)) {
-      clearFilteredSubstitutions();
-    }
-  }
-
-  useEffect(() => {
-    window.addEventListener("click", handleClickOutside);
-    return () => {
-      window.removeEventListener("click", handleClickOutside);
-    };
-  }, []);
+  const listRef = useRef<HTMLUListElement>(null);
+  useOutsideMouseClick(listRef, () => clearFilteredSubstitutions());
 
   useEffect(() => {
     const inputValue = props.selection.value;
@@ -75,7 +63,7 @@ function FilteredResults(props: FilteredResultsProps) {
   return (
     <div className={s.suggestion_list}>
       {filteredSubstitutions.length > 0 ? (
-        <ul className="suggestion-list-wrapper">
+        <ul className="suggestion-list-wrapper" ref={listRef}>
           {filteredSubstitutions.map((sub: any) => (
             <li
               key={filteredSubstitutions.indexOf(sub)}

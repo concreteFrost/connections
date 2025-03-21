@@ -1,10 +1,10 @@
-import { BlockData } from "../../interfaces/IBlock";
+import { BlockData } from "interfaces/IBlock";
 import { RFState } from "../../types/rfState";
 import { Node } from "react-flow-renderer";
 import { getSelectedBlock } from "../utils/blockUtils";
 import { v4 as uuidv4 } from "uuid";
-import { NodeType } from "../../interfaces/INode";
-import ConnectionsEdge from "../../interfaces/IConnectionsEdges";
+import { NodeType } from "interfaces/INode";
+import ConnectionsEdge from "interfaces/IConnectionsEdges";
 import { Visual } from "store/interfaces/Iflow";
 
 const addBlock =

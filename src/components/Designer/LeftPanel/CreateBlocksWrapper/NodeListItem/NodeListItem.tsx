@@ -2,8 +2,8 @@ import { NodeType } from "store/interfaces/INode";
 import s from "./NodeListItem.module.scss";
 import { connectionsIcons } from "assets/icons/icons";
 import useStore from "store/store";
-import { canDrop, positionInViewport } from "utils/draggableUtils";
-import { useEffect } from "react";
+
+import { useNodeDrag, useNodeDrop } from "hooks/useNodeDrop";
 
 interface NodeProps {
   nodeType: NodeType;
@@ -11,51 +11,18 @@ interface NodeProps {
 }
 
 function NodeListItem(props: NodeProps) {
-  const addBlock = useStore((state) => state.flowSlice.addBlock);
-  const { reactFlowInstance, reactFlowWrapper } = useStore(
-    (state) => state.designerVisualElementsSlice
-  );
   const { setTooltipText } = useStore(
     (state) => state.designerVisualElementsSlice
   );
+
+  const [onDragStart, onDragEnd] = useNodeDrag(props);
 
   // Returns the icon if icon names match with any of nodeIcons in connectionsIcons object
   const matchedIcon: any = Object.entries(connectionsIcons.nodeIcons).find(
     ([key]) => key === props.nodeType.visualData.icon.toLowerCase()
   )?.[1];
 
-  useEffect(() => {
-    const handleDragOver = (event: any) => {
-      event.preventDefault();
-    };
-
-    const handleDrop = (event: any) => {
-      event.preventDefault();
-    };
-
-    document.addEventListener("dragover", handleDragOver);
-    document.addEventListener("drop", handleDrop);
-
-    return () => {
-      document.removeEventListener("dragover", handleDragOver);
-      document.removeEventListener("drop", handleDrop);
-    };
-  }, []);
-
-  function onDragEnd(event: any) {
-    if (canDrop(event, props.leftPanelRef)) {
-      const pos = {
-        x: positionInViewport(event, reactFlowInstance, reactFlowWrapper).x,
-        y: positionInViewport(event, reactFlowInstance, reactFlowWrapper).y,
-      };
-      addBlock(props.nodeType, pos.x, pos.y);
-    }
-  }
-
-  function onDragStart(event: any) {
-    event.dataTransfer.effectAllowed = "move";
-    event.dataTransfer.setData("text/plain", JSON.stringify(props.nodeType)); // Firefox requires data to be set
-  }
+  useNodeDrop();
 
   return (
     <div

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { deleteDraftFlowAPI, getDraftListApi } from "../../../../api/draft";
-import { connectionsIcons } from "../../../../assets/icons/icons";
+import { deleteDraftFlowAPI, getDraftListApi } from "api/draft";
+import { connectionsIcons } from "assets/icons/icons";
 import { ILeftPanelSections } from "../LeftPanel";
 import { LoadedFlow } from "store/interfaces/Iflow";
 import { useLoadDraft } from "utils/drafts/useLoadDraft";

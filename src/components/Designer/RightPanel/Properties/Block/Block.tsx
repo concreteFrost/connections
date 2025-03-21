@@ -6,8 +6,12 @@ import { useMemo } from "react";
 
 function Block() {
   const blockData = useStore<BlockData | undefined>((state) => {
-    const selectedBlockId = state.flowSlice.flow.visual.blocks.find((b) => b.selected)?.id;
-    return state.flowSlice.flow.blockData.find((x: BlockData) => x.blockIdentifier === selectedBlockId);
+    const selectedBlockId = state.flowSlice.flow.visual.blocks.find(
+      (b) => b.selected
+    )?.id;
+    return state.flowSlice.flow.blockData.find(
+      (x: BlockData) => x.blockIdentifier === selectedBlockId
+    );
   });
 
   // Memoize blockData to avoid unnecessary calculations
@@ -17,13 +21,13 @@ function Block() {
     <div className={s.wrapper}>
       <h5>BLOCK</h5>
       <ul>
-        {memoizedBlockData?.parameters && memoizedBlockData.parameters.length > 0
-          ? Object.entries(memoizedBlockData.parameters).map(([key, val]: Array<any>) => (
+        {memoizedBlockData?.parameters &&
+          Object.keys(memoizedBlockData.parameters).length > 0 &&
+          Object.entries(memoizedBlockData.parameters).map(([key, val]) => (
             <li key={key} className={s.list_item}>
               <PropertiesInput blockData={val} />
             </li>
-          ))
-          : null}
+          ))}
       </ul>
     </div>
   );

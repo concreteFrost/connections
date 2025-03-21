@@ -1,6 +1,6 @@
 import axios from "axios";
-import { baseUrl } from "../store/constants/baseUrl";
-import { Registration } from "../store/interfaces/IServer";
+import { baseUrl } from "store/constants/baseUrl";
+import { Registration } from "store/interfaces/IServer";
 
 export function startServerAPI() {
   return new Promise((resolve, reject) => {

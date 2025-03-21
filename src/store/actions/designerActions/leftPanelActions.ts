@@ -1,10 +1,9 @@
-
-import {mockBlocks} from "../../../__mocks__/mockBlock";
+import { mockBlocks } from "__mocks__/mockBlock";
 import { RFState } from "store/types/rfState";
 import { NodeType } from "store/interfaces/INode";
 import { BlockDefaultParameters } from "store/interfaces/IBlock";
 
-function setBlockParams(sourceBlocks:any, blocksToUpdate:NodeType[]){
+function setBlockParams(sourceBlocks: any, blocksToUpdate: NodeType[]) {
   for (let d of sourceBlocks) {
     blocksToUpdate.push({
       type: "pointer",
@@ -17,41 +16,40 @@ function setBlockParams(sourceBlocks:any, blocksToUpdate:NodeType[]){
         blockVersion: d.blockVersion,
         blockLabel: d.name,
         blockType: d.name,
-        category:d.category,
+        category: d.category,
         description: d.description,
         typeName: d.libraryType,
         baseTypeName: d.category,
-        ehDirective:"",
+        ehDirective: "",
         parameters: d.parameters.map((parameter: BlockDefaultParameters) => {
           return {
             name: parameter.name,
             value: parameter.parameterDefault,
             required: parameter.constraints > 0 ? true : false,
             format: parameter.dataType,
-            description:parameter.description
+            description: parameter.description,
           };
         }),
-        extendedParameters: []
+        extendedParameters: [],
       },
     });
   }
 
   return blocksToUpdate;
-
 }
 
 export const getBlocksList = (set: any) => (data: any) => {
-  const updatedNodesList :Array<NodeType>= [];
+  const updatedNodesList: Array<NodeType> = [];
 
-  setBlockParams(data,updatedNodesList);
-  setBlockParams(mockBlocks,updatedNodesList);
+  setBlockParams(data, updatedNodesList);
+  setBlockParams(mockBlocks, updatedNodesList);
 
-  set((state:RFState)=>({
-    flowSlice:{
-      ...state.flowSlice,blockList:updatedNodesList
-    }
-  }))
-
+  set((state: RFState) => ({
+    flowSlice: {
+      ...state.flowSlice,
+      blockList: updatedNodesList,
+    },
+  }));
 };
 
 const leftPanelActions = {
@@ -59,4 +57,3 @@ const leftPanelActions = {
 };
 
 export default leftPanelActions;
-

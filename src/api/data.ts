@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
-import { baseUrl } from "../store/constants/baseUrl";
-import { LogSearchQuery } from "../store/interfaces/IServer";
-import { Subscription } from "../store/interfaces/INotification";
+import { baseUrl } from "store/constants/baseUrl";
+import { LogSearchQuery } from "store/interfaces/IServer";
+import { Subscription } from "store/interfaces/INotification";
 
 export function getBlocks(): Promise<any> {
   return new Promise<any>((resolve, reject) => {

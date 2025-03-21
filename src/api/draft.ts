@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { baseUrl } from "../store/constants/baseUrl";
+import { baseUrl } from "store/constants/baseUrl";
 
 export function saveDraftFlowApi(data: any) {
   return new Promise((resolve, reject) => {

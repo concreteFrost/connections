@@ -5,7 +5,7 @@ import FlowBlock from "./LogSearchElements/FlowBlock";
 import OutputSearchButtons from "./LogSearchElements/OutputSearchButtons";
 import TextSearch from "./LogSearchElements/TextSearch";
 import LogTable from "./LogTable/LogTable";
-import { getDataLogsAPI } from "../../../../../api/data";
+import { getDataLogsAPI } from "api/data";
 import useStore from "store/store";
 import { FlowConfig } from "store/interfaces/Iflow";
 import { BlockLookup } from "store/interfaces/IBlock";

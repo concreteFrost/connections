@@ -1,23 +1,25 @@
 import s from "./SettingsDropdown.module.scss";
 import useStore from "store/store";
 import useOutsideMouseClick from "hooks/useOutsideMouseClick";
-import {useRef} from "react"
+import { useRef } from "react";
 
-
-interface SettingsDropdownProps{
-  setSettingsVisible: (isVisible:boolean)=>void;
+interface SettingsDropdownProps {
+  setSettingsVisible: (isVisible: boolean) => void;
   isSettingsVisible: boolean;
 }
 function SettingsDropdown(props: SettingsDropdownProps) {
-  const isSnapped = useStore((store) => store.topPanelSlice.settings.snapToGrid);
-  const toggleGrid = useStore((store) => store.topPanelSlice.setSnapToGrid);
-  const toggleMinimap = useStore((store) => store.topPanelSlice.showMiniMap);
-  const sliderVal = useStore((store) => store.topPanelSlice.settings.snapStep);
-  const setSliderVal = useStore((store) => store.topPanelSlice.setSnapStep);
-  const showMiniMap = useStore((store) => store.topPanelSlice.settings.showMiniMap)
-  const settingsRef:any = useRef();
+  const {
+    settings: { snapToGrid: isSnapped, snapStep: sliderVal, showMiniMap },
+    setSnapToGrid: toggleGrid,
+    showMiniMap: toggleMinimap,
+    setSnapStep: setSliderVal,
+  } = useStore((store) => store.topPanelSlice);
 
-  useOutsideMouseClick(settingsRef,()=>{props.setSettingsVisible(!props.isSettingsVisible)})
+  const settingsRef: any = useRef();
+
+  useOutsideMouseClick(settingsRef, () => {
+    props.setSettingsVisible(!props.isSettingsVisible);
+  });
   return (
     <div className={s.wrapper} ref={settingsRef}>
       <div className={s.settings_title}>Grid</div>
@@ -37,12 +39,14 @@ function SettingsDropdown(props: SettingsDropdownProps) {
         <li className={s.slider_container}>
           <div>Snap step</div>
           <div>
-            <span className={s.slider_value}>{`${sliderVal[0]} x ${sliderVal[0]}`}</span>
+            <span
+              className={s.slider_value}
+            >{`${sliderVal[0]} x ${sliderVal[0]}`}</span>
             <input
               type="range"
               value={sliderVal[0]}
               onChange={(e: any) => {
-                setSliderVal([e.target.value, e.target.value])
+                setSliderVal([e.target.value, e.target.value]);
               }}
               min="5"
               max="100"
@@ -56,13 +60,15 @@ function SettingsDropdown(props: SettingsDropdownProps) {
         <li className={s.settings_list_item}>
           <div>Show Minimap</div>
           <div className={s.check_input}>
-            <input type="checkbox" checked={showMiniMap} onChange={toggleMinimap} />
+            <input
+              type="checkbox"
+              checked={showMiniMap}
+              onChange={toggleMinimap}
+            />
           </div>
         </li>
       </ul>
-      <div className={s.logout_container}>
-      </div>
-
+      <div className={s.logout_container}></div>
     </div>
   );
 }

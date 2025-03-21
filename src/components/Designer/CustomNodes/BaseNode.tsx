@@ -1,7 +1,7 @@
 import s from "./BaseNode.module.scss";
 import useStore from "store/store";
 import { useEffect, useMemo, useState, useCallback } from "react";
-import { connectionsIcons } from "../../../assets/icons/icons";
+import { connectionsIcons } from "assets/icons/icons";
 import { Position, Handle } from "react-flow-renderer";
 import { isDarkBackground } from "store/actions/utils/nodeUtils";
 import { Node, NodeProps } from "reactflow";

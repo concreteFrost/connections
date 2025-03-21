@@ -1,8 +1,8 @@
 import s from "./ModalWindow.module.scss";
-import useStore from "../../store/store";
+import useStore from "store/store";
 import { useEffect } from "react";
-import { getDraftListApi } from "../../api/draft";
-import { checkExistingFlowInDataBase } from "../../store/actions/utils/flowUtils";
+import { getDraftListApi } from "api/draft";
+import { checkExistingFlowInDataBase } from "store/actions/utils/flowUtils";
 
 export enum UpdateFlowActions {
   Create,
@@ -26,25 +26,25 @@ function UpdateFlowModal() {
     (state) => state.modalWindowsSlice.updateFlowModal.actions
   );
 
-  
   useEffect(() => {
     compareSubfolderName();
   }, [modalSlice.updateFlowModal.isVisible]);
 
-
   //sets subfolder name value if match
   async function compareSubfolderName() {
-    await getDraftListApi().then((res: any) => {
-      const data = res.data.draftFlows;
-      const mergedFolders: any = Object.values(data).reduce(
-        (result: any, currentArray) => result.concat(currentArray),
-        []
-      );
-      const matchSubfolderName = mergedFolders.find(
-        (flow: any) => flow.flowName === flowSlice.flow.flowName
-      )?.subFolder;
-      setSubfolderName(matchSubfolderName ? matchSubfolderName : "drafts");
-    }).catch((e)=>console.log(e))
+    await getDraftListApi()
+      .then((res: any) => {
+        const data = res.data.draftFlows;
+        const mergedFolders: any = Object.values(data).reduce(
+          (result: any, currentArray) => result.concat(currentArray),
+          []
+        );
+        const matchSubfolderName = mergedFolders.find(
+          (flow: any) => flow.flowName === flowSlice.flow.flowName
+        )?.subFolder;
+        setSubfolderName(matchSubfolderName ? matchSubfolderName : "drafts");
+      })
+      .catch((e) => console.log(e));
   }
 
   async function tryToSaveFlow() {
@@ -56,17 +56,16 @@ function UpdateFlowModal() {
       );
       await modalSlice.toggleUpdateFlowModal(false);
       await modalSlice.toggleLoadFlowModal(false);
-    
+
       if (saveDraftFlow) {
         await actions.save();
       }
-      
     } catch (error) {
       return false;
     }
   }
 
-  function declineFlowSaving(){
+  function declineFlowSaving() {
     actions.discard();
     modalSlice.toggleUpdateFlowModal(false);
   }
