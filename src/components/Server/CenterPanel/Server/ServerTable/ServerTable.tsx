@@ -8,8 +8,12 @@ import BlocksTable from "./Tables/BlocksTable";
 import MonitorsTable from "./Tables/MonitorsTable";
 import SchedulesTable from "./Tables/ISchedulesTable";
 import MetricsTable from "./Tables/MetricsTable";
-import { killServerAPI, startServerAPI, stopServerAPI } from "api/server";
 import useStore from "store/store";
+import {
+  killServer,
+  startServer,
+  stopServer,
+} from "utils/server/serverOperations";
 
 interface ITableData {
   alertsRaised: number;
@@ -64,39 +68,6 @@ function ServerTable() {
     (store) => store.designerVisualElementsSlice
   );
 
-  function startServer() {
-    startServerAPI()
-      .then((res) => {
-        getServerData();
-        console.log("start server success", res);
-      })
-      .catch((e) => {
-        console.log("start server error", e);
-      });
-  }
-
-  function stopServer() {
-    stopServerAPI()
-      .then((res) => {
-        getServerData();
-        console.log("stop server success", res);
-      })
-      .catch((e) => {
-        console.log("stop server error", e);
-      });
-  }
-
-  function killServer() {
-    killServerAPI()
-      .then((res) => {
-        getServerData();
-        console.log("kill server success", res);
-      })
-      .catch((e) => {
-        console.log("kill server error", e);
-      });
-  }
-
   function getServerStatus(res: ITableData) {
     const status = {
       0: "offline",
@@ -141,14 +112,14 @@ function ServerTable() {
         <div className={s.header_buttons}>
           <button
             className={`${s.play} tooltip-item`}
-            onClick={startServer}
+            onClick={() => startServer(getServerData)}
             onMouseEnter={() => setTooltipText("Start Connections Server")}
           >
             {connectionsIcons.serverButtonsIcons.play}
           </button>
           <button
             className={`${s.stop} tooltip-item`}
-            onClick={stopServer}
+            onClick={() => stopServer(getServerData)}
             onMouseEnter={() =>
               setTooltipText(
                 "Perform a graceful shutdown of the Connections Server"
@@ -159,7 +130,7 @@ function ServerTable() {
           </button>
           <button
             className={`${s.kill} tooltip-item`}
-            onClick={killServer}
+            onClick={() => killServer(getServerData)}
             onMouseEnter={() =>
               setTooltipText(
                 "Hard shutdown of the Connections Server (all current workflows will be terminated)"
@@ -173,58 +144,67 @@ function ServerTable() {
       </div>
 
       <div className={s.main_container}>
-        <OperationTable
-          tableData={{
-            lastShutdownTime: tableData.lastShutdownTime,
-            startTime: tableData.startTime,
-            status: tableData.status,
-          }}
-          scssClass={s.main_table}
-        ></OperationTable>
-        <FlowsTable
-          tableData={{
-            disabledFlowCount: tableData.disabledFlowCount,
-            enabledFlowCount: tableData.enabledBlockCount,
-            pausedFlowCount: tableData.pausedFlowCount,
-          }}
-          scssClass={s.main_table}
-        ></FlowsTable>
-        <BlocksTable
-          tableData={{
-            enabledBlockCount: tableData.enabledBlockCount,
-            disabledBlockCount: tableData.disabledBlockCount,
-          }}
-          scssClass={s.main_table}
-        ></BlocksTable>
-        <MonitorsTable
-          tableData={{
-            enabledDirectoryMonitorCount:
-              tableData.enabledDirectoryMonitorCount,
-            disabledDirectoryMonitorCount:
-              tableData.disabledDirectoryMonitorCount,
-          }}
-          scssClass={s.main_table}
-        ></MonitorsTable>
-        <SchedulesTable
-          tableData={{
-            enabledScheduleCount: tableData.enabledScheduleCount,
-            disabledScheduleCount: tableData.disabledScheduleCount,
-          }}
-          scssClass={s.main_table}
-        ></SchedulesTable>
-        <MetricsTable
-          tableData={{
-            alertsRaised: tableData.alertsRaised,
-            completedProcessesCount: tableData.completedProcessesCount,
-            currentProcessesCount: tableData.currentProcessesCount,
-            errorCount: tableData.errorCount,
-            fataErrorCount: tableData.fataErrorCount,
-            inputFilesProcessedCount: tableData.inputFilesProcessedCount,
-            schedulesInitiatedCount: tableData.schedulesInitiatedCount,
-            warningCount: tableData.warningCount,
-          }}
-          scssClass={s.main_table}
-        ></MetricsTable>
+        <div className={s.col_one}>
+          <OperationTable
+            tableData={{
+              lastShutdownTime: tableData.lastShutdownTime,
+              startTime: tableData.startTime,
+              status: tableData.status,
+            }}
+            scssClass={s.main_table}
+          ></OperationTable>
+          <FlowsTable
+            tableData={{
+              disabledFlowCount: tableData.disabledFlowCount,
+              enabledFlowCount: tableData.enabledBlockCount,
+              pausedFlowCount: tableData.pausedFlowCount,
+            }}
+            scssClass={s.main_table}
+          ></FlowsTable>
+        </div>
+
+        <div className={s.col_two}>
+          <BlocksTable
+            tableData={{
+              enabledBlockCount: tableData.enabledBlockCount,
+              disabledBlockCount: tableData.disabledBlockCount,
+            }}
+            scssClass={s.main_table}
+          ></BlocksTable>
+
+          <MonitorsTable
+            tableData={{
+              enabledDirectoryMonitorCount:
+                tableData.enabledDirectoryMonitorCount,
+              disabledDirectoryMonitorCount:
+                tableData.disabledDirectoryMonitorCount,
+            }}
+            scssClass={s.main_table}
+          ></MonitorsTable>
+          <SchedulesTable
+            tableData={{
+              enabledScheduleCount: tableData.enabledScheduleCount,
+              disabledScheduleCount: tableData.disabledScheduleCount,
+            }}
+            scssClass={s.main_table}
+          ></SchedulesTable>
+        </div>
+        <div className={s.col_three}>
+          <MetricsTable
+            tableData={{
+              alertsRaised: tableData.alertsRaised,
+              completedProcessesCount: tableData.completedProcessesCount,
+              currentProcessesCount: tableData.currentProcessesCount,
+              errorCount: tableData.errorCount,
+              fataErrorCount: tableData.fataErrorCount,
+              inputFilesProcessedCount: tableData.inputFilesProcessedCount,
+              schedulesInitiatedCount: tableData.schedulesInitiatedCount,
+              warningCount: tableData.warningCount,
+            }}
+            scssClass={s.main_table}
+          ></MetricsTable>
+        </div>
+
         {/* <table className={s.main_table}>
           <thead>
             <tr>

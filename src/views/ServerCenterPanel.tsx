@@ -7,7 +7,7 @@ import Servers from "../components/Server/CenterPanel/Server/Servers";
 import Settings from "../components/Server/CenterPanel/Settings/Settings";
 import Alerts from "../components/Server/CenterPanel/Alerts/Alerts";
 import Kpis from "components/Server/CenterPanel/Kpis/Kpis";
-import LogSearch from "components/Server/CenterPanel/Server/LogSearch/LogSearch";
+import LogSearch from "components/Server/CenterPanel/LogSearch/LogSearch";
 
 function ServerCenterPanel() {
   return (
