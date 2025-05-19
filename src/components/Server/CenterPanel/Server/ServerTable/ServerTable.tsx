@@ -151,7 +151,6 @@ function ServerTable() {
               startTime: tableData.startTime,
               status: tableData.status,
             }}
-            scssClass={s.main_table}
           ></OperationTable>
           <FlowsTable
             tableData={{
@@ -159,36 +158,9 @@ function ServerTable() {
               enabledFlowCount: tableData.enabledBlockCount,
               pausedFlowCount: tableData.pausedFlowCount,
             }}
-            scssClass={s.main_table}
           ></FlowsTable>
         </div>
 
-        <div className={s.col_two}>
-          <BlocksTable
-            tableData={{
-              enabledBlockCount: tableData.enabledBlockCount,
-              disabledBlockCount: tableData.disabledBlockCount,
-            }}
-            scssClass={s.main_table}
-          ></BlocksTable>
-
-          <MonitorsTable
-            tableData={{
-              enabledDirectoryMonitorCount:
-                tableData.enabledDirectoryMonitorCount,
-              disabledDirectoryMonitorCount:
-                tableData.disabledDirectoryMonitorCount,
-            }}
-            scssClass={s.main_table}
-          ></MonitorsTable>
-          <SchedulesTable
-            tableData={{
-              enabledScheduleCount: tableData.enabledScheduleCount,
-              disabledScheduleCount: tableData.disabledScheduleCount,
-            }}
-            scssClass={s.main_table}
-          ></SchedulesTable>
-        </div>
         <div className={s.col_three}>
           <MetricsTable
             tableData={{
@@ -203,6 +175,30 @@ function ServerTable() {
             }}
             scssClass={s.main_table}
           ></MetricsTable>
+        </div>
+
+        <div className={s.col_two}>
+          <BlocksTable
+            tableData={{
+              enabledBlockCount: tableData.enabledBlockCount,
+              disabledBlockCount: tableData.disabledBlockCount,
+            }}
+          ></BlocksTable>
+
+          <MonitorsTable
+            tableData={{
+              enabledDirectoryMonitorCount:
+                tableData.enabledDirectoryMonitorCount,
+              disabledDirectoryMonitorCount:
+                tableData.disabledDirectoryMonitorCount,
+            }}
+          ></MonitorsTable>
+          <SchedulesTable
+            tableData={{
+              enabledScheduleCount: tableData.enabledScheduleCount,
+              disabledScheduleCount: tableData.disabledScheduleCount,
+            }}
+          ></SchedulesTable>
         </div>
 
         {/* <table className={s.main_table}>

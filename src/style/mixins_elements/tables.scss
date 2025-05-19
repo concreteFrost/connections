@@ -121,3 +121,53 @@
     }
   }
 }
+
+@mixin serverStatusTables {
+  border-collapse: collapse;
+  border: 1px solid rgb(228, 228, 228);
+  border-radius: 5px;
+  border-spacing: 20px 20px;
+  height: 100%;
+  background-color: white;
+  box-shadow: $shadow-node-nav-container;
+  margin-bottom: 20px;
+
+  th {
+    padding: 10px;
+  }
+
+  tbody {
+    tr {
+      &.grey {
+        background-color: $bg-node-nav-btn;
+      }
+
+      &.disabled {
+        background-color: oklch(98.4% 0.003 247.858);
+      }
+
+      &.enabled {
+        background-color: oklch(96.8% 0.007 247.896);
+      }
+    }
+
+    td {
+      font-size: 0.8rem;
+      padding: 20px;
+    }
+
+    td:nth-child(even) {
+      text-align: end;
+    }
+
+    td:nth-child(odd) {
+      font-weight: bold;
+      text-align: start;
+    }
+  }
+
+  span {
+    margin-right: 5px;
+    color: $bg-top-menu-btn-hover;
+  }
+}

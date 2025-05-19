@@ -29,6 +29,10 @@ $color-node-nav-icon: rgb(35, 124, 175);
 $color-node-nav-icon-light: "white";
 $color-warning-message: rgb(173, 126, 38);
 
+//table colors
+$table-row-enabled: oklch(98.4% 0.003 247.858);
+$table-row-disabled: oklch(96.8% 0.007 247.896);
+
 //--SHADOWS--
 
 $shadow-designer-top-nav: rgba(160, 160, 160, 0.35) 0px 25px 36px -25px inset;
