@@ -25,7 +25,7 @@ function View() {
       <div onClick={() => setViewSectionVisible(!isViewSectionVisible)}>
         View
       </div>
-      {isViewSectionVisible ? (
+      {isViewSectionVisible && (
         <div className={s.wrapper}>
           <div className={s.settings_title}>Grid View</div>
           <ul>
@@ -47,7 +47,7 @@ function View() {
             </li>
           </ul>
         </div>
-      ) : null}
+      )}
     </li>
   );
 }

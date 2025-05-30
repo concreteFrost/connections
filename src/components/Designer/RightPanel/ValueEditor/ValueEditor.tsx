@@ -1,40 +1,27 @@
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState, ChangeEvent } from "react";
 import useStore from "store/store";
 import s from "./ValueEditor.module.scss";
-import { connectionsIcons } from "../../../../assets/icons/icons";
+import { connectionsIcons } from "assets/icons/icons";
 import FilteredResults from "../FilteredResults/FilteredResults";
-
-interface ISelection {
-  index: number;
-  value: string;
-}
 
 function ValueEditor() {
   // State
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
-  const setCurrentParameter = useStore(
-    (state) => state.designerVisualElementsSlice.setParameterValue
+  const { setParameterValue, valueEditor } = useStore(
+    (state) => state.designerVisualElementsSlice
   );
-
-  const valueToEdit = useStore(
-    (state) => state.designerVisualElementsSlice.valueEditor.valueToEdit
-  );
-  const parameterToModify = useStore(
-    (state) => state.designerVisualElementsSlice.valueEditor.parameterToModify
-  );
-
   //Filtered results
-  const [selection, setSelection] = useState<ISelection>({
+  const [selection, setSelection] = useState({
     index: 0,
     value: "",
   });
 
   // Handlers
-  const _setCurrentParameter = (e: ChangeEvent<HTMLTextAreaElement>) =>
-    setCurrentParameter(parameterToModify, e.target.value);
+  const handleSetCurrentParameter = (e: ChangeEvent<HTMLTextAreaElement>) =>
+    setParameterValue(valueEditor.parameterToModify, e.target.value);
   const onSubstitutionSelect = (e: string) =>
-    setCurrentParameter(parameterToModify, e);
+    setParameterValue(valueEditor.parameterToModify, e);
 
   const setSelectionIndex = (e: any) => {
     if (e.key === "{")
@@ -65,9 +52,9 @@ function ValueEditor() {
       </div>
       <div className={containerClasses}>
         <textarea
-          value={valueToEdit}
+          value={valueEditor.valueToEdit}
           onChange={(e) => {
-            _setCurrentParameter(e);
+            handleSetCurrentParameter(e);
             setSelectionValue(e);
           }}
           onKeyDown={(e: any) => setSelectionIndex(e)}
@@ -75,7 +62,7 @@ function ValueEditor() {
       </div>
       <FilteredResults
         onSubstitutionSelect={onSubstitutionSelect}
-        defaultInput={valueToEdit}
+        defaultInput={valueEditor.valueToEdit}
         selection={selection}
       />
     </section>

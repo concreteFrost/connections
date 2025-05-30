@@ -1,36 +1,22 @@
 import s from "./Substitutions.module.scss";
-import { connectionsIcons } from "../../../assets/icons/icons";
+import { connectionsIcons } from "assets/icons/icons";
 import useStore from "store/store";
 import SubstitutionsTable from "./SubstitutionsTable/SubstitutionsTable";
-import { useState } from "react";
+import { ChangeEvent, FormEventHandler, useState } from "react";
 
 function Substitutions() {
-  const substitutionsPanel = useStore(
-    (state) => state.designerVisualElementsSlice.substitutionsPanel
-  );
+  const { substitutionsPanel, toggleSubstitutionsPanel, errorMessages } =
+    useStore((state) => state.designerVisualElementsSlice);
   const addSubstitutionKey = useStore(
     (state) => state.flowSlice.addSubstitutionKey
   );
-  const togglePanel = useStore(
-    (state) => state.designerVisualElementsSlice.toggleSubstitutionsPanel
-  );
-  const substitutionAddError = useStore(
-    (state) =>
-      state.designerVisualElementsSlice.errorMessages.substitutionAddError
-  );
+
   const [substKey, setSubstKey] = useState("");
 
-  function _togglePanel() {
-    togglePanel();
-  }
-
-  function _addSubstitution(e: any) {
+  function handleAddSubstitution(e: any) {
     e.preventDefault();
     addSubstitutionKey(e.target[0].value);
     setSubstKey("");
-  }
-  function _setSubstKey(e: string) {
-    setSubstKey(e);
   }
 
   const expandableClasses = `${s.expandable_content} ${
@@ -42,7 +28,7 @@ function Substitutions() {
   return (
     <div className={s.wrapper}>
       <div className={s.content}>
-        <div className={s.icon} onClick={_togglePanel}>
+        <div className={s.icon} onClick={toggleSubstitutionsPanel}>
           {substitutionsPanel.isCollapsed
             ? connectionsIcons.upCaret
             : connectionsIcons.downCaret}
@@ -50,14 +36,16 @@ function Substitutions() {
         <div className={s.header}>Substitutions</div>
         <div className={expandableClasses}>
           <div className={subHeaderClasses}>
-            <form onSubmit={(e: any) => _addSubstitution(e)}>
+            <form onSubmit={handleAddSubstitution}>
               <input
                 type="text"
                 value={substKey}
-                onChange={(e: any) => _setSubstKey(e.target.value)}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setSubstKey(e.target.value)
+                }
               />
               <button>Add</button>
-              <span>{substitutionAddError}</span>
+              <span>{errorMessages.substitutionAddError}</span>
             </form>
 
             <ul>{/* <li>Save</li> */}</ul>

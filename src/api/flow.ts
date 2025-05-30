@@ -1,12 +1,12 @@
 import axios, { AxiosResponse } from "axios";
-import { baseUrl } from "../store/constants/baseUrl";
+import { baseUrl } from "store/constants/baseUrl";
 
 export function saveFlowApi(data: any): Promise<AxiosResponse> {
   return new Promise((resolve, reject) => {
     axios({
       method: "post",
       url: baseUrl + "/Flow/UploadNew",
-       headers: {
+      headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
       },
@@ -21,10 +21,10 @@ export function getFlowListApi(): Promise<AxiosResponse> {
   return new Promise((resolve, reject) => {
     axios
       .get(baseUrl + "/Data/FlowList", {
-         headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
-      },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+        },
       })
       .then((res) => resolve(res))
       .catch((e) => reject(e));
@@ -38,10 +38,10 @@ export function getFlowApi(id: any): Promise<AxiosResponse> {
         params: {
           flowReference: id, // Correctly passing id as a query parameter
         },
-         headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
-      },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+        },
       })
       .then((res) => resolve(res))
       .catch((e) => reject(e));
@@ -55,10 +55,10 @@ export function getBlockStatisticsAPI(id: string): Promise<AxiosResponse> {
         params: {
           flowIdentifier: id, // Correctly passing id as a query parameter
         },
-         headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
-      },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+        },
       })
       .then((res) => resolve(res))
       .catch((e) => reject(e));
@@ -72,7 +72,7 @@ export function enableFlowAPI(id: string): Promise<AxiosResponse> {
       params: {
         flowReference: id,
       },
-       headers: {
+      headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
       },
@@ -89,7 +89,7 @@ export function disableFlowAPI(id: string): Promise<AxiosResponse> {
       params: {
         flowReference: id,
       },
-       headers: {
+      headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
       },
@@ -106,7 +106,7 @@ export function startFlowAPI(id: string): Promise<AxiosResponse> {
       params: {
         flowReference: id,
       },
-       headers: {
+      headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
       },
@@ -123,7 +123,7 @@ export function restartFlowAPI(id: string) {
       params: {
         flowReference: id,
       },
-       headers: {
+      headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
       },
@@ -140,7 +140,7 @@ export function terminateFlowAPI(id: string) {
       params: {
         flowReference: id,
       },
-       headers: {
+      headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
       },
@@ -157,7 +157,7 @@ export function stopFlowAPI(id: string): Promise<AxiosResponse> {
       params: {
         flowReference: id,
       },
-       headers: {
+      headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
       },

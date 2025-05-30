@@ -1,12 +1,12 @@
 import axios from "axios";
-import { baseUrl } from "../store/constants/baseUrl";
-import { getAccessToken } from "../store/actions/storageActions";
+import { baseUrl } from "store/constants/baseUrl";
+import { getAccessToken } from "store/actions/storageActions";
 import {
   AlertFormat,
   Directive,
   NewAlertFormat,
-} from "../store/interfaces/IAlerts";
-import { Subscription } from "../store/interfaces/INotification";
+} from "store/interfaces/IAlerts";
+import { Subscription } from "store/interfaces/INotification";
 
 //GET
 export function getDirectivesApi() {

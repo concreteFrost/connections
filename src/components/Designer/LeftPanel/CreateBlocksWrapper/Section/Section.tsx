@@ -2,7 +2,7 @@ import s from "./Section.module.scss";
 import NodeListItem from "../NodeListItem/NodeListItem";
 import { NodeType } from "store/interfaces/INode";
 import { connectionsIcons } from "assets/icons/icons";
-import { useState } from "react";
+import { memo, useState } from "react";
 import useStore from "store/store";
 
 interface SectionProps {
@@ -13,6 +13,7 @@ interface SectionProps {
 
 function Section(props: SectionProps) {
   //returns filtered blocks that has matched type provided in props
+
   const blockList = useStore((state) => state.flowSlice.blockList);
   const filteredData = Object.entries(blockList)
     .filter(
@@ -57,4 +58,4 @@ function Section(props: SectionProps) {
   );
 }
 
-export default Section;
+export default memo(Section);

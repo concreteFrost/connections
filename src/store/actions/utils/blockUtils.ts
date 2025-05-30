@@ -1,6 +1,6 @@
 import { Node } from "react-flow-renderer";
 import { RFState } from "../../types/rfState";
-import { FlowSlice } from "../../slices/flowSlice";
+import { FlowSlice } from "store/slices/flowSlice";
 
 export const blockAlignment = (
   get: () => RFState,

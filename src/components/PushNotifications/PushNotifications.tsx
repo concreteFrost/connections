@@ -1,9 +1,11 @@
 import { useEffect, useState, useRef } from "react";
-import { connectionsIcons } from "../../assets/icons/icons";
+import { connectionsIcons } from "assets/icons/icons";
 import s from "./PushNotifications.module.scss";
 import moment from "moment";
-import { IconVariants } from "../../store/enums/profile";
-import { handleHandShake } from "../../utils/handleHandshake";
+import { IconVariants } from "store/enums/profile";
+import { handleHandShake } from "utils/handleHandshake";
+import useOutsideMouseClick from "hooks/useOutsideMouseClick";
+import useGetValuesFromCache from "hooks/useGetValuesFromCache";
 
 interface IPushNotification {
   Message: string;
@@ -17,8 +19,6 @@ function PushNotifications(props: { themeColor: IconVariants }) {
   const [isListVisible, setListVisible] = useState<boolean>(false);
 
   const modalRef = useRef<HTMLDivElement>(null);
-
-  const refreshInterval = 2000; // Обновление каждую минуту (в миллисекундах)
 
   async function getNotifications() {
     const cache = await caches.open("notifications");
@@ -56,39 +56,14 @@ function PushNotifications(props: { themeColor: IconVariants }) {
     });
   }
 
-  function handleOutsideClick(e: MouseEvent) {
-    if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-      setListVisible(false);
-    }
-  }
+  useOutsideMouseClick(modalRef, () => setListVisible(false));
 
-  useEffect(() => {
-    if (isListVisible) {
-      document.addEventListener("mousedown", handleOutsideClick);
-    } else {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, [isListVisible]);
+  //uncomment to get notifications on component mounted
+  // useEffect(() => {
+  //   getNotifications();
+  // }, []);
 
-  useEffect(() => {
-    getNotifications();
-  }, []);
-
-  // Запуск таймера для периодического обновления данных
-  useEffect(() => {
-    const refreshTimer = setInterval(() => {
-      getNotifications();
-    }, refreshInterval);
-
-    // Очистка таймера при размонтировании компонента
-    return () => {
-      clearInterval(refreshTimer);
-    };
-  }, [refreshInterval]);
-
+  useGetValuesFromCache(() => getNotifications());
   return (
     <div className={s.wrapper}>
       <div className={s.icon_wrapper}>

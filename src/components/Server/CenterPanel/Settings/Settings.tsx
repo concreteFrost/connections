@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getSettingsAPI, updateSettingAPI } from "../../../../api/server";
+import { getSettingsAPI, updateSettingAPI } from "api/server";
 import s from "./Settings.module.scss";
 
 interface ISetting {
@@ -27,7 +27,6 @@ function Settings() {
   };
 
   const updateSetting = async () => {
-
     const changedSettings: Array<ISetting> = [];
     if (settingsList && defaultSettings) {
       for (let i = 0; i < settingsList.length - 1; i++) {
@@ -42,14 +41,11 @@ function Settings() {
         try {
           const res: any = await updateSettingAPI(setting.id, setting.value);
           console.log(res);
-        }
-
-        catch (e) {
+        } catch (e) {
           console.log(e);
         }
-      })
+      });
     }
-
   };
 
   function setInputType(setting: ISetting) {
@@ -88,8 +84,8 @@ function Settings() {
   return (
     <div className={s.wrapper}>
       <ul>
-        {settingsList && settingsList?.length > 0
-          ? settingsList.map((setting: ISetting) => (
+        {settingsList && settingsList?.length > 0 ? (
+          settingsList.map((setting: ISetting) => (
             <li key={setting.id}>
               <div className={s.setting_wrapper}>
                 <div className={s.title_and_description}>
@@ -115,9 +111,15 @@ function Settings() {
               </div>
             </li>
           ))
-          : <li>Settings are not available</li>}
+        ) : (
+          <li>Settings are not available</li>
+        )}
       </ul>
-      {settingsList && settingsList?.length > 0 ? <div className={s.input_and_submit}><button onClick={updateSetting}>SAVE</button></div> : null}
+      {settingsList && settingsList?.length > 0 ? (
+        <div className={s.input_and_submit}>
+          <button onClick={updateSetting}>SAVE</button>
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -3,8 +3,8 @@ import useStore from "store/store";
 import { Group, GroupWithUsers, User } from "store/interfaces/ISecurity";
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import AddGroupModal from "../../../../Modals/GroupModals/AddGroupModal";
-import EditGroupModal from "../../../../Modals/GroupModals/EditGroupModal";
+import AddGroupModal from "components/Modals/GroupModals/AddGroupModal";
+import EditGroupModal from "components/Modals/GroupModals/EditGroupModal";
 import { removeGroupAPI } from "api/security";
 
 function GroupsTable() {
@@ -87,7 +87,7 @@ function GroupsTable() {
                     <td colSpan={1}>
                       <div className={s.table_actions}>
                         <button
-                        data-testid= {`test_${group.name}_btn`}
+                          data-testid={`test_${group.name}_btn`}
                           onClick={() => {
                             setGroupToEdit(group);
                             toggleEditGroupModal(true);
@@ -96,7 +96,7 @@ function GroupsTable() {
                           EDIT
                         </button>
                         <button
-                        data-testid={`test_delete_${group.name}_btn`}
+                          data-testid={`test_delete_${group.name}_btn`}
                           className={s.delete_btn}
                           onClick={() => {
                             toggleConfirmationModal(
@@ -119,9 +119,12 @@ function GroupsTable() {
         </table>
       </div>
       <div className={s.add_group_wrapper}>
-        <button 
-        data-testid="test_add_group_btn"
-        onClick={() => toggleActiveModal(true)}>ADD GROUP</button>
+        <button
+          data-testid="test_add_group_btn"
+          onClick={() => toggleActiveModal(true)}
+        >
+          ADD GROUP
+        </button>
       </div>
       <AddGroupModal
         isVisible={isModalActive}

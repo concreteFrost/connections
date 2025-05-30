@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import s from "./DirectivesTable.module.scss";
 import { Directive, DirectiveConfig } from "store/interfaces/IAlerts";
 import { FlowConfig } from "store/interfaces/Iflow";
-import { connectionsIcons } from "../../../../../../../assets/icons/icons";
+import { connectionsIcons } from "assets/icons/icons";
 import DirectiveConfigItem from "../AddDirectiveForm/DirectiveConfigItem/DirectiveConfigItem";
 import { removeDirectiveApi, updateDirectiveApi } from "api/ehd";
 

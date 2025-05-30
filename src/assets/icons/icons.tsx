@@ -52,7 +52,7 @@ import {
   BsCode,
 } from "react-icons/bs";
 
-import { RiAlertLine } from "react-icons/ri";
+import { RiAlertLine, RiBaseStationLine, RiShutDownLine } from "react-icons/ri";
 import {
   FaGlobe,
   FaFileExport,
@@ -61,7 +61,11 @@ import {
   FaChevronUp,
   FaPen,
   FaChartBar,
+  FaRegCalendarAlt,
 } from "react-icons/fa";
+
+import { GrCubes, GrSchedules } from "react-icons/gr";
+import { MdOutlineMonitorHeart } from "react-icons/md";
 
 export const connectionsIcons: any = {
   nodeIcons: {
@@ -118,6 +122,16 @@ export const connectionsIcons: any = {
     play: <BsPlayFill></BsPlayFill>,
     stop: <BsStopFill></BsStopFill>,
     kill: <BsExclamationTriangleFill></BsExclamationTriangleFill>,
+  },
+  serverTableIcons: {
+    operations: <GrSchedules />,
+    lastShutdown: <RiShutDownLine />,
+    status: <RiBaseStationLine />,
+    startTime: <FaRegCalendarAlt />,
+
+    metricsTable: <FaChartBar />,
+    monitorsTable: <MdOutlineMonitorHeart />,
+    blocksTable: <GrCubes />,
   },
   profile: <BsPerson></BsPerson>,
   leftCaret: <BsCaretLeft></BsCaretLeft>,

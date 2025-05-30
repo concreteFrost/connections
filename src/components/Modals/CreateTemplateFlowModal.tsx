@@ -1,6 +1,6 @@
 import s from "./ModalWindow.module.scss";
-import useStore from "../../store/store";
-import { createDraftFromLiveTemplateAPI } from "../../api/draft";
+import useStore from "store/store";
+import { createDraftFromLiveTemplateAPI } from "api/draft";
 import { useState } from "react";
 
 function CreateTemplateFlowModal() {

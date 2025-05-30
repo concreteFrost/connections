@@ -1,4 +1,4 @@
-import { BlockData } from "../../interfaces/IBlock";
+import { BlockData } from "interfaces/IBlock";
 import { RFState } from "../../types/rfState";
 import { getSelectedBlock } from "../utils/blockUtils";
 
@@ -38,7 +38,7 @@ const setParameter =
         },
       }));
 
-      console.log(get().flowSlice.flow.blockData)
+      console.log(get().flowSlice.flow.blockData);
     }
   };
 
@@ -136,6 +136,8 @@ const addCustomParameter =
           ...blockData.extendedParameters,
           { name: name, value: value },
         ];
+
+        console.log(get().flowSlice.flow.blockData);
         set((state: RFState) => ({
           ...state,
           flowSlice: {
@@ -162,7 +164,6 @@ const addCustomParameter =
       }
     }
   };
-
 
 const setStringParameter =
   (get: () => RFState, set: any) => (propertyName: string, value: string) => {
@@ -231,7 +232,6 @@ const blockParametersActions = {
   addCustomParameter: addCustomParameter,
   setSelectedExtendedParameter: setSelectedExtendedParameter,
   deleteExtendedParameter: deleteExtendedParameter,
-
 };
 
 export default blockParametersActions;

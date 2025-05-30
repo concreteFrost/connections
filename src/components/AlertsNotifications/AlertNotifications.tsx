@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { connectionsIcons } from "assets/icons/icons";
 import s from "./AlertNotifications.module.scss";
 import moment from "moment";
@@ -9,6 +9,8 @@ import { clearFromCache } from "utils/clearCache";
 import { getAlertsApi } from "api/ehd";
 import useStore from "store/store";
 import { Alert } from "store/interfaces/IAlerts";
+import useOutsideMouseClick from "hooks/useOutsideMouseClick";
+import useGetValuesFromCache from "hooks/useGetValuesFromCache";
 
 interface IPushAlert {
   Message: string;
@@ -24,13 +26,11 @@ function AlertNotifications(props: { themeColor: IconVariants }) {
 
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const refreshInterval = 2000;
-
   async function getAlertsFromCache() {
     const cache = await caches.open("alerts");
     const keys = await cache.keys();
 
-    const cahceData = await Promise.all(
+    const cacheData = await Promise.all(
       keys.map(async (key) => {
         const response: any = await cache.match(key);
         const data: any = await response.json();
@@ -41,7 +41,7 @@ function AlertNotifications(props: { themeColor: IconVariants }) {
       })
     );
 
-    if (cahceData.length > 0) {
+    if (cacheData.length > 0) {
       handleHandShake();
       try {
         const res: any = await getAlertsApi(true);
@@ -63,32 +63,9 @@ function AlertNotifications(props: { themeColor: IconVariants }) {
     }
   }
 
-  function handleOutsideClick(e: MouseEvent) {
-    if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-      setListVisible(false);
-    }
-  }
+  useOutsideMouseClick(modalRef, () => setListVisible(false));
 
-  useEffect(() => {
-    if (isListVisible) {
-      document.addEventListener("mousedown", handleOutsideClick);
-    } else {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, [isListVisible]);
-
-  useEffect(() => {
-    const refreshTimer = setInterval(() => {
-      getAlertsFromCache();
-    }, refreshInterval);
-
-    return () => {
-      clearInterval(refreshTimer);
-    };
-  }, [refreshInterval]);
+  useGetValuesFromCache(() => getAlertsFromCache());
 
   return (
     <div className={s.wrapper}>

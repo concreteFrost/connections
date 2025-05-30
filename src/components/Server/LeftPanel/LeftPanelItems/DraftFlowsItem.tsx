@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { deleteDraftFlowAPI, getDraftListApi } from "../../../../api/draft";
-import { connectionsIcons } from "../../../../assets/icons/icons";
+import { deleteDraftFlowAPI, getDraftListApi } from "api/draft";
+import { connectionsIcons } from "assets/icons/icons";
 import { ILeftPanelSections } from "../LeftPanel";
 import { LoadedFlow } from "store/interfaces/Iflow";
 import { useLoadDraft } from "utils/drafts/useLoadDraft";
@@ -132,9 +132,7 @@ function DraftFlowsItem(props: FlowsItemProps) {
                 <ul>
                   {draftFlowList[folderName].map((flow: LoadedFlow) => (
                     <li key={flow.draftId} className={s.flow_list_item}>
-                      <div className={s.flow_list_title_wrapper}>
-                        {flow.flowName}
-                      </div>
+                      <span className={s.flow_name}>{flow.flowName}</span>
                       <div className={s.flow_list_btn_wrapper}></div>
 
                       <div className={s.flow_list_dropdown_actions}>

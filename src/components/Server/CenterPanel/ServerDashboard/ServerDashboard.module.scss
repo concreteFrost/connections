@@ -1,34 +1,28 @@
 @import "/src/style/variables.scss";
 @import "/src/style/mixins.scss";
 
-.wrapper {
+.header {
   background-color: white;
+  border: 1px solid rgb(228, 228, 228);
+  border-radius: 5px;
+  box-shadow: $shadow-node-nav-container;
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-top: 10px;
 
-  .header {
-    display: grid;
-    grid-template-columns: 4fr 4fr 4fr;
-
-    .log_search_btn_wrapper{
-      display: flex;
-      align-items: center;
-      margin-left: 20px;
-
-      button{
-        @include blue-btn;
-        margin-right: 5px;
-      }
-    }
-  }
-
-  .server_status {
+  .gauge_wrapper {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    padding-right: 20px;
+    justify-content: center;
+    text-align: center;
+    padding-top: 10px;
   }
 
   .header_buttons {
-    grid-column: 2;
+    display: grid;
+
+    grid-template-columns: 4fr 4fr 4fr;
+
     height: 30px;
     display: flex;
     justify-content: center;
@@ -68,8 +62,24 @@
       transition: background-color 0.3s ease-in-out;
     }
   }
+}
+
+.main_container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 10px;
+  padding: 20px;
+  margin: 0 auto;
+  align-items: stretch;
+
+  .col_one,
+  .col_two,
+  .col_three {
+    display: flex;
+    flex-direction: column;
+  }
 
   .main_table {
-    @include server_table;
+    @include serverStatusTables;
   }
 }

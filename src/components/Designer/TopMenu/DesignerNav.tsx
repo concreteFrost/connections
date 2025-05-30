@@ -1,12 +1,12 @@
 import s from "./DesignerNav.module.scss";
 import Settings from "./Settings/Settings";
 import useStore from "store/store";
-import UpdateFlowModal from "../../Modals/UpdateFlowModal";
-import FlowsListModal from "../../Modals/FlowsListModal/FlowsListModal";
-import Profile from "../../Profile/Profile";
+import UpdateFlowModal from "components/Modals/UpdateFlowModal";
+import FlowsListModal from "components/Modals/FlowsListModal/FlowsListModal";
+import Profile from "components/Profile/Profile";
 import { IconVariants } from "store/enums/profile";
-import PushNotifications from "../../PushNotifications/PushNotifications";
-import AlertNotifications from "../../AlertsNotifications/AlertNotifications";
+import PushNotifications from "components/PushNotifications/PushNotifications";
+import AlertNotifications from "components/AlertsNotifications/AlertNotifications";
 import MonacoEditor from "components/MonacoEditor/MonacoEditor";
 import SwitchToServerView from "./CentralPanel/SwitchToServerView";
 import Create from "./CentralPanel/Create";
@@ -18,7 +18,6 @@ import FlowTabs from "./Tabs/FlowTabs";
 
 function DesignerNav() {
   const flowId = useStore((state) => state.flowSlice.flow.flowIdentifier);
-  const { allFlows } = useStore((state) => state.flowSlice);
 
   return (
     <div className={s.container}>

@@ -3,7 +3,7 @@ import Properties from "./Properties/Properties";
 import ValueEditor from "./ValueEditor/ValueEditor";
 import EdgesEditor from "./EdgesEditor/EdgesEditor";
 import { useState } from "react";
-import { connectionsIcons } from "../../../assets/icons/icons";
+import { connectionsIcons } from "assets/icons/icons";
 import useStore from "store/store";
 import { MiniMap } from "react-flow-renderer";
 

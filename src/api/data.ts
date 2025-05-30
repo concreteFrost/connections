@@ -1,7 +1,8 @@
 import axios, { AxiosResponse } from "axios";
-import { baseUrl } from "../store/constants/baseUrl";
-import { LogSearchQuery } from "../store/interfaces/IServer";
-import { Subscription } from "../store/interfaces/INotification";
+import { baseUrl } from "store/constants/baseUrl";
+import { LogSearchQuery } from "store/interfaces/IServer";
+import { Subscription } from "store/interfaces/INotification";
+import { IChartData } from "store/interfaces/IStatistics";
 
 export function getBlocks(): Promise<any> {
   return new Promise<any>((resolve, reject) => {
@@ -159,5 +160,49 @@ export function getFlowListStatusAPI(): Promise<any> {
       .catch((e) => {
         reject(e);
       });
+  });
+}
+
+export function getMetricsApi() {
+  return new Promise<any>((resolve, reject) => {
+    axios
+      .get(baseUrl + "/data/GetMetrics", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+        },
+      })
+      .then((res: AxiosResponse<IChartData>) => {
+        resolve(res);
+      })
+      .catch((e) => {
+        reject(e);
+      });
+  });
+}
+
+export function enableClientMetricsApi(subscription: Subscription) {
+  return axios.post(baseUrl + "/Data/EnableClientMetrics", subscription, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+    },
+  });
+}
+
+export function disableClientMetricsApi() {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: "post",
+      url: baseUrl + "/Data/DisableClientMetrics",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
+    })
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((e) => reject(e));
   });
 }

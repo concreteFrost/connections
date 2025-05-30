@@ -8,7 +8,7 @@ import MessageModal from "./components/Modals/MessageModal";
 import ApproveModal from "./components/Modals/ApproveModal";
 import { Tooltip } from "react-tooltip";
 import useStore from "./store/store";
-import useBroadcastChannel from "components/BroadcastChannel/useBroadcastChannel";
+import useBroadcastChannel from "hooks/useBroadcastChannel";
 import { Dashboard } from "./views/DashBoard";
 import Spinner from "components/Spinner/Spinner";
 

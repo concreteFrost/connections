@@ -1,16 +1,16 @@
-import { clearUserData } from "../../store/actions/storageActions";
+import { clearUserData } from "store/actions/storageActions";
 import { useNavigate } from "react-router-dom";
-import { connectionsIcons } from "../../assets/icons/icons";
+import { connectionsIcons } from "assets/icons/icons";
 import { useState, useRef } from "react";
 import s from "./Profile.module.scss";
-import { getMeAPI } from "../../api/security";
+import { getMeAPI } from "api/security";
 import EditUserModal from "../Modals/UserModals/EditUserModal/EditUserModal";
-import useStore from "../../store/store";
-import { IconVariants } from "../../store/enums/profile";
-import useEscapeKeyHandler from "../../hooks/useEscapeKeyHandler";
-import useOutsideMouseClick from "../../hooks/useOutsideMouseClick";
+import useStore from "store/store";
+import { IconVariants } from "store/enums/profile";
+import useEscapeKeyHandler from "hooks/useEscapeKeyHandler";
+import useOutsideMouseClick from "hooks/useOutsideMouseClick";
 import { disableClientNotificationsAPI } from "api/notification";
-import { disableClientFlowStatusAPI } from "api/data";
+import { disableClientFlowStatusAPI, disableClientMetricsApi } from "api/data";
 import { disableClientAlertsApi } from "api/ehd";
 
 interface ProfileProps {
@@ -42,6 +42,7 @@ function Profile(props: ProfileProps) {
       await disableClientAlertsApi();
       await disableClientFlowStatusAPI();
       await disableClientNotificationsAPI();
+      await disableClientMetricsApi();
     } catch (e) {
       console.log("access token is incorrect");
     } finally {

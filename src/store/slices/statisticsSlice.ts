@@ -1,13 +1,19 @@
+import moment from "moment";
 import {
   FlowStatus,
   FlowStatusCapital,
+  IChartData,
 } from "store/interfaces/IStatistics";
 import { RFState } from "store/types/rfState";
 
+const MAX_CHART_DATA_TO_STORE = 100;
+
 export type StatusSlice = {
   statistics: FlowStatus[];
+  chartData: Array<IChartData>;
   setFlowStatus: (flowId: string, status: number) => void;
   setStatistics: (stats: FlowStatus[]) => void;
+  updateChartData: (data: IChartData) => void;
   updateFlowBlocksRecord: (
     flowId: string,
     flowStatus: FlowStatusCapital
@@ -18,7 +24,29 @@ export type StatusSlice = {
 
 const statisticsSlice = (get: () => RFState, set: any): StatusSlice => ({
   statistics: [],
-
+  chartData: [
+    {
+      metrics: {
+        CPUUsage: 0,
+        MemoryUsage: 0,
+        EnabledFlowCount: 0,
+        DisabledFlowCount: 0,
+        PausedFlowCount: 0,
+        EnabledBlockCount: 0,
+        DisabledBlockCount: 0,
+        EnabledDirectoryMonitorCount: 0,
+        DisabledDirectoryMonitorCount: 0,
+        EnabledScheduleCount: 0,
+        DisabledScheduleCount: 0,
+        CurrentProcessesCount: 0,
+        CompletedProcessesCount: 0,
+        InputFilesProcessedCount: 0,
+        SchedulesInitiatedCount: 0,
+        AlertsRaised: 0,
+      },
+      time: moment().format("LTS"),
+    },
+  ],
   setStatistics(stats: FlowStatus[]) {
     set((store: RFState) => ({
       statisticsSlice: {
@@ -47,7 +75,19 @@ const statisticsSlice = (get: () => RFState, set: any): StatusSlice => ({
       },
     }));
   },
-
+  updateChartData: (data: IChartData) => {
+    const metrics = [...get().statisticsSlice.chartData, data];
+    console.log(data);
+    if (metrics.length > MAX_CHART_DATA_TO_STORE) {
+      metrics.splice(0, metrics.length - MAX_CHART_DATA_TO_STORE);
+    }
+    set((store: RFState) => ({
+      statisticsSlice: {
+        ...store.statisticsSlice,
+        chartData: metrics,
+      },
+    }));
+  },
   updateFlowBlocksRecord(flowId: string, flowStatus: FlowStatusCapital) {
     const updatedFlows = get().statisticsSlice.statistics?.map(
       (flow: FlowStatus) => {
@@ -113,13 +153,11 @@ const statisticsSlice = (get: () => RFState, set: any): StatusSlice => ({
     };
 
     set((store: RFState) => ({
-        statisticsSlice: {
-          ...store.statisticsSlice,
-          statistics: [...store.statisticsSlice.statistics, newFlow],
-        },
-      })
-    )
-
+      statisticsSlice: {
+        ...store.statisticsSlice,
+        statistics: [...store.statisticsSlice.statistics, newFlow],
+      },
+    }));
   },
   getNewStatistics() {},
 });

@@ -1,6 +1,6 @@
 import { NodeProps } from "react-flow-renderer";
 import s from "./NodeGroup.module.scss";
-import { connectionsIcons } from "../../../assets/icons/icons";
+import { connectionsIcons } from "assets/icons/icons";
 import useStore from "store/store";
 
 export default function NodeGroup({ id, data }: NodeProps) {

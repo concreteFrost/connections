@@ -1,76 +1,62 @@
-import LineChart from "./Charts/LineChart";
-import VerticalBaChart from "./Charts/VerticalBarChart";
 import s from "./Kpis.module.scss";
-import PieChart from "./Charts/PieChart";
-import GroupedChart from "./Charts/GroupedChart";
-import DoughnutChart from "./Charts/DoughnutChart";
-import ScatterChart from "./Charts/ScatterChart";
 import { useState } from "react";
-import LineForm from "./Forms/LineForm";
+import GenericChart from "./Charts/GenericChart";
 
-export interface ChartsState {
-  doughnut: { isVisible: boolean; isExpanded: boolean };
-  grouped: { isVisible: boolean; isExpanded: boolean };
-  line: { isVisible: boolean; isExpanded: boolean };
-  pie: { isVisible: boolean; isExpanded: boolean };
-  scatter: { isVisible: boolean; isExpanded: boolean };
-  vertical: { isVisible: boolean; isExpanded: boolean };
-}
-
-const initialChartsState: ChartsState = {
-  doughnut: { isVisible: true, isExpanded: false },
-  grouped: { isVisible: true, isExpanded: false },
-  line: { isVisible: true, isExpanded: false },
-  pie: { isVisible: true, isExpanded: false },
-  scatter: { isVisible: true, isExpanded: false },
-  vertical: { isVisible: true, isExpanded: false },
-};
+import useStore from "store/store";
 
 function Kpis() {
-  const [chartsState, setChartsState] =
-    useState<ChartsState>(initialChartsState);
+  const { chartData } = useStore((state) => state.statisticsSlice);
+
   const [isChartExpanded, setChartExpanded] = useState<Boolean>(false);
-
-  function toggleChartState(chartName?: keyof ChartsState) {
-    setChartsState(
-      (prevState): ChartsState => ({
-        ...Object.fromEntries(
-          Object.entries(prevState).map(([key, value]: any) => [
-            key,
-            { ...value, isVisible: chartName ? key === chartName : true },
-          ])
-        ),
-      })
-    );
-
-    setChartExpanded(!!chartName);
-  }
-
   const gridClasses = `${s.cols_3} ${
     isChartExpanded ? s["resized"] : s["not_resized"]
   }`;
 
   return (
     <div className={s.wrapper}>
-      {/* <div className={s.header}>
-        <button onClick={() => props.setCurrentView("table")}>SERVER</button>
-        <button onClick={() => props.setCurrentView("search")}>
-          LOG SEARCH
-        </button>
-        {isChartExpanded ? (
-        <button onClick={() => toggleChartState()}>CLOSE</button>
-      ) : null}
-      </div> */}
-
       <div className={gridClasses}>
-        {isChartExpanded ? <LineForm></LineForm> : null}
-        {chartsState.line.isVisible ? (
-          <LineChart
-            toggleChartState={toggleChartState}
-            chartState={chartsState}
-          ></LineChart>
-        ) : null}
-        {chartsState.vertical.isVisible ? (
+        <GenericChart
+          label="CPU"
+          data={chartData.map((x) => ({
+            CPUUsage: x.metrics.CPUUsage,
+            time: x.time,
+          }))}
+          maxValue={100}
+          dataKey="CPUUsage"
+        />
+        <GenericChart
+          label="RAM"
+          data={chartData.map((x) => ({
+            MemoryUsage: x.metrics.MemoryUsage,
+            time: x.time,
+          }))}
+          maxValue={4096}
+          dataKey="MemoryUsage"
+        />
+      </div>
+    </div>
+  );
+}
+
+export default Kpis;
+
+//  function toggleChartState(chartName?: keyof ChartsState) {
+//     setChartsState(
+//       (prevState): ChartsState => ({
+//         ...Object.fromEntries(
+//           Object.entries(prevState).map(([key, value]: any) => [
+//             key,
+//             { ...value, isVisible: chartName ? key === chartName : true },
+//           ])
+//         ),
+//       })
+//     );
+
+//     setChartExpanded(!!chartName);
+//   }
+
+{
+  /* {chartsState.vertical.isVisible ? (
           <VerticalBaChart
             toggleChartState={toggleChartState}
             chartState={chartsState}
@@ -99,10 +85,5 @@ function Kpis() {
             toggleChartState={toggleChartState}
             chartState={chartsState}
           ></DoughnutChart>
-        ) : null}
-      </div>
-    </div>
-  );
+        ) : null} */
 }
-
-export default Kpis;

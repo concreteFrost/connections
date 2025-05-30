@@ -1,13 +1,12 @@
 import { RFState } from "../../types/rfState";
-import { BlockData } from "../../interfaces/IBlock";
-import { BlockParameters } from "../../interfaces/IBlock";
-import { Visual } from "../../interfaces/Iflow";
+import { BlockData } from "interfaces/IBlock";
+import { BlockParameters } from "interfaces/IBlock";
+import { Visual } from "interfaces/Iflow";
 import { v4 as uuidv4 } from "uuid";
-import { getAccessToken } from "../storageActions";
-import { getDraftListApi } from "../../../api/draft";
+import { getAccessToken } from "store/actions/storageActions";
+import { getDraftListApi } from "api/draft";
 import markerEnd from "../../constants/edgeConst";
-import ConnectionsEdge from "../../interfaces/IConnectionsEdges";
-import moment from "moment";
+import ConnectionsEdge from "interfaces/IConnectionsEdges";
 
 export function initializeFlow<IFlowData>(
   initialNodes: object,
@@ -34,10 +33,10 @@ export function initializeFlow<IFlowData>(
       edges: initialEdges,
     },
   } as IFlowData;
-
 }
 
-export function setFlow(data: any,set: any, get:()=>RFState) {
+export function setFlow(data: any, set: any, get: () => RFState) {
+  console.log(data);
   set((state: RFState) => ({
     flowSlice: {
       ...state.flowSlice,
@@ -71,6 +70,7 @@ export function setFlow(data: any,set: any, get:()=>RFState) {
                 value: p.value,
                 required: p.required,
                 format: p.format,
+                description: p.description,
                 // constraints: p.constraints,
                 // placeholder: p.placeholder
               };
@@ -95,14 +95,16 @@ export function setFlow(data: any,set: any, get:()=>RFState) {
               position: b.position,
             };
           }),
-         
+
           edges: data.visual.edges.map((e: ConnectionsEdge) => {
-           return {id: e.id,
-            source: e.source,
-            target: e.target,
-            type: "button",
-            markerEnd,
-            priority: e.priority}
+            return {
+              id: e.id,
+              source: e.source,
+              target: e.target,
+              type: "button",
+              markerEnd,
+              priority: e.priority,
+            };
           }),
         },
         substitutions: data.substitutions.map((sub: any) => {
@@ -119,7 +121,6 @@ export function setFlow(data: any,set: any, get:()=>RFState) {
       },
     },
   }));
-
 }
 
 export function updateFlowAfterSaving(
@@ -144,7 +145,6 @@ export function updateFlowAfterSaving(
       },
     },
   }));
-
 }
 
 export function parseFloatVersion(flowVersion: number) {
