@@ -10,7 +10,7 @@ import { IconVariants } from "store/enums/profile";
 import useEscapeKeyHandler from "hooks/useEscapeKeyHandler";
 import useOutsideMouseClick from "hooks/useOutsideMouseClick";
 import { disableClientNotificationsAPI } from "api/notification";
-import { disableClientFlowStatusAPI } from "api/data";
+import { disableClientFlowStatusAPI, disableClientMetricsApi } from "api/data";
 import { disableClientAlertsApi } from "api/ehd";
 
 interface ProfileProps {
@@ -42,6 +42,7 @@ function Profile(props: ProfileProps) {
       await disableClientAlertsApi();
       await disableClientFlowStatusAPI();
       await disableClientNotificationsAPI();
+      await disableClientMetricsApi();
     } catch (e) {
       console.log("access token is incorrect");
     } finally {

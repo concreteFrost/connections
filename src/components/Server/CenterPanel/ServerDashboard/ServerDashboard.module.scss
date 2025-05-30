@@ -1,0 +1,85 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+.header {
+  background-color: white;
+  border: 1px solid rgb(228, 228, 228);
+  border-radius: 5px;
+  box-shadow: $shadow-node-nav-container;
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-top: 10px;
+
+  .gauge_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 10px;
+  }
+
+  .header_buttons {
+    display: grid;
+
+    grid-template-columns: 4fr 4fr 4fr;
+
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-left: 10px;
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 50px;
+      width: 60px;
+      font-size: 1.8rem;
+      background-color: rgb(243, 243, 243);
+      border: 1px solid rgb(224, 224, 224);
+      border-radius: 5px;
+      margin-right: 10px;
+
+      &:hover {
+        background-color: rgb(70, 70, 70);
+      }
+
+      &.play {
+        color: $bg-top-menu-btn-default;
+      }
+
+      &.stop {
+        color: red;
+      }
+
+      &.kill {
+        color: orange;
+      }
+
+      transition: background-color 0.3s ease-in-out;
+    }
+  }
+}
+
+.main_container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 10px;
+  padding: 20px;
+  margin: 0 auto;
+  align-items: stretch;
+
+  .col_one,
+  .col_two,
+  .col_three {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .main_table {
+    @include serverStatusTables;
+  }
+}

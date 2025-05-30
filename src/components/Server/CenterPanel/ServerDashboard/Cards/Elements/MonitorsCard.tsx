@@ -1,5 +1,5 @@
 import { connectionsIcons } from "assets/icons/icons";
-import s from "../ServerTable.module.scss";
+import s from "../../ServerDashboard.module.scss";
 
 interface IMonitorsTable {
   disabledDirectoryMonitorCount: number;
@@ -10,7 +10,7 @@ interface MonitorsTableProps {
   tableData: IMonitorsTable;
 }
 
-function MonitorsTable(props: MonitorsTableProps) {
+function MonitorsCard(props: MonitorsTableProps) {
   return (
     <table className={s.main_table}>
       <thead>
@@ -35,4 +35,4 @@ function MonitorsTable(props: MonitorsTableProps) {
   );
 }
 
-export default MonitorsTable;
+export default MonitorsCard;

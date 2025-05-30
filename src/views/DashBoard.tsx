@@ -6,8 +6,9 @@ import NotFound from "./NotFound";
 import PushTest from "../components/PushTest/PushTest";
 import Notifications from "../views/Noticifations";
 import FlowServerStatus from "../components/FlowServerStatus/FlowServerStatus";
-import { getUserSettingsData } from "store/actions/storageActions";
 import CurrentAlertsModal from "components/Modals/CurrentAlertsModal";
+import useMetricsUpdate from "hooks/useMetricsUpdate";
+import useOnDashboardEnter from "hooks/useOnDshboardEnter";
 
 const DashboardLayout = React.memo(() => {
   return (
@@ -21,9 +22,8 @@ const DashboardLayout = React.memo(() => {
 });
 
 function Dashboard() {
-  useEffect(() => {
-    getUserSettingsData();
-  }, []);
+  useOnDashboardEnter();
+  useMetricsUpdate();
 
   return (
     <Routes>

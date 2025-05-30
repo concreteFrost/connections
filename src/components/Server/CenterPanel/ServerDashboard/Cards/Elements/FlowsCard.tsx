@@ -1,4 +1,4 @@
-import s from "../ServerTable.module.scss";
+import s from "../../ServerDashboard.module.scss";
 import { connectionsIcons } from "assets/icons/icons";
 
 interface IFlows {
@@ -11,7 +11,7 @@ interface FlowsProps {
   tableData: IFlows;
 }
 
-function FlowsTable(props: FlowsProps) {
+function FlowsCard(props: FlowsProps) {
   return (
     <table className={s.main_table}>
       <thead>
@@ -40,4 +40,4 @@ function FlowsTable(props: FlowsProps) {
   );
 }
 
-export default FlowsTable;
+export default FlowsCard;

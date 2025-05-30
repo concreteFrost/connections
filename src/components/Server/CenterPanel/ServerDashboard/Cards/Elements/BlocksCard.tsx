@@ -1,4 +1,4 @@
-import s from "../ServerTable.module.scss";
+import s from "../../ServerDashboard.module.scss";
 import { connectionsIcons } from "assets/icons/icons";
 
 interface IBlockTable {
@@ -10,7 +10,7 @@ interface BlockProps {
   tableData: IBlockTable;
 }
 
-function BlocksTable(props: BlockProps) {
+function BlocksCard(props: BlockProps) {
   return (
     <table className={s.main_table}>
       <thead>
@@ -35,4 +35,4 @@ function BlocksTable(props: BlockProps) {
   );
 }
 
-export default BlocksTable;
+export default BlocksCard;

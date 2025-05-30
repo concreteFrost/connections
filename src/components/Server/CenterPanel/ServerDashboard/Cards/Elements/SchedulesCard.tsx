@@ -1,5 +1,5 @@
 import { connectionsIcons } from "assets/icons/icons";
-import s from "../ServerTable.module.scss";
+import s from "../../ServerDashboard.module.scss";
 
 interface ISchedulesTable {
   disabledScheduleCount: number;
@@ -10,7 +10,7 @@ interface SchedulesTableProps {
   tableData: ISchedulesTable;
 }
 
-function SchedulesTable(props: SchedulesTableProps) {
+function SchedulesCard(props: SchedulesTableProps) {
   return (
     <table className={s.main_table}>
       <thead>
@@ -35,4 +35,4 @@ function SchedulesTable(props: SchedulesTableProps) {
   );
 }
 
-export default SchedulesTable;
+export default SchedulesCard;

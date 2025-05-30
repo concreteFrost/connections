@@ -3,7 +3,7 @@ import s from "./style/ServerCenterPanel.module.scss";
 import Flow from "../components/Server/CenterPanel/Flow/Flow";
 import Security from "../components/Server/CenterPanel/Security/Security";
 import ProtectedRoute from "../utils/ProtectedRoute";
-import Servers from "../components/Server/CenterPanel/Server/Servers";
+import Servers from "../components/Server/CenterPanel/ServerDashboard/ServerDashboard";
 import Settings from "../components/Server/CenterPanel/Settings/Settings";
 import Alerts from "../components/Server/CenterPanel/Alerts/Alerts";
 import Kpis from "components/Server/CenterPanel/Kpis/Kpis";

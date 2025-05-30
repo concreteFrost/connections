@@ -50,3 +50,27 @@ export interface NewStatisticMessage {
   NewRecord: any | null;
   TimeStamp: string;
 }
+
+export interface IMetrics {
+  CPUUsage: number;
+  MemoryUsage: number;
+  EnabledFlowCount: number;
+  DisabledFlowCount: number;
+  PausedFlowCount: number;
+  EnabledBlockCount: number;
+  DisabledBlockCount: number;
+  EnabledDirectoryMonitorCount: number;
+  DisabledDirectoryMonitorCount: number;
+  EnabledScheduleCount: number;
+  DisabledScheduleCount: number;
+  CurrentProcessesCount: number;
+  CompletedProcessesCount: number;
+  InputFilesProcessedCount: number;
+  SchedulesInitiatedCount: number;
+  AlertsRaised: number;
+}
+
+export interface IChartData {
+  metrics: IMetrics;
+  time: string;
+}

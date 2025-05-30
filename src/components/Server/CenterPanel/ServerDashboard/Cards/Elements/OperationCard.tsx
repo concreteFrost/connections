@@ -1,6 +1,6 @@
 import moment from "moment";
 import { connectionsIcons } from "assets/icons/icons";
-import s from "../ServerTable.module.scss";
+import s from "../../ServerDashboard.module.scss";
 
 interface IOperation {
   lastShutdownTime: string;
@@ -12,7 +12,7 @@ interface OperationProps {
   tableData: IOperation;
 }
 
-function OperationTable(props: OperationProps) {
+function OperationCard(props: OperationProps) {
   const statusIcon = {
     2: "🟢",
     0: "🔴",
@@ -61,4 +61,4 @@ function OperationTable(props: OperationProps) {
   );
 }
 
-export default OperationTable;
+export default OperationCard;

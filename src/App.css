@@ -51,6 +51,10 @@ button {
   display: none;
 }
 
+#gauge-chart1 text {
+  fill: #00adc4 !important;
+}
+
 /* Customize the scrollbar track */
 ::-webkit-scrollbar {
   width: 5px;

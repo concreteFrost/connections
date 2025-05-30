@@ -16,7 +16,7 @@ interface MetricTableProps {
   scssClass: any;
 }
 
-function MetricsTable(props: MetricTableProps) {
+function MetricsCard(props: MetricTableProps) {
   return (
     <table className={props.scssClass}>
       <thead>
@@ -65,4 +65,4 @@ function MetricsTable(props: MetricTableProps) {
   );
 }
 
-export default MetricsTable;
+export default MetricsCard;

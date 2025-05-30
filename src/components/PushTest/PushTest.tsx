@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Subscription } from "store/interfaces/INotification";
 import { enableClientNotificationsAPI } from "api/notification";
 import { getVapidKeysAPI } from "api/security";
-import { enableClientFlowStatusAPI } from "api/data";
+import { enableClientFlowStatusAPI, enableClientMetricsApi } from "api/data";
 import { enabliClientAlertsApi } from "api/ehd";
 
 export function PushTest() {
@@ -61,6 +61,7 @@ export function PushTest() {
         await enableClientNotificationsAPI(formatedSubscription);
         await enabliClientAlertsApi(formatedSubscription);
         await enableClientFlowStatusAPI(formatedSubscription);
+        await enableClientMetricsApi(formatedSubscription);
       }
     } catch (e) {
       console.log("Error getting vapid keys", e);
