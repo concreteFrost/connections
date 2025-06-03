@@ -5,6 +5,7 @@ import useStore from "store/store";
 
 export default function useMetricsUpdate() {
   const { updateChartData } = useStore((state) => state.statisticsSlice);
+
   useEffect(() => {
     // Функция-обработчик сообщений
     const handleMessage = (event: MessageEvent) => {

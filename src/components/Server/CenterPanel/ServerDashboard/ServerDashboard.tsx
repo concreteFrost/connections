@@ -1,34 +1,11 @@
 import s from "./ServerDashboard.module.scss";
 import { getServerStatusAPI } from "api/data";
 import { useState } from "react";
-import GaugeWrapper from "./Gauges/GaugeWrapper";
 import ServerCardsWrapper from "./Cards/CardsWrapper";
 import ServerControlPanel from "./ServerControlPanel/ServerControlPanel";
+import { IServerStatsData } from "store/interfaces/IServer";
 
-export interface ITableData {
-  alertsRaised: number;
-  completedProcessesCount: number;
-  currentProcessesCount: number;
-  disabledBlockCount: number;
-  disabledDirectoryMonitorCount: number;
-  disabledFlowCount: number;
-  disabledScheduleCount: number;
-  enabledBlockCount: number;
-  enabledDirectoryMonitorCount: number;
-  enabledFlowCount: number;
-  enabledScheduleCount: number;
-  errorCount: number;
-  fataErrorCount: number;
-  inputFilesProcessedCount: number;
-  lastShutdownTime: string;
-  pausedFlowCount: number;
-  schedulesInitiatedCount: number;
-  startTime: string;
-  status: number;
-  warningCount: number;
-}
-
-const data: ITableData = {
+const data: IServerStatsData = {
   alertsRaised: 0,
   completedProcessesCount: 0,
   currentProcessesCount: 0,
@@ -52,10 +29,10 @@ const data: ITableData = {
 };
 
 function ServerDashboard() {
-  const [tableData, setTableData] = useState<ITableData>(data);
+  const [tableData, setTableData] = useState<IServerStatsData>(data);
   const [serverStatus, setServerStatus] = useState<string>("");
 
-  function getServerStatus(res: ITableData) {
+  function getServerStatus(res: IServerStatsData) {
     const status = {
       0: "offline",
       1: "starting",
@@ -72,7 +49,7 @@ function ServerDashboard() {
 
   function getServerData() {
     getServerStatusAPI()
-      .then((res: ITableData) => {
+      .then((res: IServerStatsData) => {
         setTableData(res);
         setServerStatus(getServerStatus(res));
       })

@@ -25,27 +25,27 @@ export type StatusSlice = {
 const statisticsSlice = (get: () => RFState, set: any): StatusSlice => ({
   statistics: [],
   chartData: [
-    {
-      metrics: {
-        CPUUsage: 0,
-        MemoryUsage: 0,
-        EnabledFlowCount: 0,
-        DisabledFlowCount: 0,
-        PausedFlowCount: 0,
-        EnabledBlockCount: 0,
-        DisabledBlockCount: 0,
-        EnabledDirectoryMonitorCount: 0,
-        DisabledDirectoryMonitorCount: 0,
-        EnabledScheduleCount: 0,
-        DisabledScheduleCount: 0,
-        CurrentProcessesCount: 0,
-        CompletedProcessesCount: 0,
-        InputFilesProcessedCount: 0,
-        SchedulesInitiatedCount: 0,
-        AlertsRaised: 0,
-      },
-      time: moment().format("LTS"),
-    },
+    // {
+    //   metrics: {
+    //     CPUUsage: 0,
+    //     MemoryUsage: 0,
+    //     EnabledFlowCount: 0,
+    //     DisabledFlowCount: 0,
+    //     PausedFlowCount: 0,
+    //     EnabledBlockCount: 0,
+    //     DisabledBlockCount: 0,
+    //     EnabledDirectoryMonitorCount: 0,
+    //     DisabledDirectoryMonitorCount: 0,
+    //     EnabledScheduleCount: 0,
+    //     DisabledScheduleCount: 0,
+    //     CurrentProcessesCount: 0,
+    //     CompletedProcessesCount: 0,
+    //     InputFilesProcessedCount: 0,
+    //     SchedulesInitiatedCount: 0,
+    //     AlertsRaised: 0,
+    //   },
+    //   time: moment().format("LTS"),
+    // },
   ],
   setStatistics(stats: FlowStatus[]) {
     set((store: RFState) => ({
@@ -77,7 +77,6 @@ const statisticsSlice = (get: () => RFState, set: any): StatusSlice => ({
   },
   updateChartData: (data: IChartData) => {
     const metrics = [...get().statisticsSlice.chartData, data];
-    console.log(data);
     if (metrics.length > MAX_CHART_DATA_TO_STORE) {
       metrics.splice(0, metrics.length - MAX_CHART_DATA_TO_STORE);
     }
@@ -125,8 +124,6 @@ const statisticsSlice = (get: () => RFState, set: any): StatusSlice => ({
         statistics: updatedFlows,
       },
     }));
-
-    console.log(updatedFlows);
   },
 
   getNewFlowRecord(record: FlowStatusCapital) {

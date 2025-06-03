@@ -1,0 +1,29 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+.wrapper {
+  position: relative;
+
+  background-color: white;
+  border: 1px solid rgb(228, 228, 228);
+  border-radius: 5px;
+  box-shadow: $shadow-node-nav-container;
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-top: 10px;
+  padding: 30px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  h3 {
+    text-align: center;
+  }
+
+  .current_usage {
+    justify-self: end;
+
+    text-align: right;
+  }
+}

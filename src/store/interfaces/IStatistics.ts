@@ -68,6 +68,7 @@ export interface IMetrics {
   InputFilesProcessedCount: number;
   SchedulesInitiatedCount: number;
   AlertsRaised: number;
+  MemoryMax: string;
 }
 
 export interface IChartData {

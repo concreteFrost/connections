@@ -34,6 +34,7 @@ export default function useOnDashboardEnter() {
           InputFilesProcessedCount: lastMetric.inputFilesProcessedCount ?? 0,
           SchedulesInitiatedCount: lastMetric.schedulesInitiatedCount ?? 0,
           AlertsRaised: lastMetric.alertsRaised ?? 0,
+          MemoryMax: lastMetric.memoryMax ?? 0,
         };
 
         updateChartData({

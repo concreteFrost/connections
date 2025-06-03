@@ -1,15 +1,16 @@
 import GaugeChart from "react-gauge-chart";
-import s from "../ServerDashboard.module.scss";
+import s from "./GenericGauge.module.scss";
 import React from "react";
 
 type Props = {
   label: string;
   value: number;
+  maxTolerateValue: number;
 };
 
-function GenericGauge({ label, value }: Props) {
+function GenericGauge({ label, value, maxTolerateValue }: Props) {
   return (
-    <div>
+    <div className={s.wrapper}>
       <h5>{label}</h5>
       <GaugeChart
         className={s.gauge}
@@ -20,6 +21,12 @@ function GenericGauge({ label, value }: Props) {
         percent={value}
         style={{ width: "200px" }}
       />
+
+      {value > maxTolerateValue && (
+        <span>
+          <b>!</b>{" "}
+        </span>
+      )}
     </div>
   );
 }

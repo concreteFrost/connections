@@ -2,23 +2,15 @@
 @import "/src/style/mixins.scss";
 
 .wrapper {
+  padding: 20px;
 
-  .header{
-    margin-bottom: 10px;
-
-    button{
-        @include blue_btn;
-        margin-right: 5px;
-    }
-}
- 
-  .cols_3 {
-    display: grid;
-
-    justify-content: center;
+  .metrics_wrapper {
+    display: flex;
+    flex-direction: column;
     gap: 10px;
+    max-width: 900px;
 
-    &.resized{
+    &.resized {
       grid-template-columns: 12fr;
       max-width: 800px;
       margin-left: auto;
@@ -26,17 +18,8 @@
       gap: 0;
     }
 
-    &.not_resized{
+    &.not_resized {
       grid-template-columns: 6fr 6fr;
-
     }
-  }
-
-  padding: 20px;
-
-  .grouped_charts {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
   }
 }
