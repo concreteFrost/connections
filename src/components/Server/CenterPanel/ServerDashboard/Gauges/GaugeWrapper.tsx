@@ -6,9 +6,6 @@ import GenericGauge from "./GenericGauge/GenericGauge";
 
 const GaugeWrapper = () => {
   const { chartData } = useStore((store) => store.statisticsSlice);
-  console.log(chartData);
-
-  const totalRam = 4096;
 
   let lastMetric = null;
   let lastCpuUsage = 0;
@@ -17,7 +14,7 @@ const GaugeWrapper = () => {
   if (chartData.length > 0) {
     lastMetric = chartData[chartData.length - 1].metrics;
     lastCpuUsage = lastMetric.CPUUsage / 100;
-    ramUsage = lastMetric.MemoryUsage / totalRam;
+    ramUsage = lastMetric.MemoryUsage / parseInt(lastMetric.MemoryMax);
   }
 
   return (
