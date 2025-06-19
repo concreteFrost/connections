@@ -8,7 +8,6 @@ import { getBlocks } from "../api/data";
 import Substitutions from "../components/Designer/Substitutions/Substitutions";
 import BlocksWidget from "../components/Designer/BlocksWidget/BlocksWidget";
 import { ReactFlowProvider } from "react-flow-renderer";
-import useMetricsUpdate from "hooks/useMetricsUpdate";
 
 function Designer() {
   const getBlocksList = useStore((store) => store.flowSlice.getBlockList);

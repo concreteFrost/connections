@@ -10,9 +10,9 @@ import securitySlice from "./slices/securitySlice";
 import alertSlice from "./slices/alertSlice";
 import statisticsSlice from "./slices/statisticsSlice";
 import loaderSlice from "./slices/loaderSlice";
+import visualMappingSlice from "./slices/visualMappingSlice";
 
 const useStore = createWithEqualityFn<RFState>((set, get) => ({
-
   flowSlice: flowSlice(get, set),
   topPanelSlice: topPanelSlice(get, set),
   modalWindowsSlice: modalWindowsSlice(get, set),
@@ -20,10 +20,10 @@ const useStore = createWithEqualityFn<RFState>((set, get) => ({
   serverSlice: serverSlice(get, set),
   notificationSlice: notificationSlice(get, set),
   securitySlice: securitySlice(get, set),
-  alertSlice:alertSlice(get,set),
-  statisticsSlice:statisticsSlice(get,set),
-  loaderSlice:loaderSlice(get,set),
-
-}))
+  alertSlice: alertSlice(get, set),
+  statisticsSlice: statisticsSlice(get, set),
+  loaderSlice: loaderSlice(get, set),
+  visualMappingSlice: visualMappingSlice(get, set),
+}));
 
 export default useStore;

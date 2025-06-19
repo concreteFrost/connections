@@ -1,0 +1,28 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+.wrapper {
+  .handle {
+    border: 0 !important;
+    border-radius: 0 !important;
+
+    background-color: $color-node-nav-icon !important;
+
+    width: 12px !important;
+    height: 25px !important;
+    z-index: 9999 !important;
+    opacity: 0.5 !important;
+
+    &.right {
+      right: -12px !important;
+      border-top-right-radius: 5px !important;
+      border-bottom-right-radius: 5px !important;
+    }
+
+    &.left {
+      left: -12px !important;
+      border-top-left-radius: 5px !important;
+      border-bottom-left-radius: 5px !important;
+    }
+  }
+}

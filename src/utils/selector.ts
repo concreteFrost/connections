@@ -8,4 +8,3 @@ export const selector = (state: RFState) => ({
   onEdgesChange: state.flowSlice.onChange,
   onConnect: state.flowSlice.onEdgesConnect,
 });
-
