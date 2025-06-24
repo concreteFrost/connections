@@ -2,6 +2,13 @@
 @import "/src/style/mixins.scss";
 
 .wrapper {
+  width: 130px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
   .handle {
     border: 0 !important;
     border-radius: 0 !important;
@@ -23,6 +30,12 @@
       left: -12px !important;
       border-top-left-radius: 5px !important;
       border-bottom-left-radius: 5px !important;
+    }
+  }
+
+  .node_body {
+    .label {
+      font-size: 0.9rem;
     }
   }
 }

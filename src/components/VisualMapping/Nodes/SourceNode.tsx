@@ -8,13 +8,15 @@ function SourceNode({ data }: NodeProps) {
     <div
       className={s.wrapper}
       style={{
-        padding: 8,
-        background: "#fff",
-        border: "1px solid #ccc",
-        borderRadius: 6,
+        background: "#dfe8e8",
       }}
     >
-      <div style={{ fontSize: 12 }}>{data.label}</div>
+      <div className={s.node_body}>
+        <div className={s.label}>{data.Label}</div>
+        {/* <span className={s.data_type}>{data.DataType}</span> */}
+        {/* <input></input> */}
+      </div>
+
       <Handle
         type="source"
         position={Position.Right}

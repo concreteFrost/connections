@@ -8,10 +8,8 @@ function CustomFunctionNode({ data }: NodeProps) {
     <div
       className={s.wrapper}
       style={{
-        padding: 8,
-        background: "#fff",
-        border: "1px solid #ccc",
-        borderRadius: 6,
+        background: "#ebfcfc",
+        textAlign: "center",
       }}
     >
       <Handle
@@ -27,7 +25,7 @@ function CustomFunctionNode({ data }: NodeProps) {
         style={{ background: "black" }}
         className={`${s.handle} ${s.right}`}
       />
-      <div style={{ fontSize: 12 }}>{data.label}</div>
+      <div style={{ fontSize: 12, textAlign: "center" }}>{data.Name}</div>
     </div>
   );
 }

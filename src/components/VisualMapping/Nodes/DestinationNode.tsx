@@ -7,13 +7,14 @@ function DestinationNode({ data }: NodeProps) {
     <div
       className={s.wrapper}
       style={{
-        padding: 10,
-        background: "#fff",
-        border: "1px solid #ccc",
-        borderRadius: 6,
+        background: "#f8fae3",
       }}
     >
-      <div style={{ fontSize: 12 }}>{data.label}</div>
+      <div className={s.node_body}>
+        <div className={s.label}>{data.Label}</div>
+        {/* <span className={s.data_type}>{data.DataType}</span> */}
+        {/* <input></input> */}
+      </div>
       <Handle
         type="target"
         position={Position.Left}

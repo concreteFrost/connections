@@ -7,10 +7,14 @@ import useStore from "store/store";
 import { ReactFlowProvider } from "reactflow";
 import { nodeTypes } from "store/types/flowElements";
 
-function Canvas(props: any) {
+function Canvas() {
   const visualMappingSlice = useStore((state) => state.visualMappingSlice);
-  const blocks = useStore((state) => state.visualMappingSlice.blocks);
-  const edges = useStore((state) => state.visualMappingSlice.edges);
+  const inputs = useStore((state) => state.visualMappingSlice.InputStructure);
+  const outputs = useStore((state) => state.visualMappingSlice.OutputStructure);
+  const transforms = useStore(
+    (state) => state.visualMappingSlice.Visual.Transforms.Transform
+  );
+  const edges = useStore((state) => state.visualMappingSlice.Visual.Edges);
 
   return (
     <ReactFlowProvider>
@@ -19,18 +23,12 @@ function Canvas(props: any) {
           height: "100vh",
           overflowY: "hidden",
         }}
-        nodes={blocks}
+        nodes={[...inputs, ...outputs, ...transforms]}
         edges={edges}
         onNodesChange={visualMappingSlice.onBlocksChange}
         nodeTypes={nodeTypes}
         onConnect={visualMappingSlice.onEdgesConnect}
         onEdgesChange={visualMappingSlice.onEdgesChange}
-        panOnDrag={false}
-        panOnScroll={false}
-        zoomOnScroll={false}
-        zoomOnPinch={false}
-        zoomOnDoubleClick={false}
-        draggable={false}
       >
         <Background variant={BackgroundVariant.Lines}></Background>
       </ReactFlow>

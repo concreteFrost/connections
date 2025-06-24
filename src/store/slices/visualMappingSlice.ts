@@ -7,16 +7,25 @@ import {
 } from "react-flow-renderer";
 import { Connection, Edge, EdgeChange } from "reactflow";
 import { addEdge, applyEdgeChanges } from "react-flow-renderer";
+import {
+  ITransformNode,
+  IVisualMappingNode,
+} from "store/interfaces/IVisualMapping";
+import {
+  deepOrderStructure,
+  destinationStructure,
+} from "__mocks__/mockVisualMappingItem";
+import { createNodeConverter } from "utils/convertNodesToFlowFormat";
 
-const inputNodes = [
-  {
-    id: "source-1",
-    type: "source",
-    position: { x: 200, y: 100 },
-    data: { label: "Parent", deletable: false },
-    draggable: false,
-  },
-];
+// const inputNodes = [
+//   {
+//     id: "acd944e9-4c06-4979-a27a-dc6ec3e13e6e",
+//     type: "source",
+//     position: { x: 200, y: 100 },
+//     data: { Name: "Orders", DataType: "Array", Label: "Orders", Nodes: [] },
+//     draggable: false,
+//   },
+// ];
 
 const outputNodes = [
   {
@@ -28,18 +37,51 @@ const outputNodes = [
   },
 ];
 
-const customNodes = [
+const customNodes: Node<ITransformNode>[] = [
   {
     id: "transform-1",
     type: "custom",
-    position: { x: 800, y: 100 },
-    data: { label: "Parent", deletable: false },
+    position: { x: 500, y: 200 },
+    data: {
+      Id: "tr",
+      Name: "Transform",
+      Script: "",
+    },
+  },
+  {
+    id: "transform-2",
+    type: "custom",
+    position: { x: 750, y: 200 },
+    data: {
+      Id: "tr",
+      Name: "Transform",
+      Script: "",
+    },
   },
 ];
 
 export type VisualMappingSlice = {
-  blocks: Node<any>[];
-  edges: Edge[];
+  MappingId: string;
+  MappingName: string;
+  CreatedBy: string;
+  Created: Date;
+  InputStructure: Node<IVisualMappingNode>[];
+  OutputStructure: Node<IVisualMappingNode>[];
+
+  TransForms: {
+    TransForm: Node<ITransformNode>[];
+  };
+
+  Visual: {
+    Transforms: {
+      Transform: Node<ITransformNode>[];
+    };
+    Edges: Edge[];
+  };
+
+  uploadInputStructure: () => void;
+  uploadOutputStructure: () => void;
+
   onBlocksChange: (changes: NodeChange[]) => void;
   onEdgesConnect: (connection: Connection) => void;
   onEdgeDelete: (edgeId: string) => void;
@@ -50,25 +92,75 @@ const visualMappingSlice = (
   get: () => RFState,
   set: any
 ): VisualMappingSlice => ({
-  blocks: [...inputNodes, ...outputNodes, ...customNodes],
-  edges: [],
+  MappingId: "",
+  MappingName: "",
+  CreatedBy: "",
+  Created: new Date(),
+  InputStructure: [
+    // ...createNodeConverter()(deepOrderStructure.NodeSet, "source"),
+  ],
+  OutputStructure: [
+    // ...createNodeConverter()(destinationStructure, "destination", 17),
+  ],
+
+  TransForms: {
+    TransForm: [],
+  },
+
+  Visual: {
+    Transforms: {
+      Transform: [...customNodes],
+    },
+    Edges: [],
+  },
+
+  uploadInputStructure: () => {
+    set((state: RFState) => ({
+      visualMappingSlice: {
+        ...state.visualMappingSlice,
+        InputStructure: [
+          ...createNodeConverter()(deepOrderStructure.NodeSet, "source"),
+        ],
+      },
+    }));
+  },
+
+  uploadOutputStructure: () => {
+    set((state: RFState) => ({
+      visualMappingSlice: {
+        ...state.visualMappingSlice,
+        OutputStructure: [
+          ...createNodeConverter()(destinationStructure, "destination", 17),
+        ],
+      },
+    }));
+  },
 
   onBlocksChange: (changes) => {
-    const findDeleteAction = changes.filter(
-      (change: NodeChange) => change.type === "remove"
-    );
+    // const findDeleteAction = changes.filter(
+    //   (change: NodeChange) => change.type === "remove"
+    // );
 
-    const a = applyNodeChanges(changes, get().visualMappingSlice.blocks);
+    const a = applyNodeChanges(
+      changes,
+      get().visualMappingSlice.Visual.Transforms.Transform
+    );
 
     set((state: RFState) => ({
       visualMappingSlice: {
         ...state.visualMappingSlice,
-        blocks: a,
+        Visual: {
+          ...state.visualMappingSlice.Visual,
+          Transforms: {
+            ...state.visualMappingSlice.Visual.Transforms,
+            Transform: a,
+          },
+        },
       },
     }));
   },
   onEdgesConnect: (connection: Connection) => {
-    const sourceEdges = get().visualMappingSlice.edges;
+    const sourceEdges = get().visualMappingSlice.Visual.Edges;
 
     // Optional: prevent multiple connections from same source
     const hasDuplicate = sourceEdges.some(
@@ -86,7 +178,10 @@ const visualMappingSlice = (
       set((state: RFState) => ({
         visualMappingSlice: {
           ...state.visualMappingSlice,
-          edges: addEdge(newEdge, get().visualMappingSlice.edges),
+          Visual: {
+            ...state.visualMappingSlice.Visual,
+            Edges: addEdge(newEdge, state.visualMappingSlice.Visual.Edges),
+          },
         },
       }));
     }
@@ -96,9 +191,12 @@ const visualMappingSlice = (
     set((state: RFState) => ({
       visualMappingSlice: {
         ...state.visualMappingSlice,
-        edges: state.visualMappingSlice.edges.filter(
-          (edge) => edge.id !== edgeId
-        ),
+        Visual: {
+          ...state.visualMappingSlice.Visual,
+          Edges: state.visualMappingSlice.Visual.Edges.filter(
+            (edge) => edge.id !== edgeId
+          ),
+        },
       },
     }));
   },
@@ -107,7 +205,13 @@ const visualMappingSlice = (
     set((state: RFState) => ({
       visualMappingSlice: {
         ...state.visualMappingSlice,
-        edges: applyEdgeChanges(changes, state.visualMappingSlice.edges),
+        Visual: {
+          ...state.visualMappingSlice.Visual,
+          Edges: applyEdgeChanges(
+            changes,
+            state.visualMappingSlice.Visual.Edges
+          ),
+        },
       },
     }));
   },
