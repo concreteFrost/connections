@@ -9,6 +9,7 @@
     "assert": "^2.1.0",
     "axios": "^1.4.0",
     "chart.js": "^4.4.1",
+    "clsx": "^2.1.1",
     "core-js": "^3.35.0",
     "crypto": "^1.0.1",
     "crypto-browserify": "^3.12.0",

@@ -1,17 +1,11 @@
 import React from "react";
 import { Handle, Position, NodeProps } from "react-flow-renderer";
 import "reactflow/dist/style.css";
-import s from "./GenericNode.module.scss";
+import s from "./CustomFunctionNode.module.scss";
 
 function CustomFunctionNode({ data }: NodeProps) {
   return (
-    <div
-      className={s.wrapper}
-      style={{
-        background: "#ebfcfc",
-        textAlign: "center",
-      }}
-    >
+    <div className={s.wrapper}>
       <Handle
         type="target"
         position={Position.Left}
@@ -25,7 +19,7 @@ function CustomFunctionNode({ data }: NodeProps) {
         style={{ background: "black" }}
         className={`${s.handle} ${s.right}`}
       />
-      <div style={{ fontSize: 12, textAlign: "center" }}>{data.Name}</div>
+      <div>{data.Name}</div>
     </div>
   );
 }

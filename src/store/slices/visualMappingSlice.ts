@@ -1,64 +1,17 @@
 import { RFState } from "store/types/rfState";
-import {
-  applyNodeChanges,
-  Node,
-  NodeChange,
-  NodeRemoveChange,
-} from "react-flow-renderer";
+import { applyNodeChanges, Node, NodeChange } from "react-flow-renderer";
 import { Connection, Edge, EdgeChange } from "reactflow";
 import { addEdge, applyEdgeChanges } from "react-flow-renderer";
 import {
   ITransformNode,
   IVisualMappingNode,
 } from "store/interfaces/IVisualMapping";
+
 import {
-  deepOrderStructure,
-  destinationStructure,
-} from "__mocks__/mockVisualMappingItem";
-import { createNodeConverter } from "utils/convertNodesToFlowFormat";
-
-// const inputNodes = [
-//   {
-//     id: "acd944e9-4c06-4979-a27a-dc6ec3e13e6e",
-//     type: "source",
-//     position: { x: 200, y: 100 },
-//     data: { Name: "Orders", DataType: "Array", Label: "Orders", Nodes: [] },
-//     draggable: false,
-//   },
-// ];
-
-const outputNodes = [
-  {
-    id: "destination-1",
-    type: "destination",
-    position: { x: 1750, y: 100 },
-    data: { label: "Parent", deletable: false },
-    draggable: false,
-  },
-];
-
-const customNodes: Node<ITransformNode>[] = [
-  {
-    id: "transform-1",
-    type: "custom",
-    position: { x: 500, y: 200 },
-    data: {
-      Id: "tr",
-      Name: "Transform",
-      Script: "",
-    },
-  },
-  {
-    id: "transform-2",
-    type: "custom",
-    position: { x: 750, y: 200 },
-    data: {
-      Id: "tr",
-      Name: "Transform",
-      Script: "",
-    },
-  },
-];
+  createEdgesFromParentToChildren,
+  createNodeConverter,
+} from "utils/convertNodesToFlowFormat";
+import { customNodes } from "__mocks__/mockVisualMappingItem";
 
 export type VisualMappingSlice = {
   MappingId: string;
@@ -74,13 +27,17 @@ export type VisualMappingSlice = {
 
   Visual: {
     Transforms: {
-      Transform: Node<ITransformNode>[];
+      Transform: Node<any>[];
     };
     Edges: Edge[];
   };
 
-  uploadInputStructure: () => void;
-  uploadOutputStructure: () => void;
+  InputStructureEdges: Edge[]; //stores "folding" edges for InputStructure
+  OutputStructureEdges: Edge[]; //stores "folding" edges for OutputStructure
+
+  uploadInputStructure: (rootNode: IVisualMappingNode) => void;
+  uploadOutputStructure: (rootNode: IVisualMappingNode) => void;
+  createParamsEdges: (nodes: Node<any>[]) => void;
 
   onBlocksChange: (changes: NodeChange[]) => void;
   onEdgesConnect: (connection: Connection) => void;
@@ -96,17 +53,11 @@ const visualMappingSlice = (
   MappingName: "",
   CreatedBy: "",
   Created: new Date(),
-  InputStructure: [
-    // ...createNodeConverter()(deepOrderStructure.NodeSet, "source"),
-  ],
-  OutputStructure: [
-    // ...createNodeConverter()(destinationStructure, "destination", 17),
-  ],
-
+  InputStructure: [],
+  OutputStructure: [],
   TransForms: {
     TransForm: [],
   },
-
   Visual: {
     Transforms: {
       Transform: [...customNodes],
@@ -114,50 +65,89 @@ const visualMappingSlice = (
     Edges: [],
   },
 
-  uploadInputStructure: () => {
+  InputStructureEdges: [],
+  OutputStructureEdges: [],
+
+  uploadInputStructure: (rootNode: IVisualMappingNode) => {
+    const group: Node<any> = {
+      id: "inputGroup",
+      type: "mappingGroup",
+      position: { x: 50, y: 100 },
+      data: { label: "SOURCE" },
+    };
+
+    const convertedNodes = createNodeConverter()(rootNode, "source", group);
+    const edges = createEdgesFromParentToChildren(convertedNodes); // creates "folding" edges
     set((state: RFState) => ({
       visualMappingSlice: {
         ...state.visualMappingSlice,
-        InputStructure: [
-          ...createNodeConverter()(deepOrderStructure.NodeSet, "source"),
-        ],
+        InputStructure: [group, ...convertedNodes],
+        InputStructureEdges: edges,
       },
     }));
   },
 
-  uploadOutputStructure: () => {
-    set((state: RFState) => ({
-      visualMappingSlice: {
-        ...state.visualMappingSlice,
-        OutputStructure: [
-          ...createNodeConverter()(destinationStructure, "destination", 17),
-        ],
-      },
-    }));
-  },
-
-  onBlocksChange: (changes) => {
-    // const findDeleteAction = changes.filter(
-    //   (change: NodeChange) => change.type === "remove"
-    // );
-
-    const a = applyNodeChanges(
-      changes,
-      get().visualMappingSlice.Visual.Transforms.Transform
+  uploadOutputStructure: (rootNode: IVisualMappingNode) => {
+    const group: Node<any> = {
+      id: "outputGroup",
+      type: "mappingGroup",
+      position: { x: 1500, y: 100 },
+      data: { label: "OUTPUT" },
+    };
+    const convertedNodes = createNodeConverter()(
+      rootNode,
+      "destination",
+      group,
+      -1
     );
 
+    // 2. Создаём рёбра ОДИН раз, пока структура ещё «сырая»
+    const edges = createEdgesFromParentToChildren(convertedNodes);
+
+    set((state: RFState) => ({
+      visualMappingSlice: {
+        ...state.visualMappingSlice,
+        OutputStructure: [group, ...convertedNodes],
+        OutputStructureEdges: edges,
+      },
+    }));
+  },
+
+  createParamsEdges: (nodes: Node<any>[]) => {
     set((state: RFState) => ({
       visualMappingSlice: {
         ...state.visualMappingSlice,
         Visual: {
           ...state.visualMappingSlice.Visual,
+          Edges: createEdgesFromParentToChildren(nodes),
+        },
+      },
+    }));
+  },
+
+  onBlocksChange: (changes: NodeChange[]) => {
+    const transforms = [
+      ...get().visualMappingSlice.Visual.Transforms.Transform,
+    ];
+    const sources = [...get().visualMappingSlice.InputStructure];
+    const outputs = [...get().visualMappingSlice.OutputStructure];
+    set((state: RFState) => ({
+      visualMappingSlice: {
+        ...state.visualMappingSlice,
+        InputStructure: applyNodeChanges(changes, sources),
+        OutputStructure: applyNodeChanges(changes, outputs),
+        Visual: {
+          ...state.visualMappingSlice.Visual,
           Transforms: {
             ...state.visualMappingSlice.Visual.Transforms,
-            Transform: a,
+            Transform: applyNodeChanges(changes, transforms),
           },
         },
       },
     }));
+
+    if (changes.some((x) => x.type === "remove"))
+      console.log(get().visualMappingSlice);
   },
   onEdgesConnect: (connection: Connection) => {
     const sourceEdges = get().visualMappingSlice.Visual.Edges;
@@ -171,7 +161,6 @@ const visualMappingSlice = (
     if (!hasDuplicate) {
       const newEdge: any = {
         id: `${connection.source}-${connection.target}`,
-        type: "button",
         ...connection,
       };
 
@@ -186,7 +175,6 @@ const visualMappingSlice = (
       }));
     }
   },
-
   onEdgeDelete: (edgeId: string) => {
     set((state: RFState) => ({
       visualMappingSlice: {
@@ -200,7 +188,6 @@ const visualMappingSlice = (
       },
     }));
   },
-
   onEdgesChange: (changes: EdgeChange[]) => {
     set((state: RFState) => ({
       visualMappingSlice: {

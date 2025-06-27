@@ -1,0 +1,8 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+.wrapper {
+  .upload_btn {
+    @include blue_btn;
+  }
+}

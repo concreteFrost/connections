@@ -1,101 +1,102 @@
-export const deepOrderStructure = {
-  Name: "SourceOrderPW",
-  SourceType: "JSON",
-  NodeSet: {
-    Id: "acd944e9-4c06-4979-a27a-dc6ec3e13e6e",
-    Name: "Orders",
-    DataType: "Array",
-    Label: "Orders",
-    Nodes: [
-      {
-        Id: "04188c84-6bac-428d-b6e6-410c279f6c25",
-        Name: "OrderDate",
-        DataType: "DateTime",
-        Label: "OrderDate",
-        Nodes: [],
-      },
-      {
-        Id: "70b084c3-d598-4010-a2f3-44517a610462",
-        Name: "Quantity",
-        DataType: "Decimal",
-        Label: "Quantity",
-        Nodes: [],
-      },
-      {
-        Id: "d2b373bf-48ef-43e5-8f55-a798a36e8b36",
-        Name: "Price",
-        DataType: "Decimal",
-        Label: "Price",
-        Nodes: [],
-      },
-      {
-        Id: "89b53a29-24b6-4238-9f32-30cabaebc084",
-        Name: "DeliverySet",
-        DataType: "Array",
-        Label: "DeliverySet",
-        Nodes: [
-          {
-            Id: "47e2323e-6f8d-49bf-9319-4132009b8065",
-            Name: "DelTime",
-            DataType: "DateTime",
-            Label: "DelTime",
-            Nodes: [],
-          },
-          {
-            Id: "811f06bc-7409-4418-9608-b3ba89a691b4",
-            Name: "DelQty",
-            DataType: "Integer",
-            Label: "DelQty",
-            Nodes: [],
-          },
-          {
-            Id: "nestedBlock-1",
-            Name: "DeliveryMeta",
-            DataType: "Object",
-            Label: "DeliveryMeta",
-            Nodes: [
-              {
-                Id: "nestedBlock-2",
-                Name: "Carrier",
-                DataType: "String",
-                Label: "Carrier",
-                Nodes: [],
-              },
-              {
-                Id: "nestedBlock-3",
-                Name: "SubDeliveries",
-                DataType: "Array",
-                Label: "SubDeliveries",
-                Nodes: [
-                  {
-                    Id: "nestedBlock-4",
-                    Name: "SubId",
-                    DataType: "String",
-                    Label: "SubId",
-                    Nodes: [],
-                  },
-                  {
-                    Id: "nestedBlock-5",
-                    Name: "SubStatus",
-                    DataType: "String",
-                    Label: "SubStatus",
-                    Nodes: [],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-      {
-        Id: "status-flag",
-        Name: "IsComplete",
-        DataType: "Boolean",
-        Label: "IsComplete",
-        Nodes: [],
-      },
-    ],
-  },
+import {
+  IVisualMappingNode,
+  ITransformNode,
+} from "store/interfaces/IVisualMapping";
+import { Node } from "react-flow-renderer";
+export const deepOrderStructure: IVisualMappingNode = {
+  Id: "acd944e9-4c06-4979-a27a-dc6ec3e13e6e",
+  Name: "Orders",
+  DataType: "Array",
+  Label: "Orders",
+  Nodes: [
+    {
+      Id: "04188c84-6bac-428d-b6e6-410c279f6c25",
+      Name: "OrderDate",
+      DataType: "DateTime",
+      Label: "OrderDate",
+      Nodes: [],
+    },
+    {
+      Id: "70b084c3-d598-4010-a2f3-44517a610462",
+      Name: "Quantity",
+      DataType: "Decimal",
+      Label: "Quantity",
+      Nodes: [],
+    },
+    {
+      Id: "d2b373bf-48ef-43e5-8f55-a798a36e8b36",
+      Name: "Price",
+      DataType: "Decimal",
+      Label: "Price",
+      Nodes: [],
+    },
+    {
+      Id: "89b53a29-24b6-4238-9f32-30cabaebc084",
+      Name: "DeliverySet",
+      DataType: "Array",
+      Label: "DeliverySet",
+      Nodes: [
+        {
+          Id: "47e2323e-6f8d-49bf-9319-4132009b8065",
+          Name: "DelTime",
+          DataType: "DateTime",
+          Label: "DelTime",
+          Nodes: [],
+        },
+        {
+          Id: "811f06bc-7409-4418-9608-b3ba89a691b4",
+          Name: "DelQty",
+          DataType: "Integer",
+          Label: "DelQty",
+          Nodes: [],
+        },
+        {
+          Id: "nestedBlock-1",
+          Name: "DeliveryMeta",
+          DataType: "Object",
+          Label: "DeliveryMeta",
+          Nodes: [
+            {
+              Id: "nestedBlock-2",
+              Name: "Carrier",
+              DataType: "String",
+              Label: "Carrier",
+              Nodes: [],
+            },
+            {
+              Id: "nestedBlock-3",
+              Name: "SubDeliveries",
+              DataType: "Array",
+              Label: "SubDeliveries",
+              Nodes: [
+                {
+                  Id: "nestedBlock-4",
+                  Name: "SubId",
+                  DataType: "String",
+                  Label: "SubId",
+                  Nodes: [],
+                },
+                {
+                  Id: "nestedBlock-5",
+                  Name: "SubStatus",
+                  DataType: "String",
+                  Label: "SubStatus",
+                  Nodes: [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      Id: "status-flag",
+      Name: "IsComplete",
+      DataType: "Boolean",
+      Label: "IsComplete",
+      Nodes: [],
+    },
+  ],
 };
 
 export const destinationStructure = {
@@ -202,3 +203,16 @@ export const destinationStructure = {
     },
   ],
 };
+
+export const customNodes: Node<ITransformNode>[] = [
+  {
+    id: "transform-1",
+    type: "custom",
+    position: { x: 500, y: 200 },
+    data: {
+      Id: "tr",
+      Name: "Transform",
+      Script: "",
+    },
+  },
+];

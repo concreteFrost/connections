@@ -15,6 +15,7 @@ import Load from "./CentralPanel/Load";
 import View from "./CentralPanel/View/View";
 import Approve from "./CentralPanel/Approve";
 import FlowTabs from "./Tabs/FlowTabs";
+import VM from "./CentralPanel/VM";
 
 function DesignerNav() {
   const flowId = useStore((state) => state.flowSlice.flow.flowIdentifier);
@@ -32,6 +33,7 @@ function DesignerNav() {
           {/* {flowId ? <Close></Close> : null} */}
           <View></View>
           <Approve></Approve>
+          <VM></VM>
         </section>
         <section className={s.right}>
           <MonacoEditor themeColor={IconVariants.Dark}></MonacoEditor>

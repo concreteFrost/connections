@@ -1,11 +1,8 @@
-import ReactFlow, {
-  Background,
-  BackgroundVariant,
-  applyNodeChanges,
-} from "react-flow-renderer";
+import ReactFlow, { Background, BackgroundVariant } from "react-flow-renderer";
 import useStore from "store/store";
 import { ReactFlowProvider } from "reactflow";
 import { nodeTypes } from "store/types/flowElements";
+import { RFState } from "store/types/rfState";
 
 function Canvas() {
   const visualMappingSlice = useStore((state) => state.visualMappingSlice);
@@ -15,6 +12,9 @@ function Canvas() {
     (state) => state.visualMappingSlice.Visual.Transforms.Transform
   );
   const edges = useStore((state) => state.visualMappingSlice.Visual.Edges);
+  const { InputStructureEdges, OutputStructureEdges } = useStore(
+    (state: RFState) => state.visualMappingSlice
+  );
 
   return (
     <ReactFlowProvider>
@@ -24,7 +24,7 @@ function Canvas() {
           overflowY: "hidden",
         }}
         nodes={[...inputs, ...outputs, ...transforms]}
-        edges={edges}
+        edges={[...edges, ...InputStructureEdges, ...OutputStructureEdges]}
         onNodesChange={visualMappingSlice.onBlocksChange}
         nodeTypes={nodeTypes}
         onConnect={visualMappingSlice.onEdgesConnect}

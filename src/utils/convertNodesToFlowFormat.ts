@@ -1,15 +1,17 @@
 import { Node } from "react-flow-renderer";
+import { Edge } from "reactflow";
 import { IVisualMappingNode } from "store/interfaces/IVisualMapping";
 
-const verticalSpacing = 50;
+const verticalSpacing = 65;
 const horizontalSpacing = 100;
 
 export function createNodeConverter() {
-  let currentY = 100;
+  let currentY = 70;
 
   function convert(
     node: any,
     type: "source" | "destination",
+    group: Node<any>,
     depth = 1
   ): Node<IVisualMappingNode>[] {
     const nodes: Node<IVisualMappingNode>[] = [];
@@ -25,9 +27,11 @@ export function createNodeConverter() {
     const newNode: Node<IVisualMappingNode> = {
       id,
       type,
-      data: node,
+      data: { ...node, isParent: hasChildren },
       position: nodePosition,
       draggable: false,
+      parentNode: group.id,
+      extent: "parent",
     };
 
     nodes.push(newNode);
@@ -38,6 +42,7 @@ export function createNodeConverter() {
         const childNodes = convert(
           child,
           type,
+          group,
           type === "source" ? depth + 1 : depth - 1
         );
         nodes.push(...childNodes);
@@ -48,4 +53,37 @@ export function createNodeConverter() {
   }
 
   return convert;
+}
+
+export function createEdgesFromParentToChildren(
+  nodes: any[],
+  acc: Edge[] = []
+): Edge[] {
+  for (const node of nodes) {
+    const children = node.data?.Nodes ?? [];
+
+    for (const child of children) {
+      acc.push({
+        id: `${node.data.Id}-${child.Id}`, // уникальный id
+        source: node.data.Id,
+        target: child.Id,
+        sourceHandle: `${node.data.Id}-bottom`, // или другой id, если он в твоём компоненте
+        targetHandle: `${child.Id}-top`,
+        type: "step",
+        data: {
+          readonly: true,
+        },
+        interactionWidth: 0,
+        selected: false,
+        focusable: false,
+        animated: false,
+        markerEnd: undefined,
+        markerStart: undefined,
+      });
+
+      // рекурсия на следующий уровень вложенности
+      createEdgesFromParentToChildren([child], acc);
+    }
+  }
+  return acc;
 }

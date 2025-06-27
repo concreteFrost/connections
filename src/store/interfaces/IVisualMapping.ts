@@ -1,11 +1,11 @@
 import { Node } from "react-flow-renderer";
 
 export interface IVisualMappingNode {
-  Id?: string | null;
+  Id: string;
   Name: string;
   DataType: any;
   Label: string;
-  Nodes: Node<IVisualMappingNode>[];
+  Nodes: IVisualMappingNode[];
 }
 
 export interface ITransformNode {
