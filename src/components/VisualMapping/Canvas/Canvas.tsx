@@ -1,10 +1,18 @@
-import ReactFlow, { Background, BackgroundVariant } from "react-flow-renderer";
+import ReactFlow, {
+  Background,
+  BackgroundVariant,
+  ReactFlowInstance,
+  Controls,
+} from "react-flow-renderer";
 import useStore from "store/store";
-import { ReactFlowProvider } from "reactflow";
 import { nodeTypes } from "store/types/flowElements";
 import { RFState } from "store/types/rfState";
 
-function Canvas() {
+type Props = {
+  setCanvasInstance: (inst: ReactFlowInstance) => void;
+  canvasWrapper: React.RefObject<HTMLDivElement>;
+};
+function Canvas({ setCanvasInstance, canvasWrapper }: Props) {
   const visualMappingSlice = useStore((state) => state.visualMappingSlice);
   const inputs = useStore((state) => state.visualMappingSlice.InputStructure);
   const outputs = useStore((state) => state.visualMappingSlice.OutputStructure);
@@ -17,12 +25,15 @@ function Canvas() {
   );
 
   return (
-    <ReactFlowProvider>
+    <div
+      style={{
+        height: "100vh",
+        overflowY: "hidden",
+      }}
+      ref={canvasWrapper}
+    >
       <ReactFlow
-        style={{
-          height: "100vh",
-          overflowY: "hidden",
-        }}
+        onInit={setCanvasInstance}
         nodes={[...inputs, ...outputs, ...transforms]}
         edges={[...edges, ...InputStructureEdges, ...OutputStructureEdges]}
         onNodesChange={visualMappingSlice.onBlocksChange}
@@ -31,8 +42,9 @@ function Canvas() {
         onEdgesChange={visualMappingSlice.onEdgesChange}
       >
         <Background variant={BackgroundVariant.Lines}></Background>
+        <Controls />
       </ReactFlow>
-    </ReactFlowProvider>
+    </div>
   );
 }
 

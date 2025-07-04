@@ -1,7 +1,12 @@
 import { RFState } from "store/types/rfState";
-import { applyNodeChanges, Node, NodeChange } from "react-flow-renderer";
+import {
+  applyNodeChanges,
+  Node,
+  NodeChange,
+  addEdge,
+  applyEdgeChanges,
+} from "react-flow-renderer";
 import { Connection, Edge, EdgeChange } from "reactflow";
-import { addEdge, applyEdgeChanges } from "react-flow-renderer";
 import {
   ITransformNode,
   IVisualMappingNode,
@@ -11,7 +16,8 @@ import {
   createEdgesFromParentToChildren,
   createNodeConverter,
 } from "utils/convertNodesToFlowFormat";
-import { customNodes } from "__mocks__/mockVisualMappingItem";
+import { v4 as uuidv4 } from "uuid";
+import uploadStructure from "store/actions/utils/uploadVisualMappingStructure";
 
 export type VisualMappingSlice = {
   MappingId: string;
@@ -35,11 +41,23 @@ export type VisualMappingSlice = {
   InputStructureEdges: Edge[]; //stores "folding" edges for InputStructure
   OutputStructureEdges: Edge[]; //stores "folding" edges for OutputStructure
 
-  uploadInputStructure: (rootNode: IVisualMappingNode) => void;
-  uploadOutputStructure: (rootNode: IVisualMappingNode) => void;
-  createParamsEdges: (nodes: Node<any>[]) => void;
+  uploadInputStructure: (
+    rootNode: IVisualMappingNode,
+    pos: { x: number; y: number }
+  ) => void;
+  uploadOutputStructure: (
+    rootNode: IVisualMappingNode,
+    pos: { x: number; y: number }
+  ) => void;
+
+  createCustomFunctionBlock: (
+    pos: { x: number; y: number },
+    name: string
+  ) => void;
 
   onBlocksChange: (changes: NodeChange[]) => void;
+
+  createParamsEdges: (nodes: Node<any>[]) => void;
   onEdgesConnect: (connection: Connection) => void;
   onEdgeDelete: (edgeId: string) => void;
   onEdgesChange: (changes: EdgeChange[]) => void;
@@ -49,6 +67,7 @@ const visualMappingSlice = (
   get: () => RFState,
   set: any
 ): VisualMappingSlice => ({
+  //#region  API Part
   MappingId: "",
   MappingName: "",
   CreatedBy: "",
@@ -60,66 +79,84 @@ const visualMappingSlice = (
   },
   Visual: {
     Transforms: {
-      Transform: [...customNodes],
+      Transform: [],
     },
     Edges: [],
   },
 
+  //#endregion
+
   InputStructureEdges: [],
   OutputStructureEdges: [],
 
-  uploadInputStructure: (rootNode: IVisualMappingNode) => {
-    const group: Node<any> = {
-      id: "inputGroup",
-      type: "mappingGroup",
-      position: { x: 50, y: 100 },
-      data: { label: "SOURCE" },
-    };
-
-    const convertedNodes = createNodeConverter()(rootNode, "source", group);
-    const edges = createEdgesFromParentToChildren(convertedNodes); // creates "folding" edges
+  //#region Node Actions
+  uploadInputStructure: (
+    rootNode: IVisualMappingNode,
+    pos: { x: number; y: number }
+  ) => {
+    const { groupedNodes, folderingEdges, cleanedEdges } = uploadStructure(
+      get()
+    )(rootNode, "source", pos);
     set((state: RFState) => ({
       visualMappingSlice: {
         ...state.visualMappingSlice,
-        InputStructure: [group, ...convertedNodes],
-        InputStructureEdges: edges,
+        InputStructure: groupedNodes,
+        InputStructureEdges: folderingEdges,
+        Visual: {
+          ...state.visualMappingSlice.Visual,
+          Edges: cleanedEdges,
+        },
       },
     }));
   },
 
-  uploadOutputStructure: (rootNode: IVisualMappingNode) => {
-    const group: Node<any> = {
-      id: "outputGroup",
-      type: "mappingGroup",
-      position: { x: 1500, y: 100 },
-      data: { label: "OUTPUT" },
-    };
-    const convertedNodes = createNodeConverter()(
-      rootNode,
-      "destination",
-      group,
-      -1
-    );
-
-    // 2. Создаём рёбра ОДИН раз, пока структура ещё «сырая»
-    const edges = createEdgesFromParentToChildren(convertedNodes);
+  uploadOutputStructure: (
+    rootNode: IVisualMappingNode,
+    pos: { x: number; y: number }
+  ) => {
+    const { groupedNodes, folderingEdges, cleanedEdges } = uploadStructure(
+      get()
+    )(rootNode, "destination", pos);
 
     set((state: RFState) => ({
       visualMappingSlice: {
         ...state.visualMappingSlice,
-        OutputStructure: [group, ...convertedNodes],
-        OutputStructureEdges: edges,
+        OutputStructure: groupedNodes,
+        OutputStructureEdges: folderingEdges,
+        Visual: {
+          ...state.visualMappingSlice.Visual,
+          Edges: cleanedEdges,
+        },
       },
     }));
   },
 
-  createParamsEdges: (nodes: Node<any>[]) => {
+  createCustomFunctionBlock: (pos: { x: number; y: number }, name: string) => {
+    const id = uuidv4();
+
+    const newBlock: Node<any> = {
+      id: id,
+      type: "custom",
+      position: { x: pos.x, y: pos.y },
+      data: {
+        Id: id,
+        Name: name,
+        Script: "",
+      },
+    };
+
     set((state: RFState) => ({
       visualMappingSlice: {
         ...state.visualMappingSlice,
         Visual: {
           ...state.visualMappingSlice.Visual,
-          Edges: createEdgesFromParentToChildren(nodes),
+          Transforms: {
+            ...state.visualMappingSlice.Visual.Transforms,
+            Transform: [
+              ...state.visualMappingSlice.Visual.Transforms.Transform,
+              newBlock,
+            ],
+          },
         },
       },
     }));
@@ -146,9 +183,26 @@ const visualMappingSlice = (
       },
     }));
 
-    if (changes.some((x) => x.type === "remove"))
-      console.log(get().visualMappingSlice);
+    if (changes.some((x) => x.type === "remove")) {
+      // console.log(get().visualMappingSlice);
+    }
   },
+
+  //#endregion
+
+  //#region Edges Actions
+  createParamsEdges: (nodes: Node<any>[]) => {
+    set((state: RFState) => ({
+      visualMappingSlice: {
+        ...state.visualMappingSlice,
+        Visual: {
+          ...state.visualMappingSlice.Visual,
+          Edges: createEdgesFromParentToChildren(nodes),
+        },
+      },
+    }));
+  },
+
   onEdgesConnect: (connection: Connection) => {
     const sourceEdges = get().visualMappingSlice.Visual.Edges;
 
@@ -202,6 +256,7 @@ const visualMappingSlice = (
       },
     }));
   },
+  //#endregion
 });
 
 export default visualMappingSlice;

@@ -99,6 +99,72 @@ export const deepOrderStructure: IVisualMappingNode = {
   ],
 };
 
+export const deepOrderStructure2: IVisualMappingNode = {
+  Id: "acd944e9-4c06-4979-a27a-dc6ec3e13ess",
+  Name: "Orders",
+  DataType: "Array",
+  Label: "Orders",
+  Nodes: [
+    {
+      Id: "70b084c3-d598-4010-a2f3-44517a6104ss",
+      Name: "Quantity",
+      DataType: "Decimal",
+      Label: "Quantity",
+      Nodes: [],
+    },
+    {
+      Id: "d2b373bf-48ef-43e5-8f55-a798a36e8bss",
+      Name: "Price",
+      DataType: "Decimal",
+      Label: "Price",
+      Nodes: [],
+    },
+    {
+      Id: "89b53a29-24b6-4238-9f32-30cabaebc0ss",
+      Name: "DeliverySet",
+      DataType: "Array",
+      Label: "DeliverySet",
+      Nodes: [
+        {
+          Id: "47e2323e-6f8d-49bf-9319-4132009b80s5",
+          Name: "DelTime",
+          DataType: "DateTime",
+          Label: "DelTime",
+          Nodes: [],
+        },
+        {
+          Id: "811f06bc-7409-4418-9608-b3ba89a691ss",
+          Name: "DelQty",
+          DataType: "Integer",
+          Label: "DelQty",
+          Nodes: [],
+        },
+        {
+          Id: "1nestedBlock-1",
+          Name: "DeliveryMeta",
+          DataType: "Object",
+          Label: "DeliveryMeta",
+          Nodes: [
+            {
+              Id: "1nestedBlock-2",
+              Name: "Carrier",
+              DataType: "String",
+              Label: "Carrier",
+              Nodes: [],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      Id: "status-flag",
+      Name: "IsComplete",
+      DataType: "Boolean",
+      Label: "IsComplete",
+      Nodes: [],
+    },
+  ],
+};
 export const destinationStructure = {
   Id: "output-root",
   Name: "OrderSummary",

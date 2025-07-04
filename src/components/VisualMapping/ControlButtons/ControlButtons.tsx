@@ -12,11 +12,11 @@ function ControlButtons() {
   );
 
   function handleUploadInputStructure() {
-    uploadInputStructure(deepOrderStructure);
+    // uploadInputStructure(deepOrderStructure);
   }
 
   function handleUploadOutputStructure() {
-    uploadOutputStructure(destinationStructure);
+    // uploadOutputStructure(destinationStructure);
   }
   return (
     <div className={s.wrapper}>

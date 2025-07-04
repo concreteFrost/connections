@@ -31,8 +31,16 @@ export const useNodeDrag = (props: any) => {
   function onDragEnd(event: any) {
     if (canDrop(event, props.leftPanelRef)) {
       const pos = {
-        x: positionInViewport(event, reactFlowInstance, reactFlowWrapper).x,
-        y: positionInViewport(event, reactFlowInstance, reactFlowWrapper).y,
+        x: positionInViewport(
+          { x: event.clientX, y: event.clientY },
+          reactFlowInstance,
+          reactFlowWrapper
+        ).x,
+        y: positionInViewport(
+          { x: event.clientX, y: event.clientY },
+          reactFlowInstance,
+          reactFlowWrapper
+        ).y,
       };
       addBlock(props.nodeType, pos.x, pos.y);
     }

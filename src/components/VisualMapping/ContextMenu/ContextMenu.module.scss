@@ -1,0 +1,39 @@
+.wrapper {
+  position: absolute;
+  z-index: 1000;
+  min-width: 160px;
+  padding: 4px 0;
+  background-color: #ffffff;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: system-ui, sans-serif;
+  font-size: 0.9rem;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+
+    &:hover {
+      background-color: #f3f3f3;
+    }
+
+    &:active {
+      background-color: #e9e9e9;
+    }
+  }
+
+  .list_section_header {
+    font-size: 0.7rem;
+    margin-bottom: -10px;
+    font-weight: bold;
+    color: #a8a8a8;
+  }
+}

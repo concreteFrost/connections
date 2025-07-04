@@ -12,7 +12,7 @@ export function createNodeConverter() {
     node: any,
     type: "source" | "destination",
     group: Node<any>,
-    depth = 1
+    depth = 0
   ): Node<IVisualMappingNode>[] {
     const nodes: Node<IVisualMappingNode>[] = [];
 

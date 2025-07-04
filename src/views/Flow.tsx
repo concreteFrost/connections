@@ -15,6 +15,14 @@ function Flow(props: any) {
     selector,
     shallow
   );
+
+  const { setInstance, setFlowWrapper } = useStore(
+    (state) => state.designerVisualElementsSlice
+  );
+  const { snapToGrid, snapStep } = useStore(
+    (state) => state.topPanelSlice.settings
+  );
+
   const flowSlice = useStore((state) => state.flowSlice);
   const bgView = useStore((state) => state.designerVisualElementsSlice.view);
 
@@ -27,12 +35,6 @@ function Flow(props: any) {
       onBlocksChange(updatedBlocks);
     },
     [flowSlice.flow.visual.blocks]
-  );
-
-  const { reactFlowInstance, reactFlowWrapper, setInstance, setFlowWrapper } =
-    useStore((state) => state.designerVisualElementsSlice);
-  const { snapToGrid, snapStep } = useStore(
-    (state) => state.topPanelSlice.settings
   );
 
   return (
