@@ -15,7 +15,7 @@ import {
 import {
   createEdgesFromParentToChildren,
   createNodeConverter,
-} from "utils/convertNodesToFlowFormat";
+} from "utils/visualMapping/convertNodesToFlowFormat";
 import { v4 as uuidv4 } from "uuid";
 import uploadStructure from "store/actions/utils/uploadVisualMappingStructure";
 

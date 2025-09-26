@@ -1,0 +1,35 @@
+{
+  "library": {
+    "name": "Central Library",
+    "location": "Downtown",
+    "established": 1950,
+    "sections": [
+      {
+        "name": "Fiction",
+        "books": [
+          { "title": "War and Peace", "author": "Tolstoy", "available": true },
+          { "title": "1984", "author": "Orwell", "available": false }
+        ]
+      },
+      {
+        "name": "Science",
+        "books": [
+          {
+            "title": "A Brief History of Time",
+            "author": "Hawking",
+            "available": true
+          },
+          {
+            "title": "The Selfish Gene",
+            "author": "Dawkins",
+            "available": true
+          }
+        ]
+      }
+    ],
+    "staff": [
+      { "id": 1, "name": "Anna", "role": "Librarian" },
+      { "id": 2, "name": "Boris", "role": "Assistant" }
+    ]
+  }
+}

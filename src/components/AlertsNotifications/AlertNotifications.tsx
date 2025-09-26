@@ -5,7 +5,7 @@ import moment from "moment";
 import { IconVariants } from "store/enums/profile";
 import { useNavigate } from "react-router";
 import { handleHandShake } from "utils/handleHandshake";
-import { clearFromCache } from "utils/clearCache";
+import { clearFromCache } from "utils/alerts/clearCache";
 import { getAlertsApi } from "api/ehd";
 import useStore from "store/store";
 import { Alert } from "store/interfaces/IAlerts";

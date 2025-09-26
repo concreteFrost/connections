@@ -1,0 +1,40 @@
+{
+  "company": {
+    "name": "ACME Corp",
+    "location": "Moscow",
+    "founded": 1998,
+    "active": true,
+    "departments": [
+      {
+        "name": "Engineering",
+        "head": "Иван",
+        "teams": [
+          {
+            "name": "Backend",
+            "members": [
+              { "id": 1, "name": "Алексей", "role": "Senior Dev" },
+              { "id": 2, "name": "Мария", "role": "Junior Dev" }
+            ]
+          },
+          {
+            "name": "Frontend",
+            "members": [
+              { "id": 3, "name": "Олег", "role": "Lead" },
+              { "id": 4, "name": "Анна", "role": "Intern" }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Marketing",
+        "head": "Светлана",
+        "projects": [
+          { "id": 101, "title": "Branding" },
+          { "id": 102, "title": "SEO" }
+        ]
+      }
+    ],
+    "tags": ["tech", "startup", "remote"],
+    "notes": null
+  }
+}

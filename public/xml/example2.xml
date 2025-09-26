@@ -1,0 +1,39 @@
+<company>
+    <name>ACME Corp</name>
+    <location>Moscow</location>
+    <departments>
+        <department>
+            <name>Engineering</name>
+            <head>Ivan</head>
+            <teams>
+                <team>
+                    <name>Backend</name>
+                    <members>
+                        <member id="1">Alexey</member>
+                        <member id="2">Maria</member>
+                    </members>
+                </team>
+                <team>
+                    <name>Frontend</name>
+                    <members>
+                        <member id="3">Oleg</member>
+                        <member id="4">Anna</member>
+                    </members>
+                </team>
+            </teams>
+        </department>
+        <department>
+            <name>Marketing</name>
+            <head>Svetlana</head>
+            <projects>
+                <project id="101">Branding</project>
+                <project id="102">SEO</project>
+            </projects>
+        </department>
+    </departments>
+    <tags>
+        <tag>tech</tag>
+        <tag>startup</tag>
+        <tag>remote</tag>
+    </tags>
+</company>

@@ -1,6 +1,6 @@
 import { IVisualMappingNode } from "store/interfaces/IVisualMapping";
-import { createNodeConverter } from "utils/convertNodesToFlowFormat";
-import { createEdgesFromParentToChildren } from "utils/convertNodesToFlowFormat";
+import { createNodeConverter } from "utils/visualMapping/convertNodesToFlowFormat";
+import { createEdgesFromParentToChildren } from "utils/visualMapping/convertNodesToFlowFormat";
 import { Node, Edge } from "react-flow-renderer";
 import { RFState } from "store/types/rfState";
 

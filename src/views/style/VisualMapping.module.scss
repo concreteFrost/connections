@@ -1,0 +1,16 @@
+.wrapper {
+  display: grid;
+  grid-template-rows: 40px 1fr;
+  height: 100vh; // вся высота экрана
+  overflow-y: hidden;
+
+  .content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    .column {
+      padding: 1rem;
+      border: 1px solid #ccc;
+    }
+  }
+}

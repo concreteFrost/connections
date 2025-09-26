@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <PurchaseHeader>
+        <Type>Standard</Type>
+        <BuyFromVendorNo>V12345</BuyFromVendorNo>
+        <PostingDate>2025-09-26</PostingDate>
+        <VendorInvoiceNo>INV-9876</VendorInvoiceNo>
+        <DocumentDate>2025-09-25</DocumentDate>
+        <PubNumber>PUB-001</PubNumber>
+        <RegionCode>US-NY</RegionCode>
+        <PurchaseLines>
+            <LineNo>1</LineNo>
+            <Description>Item A</Description>
+            <Quantity>10</Quantity>
+            <UnitCost>25.00</UnitCost>
+            <GLCode>5000</GLCode>
+            <VatAmt>2.50</VatAmt>
+            <VatRate>0.10</VatRate>
+        </PurchaseLines>
+        <PurchaseLines>
+            <LineNo>2</LineNo>
+            <Description>Item B</Description>
+            <Quantity>5</Quantity>
+            <UnitCost>50.00</UnitCost>
+            <GLCode>5001</GLCode>
+            <VatAmt>5.00</VatAmt>
+            <VatRate>0.10</VatRate>
+        </PurchaseLines>
+        <PurchaseLines>
+            <LineNo>2</LineNo>
+            <Description>Item B</Description>
+            <Quantity>5</Quantity>
+            <UnitCost>50.00</UnitCost>
+            <GLCode>5001</GLCode>
+            <VatAmt>5.00</VatAmt>
+            <VatRate>0.10</VatRate>
+        </PurchaseLines>
+    </PurchaseHeader>
+</root>
