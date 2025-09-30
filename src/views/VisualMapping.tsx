@@ -2,6 +2,7 @@ import Header from "components/VisualMapping/Header/Header";
 import VisualTree from "components/VisualMapping/Tree/VisualTree";
 import s from "./style/VisualMapping.module.scss";
 import { useFileUpload } from "hooks/useFileUpload";
+import OperationsTable from "components/VisualMapping/Tree/OperationsTable/OperationsTable";
 
 export default function VisualMapping() {
   const input = useFileUpload();
@@ -17,19 +18,21 @@ export default function VisualMapping() {
         <div className={s.column}>
           <input
             type="file"
-            accept=".json,.xml"
+            accept=".json,.xml,.xsd"
             onChange={input.handleFileChange}
           />
-          <VisualTree treeNode={input.data}></VisualTree>
+          <VisualTree treeNode={input.data} type="input"></VisualTree>
         </div>
-        <div className={s.column}>Operations</div>
+        <div className={s.column}>
+          <OperationsTable></OperationsTable>
+        </div>
         <div className={s.column}>
           <input
             type="file"
-            accept=".json,.xml"
+            accept=".json,.xml,.xsd"
             onChange={output.handleFileChange}
           />
-          <VisualTree treeNode={output.data}></VisualTree>
+          <VisualTree treeNode={output.data} type="output"></VisualTree>
         </div>
       </div>
     </div>

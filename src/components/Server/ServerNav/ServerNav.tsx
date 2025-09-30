@@ -1,4 +1,4 @@
-import { IconVariants } from "store/enums/profile";
+import { IconVariants } from "store/enums/enums";
 import Profile from "components/Profile/Profile";
 import s from "./ServerNav.module.scss";
 import { useNavigate } from "react-router";

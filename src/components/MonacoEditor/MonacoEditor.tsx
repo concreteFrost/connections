@@ -2,7 +2,7 @@ import Editor, { Monaco } from "@monaco-editor/react";
 import s from "./MonacoEditor.module.scss";
 import { useRef, useState } from "react";
 import * as monaco from "monaco-editor";
-import { IconVariants } from "store/enums/profile";
+import { IconVariants } from "store/enums/enums";
 import { connectionsIcons } from "assets/icons/icons";
 import {
   handleCSharpCompletion,

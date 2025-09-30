@@ -1,4 +1,4 @@
-import { IconVariants } from "store/enums/profile";
+import { IconVariants } from "store/enums/enums";
 import AlertNotifications from "components/AlertsNotifications/AlertNotifications";
 import Profile from "components/Profile/Profile";
 import PushNotifications from "components/PushNotifications/PushNotifications";
