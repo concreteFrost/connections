@@ -1,19 +1,16 @@
 import { TreeType } from "store/enums/enums";
 import { RowElement, RowState } from "store/interfaces/IVisualMapping";
+import useStore from "store/store";
+import { RFState } from "store/types/rfState";
 
 interface Props {
   row: RowState;
-  deleteRow: (id: string) => void;
-  setRowData: (row_id: string, data: RowElement) => void;
-  clearRowData: (row_id: string, type: TreeType) => void;
 }
 
-export default function TableRow({
-  row,
-  deleteRow,
-  setRowData,
-  clearRowData,
-}: Props) {
+export default function TableRow({ row }: Props) {
+  const { deleteRow, setRowData, clearRowData } = useStore(
+    (state: RFState) => state.visualMappingSlice
+  );
   function handleDrop(e: React.DragEvent, type: TreeType) {
     e.preventDefault();
 
