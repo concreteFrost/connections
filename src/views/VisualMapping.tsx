@@ -3,11 +3,15 @@ import VisualTree from "components/VisualMapping/Tree/VisualTree";
 import s from "./style/VisualMapping.module.scss";
 import { convertXSDToTreeNode } from "utils/visualMapping/fileToTree";
 import OperationsTable from "components/VisualMapping/Tree/OperationsTable/OperationsTable";
-import { generateStructureFromSample } from "api/mapping";
-import { useState } from "react";
+import {
+  generateStructureFromSample,
+  getMappingStructureList,
+} from "api/mapping";
+import { useEffect, useState } from "react";
 import { TreeNode } from "store/interfaces/IVisualMapping";
 import useStore from "store/store";
 import { TreeType } from "store/enums/enums";
+import ContextMenu from "components/VisualMapping/ContextMenu/ContextMenu";
 
 export default function VisualMapping() {
   const [input, setInput] = useState<TreeNode | null>(null);
@@ -40,6 +44,20 @@ export default function VisualMapping() {
       setIsLoading(false);
     }
   }
+
+  useEffect(() => {
+    async function getMappingList() {
+      try {
+        const res = await getMappingStructureList();
+
+        console.log(res);
+      } catch (error) {
+        console.log("error retrieving mapping list");
+      }
+    }
+
+    getMappingList();
+  }, []);
 
   return (
     <div className={s.wrapper}>
@@ -80,6 +98,7 @@ export default function VisualMapping() {
           )}
         </div>
       </div>
+      <ContextMenu></ContextMenu>
     </div>
   );
 }

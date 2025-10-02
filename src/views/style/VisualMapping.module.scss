@@ -1,3 +1,6 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
 .wrapper {
   display: grid;
   grid-template-rows: 40px 1fr;
@@ -12,6 +15,14 @@
       padding: 1rem;
       border: 1px solid #ccc;
       overflow-x: auto;
+
+      input[type="file"] {
+        font-size: 14px;
+
+        &::file-selector-button {
+          @include blue-btn;
+        }
+      }
     }
   }
 }

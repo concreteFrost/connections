@@ -1,10 +1,10 @@
 import { TreeType } from "store/enums/enums";
-import { RowElement, RowState } from "store/interfaces/IVisualMapping";
+import { RowElement, MappingState } from "store/interfaces/IVisualMapping";
 import useStore from "store/store";
 import { RFState } from "store/types/rfState";
 
 interface Props {
-  row: RowState;
+  row: MappingState;
 }
 
 export default function TableRow({ row }: Props) {

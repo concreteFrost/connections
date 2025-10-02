@@ -1,0 +1,48 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins.scss";
+
+.wrapper {
+  position: absolute;
+  z-index: 1000;
+  min-width: 160px;
+
+  background-color: #ffffff;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    display: flex;
+    padding: 10px;
+    justify-content: start;
+    align-items: center;
+
+    button {
+      border: none;
+      background-color: #ffffff;
+      width: 100%;
+      text-align: start;
+
+      padding: 10px 20px;
+
+      &:hover {
+        background-color: #f3f3f3;
+      }
+
+      transition: background-color 0.15s ease;
+    }
+  }
+
+  .list_section_header {
+    font-size: 0.7rem;
+    padding-left: 10px;
+    font-weight: bold;
+    color: #a8a8a8;
+  }
+}

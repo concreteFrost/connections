@@ -1,21 +1,12 @@
-import { Node } from "react-flow-renderer";
 import { TreeType } from "store/enums/enums";
 
-export interface IVisualMappingNode {
-  Id: string;
-  Name: string;
-  DataType: any;
-  Label: string;
-  Nodes: IVisualMappingNode[];
+export interface TreeNode {
+  name: string;
+  value?: any;
+  children?: TreeNode[];
 }
 
-export interface ITransformNode {
-  Id: string | null;
-  Name: string;
-  Script: string;
-}
-
-export interface RowState {
+export interface MappingState {
   row_id: string;
   input: RowElement | null;
   operation: string | null;
@@ -29,8 +20,10 @@ export interface RowElement {
   path: string;
 }
 
-export interface TreeNode {
+export interface MappingStructure {
   name: string;
-  value?: any;
-  children?: TreeNode[];
+  sourceType: string;
+  xsdContent: string;
+  success: boolean;
+  message: string;
 }
