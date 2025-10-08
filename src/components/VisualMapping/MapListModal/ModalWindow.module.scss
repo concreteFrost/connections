@@ -1,0 +1,68 @@
+@import "/src/style/variables.scss";
+@import "/src/style/mixins";
+
+.container {
+  @include modal_container;
+}
+
+.modal_window {
+  @include modal_window;
+}
+
+.modal_header {
+  @include modal_header;
+  height: 30px;
+
+  .close_btn_wrapper {
+    position: absolute;
+    right: 20px;
+
+    button {
+      @include blue-btn;
+    }
+  }
+}
+
+.modal_body {
+  @include modal_body;
+
+  table {
+    @include loaded_flows_table;
+
+    tbody {
+      tr {
+        cursor: pointer;
+
+        &:hover {
+          background-color: rgb(235, 235, 235);
+        }
+
+        &:active {
+          background-color: rgb(180, 180, 180);
+        }
+        transition: background-color 0.2s ease-in-out;
+      }
+    }
+  }
+
+  .empty_table_message {
+    text-align: center;
+  }
+}
+
+.modal_footer {
+  .buttons_wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+
+    button {
+      @include blue-btn;
+    }
+  }
+
+  .error_message {
+    color: red;
+    font-style: italic;
+  }
+}

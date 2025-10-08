@@ -1,0 +1,18 @@
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  .column {
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: 0.85em;
+    &.input {
+      background-color: #e0f7fa;
+    }
+
+    &.output {
+      background-color: #fce4ec;
+    }
+  }
+}

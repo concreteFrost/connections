@@ -7,23 +7,37 @@ export interface TreeNode {
 }
 
 export interface MappingState {
-  row_id: string;
-  input: RowElement | null;
-  operation: string | null;
-  output: RowElement | null;
+  name: string | null;
+  reference: string | null;
+  inputXsdContent: SchemaDocument | null;
+  operations: Operations[];
+  outputXsdContent: SchemaDocument | null;
 }
 
-export interface RowElement {
+export interface SchemaDocument {
   name: string;
-  value: string;
-  type: TreeType;
-  path: string;
-}
-
-export interface MappingStructure {
-  name: string;
+  reference: string;
   sourceType: string;
-  xsdContent: string;
-  success: boolean;
-  message: string;
+  content: string;
+}
+
+export interface Operations {
+  rowId: string;
+  input: MappingField[];
+  operation: string;
+  output: MappingField[];
+}
+
+export interface MappingField {
+  name: string;
+  valueType: string;
+  docPath: string;
+}
+
+export interface MappingList {
+  created: string;
+  fileName: string;
+  lastAccessed: string;
+  name: string;
+  reference: string;
 }

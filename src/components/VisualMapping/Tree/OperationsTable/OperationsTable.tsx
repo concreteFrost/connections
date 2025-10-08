@@ -1,11 +1,12 @@
 import s from "./OperationsTable.module.scss";
 import TableRow from "./TableRow/TableRow";
-import { MappingState } from "store/interfaces/IVisualMapping";
+import { Operations } from "store/interfaces/IVisualMapping";
 import useStore from "store/store";
 import { RFState } from "store/types/rfState";
+import MappingNameForm from "./MappingNameForm/MappingNameForm";
 
 export default function OperationsTable() {
-  const { mappingState: rows, addNewRow } = useStore(
+  const { mappingState, addNewRow } = useStore(
     (state: RFState) => state.visualMappingSlice
   );
 
@@ -15,6 +16,7 @@ export default function OperationsTable() {
 
   return (
     <div className={s.table_wrapper}>
+      <MappingNameForm></MappingNameForm>
       <div className={s.add_row_btn}>
         <button onClick={handleAddNewRow}>+</button>
       </div>
@@ -28,9 +30,9 @@ export default function OperationsTable() {
           </tr>
         </thead>
         <tbody>
-          {rows.length > 0 &&
-            rows.map((row: MappingState) => (
-              <TableRow key={row.row_id} row={row} />
+          {mappingState.operations.length > 0 &&
+            mappingState.operations.map((row: Operations) => (
+              <TableRow key={row.rowId} row={row} />
             ))}
         </tbody>
       </table>

@@ -1,33 +1,47 @@
 import useRightMouseButtonClick from "hooks/useRightMouseButtonClick";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import s from "./ContextMenu.module.scss";
 import useStore from "store/store";
 import { RFState } from "store/types/rfState";
-import { MappingState } from "store/interfaces/IVisualMapping";
 import { saveMappingStructure } from "api/mapping";
 
 export default function ContextMenu() {
   const menuRef = useRef<HTMLDivElement | null>(null);
   const { isVisible, pos } = useRightMouseButtonClick();
-  const { mappingState } = useStore(
+  const { mappingState, setMappingRef, toggleModal } = useStore(
     (state: RFState) => state.visualMappingSlice
   );
   const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
   const { setIsLoading } = useStore((state) => state.loaderSlice);
 
   function isSavingDisabled(): boolean {
-    return mappingState.length === 0;
+    return (
+      mappingState.name === null ||
+      mappingState.inputXsdContent === null ||
+      mappingState.outputXsdContent === null ||
+      mappingState.operations.length === 0
+    );
   }
 
   async function handlSaveMappingState() {
+    if (mappingState.reference !== null) {
+    } //confirm overwite
     setIsLoading(true);
-    try {
-      const res = await saveMappingStructure(mappingState);
 
-      console.log(res);
+    try {
+      const res = await saveMappingStructure(mappingState, false);
+
+      if (!res.data.success) {
+        toggleMessageModal(res.data.message);
+        return;
+      }
+
+      setMappingRef(res.data.message);
       toggleMessageModal("Success!!!");
-    } catch (error) {
-      console.log("error saving structure", error);
+    } catch (error: any) {
+      if (error.response.status === 409) {
+        toggleMessageModal("Mapping with this reference already exists");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -49,6 +63,9 @@ export default function ContextMenu() {
               >
                 Save
               </button>
+            </li>
+            <li>
+              <button onClick={() => toggleModal(true)}>Load</button>
             </li>
           </ul>
         </div>

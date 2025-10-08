@@ -1,102 +1,230 @@
 import { RFState } from "store/types/rfState";
 import {
-  RowElement,
+  MappingField,
   MappingState,
-  TreeNode,
+  Operations,
+  SchemaDocument,
 } from "store/interfaces/IVisualMapping";
 import { TreeType } from "store/enums/enums";
 import { v4 as uuid } from "uuid";
 
 export type VisualMappingSlice = {
-  mappingState: MappingState[];
+  mappingState: MappingState;
 
+  setMappingName: (name: string) => void;
+  setMappingRef: (ref: string) => void;
+  setXsdContent: (schema: SchemaDocument, key: keyof MappingState) => void;
+  clearContent: (key: keyof MappingState) => void;
   addNewRow: () => void;
   deleteRow: (id: string) => void;
-  setRowData: (row_id: string, data: RowElement) => void;
-  clearRowData: (row_id: string, type: TreeType) => void;
+  setRowData: (row_id: string, data: MappingField, type: TreeType) => void;
+  clearRowData: (row_id: string, type: TreeType, fieldName: string) => void;
   clearRowsByType: (type: TreeType) => void;
+  loadMappingStructure: (structure: MappingState) => void;
+
+  //modal state
+  isMapListModalVisible: boolean;
+  toggleModal: (isVisible: boolean) => void;
 };
 
 const visualMappingSlice = (
   get: () => RFState,
   set: any
 ): VisualMappingSlice => ({
-  mappingState: [],
+  mappingState: {
+    name: null,
+    reference: "",
+    inputXsdContent: null,
+    operations: [],
+    outputXsdContent: null,
+  },
 
+  setMappingName: (name: string) => {
+    set((state: RFState) => ({
+      visualMappingSlice: {
+        ...state.visualMappingSlice,
+        mappingState: {
+          ...state.visualMappingSlice.mappingState,
+          name: name,
+        },
+      },
+    }));
+  },
+  setMappingRef: (ref: string) => {
+    set((state: RFState) => ({
+      visualMappingSlice: {
+        ...state.visualMappingSlice,
+        mappingState: {
+          ...state.visualMappingSlice.mappingState,
+          reference: ref,
+        },
+      },
+    }));
+  },
+  setXsdContent: (schema: SchemaDocument, key: keyof MappingState) => {
+    set((state: RFState) => ({
+      visualMappingSlice: {
+        ...state.visualMappingSlice,
+        mappingState: {
+          ...state.visualMappingSlice.mappingState,
+          [key]: schema,
+        },
+      },
+    }));
+  },
+  clearContent: (key: keyof MappingState) => {
+    set((state: RFState) => ({
+      visualMappingSlice: {
+        ...state.visualMappingSlice,
+        mappingState: {
+          ...state.visualMappingSlice.mappingState,
+          [key]: null,
+        },
+      },
+    }));
+  },
   addNewRow: () => {
-    const newRow: MappingState = {
-      row_id: uuid(),
-      input: null,
+    const newRow: Operations = {
+      rowId: uuid(),
+      input: [],
       operation: "",
-      output: null,
+      output: [],
     };
 
     set((state: RFState) => ({
       visualMappingSlice: {
         ...state.visualMappingSlice,
-        mappingState: [...get().visualMappingSlice.mappingState, newRow],
+        mappingState: {
+          ...state.visualMappingSlice.mappingState,
+          operations: [
+            ...get().visualMappingSlice.mappingState.operations,
+            newRow,
+          ],
+        },
       },
     }));
   },
   deleteRow: (id: string) => {
-    const filtered = get().visualMappingSlice.mappingState.filter(
-      (row: MappingState) => row.row_id !== id
+    const filtered = get().visualMappingSlice.mappingState.operations.filter(
+      (row: Operations) => row.rowId !== id
     );
     set((state: RFState) => ({
       visualMappingSlice: {
         ...state.visualMappingSlice,
-        mappingState: filtered,
+        mappingState: {
+          ...state.visualMappingSlice.mappingState,
+          operations: filtered,
+        },
       },
     }));
   },
-  setRowData: (row_id: string, data: RowElement) => {
-    const mapped = get().visualMappingSlice.mappingState.map(
-      (row: MappingState) =>
-        row.row_id === row_id
-          ? {
-              ...row,
-              [data.type]: data,
-            }
-          : row
-    );
-    set((state: RFState) => ({
-      visualMappingSlice: {
-        ...state.visualMappingSlice,
-        mappingState: mapped,
-      },
-    }));
-  },
-  clearRowData: (row_id: string, type: TreeType) => {
-    const mapped = get().visualMappingSlice.mappingState.map((row) =>
-      row.row_id === row_id
-        ? {
-            ...row,
-            [type]: null,
-          }
-        : row
+  setRowData: (rowId: string, data: MappingField, type: TreeType) => {
+    const updated = get().visualMappingSlice.mappingState.operations.map(
+      (row) => {
+        if (row.rowId !== rowId) return row;
+
+        if (type === TreeType.Input) {
+          // Добавляем или обновляем поле в input[]
+          const existingIndex = row.input.findIndex(
+            (f) => f.name === data.name
+          );
+          const newInput =
+            existingIndex >= 0
+              ? row.input.map((f, i) => (i === existingIndex ? data : f))
+              : [...row.input, data];
+          return { ...row, input: newInput };
+        }
+
+        if (type === TreeType.Output) {
+          // Добавляем или обновляем поле в output[]
+          const existingIndex = row.output.findIndex(
+            (f) => f.name === data.name
+          );
+          const newOutput =
+            existingIndex >= 0
+              ? row.output.map((f, i) => (i === existingIndex ? data : f))
+              : [...row.output, data];
+          return { ...row, output: newOutput };
+        }
+
+        return row;
+      }
     );
 
     set((state: RFState) => ({
       visualMappingSlice: {
         ...state.visualMappingSlice,
-        mappingState: mapped,
+        mappingState: {
+          ...state.visualMappingSlice.mappingState,
+          operations: updated,
+        },
+      },
+    }));
+  },
+  clearRowData: (rowId: string, type: TreeType, fieldName: string) => {
+    const updated = get().visualMappingSlice.mappingState.operations.map(
+      (row) =>
+        row.rowId === rowId
+          ? {
+              ...row,
+              input:
+                type === TreeType.Input
+                  ? row.input.filter((f) => f.name !== fieldName)
+                  : row.input,
+              output:
+                type === TreeType.Output
+                  ? row.output.filter((f) => f.name !== fieldName)
+                  : row.output,
+            }
+          : row
+    );
+
+    set((state: RFState) => ({
+      visualMappingSlice: {
+        ...state.visualMappingSlice,
+        mappingState: {
+          ...state.visualMappingSlice.mappingState,
+          operations: updated,
+        },
       },
     }));
   },
   clearRowsByType: (type: TreeType) => {
-    const filtered = get().visualMappingSlice.mappingState.map(
-      (row: MappingState) => {
-        return {
-          ...row,
-          input: type === TreeType.Input ? null : row.input,
-          output: type === TreeType.Output ? null : row.output,
-        };
-      }
+    const updated = get().visualMappingSlice.mappingState.operations.map(
+      (row) => ({
+        ...row,
+        input: type === TreeType.Input ? [] : row.input,
+        output: type === TreeType.Output ? [] : row.output,
+      })
     );
+
     set((state: RFState) => ({
       visualMappingSlice: {
         ...state.visualMappingSlice,
-        mappingState: filtered,
+        mappingState: {
+          ...state.visualMappingSlice.mappingState,
+          operations: updated,
+        },
+      },
+    }));
+  },
+  loadMappingStructure: (structure: MappingState) => {
+    set((state: RFState) => ({
+      visualMappingSlice: {
+        ...state.visualMappingSlice,
+        mappingState: structure,
+      },
+    }));
+  },
+
+  //modal state
+
+  isMapListModalVisible: true,
+  toggleModal: (isVisible: boolean) => {
+    set((state: RFState) => ({
+      visualMappingSlice: {
+        ...state.visualMappingSlice,
+        isMapListModalVisible: isVisible,
       },
     }));
   },

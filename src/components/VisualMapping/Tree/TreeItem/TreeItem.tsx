@@ -26,8 +26,8 @@ export default function TreeItem({
       "treeItem",
       JSON.stringify({
         name: item.name,
-        value: item.value,
-        path: currentPath,
+        valueType: item.value,
+        docPath: currentPath,
         type,
       })
     );

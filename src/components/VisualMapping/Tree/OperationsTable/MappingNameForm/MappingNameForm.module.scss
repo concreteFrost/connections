@@ -1,0 +1,14 @@
+@import "/src/style/mixins.scss";
+@import "/src/style/variables.scss";
+
+form {
+  display: flex;
+  gap: 10px;
+
+  justify-content: center;
+  margin-bottom: 20px;
+
+  button {
+    @include blue_btn;
+  }
+}

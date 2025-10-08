@@ -3,69 +3,69 @@ import VisualTree from "components/VisualMapping/Tree/VisualTree";
 import s from "./style/VisualMapping.module.scss";
 import { convertXSDToTreeNode } from "utils/visualMapping/fileToTree";
 import OperationsTable from "components/VisualMapping/Tree/OperationsTable/OperationsTable";
-import {
-  generateStructureFromSample,
-  getMappingStructureList,
-} from "api/mapping";
-import { useEffect, useState } from "react";
-import { TreeNode } from "store/interfaces/IVisualMapping";
+import { generateStructureFromSample } from "api/mapping";
+import { useMemo } from "react";
 import useStore from "store/store";
 import { TreeType } from "store/enums/enums";
 import ContextMenu from "components/VisualMapping/ContextMenu/ContextMenu";
+import MapListModal from "components/VisualMapping/MapListModal/MapListModal";
 
 export default function VisualMapping() {
-  const [input, setInput] = useState<TreeNode | null>(null);
-  const [output, setOutput] = useState<TreeNode | null>(null);
-
   const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
   const { setIsLoading } = useStore((state) => state.loaderSlice);
-  const { clearRowsByType } = useStore((state) => state.visualMappingSlice);
+
+  const { mappingState, clearRowsByType, setXsdContent } = useStore(
+    (state) => state.visualMappingSlice
+  );
+
+  // Преобразуем XSD в дерево только если есть контент
+  const inputTree = useMemo(() => {
+    return mappingState.inputXsdContent?.content
+      ? convertXSDToTreeNode(mappingState.inputXsdContent.content)
+      : null;
+  }, [mappingState.inputXsdContent]);
+
+  const outputTree = useMemo(() => {
+    return mappingState.outputXsdContent?.content
+      ? convertXSDToTreeNode(mappingState.outputXsdContent.content)
+      : null;
+  }, [mappingState.outputXsdContent]);
 
   async function handleFileUpload(file: File, type: TreeType) {
     setIsLoading(true);
 
-    const formData = new FormData();
-    formData.append("sampleDocument", file); //'sampleDocument' is a property that is expected
-
     try {
       const res = await generateStructureFromSample(file);
 
-      //show error modal if there was a message
+      // показать модалку с сообщением, если есть
       if (res.data.message.length > 0) toggleMessageModal(res.data.message);
 
-      const converted = convertXSDToTreeNode(res.data.xsdContent);
+      const schema = res.data.xsd;
+      const fieldToUpdate =
+        type === TreeType.Input ? "inputXsdContent" : "outputXsdContent";
 
-      type === "input" ? setInput(converted) : setOutput(converted);
+      // обновляем стор
+      setXsdContent(schema, fieldToUpdate);
 
+      // очищаем строки маппинга
       clearRowsByType(type);
     } catch (error) {
-      console.log("error occured", error);
+      console.error("error occurred", error);
     } finally {
       setIsLoading(false);
     }
   }
 
-  useEffect(() => {
-    async function getMappingList() {
-      try {
-        const res = await getMappingStructureList();
-
-        console.log(res);
-      } catch (error) {
-        console.log("error retrieving mapping list");
-      }
-    }
-
-    getMappingList();
-  }, []);
-
   return (
     <div className={s.wrapper}>
+      <MapListModal />
+
       <div className={s.navbar}>
-        <Header></Header>
+        <Header />
       </div>
 
       <div className={s.content}>
+        {/* INPUT COLUMN */}
         <div className={s.column}>
           <input
             type="file"
@@ -76,13 +76,17 @@ export default function VisualMapping() {
               }
             }}
           />
-          {input && (
-            <VisualTree treeNode={input} type={TreeType.Input}></VisualTree>
+          {inputTree && (
+            <VisualTree treeNode={inputTree} type={TreeType.Input} />
           )}
         </div>
+
+        {/* OPERATIONS TABLE */}
         <div className={s.column}>
-          <OperationsTable></OperationsTable>
+          <OperationsTable />
         </div>
+
+        {/* OUTPUT COLUMN */}
         <div className={s.column}>
           <input
             type="file"
@@ -93,26 +97,13 @@ export default function VisualMapping() {
               }
             }}
           />
-          {output && (
-            <VisualTree treeNode={output} type={TreeType.Output}></VisualTree>
+          {outputTree && (
+            <VisualTree treeNode={outputTree} type={TreeType.Output} />
           )}
         </div>
       </div>
-      <ContextMenu></ContextMenu>
+
+      <ContextMenu />
     </div>
   );
-}
-
-{
-  /* <ControlButtons></ControlButtons> */
-}
-{
-  /* <Canvas
-        setCanvasInstance={setCanvasInstance}
-        canvasWrapper={canvasWrapper}
-      ></Canvas>
-      <ContextMenu
-        canvasInstance={canvasInstance}
-        canvasWrapper={canvasWrapper}
-      ></ContextMenu> */
 }
