@@ -1,4 +1,4 @@
-import s from "./ModalWindow.module.scss";
+import s from "../ModalWindow.module.scss";
 import useStore from "store/store";
 import { createDraftFromLiveTemplateAPI } from "api/draft";
 import { useState } from "react";

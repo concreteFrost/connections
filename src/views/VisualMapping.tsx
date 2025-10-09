@@ -8,7 +8,8 @@ import { useMemo } from "react";
 import useStore from "store/store";
 import { TreeType } from "store/enums/enums";
 import ContextMenu from "components/VisualMapping/ContextMenu/ContextMenu";
-import MapListModal from "components/VisualMapping/MapListModal/MapListModal";
+import MapListModal from "components/Modals/VisualMapping/MapListModal/MapListModal";
+import OverwriteMappingModal from "components/Modals/VisualMapping/OverwriteMappingModal/OverwriteMappingModal";
 
 export default function VisualMapping() {
   const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
@@ -59,7 +60,7 @@ export default function VisualMapping() {
   return (
     <div className={s.wrapper}>
       <MapListModal />
-
+      <OverwriteMappingModal />
       <div className={s.navbar}>
         <Header />
       </div>

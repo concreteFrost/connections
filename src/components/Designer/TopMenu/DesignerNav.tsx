@@ -1,7 +1,7 @@
 import s from "./DesignerNav.module.scss";
 import Settings from "./Settings/Settings";
 import useStore from "store/store";
-import UpdateFlowModal from "components/Modals/UpdateFlowModal";
+import UpdateFlowModal from "components/Modals/Designer/UpdateFlowModal";
 import FlowsListModal from "components/Modals/FlowsListModal/FlowsListModal";
 import Profile from "components/Profile/Profile";
 import { IconVariants } from "store/enums/enums";

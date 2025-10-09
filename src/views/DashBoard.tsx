@@ -6,7 +6,7 @@ import NotFound from "./NotFound";
 import PushTest from "../components/PushTest/PushTest";
 import Notifications from "../views/Noticifations";
 import FlowServerStatus from "../components/FlowServerStatus/FlowServerStatus";
-import CurrentAlertsModal from "components/Modals/CurrentAlertsModal";
+import CurrentAlertsModal from "components/Modals/Server/CurrentAlertsModal";
 import useMetricsUpdate from "hooks/useMetricsUpdate";
 import useOnDashboardEnter from "hooks/useOnDshboardEnter";
 import VisualMapping from "./VisualMapping";

@@ -1,4 +1,4 @@
-import s from "./ModalWindow.module.scss";
+import s from "../ModalWindow.module.scss";
 import useStore from "store/store";
 import { useEffect, useState } from "react";
 import { getAlertsApi } from "api/ehd";

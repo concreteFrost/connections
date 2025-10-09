@@ -78,3 +78,24 @@ export async function loadMapStructure(
       .catch((e) => reject(e));
   });
 }
+
+export async function deleteMapStructure(mappingReference: string): Promise<
+  AxiosResponse<{
+    success: string;
+    mwssage: string;
+    errorNum: string;
+  }>
+> {
+  return new Promise((resolve, reject) => {
+    return axios(baseUrl + "/Mapping/Delete", {
+      method: "GET",
+      params: { mappingReference: mappingReference },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("iCon_access_token"),
+      },
+    })
+      .then((res) => resolve(res))
+      .catch((e) => reject(e));
+  });
+}

@@ -2,7 +2,7 @@ import s from "./LiveFlows.module.scss";
 import { useEffect, useState } from "react";
 import { getFlowListApi } from "api/flow";
 import useStore from "store/store";
-import CreateTemplateFlowModal from "components/Modals/CreateTemplateFlowModal";
+import CreateTemplateFlowModal from "components/Modals/Designer/CreateTemplateFlowModal";
 import moment from "moment";
 import { FlowConfig } from "store/interfaces/Iflow";
 import { createUpdateDraftFromLiveAPI } from "api/draft";

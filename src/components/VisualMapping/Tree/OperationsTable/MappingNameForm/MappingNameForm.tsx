@@ -30,9 +30,9 @@ export default function MappingNameForm() {
         id="name"
         name="name"
         value={name}
-        onChange={(e) => setName(e.target.value)}
+        onChange={(e) => setMappingName(e.target.value)}
       />
-      <button type="submit">Apply</button>
+      {/* <button type="submit">Apply</button> */}
     </form>
   );
 }

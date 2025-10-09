@@ -5,7 +5,7 @@ import NotFound from "./views/NotFound";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import ConfirmationModal from "./components/Modals/ConfirmationModal";
 import MessageModal from "./components/Modals/MessageModal";
-import ApproveModal from "./components/Modals/ApproveModal";
+import ApproveModal from "./components/Modals/Designer/ApproveModal";
 import { Tooltip } from "react-tooltip";
 import useStore from "./store/store";
 import useBroadcastChannel from "hooks/useBroadcastChannel";

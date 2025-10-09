@@ -42,6 +42,19 @@
         }
         transition: background-color 0.2s ease-in-out;
       }
+
+      .actions_btn_wrapper {
+        display: flex;
+        gap: 4px;
+
+        .load_btn {
+          @include blue-btn;
+        }
+
+        .delete_btn {
+          @include red-btn;
+        }
+      }
     }
   }
 

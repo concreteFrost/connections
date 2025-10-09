@@ -1,4 +1,4 @@
-import s from "./ModalWindow.module.scss";
+import s from "../ModalWindow.module.scss";
 import useStore from "store/store";
 import { useState } from "react";
 import { approveAndReleaseAPI, getDraftApi } from "api/draft";

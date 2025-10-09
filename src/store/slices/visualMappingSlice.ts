@@ -24,7 +24,16 @@ export type VisualMappingSlice = {
 
   //modal state
   isMapListModalVisible: boolean;
-  toggleModal: (isVisible: boolean) => void;
+  toggleMapListModal: (isVisible: boolean) => void;
+
+  confirmModal: {
+    isConfirmModalVisible: boolean;
+    message: string | null;
+    action: (() => void) | null;
+  };
+
+  showConfirmModal: (action: any, message: string) => void;
+  resetConfirmModal: () => void;
 };
 
 const visualMappingSlice = (
@@ -33,7 +42,7 @@ const visualMappingSlice = (
 ): VisualMappingSlice => ({
   mappingState: {
     name: null,
-    reference: "",
+    reference: null,
     inputXsdContent: null,
     operations: [],
     outputXsdContent: null,
@@ -220,11 +229,43 @@ const visualMappingSlice = (
   //modal state
 
   isMapListModalVisible: true,
-  toggleModal: (isVisible: boolean) => {
+  toggleMapListModal: (isVisible: boolean) => {
     set((state: RFState) => ({
       visualMappingSlice: {
         ...state.visualMappingSlice,
         isMapListModalVisible: isVisible,
+      },
+    }));
+  },
+
+  confirmModal: {
+    isConfirmModalVisible: false,
+    action: null,
+    message: null,
+  },
+
+  showConfirmModal: (action: any, message: string) => {
+    set((state: RFState) => ({
+      visualMappingSlice: {
+        ...state.visualMappingSlice,
+        confirmModal: {
+          isConfirmModalVisible: true,
+          action: action,
+          message: message,
+        },
+      },
+    }));
+  },
+
+  resetConfirmModal: () => {
+    set((state: RFState) => ({
+      visualMappingSlice: {
+        ...state.visualMappingSlice,
+        confirmModal: {
+          isConfirmModalVisible: false,
+          action: null,
+          message: null,
+        },
       },
     }));
   },

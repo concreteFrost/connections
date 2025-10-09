@@ -1,4 +1,4 @@
-import s from "./ModalWindow.module.scss";
+import s from "../ModalWindow.module.scss";
 import useStore from "store/store";
 import { useEffect } from "react";
 import { getDraftListApi } from "api/draft";

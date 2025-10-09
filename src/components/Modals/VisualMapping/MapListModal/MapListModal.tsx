@@ -1,15 +1,24 @@
 import { RFState } from "store/types/rfState";
-import s from "./ModalWindow.module.scss";
+import s from "../VisualMappingModal.module.scss";
 import useStore from "store/store";
 import { useEffect, useState } from "react";
 import { MappingList } from "store/interfaces/IVisualMapping";
-import { getMappingStructureList, loadMapStructure } from "api/mapping";
+import {
+  deleteMapStructure,
+  getMappingStructureList,
+  loadMapStructure,
+} from "api/mapping";
 import moment from "moment";
 
 export default function MapListModal() {
-  const { isMapListModalVisible, toggleModal, loadMappingStructure } = useStore(
-    (state: RFState) => state.visualMappingSlice
-  );
+  const { isMapListModalVisible, toggleMapListModal, loadMappingStructure } =
+    useStore((state: RFState) => state.visualMappingSlice);
+
+  const {
+    toggleMessageModal,
+    toggleConfirmationModal,
+    setConfirmationModalActions,
+  } = useStore((state: RFState) => state.modalWindowsSlice);
   const [mappingList, setMappingList] = useState<MappingList[]>([]);
 
   async function fetchMaps() {
@@ -33,11 +42,34 @@ export default function MapListModal() {
     }
   }
 
+  async function handleDeleteMapStructure(mappingReference: string) {
+    try {
+      const res = await deleteMapStructure(mappingReference);
+
+      if (res.data.success) {
+        const filtered = mappingList.filter(
+          (map) => map.reference !== mappingReference
+        );
+        setMappingList(filtered);
+      }
+    } catch (error) {
+      toggleMessageModal("something went wrong");
+    }
+  }
+
+  function showConfirmModal(map: MappingList) {
+    setConfirmationModalActions(() => handleDeleteMapStructure(map.reference));
+    toggleConfirmationModal(
+      true,
+      `You are about to delete ${map.name}. Are you sure?`
+    );
+  }
+
   useEffect(() => {
     if (isMapListModalVisible) {
       fetchMaps();
     }
-  }, []);
+  }, [isMapListModalVisible]);
 
   return (
     <>
@@ -53,17 +85,31 @@ export default function MapListModal() {
                       <th>NAME</th>
                       <th>CREATED</th>
                       <th>LAST ACCESSED</th>
+                      <th>ACTION</th>
                     </tr>
                   </thead>
                   <tbody>
                     {mappingList.map((map: MappingList) => (
-                      <tr
-                        key={map.reference}
-                        onClick={() => handleLoadMapStructure(map.reference)}
-                      >
+                      <tr key={map.reference}>
                         <td>{map.name}</td>
                         <td>{moment(map.created).format("lll")}</td>
                         <td>{moment(map.lastAccessed).format("lll")}</td>
+                        <td className={s.actions_btn_wrapper}>
+                          <button
+                            className={s.load_btn}
+                            onClick={() =>
+                              handleLoadMapStructure(map.reference)
+                            }
+                          >
+                            LOAD
+                          </button>
+                          <button
+                            className={s.delete_btn}
+                            onClick={() => showConfirmModal(map)}
+                          >
+                            DELETE
+                          </button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -74,7 +120,7 @@ export default function MapListModal() {
             </main>
             <footer className={s.modal_footer}>
               <div className={s.buttons_wrapper}>
-                <button onClick={() => toggleModal(false)}>Close</button>
+                <button onClick={() => toggleMapListModal(false)}>Close</button>
               </div>
             </footer>
           </div>
