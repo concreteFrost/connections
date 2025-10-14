@@ -3,20 +3,24 @@ import s from "./MonacoEditor.module.scss";
 import { useRef, useState } from "react";
 import * as monaco from "monaco-editor";
 import { IconVariants } from "store/enums/enums";
-import { connectionsIcons } from "assets/icons/icons";
 import {
   handleCSharpCompletion,
   handleXmlCompletion,
 } from "utils/monaco/completionProvider";
 import { EditorSettings, editorOptions } from "utils/monaco/editorOptions";
+import useStore from "store/store";
+import { RFState } from "store/types/rfState";
 
 interface MonacoEditorProps {
   themeColor: IconVariants;
 }
 
-function MonacoEditor(props: MonacoEditorProps) {
+function MonacoEditor({ themeColor }: MonacoEditorProps) {
+  const { isOpened, setOpened } = useStore(
+    (state: RFState) => state.codeEditorSlice
+  );
   const [settings, setSettings] = useState<EditorSettings>(editorOptions[0]);
-  const [isEditorVisible, setIsEditorVisible] = useState<boolean>(false);
+
   const editorRef = useRef<any>(null);
 
   function setEditorLanguage(e: React.ChangeEvent<HTMLSelectElement>) {
@@ -36,23 +40,8 @@ function MonacoEditor(props: MonacoEditorProps) {
   }
 
   return (
-    <div className={s.wrapper}>
-      <div className={s.icon_wrapper}>
-        <span
-          className={`${s.icon} ${
-            props.themeColor === IconVariants.Dark ? s["dark"] : s["light"]
-          }`}
-          style={{
-            fontSize: "1.5rem",
-            marginTop: "5px",
-          }}
-          onClick={() => setIsEditorVisible(!isEditorVisible)}
-        >
-          {connectionsIcons.code}
-        </span>
-      </div>
-
-      {isEditorVisible ? (
+    <>
+      {isOpened && (
         <div className={s.editor_wrapper}>
           <div className={s.editor_header}>
             <span>Code Editor</span>
@@ -62,22 +51,27 @@ function MonacoEditor(props: MonacoEditorProps) {
                   setEditorLanguage(event)
                 }
               >
-                <option value={editorOptions[0].path}>xml</option>
-                <option value={editorOptions[1].path}>c#</option>
+                <option value={editorOptions[0].path}>c#</option>
+                <option value={editorOptions[1].path}>xml</option>
                 <option value={editorOptions[2].path}>js</option>
                 <option value={editorOptions[3].path}>json</option>
                 <option value={editorOptions[4].path}>html</option>
               </select>
             </div>
             <div className={s.btn_wrapper}>
-              <button onClick={() => setIsEditorVisible(false)}>x</button>
+              <button onClick={() => setOpened(false)}>x</button>
             </div>
           </div>
           <Editor
+            options={{
+              minimap: { enabled: true },
+              wordWrap: "on",
+              suggestOnTriggerCharacters: true,
+            }}
+            className={s.editor}
             onMount={handleEditorDidMount}
             theme="vs-dark"
             defaultLanguage={settings.language}
-            className={s.editor}
             defaultValue={settings.value}
             path={settings.path}
           />
@@ -85,8 +79,8 @@ function MonacoEditor(props: MonacoEditorProps) {
             <button>RUN</button>
           </div>
         </div>
-      ) : null}
-    </div>
+      )}
+    </>
   );
 }
 

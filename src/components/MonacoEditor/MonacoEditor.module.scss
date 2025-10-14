@@ -1,65 +1,46 @@
 @import "style/variables.scss";
 @import "style/mixins.scss";
 
-.wrapper {
-  .icon_wrapper {
-    margin-right: 20px;
+.editor_wrapper {
+  position: fixed;
+  inset: 50px 0px; // top:0; right:0; bottom:0; left:0;
+
+  z-index: 9999;
+
+  width: 600px;
+  height: 500px;
+
+  .editor_header {
+    background-color: $bg-top-menu-btn-default;
+    height: 30px;
     display: flex;
+    align-items: center;
+    align-content: center;
 
-    .icon {
-      &.light {
-        color: white;
-      }
+    span {
+      padding-left: 10px;
+      width: 100%;
+    }
 
-      &.dark {
-        color: $color-node-nav-icon;
+    .btn_wrapper {
+      padding-right: 10px;
+      button {
+        @include red_btn;
       }
-      cursor: pointer;
-      font-size: 2em;
+    }
+
+    .select_wrapper {
+      padding-right: 20px;
     }
   }
 
-  .editor_wrapper {
-    width: 700px;
-    height: 500px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    position: fixed;
-    z-index: 9999;
+  .run_btn_wrapper {
+    position: absolute;
+    right: 20px;
+    bottom: 0;
 
-    .editor_header {
-      background-color: $bg-top-menu-btn-default;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      align-content: center;
-
-      span {
-        padding-left: 10px;
-        width: 100%;
-      }
-
-      .btn_wrapper {
-        padding-right: 10px;
-        button {
-          @include red_btn;
-        }
-      }
-
-      .select_wrapper {
-        padding-right: 20px;
-      }
-    }
-
-    .run_btn_wrapper {
-      position: absolute;
-      right: 20px;
-      bottom: 0;
-
-      button {
-        @include blue_btn;
-      }
+    button {
+      @include blue_btn;
     }
   }
 }

@@ -6,15 +6,16 @@ export interface EditorSettings {
 
 export const editorOptions: Array<EditorSettings> = [
   {
-    path: "script.xml",
-    language: "xml",
-    value: `<?xml version="1.0" encoding="UTF-8"?>`,
-  },
-  {
     path: "script.cs",
     language: "csharp",
     value: `using System;`,
   },
+  {
+    path: "script.xml",
+    language: "xml",
+    value: `<?xml version="1.0" encoding="UTF-8"?>`,
+  },
+
   {
     path: "script.js",
     language: "javascript",

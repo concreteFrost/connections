@@ -6,10 +6,11 @@ import OperationsTable from "components/VisualMapping/Tree/OperationsTable/Opera
 import { generateStructureFromSample } from "api/mapping";
 import { useMemo } from "react";
 import useStore from "store/store";
-import { TreeType } from "store/enums/enums";
+import { IconVariants, TreeType } from "store/enums/enums";
 import ContextMenu from "components/VisualMapping/ContextMenu/ContextMenu";
 import MapListModal from "components/Modals/VisualMapping/MapListModal/MapListModal";
 import OverwriteMappingModal from "components/Modals/VisualMapping/OverwriteMappingModal/OverwriteMappingModal";
+import MonacoEditor from "components/MonacoEditor/MonacoEditor";
 
 export default function VisualMapping() {
   const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
@@ -105,6 +106,7 @@ export default function VisualMapping() {
       </div>
 
       <ContextMenu />
+      <MonacoEditor themeColor={IconVariants.Dark}></MonacoEditor>
     </div>
   );
 }

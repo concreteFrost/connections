@@ -9,6 +9,7 @@ import { AlertSlice } from "../slices/alertSlice";
 import { StatusSlice } from "../slices/statisticsSlice";
 import { LoaderSlice } from "../slices/loaderSlice";
 import { VisualMappingSlice } from "store/slices/visualMappingSlice";
+import { CodeEditorSlice } from "store/slices/codeEditor";
 
 export type RFState = {
   flowSlice: FlowSlice;
@@ -22,4 +23,5 @@ export type RFState = {
   statisticsSlice: StatusSlice;
   loaderSlice: LoaderSlice;
   visualMappingSlice: VisualMappingSlice;
+  codeEditorSlice: CodeEditorSlice;
 };

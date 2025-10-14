@@ -11,6 +11,7 @@ import alertSlice from "./slices/alertSlice";
 import statisticsSlice from "./slices/statisticsSlice";
 import loaderSlice from "./slices/loaderSlice";
 import visualMappingSlice from "./slices/visualMappingSlice";
+import codeEditorSlice from "./slices/codeEditor";
 
 const useStore = createWithEqualityFn<RFState>((set, get) => ({
   flowSlice: flowSlice(get, set),
@@ -24,6 +25,7 @@ const useStore = createWithEqualityFn<RFState>((set, get) => ({
   statisticsSlice: statisticsSlice(get, set),
   loaderSlice: loaderSlice(get, set),
   visualMappingSlice: visualMappingSlice(get, set),
+  codeEditorSlice: codeEditorSlice(get, set),
 }));
 
 export default useStore;

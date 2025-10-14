@@ -36,7 +36,6 @@ function DesignerNav() {
           <VM></VM>
         </section>
         <section className={s.right}>
-          <MonacoEditor themeColor={IconVariants.Dark}></MonacoEditor>
           <PushNotifications themeColor={IconVariants.Dark}></PushNotifications>
           <AlertNotifications
             themeColor={IconVariants.Dark}

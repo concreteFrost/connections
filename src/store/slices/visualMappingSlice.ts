@@ -228,7 +228,8 @@ const visualMappingSlice = (
 
   //modal state
 
-  isMapListModalVisible: true,
+  isMapListModalVisible: false,
+
   toggleMapListModal: (isVisible: boolean) => {
     set((state: RFState) => ({
       visualMappingSlice: {

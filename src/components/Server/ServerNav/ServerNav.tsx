@@ -34,7 +34,6 @@ function ServerNav() {
       <header className={s.title}>CONNECTIONS SERVER DASHBOARD</header>
 
       <div className={s.nav_right_btns_wrapper}>
-        <MonacoEditor themeColor={IconVariants.Light}></MonacoEditor>
         <PushNotifications themeColor={IconVariants.Light}></PushNotifications>
         <AlertNotifications
           themeColor={IconVariants.Light}
