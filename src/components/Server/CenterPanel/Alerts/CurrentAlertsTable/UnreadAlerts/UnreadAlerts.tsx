@@ -1,15 +1,20 @@
-import { Alert } from "store/interfaces/IAlerts"
+import { Alert } from "shared/interfaces/IAlerts";
 
-interface UnreadAlertsProps{
-    alerts: Array<Alert>|undefined,
-    handleMarkAsRead:(alertId: number)=>void,
-    handleAlertDelete:(alrttId:number)=>void,
-    s:any
+interface UnreadAlertsProps {
+  alerts: Array<Alert> | undefined;
+  handleMarkAsRead: (alertId: number) => void;
+  handleAlertDelete: (alrttId: number) => void;
+  s: any;
 }
 
-function UnreadAlerts({alerts,handleMarkAsRead, handleAlertDelete,s} : UnreadAlertsProps){
-    return(
-        <>
+function UnreadAlerts({
+  alerts,
+  handleMarkAsRead,
+  handleAlertDelete,
+  s,
+}: UnreadAlertsProps) {
+  return (
+    <>
       <main>
         <header>Unread</header>
         <table>
@@ -50,8 +55,9 @@ function UnreadAlerts({alerts,handleMarkAsRead, handleAlertDelete,s} : UnreadAle
             )}
           </tbody>
         </table>
-      </main></>
-    )
+      </main>
+    </>
+  );
 }
 
 export default UnreadAlerts;

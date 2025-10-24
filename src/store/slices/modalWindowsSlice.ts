@@ -1,4 +1,4 @@
-import { modalActions } from "store/actions/modalActions";
+import { modalActions } from "store/actions/sharedActions/modalActions";
 
 export type ModalWindows = {
   updateFlowModal: {
@@ -90,30 +90,22 @@ const modalWindowsSlice = (get: any, set: any): ModalWindows => ({
     isVisible: false,
   },
 
-  toggleUpdateFlowModal: modalActions.toggleUpdateFlowModal(get, set),
-  toggleMessageModal: modalActions.toggleMessageModal(get, set),
-  setUpdateFlowSubfolderName: modalActions.setUpdateFlowSubfolderName(get, set),
-  toggleApproveFlowModal: modalActions.toggleApproveFlowModal(get, set),
-  toggleCreateTemplateFlowModal: modalActions.toggleCreateTemplateFlowModal(
-    get,
-    set
-  ),
-  setApproveFlowModalMessage: modalActions.setApproveFlowModalMessage(get, set),
-  setUpdateFlowModalSaveChanges: modalActions.setUpdateFlowModalSaveChanges(
-    get,
-    set
-  ),
-  toggleLoadFlowModal: modalActions.toggleLoadFlowModal(get, set),
-  setUpdateFlowModalActions: modalActions.setUpdateFlowModalActions(get, set),
-  setUpdateFlowModalFlowIdToLoad: modalActions.setUpdateFlowModalFlowIdToLoad(
-    get,
-    set
-  ),
-  toggleConfirmationModal: modalActions.toggleConfirmationModal(get, set),
-  setConfirmationModalActions: modalActions.setConfirmationModalActions(
-    get,
-    set
-  ),
+  toggleUpdateFlowModal: modalActions(get, set).toggleUpdateFlowModal,
+  toggleMessageModal: modalActions(get, set).toggleMessageModal,
+  setUpdateFlowSubfolderName: modalActions(get, set).setUpdateFlowSubfolderName,
+  toggleApproveFlowModal: modalActions(get, set).toggleApproveFlowModal,
+  toggleCreateTemplateFlowModal: modalActions(get, set)
+    .toggleCreateTemplateFlowModal,
+  setApproveFlowModalMessage: modalActions(get, set).setApproveFlowModalMessage,
+  setUpdateFlowModalSaveChanges: modalActions(get, set)
+    .setUpdateFlowModalSaveChanges,
+  toggleLoadFlowModal: modalActions(get, set).toggleLoadFlowModal,
+  setUpdateFlowModalActions: modalActions(get, set).setUpdateFlowModalActions,
+  setUpdateFlowModalFlowIdToLoad: modalActions(get, set)
+    .setUpdateFlowModalFlowIdToLoad,
+  toggleConfirmationModal: modalActions(get, set).toggleConfirmationModal,
+  setConfirmationModalActions: modalActions(get, set)
+    .setConfirmationModalActions,
 });
 
 export default modalWindowsSlice;

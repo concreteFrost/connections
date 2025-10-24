@@ -1,4 +1,4 @@
-import { TreeNode } from "store/interfaces/IVisualMapping";
+import { TreeNode } from "shared/interfaces/IVisualMapping";
 import { decodeBase64, xsdToTree } from "utils/visualMapping/fileToTree";
 
 export type FileData = any;

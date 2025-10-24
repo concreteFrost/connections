@@ -6,7 +6,7 @@ import OperationsTable from "components/VisualMapping/Tree/OperationsTable/Opera
 import { generateStructureFromSample } from "api/mapping";
 import { useMemo } from "react";
 import useStore from "store/store";
-import { IconVariants, TreeType } from "store/enums/enums";
+import { IconVariants, TreeType } from "shared/enums/enums";
 import ContextMenu from "components/VisualMapping/ContextMenu/ContextMenu";
 import MapListModal from "components/Modals/VisualMapping/MapListModal/MapListModal";
 import OverwriteMappingModal from "components/Modals/VisualMapping/OverwriteMappingModal/OverwriteMappingModal";

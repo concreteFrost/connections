@@ -1,6 +1,6 @@
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { IMetrics } from "store/interfaces/IStatistics";
+import { IMetrics } from "shared/interfaces/IStatistics";
 import useStore from "store/store";
 
 export default function useMetricsUpdate() {

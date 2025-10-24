@@ -1,7 +1,7 @@
 import useStore from "store/store";
 import PropertiesInput from "./PropertiesInput/PropertiesInput";
 import s from "./Block.module.scss";
-import { BlockData } from "store/interfaces/IBlock";
+import { BlockData } from "shared/interfaces/IBlock";
 import { useMemo } from "react";
 
 function Block() {

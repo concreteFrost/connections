@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import FlowsItem from "../FlowsItem";
 import { ILeftPanelSections } from "../../LeftPanel";
 import useStore from "store/store";
-import { RFState } from "store/types/rfState";
+import { RFState } from "shared/types/rfState";
 import { BrowserRouter } from "react-router-dom";
 
 const props = {

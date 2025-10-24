@@ -1,6 +1,6 @@
 import useStore from "store/store";
 import s from "./MappingNameForm.module.scss";
-import { RFState } from "store/types/rfState";
+import { RFState } from "shared/types/rfState";
 import { useEffect, useState } from "react";
 
 export default function MappingNameForm() {

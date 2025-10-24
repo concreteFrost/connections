@@ -1,11 +1,11 @@
-import { RFState } from "../../types/rfState";
+import { RFState } from "shared/types/rfState";
 import { BlockData } from "interfaces/IBlock";
 import { BlockParameters } from "interfaces/IBlock";
 import { Visual } from "interfaces/Iflow";
 import { v4 as uuidv4 } from "uuid";
-import { getAccessToken } from "store/actions/storageActions";
+import { getAccessToken } from "store/actions/sharedActions/storageActions";
 import { getDraftListApi } from "api/draft";
-import markerEnd from "../../constants/edgeConst";
+import markerEnd from "shared/constants/edgeConst";
 import ConnectionsEdge from "interfaces/IConnectionsEdges";
 
 export function initializeFlow<IFlowData>(
@@ -36,7 +36,6 @@ export function initializeFlow<IFlowData>(
 }
 
 export function setFlow(data: any, set: any, get: () => RFState) {
-  console.log(data);
   set((state: RFState) => ({
     flowSlice: {
       ...state.flowSlice,

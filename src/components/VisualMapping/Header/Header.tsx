@@ -2,7 +2,7 @@ import { connectionsIcons } from "assets/icons/icons";
 import s from "./Header.module.scss";
 import { useNavigate } from "react-router";
 import useStore from "store/store";
-import { RFState } from "store/types/rfState";
+import { RFState } from "shared/types/rfState";
 
 function Header() {
   const { isOpened, setOpened } = useStore(

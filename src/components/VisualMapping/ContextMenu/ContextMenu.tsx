@@ -2,7 +2,7 @@ import useRightMouseButtonClick from "hooks/useRightMouseButtonClick";
 import { useRef } from "react";
 import s from "./ContextMenu.module.scss";
 import useStore from "store/store";
-import { RFState } from "store/types/rfState";
+import { RFState } from "shared/types/rfState";
 import { saveMappingStructure } from "api/mapping";
 
 export default function ContextMenu() {

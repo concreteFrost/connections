@@ -1,5 +1,5 @@
 import TreeItem from "./TreeItem/TreeItem";
-import { TreeNode } from "store/interfaces/IVisualMapping";
+import { TreeNode } from "shared/interfaces/IVisualMapping";
 
 export default function VisualTree({
   treeNode,

@@ -2,7 +2,7 @@ import { v4 as uuid } from "uuid";
 import s from "./TreeItem.module.scss";
 import clsx from "clsx";
 import { useState } from "react";
-import { TreeNode } from "store/interfaces/IVisualMapping";
+import { TreeNode } from "shared/interfaces/IVisualMapping";
 
 export default function TreeItem({
   item,

@@ -1,4 +1,4 @@
-import { useCallback, MouseEvent as ReactMouseEvent } from "react";
+import { useCallback } from "react";
 import ReactFlow, {
   Background,
   BackgroundVariant,
@@ -7,7 +7,7 @@ import ReactFlow, {
 import { shallow } from "zustand/shallow";
 import useStore from "store/store";
 import { selector } from "utils/selector";
-import { nodeTypes, edgeTypes } from "store/types/flowElements";
+import { nodeTypes, edgeTypes } from "store/flowElements";
 import { Edge } from "reactflow";
 
 function Flow(props: any) {
@@ -16,25 +16,25 @@ function Flow(props: any) {
     shallow
   );
 
-  const { setInstance, setFlowWrapper } = useStore(
-    (state) => state.designerVisualElementsSlice
-  );
   const { snapToGrid, snapStep } = useStore(
     (state) => state.topPanelSlice.settings
   );
 
-  const flowSlice = useStore((state) => state.flowSlice);
+  const {
+    flow,
+    reactFlowInstance,
+    reactFlowWrapper,
+    setFlowWrapper,
+    setInstance,
+  } = useStore((state) => state.flowSlice);
   const bgView = useStore((state) => state.designerVisualElementsSlice.view);
 
   const onNodesChange = useCallback(
     (changes: any) => {
-      const updatedBlocks = applyNodeChanges(
-        changes,
-        flowSlice.flow.visual.blocks
-      );
+      const updatedBlocks = applyNodeChanges(changes, flow.visual.blocks);
       onBlocksChange(updatedBlocks);
     },
-    [flowSlice.flow.visual.blocks]
+    [flow.visual.blocks]
   );
 
   return (
@@ -45,8 +45,8 @@ function Flow(props: any) {
     >
       <ReactFlow
         onInit={setInstance}
-        nodes={flowSlice.flow.visual.blocks}
-        edges={flowSlice.flow.visual.edges as Edge[]}
+        nodes={flow.visual.blocks}
+        edges={flow.visual.edges as Edge[]}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}

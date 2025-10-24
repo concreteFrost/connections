@@ -1,23 +1,21 @@
 import GroupsTable from "../GroupsTable";
-import {
-  render,
-  screen,
-  waitFor,
-  act,
-} from "@testing-library/react";
+import { render, screen, waitFor, act } from "@testing-library/react";
 import useStore from "store/store";
-import { RFState } from "store/types/rfState";
+import { RFState } from "shared/types/rfState";
 import userEvent from "@testing-library/user-event";
 import { mockedGroupsList } from "__mocks__/mockGroupsList";
 
-const toggleConfirmationModal = jest.spyOn(useStore.getState().modalWindowsSlice, "toggleConfirmationModal");
+const toggleConfirmationModal = jest.spyOn(
+  useStore.getState().modalWindowsSlice,
+  "toggleConfirmationModal"
+);
 
 describe("UserTable component", () => {
   beforeEach(() => {
     useStore.setState((state: RFState) => ({
       securitySlice: {
         ...state.securitySlice,
-        groupList: mockedGroupsList
+        groupList: mockedGroupsList,
       },
     }));
   });
@@ -46,7 +44,9 @@ describe("UserTable component", () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText("EDIT ALLNOTIFICATIONSGROUP")).toBeInTheDocument();
+      expect(
+        screen.getByText("EDIT ALLNOTIFICATIONSGROUP")
+      ).toBeInTheDocument();
     });
   });
 
@@ -72,7 +72,7 @@ describe("UserTable component", () => {
     render(<GroupsTable />);
 
     const deleteGroupBtn = screen.queryByTestId(
-      'test_delete_AllNotificationsGroup_btn'
+      "test_delete_AllNotificationsGroup_btn"
     ) as HTMLButtonElement;
 
     expect(deleteGroupBtn).toBeInTheDocument();
@@ -82,7 +82,7 @@ describe("UserTable component", () => {
     });
 
     await waitFor(() => {
-      expect(toggleConfirmationModal).toHaveBeenCalledTimes(1)
+      expect(toggleConfirmationModal).toHaveBeenCalledTimes(1);
     });
   });
 });

@@ -1,6 +1,6 @@
 import axios from "axios";
-import { baseUrl } from "store/constants/baseUrl";
-import { Notification, Subscription } from "store/interfaces/INotification";
+import { baseUrl } from "shared/constants/baseUrl";
+import { Notification, Subscription } from "shared/interfaces/INotification";
 
 export function getNotificationTypesAPI() {
   return new Promise((resolve, reject) => {

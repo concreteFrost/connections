@@ -1,20 +1,18 @@
-import { RFState } from "../types/rfState";
+import { RFState } from "shared/types/rfState";
 import { Node } from "react-flow-renderer";
-import initialNodes from "../nodes";
-import initialEdges from "../edges";
-import { initializeFlow } from "store/actions/utils/flowUtils";
+import initialNodes from "store/nodes";
+import initialEdges from "store/edges";
+import { initializeFlow } from "utils/flowUtils";
 import flowActions from "store/actions/designerActions/flowActions";
 import blockActions from "store/actions/designerActions/blockActions";
 import groupActions from "store/actions/designerActions/groupActions";
 import edgeActions from "store/actions/designerActions/edgesActions";
 import substitutionsActions from "store/actions/designerActions/substitutionsActions";
-import blocksWidgetActions from "store/actions/designerActions/blocksWidgetActions";
 import blockParametersActions from "store/actions/designerActions/blockParametersActions";
 import { FlowStructure } from "interfaces/Iflow";
 import { Directive } from "interfaces/IAlerts";
 import { IEdgeDraggable } from "components/Designer/RightPanel/EdgesEditor/EdgesEditor";
 import { NodeType } from "interfaces/INode";
-import leftPanelActions from "store/actions/designerActions/leftPanelActions";
 import nodeActions from "store/actions/designerActions/nodeActions";
 import { Connection, EdgeChange } from "reactflow";
 import tabsActions from "store/actions/designerActions/tabsActions";
@@ -30,6 +28,9 @@ export type FlowSlice = {
 
   //directives
   directivesList: Directive[];
+
+  reactFlowInstance: any;
+  reactFlowWrapper: any;
 
   //tabs acttions
   addFlowToTabs: (flow: FlowStructure) => void;
@@ -53,15 +54,11 @@ export type FlowSlice = {
   onBlockChange: (blocks: Node<any>[]) => void;
   // getBlockProperties: () => void;
   setDirective: (directive: string) => void;
-  setStringParameter: (parameterName: string, value: string) => void;
-  setIntegerParameter: (parameterName: string, value: number) => void;
-  setFloatParameter: (parameterName: string, value: number) => void;
-  setBooleanParameter: (parameterName: string, value: boolean) => void;
-  setBooleanYNParameter: (parameterName: string, value: string) => void;
-  setDateTimeParameter: (parameterName: string, value: Date) => void;
-  setExecutionParameter: (parameterName: string, value: string) => void;
-  setBigIntParameter: (parameterName: string, value: BigInt) => void;
-
+  setParameterValue: (
+    propertyName: string,
+    value: any,
+    options?: string
+  ) => void;
   //Multiple Selected Blocks Actions
   setSelectedBlocksColors: (color: string) => void;
   allignSelectedBlocks: (allignment: "x" | "y") => void;
@@ -90,9 +87,8 @@ export type FlowSlice = {
   closeFlow: () => void;
   createFlowFromTemplate: (flowConfiguration: any) => void;
   createUpdateDraftFromLiveTemplate: (flowConfiguration: any) => void;
-
-  //Draft Actions
-  setCanApprove: (canApprove: boolean) => void;
+  setInstance: (instance: any) => void;
+  setFlowWrapper: (wrapper: any) => void;
 
   //Substitutions Actions
   addSubstitutionKey: (key: string) => void;
@@ -118,88 +114,80 @@ const flowSlice = (get: () => RFState, set: any): FlowSlice => ({
 
   directivesList: [],
 
-  //tabs actions
-  addFlowToTabs: tabsActions.addFlowToTabs(get, set),
-  setFlowNameInTabs: tabsActions.setFlowNameInTabs(get, set),
-  takeFlowSnapshot: tabsActions.takeFlowSnapshot(get, set),
-  getFlowFromSnapshot: tabsActions.getFlowFromSnapshot(get, set),
-  clearFlowTabs: tabsActions.clearFlowTabs(get, set),
-  removeFromTab: tabsActions.removeFromTab(get, set),
+  reactFlowInstance: null,
+  reactFlowWrapper: null,
 
-  //Base Actions
-  setBlockName: blockActions.setBlockName(get, set),
-  setBlockDescription: blockActions.setBlockDescription(get, set),
-  setBlockColor: blockActions.setBlockColor(get, set),
-  // getBlockProperties: baseActtions.getBlockProperties(get, set),
+  //#region Tabs Actions
+  addFlowToTabs: tabsActions(get, set).addFlowToTabs,
+  setFlowNameInTabs: tabsActions(get, set).setFlowNameInTabs,
+  takeFlowSnapshot: tabsActions(get, set).takeFlowSnapshot,
+  getFlowFromSnapshot: tabsActions(get, set).getFlowFromSnapshot,
+  clearFlowTabs: tabsActions(get, set).clearFlowTabs,
+  removeFromTab: tabsActions(get, set).removeFromTab,
+  //#endregion
 
-  //Block Actions
-  addBlock: blockActions.addBlock(get, set),
-  createBlockCopy: blockActions.createBlockCopy(get, set),
-  deleteBlock: blockActions.deleteBlock(get, set),
-  getBlockList: leftPanelActions.getBlocksList(set),
-  resetSelectedBlocks: blockActions.resetSelectedBlocks(get, set),
-  setDirective: blockActions.setDirective(get, set),
-  setStringParameter: blockParametersActions.setStringParameter(get, set),
-  setIntegerParameter: blockParametersActions.setIntegerParameter(get, set),
-  setFloatParameter: blockParametersActions.setFloatParameter(get, set),
-  setBooleanParameter: blockParametersActions.setBooleanParameter(get, set),
-  setBooleanYNParameter: blockParametersActions.setBooleanYNParameter(get, set),
-  setDateTimeParameter: blockParametersActions.setDateTimeParameter(get, set),
-  setExecutionParameter: blockParametersActions.setExecutionParameter(get, set),
-  setBigIntParameter: blockParametersActions.setBigIntParameter(get, set),
-  addCustomParameter: blockParametersActions.addCustomParameter(get, set),
-  setSelectedExtendedParameter:
-    blockParametersActions.setSelectedExtendedParameter(get, set),
-  deleteExtendedParameter: blockParametersActions.deleteExtendedParameter(
-    get,
-    set
-  ),
+  //#region Block Actions
+  addBlock: blockActions(get, set).addBlock,
+  createBlockCopy: blockActions(get, set).createBlockCopy,
+  deleteBlock: blockActions(get, set).deleteBlock,
+  getBlockList: blockActions(get, set).getBlocksList,
+  resetSelectedBlocks: blockActions(get, set).resetSelectedBlocks,
+  setDirective: blockActions(get, set).setDirective,
+
+  setParameterValue: blockParametersActions(get, set).setParameterValue,
+  addCustomParameter: blockParametersActions(get, set).addCustomParameter,
+  setSelectedExtendedParameter: blockParametersActions(get, set)
+    .setSelectedExtendedParameter,
+  deleteExtendedParameter: blockParametersActions(get, set)
+    .deleteExtendedParameter,
   onBlockChange: nodeActions.onBlocksChange(get, set),
 
-  //Group Actions
-  addBlockGroup: groupActions.addGroup(get, set),
-  showGroupModal: groupActions.showGroupModal(set),
-  setGroupColor: groupActions.setGroupColor(set),
-  setGroupLabel: groupActions.setGroupLabel(set),
-  hideAllGroupModals: groupActions.hideAllGroupModals(set),
-  deleteGroupOnButtonClick: groupActions.deleteGroupOnButtonClick(get, set),
+  setBlockName: blockActions(get, set).setBlockName,
+  setBlockDescription: blockActions(get, set).setBlockDescription,
+  setBlockColor: blockActions(get, set).setBlockColor,
+  //#endregion
 
-  //Edges Actions
-  deleteEdge: edgeActions.deleteEdge(get, set),
-  reorderEdgesPriority: edgeActions.reorderEdgesPriority(get, set),
-  onEdgesConnect: edgeActions.onEdgesConnect(get, set),
-  onChange: edgeActions.onEdgesChange(get, set),
+  //#region Group Actions
+  addBlockGroup: groupActions(get, set).addGroup,
+  showGroupModal: groupActions(get, set).showGroupModal,
+  setGroupColor: groupActions(get, set).changeGroupColor,
+  setGroupLabel: groupActions(get, set).changeGroupLabel,
+  hideAllGroupModals: groupActions(get, set).hideAllGroupModals,
+  deleteGroupOnButtonClick: groupActions(get, set).deleteGroupOnButtonClick,
+  setSelectedBlocksColors: groupActions(get, set).setSelectedBlocksColors,
+  allignSelectedBlocks: groupActions(get, set).allignSelectedBlocks,
+  deleteMultupleBlocks: groupActions(get, set).deleteMultipleBlocks,
+  //#endregion
 
-  //Flow Actions
+  //#region Edges Actions
+  deleteEdge: edgeActions(get, set).deleteEdge,
+  reorderEdgesPriority: edgeActions(get, set).reorderEdgesPriority,
+  onEdgesConnect: edgeActions(get, set).onEdgesConnect,
+  onChange: edgeActions(get, set).onEdgesChange,
+  //#endregion
 
-  createFlow: flowActions.createFlow(get, set),
-  createFlowFromTemplate: flowActions.createFlowFromTemplate(get, set),
-  createUpdateDraftFromLiveTemplate:
-    flowActions.createUpdateDraftFromLiveTemplate(get, set),
-  closeFlow: flowActions.closeFlow(get, set),
+  //#region Flow actions
+  createFlow: flowActions(get, set).createFlow,
+  createFlowFromTemplate: flowActions(get, set).createFlowFromTemplate,
+  createUpdateDraftFromLiveTemplate: flowActions(get, set)
+    .createUpdateDraftFromLiveTemplate,
+  closeFlow: flowActions(get, set).closeFlow,
+  saveDraftFlow: flowActions(get, set).saveDraftFlow,
+  loadFlowFromDraft: flowActions(get, set).loadFlowFromDraft,
+  setFlowName: flowActions(get, set).setFlowName,
+  setFlowVersion: flowActions(get, set).setFlowVersion,
+  setFlowIsEnabled: flowActions(get, set).setFlowIsEnabled,
+  // sets instance of the flow on flow init
+  setInstance: flowActions(get, set).setInstance,
+  // added ref to get correct coordinates
+  setFlowWrapper: flowActions(get, set).setFlowWrapper,
+  //#endregion
 
-  saveDraftFlow: flowActions.saveDraftFlow(get, set),
-
-  loadFlowFromDraft: flowActions.loadFlowFromDraft(get, set),
-  setFlowName: flowActions.setFlowName(get, set),
-  setFlowVersion: flowActions.setFlowVersion(get, set),
-  setFlowIsEnabled: flowActions.setFlowIsEnabled(get, set),
-
-  //Draft Actions
-  setCanApprove: flowActions.setCanApprove(get, set),
-
-  //Substitution Actions
-  addSubstitutionKey: substitutionsActions.addSubstitutionKey(get, set),
-  addConfig: substitutionsActions.addConfig(get, set),
-  deleteSubstitution: substitutionsActions.deleteSubstitution(get, set),
-
-  //Multple Selected Blocks Actions
-  setSelectedBlocksColors: blocksWidgetActions.setSelectedBlocksColors(
-    get,
-    set
-  ),
-  allignSelectedBlocks: blocksWidgetActions.allignSelectedBlocks(get, set),
-  deleteMultupleBlocks: blocksWidgetActions.deleteMultipleBlocks(get, set),
+  //#region Substitution Actions
+  addSubstitutionKey: substitutionsActions(get, set).addSubstitutionKey,
+  addConfig: substitutionsActions(get, set).addConfig,
+  deleteSubstitution: substitutionsActions(get, set).deleteSubstitution,
+  //#endregion
 });
 
 export default flowSlice;

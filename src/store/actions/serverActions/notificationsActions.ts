@@ -1,6 +1,6 @@
 import { getNotificationTypesAPI, getNotificationsAPI } from "api/notification";
 import { Notification, NotificationType } from "interfaces/INotification";
-import { RFState } from "../types/rfState";
+import { RFState } from "shared/types/rfState";
 
 const getNotificationList =
   (get: () => RFState, set: any) =>

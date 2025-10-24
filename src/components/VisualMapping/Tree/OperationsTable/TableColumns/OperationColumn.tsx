@@ -1,7 +1,7 @@
-import { TreeType } from "store/enums/enums";
-import { MappingField } from "store/interfaces/IVisualMapping";
+import { TreeType } from "shared/enums/enums";
+import { MappingField } from "shared/interfaces/IVisualMapping";
 import useStore from "store/store";
-import { RFState } from "store/types/rfState";
+import { RFState } from "shared/types/rfState";
 import s from "./Column.module.scss";
 import clsx from "clsx";
 

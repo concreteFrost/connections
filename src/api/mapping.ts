@@ -1,10 +1,10 @@
 import axios, { AxiosResponse } from "axios";
-import { baseUrl } from "store/constants/baseUrl";
+import { baseUrl } from "shared/constants/baseUrl";
 import {
   MappingList,
   MappingState,
   SchemaDocument,
-} from "store/interfaces/IVisualMapping";
+} from "shared/interfaces/IVisualMapping";
 
 export async function generateStructureFromSample(
   file: File | Blob

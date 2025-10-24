@@ -25,7 +25,7 @@ export const useNodeDrop = () => {
 export const useNodeDrag = (props: any) => {
   const addBlock = useStore((state) => state.flowSlice.addBlock);
   const { reactFlowInstance, reactFlowWrapper } = useStore(
-    (state) => state.designerVisualElementsSlice
+    (state) => state.flowSlice
   );
 
   function onDragEnd(event: any) {

@@ -3,8 +3,8 @@ import {
   FlowStatus,
   FlowStatusCapital,
   IChartData,
-} from "store/interfaces/IStatistics";
-import { RFState } from "store/types/rfState";
+} from "shared/interfaces/IStatistics";
+import { RFState } from "shared/types/rfState";
 
 const MAX_CHART_DATA_TO_STORE = 100;
 

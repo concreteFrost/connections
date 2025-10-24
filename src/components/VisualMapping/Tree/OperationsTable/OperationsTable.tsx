@@ -1,8 +1,8 @@
 import s from "./OperationsTable.module.scss";
 import TableRow from "./TableRow/TableRow";
-import { Operations } from "store/interfaces/IVisualMapping";
+import { Operations } from "shared/interfaces/IVisualMapping";
 import useStore from "store/store";
-import { RFState } from "store/types/rfState";
+import { RFState } from "shared/types/rfState";
 import MappingNameForm from "./MappingNameForm/MappingNameForm";
 
 export default function OperationsTable() {

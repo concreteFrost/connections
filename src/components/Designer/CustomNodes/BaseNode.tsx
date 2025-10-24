@@ -3,10 +3,10 @@ import useStore from "store/store";
 import { useEffect, useMemo, useState, useCallback } from "react";
 import { connectionsIcons } from "assets/icons/icons";
 import { Position, Handle } from "react-flow-renderer";
-import { isDarkBackground } from "store/actions/utils/nodeUtils";
+import { isDarkBackground } from "utils/nodeUtils";
 import { Node, NodeProps } from "reactflow";
-import { Directive } from "store/interfaces/IAlerts";
-import { BlockData } from "store/interfaces/IBlock";
+import { Directive } from "shared/interfaces/IAlerts";
+import { BlockData } from "shared/interfaces/IBlock";
 import { shallow } from "zustand/shallow";
 import React from "react";
 
@@ -35,7 +35,7 @@ const BaseNode = (props: NodeProps) => {
     shallow
   );
 
-  const block = blockData.find((b) => b.blockIdentifier === props.id);
+  const block = blockData.find((b: any) => b.blockIdentifier === props.id);
   const blockName = block?.blockType;
   const blockLabel = block?.blockLabel;
 

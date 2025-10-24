@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Subscription } from "store/interfaces/INotification";
+import { Subscription } from "shared/interfaces/INotification";
 import { enableClientNotificationsAPI } from "api/notification";
 import { getVapidKeysAPI } from "api/security";
 import { enableClientFlowStatusAPI, enableClientMetricsApi } from "api/data";

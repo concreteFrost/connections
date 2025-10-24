@@ -1,5 +1,5 @@
 // @flow
-import { LoadedFlow } from "store/interfaces/Iflow";
+import { LoadedFlow } from "shared/interfaces/Iflow";
 import useStore from "store/store";
 import { deleteDraftFlowAPI } from "api/draft";
 import moment from "moment";

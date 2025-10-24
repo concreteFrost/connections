@@ -1,4 +1,4 @@
-import { NodeType } from "store/interfaces/INode";
+import { NodeType } from "shared/interfaces/INode";
 import s from "./NodeListItem.module.scss";
 import { connectionsIcons } from "assets/icons/icons";
 import useStore from "store/store";

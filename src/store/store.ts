@@ -1,5 +1,5 @@
 import { createWithEqualityFn } from "zustand/traditional";
-import { RFState } from "./types/rfState";
+import { RFState } from "shared/types/rfState";
 import topPanelSlice from "./slices/topPanelSlice";
 import modalWindowsSlice from "./slices/modalWindowsSlice";
 import flowSlice from "./slices/flowSlice";

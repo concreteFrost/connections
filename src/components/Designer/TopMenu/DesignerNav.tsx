@@ -4,7 +4,7 @@ import useStore from "store/store";
 import UpdateFlowModal from "components/Modals/Designer/UpdateFlowModal";
 import FlowsListModal from "components/Modals/FlowsListModal/FlowsListModal";
 import Profile from "components/Profile/Profile";
-import { IconVariants } from "store/enums/enums";
+import { IconVariants } from "shared/enums/enums";
 import PushNotifications from "components/PushNotifications/PushNotifications";
 import AlertNotifications from "components/AlertsNotifications/AlertNotifications";
 import MonacoEditor from "components/MonacoEditor/MonacoEditor";

@@ -1,9 +1,10 @@
 import s from "./Section.module.scss";
 import NodeListItem from "../NodeListItem/NodeListItem";
-import { NodeType } from "store/interfaces/INode";
+import { NodeType } from "shared/interfaces/INode";
 import { connectionsIcons } from "assets/icons/icons";
 import { memo, useState } from "react";
 import useStore from "store/store";
+import { RFState } from "shared/types/rfState";
 
 interface SectionProps {
   title: string;
@@ -14,7 +15,7 @@ interface SectionProps {
 function Section(props: SectionProps) {
   //returns filtered blocks that has matched type provided in props
 
-  const blockList = useStore((state) => state.flowSlice.blockList);
+  const blockList = useStore((state: RFState) => state.flowSlice.blockList);
   const filteredData = Object.entries(blockList)
     .filter(
       ([key, val]: [string, NodeType]) =>

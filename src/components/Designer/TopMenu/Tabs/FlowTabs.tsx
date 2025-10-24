@@ -1,7 +1,7 @@
 import useStore from "store/store";
 import s from "./FlowTabs.module.scss";
-import { RFState } from "store/types/rfState";
-import { FlowStructure } from "store/interfaces/Iflow";
+import { RFState } from "shared/types/rfState";
+import { FlowStructure } from "shared/interfaces/Iflow";
 
 function FlowTabs() {
   const {

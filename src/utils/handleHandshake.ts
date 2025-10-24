@@ -1,4 +1,4 @@
-import { Registration } from "../store/interfaces/IServer";
+import { Registration } from "../shared/interfaces/IServer";
 import { keepAliveAPI } from "../api/server";
 
 export async function handleHandShake() {

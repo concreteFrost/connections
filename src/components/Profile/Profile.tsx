@@ -1,4 +1,4 @@
-import { clearUserData } from "store/actions/storageActions";
+import { clearUserData } from "store/actions/sharedActions/storageActions";
 import { useNavigate } from "react-router-dom";
 import { connectionsIcons } from "assets/icons/icons";
 import { useState, useRef } from "react";
@@ -6,7 +6,7 @@ import s from "./Profile.module.scss";
 import { getMeAPI } from "api/security";
 import EditUserModal from "../Modals/UserModals/EditUserModal/EditUserModal";
 import useStore from "store/store";
-import { IconVariants } from "store/enums/enums";
+import { IconVariants } from "shared/enums/enums";
 import useEscapeKeyHandler from "hooks/useEscapeKeyHandler";
 import useOutsideMouseClick from "hooks/useOutsideMouseClick";
 import { disableClientNotificationsAPI } from "api/notification";

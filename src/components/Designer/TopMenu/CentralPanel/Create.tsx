@@ -1,4 +1,4 @@
-import { FlowStructure } from "store/interfaces/Iflow";
+import { FlowStructure } from "shared/interfaces/Iflow";
 import s from "../DesignerNav.module.scss";
 import useStore from "store/store";
 

@@ -1,6 +1,6 @@
 import React, { RefObject } from "react";
 import Section from "./Section/Section";
-import { nodeGroup } from "store/constants/nodeConst";
+import { nodeGroup } from "shared/constants/nodeConst";
 import s from "../LeftPanel.module.scss";
 import SearchBlock from "./SearchBlockInput/SearchBlockInput";
 

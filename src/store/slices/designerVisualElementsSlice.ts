@@ -1,14 +1,9 @@
 import { BackgroundVariant } from "react-flow-renderer";
-import { RFState } from "store/types/rfState";
-import tooltipActions from "store/actions/tooltipActions";
-import substitutionsActions from "store/actions/designerActions/substitutionsActions";
-import valueEditorActions from "store/actions/designerActions/valueEditorActions";
-import { getUserSettingsData } from "store/actions/storageActions";
+import { RFState } from "shared/types/rfState";
+import { getUserSettingsData } from "store/actions/sharedActions/storageActions";
+import designerVisualElementsActions from "store/actions/designerActions/designerVisualElementsActions";
 
 export type DesignerVisualElementsSlice = {
-  reactFlowInstance: any;
-  reactFlowWrapper: any;
-
   substitutionsPanel: {
     isCollapsed: boolean;
   };
@@ -24,8 +19,7 @@ export type DesignerVisualElementsSlice = {
     text: string;
   };
   view: BackgroundVariant;
-  setInstance: (instance: any) => void;
-  setFlowWrapper: (wrapper: any) => void;
+
   setTooltipText: (text: string) => void;
   toggleSubstitutionsPanel: () => void;
   getParameterValue: (parameterName: string, value: string) => void;
@@ -39,8 +33,6 @@ const designerVisualElementsSlice = (
   get: () => RFState,
   set: any
 ): DesignerVisualElementsSlice => ({
-  reactFlowInstance: null,
-  reactFlowWrapper: null,
   view: designerSettings?.canvasView,
   tooltip: {
     text: "",
@@ -56,32 +48,12 @@ const designerVisualElementsSlice = (
     substitutionAddError: "",
   },
 
-  // sets instance of the flow on flow init
-  setInstance: (instance: any) => {
-    set((state: RFState) => ({
-      designerVisualElementsSlice: {
-        ...state.designerVisualElementsSlice,
-        reactFlowInstance: instance,
-      },
-    }));
-  },
+  setTooltipText: designerVisualElementsActions(get, set).setTooltipText,
+  toggleSubstitutionsPanel: designerVisualElementsActions(get, set)
+    .toggleSubstitutionsPanel,
 
-  // added ref to get correct coordinates
-  setFlowWrapper: (wrapper: any) => {
-    set((state: RFState) => ({
-      designerVisualElementsSlice: {
-        ...state.designerVisualElementsSlice,
-        reactFlowWrapper: wrapper,
-      },
-    }));
-  },
-  setTooltipText: tooltipActions.setTooltipText(get, set),
-  toggleSubstitutionsPanel: substitutionsActions.toggleSubstitutionsPanel(
-    get,
-    set
-  ),
-  getParameterValue: valueEditorActions.getParameterValue(set),
-  setParameterValue: valueEditorActions.setParameterValue(get, set),
+  getParameterValue: designerVisualElementsActions(get, set).getParameterValue,
+  setParameterValue: designerVisualElementsActions(get, set).setParameterValue,
 });
 
 export default designerVisualElementsSlice;

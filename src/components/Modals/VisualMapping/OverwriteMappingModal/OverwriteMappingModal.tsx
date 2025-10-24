@@ -1,4 +1,4 @@
-import { RFState } from "store/types/rfState";
+import { RFState } from "shared/types/rfState";
 import s from "../VisualMappingModal.module.scss";
 import useStore from "store/store";
 

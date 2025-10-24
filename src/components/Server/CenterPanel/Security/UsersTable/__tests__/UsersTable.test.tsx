@@ -1,12 +1,7 @@
 import UsersTable from "../UsersTable";
-import {
-  render,
-  screen,
-  waitFor,
-  act,
-} from "@testing-library/react";
+import { render, screen, waitFor, act } from "@testing-library/react";
 import useStore from "store/store";
-import { RFState } from "store/types/rfState";
+import { RFState } from "shared/types/rfState";
 import userEvent from "@testing-library/user-event";
 import { mockedUsers } from "__mocks__/mockUsersList";
 

@@ -1,15 +1,50 @@
-import { BlockData } from "interfaces/IBlock";
-import { RFState } from "../../types/rfState";
+import { BlockData, BlockDefaultParameters } from "interfaces/IBlock";
+import { RFState } from "shared/types/rfState";
 import { Node } from "react-flow-renderer";
-import { getSelectedBlock } from "../utils/blockUtils";
+import { getSelectedBlock } from "../../../utils/blockUtils";
 import { v4 as uuidv4 } from "uuid";
 import { NodeType } from "interfaces/INode";
 import ConnectionsEdge from "interfaces/IConnectionsEdges";
-import { Visual } from "store/interfaces/Iflow";
+import { Visual } from "shared/interfaces/Iflow";
+import { mockBlocks } from "__mocks__/mockBlock";
 
-const addBlock =
-  (get: () => RFState, set: any) =>
-  (type: NodeType, posX: number, posY: number) => {
+function setBlockParams(sourceBlocks: any, blocksToUpdate: NodeType[]) {
+  for (let d of sourceBlocks) {
+    blocksToUpdate.push({
+      type: "pointer",
+      visualData: {
+        color: "#FFFFFF",
+        icon: d.name.toLowerCase().split(" ").join("_"),
+      },
+      data: {
+        name: d.name,
+        blockVersion: d.blockVersion,
+        blockLabel: d.name,
+        blockType: d.name,
+        category: d.category,
+        description: d.description,
+        typeName: d.libraryType,
+        baseTypeName: d.category,
+        ehDirective: "",
+        parameters: d.parameters.map((parameter: BlockDefaultParameters) => {
+          return {
+            name: parameter.name,
+            value: parameter.parameterDefault,
+            required: parameter.constraints > 0 ? true : false,
+            format: parameter.dataType,
+            description: parameter.description,
+          };
+        }),
+        extendedParameters: [],
+      },
+    });
+  }
+
+  return blocksToUpdate;
+}
+
+export const blockActions = (get: () => RFState, set: any) => ({
+  addBlock: (type: NodeType, posX: number, posY: number) => {
     const id = uuidv4();
     const newNode = {
       data: { ...type.data, blockIdentifier: id },
@@ -29,7 +64,7 @@ const addBlock =
             blocks: [
               ...state.flowSlice.flow.visual.blocks,
               {
-                id: id,
+                id,
                 type: newNode.type,
                 data: newNode.visualData,
                 position: newNode.position,
@@ -41,40 +76,29 @@ const addBlock =
         },
       },
     }));
-  };
-
-const createBlockCopy =
-  (get: () => RFState, set: any) => (posX: number, posY: number) => {
-    let filteredBlocks: Array<BlockData> =
-      get().flowSlice.flow.blockData.filter(
-        (block: BlockData) =>
-          block.blockIdentifier === getSelectedBlock(get().flowSlice).id
-      );
+  },
+  createBlockCopy: (posX: number, posY: number) => {
+    const selectedId = getSelectedBlock(get().flowSlice).id;
+    const filteredBlocks = get().flowSlice.flow.blockData.filter(
+      (block: BlockData) => block.blockIdentifier === selectedId
+    );
     const filteredVisualBlocks = get().flowSlice.flow.visual.blocks.filter(
       (x) => x.selected
     );
 
     const id = uuidv4();
-    const newBlocksData: Array<BlockData> = filteredBlocks.map(
-      (x: BlockData) => {
-        return {
-          ...x,
-          blockIdentifier: id,
-        };
-      }
-    );
 
-    const newBlocksVisuals = filteredVisualBlocks.map((x: Node) => {
-      return {
-        ...x,
-        id: id,
-        selected: false,
-        position: {
-          x: posX,
-          y: posY,
-        },
-      };
-    });
+    const newBlocksData = filteredBlocks.map((x: BlockData) => ({
+      ...x,
+      blockIdentifier: id,
+    }));
+
+    const newBlocksVisuals = filteredVisualBlocks.map((x: Node) => ({
+      ...x,
+      id,
+      selected: false,
+      position: { x: posX, y: posY },
+    }));
 
     set((state: RFState) => ({
       flowSlice: {
@@ -92,144 +116,41 @@ const createBlockCopy =
         },
       },
     }));
-  };
-
-const deleteBlock = (get: () => RFState, set: any) => () => {
-  const filteredBlocks = get().flowSlice.flow.blockData.filter(
-    (block: BlockData) =>
-      block.blockIdentifier !== getSelectedBlock(get().flowSlice).id
-  );
-  const filteredVisualBlocks = get().flowSlice.flow.visual.blocks.filter(
-    (block: Node) => block.id !== getSelectedBlock(get().flowSlice).id
-  );
-  const filteredEdges = get().flowSlice.flow.visual.edges.filter(
-    (edge: ConnectionsEdge) =>
-      edge.source !== getSelectedBlock(get().flowSlice).id &&
-      edge.target !== getSelectedBlock(get().flowSlice).id
-  );
-
-  set((state: RFState) => ({
-    // selectedBlockID: [],
-    flowSlice: {
-      ...state.flowSlice,
-      flow: {
-        ...state.flowSlice.flow,
-        blockData: filteredBlocks,
-        visual: {
-          ...state.flowSlice.flow.visual,
-          blocks: filteredVisualBlocks,
-          edges: filteredEdges,
-        },
-      },
-    },
-  }));
-};
-
-const resetSelectedBlocks = (get: () => RFState, set: any) => () => {
-  const resetedBlocks = get().flowSlice.flow.visual.blocks.map((x: Node) => {
-    return { ...x, selected: false };
-  });
-
-  set((state: RFState) => ({
-    flowSlice: {
-      ...state.flowSlice,
-      flow: {
-        ...state.flowSlice.flow,
-        visual: {
-          ...state.flowSlice.flow.visual,
-          blocks: resetedBlocks,
-        },
-      },
-    },
-  }));
-};
-
-const setDirective = (get: () => RFState, set: any) => (diretive: string) => {
-  set((state: RFState) => ({
-    ...state,
-    flowSlice: {
-      ...state.flowSlice,
-      flow: {
-        ...state.flowSlice.flow,
-        blockData: state.flowSlice.flow.blockData.map((x: any) => {
-          if (x.blockIdentifier === getSelectedBlock(get().flowSlice).id) {
-            return {
-              ...x,
-              ehDirective: diretive,
-            };
-          }
-          return x;
-        }),
-      },
-    },
-  }));
-};
-
-//#region BASE ACTIONS
-
-export const setBlockName =
-  (get: () => RFState, set: any) => (text: string) => {
-    const nodeData: any = get().flowSlice.flow.blockData.map((x: BlockData) => {
-      if (x.blockIdentifier === getSelectedBlock(get().flowSlice).id) {
-        console.log(getSelectedBlock(get().flowSlice).id);
-        return {
-          ...x,
-          name: text,
-          blockLabel: text,
-        };
-      }
-      return x;
-    });
-
-    set((state: RFState) => ({
-      flowSlice: {
-        ...state.flowSlice,
-        flow: {
-          ...state.flowSlice.flow,
-          blockData: nodeData,
-        },
-      },
-    }));
-  };
-
-export const setBlockDescription =
-  (get: () => RFState, set: any) => (description: string) => {
-    const nodeData: any = get().flowSlice.flow.blockData.map((x: any) => {
-      if (x.blockIdentifier === getSelectedBlock(get().flowSlice).id) {
-        return {
-          ...x,
-          description: description,
-        };
-      }
-      return x;
-    });
-    set((state: RFState) => ({
-      flowSlice: {
-        ...state.flowSlice,
-        flow: {
-          ...state.flowSlice.flow,
-          blockData: nodeData,
-        },
-      },
-    }));
-  };
-
-export const setBlockColor =
-  (get: () => RFState, set: any) => (color: string) => {
-    const nodeVisuals: any = get().flowSlice.flow.visual.blocks.map(
-      (x: Visual) => {
-        if (x.id === getSelectedBlock(get().flowSlice).id) {
-          return {
-            ...x,
-            data: {
-              ...x.data,
-              color: color,
-            },
-          };
-        }
-        return x;
-      }
+  },
+  deleteBlock: () => {
+    const selectedId = getSelectedBlock(get().flowSlice).id;
+    const filteredBlocks = get().flowSlice.flow.blockData.filter(
+      (block: BlockData) => block.blockIdentifier !== selectedId
     );
+    const filteredVisualBlocks = get().flowSlice.flow.visual.blocks.filter(
+      (block: Node) => block.id !== selectedId
+    );
+    const filteredEdges = get().flowSlice.flow.visual.edges.filter(
+      (edge: ConnectionsEdge) =>
+        edge.source !== selectedId && edge.target !== selectedId
+    );
+
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        flow: {
+          ...state.flowSlice.flow,
+          blockData: filteredBlocks,
+          visual: {
+            ...state.flowSlice.flow.visual,
+            blocks: filteredVisualBlocks,
+            edges: filteredEdges,
+          },
+        },
+      },
+    }));
+  },
+  resetSelectedBlocks: () => {
+    const resetedBlocks = get().flowSlice.flow.visual.blocks.map((x: Node) => ({
+      ...x,
+      selected: false,
+    }));
+
     set((state: RFState) => ({
       flowSlice: {
         ...state.flowSlice,
@@ -237,24 +158,86 @@ export const setBlockColor =
           ...state.flowSlice.flow,
           visual: {
             ...state.flowSlice.flow.visual,
-            blocks: nodeVisuals,
+            blocks: resetedBlocks,
           },
         },
       },
     }));
-  };
+  },
+  setDirective: (directive: string) => {
+    const selectedId = getSelectedBlock(get().flowSlice).id;
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        flow: {
+          ...state.flowSlice.flow,
+          blockData: state.flowSlice.flow.blockData.map((x: any) =>
+            x.blockIdentifier === selectedId
+              ? { ...x, ehDirective: directive }
+              : x
+          ),
+        },
+      },
+    }));
+  },
+  setBlockName: (text: string) => {
+    const selectedId = getSelectedBlock(get().flowSlice).id;
+    const nodeData = get().flowSlice.flow.blockData.map((x: BlockData) =>
+      x.blockIdentifier === selectedId
+        ? { ...x, name: text, blockLabel: text }
+        : x
+    );
 
-//#endregion
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        flow: { ...state.flowSlice.flow, blockData: nodeData },
+      },
+    }));
+  },
+  setBlockDescription: (description: string) => {
+    const selectedId = getSelectedBlock(get().flowSlice).id;
+    const nodeData = get().flowSlice.flow.blockData.map((x: any) =>
+      x.blockIdentifier === selectedId ? { ...x, description } : x
+    );
 
-const blockActions = {
-  addBlock: addBlock,
-  createBlockCopy: createBlockCopy,
-  deleteBlock: deleteBlock,
-  resetSelectedBlocks: resetSelectedBlocks,
-  setDirective: setDirective,
-  setBlockName: setBlockName,
-  setBlockColor: setBlockColor,
-  setBlockDescription: setBlockDescription,
-};
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        flow: { ...state.flowSlice.flow, blockData: nodeData },
+      },
+    }));
+  },
+  setBlockColor: (color: string) => {
+    const selectedId = getSelectedBlock(get().flowSlice).id;
+    const nodeVisuals = get().flowSlice.flow.visual.blocks.map((x: Visual) =>
+      x.id === selectedId ? { ...x, data: { ...x.data, color } } : x
+    );
+
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        flow: {
+          ...state.flowSlice.flow,
+          visual: { ...state.flowSlice.flow.visual, blocks: nodeVisuals },
+        },
+      },
+    }));
+  },
+
+  getBlocksList: (data: any) => {
+    const updatedNodesList: Array<NodeType> = [];
+
+    setBlockParams(data, updatedNodesList);
+    setBlockParams(mockBlocks, updatedNodesList);
+
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        blockList: updatedNodesList,
+      },
+    }));
+  },
+});
 
 export default blockActions;

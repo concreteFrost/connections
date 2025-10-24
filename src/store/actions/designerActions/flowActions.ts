@@ -1,4 +1,4 @@
-import { RFState } from "../../types/rfState";
+import { RFState } from "shared/types/rfState";
 import initialNodes from "../../nodes";
 import initialEdges from "../../edges";
 import {
@@ -7,188 +7,200 @@ import {
   flowVersionToInt,
   updateFlowAfterSaving,
   initializeFlow,
-} from "../utils/flowUtils";
+} from "../../../utils/flowUtils";
 import { v4 as uuidv4 } from "uuid";
 import { saveDraftFlowApi } from "api/draft";
-import { FlowStructure } from "store/interfaces/Iflow";
+import { FlowStructure } from "shared/interfaces/Iflow";
+import flowSlice from "store/slices/flowSlice";
 
-export const createFlow =
-  (get: () => RFState, set: any) => (): FlowStructure => {
-    const flowId = uuidv4();
-    const newFlow: FlowStructure = initializeFlow(
-      initialNodes,
-      initialEdges,
-      flowId
-    );
-
+export const flowActions = (get: () => RFState, set: any) => {
+  const setDraftId = (id: string | null) => {
     set((state: RFState) => ({
       flowSlice: {
         ...state.flowSlice,
-        flow: newFlow,
+        draft: { ...state.flowSlice.draft, draftId: id },
       },
     }));
-    setDraftId(get, set)(null);
-    setCanApprove(get, set)(false);
-
-    return newFlow;
   };
 
-export const closeFlow = (get: () => RFState, set: any) => () => {
-  set((state: RFState) => ({
-    flowSlice: {
-      ...state.flowSlice,
-      flow: initializeFlow(initialNodes, initialEdges),
+  const setCanApprove = (canApprove: boolean) => {
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        draft: { ...state.flowSlice.draft, canApprove },
+      },
+    }));
+  };
+
+  return {
+    createFlow: (): FlowStructure => {
+      const flowId = uuidv4();
+      const newFlow: FlowStructure = initializeFlow(
+        initialNodes,
+        initialEdges,
+        flowId
+      );
+
+      set((state: RFState) => ({
+        flowSlice: {
+          ...state.flowSlice,
+          flow: newFlow,
+        },
+      }));
+
+      setDraftId(null);
+      setCanApprove(false);
+
+      return newFlow;
     },
-  }));
-  setDraftId(get, set)(null);
-  setCanApprove(get, set)(false);
-};
 
-export const createFlowFromTemplate =
-  (get: () => RFState, set: any) => (flowConfiguration: any) => {
-    setFlow(flowConfiguration, set, get);
-    setCanApprove(get, set)(false);
-  };
+    closeFlow: () => {
+      set((state: RFState) => ({
+        flowSlice: {
+          ...state.flowSlice,
+          flow: initializeFlow(initialNodes, initialEdges),
+        },
+      }));
 
-export const createUpdateDraftFromLiveTemplate =
-  (get: () => RFState, set: any) => async (flowConfiguration: any) => {
-    setFlow(flowConfiguration, set, get);
-    setCanApprove(get, set)(false);
-  };
+      setDraftId(null);
+      setCanApprove(false);
+    },
 
-export const loadFlowFromDraft =
-  (get: () => RFState, set: any) => async (flowConfiguration: any) => {
-    try {
+    createFlowFromTemplate: (flowConfiguration: any) => {
       setFlow(flowConfiguration, set, get);
-      setCanApprove(get, set)(false);
-    } catch (e) {
-      console.log("error loading flow", e);
-    }
-  };
+      setCanApprove(false);
+    },
 
-export const saveDraftFlow =
-  (get: () => RFState, set: any) =>
-  async (match: any, subfolder: string): Promise<boolean> => {
-    const flow = get().flowSlice.flow;
+    createUpdateDraftFromLiveTemplate: async (flowConfiguration: any) => {
+      setFlow(flowConfiguration, set, get);
+      setCanApprove(false);
+    },
 
-    flow.visual.blocks.forEach((block) => {
-      block.position.x = Math.floor(block.position.x);
-      block.position.y = Math.floor(block.position.y);
-    });
-
-    if (match) {
-      if (
-        flowVersionToInt(flow.flowVersion) <=
-        flowVersionToInt(match.flowVersion)
-      ) {
-        const parsedPreviousVersion = flowVersionToInt(match.flowVersion) + 1;
-        const updatedPreviousVersion = parseFloatVersion(parsedPreviousVersion);
-        flow.flowVersion = updatedPreviousVersion;
+    loadFlowFromDraft: async (flowConfiguration: any) => {
+      try {
+        setFlow(flowConfiguration, set, get);
+        setCanApprove(false);
+      } catch (e) {
+        console.log("error loading flow", e);
       }
-    }
+    },
 
-    const draftStructure = {
-      draftId: match ? match.draftId : 0,
-      subfolder: subfolder,
-      basedOnLiveVersion: "",
-      draftConfiguration: flow,
-    };
+    saveDraftFlow: async (match: any, subfolder: string): Promise<boolean> => {
+      const flow = get().flowSlice.flow;
 
-    try {
-      const res: any = await saveDraftFlowApi(draftStructure);
-      if (res.data.success) {
-        updateFlowAfterSaving(set, flow, "success!!!");
-        setDraftId(get, set)(res.data.draftRecord.draftId);
-        setCanApprove(get, set)(true);
-        return true;
-      } else {
-        updateFlowAfterSaving(set, flow, res.data.message);
+      flow.visual.blocks.forEach((block) => {
+        block.position.x = Math.floor(block.position.x);
+        block.position.y = Math.floor(block.position.y);
+      });
+
+      if (match) {
+        if (
+          flowVersionToInt(flow.flowVersion) <=
+          flowVersionToInt(match.flowVersion)
+        ) {
+          const parsedPreviousVersion = flowVersionToInt(match.flowVersion) + 1;
+          const updatedPreviousVersion = parseFloatVersion(
+            parsedPreviousVersion
+          );
+          flow.flowVersion = updatedPreviousVersion;
+        }
+      }
+
+      const draftStructure = {
+        draftId: match ? match.draftId : 0,
+        subfolder: subfolder,
+        basedOnLiveVersion: "",
+        draftConfiguration: flow,
+      };
+
+      try {
+        const res: any = await saveDraftFlowApi(draftStructure);
+        if (res.data.success) {
+          updateFlowAfterSaving(set, flow, "success!!!");
+          setDraftId(res.data.draftRecord.draftId);
+          setCanApprove(true);
+          return true;
+        } else {
+          updateFlowAfterSaving(set, flow, res.data.message);
+          return false;
+        }
+      } catch (e: any) {
+        updateFlowAfterSaving(set, flow, e);
         return false;
       }
-    } catch (e: any) {
-      updateFlowAfterSaving(set, flow, e);
-      return false;
-    }
-  };
-
-export const setFlowName = (get: () => RFState, set: any) => (name: string) => {
-  set((state: RFState) => ({
-    flowSlice: {
-      ...state.flowSlice,
-      flow: {
-        ...state.flowSlice.flow,
-        flowName: name,
-      },
     },
-  }));
-};
 
-export const setFlowVersion =
-  (get: () => RFState, set: any) => (version: string) => {
-    const validFormat = /^\d*\.\d*\.\d*\.\d*$/;
-
-    if (validFormat.test(version)) {
+    setFlowName: (name: string) => {
       set((state: RFState) => ({
         flowSlice: {
           ...state.flowSlice,
           flow: {
             ...state.flowSlice.flow,
-            flowVersion: version,
+            flowName: name,
           },
         },
       }));
-    }
-  };
-
-export const setFlowIsEnabled = (get: () => RFState, set: any) => () => {
-  set((state: RFState) => ({
-    flowSlice: {
-      ...state.flowSlice,
-      flow: {
-        ...state.flowSlice.flow,
-        isEnabled: state.flowSlice.flow.isEnabled === "true" ? "false" : "true",
-      },
     },
-  }));
-};
 
-//internal functions
-const setDraftId = (get: () => RFState, set: any) => (id: string | null) => {
-  set((state: RFState) => ({
-    flowSlice: {
-      ...state.flowSlice,
-      draft: {
-        ...state.flowSlice.draft,
-        draftId: id,
-      },
+    setFlowVersion: (version: string) => {
+      const validFormat = /^\d*\.\d*\.\d*\.\d*$/;
+      if (validFormat.test(version)) {
+        set((state: RFState) => ({
+          flowSlice: {
+            ...state.flowSlice,
+            flow: {
+              ...state.flowSlice.flow,
+              flowVersion: version,
+            },
+          },
+        }));
+      }
     },
-  }));
-};
 
-export const setCanApprove =
-  (get: () => RFState, set: any) => (canApprove: boolean) => {
-    set((state: RFState) => ({
-      flowSlice: {
-        ...state.flowSlice,
-        draft: {
-          ...state.flowSlice.draft,
-          canApprove: canApprove,
+    setFlowIsEnabled: () => {
+      set((state: RFState) => ({
+        flowSlice: {
+          ...state.flowSlice,
+          flow: {
+            ...state.flowSlice.flow,
+            isEnabled:
+              state.flowSlice.flow.isEnabled === "true" ? "false" : "true",
+          },
         },
-      },
-    }));
-  };
+      }));
+    },
 
-const flowActions = {
-  createFlow: createFlow,
-  createFlowFromTemplate: createFlowFromTemplate,
-  createUpdateDraftFromLiveTemplate: createUpdateDraftFromLiveTemplate,
-  closeFlow: closeFlow,
-  loadFlowFromDraft: loadFlowFromDraft,
-  saveDraftFlow: saveDraftFlow,
-  setFlowName: setFlowName,
-  setFlowVersion: setFlowVersion,
-  setFlowIsEnabled: setFlowIsEnabled,
-  setCanApprove: setCanApprove,
+    setInstance: (instance: any) => {
+      set((state: RFState) => ({
+        flowSlice: {
+          ...state.flowSlice,
+          reactFlowInstance: instance,
+        },
+      }));
+    },
+
+    // added ref to get correct coordinates
+    setFlowWrapper: (wrapper: any) => {
+      set((state: RFState) => ({
+        flowSlice: {
+          ...state.flowSlice,
+          reactFlowWrapper: wrapper,
+        },
+      }));
+    },
+
+    setCanApprove: (canApprove: boolean) => {
+      set((state: RFState) => ({
+        flowSlice: {
+          ...state.flowSlice,
+          draft: {
+            ...state.flowSlice.draft,
+            canApprove,
+          },
+        },
+      }));
+    },
+  };
 };
 
 export default flowActions;

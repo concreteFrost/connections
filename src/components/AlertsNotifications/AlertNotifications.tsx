@@ -2,13 +2,13 @@ import { useState, useRef } from "react";
 import { connectionsIcons } from "assets/icons/icons";
 import s from "./AlertNotifications.module.scss";
 import moment from "moment";
-import { IconVariants } from "store/enums/enums";
+import { IconVariants } from "shared/enums/enums";
 import { useNavigate } from "react-router";
 import { handleHandShake } from "utils/handleHandshake";
 import { clearFromCache } from "utils/alerts/clearCache";
 import { getAlertsApi } from "api/ehd";
 import useStore from "store/store";
-import { Alert } from "store/interfaces/IAlerts";
+import { Alert } from "shared/interfaces/IAlerts";
 import useOutsideMouseClick from "hooks/useOutsideMouseClick";
 import useGetValuesFromCache from "hooks/useGetValuesFromCache";
 

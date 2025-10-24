@@ -1,8 +1,8 @@
-import { RFState } from "store/types/rfState";
+import { RFState } from "shared/types/rfState";
 import s from "../VisualMappingModal.module.scss";
 import useStore from "store/store";
 import { useEffect, useState } from "react";
-import { MappingList } from "store/interfaces/IVisualMapping";
+import { MappingList } from "shared/interfaces/IVisualMapping";
 import {
   deleteMapStructure,
   getMappingStructureList,

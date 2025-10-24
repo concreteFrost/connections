@@ -1,7 +1,7 @@
 import s from "./NotificationEditor.module.scss";
 import useStore from "store/store";
-import { NotificationType } from "store/interfaces/INotification";
-import { User, Group } from "store/interfaces/ISecurity";
+import { NotificationType } from "shared/interfaces/INotification";
+import { User, Group } from "shared/interfaces/ISecurity";
 import { removeNotificationAPI, updateNotificationAPI } from "api/notification";
 
 function NotificationEditor() {

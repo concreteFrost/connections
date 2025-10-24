@@ -30,7 +30,7 @@
       "hooks/*": ["hooks/*"],
       "api/*": ["api/*"],
       "style/*": ["style/*"],
-      "interfaces/*": ["store/interfaces/*"],
+      "interfaces/*": ["shared/interfaces/*"],
       "actions/*":["store/actions/*"],
       "types/*":["types/*"]
     }

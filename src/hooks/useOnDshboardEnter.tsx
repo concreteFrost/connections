@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { getMetricsApi } from "api/data";
-import { IMetrics } from "store/interfaces/IStatistics";
+import { IMetrics } from "shared/interfaces/IStatistics";
 import useStore from "store/store";
 import moment from "moment";
-import { getUserSettingsData } from "store/actions/storageActions";
+import { getUserSettingsData } from "store/actions/sharedActions/storageActions";
 
 export default function useOnDashboardEnter() {
   const { updateChartData } = useStore((state) => state.statisticsSlice);

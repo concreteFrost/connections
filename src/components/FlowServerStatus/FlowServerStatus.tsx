@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import useStore from "store/store";
-import { NewStatisticMessage } from "store/interfaces/IStatistics";
+import { NewStatisticMessage } from "shared/interfaces/IStatistics";
 import { handleHandShake } from "utils/handleHandshake";
 import { getFlowListStatusAPI } from "api/data";
 
 function FlowServerStatus() {
   // const { getFlowListStatus } = useStore((state) => state.flowSlice);
-  const {setIsLoading} = useStore((state)=>state.loaderSlice);
+  const { setIsLoading } = useStore((state) => state.loaderSlice);
   const {
     setStatistics,
     setFlowStatus,
@@ -47,7 +47,7 @@ function FlowServerStatus() {
       case 0:
         {
           setFlowStatus(cacheData.FlowId, cacheData.NewStatus);
-          setIsLoading(false)
+          setIsLoading(false);
           console.log("flow running status changed");
         }
         break;

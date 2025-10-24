@@ -1,67 +1,10 @@
 import { v4 as uuidv4 } from "uuid";
-import { NodeProps, NodeRemoveChange } from "react-flow-renderer";
+import { NodeProps, NodeRemoveChange, Node } from "react-flow-renderer";
 import { Visual } from "interfaces/Iflow";
-import { RFState } from "../../types/rfState";
-
-export const getAllselectedBlockIDs = (nodes: any) => {
-  return nodes.filter((node: any) => node.selected === true).length > 1;
-};
-
-export const addGroup = (get: () => RFState, set: any) => () => {
-  const selectedBlockIDs = get().flowSlice.flow.visual.blocks.filter(
-    (node: any) => node.selected
-  );
-  if (selectedBlockIDs.length > 1) {
-    let maxX = -Infinity;
-    let minX = Infinity;
-    let maxY = -Infinity;
-    let minY = Infinity;
-    selectedBlockIDs.forEach((node: Visual) => {
-      maxX = Math.max(maxX, node.position.x);
-      minX = Math.min(minX, node.position.x);
-      maxY = Math.max(maxY, node.position.y);
-      minY = Math.min(minY, node.position.y);
-    });
-
-    const boundX = maxX - minX + 200;
-    const boundY = maxY - minY + 100;
-
-    const newGroupNode = {
-      id: uuidv4().toString(),
-      type: "group",
-      data: {
-        label: "New Group",
-        color: "#4a94be2a",
-        children: [],
-        isTextModalVisible: false,
-        isColorModalVisible: false,
-      },
-      position: { x: minX - 20, y: minY - 20 },
-      style: {
-        width: boundX,
-        height: boundY,
-        backgroundColor: "#4a94be2a",
-        zIndex: 0,
-      },
-    };
-
-    assignParent(get().flowSlice.flow.visual.blocks, newGroupNode);
-    set((state: RFState) => ({
-      flowSlice: {
-        ...state.flowSlice,
-        flow: {
-          ...state.flowSlice.flow,
-          visual: {
-            ...state.flowSlice.flow.visual,
-            blocks: [...state.flowSlice.flow.visual.blocks, newGroupNode],
-          },
-        },
-      },
-    }));
-
-    console.log("group added", get().flowSlice);
-  }
-};
+import { RFState } from "shared/types/rfState";
+import ConnectionsEdge from "interfaces/IConnectionsEdges";
+import { blockAlignment } from "../../../utils/blockUtils";
+import { BlockData } from "interfaces/IBlock";
 
 const assignParent = (nodes: Array<any>, nodeGroup: any) => {
   const selectedBlockIDs = nodes.filter((node: any) => node.selected === true);
@@ -83,32 +26,10 @@ const removeParent = (nodes: any, groupToRemove: any) => {
   });
 };
 
-export const deleteGroup = (nodes: any, change: NodeRemoveChange) => {
+const deleteGroup = (nodes: any, change: NodeRemoveChange) => {
   const groupToRemove = nodes.find((node: NodeProps) => node.id === change.id);
   removeParent(nodes, groupToRemove);
 };
-
-export const deleteGroupOnButtonClick =
-  (get: () => RFState, set: any) => (groupToDelete: string) => {
-    const matchNode = get().flowSlice.flow.visual.blocks.find(
-      (node: any) => node.id === groupToDelete
-    );
-    removeParent(get().flowSlice.flow.visual.blocks, matchNode);
-    set((state: RFState) => ({
-      flowSlice: {
-        ...state.flowSlice,
-        flow: {
-          ...state.flowSlice.flow,
-          visual: {
-            ...state.flowSlice.flow.visual,
-            blocks: state.flowSlice.flow.visual.blocks.filter(
-              (node: any) => node.id !== groupToDelete
-            ),
-          },
-        },
-      },
-    }));
-  };
 
 const updateNode = (set: any) => (groupId: string, updateFn: any) => {
   set((state: RFState) => ({
@@ -133,8 +54,83 @@ const updateNode = (set: any) => (groupId: string, updateFn: any) => {
   }));
 };
 
-export const showGroupModal =
-  (set: any) => (groupId: string, modalToShow: string) => {
+const groupActions = (get: () => RFState, set: any) => ({
+  addGroup: () => {
+    const selectedBlockIDs = get().flowSlice.flow.visual.blocks.filter(
+      (node: any) => node.selected
+    );
+    if (selectedBlockIDs.length > 1) {
+      let maxX = -Infinity;
+      let minX = Infinity;
+      let maxY = -Infinity;
+      let minY = Infinity;
+      selectedBlockIDs.forEach((node: Visual) => {
+        maxX = Math.max(maxX, node.position.x);
+        minX = Math.min(minX, node.position.x);
+        maxY = Math.max(maxY, node.position.y);
+        minY = Math.min(minY, node.position.y);
+      });
+
+      const boundX = maxX - minX + 200;
+      const boundY = maxY - minY + 100;
+
+      const newGroupNode = {
+        id: uuidv4().toString(),
+        type: "group",
+        data: {
+          label: "New Group",
+          color: "#4a94be2a",
+          children: [],
+          isTextModalVisible: false,
+          isColorModalVisible: false,
+        },
+        position: { x: minX - 20, y: minY - 20 },
+        style: {
+          width: boundX,
+          height: boundY,
+          backgroundColor: "#4a94be2a",
+          zIndex: 0,
+        },
+      };
+
+      assignParent(get().flowSlice.flow.visual.blocks, newGroupNode);
+      set((state: RFState) => ({
+        flowSlice: {
+          ...state.flowSlice,
+          flow: {
+            ...state.flowSlice.flow,
+            visual: {
+              ...state.flowSlice.flow.visual,
+              blocks: [...state.flowSlice.flow.visual.blocks, newGroupNode],
+            },
+          },
+        },
+      }));
+    }
+  },
+
+  deleteGroupOnButtonClick: (groupToDelete: string) => {
+    const matchNode = get().flowSlice.flow.visual.blocks.find(
+      (node: any) => node.id === groupToDelete
+    );
+    removeParent(get().flowSlice.flow.visual.blocks, matchNode);
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        flow: {
+          ...state.flowSlice.flow,
+          visual: {
+            ...state.flowSlice.flow.visual,
+            blocks: state.flowSlice.flow.visual.blocks.filter(
+              (node: any) => node.id !== groupToDelete
+            ),
+          },
+        },
+      },
+    }));
+  },
+
+  showGroupModal: (groupId: string, modalToShow: string) => {
     const updateFn = (data: any) => ({
       ...data,
       isTextModalVisible: modalToShow === "textModal",
@@ -142,20 +138,18 @@ export const showGroupModal =
     });
 
     updateNode(set)(groupId, updateFn);
-  };
+  },
 
-export const changeGroupLabel =
-  (set: RFState) => (groupId: string, input: string) => {
+  changeGroupLabel: (groupId: string, input: string) => {
     const updateFn = (data: any) => ({
       ...data,
       label: input,
     });
 
     updateNode(set)(groupId, updateFn);
-  };
+  },
 
-export const changeGroupColor =
-  (set: any) => (groupId: string, input: string) => {
+  changeGroupColor: (groupId: string, input: string) => {
     set((state: RFState) => ({
       flowSlice: {
         ...state.flowSlice,
@@ -177,43 +171,124 @@ export const changeGroupColor =
         },
       },
     }));
-  };
+  },
 
-export const hideAllGroupModals = (set: any) => () => {
-  set((state: RFState) => ({
-    flowSlice: {
-      ...state.flowSlice,
-      flow: {
-        ...state.flowSlice.flow,
-        visual: {
-          ...state.flowSlice.flow.visual,
-          blocks: state.flowSlice.flow.visual.blocks.map((node: any) => {
-            if (node.data.hasOwnProperty("isTextModalVisible")) {
-              return {
-                ...node,
-                data: {
-                  ...node.data,
-                  isTextModalVisible: false,
-                  isColorModalVisible: false,
-                },
-              };
-            }
-            return node;
-          }),
+  hideAllGroupModals: () => {
+    set((state: RFState) => ({
+      flowSlice: {
+        ...state.flowSlice,
+        flow: {
+          ...state.flowSlice.flow,
+          visual: {
+            ...state.flowSlice.flow.visual,
+            blocks: state.flowSlice.flow.visual.blocks.map((node: any) => {
+              if (node.data.hasOwnProperty("isTextModalVisible")) {
+                return {
+                  ...node,
+                  data: {
+                    ...node.data,
+                    isTextModalVisible: false,
+                    isColorModalVisible: false,
+                  },
+                };
+              }
+              return node;
+            }),
+          },
         },
       },
-    },
-  }));
-};
+    }));
+  },
 
-const groupActions = {
-  addGroup: addGroup,
-  deleteGroup: deleteGroup,
-  deleteGroupOnButtonClick: deleteGroupOnButtonClick,
-  showGroupModal: showGroupModal,
-  setGroupLabel: changeGroupLabel,
-  setGroupColor: changeGroupColor,
-  hideAllGroupModals: hideAllGroupModals,
-};
+  setSelectedBlocksColors: (color: string) => {
+    const selectedBlocks: Node<any>[] =
+      get().flowSlice.flow.visual.blocks.filter(
+        (block: Node) => block.selected
+      );
+
+    if (selectedBlocks.length > 0) {
+      const updatedBlocks = get().flowSlice.flow.visual.blocks.map(
+        (block: any) => {
+          if (block.selected) {
+            // Обновляем цвет только у выделенных блоков
+            return { ...block, data: { ...block.data, color: color } };
+          } else {
+            // Оставляем невыделенные блоки без изменений
+            return block;
+          }
+        }
+      );
+      const updatedFlow = { ...get().flowSlice.flow };
+      updatedFlow.visual.blocks = updatedBlocks;
+
+      set((state: RFState) => ({ flow: updatedFlow })); // Обновляем состояние с новым объектом flow
+    }
+  },
+
+  allignSelectedBlocks: (alignment: "x" | "y") => {
+    const selectedBlocks: Node<any>[] =
+      get().flowSlice.flow.visual.blocks.filter(
+        (block: Node) => block.selected
+      );
+
+    if (selectedBlocks.length > 0) {
+      // finding middle block
+      const updatedBlocks = blockAlignment(get, selectedBlocks, alignment);
+
+      const updatedFlow = { ...get().flowSlice.flow };
+      updatedFlow.visual.blocks = updatedBlocks;
+      set((state: RFState) => ({ flow: updatedFlow })); // Обновляем состояние с новым объектом flow
+    }
+  },
+
+  deleteMultipleBlocks: () => {
+    const selectedBlocks: Node<any>[] =
+      get().flowSlice.flow.visual.blocks.filter(
+        (block: Node) => block.selected
+      );
+
+    if (selectedBlocks.length > 0) {
+      const filteredVisualBlocks: Node<any>[] =
+        get().flowSlice.flow.visual.blocks.filter(
+          (block: Node) =>
+            !selectedBlocks.some((block2: Node) => block.id === block2.id)
+        );
+      const filteredBlocksData: BlockData[] =
+        get().flowSlice.flow.blockData.filter(
+          (block: BlockData) =>
+            !selectedBlocks.some(
+              (block2: Node) => block.blockIdentifier === block2.id
+            )
+        );
+      const filteredEdgesData: ConnectionsEdge[] =
+        get().flowSlice.flow.visual.edges.filter(
+          (edge: ConnectionsEdge) =>
+            !selectedBlocks.some(
+              (block: Node) =>
+                edge.source === block.id || edge.target === block.id
+            )
+        );
+
+      set((state: RFState) => ({
+        selectedBlockID: [],
+        flowSlice: {
+          ...state.flowSlice,
+          flow: {
+            ...state.flowSlice.flow,
+            blockData: filteredBlocksData,
+            visual: {
+              ...state.flowSlice.flow.visual,
+              blocks: filteredVisualBlocks,
+              edges: filteredEdgesData,
+            },
+          },
+        },
+      }));
+
+      console.log("filtered data", filteredBlocksData);
+      console.log(get().flowSlice.flow);
+    }
+  },
+});
 
 export default groupActions;

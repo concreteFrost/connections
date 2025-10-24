@@ -1,6 +1,6 @@
-import alertActions from "store/actions/alertActions";
-import { Alert, Directive } from "store/interfaces/IAlerts";
-import { RFState } from "store/types/rfState";
+import alertActions from "store/actions/sharedActions/alertActions";
+import { Alert, Directive } from "shared/interfaces/IAlerts";
+import { RFState } from "shared/types/rfState";
 export type AlertSlice = {
   unreadAlerts: Array<Alert>;
   setUnreadAlerts: (payload: Array<Alert>) => void;
@@ -11,15 +11,8 @@ export type AlertSlice = {
 const alertSlice = (get: () => RFState, set: any): AlertSlice => ({
   unreadAlerts: [],
   directives: [],
-  getDirectivesGlobal: alertActions.getDirectivesGlobal(get, set),
-  setUnreadAlerts: (payload: Array<Alert>) => {
-    set((state: RFState) => ({
-      alertSlice: {
-        ...state.alertSlice,
-        unreadAlerts: payload,
-      },
-    }));
-  },
+  getDirectivesGlobal: alertActions(get, set).getDirectivesGlobal,
+  setUnreadAlerts: alertActions(get, set).setUnreadAlerts,
 });
 
 export default alertSlice;

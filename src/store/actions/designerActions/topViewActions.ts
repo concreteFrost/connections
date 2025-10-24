@@ -1,6 +1,6 @@
 import { BackgroundVariant } from "react-flow-renderer";
-import { RFState } from "../../types/rfState";
-import { setDesignerSettings } from "../storageActions";
+import { RFState } from "shared/types/rfState";
+import { setDesignerSettings } from "../sharedActions/storageActions";
 
 export const setBgView = (set: any) => (view: BackgroundVariant) => {
   set((state: RFState) => ({

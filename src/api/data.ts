@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from "axios";
-import { baseUrl } from "store/constants/baseUrl";
-import { LogSearchQuery } from "store/interfaces/IServer";
-import { Subscription } from "store/interfaces/INotification";
-import { IChartData } from "store/interfaces/IStatistics";
+import { baseUrl } from "shared/constants/baseUrl";
+import { LogSearchQuery } from "shared/interfaces/IServer";
+import { Subscription } from "shared/interfaces/INotification";
+import { IChartData } from "shared/interfaces/IStatistics";
 
 export function getBlocks(): Promise<any> {
   return new Promise<any>((resolve, reject) => {
@@ -81,8 +81,6 @@ export function getDataLogsAPI(query: LogSearchQuery): Promise<any> {
     timeTo: query.timeTo ? getEndOfDay(query.timeTo) : null,
     searchText: query.searchText ? query.searchText : null,
   };
-
-  console.log(newQuery);
 
   return new Promise<any>((resolve, reject) => {
     axios(baseUrl + "/data/logs", {

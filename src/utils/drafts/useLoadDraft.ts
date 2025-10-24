@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import useStore from "store/store";
 import { getDraftApi } from "api/draft";
 import { AxiosResponse } from "axios";
-import { FlowStructure } from "store/interfaces/Iflow";
+import { FlowStructure } from "shared/interfaces/Iflow";
 
 export function useLoadDraft() {
   const { loadFlowFromDraft, addFlowToTabs, allFlows } = useStore(

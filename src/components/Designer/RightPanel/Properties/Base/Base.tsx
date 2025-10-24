@@ -1,20 +1,26 @@
 import useStore from "store/store";
 import s from "./Base.module.scss";
-import { BlockData } from "store/interfaces/IBlock";
-import { Visual } from "store/interfaces/Iflow";
+import { BlockData } from "shared/interfaces/IBlock";
+import { Visual } from "shared/interfaces/Iflow";
 
 function Base() {
   const currentBlock = useStore<BlockData | undefined>((store) =>
     store.flowSlice.flow.blockData.find(
-      (x: BlockData) => x.blockIdentifier === store.flowSlice.flow.visual.blocks.find((b)=>b.selected)?.id)
-    )
-  
-  const currentBlockVisual = useStore<Visual | undefined>((store) =>
-    store.flowSlice.flow.visual.blocks.find(
-      (x: Visual) => x.id === store.flowSlice.flow.visual.blocks.find((b)=>b.selected)?.id
+      (x: BlockData) =>
+        x.blockIdentifier ===
+        store.flowSlice.flow.visual.blocks.find((b) => b.selected)?.id
     )
   );
-  const {setBlockName,setBlockColor,setBlockDescription} = useStore((state) => state.flowSlice);
+
+  const currentBlockVisual = useStore<Visual | undefined>((store) =>
+    store.flowSlice.flow.visual.blocks.find(
+      (x: Visual) =>
+        x.id === store.flowSlice.flow.visual.blocks.find((b) => b.selected)?.id
+    )
+  );
+  const { setBlockName, setBlockColor, setBlockDescription } = useStore(
+    (state) => state.flowSlice
+  );
 
   function _setBlockName(e: any) {
     setBlockName(e.target.value);

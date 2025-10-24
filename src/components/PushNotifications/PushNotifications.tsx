@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { connectionsIcons } from "assets/icons/icons";
 import s from "./PushNotifications.module.scss";
 import moment from "moment";
-import { IconVariants } from "store/enums/enums";
+import { IconVariants } from "shared/enums/enums";
 import { handleHandShake } from "utils/handleHandshake";
 import useOutsideMouseClick from "hooks/useOutsideMouseClick";
 import useGetValuesFromCache from "hooks/useGetValuesFromCache";

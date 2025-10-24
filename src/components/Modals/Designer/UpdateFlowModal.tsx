@@ -2,7 +2,7 @@ import s from "../ModalWindow.module.scss";
 import useStore from "store/store";
 import { useEffect } from "react";
 import { getDraftListApi } from "api/draft";
-import { checkExistingFlowInDataBase } from "store/actions/utils/flowUtils";
+import { checkExistingFlowInDataBase } from "utils/flowUtils";
 
 export enum UpdateFlowActions {
   Create,

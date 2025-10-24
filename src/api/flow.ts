@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { baseUrl } from "store/constants/baseUrl";
+import { baseUrl } from "shared/constants/baseUrl";
 
 export function saveFlowApi(data: any): Promise<AxiosResponse> {
   return new Promise((resolve, reject) => {

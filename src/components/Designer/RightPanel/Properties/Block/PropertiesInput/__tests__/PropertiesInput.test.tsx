@@ -1,7 +1,7 @@
 import PropertiesInput, { PropertiesInputProps } from "../PropertiesInput";
 import { render, screen, act, fireEvent } from "@testing-library/react";
 import useStore from "store/store";
-import { RFState } from "store/types/rfState";
+import { RFState } from "shared/types/rfState";
 import mockFlowStructure from "__mocks__/mockFlow";
 
 const selectedBlock = {

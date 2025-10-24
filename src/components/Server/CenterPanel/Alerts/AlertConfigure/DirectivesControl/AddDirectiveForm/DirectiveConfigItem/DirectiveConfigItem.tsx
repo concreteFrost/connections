@@ -1,21 +1,18 @@
 import React from "react";
-import { FlowConfig } from "store/interfaces/Iflow";
-import {
-  Directive,
-  DirectiveConfig,
-} from "store/interfaces/IAlerts";
+import { FlowConfig } from "shared/interfaces/Iflow";
+import { Directive, DirectiveConfig } from "shared/interfaces/IAlerts";
 
 interface DirectiveConfigItemProps {
   directive: Directive;
   config: DirectiveConfig;
   config_index: number;
   editDirectiveConfig: (
-    directive:Directive,
+    directive: Directive,
     config_index: number,
     key: keyof DirectiveConfig,
     value: any
   ) => void;
-  deleteDirectiveConfig: (directive:Directive,config_index: number) => void;
+  deleteDirectiveConfig: (directive: Directive, config_index: number) => void;
   flowList: Array<FlowConfig>;
   s: any;
 }
@@ -39,7 +36,8 @@ const DirectiveConfigItem: React.FC<DirectiveConfigItemProps> = ({
           type="button"
           onClick={() =>
             deleteDirectiveConfig(
-             directive, directive.directives.indexOf(directive.directives[config_index])
+              directive,
+              directive.directives.indexOf(directive.directives[config_index])
             )
           }
         >
@@ -54,7 +52,12 @@ const DirectiveConfigItem: React.FC<DirectiveConfigItemProps> = ({
           id={`optionId-${config_index}`}
           value={config.optionId}
           onChange={(e) =>
-            editDirectiveConfig(directive,config_index, "optionId", e.target.value)
+            editDirectiveConfig(
+              directive,
+              config_index,
+              "optionId",
+              e.target.value
+            )
           }
         >
           <option value={1}>Terminate</option>
@@ -75,7 +78,12 @@ const DirectiveConfigItem: React.FC<DirectiveConfigItemProps> = ({
             id={`inputValue-${config_index}`}
             value={config.inputValue ?? ""}
             onChange={(e) =>
-              editDirectiveConfig(directive,config_index, "inputValue", e.target.value)
+              editDirectiveConfig(
+                directive,
+                config_index,
+                "inputValue",
+                e.target.value
+              )
             }
           />
         </div>
@@ -89,7 +97,12 @@ const DirectiveConfigItem: React.FC<DirectiveConfigItemProps> = ({
           id={`alertFormatId-${config_index}`}
           value={config.alertFormatId}
           onChange={(e) =>
-            editDirectiveConfig(directive,config_index, "alertFormatId", e.target.value)
+            editDirectiveConfig(
+              directive,
+              config_index,
+              "alertFormatId",
+              e.target.value
+            )
           }
         >
           <option value={0}>Default</option>
@@ -133,7 +146,12 @@ const DirectiveConfigItem: React.FC<DirectiveConfigItemProps> = ({
             id={`stopFlow-${config_index}`}
             value={config.stopFlow}
             onChange={(e) =>
-              editDirectiveConfig(directive,config_index, "stopFlow", e.target.value)
+              editDirectiveConfig(
+                directive,
+                config_index,
+                "stopFlow",
+                e.target.value
+              )
             }
           />
         </div>
@@ -147,7 +165,12 @@ const DirectiveConfigItem: React.FC<DirectiveConfigItemProps> = ({
           id={`startFlow-${config_index}`}
           value={config.startFlow ? config.startFlow : 0}
           onChange={(e) =>
-            editDirectiveConfig(directive,config_index, "startFlow", e.target.value)
+            editDirectiveConfig(
+              directive,
+              config_index,
+              "startFlow",
+              e.target.value
+            )
           }
         >
           <option value={0}>null</option>
@@ -171,7 +194,12 @@ const DirectiveConfigItem: React.FC<DirectiveConfigItemProps> = ({
           id={`runScript-${config_index}`}
           value={config.runScript ?? ""}
           onChange={(e) =>
-            editDirectiveConfig(directive,config_index, "runScript", e.target.value)
+            editDirectiveConfig(
+              directive,
+              config_index,
+              "runScript",
+              e.target.value
+            )
           }
         />
       </div>

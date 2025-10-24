@@ -1,8 +1,8 @@
-import { RFState } from "store/types/rfState";
-import { FlowConfig, FlowData } from "store/interfaces/Iflow";
-import serverActions from "store/actions/serverActions";
-import { LogObject } from "store/interfaces/IServer";
-import { BlockLookup } from "store/interfaces/IBlock";
+import { RFState } from "shared/types/rfState";
+import { FlowConfig, FlowData } from "shared/interfaces/Iflow";
+import serverActions from "store/actions/serverActions/serverActions";
+import { LogObject } from "shared/interfaces/IServer";
+import { BlockLookup } from "shared/interfaces/IBlock";
 
 export type ServerSlice = {
   logSearch: {

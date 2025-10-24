@@ -4,7 +4,7 @@ import useStore from "store/store";
 import { ILeftPanelSections } from "../LeftPanel";
 import s from "./ListItem.module.scss";
 import { Link } from "react-router-dom";
-import { FlowStatus } from "store/interfaces/IStatistics";
+import { FlowStatus } from "shared/interfaces/IStatistics";
 import { useParams } from "react-router-dom";
 
 interface FlowsItemProps {

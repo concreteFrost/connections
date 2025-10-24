@@ -3,7 +3,7 @@ import { getServerStatusAPI } from "api/data";
 import { useState } from "react";
 import ServerCardsWrapper from "./Cards/CardsWrapper";
 import ServerControlPanel from "./ServerControlPanel/ServerControlPanel";
-import { IServerStatsData } from "store/interfaces/IServer";
+import { IServerStatsData } from "shared/interfaces/IServer";
 
 const data: IServerStatsData = {
   alertsRaised: 0,

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import useStore from "store/store";
-import s from "./AddAlertFormatForm.module.scss"
-import { AlertFormat, NewAlertFormat } from "store/interfaces/IAlerts";
-import { Group, User } from "store/interfaces/ISecurity";
+import s from "./AddAlertFormatForm.module.scss";
+import { AlertFormat, NewAlertFormat } from "shared/interfaces/IAlerts";
+import { Group, User } from "shared/interfaces/ISecurity";
 import { addAlertFormatApi } from "api/ehd";
 
 const initialAlertFormat: NewAlertFormat = {
@@ -11,48 +11,44 @@ const initialAlertFormat: NewAlertFormat = {
   notifyByValue: 1,
   isActive: false,
   userOrGroupId: "",
-
 };
 
 interface AlertFormatProps {
   setAlertFormatVisible: (isVisible: boolean) => void;
-  userList: User[],
-  groupList: Group[],
-  alertFormats: AlertFormat[],
+  userList: User[];
+  groupList: Group[];
+  alertFormats: AlertFormat[];
   setAlertFormats: (alertFormats: AlertFormat[]) => void;
 }
 
-
 function AddAlertFormatForm(props: AlertFormatProps) {
   // const { addAlertFormat } = useStore((state) => state.alertSlice);
-  const [newAlertFormat, setNewAlertFormat] = useState<NewAlertFormat>(initialAlertFormat);
-  const {toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
-
+  const [newAlertFormat, setNewAlertFormat] =
+    useState<NewAlertFormat>(initialAlertFormat);
+  const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
 
   const editNewAlertValues = (key: keyof NewAlertFormat, value: any) => {
-    setNewAlertFormat(prevState => ({
+    setNewAlertFormat((prevState) => ({
       ...prevState,
-      [key]: value
+      [key]: value,
     }));
   };
 
   async function handleAddAlertFormat() {
     try {
       const res: any = await addAlertFormatApi(newAlertFormat);
-      
+
       if (res.data.success === false) {
-        
         toggleMessageModal(res.data.message);
         return;
       }
 
-      const data : AlertFormat = res.data;
+      const data: AlertFormat = res.data;
 
       toggleMessageModal("success!!!");
 
       props.setAlertFormatVisible(false);
-      props.setAlertFormats([...props.alertFormats, data])
-
+      props.setAlertFormats([...props.alertFormats, data]);
     } catch (error) {
       toggleMessageModal("error while adding new alert format");
     }
@@ -65,8 +61,16 @@ function AddAlertFormatForm(props: AlertFormatProps) {
   return (
     <div className={s.wrapper}>
       <div className={s.modal_window}>
-        <div className={s.modal_header}><header>ADD DIRECTIVE</header>
-          <span className={s.close_modal}><button type="button" onClick={() => props.setAlertFormatVisible(false)}>x</button></span>
+        <div className={s.modal_header}>
+          <header>ADD DIRECTIVE</header>
+          <span className={s.close_modal}>
+            <button
+              type="button"
+              onClick={() => props.setAlertFormatVisible(false)}
+            >
+              x
+            </button>
+          </span>
         </div>
 
         <div className={s.modal_body}>
@@ -86,7 +90,9 @@ function AddAlertFormatForm(props: AlertFormatProps) {
                 <textarea
                   id="description"
                   value={newAlertFormat.description}
-                  onChange={(e) => editNewAlertValues("description", e.target.value)}
+                  onChange={(e) =>
+                    editNewAlertValues("description", e.target.value)
+                  }
                 />
               </div>
               <div className={s.alert_format_item}>
@@ -95,23 +101,31 @@ function AddAlertFormatForm(props: AlertFormatProps) {
                   type="number"
                   id="notifyByValue"
                   value={newAlertFormat.notifyByValue}
-                  onChange={(e) => editNewAlertValues("notifyByValue", e.target.value)}
+                  onChange={(e) =>
+                    editNewAlertValues("notifyByValue", e.target.value)
+                  }
                 />
               </div>
               <div className={s.alert_format_item}>
                 <label htmlFor="userOrGroupId">User or Group ID:</label>
                 <select
                   value={newAlertFormat.userOrGroupId}
-                  onChange={(e) => editNewAlertValues("userOrGroupId", e.target.value)}
+                  onChange={(e) =>
+                    editNewAlertValues("userOrGroupId", e.target.value)
+                  }
                 >
                   <optgroup label="Users">
-                    {props.userList.map(user => (
-                      <option key={user.userId} value={user.userId}>{user.userName}</option>
+                    {props.userList.map((user) => (
+                      <option key={user.userId} value={user.userId}>
+                        {user.userName}
+                      </option>
                     ))}
                   </optgroup>
                   <optgroup label="Groups">
-                    {props.groupList.map(group => (
-                      <option key={group.groupId} value={group.groupId}>{group.name}</option>
+                    {props.groupList.map((group) => (
+                      <option key={group.groupId} value={group.groupId}>
+                        {group.name}
+                      </option>
                     ))}
                   </optgroup>
                 </select>
@@ -122,10 +136,8 @@ function AddAlertFormatForm(props: AlertFormatProps) {
             </div>
           </form>
         </div>
-
       </div>
     </div>
-
   );
 }
 

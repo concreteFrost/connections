@@ -1,7 +1,7 @@
 import s from "./AddGroupModal.module.scss";
 import useStore from "store/store";
 import { useState } from "react";
-import { Group, User } from "store/interfaces/ISecurity";
+import { Group, User } from "shared/interfaces/ISecurity";
 import { createGroupAPI } from "api/security";
 
 interface EditUserModalProps {

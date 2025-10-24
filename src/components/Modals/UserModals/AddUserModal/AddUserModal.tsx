@@ -1,6 +1,6 @@
 import s from "./AddUserModal.module.scss";
 import useStore from "store/store";
-import { Group, Role, NewUser } from "store/interfaces/ISecurity";
+import { Group, Role, NewUser } from "shared/interfaces/ISecurity";
 import { useState } from "react";
 import { addUserAPI, generatePasswordAPI } from "api/security";
 
@@ -70,16 +70,14 @@ function AddUserModal(props: EditUserModalProps) {
     }
   }
 
-    async function performPasswordGeneration() {
-        try {
-            const res: any = await generatePasswordAPI(1, 12);
-            setTextProps('password', res.data.message)
-        }
-        catch (e) {
-            console.log('error generating password', e);
-        }
+  async function performPasswordGeneration() {
+    try {
+      const res: any = await generatePasswordAPI(1, 12);
+      setTextProps("password", res.data.message);
+    } catch (e) {
+      console.log("error generating password", e);
     }
-
+  }
 
   async function submitForm(e: React.FormEvent) {
     e.preventDefault();

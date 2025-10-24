@@ -1,6 +1,6 @@
 import axios from "axios";
-import { baseUrl } from "store/constants/baseUrl";
-import { NewUser, User, Group } from "store/interfaces/ISecurity";
+import { baseUrl } from "shared/constants/baseUrl";
+import { NewUser, User, Group } from "shared/interfaces/ISecurity";
 
 //GET
 export function getMeAPI() {

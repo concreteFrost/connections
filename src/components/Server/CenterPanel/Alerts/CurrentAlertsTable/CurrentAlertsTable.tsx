@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import s from "./CurrentAlertsTable.module.scss";
 import { useNavigate } from "react-router";
 import { getAlertsApi, alertMarkAsReadApi, alertRemoveApi } from "api/ehd";
-import { Alert } from "store/interfaces/IAlerts";
+import { Alert } from "shared/interfaces/IAlerts";
 import useStore from "store/store";
 import UnreadAlerts from "./UnreadAlerts/UnreadAlerts";
 import ReadAlerts from "./ReadAlerts/ReadAlerts";

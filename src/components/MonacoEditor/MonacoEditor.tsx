@@ -2,14 +2,14 @@ import Editor, { Monaco } from "@monaco-editor/react";
 import s from "./MonacoEditor.module.scss";
 import { useRef, useState } from "react";
 import * as monaco from "monaco-editor";
-import { IconVariants } from "store/enums/enums";
+import { IconVariants } from "shared/enums/enums";
 import {
   handleCSharpCompletion,
   handleXmlCompletion,
 } from "utils/monaco/completionProvider";
 import { EditorSettings, editorOptions } from "utils/monaco/editorOptions";
 import useStore from "store/store";
-import { RFState } from "store/types/rfState";
+import { RFState } from "shared/types/rfState";
 
 interface MonacoEditorProps {
   themeColor: IconVariants;

@@ -1,4 +1,4 @@
-import { NodeGroup } from "../interfaces/INode";
+import { NodeGroup } from "shared/interfaces/INode";
 
 export const nodeGroup: NodeGroup = {
   dataGroup: "DataStore",

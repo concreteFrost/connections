@@ -1,6 +1,6 @@
 import s from "./GroupsTable.module.scss";
 import useStore from "store/store";
-import { Group, GroupWithUsers, User } from "store/interfaces/ISecurity";
+import { Group, GroupWithUsers, User } from "shared/interfaces/ISecurity";
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import AddGroupModal from "components/Modals/GroupModals/AddGroupModal";

@@ -1,11 +1,8 @@
 import { useState } from "react";
 import useStore from "store/store";
-import { FlowConfig } from "store/interfaces/Iflow";
+import { FlowConfig } from "shared/interfaces/Iflow";
 import s from "./AddDirectiveForm.module.scss";
-import {
-  Directive,
-  DirectiveConfig,
-} from "store/interfaces/IAlerts";
+import { Directive, DirectiveConfig } from "shared/interfaces/IAlerts";
 import DirectiveConfigItem from "./DirectiveConfigItem/DirectiveConfigItem";
 import moment from "moment";
 import { addDirectiveApi } from "api/ehd";
@@ -44,8 +41,7 @@ interface DirectiveFormProps {
 
 function AddDirectiveForm(props: DirectiveFormProps) {
   // const { addDirective } = useStore((state) => state.alertSlice);
-  const [newDirective, setNewDirective] =
-    useState<Directive>(initialDirective);
+  const [newDirective, setNewDirective] = useState<Directive>(initialDirective);
   const { toggleMessageModal } = useStore((state) => state.modalWindowsSlice);
 
   const editDirective = (key: keyof Directive, value: any) => {
@@ -98,13 +94,15 @@ function AddDirectiveForm(props: DirectiveFormProps) {
         const updatedDirectives = prevState.directives.filter(
           (_, index) => index !== configIndex
         );
-  
+
         // updating directive order
-        const reorderedDirectives = updatedDirectives.map((directive, index) => ({
-          ...directive,
-          directiveOrder: index + 1,
-        }));
-  
+        const reorderedDirectives = updatedDirectives.map(
+          (directive, index) => ({
+            ...directive,
+            directiveOrder: index + 1,
+          })
+        );
+
         return {
           ...prevState,
           directives: reorderedDirectives,
@@ -114,13 +112,18 @@ function AddDirectiveForm(props: DirectiveFormProps) {
       toggleMessageModal("Directive needs to have at least 1 configuration");
     }
   }
-  
 
   function addDirectiveConfig() {
     setNewDirective((prevState) => {
       const updatedDirective = {
         ...prevState,
-        directives: [...prevState.directives, {...initialDirectiveConfig, directiveOrder: prevState.directives.length+1}],
+        directives: [
+          ...prevState.directives,
+          {
+            ...initialDirectiveConfig,
+            directiveOrder: prevState.directives.length + 1,
+          },
+        ],
       };
       return updatedDirective;
     });

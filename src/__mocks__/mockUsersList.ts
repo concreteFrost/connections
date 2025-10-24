@@ -1,4 +1,4 @@
-import { User } from "store/interfaces/ISecurity";
+import { User } from "shared/interfaces/ISecurity";
 
 export const mockedUsers: Array<User> = [
   {

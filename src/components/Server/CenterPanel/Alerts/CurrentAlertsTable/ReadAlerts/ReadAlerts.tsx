@@ -1,4 +1,4 @@
-import { Alert } from "store/interfaces/IAlerts";
+import { Alert } from "shared/interfaces/IAlerts";
 import { useState } from "react";
 
 interface ReadAlertsProps {

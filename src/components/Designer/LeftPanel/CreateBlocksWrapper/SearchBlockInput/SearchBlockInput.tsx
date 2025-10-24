@@ -1,8 +1,8 @@
 import React, { useState, RefObject } from "react";
 import s from "./SearchBlockInput.module.scss";
 import useStore from "store/store";
-import { RFState } from "store/types/rfState";
-import { NodeType } from "store/interfaces/INode";
+import { RFState } from "shared/types/rfState";
+import { NodeType } from "shared/interfaces/INode";
 import NodeListItem from "../NodeListItem/NodeListItem";
 import useEscapeKeyHandler from "hooks/useEscapeKeyHandler";
 
@@ -38,7 +38,7 @@ export default function SearchBlock({ leftPanelRef }: SearchBlockProps) {
       />
       {filteredList.length > 0 && (
         <div className={s.results}>
-          {filteredList.map((block, index) => (
+          {filteredList.map((block: NodeType, index: number) => (
             <NodeListItem
               key={index}
               nodeType={block}

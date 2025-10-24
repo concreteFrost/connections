@@ -1,4 +1,4 @@
-import { TreeType } from "store/enums/enums";
+import { TreeType } from "shared/enums/enums";
 
 export interface TreeNode {
   name: string;

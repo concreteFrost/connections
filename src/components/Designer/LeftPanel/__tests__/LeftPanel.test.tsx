@@ -7,7 +7,7 @@ import {
   fireEvent,
 } from "@testing-library/react";
 import useStore from "store/store";
-import { RFState } from "store/types/rfState";
+import { RFState } from "shared/types/rfState";
 import mockFlowStructure from "__mocks__/mockFlow";
 
 function initTestFlow() {

@@ -1,4 +1,4 @@
-import { RFState } from "../types/rfState";
+import { RFState } from "shared/types/rfState";
 import { LogObject } from "interfaces/IServer";
 import { FlowConfig } from "interfaces/Iflow";
 import { BlockLookup } from "interfaces/IBlock";

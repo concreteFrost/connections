@@ -1,4 +1,4 @@
-import { TreeNode } from "store/interfaces/IVisualMapping";
+import { TreeNode } from "shared/interfaces/IVisualMapping";
 
 export const xsdToTree = (node: Element): TreeNode => {
   const children: TreeNode[] = [];

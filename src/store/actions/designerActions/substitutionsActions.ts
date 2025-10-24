@@ -1,9 +1,17 @@
-import { RFState } from "../../types/rfState";
+import { RFState } from "shared/types/rfState";
 import { Substitutions } from "interfaces/Iflow";
 import { BlockData } from "interfaces/IBlock";
 
-export const addSubstitutionKey =
-  (get: () => RFState, set: any) => (key: string) => {
+//displays error message above the form
+const setSubstitutionErrorMessage = (set: any, msg: string) => {
+  set((state: RFState) => ({
+    ...state.designerVisualElementsSlice.errorMessages,
+    substitutionAddError: msg,
+  }));
+};
+
+const substitutionsActions = (get: () => RFState, set: any) => ({
+  addSubstitutionKey: (key: string) => {
     const match = get().flowSlice.flow.substitutions.find(
       (s: Substitutions) => s.subKey === key
     );
@@ -33,18 +41,9 @@ export const addSubstitutionKey =
         setSubstitutionErrorMessage(set, "");
       }, 4000);
     }
-  };
+  },
 
-//displays error message above the form
-const setSubstitutionErrorMessage = (set: any, msg: string) => {
-  set((state: RFState) => ({
-    ...state.designerVisualElementsSlice.errorMessages,
-    substitutionAddError: msg,
-  }));
-};
-
-export const deleteSubstitution =
-  (get: () => RFState, set: any) => (key: string) => {
+  deleteSubstitution: (key: string) => {
     //looking for match key to replace it in properties panel
     const updatedBlocks = get().flowSlice.flow.blockData.map(
       (block: BlockData) => {
@@ -82,11 +81,9 @@ export const deleteSubstitution =
         },
       },
     }));
-  };
+  },
 
-export const addConfig =
-  (get: () => RFState, set: any) =>
-  (key: string, configName: string, configValue: string) => {
+  addConfig: (key: string, configName: string, configValue: string) => {
     set((state: RFState) => {
       const updatedSubstitutions = state.flowSlice.flow.substitutions.map(
         (sub: any) => {
@@ -117,26 +114,7 @@ export const addConfig =
     });
 
     console.log(get().flowSlice.flow.substitutions);
-  };
-
-export const toggleSubstitutionsPanel =
-  (get: () => RFState, set: any) => () => {
-    set((state: RFState) => ({
-      designerVisualElementsSlice: {
-        ...state.designerVisualElementsSlice,
-        substitutionsPanel: {
-          isCollapsed:
-            !state.designerVisualElementsSlice.substitutionsPanel.isCollapsed,
-        },
-      },
-    }));
-  };
-
-const substitutionsActions = {
-  addSubstitutionKey: addSubstitutionKey,
-  addConfig: addConfig,
-  deleteSubstitution: deleteSubstitution,
-  toggleSubstitutionsPanel: toggleSubstitutionsPanel,
-};
+  },
+});
 
 export default substitutionsActions;

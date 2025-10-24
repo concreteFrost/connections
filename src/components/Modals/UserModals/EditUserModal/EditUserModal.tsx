@@ -1,6 +1,6 @@
 import s from "./EditUserModal.module.scss";
 import useStore from "store/store";
-import { Group, Role, User } from "store/interfaces/ISecurity";
+import { Group, Role, User } from "shared/interfaces/ISecurity";
 import { useState, useEffect } from "react";
 import useEscapeKeyHandler from "hooks/useEscapeKeyHandler";
 import {

@@ -1,4 +1,4 @@
-import { RFState } from "store/types/rfState";
+import { RFState } from "shared/types/rfState";
 
 export const selector = (state: RFState) => ({
   nodes: state.flowSlice.flow.visual.blocks,

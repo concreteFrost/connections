@@ -1,8 +1,11 @@
 import s from "./AddNotificationForm.module.scss";
 import { useState, useEffect } from "react";
-import { Notification, NotificationType } from "store/interfaces/INotification";
+import {
+  Notification,
+  NotificationType,
+} from "shared/interfaces/INotification";
 import useStore from "store/store";
-import { Group, User } from "store/interfaces/ISecurity";
+import { Group, User } from "shared/interfaces/ISecurity";
 import { newNotificationAPI } from "api/notification";
 
 const defaultFormState = {

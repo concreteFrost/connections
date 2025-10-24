@@ -1,6 +1,6 @@
 import useStore from "store/store";
-import { useState} from "react";
-import { BlockParameters } from "store/interfaces/IBlock";
+import { useState } from "react";
+import { BlockParameters } from "shared/interfaces/IBlock";
 import FilteredResults from "components/Designer/RightPanel/FilteredResults/FilteredResults";
 import InputLabel from "./InputLabel/InputLabel";
 
@@ -14,7 +14,7 @@ export interface PropertiesInputProps {
 }
 
 function PropertiesInput(props: PropertiesInputProps) {
-  const flowSlice = useStore((state) => state.flowSlice);
+  const { setParameterValue } = useStore((state) => state.flowSlice);
 
   const [selection, setSelection] = useState<ISelection>({
     index: 0,
@@ -23,28 +23,7 @@ function PropertiesInput(props: PropertiesInputProps) {
 
   function setCurrentParameter(parameterName: string, value: any) {
     const format = String(props.blockData.format);
-    switch (format) {
-      case "0":
-        return flowSlice.setStringParameter(parameterName, value);
-      case "1":
-        return flowSlice.setIntegerParameter(parameterName, value);
-      case "2":
-        return flowSlice.setFloatParameter(parameterName, value);
-      case "3":
-        return flowSlice.setDateTimeParameter(parameterName, value);
-      case "4":
-        return flowSlice.setBooleanParameter(parameterName, value);
-      case "5":
-        return flowSlice.setBooleanYNParameter(parameterName, value);
-      case "6":
-        return flowSlice.setExecutionParameter(parameterName, value);
-      case "7":
-        return flowSlice.setBigIntParameter(parameterName, value);
-      case "8":
-        return flowSlice.setStringParameter(parameterName, value);
-      default:
-        return flowSlice.setStringParameter(parameterName, value);
-    }
+    setParameterValue(parameterName, value, format);
   }
 
   function defineInputType() {

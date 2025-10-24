@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import Profile from "components/Profile/Profile";
-import { IconVariants } from "store/enums/enums";
+import { IconVariants } from "shared/enums/enums";
 
 describe("Profile modal window", () => {
   test("opens profile modal when button is clicked", () => {

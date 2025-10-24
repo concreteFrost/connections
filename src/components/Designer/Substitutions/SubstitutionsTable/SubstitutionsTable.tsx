@@ -1,4 +1,4 @@
-import { Substitutions } from "store/interfaces/Iflow";
+import { Substitutions } from "shared/interfaces/Iflow";
 import useStore from "store/store";
 import s from "./SubstitutionsTable.module.scss";
 

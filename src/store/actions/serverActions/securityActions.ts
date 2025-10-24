@@ -6,7 +6,7 @@ import {
   getUserListAPI,
 } from "api/security";
 import { User, Group } from "interfaces/ISecurity";
-import { RFState } from "../types/rfState";
+import { RFState } from "shared/types/rfState";
 
 //USER ACTIONS
 //#region

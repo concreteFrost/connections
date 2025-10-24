@@ -33,7 +33,9 @@ function EdgesEditor() {
       if (targetEdgesIds.includes(b.blockIdentifier)) {
         const newDraggableElement: IEdgeDraggable = {
           blockName: b.blockLabel,
-          targetEdgeID: targetEdgesIds.find((x: any) => x === b.blockIdentifier)!,
+          targetEdgeID: targetEdgesIds.find(
+            (x: any) => x === b.blockIdentifier
+          )!,
           priority: edges.find((e) => e.target === b.blockIdentifier)?.priority,
         };
         blocks.push(newDraggableElement);
@@ -60,13 +62,13 @@ function EdgesEditor() {
   const renderDraggableItems = useMemo(
     () =>
       edgesArray.map((edgeItem: IEdgeDraggable, index: number) => (
-        <Draggable key={index} draggableId={index.toString()} index={index} >
+        <Draggable key={index} draggableId={index.toString()} index={index}>
           {(provided) => (
             <div
               ref={provided.innerRef}
               {...provided.draggableProps}
               {...provided.dragHandleProps}
-              style={{ ...provided.draggableProps.style, position: 'static' }}
+              style={{ ...provided.draggableProps.style, position: "static" }}
             >
               <div className={s.block_wrapper}>
                 <div className={s.icon_wrapper}>

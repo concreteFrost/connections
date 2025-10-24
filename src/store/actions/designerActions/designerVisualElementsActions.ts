@@ -1,9 +1,32 @@
+import { RFState } from "shared/types/rfState";
 import { BlockData, BlockParameters } from "interfaces/IBlock";
-import { RFState } from "../../types/rfState";
-import { getSelectedBlock } from "../utils/blockUtils";
+import { getSelectedBlock } from "../../../utils/blockUtils";
 
-export const getParameterValue =
-  (set: any) => (parameter: string, value: string) => {
+const designerVisualElementsActions = (get: () => RFState, set: any) => ({
+  toggleSubstitutionsPanel: () => {
+    set((state: RFState) => ({
+      designerVisualElementsSlice: {
+        ...state.designerVisualElementsSlice,
+        substitutionsPanel: {
+          isCollapsed:
+            !state.designerVisualElementsSlice.substitutionsPanel.isCollapsed,
+        },
+      },
+    }));
+  },
+
+  setTooltipText: (text: string) => {
+    set((state: RFState) => ({
+      designerVisualElementsSlice: {
+        ...state.designerVisualElementsSlice,
+        tooltip: {
+          text,
+        },
+      },
+    }));
+  },
+
+  getParameterValue: (parameter: string, value: string) => {
     set((state: RFState) => ({
       designerVisualElementsSlice: {
         ...state.designerVisualElementsSlice,
@@ -13,10 +36,9 @@ export const getParameterValue =
         },
       },
     }));
-  };
+  },
 
-export const setParameterValue =
-  (get: () => RFState, set: any) => (propertyName: string, value: string) => {
+  setParameterValue: (propertyName: string, value: string) => {
     const blockData = get().flowSlice.flow.blockData.find(
       (block: BlockData) =>
         block.blockIdentifier === getSelectedBlock(get().flowSlice).id
@@ -52,11 +74,7 @@ export const setParameterValue =
         },
       },
     }));
-  };
+  },
+});
 
-const valueEditorActions = {
-  getParameterValue: getParameterValue,
-  setParameterValue: setParameterValue,
-};
-
-export default valueEditorActions;
+export default designerVisualElementsActions;

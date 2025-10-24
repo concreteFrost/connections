@@ -1,12 +1,12 @@
 import { Connection, Edge, addEdge } from "react-flow-renderer";
 import { EdgeChange, applyEdgeChanges } from "react-flow-renderer";
-import { RFState } from "../../types/rfState";
+import { RFState } from "shared/types/rfState";
 import { IEdgeDraggable } from "components/Designer/RightPanel/EdgesEditor/EdgesEditor";
-import markerEnd from "../../constants/edgeConst";
+import markerEnd from "shared/constants/edgeConst";
 import ConnectionsEdge from "interfaces/IConnectionsEdges";
 
-export const onEdgesConnect =
-  (get: () => RFState, set: any) => (connection: Connection) => {
+const edgeActions = (get: () => RFState, set: any) => ({
+  onEdgesConnect: (connection: Connection) => {
     const sourceEdges = get().flowSlice.flow.visual.edges;
     const matchedEdgesLength = sourceEdges.filter(
       (x) => x.source === connection.source
@@ -42,10 +42,9 @@ export const onEdgesConnect =
         },
       },
     }));
-  };
+  },
 
-export const deleteEdge =
-  (get: () => RFState, set: any) => (edgeId: string) => {
+  deleteEdge: (edgeId: string) => {
     const edges = get().flowSlice.flow.visual.edges;
 
     // Find the edge to be deleted
@@ -90,10 +89,9 @@ export const deleteEdge =
     }));
 
     console.log(get().flowSlice.flow.visual);
-  };
+  },
 
-export const reorderEdgesPriority =
-  (get: () => RFState, set: any) => (draggableList: Array<IEdgeDraggable>) => {
+  reorderEdgesPriority: (draggableList: Array<IEdgeDraggable>) => {
     const edges = get().flowSlice.flow.visual.edges;
 
     for (let i = 0; i < edges.length; i++) {
@@ -116,10 +114,9 @@ export const reorderEdgesPriority =
         },
       },
     }));
-  };
+  },
 
-export const onEdgesChange =
-  (get: () => RFState, set: any) => (changes: EdgeChange[]) => {
+  onEdgesChange: (changes: EdgeChange[]) => {
     set((state: RFState) => ({
       flowSlice: {
         ...state.flowSlice,
@@ -135,13 +132,7 @@ export const onEdgesChange =
         },
       },
     }));
-  };
-
-const edgeActions = {
-  onEdgesChange: onEdgesChange,
-  onEdgesConnect: onEdgesConnect,
-  deleteEdge: deleteEdge,
-  reorderEdgesPriority: reorderEdgesPriority,
-};
+  },
+});
 
 export default edgeActions;

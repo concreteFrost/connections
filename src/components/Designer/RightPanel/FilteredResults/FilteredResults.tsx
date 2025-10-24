@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import s from "./FilteredResults.module.scss";
 import useStore from "store/store";
-import { Substitutions } from "store/interfaces/Iflow";
+import { Substitutions } from "shared/interfaces/Iflow";
 import useOutsideMouseClick from "hooks/useOutsideMouseClick";
 
 interface ISelection {

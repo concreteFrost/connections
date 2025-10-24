@@ -1,7 +1,7 @@
 import s from "./UsersTable.module.scss";
 import useStore from "store/store";
 import { useState } from "react";
-import { Group, Role, User } from "store/interfaces/ISecurity";
+import { Group, Role, User } from "shared/interfaces/ISecurity";
 import moment from "moment";
 import EditUserModal from "components/Modals/UserModals/EditUserModal/EditUserModal";
 import AddUserModal from "components/Modals/UserModals/AddUserModal/AddUserModal";
@@ -94,7 +94,7 @@ function UsersTable() {
                     <td colSpan={1}>
                       <div className={s.table_actions}>
                         <button
-                        data-testid={`test_${user.userName}_btn`}
+                          data-testid={`test_${user.userName}_btn`}
                           onClick={async () => {
                             await getUser(user);
                             await toggleEditUser(true);
@@ -125,9 +125,12 @@ function UsersTable() {
         </table>
       </div>
       <div className={s.add_user_wrapper}>
-        <button 
-        data-testid="test_add_user_btn"
-        onClick={() => toggleAddUserModal(true)}>ADD USER</button>
+        <button
+          data-testid="test_add_user_btn"
+          onClick={() => toggleAddUserModal(true)}
+        >
+          ADD USER
+        </button>
       </div>
       <EditUserModal
         isVisible={isModalVisible}

@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { getAlertsApi } from "api/ehd";
-import { Alert } from "store/interfaces/IAlerts";
+import { Alert } from "shared/interfaces/IAlerts";
 
 export async function removeAlertFromCache(alertId: number) {
   const cache = await caches.open("alerts");

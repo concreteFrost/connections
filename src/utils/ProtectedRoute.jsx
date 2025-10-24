@@ -1,6 +1,6 @@
-import { getAccessToken } from "../store/actions/storageActions";
+import { getAccessToken } from "../store/actions/sharedActions/storageActions";
 import { useEffect } from "react";
-import { clearUserData } from "../store/actions/storageActions";
+import { clearUserData } from "../store/actions/sharedActions/storageActions";
 
 const ProtectedRoute = ({ children }) => {
   const user = getAccessToken();

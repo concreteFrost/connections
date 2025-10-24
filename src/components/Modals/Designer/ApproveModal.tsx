@@ -11,9 +11,7 @@ function ApproveModal() {
     toggleMessageModal,
   } = useStore((state) => state.modalWindowsSlice);
 
-  const { setCanApprove, setFlowIsEnabled } = useStore(
-    (state) => state.flowSlice
-  );
+  const { setFlowIsEnabled } = useStore((state) => state.flowSlice);
 
   const [keepDraft, setKeepDraft] = useState<boolean>(false);
 
@@ -47,7 +45,7 @@ function ApproveModal() {
         showMessageOnApproval(
           res.data.success ? "success!!!" : res.data.message
         );
-        setCanApprove(false);
+        // setCanApprove(false);
       } catch (error) {
         showMessageOnApproval("something went wrong");
       }

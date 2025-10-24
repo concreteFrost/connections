@@ -2,7 +2,7 @@ import s from "./style/Login.module.scss";
 import getToken from "../api/token";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { setAccessToken } from "../store/actions/storageActions";
+import { setAccessToken } from "../store/actions/sharedActions/storageActions";
 import ConnectionsLogo from "../assets/connections_logo";
 import CocoonLogo from "../assets/cocoon_logo";
 import useStore from "../store/store";
