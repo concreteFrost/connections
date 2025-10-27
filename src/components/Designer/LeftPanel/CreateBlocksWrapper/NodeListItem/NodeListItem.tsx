@@ -11,9 +11,7 @@ interface NodeProps {
 }
 
 function NodeListItem(props: NodeProps) {
-  const { setTooltipText } = useStore(
-    (state) => state.designerVisualElementsSlice
-  );
+  const { setTooltipText } = useStore((state) => state.tooltipSlice);
 
   const [onDragStart, onDragEnd] = useNodeDrag(props);
 

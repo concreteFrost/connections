@@ -18,7 +18,7 @@ function Designer() {
     useState<boolean>(false);
 
   const hideAllTopDropdowns = useStore(
-    (state) => state.topPanelSlice.hideAllTopMenus
+    (state) => state.designerVisualElementsSlice.hideAllTopMenus
   );
   const hideAllGroupModals = useStore(
     (state) => state.flowSlice.hideAllGroupModals

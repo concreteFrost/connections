@@ -1,52 +1,12 @@
-import moment from "moment";
+import { RFState } from "shared/types/rfState";
 import {
   FlowStatus,
   FlowStatusCapital,
   IChartData,
 } from "shared/interfaces/IStatistics";
-import { RFState } from "shared/types/rfState";
+import { MAX_CHART_DATA_TO_STORE } from "shared/constants/chart";
 
-const MAX_CHART_DATA_TO_STORE = 100;
-
-export type StatusSlice = {
-  statistics: FlowStatus[];
-  chartData: Array<IChartData>;
-  setFlowStatus: (flowId: string, status: number) => void;
-  setStatistics: (stats: FlowStatus[]) => void;
-  updateChartData: (data: IChartData) => void;
-  updateFlowBlocksRecord: (
-    flowId: string,
-    flowStatus: FlowStatusCapital
-  ) => void;
-  getNewFlowRecord: (record: FlowStatusCapital) => void;
-  getNewStatistics: () => void;
-};
-
-const statisticsSlice = (get: () => RFState, set: any): StatusSlice => ({
-  statistics: [],
-  chartData: [
-    // {
-    //   metrics: {
-    //     CPUUsage: 0,
-    //     MemoryUsage: 0,
-    //     EnabledFlowCount: 0,
-    //     DisabledFlowCount: 0,
-    //     PausedFlowCount: 0,
-    //     EnabledBlockCount: 0,
-    //     DisabledBlockCount: 0,
-    //     EnabledDirectoryMonitorCount: 0,
-    //     DisabledDirectoryMonitorCount: 0,
-    //     EnabledScheduleCount: 0,
-    //     DisabledScheduleCount: 0,
-    //     CurrentProcessesCount: 0,
-    //     CompletedProcessesCount: 0,
-    //     InputFilesProcessedCount: 0,
-    //     SchedulesInitiatedCount: 0,
-    //     AlertsRaised: 0,
-    //   },
-    //   time: moment().format("LTS"),
-    // },
-  ],
+const statisticsActions = (get: () => RFState, set: any) => ({
   setStatistics(stats: FlowStatus[]) {
     set((store: RFState) => ({
       statisticsSlice: {
@@ -87,7 +47,7 @@ const statisticsSlice = (get: () => RFState, set: any): StatusSlice => ({
       },
     }));
   },
-  updateFlowBlocksRecord(flowId: string, flowStatus: FlowStatusCapital) {
+  updateFlowBlocksRecord: (flowId: string, flowStatus: FlowStatusCapital) => {
     const updatedFlows = get().statisticsSlice.statistics?.map(
       (flow: FlowStatus) => {
         if (flow.flowId === flowId) {
@@ -126,7 +86,7 @@ const statisticsSlice = (get: () => RFState, set: any): StatusSlice => ({
     }));
   },
 
-  getNewFlowRecord(record: FlowStatusCapital) {
+  getNewFlowRecord: (record: FlowStatusCapital) => {
     const newFlow: FlowStatus = {
       flowId: record.FlowId,
       name: record.Name,
@@ -159,4 +119,4 @@ const statisticsSlice = (get: () => RFState, set: any): StatusSlice => ({
   getNewStatistics() {},
 });
 
-export default statisticsSlice;
+export default statisticsActions;

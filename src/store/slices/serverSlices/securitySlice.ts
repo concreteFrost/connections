@@ -29,14 +29,14 @@ const securitySlice = (get: () => RFState, set: any): SecuritySlice => ({
   userList: [],
   groupList: [],
   rolesList: [],
-  setAppUserPassword: securityActions.setAppUserPassword(get, set),
-  getMe: securityActions.getMe(get, set),
-  getUser: securityActions.getUser(get, set),
-  getUserList: securityActions.getUserList(get, set),
-  getRolesList: securityActions.getRoleList(get, set),
-  getGroupMembers: securityActions.getGroupMembers(get, set),
-  getGroupList: securityActions.getGroupList(get, set),
-  deleteCurrentUser: securityActions.deleteCurrentUser(get, set),
+  setAppUserPassword: securityActions(get, set).setAppUserPassword,
+  getMe: securityActions(get, set).getMe,
+  getUser: securityActions(get, set).getUser,
+  getUserList: securityActions(get, set).getUserList,
+  getRolesList: securityActions(get, set).getRoleList,
+  getGroupMembers: securityActions(get, set).getGroupMembers,
+  getGroupList: securityActions(get, set).getGroupList,
+  deleteCurrentUser: securityActions(get, set).deleteCurrentUser,
 });
 
 export default securitySlice;

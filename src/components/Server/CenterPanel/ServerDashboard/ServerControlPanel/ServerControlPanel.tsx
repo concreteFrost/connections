@@ -17,9 +17,7 @@ export default function ServerControlPanel({
   getServerData,
   serverStatus,
 }: Props) {
-  const { setTooltipText } = useStore(
-    (store) => store.designerVisualElementsSlice
-  );
+  const { setTooltipText } = useStore((store) => store.tooltipSlice);
   return (
     <div className={s.header}>
       <GaugeWrapper></GaugeWrapper>

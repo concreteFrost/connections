@@ -8,7 +8,9 @@ import useOutsideMouseClick from "hooks/useOutsideMouseClick";
 import { useRef, useState } from "react";
 
 function View() {
-  const setBgView = useStore((store) => store.topPanelSlice.setBgView);
+  const setBgView = useStore(
+    (store) => store.designerVisualElementsSlice.setBgView
+  );
   const [isViewSectionVisible, setViewSectionVisible] =
     useState<boolean>(false);
   const viewRef: any = useRef();

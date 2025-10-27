@@ -13,7 +13,7 @@ function SettingsDropdown(props: SettingsDropdownProps) {
     setSnapToGrid: toggleGrid,
     showMiniMap: toggleMinimap,
     setSnapStep: setSliderVal,
-  } = useStore((store) => store.topPanelSlice);
+  } = useStore((store) => store.designerVisualElementsSlice);
 
   const settingsRef: any = useRef();
 

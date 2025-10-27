@@ -9,9 +9,7 @@ import { createUpdateDraftFromLiveAPI } from "api/draft";
 
 function LiveFlows() {
   const [loadedLiveFlows, setLoadedLiveFlows] = useState<Array<FlowConfig>>([]);
-  const setTooltipText = useStore(
-    (state) => state.designerVisualElementsSlice.setTooltipText
-  );
+  const { setTooltipText } = useStore((state) => state.tooltipSlice);
   const { createUpdateDraftFromLiveTemplate, addFlowToTabs } = useStore(
     (state) => state.flowSlice
   );

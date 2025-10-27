@@ -13,9 +13,7 @@ import { Dashboard } from "./views/DashBoard";
 import Spinner from "components/Spinner/Spinner";
 
 function App() {
-  const tooltipText = useStore(
-    (store) => store.designerVisualElementsSlice.tooltip.text
-  );
+  const tooltipText = useStore((store) => store.tooltipSlice.text);
 
   useBroadcastChannel("app_channel"); // prevents from opening the app in the 2nd tab of the same browser
   return (

@@ -1,6 +1,6 @@
 import { RFState } from "shared/types/rfState";
-import initialNodes from "../../nodes";
-import initialEdges from "../../edges";
+import initialNodes from "../../../shared/data/initialNodes";
+import initialEdges from "../../../shared/data/intialEdges";
 import {
   setFlow,
   parseFloatVersion,
@@ -11,7 +11,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { saveDraftFlowApi } from "api/draft";
 import { FlowStructure } from "shared/interfaces/Iflow";
-import flowSlice from "store/slices/flowSlice";
+import flowSlice from "store/slices/designerSlices/flowSlice";
 
 export const flowActions = (get: () => RFState, set: any) => {
   const setDraftId = (id: string | null) => {

@@ -1,6 +1,8 @@
 import { RFState } from "shared/types/rfState";
 import { BlockData, BlockParameters } from "interfaces/IBlock";
-import { getSelectedBlock } from "../../../utils/blockUtils";
+import { getSelectedBlock } from "utils/blockUtils";
+import { setDesignerSettings } from "../sharedActions/storageActions";
+import { BackgroundVariant } from "react-flow-renderer";
 
 const designerVisualElementsActions = (get: () => RFState, set: any) => ({
   toggleSubstitutionsPanel: () => {
@@ -10,17 +12,6 @@ const designerVisualElementsActions = (get: () => RFState, set: any) => ({
         substitutionsPanel: {
           isCollapsed:
             !state.designerVisualElementsSlice.substitutionsPanel.isCollapsed,
-        },
-      },
-    }));
-  },
-
-  setTooltipText: (text: string) => {
-    set((state: RFState) => ({
-      designerVisualElementsSlice: {
-        ...state.designerVisualElementsSlice,
-        tooltip: {
-          text,
         },
       },
     }));
@@ -74,6 +65,91 @@ const designerVisualElementsActions = (get: () => RFState, set: any) => ({
         },
       },
     }));
+  },
+
+  setBgView: (view: BackgroundVariant) => {
+    set((state: RFState) => ({
+      designerVisualElementsSlice: {
+        ...state.designerVisualElementsSlice,
+        view: view,
+      },
+    }));
+
+    setDesignerSettings("canvasView", view);
+  },
+
+  hideAllTopMenus: () => {
+    const { dropdowns }: any = get().designerVisualElementsSlice;
+
+    for (const key in dropdowns) {
+      dropdowns[key].isVisible = false;
+    }
+
+    set((state: RFState) => ({
+      designerVisualElementsSlice: {
+        ...state.designerVisualElementsSlice,
+        dropdowns: { ...dropdowns },
+      },
+    }));
+  },
+
+  toggleDropdown: (activeDropdownId: string) => {
+    const { dropdowns }: any = get().designerVisualElementsSlice;
+
+    for (const key in dropdowns) {
+      dropdowns[key].isVisible =
+        key === activeDropdownId ? !dropdowns[key].isVisible : false;
+    }
+
+    set((state: RFState) => ({
+      designerVisualElementsSlice: {
+        ...state.designerVisualElementsSlice,
+        dropdowns: { ...dropdowns },
+      },
+    }));
+  },
+
+  setSnapToGrid: () => {
+    const isSnapped = get().designerVisualElementsSlice.settings.snapToGrid;
+    set((state: RFState) => ({
+      designerVisualElementsSlice: {
+        ...state.designerVisualElementsSlice,
+        settings: {
+          ...state.designerVisualElementsSlice.settings,
+          snapToGrid: !isSnapped,
+        },
+      },
+    }));
+    setDesignerSettings("isGridSnapped", !isSnapped);
+  },
+
+  setSnapStep: (step: number[]) => {
+    set((state: RFState) => ({
+      designerVisualElementsSlice: {
+        ...state.designerVisualElementsSlice,
+        settings: {
+          ...state.designerVisualElementsSlice.settings,
+          snapStep: step,
+        },
+      },
+    }));
+
+    setDesignerSettings("gridStep", step[0]);
+  },
+
+  toggleMiniMap: () => {
+    const show = !get().designerVisualElementsSlice.settings.showMiniMap;
+    set((state: RFState) => ({
+      designerVisualElementsSlice: {
+        ...state.designerVisualElementsSlice,
+        settings: {
+          ...state.designerVisualElementsSlice.settings,
+          showMiniMap: show,
+        },
+      },
+    }));
+
+    setDesignerSettings("showMiniMap", show);
   },
 });
 

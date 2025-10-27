@@ -33,15 +33,13 @@ const notificationSlice = (
   notificationsTypes: [],
   currentNotification: null,
   haveCheckedNotifications: false,
-  getNotificationsList: notificationsActions.getNotificationList(get, set),
-  getNotificationsTypes: notificationsActions.getNotificationTypes(get, set),
-  setCurrentNotification: notificationsActions.setCurrentNotification(get, set),
-  toggleHaveCheckedNotifications:
-    notificationsActions.toggleHaveCheckedNotifications(get, set),
-  setCurrentNotificationProps: notificationsActions.setCurrentNotificationProps(
-    get,
-    set
-  ),
+  getNotificationsList: notificationsActions(get, set).getNotificationList,
+  getNotificationsTypes: notificationsActions(get, set).getNotificationTypes,
+  setCurrentNotification: notificationsActions(get, set).setCurrentNotification,
+  toggleHaveCheckedNotifications: notificationsActions(get, set)
+    .toggleHaveCheckedNotifications,
+  setCurrentNotificationProps: notificationsActions(get, set)
+    .setCurrentNotificationProps,
 
   // deleteNotification: notificationsActions.deleteNotification(get, set),
   // updateNotification: notificationsActions.updateNotification(get, set),

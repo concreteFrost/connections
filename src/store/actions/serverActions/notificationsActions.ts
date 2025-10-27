@@ -2,9 +2,8 @@ import { getNotificationTypesAPI, getNotificationsAPI } from "api/notification";
 import { Notification, NotificationType } from "interfaces/INotification";
 import { RFState } from "shared/types/rfState";
 
-const getNotificationList =
-  (get: () => RFState, set: any) =>
-  async (userId?: string, userGroup?: string) => {
+const notificationsActions = (get: () => RFState, set: any) => ({
+  getNotificationList: async (userId?: string, userGroup?: string) => {
     try {
       const res: any = await getNotificationsAPI(userId, userGroup);
       const data: Array<Notification> = res.data.notifications.map(
@@ -21,45 +20,42 @@ const getNotificationList =
     } catch (e) {
       console.log("error loading notifications", e);
     }
-  };
+  },
 
-const toggleHaveCheckedNotifications =
-  (get: () => RFState, set: any) => (haveCheckedNotifications: boolean) => {
+  toggleHaveCheckedNotifications: (haveCheckedNotifications: boolean) => {
     set((state: RFState) => ({
       notificationSlice: {
         ...state.notificationSlice,
         haveCheckedNotifications: haveCheckedNotifications,
       },
     }));
-  };
+  },
 
-const getNotificationTypes = (get: () => RFState, set: any) => async () => {
-  try {
-    const res: any = await getNotificationTypesAPI();
-    const data: Array<NotificationType> = res.data;
-    set((state: RFState) => ({
-      notificationSlice: {
-        ...state.notificationSlice,
-        notificationsTypes: data,
-      },
-    }));
-  } catch (e) {
-    console.log("error loading notifications", e);
-  }
-};
+  getNotificationTypes: async () => {
+    try {
+      const res: any = await getNotificationTypesAPI();
+      const data: Array<NotificationType> = res.data;
+      set((state: RFState) => ({
+        notificationSlice: {
+          ...state.notificationSlice,
+          notificationsTypes: data,
+        },
+      }));
+    } catch (e) {
+      console.log("error loading notifications", e);
+    }
+  },
 
-const setCurrentNotification =
-  (get: () => RFState, set: any) => (notification: Notification | null) => {
+  setCurrentNotification: (notification: Notification | null) => {
     set((state: RFState) => ({
       notificationSlice: {
         ...state.notificationSlice,
         currentNotification: notification,
       },
     }));
-  };
+  },
 
-const setCurrentNotificationProps =
-  (get: () => RFState, set: any) => (propToChange: any, value: any) => {
+  setCurrentNotificationProps: (propToChange: any, value: any) => {
     set((state: RFState) => ({
       notificationSlice: {
         ...state.notificationSlice,
@@ -69,10 +65,9 @@ const setCurrentNotificationProps =
         },
       },
     }));
-  };
+  },
 
-const toggleSelectNotification =
-  (get: () => RFState, set: any) => async (notificationId: number) => {
+  toggleSelectNotification: async (notificationId: number) => {
     const updatedNotifications = get().notificationSlice.notificationsList.map(
       (notification: any) => {
         if (notificationId === notification.notificationId) {
@@ -90,15 +85,7 @@ const toggleSelectNotification =
         notificationsList: updatedNotifications,
       },
     }));
-  };
-
-const notificationsActions = {
-  getNotificationList: getNotificationList,
-  getNotificationTypes: getNotificationTypes,
-  setCurrentNotification: setCurrentNotification,
-  setCurrentNotificationProps: setCurrentNotificationProps,
-  toggleSelectNotification: toggleSelectNotification,
-  toggleHaveCheckedNotifications: toggleHaveCheckedNotifications,
-};
+  },
+});
 
 export default notificationsActions;

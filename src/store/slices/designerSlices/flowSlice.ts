@@ -1,7 +1,7 @@
 import { RFState } from "shared/types/rfState";
 import { Node } from "react-flow-renderer";
-import initialNodes from "store/nodes";
-import initialEdges from "store/edges";
+import initialNodes from "shared/data/initialNodes";
+import initialEdges from "shared/data/intialEdges";
 import { initializeFlow } from "utils/flowUtils";
 import flowActions from "store/actions/designerActions/flowActions";
 import blockActions from "store/actions/designerActions/blockActions";

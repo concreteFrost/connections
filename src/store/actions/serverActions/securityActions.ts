@@ -8,105 +8,104 @@ import {
 import { User, Group } from "interfaces/ISecurity";
 import { RFState } from "shared/types/rfState";
 
-//USER ACTIONS
-//#region
-const getMe = (get: () => RFState, set: any) => async () => {
-  try {
-    const res: any = await getMeAPI();
+const securityActions = (get: () => RFState, set: any) => ({
+  //USER ACTIONS
+  //#region
+  getMe: async () => {
+    try {
+      const res: any = await getMeAPI();
 
+      set((state: RFState) => ({
+        securitySlice: {
+          ...state.securitySlice,
+          appUser: res.data.userRecord,
+        },
+      }));
+    } catch (e) {
+      throw e;
+    }
+  },
+
+  setAppUserPassword: (pass: string) => {
     set((state: RFState) => ({
       securitySlice: {
         ...state.securitySlice,
-        appUser: res.data.userRecord,
+        appUserPassword: pass,
       },
     }));
-  } catch (e) {
-    throw e;
-  }
-};
+  },
 
-const setAppUserPassword = (get: () => RFState, set: any) => (pass: string) => {
-  set((state: RFState) => ({
-    securitySlice: {
-      ...state.securitySlice,
-      appUserPassword: pass,
-    },
-  }));
-};
-
-const getUser = (get: () => RFState, set: any) => (user: User) => {
-  set((state: RFState) => ({
-    securitySlice: {
-      ...state.securitySlice,
-      userToEdit: user,
-    },
-  }));
-};
-
-const getUserList = (get: () => RFState, set: any) => async () => {
-  try {
-    const res: any = await getUserListAPI();
-    const data: Array<User> = res.data.users;
-
+  getUser: (user: User) => {
     set((state: RFState) => ({
       securitySlice: {
         ...state.securitySlice,
-        userList: data,
+        userToEdit: user,
       },
     }));
-  } catch (e) {
-    console.log("error getting user list");
-  }
-};
+  },
 
-const getRoleList = (get: () => RFState, set: any) => async () => {
-  try {
-    const res: any = await getRoleListAPI();
-    const data: Array<Group> = res.data;
+  getUserList: async () => {
+    try {
+      const res: any = await getUserListAPI();
+      const data: Array<User> = res.data.users;
 
+      set((state: RFState) => ({
+        securitySlice: {
+          ...state.securitySlice,
+          userList: data,
+        },
+      }));
+    } catch (e) {
+      console.log("error getting user list");
+    }
+  },
+
+  getRoleList: async () => {
+    try {
+      const res: any = await getRoleListAPI();
+      const data: Array<Group> = res.data;
+
+      set((state: RFState) => ({
+        securitySlice: {
+          ...state.securitySlice,
+          rolesList: data,
+        },
+      }));
+    } catch (e) {
+      console.log("error getting roles list");
+    }
+  },
+
+  deleteCurrentUser: () => {
     set((state: RFState) => ({
       securitySlice: {
         ...state.securitySlice,
-        rolesList: data,
+        userToEdit: null,
       },
     }));
-  } catch (e) {
-    console.log("error getting roles list");
-  }
-};
 
-const deleteCurrentUser = (get: () => RFState, set: any) => () => {
-  set((state: RFState) => ({
-    securitySlice: {
-      ...state.securitySlice,
-      userToEdit: null,
-    },
-  }));
+    console.log(get().securitySlice);
+  },
 
-  console.log(get().securitySlice);
-};
+  //#endregion
 
-//#endregion
-
-//GROUP ACTIONS
-//#region
-const getGroupList = (get: () => RFState, set: any) => async () => {
-  try {
-    const res: any = await getGroupListAPI();
-    const data: Array<Group> = res.data.groups;
-    set((state: RFState) => ({
-      securitySlice: {
-        ...state.securitySlice,
-        groupList: data,
-      },
-    }));
-  } catch (e) {
-    console.log("error getting user list");
-  }
-};
-
-const getGroupMembers =
-  (get: () => RFState, set: any) => async (groupdId: string) => {
+  //GROUP ACTIONS
+  //#region
+  getGroupList: async () => {
+    try {
+      const res: any = await getGroupListAPI();
+      const data: Array<Group> = res.data.groups;
+      set((state: RFState) => ({
+        securitySlice: {
+          ...state.securitySlice,
+          groupList: data,
+        },
+      }));
+    } catch (e) {
+      console.log("error getting user list");
+    }
+  },
+  getGroupMembers: async (groupdId: string) => {
     try {
       const res: any = await getGroupMembersAPI(groupdId);
       const data: User[] = res.data.users;
@@ -129,19 +128,9 @@ const getGroupMembers =
     } catch (e) {
       console.log("error getting user list");
     }
-  };
+  },
 
-//#endregion
-
-const securityActions = {
-  setAppUserPassword: setAppUserPassword,
-  getMe: getMe,
-  getUser: getUser,
-  getUserList: getUserList,
-  getRoleList: getRoleList,
-  getGroupList: getGroupList,
-  getGroupMembers: getGroupMembers,
-  deleteCurrentUser: deleteCurrentUser,
-};
+  //#endregion
+});
 
 export default securityActions;

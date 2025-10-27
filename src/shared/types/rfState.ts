@@ -1,19 +1,18 @@
-import { TopPanelSlice } from "store/slices/topPanelSlice";
-import { ModalWindows } from "store/slices/modalWindowsSlice";
-import { FlowSlice } from "store/slices/flowSlice";
-import { DesignerVisualElementsSlice } from "store/slices/designerVisualElementsSlice";
-import { ServerSlice } from "store/slices/serverSlice";
-import { NotificationSlice } from "store/slices/notificationSlice";
-import { SecuritySlice } from "store/slices/securitySlice";
-import { AlertSlice } from "store/slices/alertSlice";
-import { StatusSlice } from "store/slices/statisticsSlice";
-import { LoaderSlice } from "store/slices/loaderSlice";
-import { VisualMappingSlice } from "store/slices/visualMappingSlice";
-import { CodeEditorSlice } from "store/slices/codeEditor";
+import { ModalWindows } from "store/slices/sharedSlices/modalWindowsSlice";
+import { FlowSlice } from "store/slices/designerSlices/flowSlice";
+import { DesignerVisualElementsSlice } from "store/slices/designerSlices/designerVisualElementsSlice";
+import { ServerSlice } from "store/slices/serverSlices/serverSlice";
+import { NotificationSlice } from "store/slices/serverSlices/notificationSlice";
+import { SecuritySlice } from "store/slices/serverSlices/securitySlice";
+import { AlertSlice } from "store/slices/sharedSlices/alertSlice";
+import { StatusSlice } from "store/slices/serverSlices/statisticsSlice";
+import { LoaderSlice } from "store/slices/sharedSlices/loaderSlice";
+import { VisualMappingSlice } from "store/slices/visualMappingSlices/visualMappingSlice";
+import { CodeEditorSlice } from "store/slices/sharedSlices/codeEditor";
+import { TooltipSlice } from "store/slices/sharedSlices/tooltipSlice";
 
 export type RFState = {
   flowSlice: FlowSlice;
-  topPanelSlice: TopPanelSlice;
   modalWindowsSlice: ModalWindows;
   designerVisualElementsSlice: DesignerVisualElementsSlice;
   serverSlice: ServerSlice;
@@ -24,4 +23,5 @@ export type RFState = {
   loaderSlice: LoaderSlice;
   visualMappingSlice: VisualMappingSlice;
   codeEditorSlice: CodeEditorSlice;
+  tooltipSlice: TooltipSlice;
 };

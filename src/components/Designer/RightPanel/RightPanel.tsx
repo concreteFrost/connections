@@ -18,7 +18,9 @@ function RightPanel(props: RightPanelProps) {
     (state) => state.flowSlice.flow.flowIdentifier
   );
 
-  const { showMiniMap } = useStore((state) => state.topPanelSlice.settings);
+  const { showMiniMap } = useStore(
+    (state) => state.designerVisualElementsSlice.settings
+  );
 
   function togglePanel() {
     setIsPanelActive(!isPanelActive);

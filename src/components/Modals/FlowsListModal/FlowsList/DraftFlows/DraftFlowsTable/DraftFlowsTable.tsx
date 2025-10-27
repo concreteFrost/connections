@@ -16,9 +16,7 @@ export function DraftFlowsTable({
   currentDraftFolder,
   loadDraftFlowList,
 }: Props) {
-  const { setTooltipText } = useStore(
-    (state) => state.designerVisualElementsSlice
-  );
+  const { setTooltipText } = useStore((state) => state.tooltipSlice);
 
   const { toggleConfirmationModal, setConfirmationModalActions } = useStore(
     (state) => state.modalWindowsSlice

@@ -15,15 +15,23 @@ export type DesignerVisualElementsSlice = {
     substitutionAddError: string;
   };
 
-  tooltip: {
-    text: string;
-  };
   view: BackgroundVariant;
 
-  setTooltipText: (text: string) => void;
+  settings: {
+    snapToGrid: boolean;
+    snapStep: [number, number];
+    showMiniMap: boolean;
+  };
+
   toggleSubstitutionsPanel: () => void;
   getParameterValue: (parameterName: string, value: string) => void;
   setParameterValue: (propertyName: string, value: string) => void;
+
+  setBgView: (value: any) => void;
+  hideAllTopMenus: () => void;
+  setSnapToGrid: () => void;
+  setSnapStep: (step: number[]) => void;
+  showMiniMap: () => void;
 };
 
 const userSettingsData = getUserSettingsData();
@@ -34,9 +42,7 @@ const designerVisualElementsSlice = (
   set: any
 ): DesignerVisualElementsSlice => ({
   view: designerSettings?.canvasView,
-  tooltip: {
-    text: "",
-  },
+
   substitutionsPanel: {
     isCollapsed: false,
   },
@@ -48,12 +54,28 @@ const designerVisualElementsSlice = (
     substitutionAddError: "",
   },
 
-  setTooltipText: designerVisualElementsActions(get, set).setTooltipText,
+  settings: {
+    snapToGrid:
+      designerSettings && designerSettings.isGridSnapped ? true : false,
+    snapStep: [
+      Number(designerSettings?.gridStep),
+      Number(designerSettings?.gridStep),
+    ],
+    showMiniMap:
+      designerSettings && designerSettings.showMiniMap ? true : false,
+  },
+
   toggleSubstitutionsPanel: designerVisualElementsActions(get, set)
     .toggleSubstitutionsPanel,
 
   getParameterValue: designerVisualElementsActions(get, set).getParameterValue,
   setParameterValue: designerVisualElementsActions(get, set).setParameterValue,
+
+  setBgView: designerVisualElementsActions(get, set).setBgView,
+  hideAllTopMenus: designerVisualElementsActions(get, set).hideAllTopMenus,
+  setSnapToGrid: designerVisualElementsActions(get, set).setSnapToGrid,
+  setSnapStep: designerVisualElementsActions(get, set).setSnapStep,
+  showMiniMap: designerVisualElementsActions(get, set).toggleMiniMap,
 });
 
 export default designerVisualElementsSlice;

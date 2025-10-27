@@ -7,7 +7,7 @@ import ReactFlow, {
 import { shallow } from "zustand/shallow";
 import useStore from "store/store";
 import { selector } from "utils/selector";
-import { nodeTypes, edgeTypes } from "store/flowElements";
+import { nodeTypes, edgeTypes } from "shared/constants/flowElements";
 import { Edge } from "reactflow";
 
 function Flow(props: any) {
@@ -17,7 +17,7 @@ function Flow(props: any) {
   );
 
   const { snapToGrid, snapStep } = useStore(
-    (state) => state.topPanelSlice.settings
+    (state) => state.designerVisualElementsSlice.settings
   );
 
   const {

@@ -16,9 +16,7 @@ function InputLabel(props: InputLabelProps) {
   const _getParameterValue = useStore(
     (state) => state.designerVisualElementsSlice.getParameterValue
   );
-  const setTooltipText = useStore(
-    (state) => state.designerVisualElementsSlice.setTooltipText
-  );
+  const { setTooltipText } = useStore((state) => state.tooltipSlice);
 
   useEffect(() => {
     getParameterValue(props.blockData.value);
